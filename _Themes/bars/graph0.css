@@ -1,0 +1,71 @@
+.mstheme
+{
+	nav-banner-image: url(barbanc.gif);
+	separator-image: url(barrulec.gif);
+	list-image-1: url(barbul1c.gif);
+	list-image-2: url(barbul2c.gif);
+	list-image-3: url(barbul3c.gif);
+	navbutton-horiz-pushed: url(barhorzbtnsc.gif);
+	navbutton-horiz-normal: url(barhorzbtnnc.gif);
+	navbutton-vert-pushed: url(barvertbtnsc.gif);
+	navbutton-vert-normal: url(barvertbtnnc.gif);
+	navbutton-home-normal: url(barhomebtnc.gif);
+	navbutton-up-normal: url(barupbtnc.gif);
+	navbutton-prev-normal: url(barprevbtnc.gif);
+	navbutton-next-normal: url(barnextbtnc.gif);
+}
+.mstheme-bannertxt
+{
+	font-family: "Times New Roman", Times;
+	font-size: 6;
+	color: rgb(255,255,255);
+}
+.mstheme-horiz-navtxt
+{
+	font-family: "Times New Roman", Times;
+	font-size: 2;
+	color: rgb(255,255,255);
+}
+.mstheme-vert-navtxt
+{
+	font-family: "Times New Roman", Times;
+	font-size: 2;
+	font-weight: bold;
+	color: rgb(255,255,255);
+}
+.mstheme-navtxthome
+{
+	font-family: "Times New Roman", Times;
+	font-size: 1;
+	color: rgb(255,255,255);
+}
+.mstheme-navtxtup
+{
+	font-family: "Times New Roman", Times;
+	font-size: 1;
+	color: rgb(255,255,255);
+}
+.mstheme-navtxtprev
+{
+	font-family: "Times New Roman", Times;
+	font-size: 1;
+	color: rgb(255,255,255);
+}
+.mstheme-navtxtnext
+{
+	font-family: "Times New Roman", Times;
+	font-size: 1;
+	color: rgb(255,255,255);
+}
+UL
+{ 
+	list-style-image: url(barbul1c.gif);
+}
+UL UL
+{
+	list-style-image: url(barbul2c.gif);
+}
+UL UL UL
+{
+	list-style-image: url(barbul3c.gif);
+}
