@@ -121,14 +121,13 @@ switch ($ShowType) {
 LockRemoveInactive();
 $BoatHTML=array();
 
-$s="SELECT Båd.BådID, Båd.Navn, Båd.FK_GruppeID, Båd.Pladser, qBoatsReserveret.FK_BådID, qBoatsOnWater2.FK_BådID, qBoatsSkadet.FK_BådID, qBoatsSkadet.grad, LåsteBåde.locktimeout, qBoatsOnWater2.TurType_Navn AS TurType_navn, qBoatsOnWater2.TurID ".
-  "FROM ((qBoatsReserveret RIGHT JOIN (qBoatsSkadet RIGHT JOIN Båd ON qBoatsSkadet.FK_BådID = Båd.BådID) ON qBoatsReserveret.FK_BådID = Båd.BådID) LEFT JOIN LåsteBåde ON Båd.BådID = LåsteBåde.BoatID) LEFT JOIN qBoatsOnWater2 ON Båd.BådID = qBoatsOnWater2.FK_BådID";
+$s="SELECT Båd.BådID, Båd.Navn, Båd.FK_GruppeID, Båd.Pladser, qBoatsReserveret.FK_BådID, qBoatsOnWater2.FK_BådID, qBoatsSkadet.FK_BådID, qBoatsSkadet.grad, LåsteBåde.locktimeout, qBoatsOnWater2.TurType_Navn AS TurType_navn, qBoatsOnWater2.TurID FROM ((qBoatsReserveret RIGHT JOIN (qBoatsSkadet RIGHT JOIN Båd ON qBoatsSkadet.FK_BådID = Båd.BådID) ON qBoatsReserveret.FK_BådID = Båd.BådID) LEFT JOIN LåsteBåde ON Båd.BådID = LåsteBåde.BoatID) LEFT JOIN qBoatsOnWater2 ON Båd.BådID = qBoatsOnWater2.FK_BådID";
 
 if ($GruppeId!=0) {
-  $s=$s." WHERE fk_gruppeid=".$GruppeId." ORDER BY Båd.navn";
+  $s=$s." WHERE fk_gruppeid=".$GruppeId." ORDER BY Båd.Navn";
   $rs0=$db->query($s);
 } else {
-  $s=$s." ORDER BY Båd.navn";
+  $s=$s." ORDER BY Båd.Navn";
   $rs0=$db->query($s);
 } 
 

@@ -36,12 +36,11 @@ if ($lastload=="" || $ForceRefreshCache==1)
   // Unsupported: Response.Cookie. expires = Date + 1
 
   $sql="SELECT Medlem.Medlemsnr, [Fornavn] & ' ' & [Efternavn] AS Navn FROM Medlem;";
-  $rs=$db->execute;  $sql);
-  $MemberPickerArray=$rs->getrows();
-  $rs->close;
+  $rs=$db->query($sql);
 
-  if (is_array($MemberPickerArray))
-  {
+  $MemberPickerArray=$rs->getrows();
+
+  if (is_array($MemberPickerArray))  {
 
 
     for ($c1=0; $c1<=count($MemberPickerArray); $c1=$c1+1)

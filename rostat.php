@@ -17,30 +17,29 @@ include "DatabaseINC.php";
 <table align="center"><tr><td>
 
 <? 
-$RostatAction=get_key("RostatAction",$_GET,3);
+$RostatAction=get_key("rostataction",$_GET,"Rank");
 $IDAction=get_key("ID",$_GET);
 $Subgroup=get_key("subgroup",$_GET);
 $ShowRettelseSpecs=get_key("ShowRettelseSpecs",$_GET);
 $Medlid=get_key("medlid",$_GET);
 
 
-$opendatabase;
-switch ($Subgroup)
-{
+// $opendatabase;
+error_log(" rostat sg=".$Subgroup. "  RA =".$RostatAction,0);
+switch ($Subgroup) {
   case "alle":
-    WriteHit("Rostatistik");
+    //    WriteHit("Rostatistik");
 
-    $s="SELECT Rostat_Rangorden.Medlemsnr AS Medlemsnr, Rostat_Rangorden.Navn, CONCAT(Rostat_Rangorden.Rodistance, 'km') AS Afstand, Rostat_Rangorden.Antal_ture AS Ture, CONCAT(Rostat_Rangorden.Gennemsnitslængde,'km') AS Gennemsnit, If(HasRedKey=True,If(Vintervedligehold.Season=Year(Now()),1,0),0) AS RedKeyStatus FROM (Rostat_Rangorden INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Rostat_Rangorden.MedlemID = TurDeltager.FK_MedlemID) LEFT JOIN Vintervedligehold ON Rostat_Rangorden.Medlemsnr = Vintervedligehold.Medlemsnr GROUP BY Rostat_Rangorden.Medlemsnr, Rostat_Rangorden.Navn, CONCAT(Rostat_Rangorden.Rodistance,' km'), Rostat_Rangorden.Antal_ture, CONCAT(Rostat_Rangorden.Gennemsnitslængde, ' km'), If(HasRedKey=True,If(Vintervedligehold.Season=Year(Now()),1,0),0), Rostat_Rangorden.Rodistance ";
+    $s="SELECT Rostat_Rangorden.Medlemsnr AS Medlemsnr, Rostat_Rangorden.Navn, CONCAT(Rostat_Rangorden.Rodistance, 'km') AS Afstand, Rostat_Rangorden.Antal_ture AS Ture, CONCAT(Rostat_Rangorden.Gennemsnitslaengde,'km') AS Gennemsnit, If(HasRedKey=True,If(Vintervedligehold.Season=Year(Now()),1,0),0) AS RedKeyStatus FROM (Rostat_Rangorden INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Rostat_Rangorden.MedlemID = TurDeltager.FK_MedlemID) LEFT JOIN Vintervedligehold ON Rostat_Rangorden.Medlemsnr = Vintervedligehold.Medlemsnr GROUP BY Rostat_Rangorden.Medlemsnr, Rostat_Rangorden.Navn, CONCAT(Rostat_Rangorden.Rodistance,' km'), Rostat_Rangorden.Antal_ture, CONCAT(Rostat_Rangorden.Gennemsnitslaengde, ' km'), If(HasRedKey=True,If(Vintervedligehold.Season=Year(Now()),1,0),0), Rostat_Rangorden.Rodistance ";
 
     break;
   case "robådsroere":
 
+    //    WriteHit("Rostatistik robådsroere");
 
-    WriteHit("Rostatistik robådsroere");
-
-    $s="SELECT Rostat_Rangorden_robåd.Medlemsnr as Medlemsnr, Rostat_Rangorden_robåd.Navn, CONCAT(Rostat_Rangorden_robåd.Rodistance,' km') AS Afstand, Rostat_Rangorden_robåd.Antal_ture as Ture, CONCAT(Rostat_Rangorden_robåd.[Gennemsnitslængde],'km') AS Gennemsnit ";
+    $s="SELECT Rostat_Rangorden_robåd.Medlemsnr as Medlemsnr, Rostat_Rangorden_robåd.Navn, CONCAT(Rostat_Rangorden_robåd.Rodistance,' km') AS Afstand, Rostat_Rangorden_robåd.Antal_ture as Ture, CONCAT(Rostat_Rangorden_robåd.Gennemsnitslaengde,'km') AS Gennemsnit ";
     $s=$s."FROM Rostat_Rangorden_robåd INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Rostat_Rangorden_robåd.MedlemID = TurDeltager.FK_MedlemID ";
-    $s=$s."GROUP BY Rostat_Rangorden_robåd.Medlemsnr, Rostat_Rangorden_robåd.Navn, CONCAT(Rostat_Rangorden_robåd.Rodistance. 'km'), Rostat_Rangorden_robåd.Antal_ture, CONCAT(Rostat_Rangorden_robåd.Gennemsnitslængde, ' km'), Rostat_Rangorden_robåd.Rodistance ";
+    $s=$s."GROUP BY Rostat_Rangorden_robåd.Medlemsnr, Rostat_Rangorden_robåd.Navn, CONCAT(Rostat_Rangorden_robåd.Rodistance. 'km'), Rostat_Rangorden_robåd.Antal_ture, CONCAT(Rostat_Rangorden_robåd.Gennemsnitslaengde, ' km'), Rostat_Rangorden_robåd.Rodistance ";
 
 //s=  "SELECT [QRY Rostat_Rangorden].Medlemsnr_ AS Medlemsnr, [QRY Rostat_Rangorden].Navn, [QRY Rostat_Rangorden].[Rodistance] & "" km"" AS Afstand, [QRY Rostat_Rangorden].[Antal ture] AS Ture, [QRY Rostat_Rangorden].[Gennemsnitslængde] & "" km"" AS Gennemsnit " & _
 //	"FROM (BådKategori INNER JOIN Gruppe ON BådKategori.BådKategoriID = Gruppe.FK_BådKategoriID) INNER JOIN (Båd INNER JOIN ([QRY Rostat_Rangorden] INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON [QRY Rostat_Rangorden].MedlemID = TurDeltager.FK_MedlemID) ON Båd.BådID = Tur.FK_BådID) ON Gruppe.GruppeID = Båd.FK_GruppeID " & _
@@ -51,11 +50,11 @@ switch ($Subgroup)
   case "kajakroere":
 
 
-    WriteHit("Rostatistik kajakroere");
+    // WriteHit("Rostatistik kajakroere");
 
-    $s="SELECT Rostat_Rangorden_Kajak.Medlemsnr as Medlemsnr, Rostat_Rangorden_Kajak.Navn, CONCAT(Rostat_Rangorden_Kajak.Rodistance, ' km') AS Afstand, Rostat_Rangorden_Kajak.Antal_ture as Ture, CONCAT(Rostat_Rangorden_Kajak.Gennemsnitslængde, ' km') AS Gennemsnit ";
+    $s="SELECT Rostat_Rangorden_Kajak.Medlemsnr as Medlemsnr, Rostat_Rangorden_Kajak.Navn, CONCAT(Rostat_Rangorden_Kajak.Rodistance, ' km') AS Afstand, Rostat_Rangorden_Kajak.Antal_ture as Ture, CONCAT(Rostat_Rangorden_Kajak.Gennemsnitslaengde, ' km') AS Gennemsnit ";
     $s=$s."FROM Rostat_Rangorden_Kajak INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Rostat_Rangorden_Kajak.MedlemID = TurDeltager.FK_MedlemID ";
-    $s=$s."GROUP BY Rostat_Rangorden_Kajak.Medlemsnr, Rostat_Rangorden_Kajak.Navn, CONCAT(Rostat_Rangorden_Kajak.Rodistance, ' km'), Rostat_Rangorden_Kajak.Antal_ture, CONCAT(Rostat_Rangorden_Kajak.Gennemsnitslængde, ' km'), Rostat_Rangorden_Kajak.Rodistance ";
+    $s=$s."GROUP BY Rostat_Rangorden_Kajak.Medlemsnr, Rostat_Rangorden_Kajak.Navn, CONCAT(Rostat_Rangorden_Kajak.Rodistance, ' km'), Rostat_Rangorden_Kajak.Antal_ture, CONCAT(Rostat_Rangorden_Kajak.Gennemsnitslaengde, ' km'), Rostat_Rangorden_Kajak.Rodistance ";
 
 //s=  "SELECT [QRY Rostat_Rangorden].Medlemsnr_ AS Medlemsnr, [QRY Rostat_Rangorden].Navn, [QRY Rostat_Rangorden].[Rodistance] & "" km"" AS Afstand, [QRY Rostat_Rangorden].[Antal ture] AS Ture, [QRY Rostat_Rangorden].[Gennemsnitslængde] & "" km"" AS Gennemsnit " & _
 //	"FROM (BådKategori INNER JOIN Gruppe ON BådKategori.BådKategoriID = Gruppe.FK_BådKategoriID) INNER JOIN (Båd INNER JOIN ([QRY Rostat_Rangorden] INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON [QRY Rostat_Rangorden].MedlemID = TurDeltager.FK_MedlemID) ON Båd.BådID = Tur.FK_BådID) ON Gruppe.GruppeID = Båd.FK_GruppeID " & _
@@ -65,11 +64,11 @@ switch ($Subgroup)
   case "kaniner":
 
 
-    WriteHit("Rostatistik kaniner");
+    // WriteHit("Rostatistik kaniner");
 
-    $s="SELECT Rostat_Kaniner.Medlemsnr AS Medlemsnr, Rostat_Kaniner.Navn, CONCAT(Rostat_Kaniner.Rodistance, ' km') AS Afstand, Rostat_Kaniner.Antal_ture AS Ture, CONCAT(Rostat_Kaniner.Gennemsnitslængde, ' km') AS Gennemsnit ".
+    $s="SELECT Rostat_Kaniner.Medlemsnr AS Medlemsnr, Rostat_Kaniner.Navn, CONCAT(Rostat_Kaniner.Rodistance, ' km') AS Afstand, Rostat_Kaniner.Antal_ture AS Ture, CONCAT(Rostat_Kaniner.Gennemsnitslaengde, ' km') AS Gennemsnit ".
       "FROM Rostat_Kaniner ".
-      "GROUP BY Rostat_Kaniner.Medlemsnr, Rostat_Kaniner.Navn, CONCAT(Rostat_Kaniner.Rodistance, ' km'), Rostat_Kaniner.Antal_ture, CONCAT(Rostat_Kaniner.Gennemsnitslængde, ' km'), Rostat_Kaniner.Rodistance ";
+      "GROUP BY Rostat_Kaniner.Medlemsnr, Rostat_Kaniner.Navn, CONCAT(Rostat_Kaniner.Rodistance, ' km'), Rostat_Kaniner.Antal_ture, CONCAT(Rostat_Kaniner.Gennemsnitslaengde, ' km'), Rostat_Kaniner.Rodistance ";
 
     break;
 } 
@@ -388,7 +387,7 @@ switch ($RostatAction) {
     break;
   default:
 
-    print "Forkert parameter (".$RostatAction.")";
+    print "Forkert rostat parameter (".$RostatAction.")";
     exit();
 
     break;

@@ -12,5 +12,6 @@ mv "konvert/Motion+status.sql" "konvert/Motionstatus.sql"
 # ret Motion+->MotionPlus i Baad
 
 perl -p -i -e "s/Årsag til rettelsen/Årsagtilrettelsen/g" konvert/Fejl_tur.sql
-perl -p -i -e "s/Motion+/MotionPlus/g" konvert/Båd.sql
-perl -p -i -e "s/Motion+/Motion/g" konvert/Motionstatus.sql
+perl -p -i -e "s/Motion\+/MotionPlus/g" konvert/Båd.sql
+perl -p -i -e "s/MotionPlus\+/MotionPlus/g" konvert/Båd.sql
+perl -p -i -e "s/Motion\+/Motion/g" konvert/Motionstatus.sql

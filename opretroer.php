@@ -1,7 +1,7 @@
 <?
   session_start();
-  session_register("username_session");
-  session_register("password_session");
+//  session_register("username_session");
+//  session_register("password_session");
 ?>
 <? // asp2php (vbscript) converted on Sun Aug 11 21:21:27 2013
  $CODEPAGE="1252";?>
@@ -58,18 +58,16 @@ switch ($Action)
     ValidateInsert();
 //Case "Insert":  InsertNewMember
     break;
-  case "ShowConvert":
-    if (ValidateLogin(=="OK"))
-    {
-      ShowConverterForm();
+case "ShowConvert":
+  if (ValidateLogin()=="OK") {
+    ShowConverterForm();
     } 
-    break;
-  case "Convert":
-    if (ValidateLogin(=="OK"))
-    {
-      DoConversion();
-    } 
-    break;
+  break;
+case "Convert":
+  if (ValidateLogin() == "OK") {
+    DoConversion();
+  } 
+  break;
 } 
 ?>
 
@@ -137,8 +135,7 @@ function ShowLoginForm()
 } 
 
 
-function ValidateLogin()
-{
+function ValidateLogin() {
   extract($GLOBALS);
 
 
@@ -195,11 +192,11 @@ function DoConversion()
 
   $opendatabase;
   $sql="select MedlemID from Medlem WHERE Medlemsnr='".$temporarymemberID."'";
-  $rs=$db->execute;  $sql);
+  $rs=$db->query($sql);
   $SourceID=$rs["MedlemID"];
   $rs->close;
   $sql="select MedlemID from Medlem WHERE Medlemsnr='".$MemberID."'";
-  $rs=$db->execute;  $sql);
+  $rs=$db->query($sql);
   $DestID=$rs["MedlemID"];
   $rs->close;
 
@@ -361,10 +358,10 @@ function GetNextMemberID($FirstLetter)
   extract($GLOBALS);
 
   $opendatabase;
-  $sql="SELECT TOP 1 Mid([Medlemsnr],2,5) AS MemberExp FROM Medlem WHERE (Medlem.Medlemsnr Like '".$FirstLetter."%') GROUP BY Mid([Medlemsnr],2,5) ORDER BY Mid([Medlemsnr],2,5) DESC;";
-  $rs=$db->execute;  $sql);
-  if (!$rs->eof)
-  {
+  // FIXME NEL hvad er MID?
+  $sql="SELECT TOP 1 Mid([Medlemsnr],2,5) AS MemberExp FROM Medlem WHERE (Medlem.Medlemsnr Like '".$FirstLetter."%') GROUP BY Mid(Medlemsnr,2,5) ORDER BY Mid(Medlemsnr,2,5) DESC;";
+  $rs=$db->query($sql);
+  if (!$rs->eof) {
 
     $function_ret=$FirstLetter.substr("0000".intval($rs["MemberExp"])+1,strlen("0000".intval($rs["MemberExp"])+1)-(4));
   }
@@ -392,7 +389,7 @@ function ShowConverterForm()
 	<? 
   $opendatabase;
   $sql="SELECT Medlem.Medlemsnr, [Fornavn] & ' ' & [Efternavn] AS Navn FROM Medlem;";
-  $rs=$db->execute;  $sql);
+  $rs=$db->query($sql);
   $MemberPickerArray=$rs->getrows();
   $rs->close;
 
@@ -506,7 +503,7 @@ function ShowConverterForm()
 						<? 
   $opendatabase;
   $sql="select Medlemsnr, Fornavn, Efternavn, Fødselsdag FROM Medlem WHERE ((Medlem.Medlemsnr Like 'K%') OR (Medlem.Medlemsnr Like 'N%')) ORDER BY [Medlemsnr]";
-  $rs=$db->execute;  $sql);
+  $rs=$db->query($sql);
 
   if (!$rs->eof)
   {

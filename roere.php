@@ -25,15 +25,12 @@ $sql="select count(*) From Medlem";
 $rs=$db->query($sql)->fetch_row();
 $ArraySize=$rs[0];
 $rs->close();
-$rs->close();
 
 $ArrayBlock=$ArrayBlock."MnAry = new Array(".$ArraySize.");"."\r\n";
 $ArrayBlock=$ArrayBlock."MIDAry= new Array(".$ArraySize.");"."\r\n";
 
 //Hvis cookien ikke er sat, eller hvis den er udløbet, skal der sættes en ny cookie. Samtidig opdateres den lokale fil.
-if ($lastload=="")
-{
-
+if ($lastload=="") {
   $LastLoad=time();
   setcookie("LastLoad",$LastLoad,0,"","",0);
   // Unsupported: Response.Cookie. expires = Date + 1
@@ -42,7 +39,6 @@ if ($lastload=="")
   $rs=$db->query($sql);
   $MemberPickerArray=$rs->getrows();
   $rs->close();
-
   if (is_array($MemberPickerArray)) {
     for ($c1=0; $c1<=count($MemberPickerArray); $c1=$c1+1)
     {
@@ -51,9 +47,7 @@ if ($lastload=="")
 
     }
   } 
-
   $OnLoadCommand="WriteToFile();";
-
 } else {
   $OnLoadCommand="ReadFromFile(".$boatID.");";
 } 

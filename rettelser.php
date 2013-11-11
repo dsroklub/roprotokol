@@ -1,7 +1,7 @@
 <? // asp2php (vbscript) converted on Sun Aug 11 21:06:43 2013
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
-$xdebug.default_enable=1;
+$xdebug_default_enable=1;
 
 include "DatabaseINC.php";
  ?>
@@ -22,7 +22,7 @@ $Postback=$_GET{"Postback"}; //1=Gem data
 $TurID=$_GET["turid"];
 $Ud=$_GET["ud"];
 $Ind=$_GET["ind"];
-$Destination=$_GEt["Destination"];
+$Destination=$_GET["Destination"];
 $Baad=$_GET["båd"];
 $Turtype=$_GET["turtype"];
 $Distance=$_GET["distance"];

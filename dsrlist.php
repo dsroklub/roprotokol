@@ -1,6 +1,7 @@
 <?
 if(!isset($_SESSION))  session_start();
 include "DatabaseINC.php";
+// FIXME
 //  session_register("SortOrder_session");
 //  session_register("SortOrder_boat_session");
 ?>
@@ -14,13 +15,22 @@ include "DatabaseINC.php";
 <P>
 <table align="center"><tr><td>
 <? 
+      function arget($nm) {
+      $rs="";
+      if (isset($_GET[$nm])) {
+	  $rs=$_GET[$nm];
+	}
+      return $rs;
+    }
 
-$action=${"Action"};
+$action=arget("action");
 
 $_SESSION['SortOrder']=0;
 $_SESSION['SortOrder_boat']=0;
 
-$sql2="";
+$s="";
+error_log(" DSRLIST action=".$action,0);
+
 switch ($action) {
   case 0:
     header("Location: "."index.html");
@@ -36,7 +46,7 @@ switch ($action) {
     break;
   case 3:
 
-    header("Location: "."rostat.php?rostataction=Rank&ID=0&subgroup=alle&medlid=".${"medlid"});
+    header("Location: "."rostat.php?rostataction=Rank&ID=0&subgroup=alle&medlid=".arget("medlid"));
     break;
   case 4:
 
@@ -90,23 +100,25 @@ switch ($action) {
     break;
 } 
 
-if ($s!="") {
-  $s2=${"Boatid"};
-  if ($s2!="")  {
+error_log(" DSRLIST s now=".$s,0);
+
+if ($s != "") {
+  $s2=arget("Boatid");
+  if ($s2 != "")  {
     $s=$s." where fk_bådid=".$s2;
   } 
-  $opendatabase();
-  $rs=$db->execute($s);
+  //  $opendatabase();
+  $rs=$db->query($s);
   if ($sql2!="")  {
-    $rs2=$db->execute($sql2);
+    $rs2=$db->query($sql2);
   } 
 
   if (!$rs->eof) {
-    switch ($Action) {
+    switch ($action) {
       case 1:
 
 	// $WriteHit("Både på vandet");
-        $BaadePaaVandet[$RS];
+        BaadePaaVandet($RS);
         break;
       case 2:
 
@@ -125,6 +137,7 @@ if ($s!="") {
       case 11:
 
         // $WriteHit"Bådstatistik"
+	error_log(" DO Baadstat ",0);
         $Baadstatistik($RS,$subgroup);
         break;
       case 6:
@@ -161,12 +174,12 @@ if ($s!="") {
   } 
 } 
 
-$rs->close();
-if ($sql2!="") {
-  $rs2->close();
-} 
+//NEL RM $rs->close();
+//if ($sql2!="") {
+//  $rs2->close();
+//} 
 
-$closedatabase();
+//$closedatabase();
 ?>
 </td></tr></table>
 </P>

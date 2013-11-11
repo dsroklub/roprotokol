@@ -74,7 +74,7 @@ function IsAdminpswOK($Psw) {
 // Rostatistik
 function Rostatistik($RS,$Subgroup,$medlid) {
   extract($GLOBALS);
-
+  error_log(" ROSTAT= SG=".$Subgroup,0);
   $Sorteringsarray[1]="Rank";
   $Sorteringsarray[2]="MembrID";
   $Sorteringsarray[3]="Name";
@@ -83,9 +83,7 @@ function Rostatistik($RS,$Subgroup,$medlid) {
   $Sorteringsarray[6]="AvrLen";
   $Sorteringsarray[7]="HasRedKey";
 
-
   if ($Subgroup=="alle") {
-
 ?>
 
 <table class="rostat" width=50%>
@@ -140,6 +138,7 @@ function RedirIframe()
   $AltStrTableStart=$AltStrTableStart."<th class=\"tablehead\" ></th>";
 
   $SortArrayNr=2;
+  $stattitler=['Medlemsnr','Navn','Afstand','Ture','Gennemsnit'];
   for ($f=0; $f<=4; $f=$f+1) {
     $SortSymbol="";
     if ($Sorteringsarray[$SortArrayNr]==$_SESSION["SorterEfter"]) {
@@ -150,10 +149,7 @@ function RedirIframe()
       } 
     } 
 
-    //error_log(" RS=".RS,0);
-
-    // FIXME $Feltnavn=rs[$f].$Name;
-    $Feltnavn='foo';
+    $Feltnavn=$stattitler[$f];
     if ($f==1) {
       $wStr="width=\"30%\"";
     } else {
@@ -169,64 +165,41 @@ function RedirIframe()
 
   print $StrTableStart;
 
-  $AllRows=[];
-
-  for ($i=0; $i<=count($AllRows); $i=$i+1) {
-    if (($i%2)==0) {
+  $rownum=0;
+  foreach ($rs as $row) {
+    $rownum+=1;
+    if (($rownum%2)==0) {
       $rowhtml="<tr class=\"firstrow\">";
     } else {
       $rowhtml="<tr class=\"secondrow\">";
     } 
-    $MemberID=$AllRows[0][$i];
+    $MemberID=$row['Medlemsnr'];
 
     if (($MemberID)==($medlid)) {
       $rowhtml="<tr class=\"selectedrow\">";
     } 
 
-    $rowhtml=$rowhtml."<td>".($i+1)."</td>";
+    $rowhtml=$rowhtml."<td>".($rownum+1)."</td>";
 
 //Find medlemsnummeret for denne række
 
     $Fieldnumber=1;
     $Redkey="";
-    if (count($AllRows)>4)
-    {
-      if ($AllRows[5][$i]==1) {
-        $RedKey="<img src=\"images/icon_redwrench.gif\" border=0 alt=\"Har ikke deltaget i vintervedligehold\">";
-      } 
+    if (isset($row['RedKeyStatus']) && $row['RedKeyStatus']==1) {
+      $RedKey="<img src=\"images/icon_redwrench.gif\" border=0 alt=\"Har ikke deltaget i vintervedligehold\">";
     } 
 
-    for ($Fieldnumber=0; $Fieldnumber<=count($AllRows)-1; $Fieldnumber=$Fieldnumber+1) {
-      $Alignment="Left";
-      if ($Fieldnumber>1) {
-        $Alignment="Right";
-      } 
-      switch ($FieldNumber) {
-        case 0:
-        case 3:
 
-          $rowhtml=$rowhtml."<td><p align=\"".$Alignment."\"><a name=\"".$MemberID."\" href=\"rostat.php?rostataction=ShowTrips&ID=".$MemberID."\" >".$AllRows[$Fieldnumber][$i]."</a></td>";
-          break;
-        case 1:
-
-          $rowhtml=$rowhtml."<td><p align=\"".$Alignment."\"><a name=\"".$MemberID."\" href=\"rostat.php?rostataction=ShowTrips&ID=".$MemberID."\" >".$AllRows[$Fieldnumber][$i]."</a>".$redkey."</td>";
-          break;
-        default:
-
-          $rowhtml=$rowhtml."<td><p align=\"".$Alignment."\">".$AllRows[$Fieldnumber][$i]."</td>";
-          break;
-      } 
-
-    }
-
+    $rowhtml=$rowhtml."<td><p align=\"Left\"><a name=\"".$MemberID."\" href=\"rostat.php?rostataction=ShowTrips&ID=".$MemberID."\" >".$MemberID."</a></td>";
+    $rowhtml=$rowhtml."<td><p align=\"Left\"><a name=\"".$MemberID."\" href=\"rostat.php?rostataction=ShowTrips&ID=".$MemberID."\" >".$row["Navn"]."</a></td>";
+    $rowhtml=$rowhtml."<td><p align=\"Right\">".$row["Afstand"]."</td>";
+    $rowhtml=$rowhtml."<td><p align=\"Right\">".$row["Ture"]."</td>";
+    $rowhtml=$rowhtml."<td><p align=\"Right\">".$row["Gennemsnit"]."</td>";
 
     $rowhtml=$rowhtml."</tr>";
     print $rowhtml;
-
-    if ((($i+1)%25)==0) {
-
+    if ((($rownum+1)%25)==0) {
       print "</table>";
-//Response.Write("<table>")
       print $AltStrTableStart;
     } 
   }
@@ -235,9 +208,10 @@ function RedirIframe()
 
 //------------------------------------------------------ 
 
-function Baadstatistik($RS,$Subgroup)
-{
+function Baadstatistik($RS,$Subgroup) {
   extract($GLOBALS);
+  error_log(" Baadstat SG=".$Subgroup,0);
+
   $Sorteringsarray[1]="RankB";
   $Sorteringsarray[2]="NameB";
   $Sorteringsarray[3]="TypeB";
@@ -260,7 +234,7 @@ function Baadstatistik($RS,$Subgroup)
   print "<th class=\"tablehead\"><a href=\"rostatboat.php?rostataction=RankB"."&ID=0&subgroup=".$Subgroup."\" class=\"menupunkt3\">".$SortSymbol."Nr</a></th>";
 
   $SortArrayNr=2;
-  foreach ($rs as $f) // FIXME
+  foreach ($RS as $f) // FIXME
   {
     $SortSymbol="";
     if ($Sorteringsarray[$SortArrayNr]==$_SESSION["SorterEfter_Boat"])

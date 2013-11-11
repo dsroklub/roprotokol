@@ -1,12 +1,9 @@
-<?
-  session_start();
-  session_register("nemesis_session");
-  session_register("SorterEfter_Boat_session");
-  session_register("SortOrder_Boat_session");
-?>
-<? // asp2php (vbscript) converted on Sun Aug 11 21:04:58 2013
- ?>
-<!-- #include file="databaseINC.php" -->
+//<?
+//  session_start();
+//  session_register("nemesis_session");
+//  session_register("SorterEfter_Boat_session");
+//  session_register("SortOrder_Boat_session");
+//?>
 
 <HTML>
 
@@ -19,9 +16,19 @@
 <P>
 <table align="center"><tr><td>
 <? 
-$RostatAction=${"RostatAction"};
-$IDAction=${"ID"};
-$subgroup=${"subgroup"};
+include "DatabaseINC.php";
+
+function arget($nm) {
+  $rs="";
+  if (isset($_GET[$nm])) {
+    $rs=$_GET[$nm];
+  }
+  return $rs;
+}
+
+$RostatAction=arget("RostatAction");
+$IDAction=arget("ID");
+$subgroup=arget("subgroup");
 
 $_SESSION['nemesis']=123;
 
@@ -205,21 +212,17 @@ switch ($RostatAction)
 } 
 
 $opendatabase;
-$WriteHit"Bådstatistik"
-$rs=$db->execute;$s);
-if (!$rs->eof)
-{
-
-  $Baadstatistik$rs  $subgroup;
+// $WriteHit"Bådstatistik"
+$rs=$db->query($s);
+if (!$rs->eof){
+  // FIXME
+  Baadstatistik($rs,  $subgroup);
 }
-  else
-{
-
+  else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
 		<? 
 } 
-
 $rs->close;
 $closedatabase;
 
