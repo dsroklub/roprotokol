@@ -55,25 +55,14 @@ switch ($Subgroup) {
     $s=$s."FROM Rostat_Rangorden_robåd INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Rostat_Rangorden_robåd.MedlemID = TurDeltager.FK_MedlemID ";
     $s=$s."GROUP BY Rostat_Rangorden_robåd.Medlemsnr, Rostat_Rangorden_robåd.Navn, CONCAT(Rostat_Rangorden_robåd.Rodistance. 'km'), Rostat_Rangorden_robåd.Antal_ture, CONCAT(Rostat_Rangorden_robåd.Gennemsnitslaengde, ' km'), Rostat_Rangorden_robåd.Rodistance ";
 
-//s=  "SELECT [QRY Rostat_Rangorden].Medlemsnr_ AS Medlemsnr, [QRY Rostat_Rangorden].Navn, [QRY Rostat_Rangorden].[Rodistance] & "" km"" AS Afstand, [QRY Rostat_Rangorden].[Antal ture] AS Ture, [QRY Rostat_Rangorden].[Gennemsnitslængde] & "" km"" AS Gennemsnit " & _
-//	"FROM (BådKategori INNER JOIN Gruppe ON BådKategori.BådKategoriID = Gruppe.FK_BådKategoriID) INNER JOIN (Båd INNER JOIN ([QRY Rostat_Rangorden] INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON [QRY Rostat_Rangorden].MedlemID = TurDeltager.FK_MedlemID) ON Båd.BådID = Tur.FK_BådID) ON Gruppe.GruppeID = Båd.FK_GruppeID " & _
-//	"WHERE (((BådKategori.Navn)=""Almindelig roning"")) " & _
-//	"GROUP BY [QRY Rostat_Rangorden].Medlemsnr_, [QRY Rostat_Rangorden].Navn, [QRY Rostat_Rangorden].[Rodistance] & "" km"", [QRY Rostat_Rangorden].[Antal ture], [QRY Rostat_Rangorden].[Gennemsnitslængde] & "" km"", [QRY Rostat_Rangorden].Rodistance "
-
     break;
   case "kajakroere":
-
-
     // WriteHit("Rostatistik kajakroere");
 
     $s="SELECT Rostat_Rangorden_Kajak.Medlemsnr as Medlemsnr, Rostat_Rangorden_Kajak.Navn, CONCAT(Rostat_Rangorden_Kajak.Rodistance, ' km') AS Afstand, Rostat_Rangorden_Kajak.Antal_ture as Ture, CONCAT(Rostat_Rangorden_Kajak.Gennemsnitslaengde, ' km') AS Gennemsnit ";
     $s=$s."FROM Rostat_Rangorden_Kajak INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Rostat_Rangorden_Kajak.MedlemID = TurDeltager.FK_MedlemID ";
     $s=$s."GROUP BY Rostat_Rangorden_Kajak.Medlemsnr, Rostat_Rangorden_Kajak.Navn, CONCAT(Rostat_Rangorden_Kajak.Rodistance, ' km'), Rostat_Rangorden_Kajak.Antal_ture, CONCAT(Rostat_Rangorden_Kajak.Gennemsnitslaengde, ' km'), Rostat_Rangorden_Kajak.Rodistance ";
 
-//s=  "SELECT [QRY Rostat_Rangorden].Medlemsnr_ AS Medlemsnr, [QRY Rostat_Rangorden].Navn, [QRY Rostat_Rangorden].[Rodistance] & "" km"" AS Afstand, [QRY Rostat_Rangorden].[Antal ture] AS Ture, [QRY Rostat_Rangorden].[Gennemsnitslængde] & "" km"" AS Gennemsnit " & _
-//	"FROM (BådKategori INNER JOIN Gruppe ON BådKategori.BådKategoriID = Gruppe.FK_BådKategoriID) INNER JOIN (Båd INNER JOIN ([QRY Rostat_Rangorden] INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON [QRY Rostat_Rangorden].MedlemID = TurDeltager.FK_MedlemID) ON Båd.BådID = Tur.FK_BådID) ON Gruppe.GruppeID = Båd.FK_GruppeID " & _
-//	"WHERE (((BådKategori.Navn)=""kajakker"")) " & _
-//	"GROUP BY [QRY Rostat_Rangorden].Medlemsnr_, [QRY Rostat_Rangorden].Navn, [QRY Rostat_Rangorden].[Rodistance] & "" km"", [QRY Rostat_Rangorden].[Antal ture], [QRY Rostat_Rangorden].[Gennemsnitslængde] & "" km"", [QRY Rostat_Rangorden].Rodistance "
     break;
   case "kaniner":
 
@@ -111,23 +100,17 @@ switch ($RostatAction) {
         $s=$s."ORDER BY Rostat_Rangorden_Kajak.Rodistance".$direction;
         break;
       case "robådsroere":
-
         $s=$s."ORDER BY Rostat_Rangorden_Robåd.Rodistance".$direction;
         break;
       case "kaniner":
-
         $s=$s."ORDER BY Rostat_Rangorden.Rodistance".$direction;
         break;
     } 
-
     $db=OpenDatabase();
-
-  error_log(" rDSRSQL=".$s,0);
-
+    error_log(" rDSRSQL=".$s,0);
     $rs=$db->query($s);
     if ($rs) {
       Rostatistik($rs,$Subgroup,$Medlid);
-      // NEL $rs->close;
     } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
@@ -226,38 +209,31 @@ switch ($RostatAction) {
     if ($rs) {
       Rostatistik($rs,$Subgroup);
     } else {
-?>
-		<STRONG>Ingen data  at vise</STRONG>
-		<?php 
-    } 
-    $rs->close;
-    //NEL $closedatabase;
-
+      ?>
+      <STRONG>Ingen data  at vise</STRONG>
+	<?php 
+	} 
     break;
-  case "AvrLen":
-//Sorter efter gennemsnitslængde
-    if ($_SESSION['SorterEfter']=="AvrLen") {
-      $_SESSION['SortOrder']=$_SESSION['SortOrder'] ^ 1;
-    } else {
-      $_SESSION['SorterEfter']="AvrLen";
-      $_SESSION['SortOrder']=1;
-    } 
-
+case "AvrLen":
+  //Sorter efter gennemsnitslængde
+  if ($_SESSION['SorterEfter']=="AvrLen") {
+    $_SESSION['SortOrder']=$_SESSION['SortOrder'] ^ 1;
+  } else {
+    $_SESSION['SorterEfter']="AvrLen";
+    $_SESSION['SortOrder']=1;
+  } 
     $Direction=";";
     if ($_SESSION['SortOrder']==0) {
       $Direction=" DESC;";
     } 
-
-    $s=$s."ORDER BY (Int([Rodistance]/Count(Tur.TurID)*10)/10)".$Direction;
-
+    $s=$s."ORDER BY Gennemsnit ".$Direction;
     $db=OpenDatabase();
-
     $rs=$db->query($s);
     if ($rs) {
       Rostatistik($rs,$Subgroup,$Medlid);
     } else {
 ?>
-		<STRONG>Ingen data at vise</STRONG>
+		<STRONG>Ingen Data at vise</STRONG>
 		<?php 
     } 
 
@@ -398,11 +374,8 @@ switch ($RostatAction) {
     } 
     $rs->close;
 
-    // NEL $closedatabase;
-
     break;
   default:
-
     print "Forkert rostat parameter (".$RostatAction.")";
     exit();
 

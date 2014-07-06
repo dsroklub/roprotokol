@@ -124,17 +124,14 @@ function RedirIframe()
   $AltStrTableStart="<table class=\"rostat\" width=\"600\"><tr>";
 
   $sorter="";
-  /*if array_key_exists('SorterEfter',$_SESSION) {*/
- 
     $sorter=$_SESSION["SorterEfter"];
-    /*}*/
     $SortSymbol="";
-  if ($sorter=="Rank") {
-    $SortSymbol="<img border=\"0\" src=\"images/Pilop.gif\" width=\"10\" height=\"10\">";
-    if ( array_key_exists("SortOrder",$_SESSION) && $_SESSION["SortOrder"]==0)  {
-      $SortSymbol="<img border=\"0\" src=\"images/Pilned.gif\" width=\"10\" height=\"10\">";
+    if ($sorter=="Rank") {
+      $SortSymbol="<img border=\"0\" src=\"images/Pilop.gif\" width=\"10\" height=\"10\">";
+      if ( array_key_exists("SortOrder",$_SESSION) && $_SESSION["SortOrder"]==0)  {
+	$SortSymbol="<img border=\"0\" src=\"images/Pilned.gif\" width=\"10\" height=\"10\">";
+      } 
     } 
-  } 
 
   $StrTableStart=$StrTableStart."<th class=\"tablehead\"><a href=\"rostat.php?rostataction=Rank"."&ID=0&subgroup=".$Subgroup."\" class=\"menupunkt3\">".$SortSymbol."Nr</a></th>";
   $AltStrTableStart=$AltStrTableStart."<th class=\"tablehead\" ></th>";
@@ -144,7 +141,6 @@ function RedirIframe()
   for ($f=0; $f<=4; $f=$f+1) {
     $SortSymbol="";
     if ($Sorteringsarray[$SortArrayNr]==$_SESSION["SorterEfter"]) {
-
       $SortSymbol="<img border=\"0\" src=\"images/Pilop.gif\" width=\"10\" height=\"10\">";
       if ($_SESSION["SortOrder"]==0) {
         $SortSymbol="<img border=\"0\" src=\"images/Pilned.gif\" width=\"10\" height=\"10\">";
@@ -176,11 +172,9 @@ function RedirIframe()
       $rowhtml="<tr class=\"secondrow\">";
     } 
     $MemberID=$row['Medlemsnr'];
-
     if (isset($medlid) && ($MemberID)==($medlid)) {
       $rowhtml="<tr class=\"selectedrow\">";
     } 
-
     $rowhtml=$rowhtml."<td>".($rownum+1)."</td>";
 
 //Find medlemsnummeret for denne række
@@ -190,8 +184,6 @@ function RedirIframe()
     if (isset($row['RedKeyStatus']) && $row['RedKeyStatus']==1) {
       $RedKey="<img src=\"images/icon_redwrench.gif\" border=0 alt=\"Har ikke deltaget i vintervedligehold\">";
     } 
-
-
     $rowhtml=$rowhtml."<td><p align=\"Left\"><a name=\"".$MemberID."\" href=\"rostat.php?rostataction=ShowTrips&ID=".$MemberID."\" >".$MemberID."</a></td>";
     $rowhtml=$rowhtml."<td><p align=\"Left\"><a name=\"".$MemberID."\" href=\"rostat.php?rostataction=ShowTrips&ID=".$MemberID."\" >".$row["Navn"]."</a></td>";
     $rowhtml=$rowhtml."<td><p align=\"Right\">".$row["Afstand"]."</td>";
