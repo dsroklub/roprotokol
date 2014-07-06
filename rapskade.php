@@ -248,18 +248,9 @@ function GetMemberBestMatch($MemberName)
 {
   extract($GLOBALS);
 
-
-  if ($val[$membername]>0)
-  {
-
-
-    $function_ret=$Membername;
-
-  }
-    else
-  {
-
-
+  if ($val[$membername]>0) {
+    $function_ret=$Membername; 
+ } else {
     $sl="";
     for ($i=1; $i<=strlen($membername); $i=$i+1)
     {
@@ -273,8 +264,6 @@ function GetMemberBestMatch($MemberName)
 
         $sl=$sl+substr($membername,$i-1,1);
       } 
-
-
     }
 
 
@@ -282,14 +271,10 @@ function GetMemberBestMatch($MemberName)
 
     $rs=$db->query($S);
 
-    if (!$rs->eof)
-    {
-
+    if (!$rs->eof) {
       $l=$rs["Medlemsnr"];
       $rs->movenext;
-      if ($rs->eof)
-      {
-
+      if ($rs->eof) {
         $function_ret=$l;
       } 
 
