@@ -557,8 +557,7 @@ function SkadedeBaade($RS)
   print "<table class=\"rostat\" width=\"700\"><tr>";
 
   $Fnumber=0;
-  foreach ($rs as $f)
-  {
+  foreach ($rs as $f) {
     $TempNavn=$f->name;
     if ($tempnavn!="BoatID")
     {

@@ -116,14 +116,14 @@ if ($s != "") {
       case 2:
 
         // $WriteHit"Skadede både"
-        SkadedeBaade[$rs];
+        SkadedeBaade($rs);
         break;
       case 3:
       case 8:
       case 9:
 
         //$WriteHit"Rostatistik"
-        $Rostatistik[$rs];
+        Rostatistik($rs);
         break;
       case 4:
       case 10:
@@ -131,7 +131,7 @@ if ($s != "") {
 
         // $WriteHit"Bådstatistik"
 	error_log(" DO Baadstat ",0);
-        $Baadstatistik($RS,$subgroup);
+        $Baadstatistik($rs,$subgroup);
         break;
       case 6:
 

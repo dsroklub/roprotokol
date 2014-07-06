@@ -1,4 +1,6 @@
 <?php // asp2php (vbscript) converted on Sun Aug 11 21:17:47 2013
+if(!isset($_SESSION))  session_start();
+include "DatabaseINC.php";
  ?>
 <!-- #include file="databaseINC.php" -->
 
@@ -11,70 +13,51 @@
 <?php 
 // Kommer ind med boatid
 
-$postback=${"Postback"};
-$Beskrivelse=${"TxtBeskrivelse"};
-$Origin=${"Origin"};
-$BoatID=${"BoatID"};
-$TurID=${"TurID"};
-$SkadeID=${"skadeid"};
-$bIsKlarMeld=($skadeID<>"");
+      function arget($nm) {
+      $rs="";
+      if (isset($_GET[$nm])) {
+	  $rs=$_GET[$nm];
+	}
+      return $rs;
+    }
 
-$Opendatabase;
+$postback=arget("Postback");
+$Beskrivelse=arget("TxtBeskrivelse");
+$Origin=arget("Origin");
+$BoatID=arget("BoatID");
+$TurID=arget("TurID");
+$SkadeID=arget("skadeid");
+$SlaaOpKnap=arget("SlaaOpKnap");
+$bIsKlarMeld=($SkadeID!="");
 
-if (${"SlaaOpKnap"}!="")
-{
-
-  $StyrmandNavn=${"StyrmandNavn"};
-
-  $StyrmandID=CheckIfMedlemsnr($styrmandnavn);
-
-  if (strlen($styrmandID)>0)
-  {
-
+$Options="";
+$StyrmandNavn="";
+if ($SlaaOpKnap != "") {
+  $StyrmandNavn=arget("StyrmandNavn");
+  $StyrmandID=CheckIfMedlemsnr($StyrmandNavn);
+  if (strlen($styrmandID)>0) {
     $Options="<option>".$StyrmandID." - ".GetMemberName($StyrmandID)."</option>";
     $Styrmandnavn=GetMemberName($StyrmandID);
-  }
-    else
-  {
-
+  } else {
     $Options=FillOptionForMember($Styrmandnavn);
   } 
-
-
-}
-  else
-{
-
-  if ($postback=="")
-  {
-
+} else {
+  if ($postback=="") {
     // $WriteHit"Rapporter skade"    $BoatID."'";
-    if ((!$bisklarmeld))
-    {
-
-      if (($turid!=""))
-      {
-
+    if ((!$bIsKlarMeld)) {
+      if (($TurID!="")) {
 // Lad os se om vi har en styrmand
-        $rsTur=$db->query("SELECT * FROM QturDeltagere WHERE Plads=0 and FK_Turid=" . $turid);
-        if (!$rstur->eof)
-        {
-
+        $rsTur=$db->query("SELECT * FROM QturDeltagere WHERE Plads=0 and FK_Turid=" . $TurID);
+        if (!$rstur->eof) {
           $StyrmandID=$rsTur["FK_MedlemID"];
           $StyrmandNavn=$rsTur["Navn"];
         } 
-
       } 
-
     } 
-
-
-    $BoatName=$getboatNameID[$BoatID];
+    $BoatName=GetBoatNameID($BoatID);
     $rstur=null;
-
-
   } else if ($postback==1) {
-    $StyrmandNavn=${"StyrmandNavn"};
+    $StyrmandNavn=arget("StyrmandNavn");
     $rs=$db->query("SELECT * FROM Skademeld_MedlemID_og_Navn WHERE Navn='$StyrmandNavn'");
     if (!$rs->eof) {
       $StyrmandID=$rs["MedlemID"];
@@ -85,48 +68,30 @@ if (${"SlaaOpKnap"}!="")
 
     $tempstore=${"TxtBeskrivelse"};
 
-    for ($c1=1; $c1<=strlen($tempstore); $c1=$c1+1)
-    {
-      if (substr($tempstore,$c1-1,1)!="'")
-      {
+    for ($c1=1; $c1<=strlen($tempstore); $c1=$c1+1)  {
+      if (substr($tempstore,$c1-1,1)!="'") {
         $tempstore2=$tempstore2+substr($tempstore,$c1-1,1);
       } 
-
     }
-
-
 
     $sql="insert into Skade (FK_B�dID,FK_Ansvarlig,�delagt,Grad,Beskrivelse,OprettetDato) values";
     $sql=$sql."(".$boatid.",".$styrmandid.",#".${"KonstateretDato"}."#,".${"SelGrad"}.",'".$tempstore2."',now)";
 
     $db->execute($sql);
 
-    if ($origin=="topmenu")
-    {
-
+    if ($origin=="topmenu") {
       header("Location: "."ud_ind_skriv.html");
-    }
-      else
-    {
-
+    } else {
       header("Location: "."dsrbookboat.php?boatid=".$boatid);
     } 
-
-  }
-    else
-  {
+  } else {
 //Postback er nu 2, og det betyder Klarmeld b�d
     $sql="Update Skade set repareret=Now() where skadeID=".$skadeid;
     $db->execute($sql);
     print $SQL;
-
     header("Location: "."dsrboats.php");
   } 
-
 } 
-
-
-$closedatabase;
 
 ?>
 <table align="center"><tr><td>
@@ -138,22 +103,17 @@ $closedatabase;
     <TD>
     <select size="1" name="BoatID">
     <?php 
-$opendatabase;
-$sql="select BådId, Navn from Båd order by Navn";
+  $db=OpenDatabase();
+$sql="select BådId, Navn FROM Båd ORDER BY Navn";
 $rs=$db->query($sql);
-while(!($rs->eof))
-{
-  if (intval($rs["b�did"])==intval($boatid))
-  {
-
-    print "<option selected value=".$rs["bådid"].">".$rs["navn"]."</option>";
+  foreach ($rs as $baad) {
+    if (intval($baad["BådID"])==intval($boatid)) {
+    print "<option selected value=".$baad["BådID"].">".$baad["Navn"]."</option>";
   } else {
-    print "<option value=".$rs["bådid"].">".$rs["navn"]."</option>";
+    print "<option value=".$baad["BådID"].">".$baad["Navn"]."</option>";
   } 
-
-  $rs->movenext;
 } 
-CloseDatabase();
+//CloseDatabase();
 ?>
     </select> </TD>
     </TR>
