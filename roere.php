@@ -16,8 +16,7 @@ include "DatabaseINC.php";
 
 
 <?php 
-   //$opendatabase;
-$db=OpenDatabase();
+  $db=OpenDatabase();
 
 //Undersøg om der skal generes en ny medlemsdatafil
 //FIXME $LastLoad=$_COOKIE["LastLoad"];
@@ -25,15 +24,15 @@ $db=OpenDatabase();
 $sql="select count(*) From Medlem";
 $rs=$db->query($sql)->fetch_row();
 $ArraySize=$rs[0];
-//$rs->close();
+
 
 $ArrayBlock=$ArrayBlock."MnAry = new Array(".$ArraySize.");"."\r\n";
 $ArrayBlock=$ArrayBlock."MIDAry= new Array(".$ArraySize.");"."\r\n";
 
 //Hvis cookien ikke er sat, eller hvis den er udløbet, skal der sættes en ny cookie. Samtidig opdateres den lokale fil.
 if ($lastload=="") {
-  $LastLoad=time();
-  setcookie("LastLoad",$LastLoad,0,"","",0);
+  $lastload=time();
+  setcookie("LastLoad",$lastload,0,"","",0);
   // Unsupported: Response.Cookie. expires = Date + 1
 
   $sql="SELECT Medlem.Medlemsnr, [Fornavn] & ' ' & [Efternavn] AS Navn FROM Medlem;";
@@ -41,11 +40,9 @@ if ($lastload=="") {
   $MemberPickerArray=$rs->getrows();
   $rs->close();
   if (is_array($MemberPickerArray)) {
-    for ($c1=0; $c1<=count($MemberPickerArray); $c1=$c1+1)
-    {
+    for ($c1=0; $c1<=count($MemberPickerArray); $c1=$c1+1) {
       $ArrayBlock=$ArrayBlock."MnAry[".$c1."]=\"".$MemberPickerArray[1][$c1]."\";"."\r\n";
       $ArrayBlock=$ArrayBlock."MIDAry[".$c1."]=\"".$MemberPickerArray[0][$c1]."\";"."\r\n";
-
     }
   } 
   $OnLoadCommand="WriteToFile();";
@@ -58,7 +55,6 @@ $closedatabase();
 
 <script language="JavaScript">	
 	<?php echo $Arrayblock;?><%
-
 	SeatArray = new Array(9);
 
 function WriteToFile()

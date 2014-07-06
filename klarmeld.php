@@ -71,7 +71,7 @@ if (${"submit1"}=="Klarmeld skade")
 
   switch ($Origin)
   {
-    case "SkadedeBåde":
+    case "SkadedeBÃ¥de":
 
       header("Location: "."dsrlist.php?action=2");
 

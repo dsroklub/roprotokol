@@ -558,7 +558,7 @@ function SkadedeBaade($RS)
 
   $Fnumber=0;
   foreach ($rs as $f) {
-    $TempNavn=$f->name;
+    $tempnavn=$f->name;
     if ($tempnavn!="BoatID")
     {
 
@@ -566,7 +566,7 @@ function SkadedeBaade($RS)
       {
         $tempnavn="Klarmeld";
       } 
-      print "<th class=\"tablehead\" width=".$BreddeArray[$Fnumber].">".$TempNavn."</th>";
+      print "<th class=\"tablehead\" width=".$BreddeArray[$Fnumber].">".$tempnavn."</th>";
     } 
 
     $Fnumber=$fnumber+1;
@@ -1555,32 +1555,20 @@ $rs=mysql_fetch_array($rs_query);
   return $function_ret;
 } 
 
-function GetBoatNameID($ID)
-{
+function GetBoatNameID($ID) {
   extract($GLOBALS);
-
-  if ($ID>0)
-  {
-
+  $function_ret="";
+  if ($ID>0) {
     $rs=$rs_query=mysql_query(("Select Navn from Båd Where BådID=".$ID),$db);    
-$rs=mysql_fetch_array($rs_query);
-;    if (!($rs==0))
-    {
-
+    $rs=mysql_fetch_array($rs_query);
+    if (!($rs==0)) {
       $res=$Rs["Navn"];
-    }
-      else
-    {
-
+    } else {
       $res="Ikke fundet";
     } 
-
     $function_ret=$Res;
-    
     $rs=null;
-
   } 
-
   return $function_ret;
 } 
 
