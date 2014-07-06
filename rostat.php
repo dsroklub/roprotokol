@@ -30,7 +30,16 @@ switch ($Subgroup) {
   case "alle":
     //    WriteHit("Rostatistik");
 
-    $s="SELECT Rostat_Rangorden.Medlemsnr AS Medlemsnr, Rostat_Rangorden.Navn, CONCAT(Rostat_Rangorden.Rodistance, 'km') AS Afstand, Rostat_Rangorden.Antal_ture AS Ture, CONCAT(Rostat_Rangorden.Gennemsnitslaengde,'km') AS Gennemsnit, If(HasRedKey=True,If(Vintervedligehold.Season=Year(Now()),1,0),0) AS RedKeyStatus FROM (Rostat_Rangorden INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Rostat_Rangorden.MedlemID = TurDeltager.FK_MedlemID) LEFT JOIN Vintervedligehold ON Rostat_Rangorden.Medlemsnr = Vintervedligehold.Medlemsnr GROUP BY Rostat_Rangorden.Medlemsnr, Rostat_Rangorden.Navn, CONCAT(Rostat_Rangorden.Rodistance,' km'), Rostat_Rangorden.Antal_ture, CONCAT(Rostat_Rangorden.Gennemsnitslaengde, ' km'), If(HasRedKey=True,If(Vintervedligehold.Season=Year(Now()),1,0),0), Rostat_Rangorden.Rodistance ";
+    $s="SELECT Rostat_Rangorden.Medlemsnr AS Medlemsnr, Rostat_Rangorden.Navn, CONCAT(Rostat_Rangorden.Rodistance, 'km') AS Afstand,".
+      " Rostat_Rangorden.Antal_ture AS Ture,".
+      " CONCAT(Rostat_Rangorden.Gennemsnitslaengde,'km') AS Gennemsnit,".
+      " If(HasRedKey=True,If(Vintervedligehold.Season=Year(Now()),1,0),0) AS RedKeyStatus ".
+      " FROM (Rostat_Rangorden INNER JOIN (Tur INNER JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Rostat_Rangorden.MedlemID = TurDeltager.FK_MedlemID) LEFT JOIN Vintervedligehold ON Rostat_Rangorden.Medlemsnr = Vintervedligehold.Medlemsnr GROUP BY Rostat_Rangorden.Medlemsnr,".
+      " Rostat_Rangorden.Navn, ".
+      " CONCAT(Rostat_Rangorden.Rodistance,' km'), Rostat_Rangorden.Antal_ture, ".
+      " CONCAT(Rostat_Rangorden.Gennemsnitslaengde, ' km'), ".
+      " If(HasRedKey=True,If(Vintervedligehold.Season=Year(Now()),1,0),0), ".
+      " Rostat_Rangorden.Rodistance ";
 
     break;
   case "robådsroere":
