@@ -34,9 +34,20 @@ Access/ASP gør brug af en hel del gemte queries. De er konterveret til SQL view
 Er foretaget med asp2php og derefter i et vist omfang tilrettet.
 
 
+==Hvad virker?==
+
+Af php-koden er det kun enkelte funktioner, der virker, fx rostatistikken.
 
 
 ==TODO==
 
 Skemast skal opdateres. Fx. dur det ikke at vi har tabeller for Tur, Tur_backup2012,Tur_backup2011 osv.
-I første omgang skal vi nok sørge for at ikke at ændre skemaet mere end vi kan importere indhold fra MDB.
+* I første omgang skal vi nok sørge for at ikke at ændre skemaet mere end vi kan importere indhold fra MDB.
+* Mange-til-mange forhold mellem ture og turdeltagere, istedet for 9 faste felter.
+* Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
+
+
+* tegnsæt
+* Ajax-kode, til autocompletion af Navne
+* filen membersdata.txt i config.php. herfra hentes Navne og medlemsnumre.
+  Vi skal have en bedre måde at overføre det på.
