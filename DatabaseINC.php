@@ -128,6 +128,7 @@ function RedirIframe()
  
     $sorter=$_SESSION["SorterEfter"];
     /*}*/
+    $SortSymbol="";
   if ($sorter=="Rank") {
     $SortSymbol="<img border=\"0\" src=\"images/Pilop.gif\" width=\"10\" height=\"10\">";
     if ( array_key_exists("SortOrder",$_SESSION) && $_SESSION["SortOrder"]==0)  {
@@ -176,7 +177,7 @@ function RedirIframe()
     } 
     $MemberID=$row['Medlemsnr'];
 
-    if (($MemberID)==($medlid)) {
+    if (isset($medlid) && ($MemberID)==($medlid)) {
       $rowhtml="<tr class=\"selectedrow\">";
     } 
 
@@ -919,9 +920,6 @@ function RoerensStamdata($RS)
 function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 {
   extract($GLOBALS);
-
-
-
 ?>
 
 <h3>Rettede ture</h3>
@@ -1123,7 +1121,6 @@ function TrueFalse($Inputdate)
 function Turoversigt($RS)
 {
   extract($GLOBALS);
-
 
   print "<h3>Turoversigt</h3>";
 
@@ -1429,10 +1426,8 @@ function Skadesoversigt($RS)
 //------------------------------------------------------ END
 
 // List The Recordset
-function ListRS($RS)
-{
+function ListRS($RS) {
   extract($GLOBALS);
-
 
   print "<table class=\"rostat\" width=\"750\"><tr>";
   foreach ($rs as $f) // FIXME

@@ -146,8 +146,9 @@ switch ($RostatAction) {
 
     $s=$s."ORDER BY Rostat_Rangorden.Medlemsnr".$Direction;
 
-    $opendatabase;
-    $rs=$db->query($s);
+
+    $db=OpenDatabase();
+     $rs=$db->query($s);
     if ($rs) {
       Rostatistik($rs,$Subgroup);
     } else {
@@ -206,7 +207,7 @@ switch ($RostatAction) {
 
     $s=$s."ORDER BY Count(Tur.TurID)".$Direction;
 
-    $opendatabase;
+    $db=OpenDatabase();
     $rs=$db->query($s);
     if ($rs) {
       Rostatistik($rs,$Subgroup);
@@ -246,7 +247,7 @@ switch ($RostatAction) {
 		<?php 
     } 
 
-    $rs->close;
+    //$rs->close;
     //$closedatabase;
     break;
   case "ShowTrips":
@@ -271,7 +272,7 @@ switch ($RostatAction) {
 
     $rs=$db->query($s);
     if ($rs) {
-      $RoerensStamdata[$RS];
+      $RoerensStamdata[$rs];
     } else {
 ?>
 		<STRONG>Der er endnu ikke registreret rettigheder for denne roer.</STRONG>
@@ -286,7 +287,7 @@ switch ($RostatAction) {
 
     $rs=$db->query($s);
     if ($rs) {
-      $Turtypesummary[$RS];
+      $Turtypesummary[$rs];
     } 
     $rs->close;
 ?><br>
@@ -298,7 +299,7 @@ switch ($RostatAction) {
 
     $rs=$db->query($s);
     if ($rs) {
-      $Turoversigt[$RS];
+      $Turoversigt[$rs];
     } else {
 ?>
 		<STRONG>Ingen ture at vise</STRONG>
@@ -310,7 +311,7 @@ switch ($RostatAction) {
 
     $rs=$db->query($s);
     if ($rs) {
-      RoerensRettedeTure($RS,$ShowRettelseSpecs);
+      RoerensRettedeTure($rs,$ShowRettelseSpecs);
     } 
     $rs->close;
     //$closedatabase;
@@ -328,7 +329,7 @@ switch ($RostatAction) {
     WriteHit("Turspecifikation ". $IdAction);
     $rs=$db->query($s);
     if ($rs) {
-      $Turspecifikation[$RS];
+      $Turspecifikation[$rs];
     } else {
 ?>
 		<STRONG>Ingen data at vise</STRONG>
@@ -351,7 +352,7 @@ switch ($RostatAction) {
 
     $rs=$db->query($s);
     if ($rs) {
-      BaadensTuroversigt($RS);
+      BaadensTuroversigt($rs);
     } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
@@ -366,7 +367,7 @@ switch ($RostatAction) {
 
     $rs=$db->query($s);
     if ($rs) {
-      $Turtypesummary[$RS];
+      $Turtypesummary[$rs];
     } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
@@ -379,7 +380,7 @@ switch ($RostatAction) {
 
     $rs=$db->query($s);
     if (!$rs->eof) {
-      $Skadesoversigt($RS);
+      $Skadesoversigt($rs);
     } 
     $rs->close;
 

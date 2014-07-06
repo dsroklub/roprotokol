@@ -2,7 +2,7 @@
 if(!isset($_SESSION))  session_start();
 include "DatabaseINC.php";
 $db=OpenDatabase();
-// FIXME  session_register("BådKategori_session");
+// FIXME  session_register("BÃ¥dKategori_session");
 ?>
 <HTML>
 <HEAD>
@@ -12,8 +12,8 @@ $db=OpenDatabase();
   <script language="javascript">
   
   var oInterval = "";
-	 // Sætter en timer igang, så siden kan blive opdateret hvert sekund (1000 milisekunder)
-	 // kører på clienten
+	 // Sætter en timer igang, sÃ¥ siden kan blive opdateret hvert sekund (1000 milisekunder)
+	 // kører pÃ¥ clienten
 	 function body_onLoad(){
 	
       // Create object
@@ -26,7 +26,7 @@ $db=OpenDatabase();
     }
     
     // Denne callback rutine kommer alle data tilbage til i response variablen
-    // kører på clienten
+    // kører pÃ¥ clienten
     function myCallback( response ){            
       var sCookie = response.split(",");
       i=0
@@ -50,7 +50,7 @@ $db=OpenDatabase();
 		}
     }
   </script>
-  <title>Vis både</title>
+  <title>Vis bÃ¥de</title>
 </head>
 <body onLoad="body_onLoad();" bgproperties="fixed" background="images/baggrund.jpg">
 <?php 
@@ -68,9 +68,9 @@ $ShowType=arget('ShowType'); //Skal der vises tur, skade eller etc.
 $ShowID=arget("ID"); //Kommer ind med ID'et for den info, der skal vises
 
 if ($GruppeId=="") {
-  $GruppeId=$_SESSION['BådKategori'];
+  $GruppeId=$_SESSION['BÃ¥dKategori'];
 } 
-$_SESSION['BådKategori']=$GruppeId;
+$_SESSION['BÃ¥dKategori']=$GruppeId;
 $opendatabase;
 ?>
 
@@ -78,7 +78,7 @@ $opendatabase;
 <INPUT type=Hidden value=<?php echo $GruppeId;?> name=whichVar>
 <table width="100%" class="rostat">
   <tr>
-    <th class="tablehead" width="25%">Båd</th>
+    <th class="tablehead" width="25%">BÃ¥d</th>
     <th class="tablehead" width="25%">Status</th>
     
     <?php 
@@ -121,44 +121,44 @@ switch ($ShowType) {
 LockRemoveInactive();
 $BoatHTML=array();
 
-$s="SELECT Båd.BådID, Båd.Navn, Båd.FK_GruppeID, Båd.Pladser, qBoatsReserveret.FK_BådID, qBoatsOnWater2.FK_BådID, qBoatsSkadet.FK_BådID, qBoatsSkadet.grad, LåsteBåde.locktimeout, qBoatsOnWater2.TurType_Navn AS TurType_navn, qBoatsOnWater2.TurID FROM ((qBoatsReserveret RIGHT JOIN (qBoatsSkadet RIGHT JOIN Båd ON qBoatsSkadet.FK_BådID = Båd.BådID) ON qBoatsReserveret.FK_BådID = Båd.BådID) LEFT JOIN LåsteBåde ON Båd.BådID = LåsteBåde.BoatID) LEFT JOIN qBoatsOnWater2 ON Båd.BådID = qBoatsOnWater2.FK_BådID";
+$s="SELECT BÃ¥d.BÃ¥dID, BÃ¥d.Navn, BÃ¥d.FK_GruppeID, BÃ¥d.Pladser, qBoatsReserveret.FK_BÃ¥dID, qBoatsOnWater2.FK_BÃ¥dID, qBoatsSkadet.FK_BÃ¥dID, qBoatsSkadet.grad, LÃ¥steBÃ¥de.locktimeout, qBoatsOnWater2.TurType_Navn AS TurType_navn, qBoatsOnWater2.TurID FROM ((qBoatsReserveret RIGHT JOIN (qBoatsSkadet RIGHT JOIN BÃ¥d ON qBoatsSkadet.FK_BÃ¥dID = BÃ¥d.BÃ¥dID) ON qBoatsReserveret.FK_BÃ¥dID = BÃ¥d.BÃ¥dID) LEFT JOIN LÃ¥steBÃ¥de ON BÃ¥d.BÃ¥dID = LÃ¥steBÃ¥de.BoatID) LEFT JOIN qBoatsOnWater2 ON BÃ¥d.BÃ¥dID = qBoatsOnWater2.FK_BÃ¥dID";
 
 if ($GruppeId!=0) {
-  $s=$s." WHERE fk_gruppeid=".$GruppeId." ORDER BY Båd.Navn";
-  $rs0=$db->query($s);
+  $s=$s." WHERE fk_gruppeid=".$GruppeId." ORDER BY BÃ¥d.Navn";
+  $rs=$db->query($s);
 } else {
-  $s=$s." ORDER BY Båd.Navn";
-  $rs0=$db->query($s);
+  $s=$s." ORDER BY BÃ¥d.Navn";
+  $rs=$db->query($s);
 } 
 
 error_log(" DSRSQL=".$s,0);
-$rs=$rs0->fetch_array(MYSQLI_ASSOC);
 //listrs(rs)
 
 $CNT=0;
-while (! is_null($rs)) {
-  $breserveret= isset($rs["qBoatsReserveret.FK_BådID"]);
-  $bOnWater= isset($rs["qBoatsOnWater2.FK_BådID"]);
-  $bSkadet=isset($rs["qBoatsSkadet.FK_BådID"]);
-  $bLocked=isset($rs["locktimeout"]);
+foreach ($rs as $baad) {
+
+  $breserveret= isset($baad["qBoatsReserveret.FK_BÃ¥dID"]);
+  $bOnWater= isset($baad["qBoatsOnWater2.FK_BÃ¥dID"]);
+  $bSkadet=isset($baad["qBoatsSkadet.FK_BÃ¥dID"]);
+  $bLocked=isset($baad["locktimeout"]);
   $BoatHTML[$CNT]="";
   if (($CNT%2)==0) {
     $rowhtml="<tr class=\"firstrow\">";
   } else {
     $rowhtml="<tr class=\"secondrow\">";
   } 
-  $BoatHTML[$CNT]=$BoatHTML[$CNT].$rowhtml."<td><A href=dsrbookboat.php?boatid=".$rs["BådID"].">".$rs["Navn"]."</a></td>";
+  $BoatHTML[$CNT]=$BoatHTML[$CNT].$rowhtml."<td><A href=dsrbookboat.php?boatid=".$baad["BÃ¥dID"].">".$baad["Navn"]."</a></td>";
   $Secondfield="<td>";
   if ($bSkadet) {
-    switch ($rs["Grad"]) {
+    switch ($rsi["Grad"]) {
       case 1:
-        $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Skade&ID=".$rs["BådID"]."\"><img border=\"0\" src=\"images/icon_skadet1.gif\" width=\"16\" height=\"17\">  Let skadet</a><br>";
+        $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Skade&ID=".$baad["BÃ¥dID"]."\"><img border=\"0\" src=\"images/icon_skadet1.gif\" width=\"16\" height=\"17\">  Let skadet</a><br>";
         break;
       case 2:
-        $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Skade&ID=".$rs["BådID"]."\"><img border=\"0\" src=\"images/icon_skadet2.gif\" width=\"16\" height=\"17\">  Middel skadet</a><br>";
+        $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Skade&ID=".$baad["BÃ¥dID"]."\"><img border=\"0\" src=\"images/icon_skadet2.gif\" width=\"16\" height=\"17\">  Middel skadet</a><br>";
         break;
       case 3:
-        $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Skade&ID=".$rs["BådID"]."\"><img border=\"0\" src=\"images/icon_skadet3.gif\" width=\"16\" height=\"16\">  Svært skadet</a><br>";
+        $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Skade&ID=".$baad["BÃ¥dID"]."\"><img border=\"0\" src=\"images/icon_skadet3.gif\" width=\"16\" height=\"16\">  SvÃ¦rt skadet</a><br>";
         break;
       default:
         $Secondfield="<td>OK</td>";
@@ -167,22 +167,21 @@ while (! is_null($rs)) {
   } 
 
   if ($breserveret) {
-    $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Reservation&ID=".$rs["BådID"]."\"><img border=\"0\" src=\"images/icon_reserveret.gif\" width=\"16\" height=\"17\">  Reserveret</a><br>";
+    $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Reservation&ID=".$baad["BÃ¥dID"]."\"><img border=\"0\" src=\"images/icon_reserveret.gif\" width=\"16\" height=\"17\">  Reserveret</a><br>";
   } 
 
   if ($bOnWater) {
-    $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Tur&ID=".$rs["TurID"]."\"><img border=\"0\" src=\"images/icon_paavandet.gif\" width=\"16\" height=\"17\">  På vandet</a><br>";
+    $Secondfield=$Secondfield."<a href=\"dsrboats.php?GruppeID=".$gruppeID."&ShowType=Tur&ID=".$baad["TurID"]."\"><img border=\"0\" src=\"images/icon_paavandet.gif\" width=\"16\" height=\"17\">  PÃ¥ vandet</a><br>";
   } 
 
   if ($bLocked) {
-    $Secondfield=$Secondfield."<img border=\"0\" src=\"images/icon_laast.gif\" width=\"16\" height=\"17\">  Låst af anden klient<br>";
+    $Secondfield=$Secondfield."<img border=\"0\" src=\"images/icon_laast.gif\" width=\"16\" height=\"17\">  LÃ¥st af anden klient<br>";
   } 
 
   $Secondfield=$Secondfield."</td>";
   $BoatHTML[$CNT]=$BoatHTML[$CNT].$Secondfield;
   $CNT=$CNT+1;
-  $rs=$rs0->fetch_array(MYSQLI_ASSOC);
-} 
+}
 
 $i=0;
 while(!($i==$CNT)) {
@@ -196,7 +195,7 @@ while(!($i==$CNT)) {
         $DetailInfo=$DetailInfo."<center><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse\" width=\"95%\">";
         while(!($ResRS->eof)) {
           $DetailInfo=$DetailInfo."<tr><td width=\"30%\"><b>Reserveret</b></td><td>".$Resrs["start"]." til ".$Resrs["slut"]."</td></tr>";
-          $DetailInfo=$DetailInfo."<tr><td width=\"30%\"><b>Formål</b></td><td>".$Resrs["Beskrivelse"]."</td></tr>";
+          $DetailInfo=$DetailInfo."<tr><td width=\"30%\"><b>FormÃ¥l</b></td><td>".$Resrs["Beskrivelse"]."</td></tr>";
           $DetailInfo=$DetailInfo."<tr><td width=\"30%\"><b>Reserveret af</b></td><td>".$Resrs["Fornavn"]." ".$Resrs["Efternavn"]."</td></tr>";
           $DetailInfo=$DetailInfo."<tr><td width=\"100%\" colspan=2><hr noshade color=\"#000000\" size=\"1\"></td></tr>";
           $resrs->movenext;
@@ -217,7 +216,7 @@ while(!($i==$CNT)) {
               $SDescript="Middel skadet";
               break;
             case 3:
-              $SDescript="Svært skadet <br>(Må ikke benyttes)";
+              $SDescript="Svært skadet <br>(MÃ¥ ikke benyttes)";
               break;
           } 
           $DetailInfo=$DetailInfo."<tr><td width=\"50%\"><b>Grad:</b> ".$skaders["grad"]." - ".$SDescript."</td>";
