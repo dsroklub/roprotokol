@@ -1,4 +1,12 @@
 <?php // asp2php (vbscript) converted on Sun Aug 11 21:06:43 2013
+      function arget($nm) {
+      $rs="";
+      if (isset($_GET[$nm])) {
+	  $rs=$_GET[$nm];
+	}
+      return $rs;
+    }
+
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 $xdebug_default_enable=1;
@@ -14,18 +22,17 @@ include "DatabaseINC.php";
 <BODY bgproperties="fixed" background="images/baggrund.jpg">
 <?php 
 
-$RType=$_GET["RType"];
-$TurID=$_GET["TurID"];
-$MemberID=$_GET{"MemberID"};
-$Postback=$_GET{"Postback"}; //1=Gem data
+  $RType=arget("RType");
+$TurID=arget("TurID");
+$MemberID=arget("MemberID");
+$Postback=arget("Postback"); //1=Gem data
 
-$TurID=$_GET["turid"];
-$Ud=$_GET["ud"];
-$Ind=$_GET["ind"];
-$Destination=$_GET["Destination"];
-$Baad=$_GET["båd"];
-$Turtype=$_GET["turtype"];
-$Distance=$_GET["distance"];
+$Ud=arget("ud");
+$Ind=arget("ind");
+$Destination=arget("Destination");
+$Baad=arget("bÃ¥d");
+$Turtype=arget("turtype");
+$Distance=arget("distance");
 
 $Opendatabase;
 /*WriteHit("Rettelser",$Rtype);*/
@@ -277,21 +284,21 @@ switch ($RType)
 					<tr>
 						<td>
 							<br>
-							Vælg fra venstremenuen, hvilken type rettelse, du ønsker at foretage.
+    VÃ¦lg fra venstremenuen, hvilken type rettelse, du Ã¸nsker at foretage.
 							<br>
 							<br>
 							<b>Tur</b><br>
-							Hvis du har rettelser til en tur, der allerede er indskrevet, skal de indtastes her. Du kan ligeledes anmode om at få en tur slettet.			
+							Hvis du har rettelser til en tur, der allerede er indskrevet, skal de indtastes her. Du kan ligeledes anmode om at fÃ¥ en tur slettet.			
 							<br>
 							<br>
 							<b>Medlemsoplysninger</b><br>
-							Hvis du har rettelser til de medlemsoplysninger, du står opført med i roprotokollen, kan du give meddelelse til instruktionschefen og kontingentkassereren via denne formular.
+							Hvis du har rettelser til de medlemsoplysninger, du stÃ¥r opfÃ¸rt med i roprotokollen, kan du give meddelelse til instruktionschefen og kontingentkassereren via denne formular.
 							<br>
 							<br>
 							<b>Fejl og kommentarer</b><br>
-							Hvis du opdager en fejl i roprotokollen, kan du indberette den her. Hvis du har kommentarer eller ændringsforslag, er det ligeledes her, de skal indberettes.
+							Hvis du opdager en fejl i roprotokollen, kan du indberette den her. Hvis du har kommentarer eller Ã¦ndringsforslag, er det ligeledes her, de skal indberettes.
 							<br><br>
-							<u>Bemærk</u> at rettelserne først slår igennem i roprotokollen, når en systemadministrator har godkendt dem. 
+							<u>BemÃ¦rk</u> at rettelserne fÃ¸rst slÃ¥r igennem i roprotokollen, nÃ¥r en systemadministrator har godkendt dem. 
 							<br>
 							<br>
 						</td>

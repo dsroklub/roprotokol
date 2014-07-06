@@ -12,7 +12,7 @@
 				<table width="100%" class=menu>
 				<tr bgcolor=navy><th><div style="COLOR: white">Vælg funktion</div></th></tr>
 				<tr><td><A class=menupunkt2 href="dsrlist.php?action=2">Aktuelle skader</A></td></tr>
-				<tr><td><A class=menupunkt2 href="Rapskade.php?Origin=topmenu">Rapporter ny skade</A></td></tr>
+				<tr><td><A class=menupunkt2 href="rapskade.php?Origin=topmenu">Rapporter ny skade</A></td></tr>
 				<tr><td>&nbsp<br></td></tr>
 				</table></td></tr>
 				<tr><td>&nbsp;

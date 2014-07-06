@@ -10,7 +10,7 @@
 		<tr>
 			<td>
 				<table width="100%" class=menu>
-				<tr bgcolor=navy><th><div style="COLOR: white">Vælg fejltype</div></th></tr>
+   <tr bgcolor=navy><th><div style="COLOR: white">VÃ¦lg fejltype</div></th></tr>
 				<tr><td><A class=menupunkt2 href="rettelser.php?Rtype=1">Tur</A></td></tr>
 				<tr><td><A class=menupunkt2 href="rettelser.php?Rtype=2">Medlemsoplysninger</A></td></tr>
 				<tr><td><A class=menupunkt2 href="rettelser.php?Rtype=3">Fejl / kommentar</A></td></tr>

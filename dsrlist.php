@@ -29,6 +29,7 @@ $_SESSION['SortOrder']=0;
 $_SESSION['SortOrder_boat']=0;
 
 $s="";
+$sql2="";
 error_log(" DSRLIST action=".$action,0);
 
 switch ($action) {
@@ -110,12 +111,12 @@ if ($s != "") {
       case 1:
 
 	// $WriteHit("Både på vandet");
-        BaadePaaVandet($RS);
+        BaadePaaVandet($rs);
         break;
       case 2:
 
         // $WriteHit"Skadede både"
-        $SkadedeBaade[$RS];
+        SkadedeBaade[$rs];
         break;
       case 3:
       case 8:

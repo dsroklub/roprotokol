@@ -139,16 +139,16 @@ $closedatabase;
     <select size="1" name="BoatID">
     <?php 
 $opendatabase;
-$sql="select BådId, Navn from Båd order by Navn";
+$sql="select BÃ¥dId, Navn from BÃ¥d order by Navn";
 $rs=$db->query($sql);
 while(!($rs->eof))
 {
   if (intval($rs["bådid"])==intval($boatid))
   {
 
-    print "<option selected value=".$rs["bådid"].">".$rs["navn"]."</option>";
+    print "<option selected value=".$rs["bÃ¥did"].">".$rs["navn"]."</option>";
   } else {
-    print "<option value=".$rs["bådid"].">".$rs["navn"]."</option>";
+    print "<option value=".$rs["bÃ¥did"].">".$rs["navn"]."</option>";
   } 
 
   $rs->movenext;
@@ -162,7 +162,7 @@ CloseDatabase();
     <TD>
     <INPUT type=locked id=StyrmandNavn name=StyrmandNavn Value="<?php echo $StyrmandNavn;?>" size="20">
     <INPUT Type=Hidden id=StyrmandID Name=StyrmandID Value="<?php echo $StyrmandID;?>">
-    <input type=submit value="Slå op" name="SlaaOpKnap">
+    <input type=submit value="SlÃ¥ op" name="SlaaOpKnap">
     <select name=Medlemsforslag id=Medlemsforslag onchange="Pressed()" LANGUAGE="VBScript">
     <?php echo $Options;?>
     </select></TD>
@@ -179,7 +179,7 @@ CloseDatabase();
     <SELECT id=SelGrad name=SelGrad>
 		<OPTION value=1 selected>1 Let</OPTION>
 		<OPTION value=2>2 Middel</OPTION>
-		<OPTION value=3>3 Svær</OPTION>
+		<OPTION value=3>3 SvÃ¦r</OPTION>
 	</SELECT>
 	</TD>
     </TR>
