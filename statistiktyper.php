@@ -1,6 +1,6 @@
 <HTML>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 <Base Target=main>
 <title></title>
@@ -10,15 +10,15 @@
 		<tr>
 			<td>
 				<table width="100%" class=menu>
-				<tr bgcolor=navy><th><div style="COLOR: white">Vælg statistik</div></th></tr>
+				<tr bgcolor=navy><th><div style="COLOR: white">VÃ¦lg statistik</div></th></tr>
 				<tr><td><A class=menupunkt2 href="dsrlist.php?action=3">Roere - alle</A></td></tr>
-				<tr><td><A class=menupunkt2 href="dsrlist.php?action=8">Roere - robåd</A></td></tr>
+				<tr><td><A class=menupunkt2 href="dsrlist.php?action=8">Roere - robÃ¥d</A></td></tr>
 				<tr><td><A class=menupunkt2 href="dsrlist.php?action=9">Roere - kajak</A></td></tr>
-				<tr><td><A class=menupunkt2 href="dsrlist.php?action=4">Både - alle</A></td></tr>
-				<tr><td><A class=menupunkt2 href="dsrlist.php?action=10">Både - robåd</A></td></tr>
-				<tr><td><A class=menupunkt2 href="dsrlist.php?action=11">Både - kajak</A></td></tr>
+				<tr><td><A class=menupunkt2 href="dsrlist.php?action=4">BÃ¥de - alle</A></td></tr>
+				<tr><td><A class=menupunkt2 href="dsrlist.php?action=10">BÃ¥de - robÃ¥d</A></td></tr>
+				<tr><td><A class=menupunkt2 href="dsrlist.php?action=11">BÃ¥de - kajak</A></td></tr>
 				<tr><td><A class=menupunkt2 href="dsrlist.php?action=12">Kaniner</A></td></tr>
-				<tr><td><A class=menupunkt2 href="traening.php">Træningsdagbog</A></td></tr>
+				<tr><td><A class=menupunkt2 href="traening.php">TrÃ¦ningsdagbog</A></td></tr>
 				<tr><td><A class=menupunkt2 href="dsrlist.php?action=7">Oversigt</A></td></tr>
 				<tr><td><A class=menupunkt2 href="dsrlist.php?action=13">DM motionsroning</A></td></tr>
 				<tr><td>&nbsp<br><br></td></tr>

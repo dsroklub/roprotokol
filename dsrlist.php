@@ -1,4 +1,4 @@
-<?
+<?php
 if(!isset($_SESSION))  session_start();
 include "DatabaseINC.php";
 // FIXME
@@ -8,13 +8,13 @@ include "DatabaseINC.php";
 
 <HTML>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 </head>
 <BODY bgproperties="fixed" background="images/baggrund.jpg">
 <P>
 <table align="center"><tr><td>
-<? 
+<?php 
       function arget($nm) {
       $rs="";
       if (isset($_GET[$nm])) {
@@ -53,8 +53,8 @@ switch ($action) {
     header("Location: "."rostatboat.php?rostataction=RankB&ID=0&subgroup=alle");
     break;
   case 5:
-// Liste over både (til printer)
-//s="SELECT Gruppe.Navn,qAvailableboats.Navn, qAvailableboats.qBoatsOnWater.FK_BådID, qAvailableboats.qBoatsSkadet.FK_BådID, qAvailableboats.grad "
+// Liste over bÃ¥de (til printer)
+//s="SELECT Gruppe.Navn,qAvailableboats.Navn, qAvailableboats.qBoatsOnWater.FK_BÃ¥dID, qAvailableboats.qBoatsSkadet.FK_BÃ¥dID, qAvailableboats.grad "
 //s=s & " FROM qAvailableboats INNER JOIN Gruppe ON qAvailableboats.FK_GruppeID = Gruppe.GruppeID"
 //s=S & " ORDER BY qAvailableboats.FK_GruppeID, qAvailableboats.Navn;"
 
@@ -63,22 +63,21 @@ switch ($action) {
 
     $s="select * from QRYDagensRoere";
     $sql2="Select * from QBoatsonwater";
-//QRYDagensRoere
+// QRYDagensRoere
 
     break;
   case 7:
-//Vis øvrig statistik
-    $s="SELECT * FROM Båd";
-
+// Vis Ã¸vrig statistik
+    $s="SELECT * FROM BÃ¥d";
     break;
   case 8:
-    header("Location: "."rostat.php?rostataction=Rank&ID=0&subgroup=robådsroere");
+    header("Location: "."rostat.php?rostataction=Rank&ID=0&subgroup=robÃ¥dsroere");
     break;
   case 9:
     header("Location: "."rostat.php?rostataction=Rank&ID=0&subgroup=kajakroere");
     break;
   case 10:
-    header("Location: "."rostatboat.php?rostataction=RankB&ID=0&subgroup=robåde");
+    header("Location: "."rostatboat.php?rostataction=RankB&ID=0&subgroup=robÃ¥de");
     break;
   case 11:
     header("Location: "."rostatboat.php?rostataction=RankB&ID=0&subgroup=kajakker");
@@ -87,42 +86,35 @@ switch ($action) {
     header("Location: "."rostat.php?rostataction=Rank&ID=0&subgroup=kaniner");
     break;
   case 13:
-
-
     $WhichYear=strftime("%Y",time());
-
-    $s="SELECT Sum([Meter]\\1000) AS Km FROM Gruppe RIGHT JOIN (Båd RIGHT JOIN (Medlem LEFT JOIN (Tur RIGHT JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Medlem.MedlemID = TurDeltager.FK_MedlemID) ON Båd.BådID = Tur.FK_BådID) ON Gruppe.GruppeID = Båd.FK_GruppeID WHERE (((Tur.Ud)<=\"01-\" & Month(Now()) & \"-\" & Year(Now())) AND ((Year([ud]))=".$Whichyear.") AND ((Gruppe.FK_BådKategoriID)=2)) GROUP BY Medlem.MedlemID;";
+    $s="SELECT Sum(Meter/1000) AS Km FROM Gruppe RIGHT JOIN (BÃ¥d RIGHT JOIN (Medlem LEFT JOIN (Tur RIGHT JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID) ON Medlem.MedlemID = TurDeltager.FK_MedlemID) ON BÃ¥d.BÃ¥dID = Tur.FK_BÃ¥dID) ON Gruppe.GruppeID = BÃ¥d.FK_GruppeID WHERE (((Tur.Ud)<=\"01-\" & Month(Now()) & \"-\" & Year(Now())) AND ((Year(ud))=".$Whichyear.") AND ((Gruppe.FK_BÃ¥dKategoriID)=2)) GROUP BY Medlem.MedlemID;";
 
     break;
-  default:
-    print "Wrong type (".$action.")";
-    exit();
-    break;
+default:
+	print "Wrong type (".$action.")";
+        exit();
+        break;
 } 
 
-error_log(" DSRLIST s now=".$s,0);
+//error_log(" DSRLIST s now=".$s,0);
 
 if ($s != "") {
-  $s2=arget("Boatid");
-  if ($s2 != "")  {
-    $s=$s." where fk_bådid=".$s2;
-  } 
-  //  $opendatabase();
+  $db=OpenDatabase();
   $rs=$db->query($s);
   if ($sql2!="")  {
     $rs2=$db->query($sql2);
   } 
 
-  if (!$rs->eof) {
+  if ($rs) {
     switch ($action) {
       case 1:
 
-	// $WriteHit("Både på vandet");
+	// $WriteHit("BÃ¥de pÃ¥ vandet");
         BaadePaaVandet($RS);
         break;
       case 2:
 
-        // $WriteHit"Skadede både"
+        // $WriteHit"Skadede bÃ¥de"
         $SkadedeBaade[$RS];
         break;
       case 3:
@@ -136,7 +128,7 @@ if ($s != "") {
       case 10:
       case 11:
 
-        // $WriteHit"Bådstatistik"
+        // $WriteHit"BÃ¥dstatistik"
 	error_log(" DO Baadstat ",0);
         $Baadstatistik($RS,$subgroup);
         break;
@@ -144,12 +136,13 @@ if ($s != "") {
 
         // $WriteHit"Dagens ture"
 ?>
-			<h3>Følgende både er på vandet</h3>
-			<? 
+	<h3>F&oslash;lgende b&aring;de er p&aring; vandet</h3>
+
+<?php 
         $BaadePaaVandet[$RS2];
 ?>
 			<h3>Dagens ture</h3>
-			<? 
+<?php 
         $DagensTure[$RS];
         break;
       case 7:
@@ -169,8 +162,8 @@ if ($s != "") {
     } 
   } else {
 ?>
-		<STRONG>Ingen både at vise</STRONG>
-		<? 
+		<STRONG>Ingen bÃ¥de at vise</STRONG>
+		<?php 
   } 
 } 
 

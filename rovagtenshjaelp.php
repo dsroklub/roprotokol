@@ -29,7 +29,7 @@
 </table>
 </form>
 
-<? 
+<?php 
 include "DatabaseINC.php";
 if(!isset($_SESSION))  session_start();
 $AntalRoere=0;
@@ -117,12 +117,12 @@ if ($PladserIAlt>0)
 	<tr>		<td>
 			<b>Forudsætninger</b>
 			<table border=0 cellspacing="0">
-				<tr><td width=200><p>Menige roere</p></td><td><?   echo $AntalRoere;?></td></tr>
-				<tr><td><p>Styrmænd</p></td><td><?   echo $AntalStyrmaend;?></td></tr>
-				<tr bgcolor="#99dddd"><td><p>Pladsbehov i alt</p></td><td><?   echo $PladserIAlt;?></td></tr>
+				<tr><td width=200><p>Menige roere</p></td><td><?php   echo $AntalRoere;?></td></tr>
+				<tr><td><p>Styrmænd</p></td><td><?php   echo $AntalStyrmaend;?></td></tr>
+				<tr bgcolor="#99dddd"><td><p>Pladsbehov i alt</p></td><td><?php   echo $PladserIAlt;?></td></tr>
 				<tr><td colspan=2><hr size="1" color="#000000"></td></tr>
-				<tr><td><p>Tilgængelige 2'ere</p></td><td><?   echo $Available2ere;?></td></tr>
-				<tr><td><p>Tilgængelige 4'ere</p></td><td><?   echo $Available4ere;?></td></tr>
+				<tr><td><p>Tilgængelige 2'ere</p></td><td><?php   echo $Available2ere;?></td></tr>
+				<tr><td><p>Tilgængelige 4'ere</p></td><td><?php   echo $Available4ere;?></td></tr>
 			</table>
 		</td>
 	</tr>
@@ -131,13 +131,13 @@ if ($PladserIAlt>0)
 <p> </p>
 
 <b>Kombinationsmuligheder</b>
-<?   echo $InfoText;?>
+<?php   echo $InfoText;?>
 
 <table border=1 style="border-collapse: collapse" width="200">
 	<tr>
 		<th class="tablehead">2'ere</th><th class="tablehead">4'ere</th><th class="tablehead">Rest</th>
 	</tr>
-	<? 
+	<?php 
 
   $c2=0;
   while(!($c2==$KombiCounter))
@@ -154,7 +154,7 @@ if ($PladserIAlt>0)
 ?>
 </table>
 
-<? 
+<?php 
 } 
 
 ?>

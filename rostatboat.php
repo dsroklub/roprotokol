@@ -1,4 +1,4 @@
-//<?
+//<?php
 //  session_start();
 //  session_register("nemesis_session");
 //  session_register("SorterEfter_Boat_session");
@@ -8,14 +8,14 @@
 <HTML>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 </head>
 
 <BODY bgproperties="fixed" background="images/baggrund.jpg">
 <P>
 <table align="center"><tr><td>
-<? 
+<?php 
 include "DatabaseINC.php";
 
 function arget($nm) {
@@ -221,7 +221,7 @@ if (!$rs->eof){
   else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
-		<? 
+		<?php 
 } 
 $rs->close;
 $closedatabase;

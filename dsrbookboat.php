@@ -1,14 +1,14 @@
-<?
+<?php
   session_start();
-  session_register("BådKategori_session");
+  session_register("BÃ¥dKategori_session");
   session_register("Navn_session");
 ?>
-<? // asp2php (vbscript) converted on Sun Aug 11 21:19:38 2013
+<?php // asp2php (vbscript) converted on Sun Aug 11 21:19:38 2013
  ?>
 <!-- #include file="databaseINC.php" -->
 <!-- kommer ind med boatID -->
 
-<? 
+<?php 
 
 $BoatID=${"BoatID"};
 
@@ -16,7 +16,7 @@ $ForceRefreshCache=${"ForceRefreshCache"};
 
 $opendatabase;
 
-// Undersøg om der skal generes en ny medlemsdatafil
+// UndersÃ¸g om der skal generes en ny medlemsdatafil
 $LastLoad=$_COOKIE["LastLoad"];
 
 $sql="select count(*) From Medlem";
@@ -27,7 +27,7 @@ $rs->close;
 $ArrayBlock=$ArrayBlock."MnAry = new Array(".$ArraySize.");"."\r\n";
 $ArrayBlock=$ArrayBlock."MIDAry= new Array(".$ArraySize.");"."\r\n";
 
-//Hvis cookien ikke er sat, eller hvis den er udløbet, skal der sættes en ny cookie. Samtidig opdateres den lokale fil.
+//Hvis cookien ikke er sat, eller hvis den er udlÃ¸bet, skal der sÃ¦ttes en ny cookie. Samtidig opdateres den lokale fil.
 if ($lastload=="" || $ForceRefreshCache==1)
 {
 
@@ -73,12 +73,12 @@ $closedatabase;
 
 <HTML>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="../roprotokol.css">
 
 <script language="JavaScript">	
 
-	<? echo $Arrayblock;?><%
+	<?php echo $Arrayblock;?><%
 
 	SeatArray = new Array(9);
 
@@ -128,13 +128,13 @@ function ReadFromFile(boatid) {
 </script>
 
 </head>
-<BODY bgproperties="fixed" background="images/baggrund.jpg" onLoad="<? echo $OnLoadCommand;?> ValidateRowers();">
+<BODY bgproperties="fixed" background="images/baggrund.jpg" onLoad="<?php echo $OnLoadCommand;?> ValidateRowers();">
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
   <tr>
     <td width="79%">
 <OBJECT RUNAT=server PROGID=ADODB.Connection id=OBJECT1> </OBJECT>
 
-<? 
+<?php 
 
 //--------------------------------------------------------------------------
 
@@ -142,7 +142,7 @@ function GetBoatInfo($BoatID)
 {
   extract($GLOBALS);
 
-  $rs=$db->query("SELECT * FROM skade WHERE FK_BådID=$BoatID AND Repareret IS NULL ORDER BY Ødelagt DESC");
+  $rs=$db->query("SELECT * FROM skade WHERE FK_BÃ¥dID=$BoatID AND Repareret IS NULL ORDER BY Ã˜delagt DESC");
 
   $res="<h3>Skader</h3>";
 
@@ -152,9 +152,9 @@ function GetBoatInfo($BoatID)
     while(!$rs->eof)
     {
 
-//s="<strong>" & mid(rs("Ødelagt"),1,10) & " Grad: " & rs("Grad") & "</strong>" & "<a href=""RapSkade.php?boatid=" & BoatID & "&skadeid=" & rs("skadeid") & BoatID & "&Postback=2""> - Klarmeld</a><BR>" & rs("Beskrivelse") & "<BR>"
+//s="<strong>" & mid(rs("Ã˜delagt"),1,10) & " Grad: " & rs("Grad") & "</strong>" & "<a href=""RapSkade.php?boatid=" & BoatID & "&skadeid=" & rs("skadeid") & BoatID & "&Postback=2""> - Klarmeld</a><BR>" & rs("Beskrivelse") & "<BR>"
 
-//s="<strong>" & mid(rs("Ødelagt"),1,10) & " Grad: " & rs("Grad") & "</strong>" & "<a href=""Klarmeld.php?boatid=" & BoatID & "&skadeid=" & rs("skadeid") & """> - Klarmeld</a><BR>" & rs("Beskrivelse") & "<BR>"
+//s="<strong>" & mid(rs("Ã˜delagt"),1,10) & " Grad: " & rs("Grad") & "</strong>" & "<a href=""Klarmeld.php?boatid=" & BoatID & "&skadeid=" & rs("skadeid") & """> - Klarmeld</a><BR>" & rs("Beskrivelse") & "<BR>"
 
       switch ($rs["Grad"])
       {
@@ -165,11 +165,11 @@ function GetBoatInfo($BoatID)
           $skadesgrad="<img border=\"0\" src=\"images/icon_skadet2.gif\" width=\"16\" height=\"17\">  Middel skade";
           break;
         case 3:
-          $skadesgrad="<img border=\"0\" src=\"images/icon_skadet3.gif\" width=\"16\" height=\"16\">  Svær skade";
+          $skadesgrad="<img border=\"0\" src=\"images/icon_skadet3.gif\" width=\"16\" height=\"16\">  SvÃ¦r skade";
           break;
       } 
 
-      $s="<strong>".$skadesgrad." opstået ".substr($rs["Ødelagt"],0,10)."</strong><BR>".$rs["Beskrivelse"]."<BR><a href=\"Klarmeld.php?Origin=IndUdskriv&boatid=".$BoatID."&skadeid=".$rs["skadeid"]."\"><u>[Klarmeld]</u></a><br><br>";
+      $s="<strong>".$skadesgrad." opstÃ¥et ".substr($rs["Ã˜delagt"],0,10)."</strong><BR>".$rs["Beskrivelse"]."<BR><a href=\"Klarmeld.php?Origin=IndUdskriv&boatid=".$BoatID."&skadeid=".$rs["skadeid"]."\"><u>[Klarmeld]</u></a><br><br>";
 
 
       $res=$res.$S;
@@ -317,7 +317,7 @@ rstur(->$open[$s][$db][$adOpenForwardOnly][$adLockOptimistic]);
   } 
   $with;
 
-// Kør det følgende, hvis IndUdOpt <> 3 (dvs. hvis der ikke er valgt Annuller tur)
+// KÃ¸r det fÃ¸lgende, hvis IndUdOpt <> 3 (dvs. hvis der ikke er valgt Annuller tur)
 }
   else
 {
@@ -384,8 +384,8 @@ rstur(->$open[$s][$db][$adOpenForwardOnly][$adLockOptimistic]);
   } 
 
 
-//Check om det er en motorbåd og sæt i så fald km til 0
-  if ($_SESSION['BådKategori']==13)
+//Check om det er en motorbÃ¥d og sÃ¦t i sÃ¥ fald km til 0
+  if ($_SESSION['BÃ¥dKategori']==13)
   {
     $Fields["meter"]=0;
   } 
@@ -393,7 +393,7 @@ rstur(->$open[$s][$db][$adOpenForwardOnly][$adLockOptimistic]);
   $Fields["fk_TurTypeid"]=$iTurType;
   $Fields["kommentar"]=$sComment;
   $Fields["initialer"]="WEB";
-  $Fields["FK_BådID"]=$boatid;
+  $Fields["FK_BÃ¥dID"]=$boatid;
 
   if (($err==0))
   {
@@ -412,7 +412,7 @@ $turid=$rstur["turid"];
 $s="delete from turdeltager where fk_turid=".$turid;
 db(->$execute[$S]);
 
-// Indsæt alle deltagere
+// IndsÃ¦t alle deltagere
 for ($i=1; $i<=9; $i=$i+1)
 {
   if ($iMemberID[$i]!="")
@@ -435,7 +435,7 @@ for ($i=1; $i<=9; $i=$i+1)
 }
 
 
-'Slut på den if-konstruktion, der afgør, om der skal indsættes eller slettes en tur
+'Slut pÃ¥ den if-konstruktion, der afgÃ¸r, om der skal indsÃ¦ttes eller slettes en tur
 
 SkrivTur=turid
 
@@ -450,7 +450,7 @@ if mid(Request.form("ImemberID1"),1,6)="rohold" then
 		sMemberName(i)="Roholdet"
 	next	
 else
-	' Find dem der skal med på turen og udfyld dem så godt som muligt.
+	' Find dem der skal med pÃ¥ turen og udfyld dem sÃ¥ godt som muligt.
 	for i=1 to 9
 		iMemberID(i)=Request.form("ImemberID" & i)
 		
@@ -507,7 +507,7 @@ end function
 '--------------------------------------------------------------------------
 %>
 
-<? if ()
+<?php if ()
 {
   $timind=$datevalue[time()]." 00:00";
 } 
@@ -557,7 +557,7 @@ if ($action=="")
 				{
 				HitCnt = 0;			
 				NewInnerHTML= "<SELECT style='WIDTH: 200px' name='Cmbmembername" + FieldNumber + "' id='Cmbmembername" + FieldNumber + "' onchange='FillFromSelector(" + FieldNumber + ")'>";
-				NewInnerHTML = NewInnerHTML + "<option value='999' selected>... vælg fra liste ...</option>"; 
+				NewInnerHTML = NewInnerHTML + "<option value='999' selected>... vÃ¦lg fra liste ...</option>"; 
 						for (var i=0;i<MnAry.length;i++)
 							{
 							MemberID=MIDAry[i];
@@ -627,18 +627,18 @@ function AllValidations(AntalPladser)
 		}
 	else
 		{
-		alert ('Du har ikke angivet en destination. Hvis du har valgt destinationen "Øvrige" skal du angive en destination i feltet Bemærkninger.');
+		alert ('Du har ikke angivet en destination. Hvis du har valgt destinationen "Ã˜vrige" skal du angive en destination i feltet BemÃ¦rkninger.');
 		}
 	}
 
 function ValidateDestination()
 	{
 	Validation = "valid"
-	//Checker at der er angivet en beskrivelse, hvis destinationen ier sat til øvrige
+	//Checker at der er angivet en beskrivelse, hvis destinationen ier sat til Ã¸vrige
 	Selected = document.getElementById('Destination').selectedIndex;
 	SelectedValue= document.getElementById('Destination').options[Selected].value;
 	
-	//16 = øvrige og 20 = vælg dest her
+	//16 = Ã¸vrige og 20 = vÃ¦lg dest her
 	if (SelectedValue == 16 || SelectedValue == 20 )	
 		{
 		if (document.getElementById('sComment').value.length<2)
@@ -657,7 +657,7 @@ function ValidateTrafficLights(AntalPladser)
 		ThisSeat = document.getElementById('roerstatus' + i).src.indexOf("green");
 		if (ThisSeat<1)
 			{
-			AlertMessage = "Du har ikke angivet samtlige roere. Ønsker du at fortsætte?"
+			AlertMessage = "Du har ikke angivet samtlige roere. Ã˜nsker du at fortsÃ¦tte?"
 			}
 		}
 		if (AlertMessage != "")
@@ -677,10 +677,10 @@ function ValidateTrafficLights(AntalPladser)
 	
 	</script>
 
-<? 
+<?php 
 
 $timUd=time();
-//Den sættes default til +2 timer som nu. Først når der vælges en destination, overskrives denne værdi
+//Den sÃ¦ttes default til +2 timer som nu. FÃ¸rst nÃ¥r der vÃ¦lges en destination, overskrives denne vÃ¦rdi
 $timForventetind=$DateAdd["h"][2][time()];
 
 $l_bShowDebug=$_POST["ShowDebug"];
@@ -704,7 +704,7 @@ if ($action=="")
 {
 
 // vi kommer ind uden at vide hvad brugeren vil
-// Er båden ude, skal den kunne skrives ind igen.
+// Er bÃ¥den ude, skal den kunne skrives ind igen.
   $rs=$db->execute;  $boatID);
   if (!$rs->eof)
   {
@@ -728,7 +728,7 @@ if ($action=="")
     case "Tilbage":
       header("Location: "."dsrboats.php");
       break;
-    case "Udskriv båd":
+    case "Udskriv bÃ¥d":
       if (gettur())
       {
 
@@ -745,7 +745,7 @@ if ($action=="")
           else
         {
 
-//Hvis båden allerede er udskrevet, slettes den
+//Hvis bÃ¥den allerede er udskrevet, slettes den
 //Dette forekommer hvis brugeren har benyttet browser back eller hvis turen er under editering
           $OldTurID=$rs["turid"];
           $sql="DELETE FROM Tur WHERE TurID=".$OldTurID;
@@ -763,7 +763,7 @@ if ($action=="")
       } 
 
       break;
-    case "Indskriv båd":
+    case "Indskriv bÃ¥d":
       if (gettur())
       {
 
@@ -825,7 +825,7 @@ if ($action=="")
 if ($boatid!="")
 {
 
-// Vi låser båden
+// Vi lÃ¥ser bÃ¥den
   if (!$Lockboat[$boatid])
   {
 
@@ -882,7 +882,7 @@ if (($TurID=="") || ($bHentIkkeData))
     } 
   } 
 
-  $boatid=$rs["fk_bådid"];
+  $boatid=$rs["fk_bÃ¥did"];
   $kmdist=$rs["Meter"]/1000;
   $scomment=$rs["Kommentar"];
   $rs->close;
@@ -914,8 +914,8 @@ while(!$rs->eof)
 
   $sDestination=$sDestination.$rs["navn"];
 
-//Det næste er indented, fordi vi ikke vil have det til at stå to steder
-//& " " & (rs("meter")\\100)/10 & " km" & "</OPTION>"
+//Det nÃ¦ste er indented, fordi vi ikke vil have det til at stÃ¥ to steder
+//& " " & (rs("meter")/100)/10 & " km" & "</OPTION>"
   $rs->movenext;
 } 
 $rs->close;
@@ -953,13 +953,13 @@ if (($timind=="") || (!isset($timind)))
 
 ?>
 
-<h2><? echo $StrIndUD;?>    af båd:&nbsp;&nbsp; <? echo $rsboat["Navn"];?></h2>
+<h2><?php echo $StrIndUD;?>    af bÃ¥d:&nbsp;&nbsp; <?php echo $rsboat["Navn"];?></h2>
     </td>
     <td width="21%">
     </td>
   </tr>
 </table>
-<? 
+<?php 
 if ($l_fejlmsg!="")
 {
 
@@ -968,8 +968,8 @@ if ($l_fejlmsg!="")
 
 ?>
 <form method="post" action="dsrbookboat.php" id="boatbookform" name="boatbookform">
-<INPUT type=hidden value=<? echo $boatid;?> id=boatid name=boatid>
-<INPUT type=hidden value="<? echo $turid;?>" id=turid name=turid>
+<INPUT type=hidden value=<?php echo $boatid;?> id=boatid name=boatid>
+<INPUT type=hidden value="<?php echo $turid;?>" id=turid name=turid>
 <TABLE cellSpacing=1 cellPadding=1 width="100%" border=0>
 <TR>
 <TD width=75% colspan="2">
@@ -978,34 +978,34 @@ if ($l_fejlmsg!="")
     <TD width="100" >Destination</TD>
     <TD colspan="3">
 	<SELECT style="WIDTH: 205px" name="Destination"> 
-       <? echo $sDestination;?>
+       <?php echo $sDestination;?>
     
       </SELECT>
       
-      <? if ($_SESSION['BådKategori']!=13)
+      <?php if ($_SESSION['BÃ¥dKategori']!=13)
 {
 ?>
-      <INPUT value="<?   echo $kmDist;?>" style="WIDTH: 50px;" maxlength=6 id=kmDist name=kmDist size="20">km&nbsp;&nbsp;&nbsp;
-      <? } ?>
+      <INPUT value="<?php   echo $kmDist;?>" style="WIDTH: 50px;" maxlength=6 id=kmDist name=kmDist size="20">km&nbsp;&nbsp;&nbsp;
+      <?php } ?>
       </TD></TR>
   <TR>
     <TD width="100">Ud</TD>
     <TD colspan="3">
     
-    <INPUT value=<? echo strftime("%H",$timud);?> style="WIDTH: 25px;" maxlength=2 id=hrtimud name=hrtimud size="20"> :
-    <INPUT value=<? echo strftime("%M",$timud);?> style="WIDTH: 25px;" id=mintimud name=mintimud maxlength=2 size=2>
-    <INPUT value=<? echo $timud;?> id=datetimud name=datetimud size="20"></TD></TR>
+    <INPUT value=<?php echo strftime("%H",$timud);?> style="WIDTH: 25px;" maxlength=2 id=hrtimud name=hrtimud size="20"> :
+    <INPUT value=<?php echo strftime("%M",$timud);?> style="WIDTH: 25px;" id=mintimud name=mintimud maxlength=2 size=2>
+    <INPUT value=<?php echo $timud;?> id=datetimud name=datetimud size="20"></TD></TR>
     
   <TR>
     <TD width="100">Forventet ind</TD>
     
     <TD colspan="3">
     
-    <INPUT value=<? echo strftime("%H",$timForventetind);?> style="WIDTH: 25px;" maxlength=2 id=hrtimforvind name=hrforvtimind size="20"> :
-    <INPUT value=<? echo strftime("%M",$timForventetind);?> style="WIDTH: 25px;" id=minforvtimind name=minforvtimind maxlength=2 size="20" >
-    <INPUT value=<? echo $timForventetind;?> id=dateforvtimind name=dateforvtimind size="20">
+    <INPUT value=<?php echo strftime("%H",$timForventetind);?> style="WIDTH: 25px;" maxlength=2 id=hrtimforvind name=hrforvtimind size="20"> :
+    <INPUT value=<?php echo strftime("%M",$timForventetind);?> style="WIDTH: 25px;" id=minforvtimind name=minforvtimind maxlength=2 size="20" >
+    <INPUT value=<?php echo $timForventetind;?> id=dateforvtimind name=dateforvtimind size="20">
     <INPUT size=25 id="Varighed" readonly style="border:0; background-color:transparent"></INPUT></TD></TR>
-        <? 
+        <?php 
 
 $MyRS=$db->execute;
 
@@ -1026,19 +1026,19 @@ $myrs->close;
     <TD width="100">Ind</TD>
     <TD colspan="3">
     
-    <INPUT value=<? echo strftime("%H",$timind);?> style="WIDTH: 25px;" maxlength=2 id=hrtimind name=hrtimind size="20"> :
-    <INPUT value=<? echo strftime("%M",$timind);?> style="WIDTH: 25px;" id=mintimind name=mintimind maxlength=2 size="20" >
-    <INPUT value=<? echo $timind;?> id=datetimind name=datetimind size="20"></TD></TR>
+    <INPUT value=<?php echo strftime("%H",$timind);?> style="WIDTH: 25px;" maxlength=2 id=hrtimind name=hrtimind size="20"> :
+    <INPUT value=<?php echo strftime("%M",$timind);?> style="WIDTH: 25px;" id=mintimind name=mintimind maxlength=2 size="20" >
+    <INPUT value=<?php echo $timind;?> id=datetimind name=datetimind size="20"></TD></TR>
    
   <TR>
     <TD width="100">Turtype</TD>
     <TD colspan="3">
     <SELECT style="WIDTH: 205px" name="Turtype" id=xTurtype> 
-    <? echo $sTurtype;?>
+    <?php echo $sTurtype;?>
       </SELECT></TD></TR>
   <TR>
-    <TD width="100" >Bemærkning</TD>
-    <TD colspan="3"><TEXTAREA name="sComment" style="width: 485; height: 37" cols=33 rows="1"><? echo $scomment;?>
+    <TD width="100" >BemÃ¦rkning</TD>
+    <TD colspan="3"><TEXTAREA name="sComment" style="width: 485; height: 37" cols=33 rows="1"><?php echo $scomment;?>
 </TEXTAREA></TD></TR>
 </table>
  <table border=0>
@@ -1046,9 +1046,9 @@ $myrs->close;
     <TD width=50 height="20"></TD>
     <TD width=20 height="20"></TD>
     <TD width="79" height="20"><strong>Nummer</strong></TD>
-    <TD width="230" height="20"><strong>Navn</strong> (indtast min. 3 tegn for at søge)</TD>
-    <TD width="200" height="20"><strong>Søgeresultater</strong> (vælg fra liste)</TD></TR>
-    <? 
+    <TD width="230" height="20"><strong>Navn</strong> (indtast min. 3 tegn for at sÃ¸ge)</TD>
+    <TD width="200" height="20"><strong>SÃ¸geresultater</strong> (vÃ¦lg fra liste)</TD></TR>
+    <?php 
 if (!$rsturmembers==null)
 {
 
@@ -1071,30 +1071,30 @@ for ($i=1; $i<=$rsboat["pladser"]; $i=$i+1)
     $s="Roer ".$i-1;
   } ?>
 	   <TR>
-			<TD><?   echo $s;?></TD>
+			<TD><?php   echo $s;?></TD>
 			<td>
-			<?   if (strlen($iMemberID[$i])<1)
+			<?php   if (strlen($iMemberID[$i])<1)
   {
 
 ?>
-				<img id="roerstatus<?     echo $i;?>" src="images/traflight_yellow.gif">
-				<? 
+				<img id="roerstatus<?php     echo $i;?>" src="images/traflight_yellow.gif">
+				<?php 
   }
     else
   {
 
 ?>
-				<img id="roerstatus<?     echo $i;?>" src="images/traflight_green.gif">
-			<?   } ?>
+				<img id="roerstatus<?php     echo $i;?>" src="images/traflight_green.gif">
+			<?php   } ?>
 			</td>
 			<TD>
-				<INPUT value="<?   echo $iMemberID[$i];?>" id="MemberID<?   echo $i;?>" size="8" name="imemberid<?   echo $I;?>" onChange="AutoFillName(<?   echo $i;?>);" onkeypress="return noenter();">
+				<INPUT value="<?php   echo $iMemberID[$i];?>" id="MemberID<?php   echo $i;?>" size="8" name="imemberid<?php   echo $I;?>" onChange="AutoFillName(<?php   echo $i;?>);" onkeypress="return noenter();">
 			</TD>
-			<TD><INPUT value="<?   echo $sMemberName[$i];?>" id="Membername<?   echo $i;?>" size="32" name="smembername<?   echo $I;?>"  onKeyUp="FillMemberSelector(<?   echo $i;?>);" onkeypress="return noenter();"></TD>
+			<TD><INPUT value="<?php   echo $sMemberName[$i];?>" id="Membername<?php   echo $i;?>" size="32" name="smembername<?php   echo $I;?>"  onKeyUp="FillMemberSelector(<?php   echo $i;?>);" onkeypress="return noenter();"></TD>
 			<TD>
             
-			<span id="MemberSelector<?   echo $i;?>">
-			<SELECT style="WIDTH: 200px" name="Cmbmembername<?   echo $I;?>" id="Cmbmembername<?   echo $I;?>"> 
+			<span id="MemberSelector<?php   echo $i;?>">
+			<SELECT style="WIDTH: 200px" name="Cmbmembername<?php   echo $I;?>" id="Cmbmembername<?php   echo $I;?>"> 
 				<option>...</option>
 			</SELECT>						
           	</span>
@@ -1102,7 +1102,7 @@ for ($i=1; $i<=$rsboat["pladser"]; $i=$i+1)
 			</TD>
 
 	   </TR>
-	   <? 
+	   <?php 
 
 }
 
@@ -1118,51 +1118,51 @@ for ($i=1; $i<=$rsboat["pladser"]; $i=$i+1)
 <TD height="25" width="50"></TD>
 
 <TD height="25" align="left">
-<? 
-//turid="" OR action="Udskriv båd" or  
+<?php 
+//turid="" OR action="Udskriv bÃ¥d" or  
 if ($strIndUd=="Udskrivning")
 {
 
 ?>
-<input name="subaction" value="Udskriv båd" type="hidden" tabindex="0">
-<INPUT type="button" value="Udskriv båd" onclick="AllValidations(<?   echo $AntalPladser;?>);">
-<? 
+<input name="subaction" value="Udskriv bÃ¥d" type="hidden" tabindex="0">
+<INPUT type="button" value="Udskriv bÃ¥d" onclick="AllValidations(<?php   echo $AntalPladser;?>);">
+<?php 
 }
   else
 {
 
 
 ?>
-<input name="subaction" type="hidden" value="Indskriv båd" tabindex="0">
- <INPUT type="button" value="Indskriv båd" onclick="AllValidations(<?   echo $AntalPladser;?>);"> 
-<? 
+<input name="subaction" type="hidden" value="Indskriv bÃ¥d" tabindex="0">
+ <INPUT type="button" value="Indskriv bÃ¥d" onclick="AllValidations(<?php   echo $AntalPladser;?>);"> 
+<?php 
 } 
 
 
 
 ?>
-<input name="returnaction" type="hidden" value="<? echo $strindud;?>" tabindex="0">
+<input name="returnaction" type="hidden" value="<?php echo $strindud;?>" tabindex="0">
  <INPUT name="action" type=submit value="Opret roere" tabindex="2">
-<? 
+<?php 
 
 if ($turid!="")
 {
 
 ?>
  <INPUT name="action" type=submit value="Slet Tur" tabindex="1">
-<? 
+<?php 
 } 
 
 
 $s=GetBoatInfo($BoatID);?>
-<INPUT type="button" value="Meld Skade" id=ButMeldSkade name=butmeldskade onclick="ButMeldSkade_Onclick '<? echo $boatid;?>','<? echo $turid;?>'" LANGUAGE="VBScript" tabindex="3">
+<INPUT type="button" value="Meld Skade" id=ButMeldSkade name=butmeldskade onclick="ButMeldSkade_Onclick '<?php echo $boatid;?>','<?php echo $turid;?>'" LANGUAGE="VBScript" tabindex="3">
 <INPUT name="action" type="submit" value="Tilbage" tabindex="4">
 </TD>
 
 </TR>
 </table>
 </form>
-<? 
+<?php 
 $CloseDatabase;
 // Det der kommer nedenfor kommer med til clienten
 ?>
@@ -1209,7 +1209,7 @@ Sub Pressed(Id)
 	i=instr(stxt,"-")
 	if i<>0 then stxt=mid(stxt,i+1)
 
-	'alert("Værdi:" & s & ", " & Stxt & " id=" & id)
+	'alert("VÃ¦rdi:" & s & ", " & Stxt & " id=" & id)
 
 	' For at opdatere INPUT feltet skal man definere en textRange
 	set Element=document.getElementById("sMemberName" & id)
@@ -1258,7 +1258,7 @@ sub Destination_Onchange
 		txtRange.text=stxt
 	
 		'Beregn den estimerede varighed
-		'Først: Returner turtypen, for at se, om det er instruktion
+		'FÃ¸rst: Returner turtypen, for at se, om det er instruktion
 	
 		set Element=document.getElementByID("xTurtype")
 		for u=0 to Element.options.length-1
@@ -1324,7 +1324,7 @@ sub Turtype_Onchange
 		txtRange.text=stxt
 	
 		'Beregn den estimerede varighed
-		'Først: Returner turtypen, for at se, om det er instruktion
+		'FÃ¸rst: Returner turtypen, for at se, om det er instruktion
 	
 		set Element=document.getElementByID("xTurtype")
 		for u=0 to Element.options.length-1
@@ -1378,7 +1378,7 @@ end sub
 <TR>
 <TD colspan="2">
 
-<? echo $s;?>
+<?php echo $s;?>
 
 </TD>
 </TR>
@@ -1403,7 +1403,7 @@ end sub
 
 function ValidateRowers()
 	{
-	AntalRoere=<? echo $AntalPladser;?><%;
+	AntalRoere=<?php echo $AntalPladser;?><%;
 	for (i=1; i<=AntalRoere; i++)
 		{
 		if (DoValidateRower(i)=='valid')	

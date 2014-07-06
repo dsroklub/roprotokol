@@ -1,6 +1,6 @@
 <HTML>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 <Base Target=main>
 <title></title>
@@ -10,7 +10,7 @@
 		<tr>
 			<td>
 				<table width="100%" class=menu>
-				<tr bgcolor=navy><th><div style="COLOR: white">Vælg funktion</div></th></tr>
+				<tr bgcolor=navy><th><div style="COLOR: white">VÃ¦lg funktion</div></th></tr>
 				<tr><td><A class=menupunkt2 href="dsrlist.php?action=2">Aktuelle skader</A></td></tr>
 				<tr><td><A class=menupunkt2 href="Rapskade.php?Origin=topmenu">Rapporter ny skade</A></td></tr>
 				<tr><td>&nbsp<br></td></tr>

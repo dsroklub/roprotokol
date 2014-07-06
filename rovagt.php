@@ -1,18 +1,19 @@
-<? // asp2php (vbscript) converted on Sun Aug 11 21:16:37 2013
+<?php 
+// asp2php (vbscript) converted on Sun Aug 11 21:16:37 2013
 include "DatabaseINC.php";
  ?>
 
 <HTML>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 </head>
 
 <BODY bgproperties="fixed" background="images/baggrund.jpg">
 <table align="center"><tr><td>
 <P>
-<? 
+<?php 
 $s="";
 
 $db=OpenDatabase();
@@ -23,22 +24,22 @@ $db=OpenDatabase();
 <table border="1" cellpadding="0" cellspacing="0" style="border-width:0; border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber1">
   <tr>
     <td width="58%" style="border-style: none; border-width: medium">
-		<h2>Rovagtens oversigt over tilgængelige både</h2>
+		<h2>Rovagtens oversigt over tilgÃ¦ngelige bÃ¥de</h2>
 
     </td>
     <td width="42%" style="border-style: none; border-width: medium"><form>
-      <input type=button value="Udskriv tilgængelige både" onClick="window.open('Rovagt_printer.php', 'Printervenlig', 'toolbar=no, directories=no, location=no, status=no, menubar=no, resizable=no, scrollbars=yes, width=600, height=500, top=0, left=0');" style="float: right"></form>
+      <input type=button value="Udskriv tilgÃ¦ngelige bÃ¥de" onClick="window.open('Rovagt_printer.php', 'Printervenlig', 'toolbar=no, directories=no, location=no, status=no, menubar=no, resizable=no, scrollbars=yes, width=600, height=500, top=0, left=0');" style="float: right"></form>
 </td>
   </tr>
 </table>
 <p>
 		<br>
-		<font size="2">Oversigten viser de både, der er tilgængelige og utilgængelige fordelt på hhv. 2 og 4-åres inriggere samt andre bådtyper.
+		<font size="2">Oversigten viser de bÃ¥de, der er tilgÃ¦ngelige og utilgÃ¦ngelige fordelt pÃ¥ hhv. 2 og 4-Ã¥res inriggere samt andre bÃ¥dtyper.
         </font>
 </p>
 
 <p>
-		<font size="2">En båd er utilgængelig, når den er på vandet eller er  svært skadet. En båd er tilgængelig, når den ikke er på vandet, og ikke er svært skadet.
+		<font size="2">En bÃ¥d er utilgÃ¦ngelig, nÃ¥r den er pÃ¥ vandet eller er  svÃ¦rt skadet. En bÃ¥d er tilgÃ¦ngelig, nÃ¥r den ikke er pÃ¥ vandet, og ikke er svÃ¦rt skadet.
 <br>
 <br>
 </p>
@@ -46,23 +47,23 @@ $db=OpenDatabase();
 
 <table align="center"><tr><td>
 
-<h3>Tilgængelige 4-åres inriggere</h3>
-<? 
+<h3>TilgÃ¦ngelige 4-Ã¥res inriggere</h3>
+<?php 
 $db=OpenDatabase();
-$s="select * from QRYRovagtInr4 WHERE tilgængelig='Ja'";
+$s="select * from QRYRovagtInr4 WHERE tilgÃ¦ngelig='Ja'";
 $rs=$db->query($s);
 if ($rs && $rs->num_rows>0) {
   Rovagt($rs);
 } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
-		<? 
+		<?php 
 } 
 ?>
 
-		<h3>Tilgængelige 2-åres inriggere</h3>
-		<? 
-$s="select * from QRYRovagtInr2 where tilgængelig='ja'";
+		<h3>TilgÃ¦ngelige 2-Ã¥res inriggere</h3>
+		<?php 
+$s="select * from QRYRovagtInr2 where tilgÃ¦ngelig='ja'";
 $rs=$db->query($s);
 
 if ($rs && $rs->num_rows>0) {
@@ -70,14 +71,14 @@ if ($rs && $rs->num_rows>0) {
 } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
-		<? 
+		<?php
 } 
 
 ?>
 		
-		<h3>Tilgængelige både - andre bådtyper</h3>
-		<? 
-$s="select * from QRYRovagtAndet  where tilgængelig='ja'";
+		<h3>TilgÃ¦ngelige bÃ¥de - andre bÃ¥dtyper</h3>
+		<?php 
+$s="select * from QRYRovagtAndet  where tilgÃ¦ngelig='ja'";
 $rs=$db->query($s);
 if ($rs && $rs->num_rows > 0) {
   Rovagt($rs);
@@ -85,49 +86,49 @@ if ($rs && $rs->num_rows > 0) {
 
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
-		<? 
+		<?php 
 } 
 
 ?>
 				
-		<h3>Ikke-tilgængelige 4-åres inriggere</h3>
-		<? 
+		<h3>Ikke-tilgÃ¦ngelige 4-Ã¥res inriggere</h3>
+		<?php 
 $db=OpenDatabase();
-$s="select * from QRYRovagtInr4 where tilgængelig='nej'";
+$s="select * from QRYRovagtInr4 where tilgÃ¦ngelig='nej'";
 $rs=$db->query($s);
 if ($rs && $rs->num_rows>0) {
   Rovagt($rs);
 } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
-		<? 
+		<?php 
 } 
 
 ?>	
-		<h3>Ikke-tilgængelige 2-åres inriggere</h3>
-		<? 
-$s="select * from QRYRovagtInr2 where tilgængelig='nej'";
+		<h3>Ikke-tilgÃ¦ngelige 2-Ã¥res inriggere</h3>
+		<?php 
+$s="select * from QRYRovagtInr2 where tilgÃ¦ngelig='nej'";
 $rs=$db->query($s);
 if ($rs && $rs->num_rows>0) {
   Rovagt($rs);
 } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
-		<? 
+		<?php 
 } 
 
 ?>
 
-		<h3>Ikke-tilgængelige både - andre bådtyper</h3>
-		<? 
-$s="select * from QRYRovagtAndet  where tilgængelig='nej'";
+		<h3>Ikke-tilgÃ¦ngelige bÃ¥de - andre bÃ¥dtyper</h3>
+		<?php 
+$s="select * from QRYRovagtAndet  where tilgÃ¦ngelig='nej'";
 $rs=$db->query($s);
 if ($rs && $rs->num_rows>0) {
   Rovagt($rs);
 } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
-		<? 
+		<?php 
 } 
 
 //$rs->close;

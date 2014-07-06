@@ -1,21 +1,21 @@
-<?
+<?php
   session_start();
 //  session_register("username_session");
 //  session_register("password_session");
 ?>
-<? // asp2php (vbscript) converted on Sun Aug 11 21:21:27 2013
+<?php // asp2php (vbscript) converted on Sun Aug 11 21:21:27 2013
  $CODEPAGE="1252";?>
 <!-- #include file="databaseINC.php" -->
 <html>
 <head>
 <title>Untitled Document</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="../roprotokol.css">
 </head>
 
 <BODY background="images/baggrund.jpg" bgproperties="fixed">
 
-	<? 
+	<?php 
 $Action=${"action"};
 $BoatID=${"BoatID"};
 $username=${"username"};
@@ -74,7 +74,7 @@ case "Convert":
 </body>
 </html>
 
-<? 
+<?php 
 function ValidateInsert()
 {
   extract($GLOBALS);
@@ -108,7 +108,7 @@ function ValidateInsert()
 } 
 ?>
 
-<? 
+<?php 
 function ShowLoginForm()
 {
   extract($GLOBALS);
@@ -129,7 +129,7 @@ function ShowLoginForm()
 	<input type="submit" value="Log ind">
 	<input type="hidden" value="ShowConvert" name="action">
 	</form>
-	<? 
+	<?php 
 
   return $function_ret;
 } 
@@ -149,7 +149,7 @@ function ValidateLogin() {
 } 
 ?>
 
-<? 
+<?php 
 function InsertNewMember()
 {
   extract($GLOBALS);
@@ -171,17 +171,17 @@ function InsertNewMember()
 	<h3>Roeren er oprettet</h3>
 	<p>Du kan enten vælge at fortsætte ind-/udskrigningen af turen eller du kan oprette flere roere.</p>
 	<form action="opretroer.php" method="post">
-	<input type="hidden" name="BoatID" value="<?   echo $BoatID;?>">
-	<input type="button" onClick="window.location=('dsrbookboat.php?boatid=<?   echo $boatID;?>&action=EditerTur&ForceRefreshCache=1&returnaction=<?   echo $returnaction;?>');" value="Tilbage til ind-/udskrivning">
+	<input type="hidden" name="BoatID" value="<?php   echo $BoatID;?>">
+	<input type="button" onClick="window.location=('dsrbookboat.php?boatid=<?php   echo $boatID;?>&action=EditerTur&ForceRefreshCache=1&returnaction=<?php   echo $returnaction;?>');" value="Tilbage til ind-/udskrivning">
 	<input type="submit" value="Opret flere roere">
 	</form>
-	<? 
+	<?php 
 
   return $function_ret;
 } 
 ?>
 
-<? 
+<?php 
 function DoConversion()
 {
   extract($GLOBALS);
@@ -212,13 +212,13 @@ function DoConversion()
 	<p>Roerens ture er nu flyttet fra det midlertidige medlemsnummer til det permanente.</p>
 	<input type="button" onClick="window.location=('opretroer.php?action=ShowConvert');" value="Ny konvertering">
 	</form>
-	<? 
+	<?php 
 
   return $function_ret;
 } 
 ?>
 
-<? 
+<?php 
 function ShowMemberForm()
 {
   extract($GLOBALS);
@@ -230,7 +230,7 @@ function ShowMemberForm()
 
 	<h2>Opret roer</h2>
 	<p>Her kan du oprette en roer, som ikke i forvejen findes i roprotokollen.</p>
-	<p><font color="red"><?   echo $errormessage;?></font> 
+	<p><font color="red"><?php   echo $errormessage;?></font> 
 
 	<form name="opretform" action="opretroer.php" method="post">
 	<table border=0>
@@ -247,51 +247,51 @@ function ShowMemberForm()
 		<tr>
 			<td><p>Fornavn</p></td>
 			<td>
-				<? 
+				<?php 
   if (${"firstname"}!="")
   {
     $prefill=${"firstname"};
   } ?>
-				<input name="Firstname" id="Firstname" size="20" value="<?   echo $prefill;?>" onChange="ValidateFields();" onBlur="ValidateFields();" onKeyUp="ValidateFields();"><font color="red"> *</font>
+				<input name="Firstname" id="Firstname" size="20" value="<?php   echo $prefill;?>" onChange="ValidateFields();" onBlur="ValidateFields();" onKeyUp="ValidateFields();"><font color="red"> *</font>
 			</td>
 			<td>
 				<p>Efternavn</p>
 			</td>
 			<td>
-				<? 
+				<?php 
   if (${"lastname"}!="")
   {
     $prefill=${"lastname"};
   } ?>
-				<input name="Lastname" id="Lastname" size="20" value="<?   echo $prefill;?>" onChange="ValidateFields();" onBlur="ValidateFields();" onKeyUp="ValidateFields();"><font color="red"> *</font>
+				<input name="Lastname" id="Lastname" size="20" value="<?php   echo $prefill;?>" onChange="ValidateFields();" onBlur="ValidateFields();" onKeyUp="ValidateFields();"><font color="red"> *</font>
 			</td>
 		</tr>
 		<tr>
 			<td><p>Fødselsdato</p></td>
 			<td>
-				<? 
+				<?php 
   $prefill="DD-MM-YYYY";
   if (${"Birthdate"}!="")
   {
     $prefill=$birthdate;
   } ?>
-				<input name="Birthdate" id="Birthdate" size="20" onFocus="if (this.value=='DD-MM-YYYY'){this.value='';this};" onChange="ValidateFields();" onBlur="ValidateFields();" onKeyUp="ValidateFields();" value="<?   echo $prefill;?>"><font color="red"> *</font>
+				<input name="Birthdate" id="Birthdate" size="20" onFocus="if (this.value=='DD-MM-YYYY'){this.value='';this};" onChange="ValidateFields();" onBlur="ValidateFields();" onKeyUp="ValidateFields();" value="<?php   echo $prefill;?>"><font color="red"> *</font>
 			</td>
 		</tr>
 		<tr>
 			<td><p>Midlertidigt medlemsnummer</p></td>
-			<td><input name="tempmemberid" type="hidden" id="tempmemberid" value="<?   echo $NextMemberIDK;?>"> 
+			<td><input name="tempmemberid" type="hidden" id="tempmemberid" value="<?php   echo $NextMemberIDK;?>"> 
 			<table border=1 style="border-collapse: collapse;" bordercolor="#000000" cellpadding="3">
 				<tr><td>
-				<b><span id="tempmemberid2"><?   echo $NextMemberIDK;?></span></b>
+				<b><span id="tempmemberid2"><?php   echo $NextMemberIDK;?></span></b>
 				</td></tr>
 			</table>
 			</td>
 		</tr>
 	</table>
 	
-	<input type="hidden" name="returnaction" value="<?   echo $returnaction;?>">
-	<input type="hidden" name="BoatID" value="<?   echo $BoatID;?>">
+	<input type="hidden" name="returnaction" value="<?php   echo $returnaction;?>">
+	<input type="hidden" name="BoatID" value="<?php   echo $BoatID;?>">
 	<input type="hidden" name="action" value="ValidateInsert">
 	<input type="submit" id="Submitbutton" value="Opret" disabled>
 	</form>
@@ -314,16 +314,16 @@ function ShowMemberForm()
 			switch (mType)
 				{
 				case "k": 
-					document.getElementById('tempmemberid').value = "<?   echo $NextMemberIDK;?>";
-					document.getElementById('tempmemberid2').innerHTML = "<?   echo $NextMemberIDK;?>";
+					document.getElementById('tempmemberid').value = "<?php   echo $NextMemberIDK;?>";
+					document.getElementById('tempmemberid2').innerHTML = "<?php   echo $NextMemberIDK;?>";
 					break;
 				case "n": 
-					document.getElementById('tempmemberid').value = "<?   echo $NextMemberIDN;?>";
-					document.getElementById('tempmemberid2').innerHTML = "<?   echo $NextMemberIDN;?>";
+					document.getElementById('tempmemberid').value = "<?php   echo $NextMemberIDN;?>";
+					document.getElementById('tempmemberid2').innerHTML = "<?php   echo $NextMemberIDN;?>";
 					break;
 				case "r": 
-					document.getElementById('tempmemberid').value = "<?   echo $NextMemberIDX;?>";
-					document.getElementById('tempmemberid2').innerHTML = "<?   echo $NextMemberIDX;?>";
+					document.getElementById('tempmemberid').value = "<?php   echo $NextMemberIDX;?>";
+					document.getElementById('tempmemberid2').innerHTML = "<?php   echo $NextMemberIDX;?>";
 					break;
 				}
 			}
@@ -347,12 +347,12 @@ function ShowMemberForm()
 				}
 			}
 	</script>
-	<? 
+	<?php 
   return $function_ret;
 } 
 ?>
 
-<? 
+<?php 
 function GetNextMemberID($FirstLetter)
 {
   extract($GLOBALS);
@@ -377,7 +377,7 @@ function GetNextMemberID($FirstLetter)
 } 
 ?>
 
-<? 
+<?php 
 function ShowConverterForm()
 {
   extract($GLOBALS);
@@ -386,7 +386,7 @@ function ShowConverterForm()
 	<h2>Konverter midlertidig roer til permanent</h2>
 	<p>Denne funktion skal du bruge, hvis du skal overflytte ture fra et midlertidigt medlemsnummer til et permanent medlemsnummer.</p>
 	
-	<? 
+	<?php 
   $opendatabase;
   $sql="SELECT Medlem.Medlemsnr, [Fornavn] & ' ' & [Efternavn] AS Navn FROM Medlem;";
   $rs=$db->query($sql);
@@ -395,7 +395,7 @@ function ShowConverterForm()
 
 ?>
 	
-	<? 
+	<?php 
 
   if (is_array($MemberPickerArray))
   {
@@ -421,7 +421,7 @@ function ShowConverterForm()
 
 	<script language="JavaScript">
 	
-		<?   echo $Arrayblock;?>
+		<?php   echo $Arrayblock;?>
 	
 		function AutoFillName()
 			{
@@ -500,7 +500,7 @@ function ShowConverterForm()
 				<td></td>
 				<td colspan=3>				
 					<select name="temporarymemberID">
-						<? 
+						<?php 
   $opendatabase;
   $sql="select Medlemsnr, Fornavn, Efternavn, Fødselsdag FROM Medlem WHERE ((Medlem.Medlemsnr Like 'K%') OR (Medlem.Medlemsnr Like 'N%')) ORDER BY [Medlemsnr]";
   $rs=$db->query($sql);
@@ -567,7 +567,7 @@ function ShowConverterForm()
 		</tr>
 	</table>
 	
-	<? 
+	<?php 
   return $function_ret;
 } 
 ?>

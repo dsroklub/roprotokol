@@ -17,7 +17,7 @@ if(!isset($_SESSION))  session_start();
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 
 
-<? 
+<?php 
 $gDebugSw=true;
 $blocal=false;
 
@@ -31,6 +31,7 @@ function OpenDatabase() {
 
 //  create connection to database
   $db0=new mysqli("localhost","root",$dbpw,"roprotokol");
+  $db0->set_charset("utf8");
   return $db0;
 } 
 
@@ -95,7 +96,7 @@ function Rostatistik($RS,$Subgroup,$medlid) {
 					<table border=0>
 					<tr><td><p class="almtekst">Find medlem:</p></td>
 					<td><input id="medlnr" name="medlnr" type="text" size="4"></td>
-					<td><input type="button" value="Søg" onClick="RedirIframe();">
+					<td><input type="button" value="SÃ¸g" onClick="RedirIframe();">
 					</td></tr></table>				
 				</td>
 			</tr>
@@ -181,7 +182,7 @@ function RedirIframe()
 
     $rowhtml=$rowhtml."<td>".($rownum+1)."</td>";
 
-//Find medlemsnummeret for denne række
+//Find medlemsnummeret for denne rÃ¦kke
 
     $Fieldnumber=1;
     $Redkey="";
@@ -270,10 +271,10 @@ function Baadstatistik($RS,$Subgroup) {
 
     print "<td>".$i."</td>";
 
-//Find bådnavnet for denne række
+//Find bÃ¥dnavnet for denne rÃ¦kke
     foreach ($rs as $f)
     {
-      if ($f->name=="Båd")
+      if ($f->name=="BÃ¥d")
       {
         $MemberID=$f->value;
       } 
@@ -287,7 +288,7 @@ function Baadstatistik($RS,$Subgroup) {
       {
         $Alignment="Right";
       } 
-      if ($f->name=="Båd" || $f->name=="Antal ture")
+      if ($f->name=="BÃ¥d" || $f->name=="Antal ture")
       {
 
         print "<td><p align=\"".$Alignment."\"><a href=\"rostat.php?rostataction=BoatSpecs&ID=".$MemberID."\" >".$f->value."</a></td>";
@@ -367,19 +368,22 @@ function DMmotionsroning()
 	<h2>Indberetning til DM i motionsroning</h2>
 	<table border="0">
 	<tr>
-		<td><p>Samlet antal roede personkilometer:</p></td><td align="right"><p><b><?   echo $OutputExp;?></b></p></td>
+		<td><p>Samlet antal roede personkilometer:</p></td><td align="right"><p><b>
+<?php   echo $OutputExp;?></b></p></td>
 	</tr>
 	<tr>
-	<td><p>Aktive roere i alt:</p></td><td align="right"><b><?   echo $roere;?></b></td> 
+	<td><p>Aktive roere i alt:</p></td><td align="right"><b>
+<?php   echo $roere;?></b></td> 
 	</tr>
 	<tr>
-		<td><p>Personkilometer per aktiv roer:</p></td><td align="right"><p><b><?   echo intval($kmialt/$roere*100)/100;?></b></p></td> 
+		<td><p>Personkilometer per aktiv roer:</p></td><td align="right"><p><b>
+<?php   echo intval($kmialt/$roere*100)/100;?></b></p></td> 
 	</tr>
 	</table>
 	<p></p>
-	<p>Det sidste tal indberettes én gang om måneden til DFfR. Tallet er opgjort pr. 01-<?   echo substr("0".(strftime("%m",time())),strlen("0".(strftime("%m",time())))-(2));?>-<?   echo strftime("%Y",strftime("%m/%d/%Y %H:%M:%S %p"));?></p>
+	<p>Det sidste tal indberettes Ã©n gang om mÃ¥neden til DFfR. Tallet er opgjort pr. 01-<?php   echo substr("0".(strftime("%m",time())),strlen("0".(strftime("%m",time())))-(2));?>-<?php   echo strftime("%Y",strftime("%m/%d/%Y %H:%M:%S %p"));?></p>
 	
-	<? 
+	<?php 
 
   return $function_ret;
 } 
@@ -416,7 +420,7 @@ function Statistikoversigt()
   $rs=mysql_fetch_array($rs_query);
   $AntalSkader=$rs["Antal"];
 
-  $RS2_query=mysql_query(("SELECT Gruppe.Navn AS Bådtype, Count(Båd.Navn) AS Boats, Count(qBoatsSkadet.Navn) AS Skadet FROM (Gruppe INNER JOIN Båd ON Gruppe.GruppeID = Båd.FK_GruppeID) LEFT JOIN qBoatsSkadet ON Båd.BådID = qBoatsSkadet.FK_BådID GROUP BY Gruppe.Navn"),$db);  
+  $RS2_query=mysql_query(("SELECT Gruppe.Navn AS BÃ¥dtype, Count(BÃ¥d.Navn) AS Boats, Count(qBoatsSkadet.Navn) AS Skadet FROM (Gruppe INNER JOIN BÃ¥d ON Gruppe.GruppeID = BÃ¥d.FK_GruppeID) LEFT JOIN qBoatsSkadet ON BÃ¥d.BÃ¥dID = qBoatsSkadet.FK_BÃ¥dID GROUP BY Gruppe.Navn"),$db);  
   $RS2=mysql_fetch_array($RS2_query);
 
   $RS3_query=mysql_query(("SELECT Hitcounter.Side, Count(Hitcounter.Side) AS Visninger FROM Hitcounter GROUP BY Hitcounter.Side"),$db);  
@@ -429,28 +433,28 @@ function Statistikoversigt()
 	<h3>Roaktivitet</h3>
 	<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="400">
 		<tr>
-			<td width=60%>Antal ture i år</td><td><?   echo $antalture;?></td>
+			<td width=60%>Antal ture i Ã¥r</td><td><?php   echo $antalture;?></td>
 		</tr>
 		<tr>
-			<td>Antal km roet i alt</td><td><?   echo $antalkmialt;?></td>
+			<td>Antal km roet i alt</td><td><?php   echo $antalkmialt;?></td>
 		</tr>
 		<tr>
-			<td>Antal rodage indtil nu</td><td><?   echo $antalrodage;?></td>
+			<td>Antal rodage indtil nu</td><td><?php   echo $antalrodage;?></td>
 		</tr>
 		<tr>
-			<td>Antal km pr. dag</td><td><?   echo $antalkmprdag;?></td>
+			<td>Antal km pr. dag</td><td><?php   echo $antalkmprdag;?></td>
 		</tr>
 		<tr>
-			<td>Antal ture pr. dag</td><td><?   echo $antaltureprdag;?></td>
+			<td>Antal ture pr. dag</td><td><?php   echo $antaltureprdag;?></td>
 		</tr>
 		<tr>
-			<td>Antal aktive roere</td><td><?   echo $antalroere;?></td>
+			<td>Antal aktive roere</td><td><?php   echo $antalroere;?></td>
 		</tr>
 		<tr>
-			<td>Antal ture pr. roer</td><td><?   echo $AntalTurePrRoer;?></td>
+			<td>Antal ture pr. roer</td><td><?php   echo $AntalTurePrRoer;?></td>
 		</tr>
 		<tr>
-			<td>Flest ture på en dag</td><td><?   echo $flestturedato;?> (<?   echo $flesttureantal;?> ture)</td>
+			<td>Flest ture pÃ¥ en dag</td><td><?php   echo $flestturedato;?> (<?php   echo $flesttureantal;?> ture)</td>
 		</tr>
 	</table>
 	
@@ -458,16 +462,16 @@ function Statistikoversigt()
 	
 	<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="400">
 	<tr>
-		<td width=60%>Antal skader lige nu</td><td><?   echo $antalskader;?><br></td>
+		<td width=60%>Antal skader lige nu</td><td><?php   echo $antalskader;?><br></td>
 	</tr>
 	<tr>
 		<td colspan=2>
 			<br>
 			<table class="rostat" width=100%>
 			<tr>
-				<th class="tablehead" width=33%>Bådtype</th><th class="tablehead" width=33%>Antal både</th><th class="tablehead" width=33%>Heraf skadet</th>
+				<th class="tablehead" width=33%>BÃ¥dtype</th><th class="tablehead" width=33%>Antal bÃ¥de</th><th class="tablehead" width=33%>Heraf skadet</th>
 			</tr>	
-<? 
+<?php 
   while(!(($rs2==0)))
   {
 
@@ -483,7 +487,7 @@ function Statistikoversigt()
       print "<tr class=\"secondrow\">";
     } 
 
-    print "<td>".$rs2["Bådtype"]."</td><td>".$rs2["Boats"]."</td><td>".$rs2["skadet"]."</td></tr>";
+    print "<td>".$rs2["BÃ¥dtype"]."</td><td>".$rs2["Boats"]."</td><td>".$rs2["skadet"]."</td></tr>";
     $rs2=mysql_fetch_array($rs2_query);
 
   } 
@@ -502,7 +506,7 @@ function Statistikoversigt()
 			<tr>
 				<th class="tablehead" width=50%>Side</th><th class="tablehead" width=50%>Antal visninger</th>
 			</tr>	
-<? 
+<?php 
   while(!(($rs3==0)))
   {
 
@@ -529,7 +533,7 @@ function Statistikoversigt()
 	</tr>
 	</table>
 	
-	<? 
+	<?php 
 
 
   return $function_ret;
@@ -611,7 +615,7 @@ function SkadedeBaade($RS)
               $Secondfield="<img border=\"0\" src=\"images/icon_skadet2.gif\" width=\"16\" height=\"17\">  Middel";
               break;
             case 3:
-              $Secondfield="<img border=\"0\" src=\"images/icon_skadet3.gif\" width=\"16\" height=\"16\">  Svær";
+              $Secondfield="<img border=\"0\" src=\"images/icon_skadet3.gif\" width=\"16\" height=\"16\">  SvÃ¦r";
               break;
           } 
         } 
@@ -620,7 +624,7 @@ function SkadedeBaade($RS)
         if ($f->name=="SkadeID")
         {
 
-          print "<td><p align=\"".$Alignment."\"><a href=\"klarmeld.php?Origin=SkadedeBåde&boatid=".$BoatID."&skadeid=".$f->value."\"><u>[Klarmeld]</u></a></td>";
+          print "<td><p align=\"".$Alignment."\"><a href=\"klarmeld.php?Origin=SkadedeBÃ¥de&boatid=".$BoatID."&skadeid=".$f->value."\"><u>[Klarmeld]</u></a></td>";
         }
           else
         if ($f->name=="Grad")
@@ -735,21 +739,21 @@ function Rovagt($rsv) {
     if ($i==0) {
       print "<table class=\"rostat\"><tr>";
       foreach (array_keys($rw) as $f) {
-	if ($f != "Tilgængelig") {
+	if ($f != "TilgÃ¦ngelig") {
 	  print "<th class=\"tablehead\">".$f."</th>";
 	} 
       }
     }
     print "</tr>\n";      
     $i=$i+1;
-    if (! preg_match("/lånt båd/",$rw["Navn"])) {
+    if (! preg_match("/lÃ¥nt bÃ¥d/",$rw["Navn"])) {
       if (($i%2)==0) {
 	print "<tr class=\"firstrow\">";
       } else {
 	print "<tr class=\"secondrow\">";
       }       
       foreach (array_keys($rw) as $f) {
-	if ($f != "Tilgængelig") {
+	if ($f != "TilgÃ¦ngelig") {
 	  $Alignment="Left";
 	  print "<td><p align=\"".$Alignment."\">".$rw[$f]."</td>";
 	} 
@@ -768,14 +772,14 @@ function Rovagt_printer($RS)
   extract($GLOBALS);
 
 
-  if (substr($rs["Navn"],strlen($rs["Navn"])-(8))=="lånt båd")
+  if (substr($rs["Navn"],strlen($rs["Navn"])-(8))=="lÃ¥nt bÃ¥d")
   {
     $rs=mysql_fetch_array($rs_query);
 
   } 
 
   print "<table bordercolor=\"#111111\" border=1 style=\"border-collapse: collapse\" width=310><tr>";
-  print "<th width=\"40%\">Båd</th><th width=\"60%\">Tildelt</th></tr>";
+  print "<th width=\"40%\">BÃ¥d</th><th width=\"60%\">Tildelt</th></tr>";
 
   while(!(($rs==0)))
   {
@@ -800,14 +804,14 @@ function DagensTure($RS)
 
 ?><table class="rostat" width=700><tr>
 <th class="tablehead" width="5%">Tur</th>
-<th class="tablehead" width="10%">Båd</th>
+<th class="tablehead" width="10%">BÃ¥d</th>
 <th class="tablehead" width="20%">Destination</th>
 <th class="tablehead" width="10%">Ud</th>
 <th class="tablehead" width="10%">Ind</th>
 <th class="tablehead" width="10%">Forv. ind</th>
 <th class="tablehead" width="25%">Roere</th>
 </tr>
-<? 
+<?php 
 
 
   while(!(($rs==0))) {
@@ -824,7 +828,7 @@ function DagensTure($RS)
     $thisturid=$lastturid;
 
     print "<td><p align=\"left\"><a href=\"rostat.php?rostataction=TripSpecs&ID=".$rs["TurID"]."\" >".$rs["TurID"]."</a></td>";
-    print "<td>".$rs["båd"]."</td>";
+    print "<td>".$rs["bÃ¥d"]."</td>";
     print "<td><p align=\"left\">".$rs["Destination"]."</td>";
     print "<td><p align=\"Right\">".substr($rs["udtid"],0,5)."</td>";
     print "<td><p align=\"Right\">".substr($rs["indtid"],0,5)."</td>";
@@ -873,30 +877,30 @@ function RoerensStamdata($RS)
 
 
 ?>
-<form method="POST" action="rettelser.php?Postback=2&Rtype=2&SlaaOpKnap=Slå op&MemberID=<?   echo $RS[0];?>" id=form2 name=form2> 
+<form method="POST" action="rettelser.php?Postback=2&Rtype=2&SlaaOpKnap=SlÃ¥ op&MemberID=<?php   echo $RS[0];?>" id=form2 name=form2> 
 <table class="rostat">
 <tr>
-	<td width="25%"><font color="<?   echo truefalse($rs["Roret"]);?>">Roret</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["TeoretiskStyrmandKursus"]);?>">Teor. styrmandskursus</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["ScullerInstruktoer"]);?>">Scullerinstruktør</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["Kajak"]);?>">Kajakret</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["Roret"]);?>">Roret</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["TeoretiskStyrmandKursus"]);?>">Teor. styrmandskursus</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["ScullerInstruktoer"]);?>">ScullerinstruktÃ¸r</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["Kajak"]);?>">Kajakret</font></td>
 </tr>
 <tr>
-	<td width="25%"><font color="<?   echo truefalse($rs["RoInstruktoer"]);?>">Instruktør</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["Styrmand"]);?>">Styrmand</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["Svava"]);?>">Svavaret</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["KajakInstruktoer"]);?>">Kajakinstruktør</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["RoInstruktoer"]);?>">InstruktÃ¸r</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["Styrmand"]);?>">Styrmand</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["Svava"]);?>">Svavaret</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["KajakInstruktoer"]);?>">KajakinstruktÃ¸r</font></td>
 </tr>
 <tr>
-	<td width="25%"><font color="<?   echo truefalse($rs["StyrmandInstruktoer"]);?>">Styrmandsinstruktør</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["Langtur"]);?>">Langtursstyrmand</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["Sculler"]);?>">Scullerret</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["StyrmandInstruktoer"]);?>">StyrmandsinstruktÃ¸r</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["Langtur"]);?>">Langtursstyrmand</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["Sculler"]);?>">Scullerret</font></td>
 </tr>
 <tr>
 	</td>
-	<td width="25%"><font color="<?   echo truefalse($rs["Ormen"]);?>">Gig 8-er styrmand</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["Kaproer"]);?>">Kaproer</font></td>
-	<td width="25%"><font color="<?   echo truefalse($rs["Motorboat"]);?>">Motorbådsret</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["Ormen"]);?>">Gig 8-er styrmand</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["Kaproer"]);?>">Kaproer</font></td>
+	<td width="25%"><font color="<?php   echo truefalse($rs["Motorboat"]);?>">MotorbÃ¥dsret</font></td>
 	<td colspan=4 align=right>
 		<input type="submit" value="Indberet rettelse" name="Rettelse2">
 	<td>
@@ -905,7 +909,7 @@ function RoerensStamdata($RS)
 </form>
 
 
-<? 
+<?php 
 
   return $function_ret;
 } 
@@ -929,7 +933,7 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 	<th class="tablehead">Status</th>
 	<th class="tablehead">Beskrivelse</th>
 </tr>
-<? 
+<?php 
   while(!(($rs==0)))
   {
 
@@ -948,10 +952,10 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
     $i=$i+1;
 
 ?>
-	<td><?     echo $rs["fk_turid"];?></td>
-	<td><?     echo $rs["Dest"]."<br>".$rs["Båd"]."<br>".$rs["OprettetDato"];?></td>
+	<td><?php     echo $rs["fk_turid"];?></td>
+	<td><?php     echo $rs["Dest"]."<br>".$rs["BÃ¥d"]."<br>".$rs["OprettetDato"];?></td>
 	<td>
-		<? 
+		<?php 
     if (!isset($rs["Indberetter"]))
     {
 
@@ -966,7 +970,7 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 ?>
 	</td>
 	<td>
-		<? 
+		<?php 
     if (!isset($rs["Fixed_comment"]))
     {
 
@@ -981,19 +985,19 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 ?>
 	</td>	
 	<td>
-		<?     if (($rs["fejlid"])==($ShowRettelseSpecs))
+		<?php     if (($rs["fejlid"])==($ShowRettelseSpecs))
     {
 ?>
-		<a href="rostat.php?rostataction=ShowTrips&ID=<?       echo $rs["Medlemsnr"];?>">[Skjul]</a>
-		<?     }
+		<a href="rostat.php?rostataction=ShowTrips&ID=<?php echo $rs["Medlemsnr"];?>">[Skjul]</a>
+		<?php     }
       else
     {
 ?>
-		<a href="rostat.php?rostataction=ShowTrips&ID=<?       echo $rs["Medlemsnr"];?>&ShowRettelseSpecs=<?       echo $rs["FejlID"];?>">[Vis]</a>
-		<?     } ?>
+		<a href="rostat.php?rostataction=ShowTrips&ID=<?php echo $rs["Medlemsnr"];?>&ShowRettelseSpecs=<?php       echo $rs["FejlID"];?>">[Vis]</a>
+		<?php     } ?>
 	</td>
 </tr>
-<? 
+<?php 
     if (($rs["fejlid"])==($ShowRettelseSpecs))
     {
 
@@ -1005,7 +1009,7 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
       } 
 
 ?>
-		<tr class="<?       echo $Myclass;?>">
+		<tr class="<?php       echo $Myclass;?>">
 		  <td></td><td colspan="4">
 		  <table width=100%>
 			<tr>
@@ -1018,7 +1022,7 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 			<tr>
 				<td width=17% valign="top"><b>
 				Tur slettes<br>
-				Båd<br>
+				BÃ¥d<br>
 				Ud<br>
 				Ind<br>
 				Destination<br>
@@ -1026,24 +1030,24 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 				Turtype<br>
 				</b></td>
 				<td width=33% valign="top">
-				<? 
+				<?php 
       if ($rs["Slettur"]="False")
       {
-?>Nej<? 
+?>Nej<?php 
       }
         else
       {
 
-?>Ja<? 
+?>Ja<?php 
       } 
 
 ?><br>				
-				<?       echo $rs["Båd"];?><br>				
-				<?       echo $rs["Ud"];?><br>				
-				<?       echo $rs["Ind"];?><br>				
-				<?       echo $rs["Destination"];?><br>				
-				<?       echo $rs["Distance"];?> km<br>				
-				<?       echo $rs["Turtype"];?><br>					
+				<?php       echo $rs["BÃ¥d"];?><br>				
+				<?php       echo $rs["Ud"];?><br>				
+				<?php       echo $rs["Ind"];?><br>				
+				<?php       echo $rs["Destination"];?><br>				
+				<?php       echo $rs["Distance"];?> km<br>				
+				<?php       echo $rs["Turtype"];?><br>					
 				</td>
 
 				<td width=17% valign="top"><b>
@@ -1051,33 +1055,33 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 				Roere<br>
 				</b></td>
 				<td width=33% valign="top">
-				<?       echo $rs["TurDeltager0"];?><br>
-				<?       echo $rs["TurDeltager1"];?><br>
-				<?       echo $rs["TurDeltager2"];?><br>
-				<?       echo $rs["TurDeltager3"];?><br>
-				<?       echo $rs["TurDeltager4"];?><br>
-				<?       echo $rs["TurDeltager5"];?><br>
-				<?       echo $rs["TurDeltager6"];?><br>
-				<?       if ($rs["Turdeltager7"]!="")
+				<?php       echo $rs["TurDeltager0"];?><br>
+				<?php       echo $rs["TurDeltager1"];?><br>
+				<?php       echo $rs["TurDeltager2"];?><br>
+				<?php       echo $rs["TurDeltager3"];?><br>
+				<?php       echo $rs["TurDeltager4"];?><br>
+				<?php       echo $rs["TurDeltager5"];?><br>
+				<?php       echo $rs["TurDeltager6"];?><br>
+				<?php       if ($rs["Turdeltager7"]!="")
       {
 ?>
-				<?         echo $rs["TurDeltager7"];?><br>
-				<?         echo $rs["TurDeltager8"];?><br>
-				<?       } ?>
+				<?php         echo $rs["TurDeltager7"];?><br>
+				<?php         echo $rs["TurDeltager8"];?><br>
+				<?php       } ?>
 				</td>
 			</tr>
 			<tr>
 				<td width=17% valign="top"><b>
-				<b>Årsag</b>
+				<b>Ã…rsag</b>
 				</td>
 				<td width=83% valign="top" colspan=3>
-				<?       echo $rs["Årsag til rettelsen"];?><br>
+				<?php       echo $rs["Ã…rsag til rettelsen"];?><br>
 				</td>
 			</tr>
 		  </table>
 		  </td>
 		</tr>
-		<? 
+		<?php 
     } 
 
 
@@ -1087,7 +1091,7 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
   } 
 ?>
 </table>
-<? 
+<?php 
 
   return $function_ret;
 } 
@@ -1246,10 +1250,10 @@ function Turspecifikation($RS)
   print "<p>".(8).$value." nr. ".(0).$Value." til ".substr((2).$value,0,(strpos((2).$value," (",1) ? strpos((2).$value," (",1)+1 : 0))." i ".(1).$value." den ".(3).$value." (".(4).$value." km)</p>";
 
 ?>
-<form method="POST" action="rettelser.php?Postback=1&Rtype=1&SlaaOpKnap=Slå op&TurID=<?   echo $RS["TurID"];?>"> 
+<form method="POST" action="rettelser.php?Postback=1&Rtype=1&SlaaOpKnap=SlÃ¥ op&TurID=<?php   echo $RS["TurID"];?>"> 
 <input type="submit" value="Indberet rettelser til turen" name="Rettelse">
 </form>
-<? 
+<?php 
 
   print "<p>Tur start: ".("Ud")."<br>";
   print "Forventet ind: ".("forvind")."<br>";
@@ -1290,7 +1294,7 @@ function Turspecifikation($RS)
   } 
   print "</table>";
 
-  print "<p><br><strong>Bemærkning: </strong>".$Bemaerk."<br></p>";
+  print "<p><br><strong>BemÃ¦rkning: </strong>".$Bemaerk."<br></p>";
   print "<FORM><INPUT TYPE=\"button\" VALUE=\"Tilbage\" onClick=\"history.go(-1)\"></FORM>";
   return $function_ret;
 } 
@@ -1299,7 +1303,7 @@ function Turspecifikation($RS)
 
 function Turtypesummary($RS) {
   extract($GLOBALS);
-  print "<h3>Oversigt fordelt på turtyper</h3>";
+  print "<h3>Oversigt fordelt pÃ¥ turtyper</h3>";
   print "<table class=\"rostat\" width=\"600\">";
   for ($FieldNr=0; $FieldNr<=3; $FieldNr=$FieldNr+1) {
     // FIXME print "<th class=\"tablehead\">".($FieldNr)->$name."</td>";
@@ -1468,44 +1472,44 @@ function ListRS($RS)
 
   return $function_ret;
 } 
-?><? 
-// Her kommer så de DSR specifikke rutiner
-// Regner med databasen er åben.
+?><?php 
+// Her kommer sÃ¥ de DSR specifikke rutiner
+// Regner med databasen er Ã¥ben.
 //----------------------------------------------------
 function LockBoat($boatid)
 {
   extract($GLOBALS);
 
 LockRemoveInactive();
-  $rs_query=mysql_query(("select * from låstebåde where BoatID=".$boatid),$db);  
+  $rs_query=mysql_query(("select * from lÃ¥stebÃ¥de where BoatID=".$boatid),$db);  
 $rs=mysql_fetch_array($rs_query);
   if (($rs==0))  {
   $navn=$mysqli->real_escape_string($_SESSION["Navn"]);
 
-  $db->query("Insert into Låstebåde (boatid,KlientNavn) values ($boatid,$navn)",$db); // FIXME
+  $db->query("Insert into LÃ¥stebÃ¥de (boatid,KlientNavn) values ($boatid,$navn)",$db); // FIXME
     $function_ret=true;
   } else {
     $function_ret=false;
-    print "<img border=\"0\" src=\"images/icon_laast.gif\" width=\"16\" height=\"17\">  Båden er ved at blive udskrevet.";
+    print "<img border=\"0\" src=\"images/icon_laast.gif\" width=\"16\" height=\"17\">  BÃ¥den er ved at blive udskrevet.";
   } 
 
   $rs=null;
   return $function_ret;
 } 
-?><? 
+?><?php 
 function LockRemoveInactive()
 {
   extract($GLOBALS);
 
 // Response . write("Delete from 
-// låstebåde where locktimeout now or KlientNavn=  session(Navn)  )
+// lÃ¥stebÃ¥de where locktimeout now or KlientNavn=  session(Navn)  )
 
   if (isset($_SESSION["Navn"])) {
     $navn=mysqli_real_escape_string($_SESSION["Navn"]);
   } else {
     $navn="";
   }
-  $db->query("Delete FROM LåsteBåde WHERE locktimeout < now() OR KlientNavn=$navn");  
+  $db->query("Delete FROM LÃ¥steBÃ¥de WHERE locktimeout < now() OR KlientNavn=$navn");  
   //NEL close?  return $function_ret;
 } 
 
@@ -1564,7 +1568,7 @@ function GetBoatNameID($ID)
   if ($ID>0)
   {
 
-    $rs=$rs_query=mysql_query(("Select Navn from Båd Where BådID=".$ID),$db);    
+    $rs=$rs_query=mysql_query(("Select Navn from BÃ¥d Where BÃ¥dID=".$ID),$db);    
 $rs=mysql_fetch_array($rs_query);
 ;    if (!($rs==0))
     {
@@ -1625,7 +1629,7 @@ function SkadeString($SkadeNr)
       $function_ret="Middel skadet";
       break;
     case 3:
-      $function_ret="Svært skadet";
+      $function_ret="SvÃ¦rt skadet";
       break;
     default:
       $function_ret="??";

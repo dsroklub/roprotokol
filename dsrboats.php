@@ -6,7 +6,7 @@ $db=OpenDatabase();
 ?>
 <HTML>
 <HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
   <script language="javascript" src="rslite.js"></script>
   <script language="javascript">
@@ -53,7 +53,7 @@ $db=OpenDatabase();
   <title>Vis både</title>
 </head>
 <body onLoad="body_onLoad();" bgproperties="fixed" background="images/baggrund.jpg">
-<? 
+<?php 
 
       function arget($nm) {
       $rs="";
@@ -75,48 +75,48 @@ $opendatabase;
 ?>
 
 
-<INPUT type=Hidden value=<? echo $GruppeId;?> name=whichVar>
+<INPUT type=Hidden value=<?php echo $GruppeId;?> name=whichVar>
 <table width="100%" class="rostat">
   <tr>
     <th class="tablehead" width="25%">Båd</th>
     <th class="tablehead" width="25%">Status</th>
     
-    <? 
+    <?php 
 switch ($ShowType) {
   case "Reservation":
   $Myrs=$db->execute($ShowID);
 
 ?>
-		<th class="tablehead" width="48%">Reservationer - <? echo $myrs["navn"];?></th>
-		<th class="tablehead" width="2%"><a href="dsrboats.php?GruppeID=<? echo $gruppeID;?>"><img src="images/icon_close.gif" border="0"></a></th>
-	<?     $myrs->close;
+		<th class="tablehead" width="48%">Reservationer - <?php echo $myrs["navn"];?></th>
+		<th class="tablehead" width="2%"><a href="dsrboats.php?GruppeID=<?php echo $gruppeID;?>"><img src="images/icon_close.gif" border="0"></a></th>
+	<?php     $myrs->close;
 
     break;
   case "Skade":
 
   $Myrs=$db->execute($ShowID);
 ?>
-		<th class="tablehead" width="48%">Aktuelle skader - <? echo $myrs["navn"];?></th>
-		<th class="tablehead" width="2%"><a href="dsrboats.php?GruppeID=<? echo $gruppeID;?>"><img src="images/icon_close.gif" border="0"></a></th>
-	<? $myrs->close;
+		<th class="tablehead" width="48%">Aktuelle skader - <?php echo $myrs["navn"];?></th>
+		<th class="tablehead" width="2%"><a href="dsrboats.php?GruppeID=<?php echo $gruppeID;?>"><img src="images/icon_close.gif" border="0"></a></th>
+	<?php $myrs->close;
 
     break;
   case "Tur":
   $Myrs=$db->execute($ShowID);
 
 ?>
-		<th class="tablehead" width="48%">Igangværende tur - <? echo $myrs["navn"];?></th>
-		<th class="tablehead" width="2%"><a href="dsrboats.php?GruppeID=<? echo $gruppeID;?>"><img src="images/icon_close.gif" border="0"></a></th>
-		<? 
+		<th class="tablehead" width="48%">Igangværende tur - <?php echo $myrs["navn"];?></th>
+		<th class="tablehead" width="2%"><a href="dsrboats.php?GruppeID=<?php echo $gruppeID;?>"><img src="images/icon_close.gif" border="0"></a></th>
+		<?php 
     $myrs->close;
     break;
   default:
 ?>
 		<th class="tablehead" width="50%">Information</th>		
-	<? break;
+	<?php break;
 } ?>
 </tr>
-<? 
+<?php 
 
 LockRemoveInactive();
 $BoatHTML=array();
@@ -270,11 +270,11 @@ while(!($i==$CNT)) {
 //
 //end if
 
-        $DetailInfo=$DetailInfo."<tr><td><b>Ind-/udskriv båd:</b><br>Click på bådens navn for at komme videre til ind-/udskrivning.<br><br>".
-          "<b>Bådens status:</b><br>".
-          "Hvis båden allerede er udskrevet, kan du clicke på dens status for at se yderligere oplysninger om den igangværende tur.".
-          "<br><br>Hvis båden er skadet, kan du clicke på dens status, for at se en liste over bådens skader.".
-          "<br><br>Er båden  reserveret, kan du clicke på dens status, for at se, hvornår den er reserveret.";
+        $DetailInfo=$DetailInfo."<tr><td><b>Ind-/udskriv bÃ¥d:</b><br>Click pÃ¥ bÃ¥dens navn for at komme videre til ind-/udskrivning.<br><br>".
+          "<b>BÃ¥dens status:</b><br>".
+          "Hvis bÃ¥den allerede er udskrevet, kan du clicke pÃ¥ dens status for at se yderligere oplysninger om den igangvÃ¦rende tur.".
+          "<br><br>Hvis bÃ¥den er skadet, kan du clicke pÃ¥ dens status, for at se en liste over bÃ¥dens skader.".
+          "<br><br>Er bÃ¥den  reserveret, kan du clicke pÃ¥ dens status, for at se, hvornÃ¥r den er reserveret.";
         $DetailInfo=$DetailInfo."</td></tr></table></center>";
         break;
     } 

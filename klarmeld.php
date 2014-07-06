@@ -1,14 +1,14 @@
-<? // asp2php (vbscript) converted on Sun Aug 11 21:05:59 2013
+<?php // asp2php (vbscript) converted on Sun Aug 11 21:05:59 2013
  ?>
 <!-- #include file="databaseINC.php" -->
 
 <HTML>
 <HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 </HEAD>
 <BODY bgproperties="fixed" background="images/baggrund.jpg">
-<? 
+<?php 
 // Kommer ind med boatid
 
 $Origin=${"Origin"};
@@ -90,37 +90,37 @@ $closedatabase;
 ?>
 <H2>Klarmeld båd</H2>
 
-<form method="post" action="Klarmeld.php?Origin=<? echo $origin;?>" id=form1 name=form1>
+<form method="post" action="Klarmeld.php?Origin=<?php echo $origin;?>" id=form1 name=form1>
 <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
   <TR>
     <TD>Bådnavn:</TD>
-    <TD><INPUT id=Navn Value="<? echo $BoatName;?>"><INPUT type=hidden id=BoatID name=BoatID Value="<? echo $BoatID;?>"></TD>
+    <TD><INPUT id=Navn Value="<?php echo $BoatName;?>"><INPUT type=hidden id=BoatID name=BoatID Value="<?php echo $BoatID;?>"></TD>
     <TD></TD></TR>
   <TR>
     <TD>Klarmeldt af:</TD>
     <TD>
-    <INPUT type=locked id=StyrmandNavn name=StyrmandNavn Value="<? echo $StyrmandNavn;?>" size="20"><INPUT Type=Hidden id=StyrmandID Name=StyrmandID Value="<? echo $StyrmandID;?>">
+    <INPUT type=locked id=StyrmandNavn name=StyrmandNavn Value="<?php echo $StyrmandNavn;?>" size="20"><INPUT Type=Hidden id=StyrmandID Name=StyrmandID Value="<?php echo $StyrmandID;?>">
     <input type=submit value="Slå op" name="SlaaOpKnap">
     <select name=Medlemsforslag id=Medlemsforslag onchange="Pressed()" LANGUAGE="VBScript">
-    <? echo $Options;?>
+    <?php echo $Options;?>
     </select>
     </TD>
    </TR>
   <TR>
     <TD>Dato for klarmelding: </TD>
-    <TD><? echo time();?></TD>
+    <TD><?php echo time();?></TD>
     <TD></TD></TR>
   <TR>
     <TD>Beskrivelse af skaden:</TD>
     <TD>
-    <textarea rows="9" id=TxtBeskrivelse name=TxtBeskrivelse cols="32"><? echo $Beskrivelse;?></textarea>
+    <textarea rows="9" id=TxtBeskrivelse name=TxtBeskrivelse cols="32"><?php echo $Beskrivelse;?></textarea>
     </TD>
     <TD></TD></TR></TABLE>
 <P> </P>
 
 <P>
 <INPUT id=submit1 type=submit value="Klarmeld skade" name=submit1>
-<INPUT type=hidden Name=SkadeID Value=<? echo $SkadeID;?>>
+<INPUT type=hidden Name=SkadeID Value=<?php echo $SkadeID;?>>
 </P>
 </Form>
 
@@ -154,7 +154,7 @@ end sub
 </BODY>
 </HTML>
 
-<? 
+<?php 
 function GetMemberBestMatch($MemberName)
 {
   extract($GLOBALS);

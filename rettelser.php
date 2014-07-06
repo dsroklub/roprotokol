@@ -1,4 +1,4 @@
-<? // asp2php (vbscript) converted on Sun Aug 11 21:06:43 2013
+<?php // asp2php (vbscript) converted on Sun Aug 11 21:06:43 2013
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 $xdebug_default_enable=1;
@@ -8,11 +8,11 @@ include "DatabaseINC.php";
 
 <HTML>
 <HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 </HEAD>
 <BODY bgproperties="fixed" background="images/baggrund.jpg">
-<? 
+<?php 
 
 $RType=$_GET["RType"];
 $TurID=$_GET["TurID"];
@@ -130,7 +130,7 @@ switch ($Postback)
 						</td>
 					</tr>
 				</table>
-			<? 
+			<?php 
         $Rtype=99;
       } else
 	if ($errorstate==1)
@@ -224,7 +224,7 @@ switch ($Postback)
 					</td>
 				</tr>
 			</table>
-		<? 
+		<?php 
 
       $Rtype=99;
     } 
@@ -257,7 +257,7 @@ switch ($Postback)
 				</td>
 			</tr>
 		</table>
-	<? 
+	<?php 
     $Rtype=99;
     break;
 } 
@@ -301,7 +301,7 @@ switch ($RType)
 		</tr>
 		</table>
 
-	<? 
+	<?php 
     break;
   case 1:
 
@@ -313,7 +313,7 @@ switch ($RType)
 			<TABLE cellSpacing=1 cellPadding=1 width="100%" border=0>
 				<tr>
 				  <td width="32%">TurID</td>
-				  <td width="68%"><input type="text" name="TurID" size="36" value="<?     echo $TurID;?>">
+				  <td width="68%"><input type="text" name="TurID" size="36" value="<?php     echo $TurID;?>">
 				  <input type=submit value="Slå op" name="SlaaOpKnap">
 				  </td>
 				</tr>
@@ -323,35 +323,35 @@ switch ($RType)
 				</tr>
 				<tr>
 				  <td width="32%">Båd</td>
-				  <td width="68%"><input type="text" name="Baad" size="36" value="<?     echo $Baad;?>"></td>
+				  <td width="68%"><input type="text" name="Baad" size="36" value="<?php     echo $Baad;?>"></td>
 				</tr>
 				<tr>
 				  <td width="32%">Ud</td>
-				  <td width="68%"><input type="text" name="Ud" size="36" value="<?     echo $Ud;?>"></td>
+				  <td width="68%"><input type="text" name="Ud" size="36" value="<?php     echo $Ud;?>"></td>
 				</tr>	
 				<tr>
 				  <td width="32%">Ind</td>
-				  <td width="68%"><input type="text" name="Ind" size="36" value="<?     echo $Ind;?>"></td>
+				  <td width="68%"><input type="text" name="Ind" size="36" value="<?php     echo $Ind;?>"></td>
 				</tr>					
 				<tr>
 				  <td width="32%">Destination</td>
-				  <td width="68%"><input type="text" name="Destination" size="36" value="<?     echo $Destination;?>"></td>
+				  <td width="68%"><input type="text" name="Destination" size="36" value="<?php     echo $Destination;?>"></td>
 				</tr>					
 				<tr>
 				  <td width="32%">Distance (km)</td>
-				  <td width="68%"><input type="text" name="Distance" size="36" value="<?     echo $Distance;?>"></td>
+				  <td width="68%"><input type="text" name="Distance" size="36" value="<?php     echo $Distance;?>"></td>
 				</tr>	
 				<tr>
 				  <td width="32%">Turtype</td>
-				  <td width="68%"><input type="text" name="Turtype" size="36" value="<?     echo $Turtype;?>"></td>
+				  <td width="68%"><input type="text" name="Turtype" size="36" value="<?php     echo $Turtype;?>"></td>
 				</tr>				
-	<?     for ($c1=0; $c1<=8; $c1=$c1+1)
+	<?php     for ($c1=0; $c1<=8; $c1=$c1+1)
     {?>
 				<tr>
-				  <td width="32%">Turdeltager <?       echo $c1;?></td>
-				  <td width="68%"><input type="text" name="Turdeltager<?       echo $c1;?>" size="36" value="<?       echo $Turdeltager[$c1];?>"></td>
+				  <td width="32%">Turdeltager <?php       echo $c1;?></td>
+				  <td width="68%"><input type="text" name="Turdeltager<?php       echo $c1;?>" size="36" value="<?php       echo $Turdeltager[$c1];?>"></td>
 				</tr>
-	<? 
+	<?php 
     }?>
 				<tr>
 				  <td width="32%" valign=top>Årsag til rettelsen</td>
@@ -371,7 +371,7 @@ switch ($RType)
 				</tr>
 			</table>
 			</form>
-	<? 
+	<?php 
     break;
   case 2:
 
@@ -383,48 +383,48 @@ switch ($RType)
 			<TABLE cellSpacing=1 cellPadding=1 width="100%" border=0>
 			<tr>
 				<td width="32%" valign=top>Medlemsnummer</td>
-				<td width="68%"><input type="text" name="MemberID" size="8" value="<?     echo $memberID;?>">
+				<td width="68%"><input type="text" name="MemberID" size="8" value="<?php     echo $memberID;?>">
 				<input type=submit value="Slå op" name="SlaaOpKnap">
 			</td>
 			</tr>
 			<tr>
 				<td width="32%" valign=top>Navn</td>
-				<td width="68%" valign=top><INPUT size=36 id="Membername" name="Membername" Value="<?     echo $MemberName;?>"></INPUT></td>
+				<td width="68%" valign=top><INPUT size=36 id="Membername" name="Membername" Value="<?php     echo $MemberName;?>"></INPUT></td>
 			</tr>
 			<tr><td width="32%" valign=top>Roret</td><td width="68%">
-              <input type="checkbox" name="Roret" <?     echo $Roret;?> value="ON"></td></tr>
+              <input type="checkbox" name="Roret" <?php     echo $Roret;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Instruktør</td><td width="68%">
-              <input type="checkbox" name="RoInstruktoer" <?     echo $RoInstruktoer;?> value="ON"></td></tr>
+              <input type="checkbox" name="RoInstruktoer" <?php     echo $RoInstruktoer;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Styrmandsinstruktør</td><td width="68%">
-              <input type="checkbox" name="StyrmandInstruktoer" <?     echo $StyrmandInstruktoer;?> value="ON"></td></tr>
+              <input type="checkbox" name="StyrmandInstruktoer" <?php     echo $StyrmandInstruktoer;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Gig 8'er styrmand</td><td width="68%">
-              <input type="checkbox" name="Ormen" <?     echo $Ormen;?> value="ON"></td></tr>
+              <input type="checkbox" name="Ormen" <?php     echo $Ormen;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Teor. styrmandskursus</td><td width="68%">
-              <input type="checkbox" name="TeoretiskStyrmandKursus" <?     echo $TeoretiskStyrmandKursus;?> value="ON"></td></tr>
+              <input type="checkbox" name="TeoretiskStyrmandKursus" <?php     echo $TeoretiskStyrmandKursus;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Styrmand</td><td width="68%">
-              <input type="checkbox" name="Styrmand" <?     echo $Styrmand;?> value="ON"></td></tr>
+              <input type="checkbox" name="Styrmand" <?php     echo $Styrmand;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Langtursstyrmand</td><td width="68%">
-              <input type="checkbox" name="Langtur" <?     echo $Langtur;?> value="ON"></td></tr>
+              <input type="checkbox" name="Langtur" <?php     echo $Langtur;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Kaproer</td><td width="68%">
-              <input type="checkbox" name="Kaproer" <?     echo $Kaproer;?> value="ON"></td></tr>
+              <input type="checkbox" name="Kaproer" <?php     echo $Kaproer;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Scullerinstruktør</td><td width="68%">
-              <input type="checkbox" name="ScullerInstruktoer" <?     echo $ScullerInstruktoer;?> value="ON"></td></tr>
+              <input type="checkbox" name="ScullerInstruktoer" <?php     echo $ScullerInstruktoer;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Svavaret</td><td width="68%">
-              <input type="checkbox" name="Svava" <?     echo $Svava;?> value="ON"></td></tr>
+              <input type="checkbox" name="Svava" <?php     echo $Svava;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Scullerret</td><td width="68%">
-              <input type="checkbox" name="Sculler" <?     echo $Sculler;?> value="ON"></td></tr>
+              <input type="checkbox" name="Sculler" <?php     echo $Sculler;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Kajakret</td><td width="68%">
-              <input type="checkbox" name="Kajak" <?     echo $Kajak;?> value="ON"></td></tr>
+              <input type="checkbox" name="Kajak" <?php     echo $Kajak;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Kajakinstruktør</td><td width="68%">
-              <input type="checkbox" name="KajakInstruktoer" <?     echo $KajakInstruktoer;?> value="ON"></td></tr>
+              <input type="checkbox" name="KajakInstruktoer" <?php     echo $KajakInstruktoer;?> value="ON"></td></tr>
 			<tr><td width="32%" valign=top>Motorbådsret</td><td width="68%">
-              <input type="checkbox" name="Motorbaad" <?     echo $Motorbaad;?> value="ON"></td></tr>				<tr>
+              <input type="checkbox" name="Motorbaad" <?php     echo $Motorbaad;?> value="ON"></td></tr>				<tr>
 				  <td width="32%" valign=top>Kommentar</td>
 				  <td width="68%"><textarea rows="3" name="Kommentar" cols="44"></textarea></td>
 				</tr>
 				<tr>
 				  <td width="32%">Indberettet af</td>
-				  <td width="68%"><input type="text" name="Indberetter" size="36" value="<?     echo $MemberName;?>"></td>
+				  <td width="68%"><input type="text" name="Indberetter" size="36" value="<?php     echo $MemberName;?>"></td>
 				</tr>
 				<tr>
 				  <td width="32%">Mailadresse / telefon</td>
@@ -437,7 +437,7 @@ switch ($RType)
 			</tr>
 			</table>
 			</form>
-	<? 
+	<?php 
     break;
   case 3:
 
@@ -453,7 +453,7 @@ switch ($RType)
 				</tr>
 				<tr>
 				  <td width="32%">Hvornår opstod fejlen?</td>
-				  <td width="68%"><input type="text" name="Dato" size="36" value="<?     echo time();?>"></td>
+				  <td width="68%"><input type="text" name="Dato" size="36" value="<?php     echo time();?>"></td>
 				</tr>
 				<tr>
 				  <td width="32%">Indberettet af</td>
@@ -469,7 +469,7 @@ switch ($RType)
 				</tr>
 			</table>
 			</form>
-	<? 
+	<?php 
     break;
 } //RType
 ?>

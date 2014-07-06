@@ -1,6 +1,6 @@
 <HTML>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 <Base Target=main>
 <title></title>
@@ -10,9 +10,9 @@
 		<tr>
 			<td>
 				<table width="100%" class=menu>
-				<tr bgcolor=navy><th><div style="COLOR: white">Vælg funktion</div></th></tr>
-				<tr><td><A class=menupunkt2 href="rovagt.php">Tilgængelige både</A></td></tr>
-				<tr><td><A class=menupunkt2 href="rovagtenshjaelp.php">Kombiner både</A></td></tr>
+   <tr bgcolor=navy><th><div style="COLOR: white">VÃ¦lg funktion</div></th></tr>
+				<tr><td><A class=menupunkt2 href="rovagt.php">TilgÃ¦ngelige bÃ¥de</A></td></tr>
+				<tr><td><A class=menupunkt2 href="rovagtenshjaelp.php">Kombiner bÃ¥de</A></td></tr>
 				<tr><td>&nbsp<br></td></tr>
 				</table></td></tr>
 				<tr><td>&nbsp;

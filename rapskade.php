@@ -1,4 +1,4 @@
-<? // asp2php (vbscript) converted on Sun Aug 11 21:17:47 2013
+<?php // asp2php (vbscript) converted on Sun Aug 11 21:17:47 2013
  ?>
 <!-- #include file="databaseINC.php" -->
 
@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 </HEAD>
 <BODY bgproperties="fixed" background="images/baggrund.jpg">
-<? 
+<?php 
 // Kommer ind med boatid
 
 $postback=${"Postback"};
@@ -131,13 +131,13 @@ $closedatabase;
 ?>
 <table align="center"><tr><td>
 <H2>Rapportering af skade</H2>
-<form method="post" action="rapskade.php?Origin=<? echo $origin;?>" id=form1 name=form1>
+<form method="post" action="rapskade.php?Origin=<?php echo $origin;?>" id=form1 name=form1>
 <TABLE cellSpacing=1 cellPadding=1 width="100%" border=0>
   <TR>
-    <TD>Bådnavn:</TD>
+    <TD>BÃ¥dnavn:</TD>
     <TD>
     <select size="1" name="BoatID">
-    <? 
+    <?php 
 $opendatabase;
 $sql="select BådId, Navn from Båd order by Navn";
 $rs=$db->query($sql);
@@ -160,17 +160,17 @@ CloseDatabase();
   <TR>
     <TD>Skademelder:</TD>
     <TD>
-    <INPUT type=locked id=StyrmandNavn name=StyrmandNavn Value="<? echo $StyrmandNavn;?>" size="20">
-    <INPUT Type=Hidden id=StyrmandID Name=StyrmandID Value="<? echo $StyrmandID;?>">
+    <INPUT type=locked id=StyrmandNavn name=StyrmandNavn Value="<?php echo $StyrmandNavn;?>" size="20">
+    <INPUT Type=Hidden id=StyrmandID Name=StyrmandID Value="<?php echo $StyrmandID;?>">
     <input type=submit value="Slå op" name="SlaaOpKnap">
     <select name=Medlemsforslag id=Medlemsforslag onchange="Pressed()" LANGUAGE="VBScript">
-    <? echo $Options;?>
+    <?php echo $Options;?>
     </select></TD>
     </TR>
   <TR>
     <TD>Dato for konstatering: </TD>
 		<TD>
-			<INPUT Type=locked id=KonstateretDato Name=KonstateretDato Value="<? echo time();?>">
+			<INPUT Type=locked id=KonstateretDato Name=KonstateretDato Value="<?php echo time();?>">
 		</TD>
   </TR>
   <TR>
@@ -186,26 +186,26 @@ CloseDatabase();
   <TR>
     <TD>Beskrivelse:</TD>
     <TD>
-    <textarea rows="9" id=TxtBeskrivelse name=TxtBeskrivelse cols="55"><? echo $Beskrivelse;?></textarea>
+    <textarea rows="9" id=TxtBeskrivelse name=TxtBeskrivelse cols="55"><?php echo $Beskrivelse;?></textarea>
     </TD>
     </TR>
 		<tr>
 			<td>
 			</td>
 			<td>
-			<? if ($bIsKlarMeld)
+			<?php if ($bIsKlarMeld)
 {
 ?>
-			<INPUT id=submit1 type=submit value="Klarmeld skade" name=submit1>&nbsp;<a href="dsrbookboat.php?boatid=" <?   echo $boatid;?>>Til
+			<INPUT id=submit1 type=submit value="Klarmeld skade" name=submit1>&nbsp;<a href="dsrbookboat.php?boatid=" <?php   echo $boatid;?>>Til
 			<INPUT type=hidden Name=Postback Value=2>
-			<INPUT type=hidden Name=SkadeID Value=<?   echo $SkadeID;?>>
-			oversigt</a> <? }
+			<INPUT type=hidden Name=SkadeID Value=<?php   echo $SkadeID;?>>
+			oversigt</a> <?php }
   else
 {
 ?>
 			<INPUT id=submit1 type=submit value="Rapporter skade" name=submit1> 
 			<INPUT type=hidden Name=Postback Value=1>
-			<? } ?>
+			<?php } ?>
 			</td>
 		</tr>
     </TABLE>
@@ -243,7 +243,7 @@ end sub
 </BODY>
 </HTML>
 
-<? 
+<?php 
 function GetMemberBestMatch($MemberName)
 {
   extract($GLOBALS);

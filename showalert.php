@@ -1,4 +1,4 @@
-<? // asp2php (vbscript) converted on Sun Aug 11 21:21:03 2013
+<?php // asp2php (vbscript) converted on Sun Aug 11 21:21:03 2013
  ?>
 <!-- #include file="databaseINC.php" -->
 
@@ -9,7 +9,7 @@
 </HEAD>
 <BODY bgproperties="fixed" background="images/baggrund.jpg">
 
-<? 
+<?php 
 function ShowAlert($Alerttype)
 {
   extract($GLOBALS);
@@ -23,9 +23,9 @@ function ShowAlert($Alerttype)
 	
 	<h2>Motion+ båd</h2><br>
 
-	Du er ved at udskrive <?       echo $boatname;?>, og har valgt en anden turtype end 'Motion+'. Bemærk at <?       echo $boatname;?> kun må anvendes efter aftale med motion+ træneren.<br><br>
+	Du er ved at udskrive <?php       echo $boatname;?>, og har valgt en anden turtype end 'Motion+'. Bemærk at <?php       echo $boatname;?> kun må anvendes efter aftale med motion+ træneren.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.<br><br>
-	<? 
+	<?php 
 
       break;
     case "Fafner":
@@ -34,9 +34,9 @@ function ShowAlert($Alerttype)
 ?>
 	
 	<h2>Båden kan være reserveret</h2><br>
-	Du er ved at udskrive <?       echo $boatname;?>. Bemærk at <?       echo $boatname;?> kan være reserveret. Du skal derfor kontrollere listen, der ligger i båden.<br><br>
+	Du er ved at udskrive <?php       echo $boatname;?>. Bemærk at <?php       echo $boatname;?> kan være reserveret. Du skal derfor kontrollere listen, der ligger i båden.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.<br><br>
-	<? 
+	<?php 
 
       break;
     case "InstruktionMO":
@@ -47,7 +47,7 @@ function ShowAlert($Alerttype)
 	<h2>Bemærk instruktion kl. 17.15</h2><br>
 	Bemærk, at båden skal være tilbage senest kl. 17.00 af hensyn til instruktionen.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.<br><br>
-	<? 
+	<?php 
 
       break;
     case "InstruktionLS":
@@ -58,7 +58,7 @@ function ShowAlert($Alerttype)
 	<h2>Bemærk instruktion kl. 13.00</h2><br>
 	Bemærk, at båden skal være tilbage senest kl. 13.00 af hensyn til instruktionen.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.<br><br>
-	<? 
+	<?php 
 
       break;
     case "Rovagt":
@@ -68,7 +68,7 @@ function ShowAlert($Alerttype)
 	<h2>Bemærk rovagtsordning kl. 17.15</h2><br>
 	Bemærk, at båden skal være tilbage senest kl. 17.00 af hensyn til rovagtsordningen.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.<br><br>
-	<? 
+	<?php 
 
       break;
     case "RettighederBåd":
@@ -77,10 +77,10 @@ function ShowAlert($Alerttype)
 ?>
 	
 	<h2>Manglende rettigheder</h2><br>
-	Du har udskrevet en båd af typen <?       echo $Boattype;?>. Ifølge medlemsdatabasen har du  ikke ret til at fungere som styrmand på denne båd.<br><br>
+	Du har udskrevet en båd af typen <?php       echo $Boattype;?>. Ifølge medlemsdatabasen har du  ikke ret til at fungere som styrmand på denne båd.<br><br>
 	Hvis dette er en fejl, bedes du indberette fejlen via roprotokollens <b><a href="rettelser.php?Rtype=2">rettelsesformular</a></b>, hvorefter det vil blive rettet hurtigst muligt.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.
-	<? 
+	<?php 
 
       break;
     case "RettighederKajak":
@@ -92,7 +92,7 @@ function ShowAlert($Alerttype)
 	Du har udskrevet en kajak, men du har ikke kajakret. Hvis der er tale om kajakinstruktion, skal du angive det ved udskrivning.<br><br>
 	Hvis dette er en fejl, bedes du indberette fejlen via roprotokollens <b><a href="rettelser.php?Rtype=2">rettelsesformular</a></b>, hvorefter det vil blive rettet hurtigst muligt.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.
-	<? 
+	<?php 
 
       break;
     case "RettighederInst":
@@ -104,7 +104,7 @@ function ShowAlert($Alerttype)
 	Du har udskrevet en tur af typen instruktion. Ifølge klubbens rettighedsdatabase har du ikke instruktørret. Bemærk, at man skal have instruktørret, for at kunne fungere som styrmand på denne tur.<br><br>
 	Hvis dette er en fejl, bedes du indberette fejlen via roprotokollens <b><a href="rettelser.php?Rtype=2">rettelsesformular</a></b>, hvorefter det vil blive rettet hurtigst muligt.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.
-	<? 
+	<?php 
 
       break;
     case "RettighederLtur":
@@ -116,7 +116,7 @@ function ShowAlert($Alerttype)
 	Du har udskrevet en tur af typen langtur. Ifølge klubbens rettighedsdatabase har du ikke langtursstyrmandsret, og derfor har du ikke ret til at fungere som styrmand på denne tur.<br><br>
 	Hvis dette er en fejl, bedes du indberette fejlen via roprotokollens <b><a href="rettelser.php?Rtype=2">rettelsesformular</a></b>, hvorefter det vil blive rettet hurtigst muligt.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.
-	<? 
+	<?php 
 
       break;
     case "Sent ind":
@@ -127,7 +127,7 @@ function ShowAlert($Alerttype)
 	<h2>Sen tur</h2><br>
 	Husk at lukke portene og slukke lyset når turen er afsluttet.<br><br>
 	
-	<? 
+	<?php 
 
       break;
     case "Reserveret":
@@ -138,7 +138,7 @@ function ShowAlert($Alerttype)
 	<h2>Båden er reserveret</h2><br>
 	Du har udskrevet en båd, der er reserveret af bestyrelsen. Bemærk, at det ikke tilladt at udskrive reserverede både uden aftale med bestyrelsen.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.<br><br>
-	<? 
+	<?php 
 
       break;
     case "Svært skadet":
@@ -149,7 +149,7 @@ function ShowAlert($Alerttype)
 	<h2>Båden er svært skadet</h2><br>
 	Du har udskrevet en båd, der er svært skadet. Det er ikke tilladt at benytte både, der står opført som svært skadede.<br><br>
 	Hvis du fortsætter, vil turen blive udskrevet.<br><br>
-	<? 
+	<?php 
 
       break;
     case "Ingen styrmand":
@@ -160,7 +160,7 @@ function ShowAlert($Alerttype)
 	<h2>Der er ikke angivet en  styrmand</h2><br>
 	Du skal angive en ansvarlig styrmand, når du udskriver turen. Hvis du er ansvarlig styrmand, og ikke har et medlemsnummer, skal dit navn angives i bemærkningsfeltet.<br><br>
 	
-	<? 
+	<?php 
 
       break;
     case "Sidste båd på vandet":
@@ -171,7 +171,7 @@ function ShowAlert($Alerttype)
 	<h2>Sidste båd på vandet</h2><br>
 	Husk at lukke portene og slukke lyset i bådhallen.<br><br>
 	
-	<? 
+	<?php 
 
       break;
   } 
@@ -186,7 +186,7 @@ function ShowAlert($Alerttype)
 			<img  border="0" src="images/icon_alert.gif">
 		</td>
 		<td width=90%>
-<? 
+<?php 
 
 $BoatID=${"BoatID"};
 $Udtid=${"Udtid"};
@@ -502,7 +502,7 @@ $closedatabase;
 		<form action="showalert.php" id=form1 name=form1>
 		<input type="submit" value="Fortsæt" id=Fortsæt name=Fortsæt>
 		<input type="submit" value="Annuller" id=Annuller name=Annuller>
-		<input type="hidden" value="<? echo $TurID;?>" name="TurID">
+		<input type="hidden" value="<?php echo $TurID;?>" name="TurID">
 		</form>
 		</td>
 	</tr>

@@ -9,27 +9,28 @@ include "DatabaseINC.php";
 <html>
 <head>
 <title>Untitled Document</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="roprotokol.css">
 </head>
 
 
 
-<? 
-$opendatabase;
+<?php 
+   //$opendatabase;
+$db=OpenDatabase();
 
-//Undersøg om der skal generes en ny medlemsdatafil
-$LastLoad=$_COOKIE["LastLoad"];
+//UndersÃ¸g om der skal generes en ny medlemsdatafil
+//FIXME $LastLoad=$_COOKIE["LastLoad"];
 
 $sql="select count(*) From Medlem";
 $rs=$db->query($sql)->fetch_row();
 $ArraySize=$rs[0];
-$rs->close();
+//$rs->close();
 
 $ArrayBlock=$ArrayBlock."MnAry = new Array(".$ArraySize.");"."\r\n";
 $ArrayBlock=$ArrayBlock."MIDAry= new Array(".$ArraySize.");"."\r\n";
 
-//Hvis cookien ikke er sat, eller hvis den er udløbet, skal der sættes en ny cookie. Samtidig opdateres den lokale fil.
+//Hvis cookien ikke er sat, eller hvis den er udlÃ¸bet, skal der sÃ¦ttes en ny cookie. Samtidig opdateres den lokale fil.
 if ($lastload=="") {
   $LastLoad=time();
   setcookie("LastLoad",$LastLoad,0,"","",0);
@@ -56,7 +57,7 @@ $closedatabase();
 ?>
 
 <script language="JavaScript">	
-	<? echo $Arrayblock;?><%
+	<?php echo $Arrayblock;?><%
 
 	SeatArray = new Array(9);
 
@@ -128,7 +129,7 @@ function ReadFromFile(boatid)
 				{
 				HitCnt = 0;			
 				NewInnerHTML= "<SELECT style='WIDTH: 200px' name='Cmbmembername' id='Cmbmembername' onchange='FillFromSelector()'>";
-				NewInnerHTML = NewInnerHTML + "<option value='999' selected>... vælg fra liste ...</option>"; 
+				NewInnerHTML = NewInnerHTML + "<option value='999' selected>... vÃ¦lg fra liste ...</option>"; 
 					for (var i=0;i<MnAry.length;i++)
 						{
 						MemberID=MIDAry[i];
@@ -172,17 +173,17 @@ function ReadFromFile(boatid)
 	
 </script>
 
-<BODY bgproperties="fixed" background="images/baggrund.jpg" onLoad="<? echo $OnLoadCommand;?>">
+<BODY bgproperties="fixed" background="images/baggrund.jpg" onLoad="<?php echo $OnLoadCommand;?>">
 
-<h3>Indtast medlemsnummer eller navn for at søge</h3>
+<h3>Indtast medlemsnummer eller navn for at sÃ¸ge</h3>
 
 <form action="rostat.php" method="post">
 
 	<table border=0>
 		<TR>
 			<TD width="79" height="20"><strong>Nummer</strong></TD>
-			<TD width="230" height="20"><strong>Navn</strong> (indtast min. 3 tegn for at søge)</TD>
-			<TD width="200" height="20"><strong>Søgeresultater</strong> (vælg fra liste)</TD></TR>
+			<TD width="230" height="20"><strong>Navn</strong> (indtast min. 3 tegn for at sÃ¸ge)</TD>
+			<TD width="200" height="20"><strong>SÃ¸geresultater</strong> (vÃ¦lg fra liste)</TD></TR>
 		</tr>
 		<tr>
 			<TD>
