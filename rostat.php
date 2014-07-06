@@ -147,7 +147,7 @@ switch ($RostatAction) {
     $db=OpenDatabase();
      $rs=$db->query($s);
     if ($rs) {
-      Rostatistik($rs,$Subgroup);
+      Rostatistik($rs,$Subgroup,$Medlid);
     } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
@@ -177,7 +177,7 @@ switch ($RostatAction) {
     $db=OpenDatabase();
     $rs=$db->query($s);
     if ($rs) {
-      Rostatistik($rs,$Subgroup);
+      Rostatistik($rs,$Subgroup,$Medlid);
     } else {
 ?>
 		<STRONG>Ingen data  at vise</STRONG>
@@ -207,7 +207,7 @@ switch ($RostatAction) {
     $db=OpenDatabase();
     $rs=$db->query($s);
     if ($rs) {
-      Rostatistik($rs,$Subgroup);
+      Rostatistik($rs,$Subgroup,$Medlid);
     } else {
       ?>
       <STRONG>Ingen data  at vise</STRONG>
