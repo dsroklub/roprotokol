@@ -32,12 +32,14 @@ Access/ASP gør brug af en hel del gemte queries. De er konterveret til SQL view
 ==Konvertering fra ASP til PHP==
 
 Er foretaget med asp2php og derefter i et vist omfang tilrettet.
+Til at tilgå databasen bruges mysqli.
+
 
 
 ==Hvad virker?==
 
-Af php-koden er det kun enkelte funktioner, der virker, fx rostatistikken.
-
+Af php-koden er det kun enkelte funktioner, der virker, fx rostatistikken, valg af bådtype.
+SQL-koden virker.
 
 ==TODO==
 
