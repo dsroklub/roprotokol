@@ -75,6 +75,12 @@ FROM (TurType RIGHT JOIN (Båd RIGHT JOIN Tur ON Båd.BådID = Tur.FK_BådID) ON
 WHERE (((TurDeltager.Plads)=0) AND ((Tur.Ind) Is Null))
 ORDER BY Tur.ForvInd;
 
+CREATE VIEW qBoatsOnWaterRoere AS
+SELECT Båd.Navn as Baad_Navn, TurDeltager.Navn AS roer, Tur.Ud, Tur.ForvInd, Tur.Ind, Tur.Destination, Tur.FK_BådID, Tur.TurID, TurType.Navn as TurType_Navn
+FROM (TurType RIGHT JOIN (Båd RIGHT JOIN Tur ON Båd.BådID = Tur.FK_BådID) ON TurType.TurTypeID = Tur.FK_TurTypeID) LEFT JOIN TurDeltager ON Tur.TurID = TurDeltager.FK_TurID
+WHERE  Tur.Ind Is Null
+ORDER BY Tur.ForvInd,TurID;
+
 
 CREATE VIEW qAvailableboats AS
        SELECT Båd.BådID, Båd.Navn, Båd.FK_GruppeID, Båd.Pladser, qBoatsReserveret.FK_BådID as reserved_baadID, qBoatsOnWater2.FK_BådID as onWater_baadID, qBoatsSkadet.FK_BådID as skade_baadID, qBoatsSkadet.grad, LåsteBåde.locktimeout, qBoatsOnWater2.TurType_Navn AS TurType_navn

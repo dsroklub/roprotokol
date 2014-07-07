@@ -29,7 +29,7 @@ $_SESSION['SortOrder']=0;
 $_SESSION['SortOrder_boat']=0;
 
 $s="";
-$sql2="";
+$sWater="";
 error_log(" DSRLIST action=".$action,0);
 
 switch ($action) {
@@ -62,8 +62,8 @@ switch ($action) {
     break;
   case 6:
 
-    $s="select * from QRYDagensRoere";
-    $sql2="Select * from QBoatsonwater";
+    $s="select * from DagensRoere";
+    $sWater="Select * from qBoatsOnWaterRoere";
 // QRYDagensRoere
 
     break;
@@ -102,8 +102,8 @@ default:
 if ($s != "") {
   $db=OpenDatabase();
   $rs=$db->query($s);
-  if ($sql2!="")  {
-    $rs2=$db->query($sql2);
+  if ($sWater!="")  {
+    $rsWater=$db->query($sWater);
   } 
 
   if ($rs) {
@@ -123,15 +123,12 @@ if ($s != "") {
       case 9:
 
         //$WriteHit"Rostatistik"
-        Rostatistik($rs);
+        Rostatistik($rs,$subgroup);
         break;
       case 4:
       case 10:
       case 11:
-
-        // $WriteHit"Bådstatistik"
-	error_log(" DO Baadstat ",0);
-        $Baadstatistik($rs,$subgroup);
+	Baadstatistik($rsWater,$subgroup);
         break;
       case 6:
 
@@ -140,11 +137,11 @@ if ($s != "") {
 	<h3>F&oslash;lgende b&aring;de er p&aring; vandet</h3>
 
 <?php 
-        $BaadePaaVandet[$RS2];
+     BaadePaaVandet($rsWater);
 ?>
 			<h3>Dagens ture</h3>
 <?php 
-        $DagensTure[$RS];
+        $DagensTure[$rs];
         break;
       case 7:
         // $WriteHit"Statistikoversigt"
@@ -167,13 +164,6 @@ if ($s != "") {
 		<?php 
   } 
 } 
-
-//NEL RM $rs->close();
-//if ($sql2!="") {
-//  $rs2->close();
-//} 
-
-//$closedatabase();
 ?>
 </td></tr></table>
 </P>

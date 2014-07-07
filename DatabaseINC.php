@@ -73,6 +73,7 @@ function IsAdminpswOK($Psw) {
 
 //------------------------------------------------------ START
 // Rostatistik
+
 function Rostatistik($RS,$Subgroup,$medlid) {
   extract($GLOBALS);
   error_log(" ROSTAT= SG=".$Subgroup,0);
@@ -83,7 +84,6 @@ function Rostatistik($RS,$Subgroup,$medlid) {
   $Sorteringsarray[5]="Trips";
   $Sorteringsarray[6]="AvrLen";
   $Sorteringsarray[7]="HasRedKey";
-
   if ($Subgroup=="alle") {
 ?>
 
@@ -146,7 +146,6 @@ function RedirIframe()
         $SortSymbol="<img border=\"0\" src=\"images/Pilned.gif\" width=\"10\" height=\"10\">";
       } 
     } 
-
     $Feltnavn=$stattitler[$f];
     if ($f==1) {
       $wStr="width=\"30%\"";
@@ -214,29 +213,22 @@ function Baadstatistik($RS,$Subgroup) {
   $Sorteringsarray[6]="AvrLenB";
 
   print "<table class=\"rostat\" width=\"600\"><tr>";
-
-  if ($_SESSION["SorterEfter_Boat"]=="RankB")
-  {
-
+  if ($_SESSION["SorterEfter_Boat"]=="RankB") {
     $SortSymbol="<img border=\"0\" src=\"images/Pilop.gif\" width=\"10\" height=\"10\">";
-    if ($_SESSION["SortOrder_boat"]==0)
-    {
+    if ($_SESSION["SortOrder_boat"]==0)  {
       $SortSymbol="<img border=\"0\" src=\"images/Pilned.gif\" width=\"10\" height=\"10\">";
     } 
   } 
 
   print "<th class=\"tablehead\"><a href=\"rostatboat.php?rostataction=RankB"."&ID=0&subgroup=".$Subgroup."\" class=\"menupunkt3\">".$SortSymbol."Nr</a></th>";
 
-  $SortArrayNr=2;
-  foreach ($RS as $f) // FIXME
-  {
-    $SortSymbol="";
-    if ($Sorteringsarray[$SortArrayNr]==$_SESSION["SorterEfter_Boat"])
-    {
 
+  $SortArrayNr=2;
+  foreach ($RS->fetch_fields() as $f) {
+    $SortSymbol="";
+    if ($Sorteringsarray[$SortArrayNr]==$_SESSION["SorterEfter_Boat"]) {
       $SortSymbol="<img border=\"0\" src=\"images/Pilop.gif\" width=\"10\" height=\"10\">";
-      if ($_SESSION["SortOrder_boat"]==0)
-      {
+      if ($_SESSION["SortOrder_boat"]==0) {
         $SortSymbol="<img border=\"0\" src=\"images/Pilned.gif\" width=\"10\" height=\"10\">";
       } 
     } 
@@ -246,81 +238,52 @@ function Baadstatistik($RS,$Subgroup) {
   }
   print "</tr>";
 
-  while(!(($rs==0)))
-  {
-
+  while(!(($rs==0))) {
     $i=$i+1;
-    if (($i%2)==0)
-    {
-
+    if (($i%2)==0) {
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    } else {
       print "<tr class=\"secondrow\">";
     } 
-
-
     print "<td>".$i."</td>";
 
 //Find bådnavnet for denne række
-    foreach ($rs as $f)
-    {
-      if ($f->name=="Båd")
-      {
+    foreach ($rs as $f) {
+      if ($f->name=="Båd")  {
         $MemberID=$f->value;
       } 
     }
 
     $Fieldnumber=1;
-    foreach ($rs as $f)
-    {
+    foreach ($rs as $f) {
       $Alignment="Left";
-      if ($Fieldnumber>2)
-      {
+      if ($Fieldnumber>2) {
         $Alignment="Right";
       } 
-      if ($f->name=="Båd" || $f->name=="Antal ture")
-      {
-
+      if ($f->name=="Båd" || $f->name=="Antal ture") {
         print "<td><p align=\"".$Alignment."\"><a href=\"rostat.php?rostataction=BoatSpecs&ID=".$MemberID."\" >".$f->value."</a></td>";
-      }
-        else
-      {
-
+      } else {
         print "<td><p align=\"".$Alignment."\">".$f->Value."</td>";
       } 
-
       $Fieldnumber=$Fieldnumber+1;
     }
-
     print "</tr>";
     $rs=mysql_fetch_array($rs_query);
-
   } 
   print "</table>";
-  
-
   return $function_ret;
 } 
 
 //------------------------------------------------------ 
 
-function DMmotionsroning()
-{
+function DMmotionsroning() {
   extract($GLOBALS);
-
-
   $KmIAlt=0;
   $Roere=0;
-  while(!(($rs==0)))
-  {
-
+  while(!(($rs==0)))  {
     $KmIAlt=$KmIAlt+$rs["km"];
     $roere=$roere+1;
     $rs=mysql_fetch_array($rs_query);
-
   } 
 
   $Base=1000000;
@@ -328,35 +291,26 @@ function DMmotionsroning()
   $Inputexp=$kmialt;
   $Separator=".";
 
-  while(!($kmialt>$base))
-  {
-
+  while(!($kmialt>$base)) {
     $Base=$Base/1000;
   } 
   $OutputExp=(intval($Inputexp/$base));
-  if ($kmialt>1000)
-  {
+  if ($kmialt>1000) {
     $OutputExp=$OutputExp.$separator;
   } 
   $Base=$Base/1000;
 
-  while(!($Base<1))
-  {
+  while(!($Base<1)) {
 
-    if ($base==1)
-    {
+    if ($base==1) {
       $separator="";
     } 
-    if ($kmialt>$base)
-    {
-
+    if ($kmialt>$base) {
       $OutputExp=$outputexp.substr("00".(intval($Inputexp/$base)),strlen("00".(intval($Inputexp/$base)))-(3)).$separator;
       $Inputexp=$Inputexp-intval($Inputexp/$base)*$base;
     } 
-
     $Base=$Base/1000;
   } 
-
 ?>
 	<h2>Indberetning til DM i motionsroning</h2>
 	<table border="0">
@@ -374,22 +328,13 @@ function DMmotionsroning()
 	</tr>
 	</table>
 	<p></p>
-	<p>Det sidste tal indberettes én gang om måneden til DFfR. Tallet er opgjort pr. 01-<?php   echo substr("0".(strftime("%m",time())),strlen("0".(strftime("%m",time())))-(2));?>-<?php   echo strftime("%Y",strftime("%m/%d/%Y %H:%M:%S %p"));?></p>
-	
+	<p>Det sidste tal indberettes én gang om måneden til DFfR. Tallet er opgjort pr. 01-<?php   echo substr("0".(strftime("%m",time())),strlen("0".(strftime("%m",time())))-(2));?>-<?php   echo strftime("%Y",strftime("%m/%d/%Y %H:%M:%S %p"));?></p>	
 	<?php 
-
   return $function_ret;
 } 
 
-//------------------------------------------------------ 
-
-//------------------------------------------------------ 
-
-function Statistikoversigt()
-{
+function Statistikoversigt() {
   extract($GLOBALS);
-
-
   $rs_query=mysql_query(("SELECT Count(Tur.TurID) AS Antal FROM Tur"),$db);  
   $rs=mysql_fetch_array($rs_query);
   $Antalture=$rs["Antal"];
@@ -421,8 +366,7 @@ function Statistikoversigt()
 
 ?>
 
-<h2>Oversigt over data i roprotokollen</h2><br><br>
-	
+<h2>Oversigt over data i roprotokollen</h2><br><br>	
 	<h3>Roaktivitet</h3>
 	<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="400">
 		<tr>
@@ -451,8 +395,7 @@ function Statistikoversigt()
 		</tr>
 	</table>
 	
-	<h3>Skader</h3>
-	
+	<h3>Skader</h3>	
 	<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="400">
 	<tr>
 		<td width=60%>Antal skader lige nu</td><td><?php   echo $antalskader;?><br></td>
@@ -465,21 +408,13 @@ function Statistikoversigt()
 				<th class="tablehead" width=33%>Bådtype</th><th class="tablehead" width=33%>Antal både</th><th class="tablehead" width=33%>Heraf skadet</th>
 			</tr>	
 <?php 
-  while(!(($rs2==0)))
-  {
-
+  while(!(($rs2==0))) {
     $i=$i+1;
-    if (($i%2)==0)
-    {
-
+    if (($i%2)==0) {
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    } else {
       print "<tr class=\"secondrow\">";
     } 
-
     print "<td>".$rs2["Bådtype"]."</td><td>".$rs2["Boats"]."</td><td>".$rs2["skadet"]."</td></tr>";
     $rs2=mysql_fetch_array($rs2_query);
 
@@ -500,35 +435,24 @@ function Statistikoversigt()
 				<th class="tablehead" width=50%>Side</th><th class="tablehead" width=50%>Antal visninger</th>
 			</tr>	
 <?php 
-  while(!(($rs3==0)))
-  {
-
+  while(!(($rs3==0))) {
     $i=$i+1;
-    if (($i%2)==0)
-    {
-
+    if (($i%2)==0) {
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    } else {
       print "<tr class=\"secondrow\">";
     } 
 
     print "<td>".$rs3["Side"]."</td><td>".$rs3["Visninger"]."</td></tr>";
     $rs3=mysql_fetch_array($rs3_query);
-
   } 
 ?>				
 				
 			</table>
 		</td>
 	</tr>
-	</table>
-	
+	</table>	
 	<?php 
-
-
   return $function_ret;
 } 
 
@@ -537,69 +461,41 @@ function Statistikoversigt()
 function SkadedeBaade($RS)
 {
   extract($GLOBALS);
-
-
   $BreddeArray[1]="10%";
   $BreddeArray[2]="20%";
   $BreddeArray[3]="10%";
   $BreddeArray[4]="10%";
   $BreddeArray[5]="40%";
   $BreddeArray[6]="10%";
-
   print "<table class=\"rostat\" width=\"700\"><tr>";
-
   $Fnumber=0;
   foreach ($rs as $f) {
     $tempnavn=$f->name;
-    if ($tempnavn!="BoatID")
-    {
-
-      if ($tempnavn=="SkadeID")
-      {
+    if ($tempnavn!="BoatID") {
+      if ($tempnavn=="SkadeID") {
         $tempnavn="Klarmeld";
       } 
       print "<th class=\"tablehead\" width=".$BreddeArray[$Fnumber].">".$tempnavn."</th>";
     } 
-
     $Fnumber=$fnumber+1;
   }
   print "</tr>";
-
-  while(!(($rs==0)))
-  {
-
+  while(!(($rs==0))) {
     $i=$i+1;
     if (($i%2)==0)
     {
-
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    } else {
       print "<tr class=\"secondrow\">";
     } 
-
-
-    foreach ($rs as $f)
-    {
-      if ($f->name=="BoatID")
-      {
-
+    foreach ($rs as $f) {
+      if ($f->name=="BoatID") {
         $boatid=$f->value;
-
-      }
-        else
-      {
-
-
+      } else {
         $BColor="<td>";
         $Alignment="Left";
-        if ($f->name=="Grad")
-        {
-
-          switch ($f->value)
-          {
+        if ($f->name=="Grad") {
+          switch ($f->value) {
             case 1:
               $Secondfield="<img border=\"0\" src=\"images/icon_skadet1.gif\" width=\"16\" height=\"17\">  Let";
               break;
@@ -612,47 +508,25 @@ function SkadedeBaade($RS)
           } 
         } 
 
-
-        if ($f->name=="SkadeID")
-        {
-
+        if ($f->name=="SkadeID") {
           print "<td><p align=\"".$Alignment."\"><a href=\"klarmeld.php?Origin=SkadedeBåde&boatid=".$BoatID."&skadeid=".$f->value."\"><u>[Klarmeld]</u></a></td>";
-        }
-          else
-        if ($f->name=="Grad")
-        {
-
+        } else if ($f->name=="Grad") {
           print "<td>".$secondfield."</td>";
-        }
-          else
-        {
-
+        } else {
           print $Bcolor."<p align=\"".$Alignment."\">".$f->Value."</td>";
         } 
-
-
       } 
-
-
     }
-
     print "</tr>";
     $rs=mysql_fetch_array($rs_query);
-
   } 
   print "</table>";
-  
-
   return $function_ret;
 } 
-
 //------------------------------------------------------ 
 
-function BaadePaaVandet($RS)
-{
+function BaadePaaVandet($RS) {
   extract($GLOBALS);
-
-
 
   $BreddeArray[1]="20%";
   $BreddeArray[2]="10%";
@@ -660,63 +534,43 @@ function BaadePaaVandet($RS)
   $BreddeArray[4]="30%";
   $BreddeArray[5]="10%";
   $BreddeArray[6]="20%";
-
-
+  $BreddeArray[6]="20%";
+  $BreddeArray[7]="20%";
+  $BreddeArray[8]="20%";
+  $BreddeArray[9]="20%";
   print "<table class=\"rostat\" width=\"750\"><tr>";
-
-  foreach ($rs as $f)
-  {
+  $Fnumber=1;
+  foreach ($RS->fetch_fields() as $f) {
     print "<th class=\"tablehead\" width=".$BreddeArray[$Fnumber].">".$f->name."</th>";
+    $Fnumber=$Fnumber+1;
   }
   print "</tr>";
-
   $Fieldnumber=1;
-  while(!(($rs==0)))
-  {
+  $i=0;
 
-
-
+  foreach ($RS as $baad) {
     $i=$i+1;
-    if (($i%2)==0)
-    {
-
+    if (($i%2)==0) {
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    }  else {
       print "<tr class=\"secondrow\">";
     } 
 
-
-    foreach ($rs as $f)
-    {
-
-      $TempValue=$f->value;
-
+    foreach($baad as $bcol=>$bval) {
       $Alignment="Left";
-      if ($f->name=="Grad") {
-        $Alignment="Right";
+      if ($bcol=="Grad") {
+	$Alignment="Right";
       } 
-
-      if ($f->name=="TurID") {
-
-        print "<td><p align=\"".$Alignment."\"><a href=\"rostat.php?rostataction=TripSpecs&ID=".$f->value."\" >".$f->value."</a></td>";
-      }
-        else
-      {
-        print "<td><p align=\"".$Alignment."\">".$tempValue."</td>";
+      if ($bcol=="TurID") {
+	print "<td><p align=\"".$Alignment."\"><a href=\"rostat.php?rostataction=TripSpecs&ID=".$bval."\" >".$bval."</a></td>";
+      }  else {
+        print "<td><p align=\"".$Alignment."\">".$bval."</td>";
       } 
     }
-
     print "</tr>";
-    $rs=mysql_fetch_array($rs_query);
-
     $Fieldnumber=$Fieldnumber+1;
   } 
   print "</table>";
-  
-
   return $function_ret;
 } 
 
@@ -724,9 +578,7 @@ function BaadePaaVandet($RS)
 
 function Rovagt($rsv) {
   extract($GLOBALS);
-
   $i=0;
-  
   while ($rw = $rsv->fetch_array(MYSQLI_ASSOC)) {
     if ($i==0) {
       print "<table class=\"rostat\"><tr>";
@@ -756,33 +608,23 @@ function Rovagt($rsv) {
   print "</table>";
 }
 
-
 //------------------------------------------------------ 
 
-function Rovagt_printer($RS)
-{
+function Rovagt_printer($RS) {
   extract($GLOBALS);
-
-
-  if (substr($rs["Navn"],strlen($rs["Navn"])-(8))=="lånt båd")
-  {
+  if (substr($rs["Navn"],strlen($rs["Navn"])-(8))=="lånt båd") {
     $rs=mysql_fetch_array($rs_query);
-
   } 
 
   print "<table bordercolor=\"#111111\" border=1 style=\"border-collapse: collapse\" width=310><tr>";
   print "<th width=\"40%\">Båd</th><th width=\"60%\">Tildelt</th></tr>";
 
-  while(!(($rs==0)))
-  {
-
+  while(!(($rs==0))) {
     print "<tr><td>".$rs["Navn"]."</td><td></td></tr>";
     $rs=mysql_fetch_array($rs_query);
 
   } 
-
   print "</table>";
-
   return $function_ret;
 } 
 
@@ -791,8 +633,6 @@ function Rovagt_printer($RS)
 function DagensTure($RS)
 {
   extract($GLOBALS);
-
-
 
 ?><table class="rostat" width=700><tr>
 <th class="tablehead" width="5%">Tur</th>
@@ -804,60 +644,36 @@ function DagensTure($RS)
 <th class="tablehead" width="25%">Roere</th>
 </tr>
 <?php 
-
-
-  while(!(($rs==0))) {
-
-
+   $lastturid="-1";
+   $thisturid="-1";
+   $i=0;
+   foreach ($RS as $tur) {
     if (($i%2)==0) {
       print "<tr class=\"firstrow\">";
     } else {
       print "<tr class=\"secondrow\">";
     } 
-
-
-    $lastturid=$rs["turid"];
-    $thisturid=$lastturid;
-
-    print "<td><p align=\"left\"><a href=\"rostat.php?rostataction=TripSpecs&ID=".$rs["TurID"]."\" >".$rs["TurID"]."</a></td>";
-    print "<td>".$rs["båd"]."</td>";
-    print "<td><p align=\"left\">".$rs["Destination"]."</td>";
-    print "<td><p align=\"Right\">".substr($rs["udtid"],0,5)."</td>";
-    print "<td><p align=\"Right\">".substr($rs["indtid"],0,5)."</td>";
-    if ($rs["indtid"]="") {
-      print "<td><p align=\"Right\">".substr($rs["forv inde"],0,5)."</td>";
+    $thisturid=$tur["TurID"];
+    print "<td><p align=\"left\"><a href=\"rostat.php?rostataction=TripSpecs&ID=".$tur["TurID"]."\" >".$tur["TurID"]."</a></td>";
+    print "<td>".$tur["FK_BådID"]."</td>";
+    print "<td><p align=\"left\">".$tur["Destination"]."</td>";
+    print "<td><p align=\"Right\">".substr($tur["Ud"],0,5)."</td>";
+    print "<td><p align=\"Right\">".substr($tur["Ind"],0,5)."</td>";
+    if ($tur["indtid"]="") {
+      print "<td><p align=\"Right\">".substr($tur["ForvInd"],0,5)."</td>";
     } else {
       print "<td></td>";
     }
     print "<td>";
-    while(!($lastturid!=$thisturid))
-    {
-
-      print "<a href=\"rostat.php?rostataction=ShowTrips&ID=".substr($rs["roer"],0,(strpos($rs["roer"]," ") ? strpos($rs["roer"]," ")+1 : 0))."\" >".$rs["roer"]."</a><br>";
-
-      $rs=mysql_fetch_array($rs_query);
-
-      if (($rs==0))
-      {
-
-        $thisturid="slut";
-      }
-        else
-      {
-
-        $thisturid=$rs["turid"];
-      } 
-
+    while(!($lastturid!=$thisturid)) {
+      print "<a href=\"rostat.php?rostataction=ShowTrips&ID=".substr($tur["roer"],0,(strpos($rs["roer"]," ") ? strpos($tur["roer"]," ")+1 : 0))."\" >".$tur["roer"]."</a><br>";
+      $thisturid=$tur["turid"];
     } 
-
     print "</td></tr>";
     $i=$i+1;
-
+    $lastturid=$thisturid;
   } 
-
   print "</table>";
-  
-
   return $function_ret;
 } 
 
@@ -923,18 +739,10 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 	<th class="tablehead">Beskrivelse</th>
 </tr>
 <?php 
-  while(!(($rs==0)))
-  {
-
-
-    if (($i%2)==0)
-    {
-
+  while(!(($rs==0)))  {
+    if (($i%2)==0) {
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    } else {
       print "<tr class=\"secondrow\">";
     } 
 
@@ -945,14 +753,9 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 	<td><?php     echo $rs["Dest"]."<br>".$rs["Båd"]."<br>".$rs["OprettetDato"];?></td>
 	<td>
 		<?php 
-    if (!isset($rs["Indberetter"]))
-    {
-
+    if (!isset($rs["Indberetter"])) {
       print "-";
-    }
-      else
-    {
-
+    } else {
       print $rs["Indberetter"];
     } 
 
@@ -964,10 +767,7 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
     {
 
       print "-";
-    }
-      else
-    {
-
+    } else {
       print $rs["Fixed_comment"];
     } 
 
@@ -978,9 +778,8 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
     {
 ?>
 		<a href="rostat.php?rostataction=ShowTrips&ID=<?php echo $rs["Medlemsnr"];?>">[Skjul]</a>
-		<?php     }
-      else
-    {
+		<?php     
+    } else {
 ?>
 		<a href="rostat.php?rostataction=ShowTrips&ID=<?php echo $rs["Medlemsnr"];?>&ShowRettelseSpecs=<?php       echo $rs["FejlID"];?>">[Vis]</a>
 		<?php     } ?>
@@ -989,11 +788,8 @@ function RoerensRettedeTure($RS,$ShowRettelseSpecs)
 <?php 
     if (($rs["fejlid"])==($ShowRettelseSpecs))
     {
-
-
       $MyClass="firstrow";
-      if (($i%2)==0)
-      {
+      if (($i%2)==0) {
         $MyClass="secondrow";
       } 
 
@@ -1130,18 +926,11 @@ function Turoversigt($RS)
   {
 
     $i=$i+1;
-    if (($i%2)==0)
-    {
-
-
+    if (($i%2)==0) {
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    } else {
       print "<tr class=\"secondrow\">";
     } 
-
 
      // FIXME print "<td><a href=\"rostat.php?rostataction=TripSpecs&ID=".(0)->$value."\" >".(0)->$value."</a></td>";
     print "<td><a href=\"rostat.php?rostataction=TripSpecs&ID=".(0).$value."\" >".(0).$value."</a></td>";
@@ -1153,15 +942,10 @@ function Turoversigt($RS)
       print "<td>".($FieldNr).$value."</td>";
 
     }
-
-
     print "</tr>";
     $rs=mysql_fetch_array($rs_query);
-
   } 
-  print "</table>";
-
-  
+  print "</table>";  
   return $function_ret;
 } 
 
@@ -1174,30 +958,20 @@ function BaadensTuroversigt($RS)
 
 // FIXME  print "<h3>Turoversigt for ".(6)->$value." (".(5)->$value.")</h3>";
   print "<h3>Turoversigt for ".(6).$value." (".(5).$value.")</h3>";
-
   print "<table class=\"rostat\" width=\"600\">";
 
-  for ($FieldNr=0; $FieldNr<=4; $FieldNr=$FieldNr+1)
-  {
+  for ($FieldNr=0; $FieldNr<=4; $FieldNr=$FieldNr+1) {
    // FIXME print "<th class=\"tablehead\">".($FieldNr)->$name."</th>";
  print "<th class=\"tablehead\">".($FieldNr).$name."</th>";
-
   }
 
 
   print "</tr>";
-  while(!(($rs==0)))
-  {
-
+  while(!(($rs==0))) {
     $i=$i+1;
-    if (($i%2)==0)
-    {
-
+    if (($i%2)==0) {
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    } else {
       print "<tr class=\"secondrow\">";
     } 
 
@@ -1210,9 +984,7 @@ function BaadensTuroversigt($RS)
     {
       // FIXME print "<td>".($FieldNr)->$value."</td>";
      print "<td>".($FieldNr).$value."</td>";
-
     }
-
 
     print "</tr>";
     $rs=mysql_fetch_array($rs_query);
@@ -1220,7 +992,6 @@ function BaadensTuroversigt($RS)
   } 
   print "</table>";
 
-  
 
   return $function_ret;
 } 
@@ -1344,9 +1115,6 @@ function Turtypesummary($RS) {
   print "<td class=\"fremh\">".(intval($samletlaengde/$antalture*10)/10)." km</td>";
 
   print "</table>";
-
-  
-
   return $function_ret;
 } 
 
@@ -1358,39 +1126,26 @@ function Skadesoversigt($RS)
 
 
   print "<P>&nbsp;</P>";
-
   print "<br><h2>Seneste skader</h2>";
-
   print "<table class=\"rostat\" width=\"600\"><tr>";
-
-  for ($FieldNr=1; $FieldNr<=4; $FieldNr=$FieldNr+1)
-  {
+  for ($FieldNr=1; $FieldNr<=4; $FieldNr=$FieldNr+1)  {
     // FIXME print "<th class=\"tablehead\">".($FieldNr)->$name."</th>";
     print "<th class=\"tablehead\">".($FieldNr).$name."</th>";
-
   }
 
 
   $Skade=1; //Der vises max. 10 skader
   print "</tr>";
-  while(!(($rs==0) || $Skade==10))
-  {
-
+  while(!(($rs==0) || $Skade==10))  {
     $i=$i+1;
-    if (($i%2)==0)
-    {
-
+    if (($i%2)==0)  {
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    } else {
       print "<tr class=\"secondrow\">";
     } 
 
 
-    for ($FieldNr=1; $FieldNr<=4; $FieldNr=$FieldNr+1)
-    {
+    for ($FieldNr=1; $FieldNr<=4; $FieldNr=$FieldNr+1) {
       // FIXME$fValue=($FieldNr)->$value;
       $fValue=($FieldNr).$value;
       if ($FieldNr==4 && strlen($fValue)>1)
@@ -1398,19 +1153,12 @@ function Skadesoversigt($RS)
         $fValue="Ja";
       } 
       print "<td>".$Fvalue."</td>";
-
     }
-
-
     print "</tr>";
     $rs=mysql_fetch_array($rs_query);
-
     $Skade=$Skade+1;
   } 
   print "</table>";
-
-  
-
   return $function_ret;
 } 
 
@@ -1433,13 +1181,8 @@ function ListRS($RS) {
     $i=$i+1;
     if (($i%2)==0)
     {
-
-
       print "<tr class=\"firstrow\">";
-    }
-      else
-    {
-
+    } else {
       print "<tr class=\"secondrow\">";
     } 
 
@@ -1448,14 +1191,11 @@ function ListRS($RS) {
     {
       print "<td>".$f->Value."</td>";
     }
-
     print "</tr>";
     $rs=mysql_fetch_array($rs_query);
-
   } 
   print "</table>";
   
-
   return $function_ret;
 } 
 ?><?php 
@@ -1533,17 +1273,11 @@ $rs=mysql_fetch_array($rs_query);
   {
 
     $res=$Rs["Navn"];
-  }
-    else
-  {
-
+  } else {
     $res="Ikke fundet";
   } 
-
   $function_ret=$Res;
-  
   $rs=null;
-
   return $function_ret;
 } 
 
@@ -1564,38 +1298,25 @@ function GetBoatNameID($ID) {
   return $function_ret;
 } 
 
-function GetSkadeBeskrivelse($SkadeNr)
-{
+function GetSkadeBeskrivelse($SkadeNr) {
   extract($GLOBALS);
 
-
   $rs=$rs_query=mysql_query(("Select Beskrivelse from Skade Where SkadeID=".$SkadeNr),$db);  
-$rs=mysql_fetch_array($rs_query);
-;  if (!($rs==0))
-  {
-
+  $rs=mysql_fetch_array($rs_query);
+  if (!($rs==0)) {
     $res=$Rs["Beskrivelse"];
-  }
-    else
-  {
-
+  } else {
     $res="Ikke fundet";
   } 
-
   $function_ret=$Res;
-  
   $rs=null;
-
-
   return $function_ret;
 } 
 
-function SkadeString($SkadeNr)
-{
+function SkadeString($SkadeNr) {
   extract($GLOBALS);
 
-  switch ($SkadeNr)
-  {
+  switch ($SkadeNr) {
     case 1:
       $function_ret="Let skadet";
       break;
@@ -1612,31 +1333,21 @@ function SkadeString($SkadeNr)
   return $function_ret;
 } 
 
-function Change2DBBool($InBool)
-{
+function Change2DBBool($InBool) {
   extract($GLOBALS);
-
-
   $function_ret=0;
-  if ($inbool=="ON" || $inbool=="on")
-  {
+  if ($inbool=="ON" || $inbool=="on") {
     $function_ret=-1;
   } 
-
   return $function_ret;
 } 
 
-function Change2ASPBool($InBool)
-{
+function Change2ASPBool($InBool) {
   extract($GLOBALS);
-
-
   $function_ret="Checked";
-  if (!isset($inbool))
-  {
+  if (!isset($inbool)) {
     $function_ret="";
   } 
-
   return $function_ret;
 } 
 
