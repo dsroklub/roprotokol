@@ -11,7 +11,6 @@
 <?php 
 
 $BoatID=${"BoatID"};
-
 $ForceRefreshCache=${"ForceRefreshCache"};
 
 $opendatabase;
@@ -28,9 +27,7 @@ $ArrayBlock=$ArrayBlock."MnAry = new Array(".$ArraySize.");"."\r\n";
 $ArrayBlock=$ArrayBlock."MIDAry= new Array(".$ArraySize.");"."\r\n";
 
 //Hvis cookien ikke er sat, eller hvis den er udløbet, skal der sættes en ny cookie. Samtidig opdateres den lokale fil.
-if ($lastload=="" || $ForceRefreshCache==1)
-{
-
+if ($lastload=="" || $ForceRefreshCache==1) {
   $LastLoad=time();
   setcookie("LastLoad",$LastLoad,0,"","",0);
   // Unsupported: Response.Cookie. expires = Date + 1
@@ -41,33 +38,17 @@ if ($lastload=="" || $ForceRefreshCache==1)
   $MemberPickerArray=$rs->getrows();
 
   if (is_array($MemberPickerArray))  {
-
-
-    for ($c1=0; $c1<=count($MemberPickerArray); $c1=$c1+1)
-    {
+    for ($c1=0; $c1<=count($MemberPickerArray); $c1=$c1+1) {
       $ArrayBlock=$ArrayBlock."MnAry[".$c1."]=\"".$MemberPickerArray[1][$c1]."\";"."\r\n";
       $ArrayBlock=$ArrayBlock."MIDAry[".$c1."]=\"".$MemberPickerArray[0][$c1]."\";"."\r\n";
-
     }
-
-
   } 
-
-
   $OnLoadCommand="WriteToFile();";
-
-}
-  else
-{
-
-
+} else {
   $OnLoadCommand="ReadFromFile(".$boatID.");";
-
 } 
 
-
 $closedatabase;
-
 
 ?>
 
@@ -138,26 +119,20 @@ function ReadFromFile(boatid) {
 
 //--------------------------------------------------------------------------
 
-function GetBoatInfo($BoatID)
-{
+function GetBoatInfo($BoatID) {
   extract($GLOBALS);
-
   $rs=$db->query("SELECT * FROM skade WHERE FK_BådID=$BoatID AND Repareret IS NULL ORDER BY Ødelagt DESC");
-
   $res="<h3>Skader</h3>";
 
-  if (!$rs->eof)
-  {
+  if (!$rs->eof) {
 
-    while(!$rs->eof)
-    {
+    while(!$rs->eof)  {
 
 //s="<strong>" & mid(rs("Ødelagt"),1,10) & " Grad: " & rs("Grad") & "</strong>" & "<a href=""RapSkade.php?boatid=" & BoatID & "&skadeid=" & rs("skadeid") & BoatID & "&Postback=2""> - Klarmeld</a><BR>" & rs("Beskrivelse") & "<BR>"
 
 //s="<strong>" & mid(rs("Ødelagt"),1,10) & " Grad: " & rs("Grad") & "</strong>" & "<a href=""Klarmeld.php?boatid=" & BoatID & "&skadeid=" & rs("skadeid") & """> - Klarmeld</a><BR>" & rs("Beskrivelse") & "<BR>"
 
-      switch ($rs["Grad"])
-      {
+      switch ($rs["Grad"]) {
         case 1:
           $skadesgrad="<img border=\"0\" src=\"images/icon_skadet1.gif\" width=\"16\" height=\"17\">  Let skade";
           break;
@@ -175,15 +150,11 @@ function GetBoatInfo($BoatID)
       $res=$res.$S;
       $rs->movenext;
     } 
-  }
-    else
-  {
-
+  } else {
     $res="";
   } 
 
   $rs->close;
-
   $function_ret=$res;
   return $function_ret;
 } 
@@ -205,20 +176,13 @@ function GetMemberBestMatch($MemberName)
 //	end if
 
   $sl="";
-  for ($i=1; $i<=strlen($membername); $i=$i+1)
-  {
-    if (substr($membername,$i-1,1)==" ")
-    {
+  for ($i=1; $i<=strlen($membername); $i=$i+1)  {
+    if (substr($membername,$i-1,1)==" ") {
 
       $sl=$sl+"%";
-    }
-      else
-    {
-
+    } else {
       $sl=$sl+substr($membername,$i-1,1);
     } 
-
-
   }
 
 
@@ -227,30 +191,19 @@ function GetMemberBestMatch($MemberName)
 //	s=s & " (efternavn like (""" & s1 & """"))"
 //	set rs=db.execute("select Medlemsnr from medlem where " & S)
 
-  $rs=$db->execute;  $S);
+  $rs=$db->query($s);
 
-  if (!$rs->eof)
-  {
-
+  if (!$rs->eof) {
     $l=$rs["Medlemsnr"];
     $rs->movenext;
-    if ($rs->eof)
-    {
-
+    if ($rs->eof)  {
       $function_ret=$l;
     } 
-
-  }
-    else
-  {
-
+  } else {
     $function_ret="0";
   } 
-
-
   $rs->close;
   $rs=null;
-
 
 //response.write l
 
@@ -261,55 +214,35 @@ function GetMemberBestMatch($MemberName)
 function GetMemberName($MemberID)
 {
   extract($GLOBALS);
-
   $rs=$db->execute;  $MemberID."'");
-  if (!$rs->eof)
-  {
-
+  if (!$rs->eof) {
     $function_ret=$rs["Fornavn"]." ".$rs["Efternavn"];
-  }
-    else
-  {
-
+  } else {
     $function_ret="-";
   } 
-
   $rs->close;
   $rs=null;
-
-
   return $function_ret;
 } 
 
 //--------------------------------------------------------------------------
-function SkrivTur($turid,$IndUdOpt)
-{
+function SkrivTur($turid,$IndUdOpt) {
   extract($GLOBALS);
-
-
   // $rstur is of type "Adodb.Recordset"
 
-  if (($turid=="") || (!isset($TURID)))
-  {
-
+  if (($turid=="") || (!isset($TURID))) {
     $s="Select * from tur";
     $bCreate=true;
-  }
-    else
-  {
-
+  } else {
     $s="Select * from tur where turid=".$turid;
     $bCreate=false;
   } 
-
 
 rstur(->$open[$s][$db][$adOpenForwardOnly][$adLockOptimistic]);
 
 // Hvis IndUdOpt = 3 (dvs. hvis der er valgt Annuller tur):
   if ($IndUdOpt==3)
   {
-
-
     $with$rstur;
     $movefirst;
     $delete;
@@ -318,19 +251,12 @@ rstur(->$open[$s][$db][$adOpenForwardOnly][$adLockOptimistic]);
   $with;
 
 // Kør det følgende, hvis IndUdOpt <> 3 (dvs. hvis der ikke er valgt Annuller tur)
-}
-  else
-{
-
-
+} else {
   $with$rstur;
-  if ((!$eof) && (!$bof))
-  {
+  if ((!$eof) && (!$bof))  {
     $MoveFirst;
   } 
-
-  if ($bCreate==true)
-  {
+  if ($bCreate==true) {
     $AddNew;
   } 
 
@@ -339,54 +265,39 @@ rstur(->$open[$s][$db][$adOpenForwardOnly][$adLockOptimistic]);
 
 //	response.write("timind: " & timind & " komment: " & scomment & " ->" & IndUdOpt)
 
-  if (($IndUdOpt==2))
-  {
+  if (($IndUdOpt==2)) {
 
-    if ($timind=="0")
-    {
+    if ($timind=="0") {
       $timind=time();
     } 
     $Fields["IND"]=$timInd;
-  }
-    else
-  {
-
+  } else {
     $Fields["IND"]=null;
   } 
-
-
   $Fields["destid"]=$iDestination;
   $Fields["Destination"]=$Destination;
   $s=0;
   $s2=null;
-  if ($iDestination!=0)
-  {
+  if ($iDestination!=0) {
 
     $rstmp=$db->execute("Select meter,navn from destination where Destid=".$iDestination);
     $s=$rstmp["meter"];
     $s2=$rstmp["navn"];
     $rstmp=null;
-
   } 
 
 
   $Fields["destination"]=$s2;
 
-  if ($kmdist!=0)
-  {
-
+  if ($kmdist!=0) {
     $Fields["meter"]=$kmdist*1000;
-  }
-    else
-  {
-
+  } else {
     $Fields["meter"]=$S;
   } 
 
 
 //Check om det er en motorbåd og sæt i så fald km til 0
-  if ($_SESSION['BådKategori']==13)
-  {
+  if ($_SESSION['BådKategori']==13) {
     $Fields["meter"]=0;
   } 
 
@@ -395,50 +306,36 @@ rstur(->$open[$s][$db][$adOpenForwardOnly][$adLockOptimistic]);
   $Fields["initialer"]="WEB";
   $Fields["FK_BådID"]=$boatid;
 
-  if (($err==0))
-  {
-
+  if (($err==0)) {
     $Fields["Redigeretdato"]=time()();
   } 
-
-
   $Update;
   return $function_ret;
 } 
 $turid=$rstur["turid"];
-
 
 // Slet alle deltagere
 $s="delete from turdeltager where fk_turid=".$turid;
 db(->$execute[$S]);
 
 // Indsæt alle deltagere
-for ($i=1; $i<=9; $i=$i+1)
-{
-  if ($iMemberID[$i]!="")
-  {
-
-
+for ($i=1; $i<=9; $i=$i+1) {
+  if ($iMemberID[$i]!="") {
     $rs=$Db->execute;    $iMemberID[$i]."'");
-    if (!$rs->eof)
-    {
+    if (!$rs->eof) {
 
       $ID=$rs[0];
       $s="insert into turdeltager (fk_turid,plads,fk_medlemid,navn,initialer) values (".$turid.",".$i-1.",".$ID.",'".$sMemberName[$i]."','web')";
       $db->execute($S);
     } 
-
     $rs->close;
   } 
-
-
 }
 
 
 'Slut på den if-konstruktion, der afgør, om der skal indsættes eller slettes en tur
 
 SkrivTur=turid
-
 end function
 
 '--------------------------------------------------------------------------
@@ -700,31 +597,23 @@ $opendatabase;
 
 $bHentIkkeData=false;
 
-if ($action=="")
-{
+if ($action=="") {
 
 // vi kommer ind uden at vide hvad brugeren vil
 // Er båden ude, skal den kunne skrives ind igen.
   $rs=$db->execute;  $boatID);
-  if (!$rs->eof)
-  {
-
+  if (!$rs->eof)  {
     $turid=$rs["turid"];
     $timInd=time();
     $strIndUd="Indskrivning";
   } 
 
-  if ($rs->eof)
-  {
+  if ($rs->eof)  {
     $WriteHit"IndUdskrivning"    $BoatID; //Hvis rs.eof er det en udskrivning.
   } 
+} else {
 
-}
-  else
-{
-
-  switch ($action)
-  {
+  switch ($action) {
     case "Tilbage":
       header("Location: "."dsrboats.php");
       break;
@@ -733,18 +622,12 @@ if ($action=="")
       {
 
         $rs=$db->execute;        $boatID);
-        if ($rs->eof)
-        {
-
+        if ($rs->eof) {
           $turid=SkrivTur($turid,1);
-          if ($l_fejlmsg=="")
-          {
+          if ($l_fejlmsg=="") {
             header("Location: "."showalert.php?BoatID=".$Boatid."&Turid=".$turid."&Turtype=".${"Turtype"}."&Udtid=".$timUd."&Styrmand=".${"iMemberID1"}."&forvind=".${"hrforvtimind"}.":".${"minforvtimind"}.":00");
           } 
-        }
-          else
-        {
-
+        } else {
 //Hvis båden allerede er udskrevet, slettes den
 //Dette forekommer hvis brugeren har benyttet browser back eller hvis turen er under editering
           $OldTurID=$rs["turid"];
@@ -753,8 +636,7 @@ if ($action=="")
           $sql="DELETE FROM Turdeltager WHERE FK_TurID=".$OldTurID;
           $db->execute($sql);
           $turid=SkrivTur("",1);
-          if ($l_fejlmsg=="")
-          {
+          if ($l_fejlmsg=="") {
             header("Location: "."showalert.php?BoatID=".$Boatid."&Turid=".$turid."&Turtype=".${"Turtype"}."&Udtid=".$timUd."&Styrmand=".${"iMemberID1"}."&forvind=".${"hrforvtimind"}.":".${"minforvtimind"}.":00");
           } 
         } 
@@ -764,52 +646,39 @@ if ($action=="")
 
       break;
     case "Indskriv båd":
-      if (gettur())
-      {
-
+      if (gettur()) {
         $turid=SkrivTur($turid,2);
-        if ($l_fejlmsg=="")
-        {
+        if ($l_fejlmsg=="") {
           header("Location: "."showalert.php?Action=Indskrivning");
         } 
       } 
 
       break;
     case "Slet Tur":
-      if (gettur())
-      {
-
+      if (gettur()) {
         $turid=SkrivTur($turid,3); //Ny action, der sletter turens entry i databasen
-        if ($l_fejlmsg=="")
-        {
+        if ($l_fejlmsg=="") {
           header("Location: "."dsrboats.php");
         } 
       } 
 
       break;
     case "Opret roere":
-      if (gettur())
-      {
+      if (gettur()) {
 
         $turid=SkrivTur($turid,1);
-        if ($l_fejlmsg=="")
-        {
+        if ($l_fejlmsg=="") {
           header("Location: "."opretroer.php?BoatID=".$Boatid."&turid=".$turid."&returnaction=".$returnaction);
         } 
       } 
 
       break;
     case "EditerTur":
-      if ($returnaction=="Indskrivning")
-      {
-
+      if ($returnaction=="Indskrivning") {
         $rs=$db->execute;        $boatID);
         $turid=$rs["turid"];
         $strIndUd="Indskrivning";
-      }
-        else
-      {
-
+      } else {
 //turid=request("turid")
         $rs=$db->execute;        $boatID);
         $turid=$rs["turid"];
@@ -822,62 +691,43 @@ if ($action=="")
 } 
 
 
-if ($boatid!="")
-{
-
+if ($boatid!="") {
 // Vi låser båden
-  if (!$Lockboat[$boatid])
-  {
-
+  if (!$Lockboat[$boatid]) {
     exit();
-
   } 
-
 } 
 
 
-if (($TurID=="") || ($bHentIkkeData))
-{
-
+if (($TurID=="") || ($bHentIkkeData)) {
   $rsturmembers=null;
 
-}
-  else
-{
-
+} else {
 
 // Find turen i databasen og vis den.
   $rsTurMembers=$db->execute;  $turid." order by plads");
   $i=1;
 
-  while(!$rsturmembers->eof)
-  {
+  while(!$rsturmembers->eof)  {
 
     $iMemberID[$i]=$rsturmembers["medlemsnr"];
     $sMemberName[$i]=$rsturmembers["fornavn"]." ".$rsturmembers["efternavn"];
     $rsturmembers->movenext;
     $i=$i+1;
   } 
-
   $rsturmembers=null;
-
-
   $rs=$Db->execute;  $TurID);
   $iDestination=$rs["destID"];
-  if (!isset($iDestination))
-  {
+  if (!isset($iDestination)) {
     $iDestination=0;
   } 
   $iTurType=$rs["fk_turtypeid"];
 
   $timUd=$rs["ud"];
   $timForventetind=$rs["forvind"];
-  if ($timind=="")
-  {
-
+  if ($timind=="") {
     $timInd=$rs["ind"];
-    if (!isset($timind))
-    {
+    if (!isset($timind)) {
       $timind="00:00 0:0";
     } 
   } 
@@ -892,24 +742,16 @@ if (($TurID=="") || ($bHentIkkeData))
 $rs=$Db->execute;
 // opbyg destionation options
 //Response.Write("IDest:" & iDestination & "<BR>")
-while(!$rs->eof)
-{
+while(!$rs->eof) {
 
-  if (intval($iDestination)!=$rs["destid"])
-  {
+  if (intval($iDestination)!=$rs["destid"]) {
 
     $sDestination=$sDestination."<OPTION value=".$rs["destid"].">";
-  }
-    else
-  {
-
+  } else {
     $sDestination=$sDestination."<OPTION value=".$rs["destid"]." selected>";
-    if ($kmdist==0)
-    {
-
+    if ($kmdist==0) {
       $kmdist=intval($rs["meter"]/100)/10;
     } 
-
   } 
 
   $sDestination=$sDestination.$rs["navn"];
@@ -922,16 +764,13 @@ $rs->close;
 
 $rs=$Db->execute;
 // opbyg turtype options
-while(!$rs->eof)
-{
+while(!$rs->eof
+)
 
-  if ($iTurType!=$rs["turtypeid"])
-  {
+  if ($iTurType!=$rs["turtypeid"]) {
 
     $sTurtype=$sTurtype."<OPTION value=".$rs["turtypeid"].">";
-  }
-    else
-  {
+  } else {
 
     $sTurtype=$sTurtype."<OPTION value=".$rs["turtypeid"]." selected>";
   } 
@@ -945,11 +784,9 @@ $rsboat=$Db->execute;$BoatID);
 
 $AntalPladser=$rsboat["pladser"];
 
-if (($timind=="") || (!isset($timind)))
-{
+if (($timind=="") || (!isset($timind))) {
   $timind="00:00";
 } 
-
 
 ?>
 
@@ -962,7 +799,6 @@ if (($timind=="") || (!isset($timind)))
 <?php 
 if ($l_fejlmsg!="")
 {
-
   print "<B><FONT color=red>FEJL :  </B>".$l_fejlmsg."";
 } 
 
@@ -1097,13 +933,10 @@ for ($i=1; $i<=$rsboat["pladser"]; $i=$i+1)
 			<SELECT style="WIDTH: 200px" name="Cmbmembername<?php   echo $I;?>" id="Cmbmembername<?php   echo $I;?>"> 
 				<option>...</option>
 			</SELECT>						
-          	</span>
-		  						
+          	</span>		  						
 			</TD>
-
 	   </TR>
 	   <?php 
-
 }
 
 ?>
@@ -1127,10 +960,7 @@ if ($strIndUd=="Udskrivning")
 <input name="subaction" value="Udskriv båd" type="hidden" tabindex="0">
 <INPUT type="button" value="Udskriv båd" onclick="AllValidations(<?php   echo $AntalPladser;?>);">
 <?php 
-}
-  else
-{
-
+} else {
 
 ?>
 <input name="subaction" type="hidden" value="Indskriv båd" tabindex="0">
@@ -1139,14 +969,12 @@ if ($strIndUd=="Udskrivning")
 } 
 
 
-
 ?>
 <input name="returnaction" type="hidden" value="<?php echo $strindud;?>" tabindex="0">
  <INPUT name="action" type=submit value="Opret roere" tabindex="2">
 <?php 
 
-if ($turid!="")
-{
+if ($turid!="") {
 
 ?>
  <INPUT name="action" type=submit value="Slet Tur" tabindex="1">
