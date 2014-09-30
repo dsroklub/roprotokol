@@ -3,7 +3,9 @@ ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
 // global $db;
-include("config.php");
+require_once("config.dist.php");
+require_once("config.php");
+
 if(!isset($_SESSION))  session_start();
 //session_register("DBPATH_session");
 //  session_register("SorterEfter_session");
@@ -28,9 +30,10 @@ function get_key($key, $arr,$def=''){
 
 function OpenDatabase() {
   extract($GLOBALS);
+  global $config;
 
 //  create connection to database
-  $db0=new mysqli("localhost","root",$dbpw,"roprotokol");
+  $db0=new mysqli($config['database']['hostname'],$config['database']['username'],$config['database']['password'],$config['database']['name']);
   $db0->set_charset("utf8");
   return $db0;
 } 
