@@ -9,10 +9,10 @@ Opret database til roprotokollen:
     GRANT ALL PRIVILEGES ON `roprotokol`.* TO 'roprotokol'@'localhost';
     FLUSH PRIVILEGES;
 
-Importer skema:
+Importer skema og views:
 
     mysql -u roprotokol -p'roprotokol' roprotokol < konvert/mkdb.sql
-
+    mysql -u roprotokol -p'roprotokol' roprotokol < konvert/queries.sql
 
 Eksporter gammel data til sql og csv filer ved at kopier gammel data Roprotokol_sommer.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
 

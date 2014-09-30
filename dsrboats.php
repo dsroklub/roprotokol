@@ -2,14 +2,14 @@
 if (!isset($_SESSION)) {
     session_start();
 }
-require_once("DatabaseINC.php");
+require_once("inc/database.inc.php");
 $db=OpenDatabase();
 // FIXME  session_register("BådKategori_session");
 ?>
 <HTML>
 <HEAD>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="roprotokol.css">
+<link rel="stylesheet" type="text/css" href="css/roprotokol.css">
   <script language="javascript" src="rslite.js"></script>
   <script language="javascript">
   
@@ -55,7 +55,9 @@ $db=OpenDatabase();
   <title>Vis både</title>
 </head>
 <body onLoad="body_onLoad();" bgproperties="fixed" background="images/baggrund.jpg">
-<?php 
+    <?php require_once 'inc/topmenu.inc.php'; ?>
+
+    <?php 
 
       function arget($nm) {
       $rs="";
@@ -107,7 +109,7 @@ switch ($ShowType) {
   $Myrs=$db->execute($ShowID);
 
 ?>
-		<th class="tablehead" width="48%">Igangv�rende tur - <?php echo $myrs["navn"];?></th>
+		<th class="tablehead" width="48%">Igangværende tur - <?php echo $myrs["navn"];?></th>
 		<th class="tablehead" width="2%"><a href="dsrboats.php?GruppeID=<?php echo $gruppeID;?>"><img src="images/icon_close.gif" border="0"></a></th>
 		<?php 
     $myrs->close;
@@ -132,14 +134,12 @@ SQL;
 
 if ($GruppeId!=0) {
   $s=$s." WHERE fk_gruppeid=".$GruppeId." ORDER BY Båd.Navn";
-  $rs=$db->query($s);
 } else {
   $s=$s." ORDER BY Båd.Navn";
-  $rs=$db->query($s);
 } 
+$rs = $db->query($s);
 
 error_log(" DSRSQL=".$s,0);
-//listrs(rs)
 
 $CNT=0;
 foreach ($rs as $baad) {

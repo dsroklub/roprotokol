@@ -1,7 +1,6 @@
 #!/bin/bash
 SCRIPT_PATH=$(cd `dirname ${0}`; pwd)
 
-
 for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData Fejl_tur Gruppe Hitcounter Kajak_typer Kommentar LåsteBåde Medlem Motion+status Opsætning Postnr Reservation Skade TurDeltager TurType Version Vintervedligehold Destination Kajak_anvendelser Tur; do
     echo DO $tb
     echo
