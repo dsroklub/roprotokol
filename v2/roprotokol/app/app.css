@@ -1,0 +1,62 @@
+/* app css stylesheet */
+
+div.main {
+    margin-left: 0.8em;
+    margin-right: 0.8em;
+}
+
+div.menuholder {
+    text-align: center;
+}
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin: 0.8em 0.8em 0.8em 0.8em;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  border: 1px solid black;
+  background-color: #DAEFFE;
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li > a {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+  //background-color: #F6E9D8;
+  padding: 0 3.5em 0 3.5em;
+  text-align: center;
+}
+
+.boattypesmenu {
+    float: left;
+    margin-right: 1em;
+    border: 1px solid black;
+}
+
+.boattypesmenu > ul {
+    list-style: none;
+    margin: 0 0 0 0.2em;
+    padding: 0;
+}
+
+.boattypesmenu > ul > li {
+    font-size: 0.8em;
+
+}
+
+.boattypesmenu h2 {
+    color: white;
+    padding: 0 1em 0 1em;
+    margin: 0.1em 0.1em 0.1em 0.1em;
+    font-size: 0.8em;
+    background-color: #001B7C;
+}
+
+.boatlist {
+    border: 1px solid black;
+}
