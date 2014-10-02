@@ -1,7 +1,9 @@
 <div class="boattypesmenu">
     <h2>Vælg bådetype</h2>
     <ul>
-        <li ng-repeat="boattype in boattypes">{{boattype.name}}</li>
+        <li ng-repeat="boattype in boattypes">
+            <div ng-click="select(boattype.boats)">{{boattype.name}}</div>
+        </li>
     </ul>   
 </div>
 
@@ -12,9 +14,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>4-pres lånt båd</td>
-            <td>Status</td>
+        <tr ng-repeat="boat in selected">
+            <td>{{boat.name}}</td>
+            <td>{{boat.status}}</td>
             <td></td>
         </tr>
     </tbody>
