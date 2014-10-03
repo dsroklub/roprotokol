@@ -4,7 +4,7 @@ angular.module('myApp.register', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/register', {
-    templateUrl: 'register/register.html',
+    templateUrl: 'app/register/register.html',
     controller: 'RegisterCtrl'
   });
 }])
@@ -12,6 +12,32 @@ angular.module('myApp.register', ['ngRoute'])
 
 .controller('RegisterCtrl', ['$scope', function($scope) {
   $scope.selected = [];
+  
+  $scope.destinations = [
+      {
+          'id': 1,
+          'name': 'Bellevue',
+          'distance': 15
+      },
+      {
+          'id': 2,
+          'name': 'Charlottenlund',
+          'distance': 7
+      },
+      {
+          'id': 3,
+          'name': 'Flakfortet',
+          'distance': 22
+      }
+  ];
+  
+  $scope.triptypes = [
+      {
+          'id': 1,
+          'name': 'Lokaltur'
+      }
+  ];
+  
   $scope.boattypes = [
       {
           'id': 1,
@@ -82,4 +108,14 @@ angular.module('myApp.register', ['ngRoute'])
       $scope.selected = boats;
   };
   
+  var now = new Date();
+  
+  $scope.checkout = {
+      'startime' : now,
+      'expectedtime': new Date(now.getTime() + 60000 * 60),
+      'endtime': '',
+      'triptype': $scope.triptypes[0],
+      'rowers': []
+  };
+   
 }]);

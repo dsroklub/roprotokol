@@ -10,7 +10,8 @@ angular.module('myApp', [
   'myApp.damages',
   'myApp.corrections',
   'myApp.admin',
-  'myApp.version'
+  'myApp.version',
+  'myApp.range'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/register'});

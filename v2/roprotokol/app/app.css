@@ -60,3 +60,8 @@ div.menuholder {
 .boatlist {
     border: 1px solid black;
 }
+
+.register-form {
+    white-space:nowrap;
+    float: left;
+}
