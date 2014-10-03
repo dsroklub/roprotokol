@@ -1,18 +1,28 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
-angular.module('myApp', [
+var app = angular.module('myApp', [
   'ngRoute',
-  'myApp.register',
-  'myApp.overview',
-  'myApp.statistics',
-  'myApp.rowers',
-  'myApp.damages',
-  'myApp.corrections',
-  'myApp.admin',
+  'ngSanitize',
+  'ui.bootstrap',
+  'ui.select',
+  'ngQuickDate',
   'myApp.version',
-  'myApp.range'
+  'myApp.range',
+  'myApp.database'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/register'});
+  $routeProvider.when('/boat/checkout/:boat_id', {
+    templateUrl: 'templates/boat/checkout.html',
+    controller: 'BoatCtrl'
+  });
+  $routeProvider.when('/boat/categoryoverview/:boat_category_id?', {
+    templateUrl: 'templates/boat/categoryoverview.html',
+    controller: 'BoatCtrl'
+  });
+  $routeProvider.otherwise({redirectTo: '/boat/categoryoverview'});
+}])
+.config(['uiSelectConfig', function(uiSelectConfig) {
+  uiSelectConfig.theme = 'bootstrap';
 }]);
+
+;

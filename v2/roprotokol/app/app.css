@@ -61,7 +61,13 @@ div.menuholder {
     border: 1px solid black;
 }
 
-.register-form {
+.checkout-form {
     white-space:nowrap;
     float: left;
+}
+
+.checkout-form .checkout_destination {
+    float: left;
+    width: 12em;
+    padding-right: 0.2em;
 }
