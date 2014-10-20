@@ -40,10 +40,10 @@ for tid in range(1, 4000):
     pladser=int(boat[1])
     destination=random.randrange(1, 19)
     triptype=random.randrange(1, 12)
-    cur.execute("INSERT INTO Trip (TripID, Season, BoatID,Destination,Meter,TripTypeID,DESTID) VALUES ("+str(tid)+',2014,'+str(bid)+',"et eller andet sted",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+')');
+    cur.execute("INSERT INTO Trip (TripID, Season, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime) VALUES ("+str(tid)+',2014,'+str(bid)+',"et eller andet sted",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+')');
     for d in range(1,pladser):
         rower=int(math.sqrt(random.randrange(0, (numrowers-1)**2)))
-        cur.execute('INSERT INTO TripMember (TripID,Season,Seat,MemberID,MemberName) VALUES ('+str(tid)+',2014,'+str(d)+','+str(rower)+',"'+m[rower]+'")');
+        cur.execute('INSERT INTO TripMember (TripID,Season,Seat,MemberID,MemberName) VALUES ('+str(tid)+',2014,'+str(d)+','+str(rower)+',"'+m[rower]+'","2013-04-14 00:00:00")');
 
 
 
