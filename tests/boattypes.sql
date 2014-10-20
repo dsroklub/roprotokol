@@ -1,4 +1,6 @@
--- set global group_concat_max_len = 50000;
+-- set global group_concat_max_len = 9000;
+
+SELECT '{' as "" FROM dual;
 
 SELECT 
      CONCAT('"',GruppeID,'" : [',
@@ -9,6 +11,5 @@ SELECT
                	        CONCAT(',"status":"OK"}')
           ),'],') as "" FROM Båd,Gruppe   WHERE GruppeID=FK_GruppeID GROUP BY GruppeID;
 
--- GROUP BY GruppeID
--- SELECT BådID,Båd.Navn,Båd.Pladser FROM Båd,Gruppe WHERE GruppeID=FK_GruppeID;
+SELECT '"999":[]}' as "" FROM dual;
 
