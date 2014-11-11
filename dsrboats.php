@@ -1,19 +1,21 @@
 <?php
-if(!isset($_SESSION))  session_start();
-include "DatabaseINC.php";
+if (!isset($_SESSION)) {
+    session_start();
+}
+require_once("inc/database.inc.php");
 $db=OpenDatabase();
 // FIXME  session_register("BådKategori_session");
 ?>
 <HTML>
 <HEAD>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="roprotokol.css">
+<link rel="stylesheet" type="text/css" href="css/roprotokol.css">
   <script language="javascript" src="rslite.js"></script>
   <script language="javascript">
   
   var oInterval = "";
-	 // S�tter en timer igang, så siden kan blive opdateret hvert sekund (1000 milisekunder)
-	 // k�rer på clienten
+	 // Sætter en timer igang, så siden kan blive opdateret hvert sekund (1000 milisekunder)
+	 // kører på clienten
 	 function body_onLoad(){
 	
       // Create object
@@ -26,7 +28,7 @@ $db=OpenDatabase();
     }
     
     // Denne callback rutine kommer alle data tilbage til i response variablen
-    // k�rer på clienten
+    // kører på clienten
     function myCallback( response ){            
       var sCookie = response.split(",");
       i=0
@@ -53,7 +55,9 @@ $db=OpenDatabase();
   <title>Vis både</title>
 </head>
 <body onLoad="body_onLoad();" bgproperties="fixed" background="images/baggrund.jpg">
-<?php 
+    <?php require_once 'inc/topmenu.inc.php'; ?>
+
+    <?php 
 
       function arget($nm) {
       $rs="";
@@ -105,7 +109,7 @@ switch ($ShowType) {
   $Myrs=$db->execute($ShowID);
 
 ?>
-		<th class="tablehead" width="48%">Igangv�rende tur - <?php echo $myrs["navn"];?></th>
+		<th class="tablehead" width="48%">Igangværende tur - <?php echo $myrs["navn"];?></th>
 		<th class="tablehead" width="2%"><a href="dsrboats.php?GruppeID=<?php echo $gruppeID;?>"><img src="images/icon_close.gif" border="0"></a></th>
 		<?php 
     $myrs->close;
@@ -121,18 +125,21 @@ switch ($ShowType) {
 LockRemoveInactive();
 $BoatHTML=array();
 
-$s="SELECT Båd.BådID, Båd.Navn, Båd.FK_GruppeID, Båd.Pladser, qBoatsReserveret.FK_BådID, qBoatsOnWater2.FK_BådID, qBoatsSkadet.FK_BådID, qBoatsSkadet.grad, LåsteBåde.locktimeout, qBoatsOnWater2.TurType_Navn AS TurType_navn, qBoatsOnWater2.TurID FROM ((qBoatsReserveret RIGHT JOIN (qBoatsSkadet RIGHT JOIN Båd ON qBoatsSkadet.FK_BådID = Båd.BådID) ON qBoatsReserveret.FK_BådID = Båd.BådID) LEFT JOIN LåsteBåde ON Båd.BådID = LåsteBåde.BoatID) LEFT JOIN qBoatsOnWater2 ON Båd.BådID = qBoatsOnWater2.FK_BådID";
+$s = <<<SQL
+   SELECT Båd.BådID, Båd.Navn, Båd.FK_GruppeID, Båd.Pladser, qBoatsReserveret.FK_BådID, qBoatsOnWater2.FK_BådID, qBoatsSkadet.FK_BådID, qBoatsSkadet.grad, LåsteBåde.locktimeout, qBoatsOnWater2.TurType_Navn AS TurType_navn, qBoatsOnWater2.TurID 
+   FROM ((qBoatsReserveret RIGHT JOIN (qBoatsSkadet RIGHT JOIN Båd ON qBoatsSkadet.FK_BådID = Båd.BådID) ON qBoatsReserveret.FK_BådID = Båd.BådID) 
+   LEFT JOIN LåsteBåde ON Båd.BådID = LåsteBåde.BoatID) 
+   LEFT JOIN qBoatsOnWater2 ON Båd.BådID = qBoatsOnWater2.FK_BådID    
+SQL;
 
 if ($GruppeId!=0) {
   $s=$s." WHERE fk_gruppeid=".$GruppeId." ORDER BY Båd.Navn";
-  $rs=$db->query($s);
 } else {
   $s=$s." ORDER BY Båd.Navn";
-  $rs=$db->query($s);
 } 
+$rs = $db->query($s);
 
 error_log(" DSRSQL=".$s,0);
-//listrs(rs)
 
 $CNT=0;
 foreach ($rs as $baad) {
@@ -216,7 +223,7 @@ while(!($i==$CNT)) {
               $SDescript="Middel skadet";
               break;
             case 3:
-              $SDescript="Sv�rt skadet <br>(Må ikke benyttes)";
+              $SDescript="Sv�rt skadet <br>(Må ikke benyttes)";
               break;
           } 
           $DetailInfo=$DetailInfo."<tr><td width=\"50%\"><b>Grad:</b> ".$skaders["grad"]." - ".$SDescript."</td>";
@@ -233,7 +240,7 @@ while(!($i==$CNT)) {
         $DetailInfo=$DetailInfo."<center><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse\" width=\"95%\">";
         $DetailInfo=$DetailInfo."<tr><td width=\"50%\"><b>Destination:</b></td>";
         $DetailInfo=$DetailInfo."<td width=\"50%\">".substr($turrs["Destination"],0,(strpos($turrs["Destination"]," (",1) ? strpos($turrs["Destination"]," (",1)+1 : 0))."</td></tr>";
-        $DetailInfo=$DetailInfo."<tr><td width=\"50%\"><b>Turens l�ngde:</b></td>";
+        $DetailInfo=$DetailInfo."<tr><td width=\"50%\"><b>Turens l�ngde:</b></td>";
         $DetailInfo=$DetailInfo."<td width=\"50%\">".intval($turrs["Meter"]/1000)." km</td></tr>";
         $DetailInfo=$DetailInfo."<tr><td width=\"50%\"><b>Udskrevet:</b></td>";
         $DetailInfo=$DetailInfo."<td width=\"50%\">".$turrs["ud"]."</td></tr>";
@@ -265,7 +272,7 @@ while(!($i==$CNT)) {
 //if now<"27-03-2005 12:00:00" then 
 //
 //DetailInfo=DetailInfo & "<tr><td><font face=""Wingdings"" size=6>TTT</font><br><b>Vinterroning</b>"
-//DetailInfo=DetailInfo & "<br>Husk at vinters�sonen er startet, og at der g�lder s�rlige regler for vinterroning frem til standerhejsning.<br><br>"
+//DetailInfo=DetailInfo & "<br>Husk at vintersæsonen er startet, og at der gælder særlige regler for vinterroning frem til standerhejsning.<br><br>"
 //
 //end if
 

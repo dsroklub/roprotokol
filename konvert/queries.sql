@@ -256,13 +256,10 @@ ORDER BY Båd.Navn, IF(Grad>2 Or ud>0 Or MotionPlus=1,"Nej","Ja");
 
 
 -- XXXXXXXXXXXXXXX
-CREATE VIEW Medlemsrettigheder AS
+/* CREATE VIEW Medlemsrettigheder AS
 -- SportsData Missing
 SELECT tblMembersSportData.MemberID, tblMembersSportData.Motorboat, tblMembersSportData.Roret, tblMembersSportData.TeoretiskStyrmandKursus, tblMembersSportData.Styrmand, tblMembersSportData.Langtur, tblMembersSportData.Skaergaard, tblMembersSportData.Langtur_Oeresund, tblMembersSportData.Ormen, tblMembersSportData.Svava, tblMembersSportData.Sculler, tblMembersSportData.Kajak, tblMembersSportData.Kajak_2, tblMembersSportData.RoInstruktoer, tblMembersSportData.StyrmandInstruktoer, tblMembersSportData.ScullerInstruktoer, tblMembersSportData.KajakInstruktoer, tblMembersSportData.Kaproer, tblMembersSportData.KeyType, tblMembersSportData.KeyDate, tblMembersSportData.KeyFee, tblMembersSportData.Stilling, tblMembersSportData.Ordinaert, tblMembersSportData.diverse1, tblMembersSportData.diverse2
-FROM tblMembersSportData;
-
-
-
+FROM tblMembersSportData; */
 
 CREATE VIEW QRYRovagtInr2 AS
 SELECT Båd.Navn, IF(Ud>0,"Ja","Nej") AS Paa_vandet, qBoatsOnWater3.ForvInd, qBoatsOnWater3.Styrmand, qBoatsSkadet.grad AS Skadet, IF(Grad>2 Or ud>0 Or MotionPlus=1,"Nej","Ja") AS Tilgaengelig

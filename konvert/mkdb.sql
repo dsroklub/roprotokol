@@ -20,9 +20,30 @@ CREATE TABLE IF NOT EXISTS Tur (
        Initialer CHAR(10),
        DESTID INT
 );
-CREATE INDEX turfk on Tur(FK_BådID);
 
+CREATE INDEX turfk on Tur(FK_BådID);
 CREATE INDEX turud on Tur(ud);
+
+CREATE TABLE IF NOT EXISTS Trip (
+       TripID INT,
+       Season INT,
+       BoatID INT NOT NULL,
+       OutTime DATETIME,
+       InTime DATETIME,
+       ExpectedIn DATETIME,
+       Destination VARCHAR(100),
+       Meter INT,
+       TripTypeID INT,
+       Comment VARCHAR(1000),
+       CreatedDate DATE,
+       EditDate DATE,
+       Initials CHAR(10),
+       DESTID INT,
+       PRIMARY KEY   (Season,TripID)
+);
+
+CREATE INDEX  tripfk on Trip(BoatID);
+CREATE INDEX tripout on Trip(OutTime);
 
 
 CREATE TABLE IF NOT EXISTS Båd (
@@ -121,6 +142,7 @@ CREATE TABLE IF NOT EXISTS  Fejl_tur (
        FejlID INT PRIMARY KEY,
        SletTur INT,
        TurID INT,
+       Season INT,
        Båd VARCHAR(100),
        Ud DATETIME,
        Ind DATETIME,
@@ -157,13 +179,6 @@ CREATE TABLE IF NOT EXISTS Gruppe (
 );
 CREATE INDEX gruppenavn on Gruppe(Navn);
 
-
-CREATE TABLE IF NOT EXISTS Hitcounter (
-       ID INT PRIMARY KEY,
-       Side VARCHAR(100),
-       Item VARCHAR(100),
-       Timestamp DATETIME 
-);
 
 CREATE TABLE IF NOT EXISTS  Kajak_typer (
        ID INT PRIMARY KEY,
@@ -253,6 +268,19 @@ CREATE TABLE IF NOT EXISTS TurDeltager (
        Initialer CHAR(10),
        PRIMARY KEY(FK_TurID,Plads)
 );
+
+CREATE TABLE IF NOT EXISTS TripMember (
+       TripID INT,
+       Season INT,
+       Seat INT,
+       MemberID INT,
+       MemberName VARCHAR(100),
+       CreatedDate DATE,
+       EditDate DATE,
+       Initials CHAR(10),
+       PRIMARY KEY(TripID,Season,Seat)
+);
+
 
 CREATE TABLE IF NOT EXISTS TurType (
        TurTypeID INT PRIMARY KEY,

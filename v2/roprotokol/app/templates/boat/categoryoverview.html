@@ -1,0 +1,18 @@
+<div ng-include="'templates/boat/_boatcategories.html'"></div>
+
+<table class="boatlist">
+    <thead>
+        <tr>
+            <th>Båd</th><th>Status</th><th>Information</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="boat in selectedboats">
+            <td><a href="#/boat/checkout/{{boat.id}}">{{boat.name}}</a></td>
+            <td>{{boat.status}}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<pre> {{boat_category_id}} </pre>

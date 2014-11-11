@@ -1,0 +1,92 @@
+<div ng-include="'templates/boat/_boatcategories.html'"></div>
+
+<script type="text/ng-template" id="customTemplate.html">
+  <a>
+  <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+  <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<div class="checkout-form">
+  <form novalidate>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <label for="checkout_destination">Destination</label>
+          </td>
+          <td>
+            <ui-select class="checkout_destination" ng-model="checkout.destination"ng-disabled="disabled">
+              <ui-select-match placeholder="Vælg Destination">{{$select.selected.name}}</ui-select-match>
+              <ui-select-choices repeat="destination in destinations | filter: $select.search">
+                <span ng-bind-html="destination.name | highlight: $select.search"></span>
+                <small ng-bind-html="destination.distance | highlight: $select.search"></small>
+              </ui-select-choices>
+            </ui-select>
+            <input maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" ng-model="checkout.destination.distance" required />km
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="checkout_starttime">Ud</label> 
+          </td>
+          <td>
+            <quick-datepicker id="checkout_starttime" ng-model='checkout.starttime' label-format="yyyy-MM-dd HH:mm" date-format="yyyy-MM-dd" time-format="HH:mm"></quick-datepicker>
+          </td>    
+      </tr>
+      <tr>
+        <td>
+          <label for="checkout_expectedtime">Forventet ind</label>
+        </td>
+        <td>
+          <quick-datepicker id="checkout_starttime" ng-model='checkout.expectedtime' label-format="yyyy-MM-dd HH:mm" date-format="yyyy-MM-dd" time-format="HH:mm"></quick-datepicker>
+        </td>    
+      </tr>
+      <tr>
+        <td>
+          <label for="checkout_endtime">Ind</label>
+        </td>
+        <td>
+          <quick-datepicker id="checkout_starttime" ng-model='checkout.endtime' label-format="yyyy-MM-dd HH:mm" date-format="yyyy-MM-dd" time-format="HH:mm"></quick-datepicker>
+        </td>    
+      </tr>
+      <tr>
+        <td>
+          <label for="checkout_triptype">Tur type</label>
+        </td>
+        <td>
+          <select id="checkout_triptype" type="text" ng-model="checkout.triptype" ng-options="item as item.name for item in triptypes">
+          </select>
+        </td>    
+      </tr>
+      <tr>
+        <td>
+          <label for="checkout_comments">Bemærkninger</label>
+        </td>
+        <td>
+          <input id="checkout_comments" type="text" ng-model="checkout.comments" />
+        </td>    
+      </tr>
+      <tr ng-repeat="rower in checkout.rowers track by $index">
+        <td>
+          <label for="checkout_rower{{$index}}">{{$first ? 'Styrmand' : 'Roer'}}</label>
+          <label for="checkout_rower{{$index}}">{{rower.id}}</label>
+        </td>
+        <td>
+          <input id="checkout_rower{{$index}}" type="text" ng-model="checkout.rowers[$index]" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" />
+        </td>    
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button ng-click="checkout(checkout)">Udskriv båd</button>
+          <button ng-click="createrower(checkout)">Opret roer</button>
+          <button ng-click="reportdamage(checkout)">Meld skade</button>
+          <button ng-click="back(checkout)">Tilbage</button>      
+        </td>    
+      </tr>
+      </tbody>
+    </table>
+  </form>
+  <pre>form = {{checkout| json}}</pre>
+  <div ng-include="'templates/boat/_boatdamages.html'"></div>
+</div>
