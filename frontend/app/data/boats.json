@@ -3,12 +3,14 @@
       "spaces" : 3,
       "name" : "Helge",
       "id" : "34",   
-      "category": "Inrigger 2+"
+      "category": "Inrigger 2+",
+      "location": "DSR"
    },
    {
       "spaces" : 1,
       "id" : "157",
       "name" : "Nemo",
-      "category": "Inrigger 2+"
+      "category": "Inrigger 2+",
+      "location": "DSR"
    }
 ]

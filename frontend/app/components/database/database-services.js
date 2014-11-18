@@ -100,6 +100,14 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return boats[boat_id];
   }
   
+  this.getBoatStatusWithId = function (boat_id) {
+    // On the water(Checkouted), Being booked(Locked until), Reserved, Has damage(Severe, Medium, Light) = ?
+  }
+  
+  this.lockBoatWithId = function (boat_id) {
+    // send timestamp 
+  }
+  
   this.getDamagesWithBoatId = function (boat_id) {
     return boatdamages[boat_id];
   };
