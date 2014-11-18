@@ -15,7 +15,7 @@ config(['$routeProvider', function($routeProvider) {
     templateUrl: 'templates/boat/checkout.html',
     controller: 'BoatCtrl'
   });
-  $routeProvider.when('/boat/categoryoverview/:boat_category_id?', {
+  $routeProvider.when('/boat/categoryoverview/:boat_category?', {
     templateUrl: 'templates/boat/categoryoverview.html',
     controller: 'BoatCtrl'
   });

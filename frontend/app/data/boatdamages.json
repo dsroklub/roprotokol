@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "boat_id": 34,
+        "title": "Let lak skade",
+        "comment": "blevet lakeret sidste gang 31/12",
+        "level": 1
+      },
+      {
+        "id": 1,
+        "boat_id": 157,
+        "title": "Mangler ror",
+        "comment": "",
+        "level": 4
+      }
+]
