@@ -5,7 +5,11 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', functio
   $scope.selectedboats = DatabaseService.getBoatsWithCategoryId($routeParams.boat_category_id);  
   $scope.destinations = DatabaseService.getDestinations();
   $scope.triptypes = DatabaseService.getTripTypes();
-  $scope.boatcategories = DatabaseService.getBoatCategories();
+  DatabaseService.getBoatCategories().then(function(response) {
+    $scope.boatcategories = response.data;
+  });
+    
+    
   
   $scope.getRowerByName = function (val) {
     return DatabaseService.getRowersByNameOrId(val);
@@ -29,9 +33,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', functio
     }
     
     $scope.boatdamages = DatabaseService.getDamagesWithBoatId($routeParams.boat_id);
-    
-    
-    
+
   } else {
     //TODO: Say boat was not found
   }
