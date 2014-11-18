@@ -1,0 +1,23 @@
+[
+    {
+      "status" : "OK",
+      "spaces" : 3,
+      "name" : "Helge",
+      "id" : "34",
+      "damages": [{
+        "id": 1,
+        "title": "Mangler ror",
+        "comment": "",
+        "level": 4
+      }],
+      "category": "Inrigger 2+"
+   },
+   {
+      "spaces" : 1,
+      "status" : "OK",
+      "id" : "157",
+      "name" : "Nemo",
+      "damages": [],
+      "category": "Inrigger 2+"
+   }
+]
