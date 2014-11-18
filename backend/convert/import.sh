@@ -15,7 +15,6 @@ for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData
     $DBCMD < $SCRIPT_PATH/data/$tb.sql
 done
 
-
 for SEASON in $(seq 2010 2013); do
     echo SEASON $SEASON; 
     for ST in Tur Turdeltager; do
