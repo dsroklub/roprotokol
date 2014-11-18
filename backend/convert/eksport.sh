@@ -3,7 +3,7 @@
 BASEDIR=$(dirname $0)
 SCRIPT_PATH=$(readlink -f $BASEDIR)
 
-RODB=$SCRIPT_PATH/../../Roprotokol_sommer.mdb
+RODB=$SCRIPT_PATH/Roprotokol_sommer.mdb
 
 echo using $SCRIPT_PATH  $RODB
 for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData Fejl_tur Gruppe Hitcounter Kajak_typer Kommentar LåsteBåde Medlem Motion+status Opsætning Postnr Reservation Skade TurDeltager TurType Version Vintervedligehold Destination Kajak_anvendelser Tur; do
