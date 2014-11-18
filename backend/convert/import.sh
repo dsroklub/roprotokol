@@ -5,8 +5,7 @@ SCRIPT_PATH=$(readlink -f $BASEDIR)
 CURRENTSEASON=2014
 echo CURRENTSEASON=$CURRENTSEASON
 
-#DBCMD=mysql -u roprotokol -proprotokol roprotokol
-DBCMD="mysql -u roprotokol roprotokol"
+DBCMD="mysql -u roprotokol -proprotokol roprotokol"
 
 for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData Fejl_tur Gruppe  Kajak_typer Kommentar LåsteBåde Medlem Motionstatus Postnr Reservation Skade TurDeltager TurType  Vintervedligehold Destination Kajak_anvendelser Tur; do
     echo DO IMPORT $tb
