@@ -6,7 +6,7 @@ CURRENTSEASON=2014
 echo CURRENTSEASON=$CURRENTSEASON
 
 #DBCMD=mysql -u roprotokol -proprotokol roprotokol
-DBCMD="mysql -u root roprotokol"
+DBCMD="mysql -u roprotokol roprotokol"
 
 for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData Fejl_tur Gruppe  Kajak_typer Kommentar LåsteBåde Medlem Motionstatus Postnr Reservation Skade TurDeltager TurType  Vintervedligehold Destination Kajak_anvendelser Tur; do
     echo DO IMPORT $tb
@@ -14,7 +14,6 @@ for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData
     $DBCMD -e "TRUNCATE TABLE $tb;"
     $DBCMD < $SCRIPT_PATH/data/$tb.sql
 done
-
 
 for SEASON in $(seq 2010 2013); do
     echo SEASON $SEASON; 
