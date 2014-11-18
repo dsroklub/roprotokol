@@ -13,17 +13,9 @@ if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
 }
 
-//$WhichYear=strftime("%Y",time());
-$WhichYear="2014";
-    $s="SELECT Sum(Meter/1000) AS Km ,Medlem.MedlemID, Medlem.Fornavn, Medlem.Efternavn  
-    FROM Gruppe,Trip,TripMember,Båd,Medlem 
-    WHERE 
-      Trip.TripID = TripMember.TripID AND
-      Medlem.MedlemID = TripMember.MemberID AND
-      Båd.BådID = Trip.BoatID AND     
-      Gruppe.GruppeID = Båd.FK_GruppeID AND
-      (((Year(OutTime))=".$WhichYear.") AND ((Gruppe.FK_BådKategoriID)=2)) 
-    GROUP BY Medlem.MedlemID;";
+    $s="SELECT Medlemsnr as id,CONCAT(Fornavn,' ',Efternavn) as name,Initialer as initials
+    FROM Medlem";
+
 
 // echo $s;
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;

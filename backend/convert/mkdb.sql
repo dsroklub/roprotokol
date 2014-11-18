@@ -288,7 +288,8 @@ CREATE TABLE IF NOT EXISTS TurType (
        Beskrivelse VARCHAR(1000),
        OprettetDato DATE,
        RedigeretDato DATE,
-       Initialer CHAR(10)
+       Initialer CHAR(10),
+       Aktiv INT
 );
 
 CREATE TABLE IF NOT EXISTS Vintervedligehold (
