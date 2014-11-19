@@ -59,8 +59,19 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       return DatabaseService.getRowersByNameOrId(val);
     };
 
+    $scope.isObjectAndHasId = function (val) {
+      return typeof(val) === 'string' && val.length > 3;
+    };
+
     $scope.clearDestination = function () {
       $scope.checkout.destination = undefined;
+    };
+    
+    $scope.createRower = function (rowers, index) {
+      var rower = DatabaseService.createRowerByName(rowers[index]);
+      if(rower) {
+        rowers[index] = rower;
+      }
     };
 
 }]);

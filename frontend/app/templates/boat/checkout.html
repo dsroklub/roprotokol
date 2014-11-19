@@ -74,12 +74,12 @@
         </td>
         <td>
           <input id="checkout_rower{{$index}}" type="text" ng-model="checkout.rowers[$index]" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" />
-        </td>    
+          <button ng-if="isObjectAndHasId(checkout.rowers[$index])" ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
+        </td>
       </tr>
       <tr>
         <td colspan="2">
           <button ng-click="checkout(checkout)">Udskriv båd</button>
-          <button ng-click="createrower(checkout)">Opret roer</button>
           <button ng-click="reportdamage(checkout)">Meld skade</button>
           <button ng-click="back(checkout)">Tilbage</button>      
         </td>    
@@ -87,6 +87,6 @@
       </tbody>
     </table>
   </form>
-  <pre>form = {{checkout| json}}</pre>
+  <pre>form = {{checkout | json}}</pre>
   <div ng-if="boatdamages" ng-include="'templates/boat/_boatdamages.html'"></div>
 </div>

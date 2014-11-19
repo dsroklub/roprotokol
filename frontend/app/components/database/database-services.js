@@ -139,5 +139,13 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       return val.length > 2 && element.search.indexOf(val) > -1;
     });
   };
+  
+  this.createRowerByName = function(name) {
+    // TODO: implement
+    return {
+        "id": "K1",
+        "name": name
+      };
+  };
 
 });
