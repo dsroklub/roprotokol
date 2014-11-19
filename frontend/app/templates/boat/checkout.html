@@ -88,5 +88,5 @@
     </table>
   </form>
   <pre>form = {{checkout| json}}</pre>
-  <div ng-include="'templates/boat/_boatdamages.html'"></div>
+  <div ng-if="boatdamages" ng-include="'templates/boat/_boatdamages.html'"></div>
 </div>

@@ -1,9 +1,13 @@
 'use strict';
 
-angular.module('myApp.version.interpolate-filter', [])
-
-.filter('interpolate', ['version', function(version) {
+angular.module('myApp.utilities', []).filter('urldecode', function() {
   return function(text) {
-    return String(text).replace(/\%VERSION\%/mg, version);
+    return window.decodeURIComponent(text);
   };
-}]);
+});
+
+angular.module('myApp.utilities', []).filter('urlencode', function() {
+  return function(text) {
+    return window.encodeURIComponent(text);
+  };
+});

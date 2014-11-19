@@ -2,7 +2,7 @@
     <h2>Vælg bådetype</h2>
     <ul>
         <li ng-repeat="boatcategory in boatcategories">
-            <a href="#/boat/categoryoverview/{{boatcategory}}">{{boatcategory}}</a>
+            <a href="#/boat/categoryoverview/?name={{boatcategory|urlencode}}">{{boatcategory}}</a>
         </li>
     </ul>   
 </div>

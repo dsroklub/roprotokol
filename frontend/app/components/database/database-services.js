@@ -24,10 +24,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
         }, boats);
         boatcategories = {};
         angular.forEach(response.data, function(boat, index) {
-          if(this[boat.category] === undefined) {
-            this[boat.category] = [];
+          var category = boat.category;
+          if(this[category] === undefined) {
+            this[category] = [];
           }
-          this[boat.category].push(boat);
+          this[category].push(boat);
         }, boatcategories);
 
        boatsloaded.resolve(true);
@@ -98,22 +99,31 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
   this.getBoatWithId = function (boat_id) {
     return boats[boat_id];
-  }
+  };
   
-  this.getBoatStatusWithId = function (boat_id) {
+  this.getBoatStatuses = function (boat_id) {
     // On the water(Checkouted), Being booked(Locked until), Reserved, Has damage(Severe, Medium, Light) = ?
-  }
+  };
   
-  this.lockBoatWithId = function (boat_id) {
-    // send timestamp 
-  }
+  this.lockBoatWithId = function (boat_id, date) {
+    var timestamp = date.toISOString();
+    // TODO: Send timestamp to server
+    console.log("Lock "+ boat_id + " : " + timestamp);
+  };
   
   this.getDamagesWithBoatId = function (boat_id) {
     return boatdamages[boat_id];
   };
 
-  this.getBoatsWithCategoryId = function (categoryname) {
-    return boatcategories[categoryname];
+  this.getBoatsWithCategoryName = function (categoryname) {
+    var boats = boatcategories[categoryname];
+    if (boats) {
+      return boats.sort(function (a, b) {
+        return a.name.localeCompare(b.name);
+      });
+    } else {
+      return null;
+    }
   };
   
   this.getDestinations = function () {
@@ -126,7 +136,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   
   this.getRowersByNameOrId = function(val) {
     return rowers.filter(function(element) {
-      return element.search.indexOf(val) > -1;
+      return val.length > 2 && element.search.indexOf(val) > -1;
     });
   };
 

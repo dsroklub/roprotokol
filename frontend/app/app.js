@@ -8,14 +8,15 @@ var app = angular.module('myApp', [
   'ngQuickDate',
   'myApp.version',
   'myApp.range',
-  'myApp.database'
+  'myApp.database',
+  'myApp.utilities'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/boat/checkout/:boat_id', {
     templateUrl: 'templates/boat/checkout.html',
     controller: 'BoatCtrl'
   });
-  $routeProvider.when('/boat/categoryoverview/:boat_category?', {
+  $routeProvider.when('/boat/categoryoverview/', {
     templateUrl: 'templates/boat/categoryoverview.html',
     controller: 'BoatCtrl'
   });
