@@ -25,6 +25,9 @@ ul {
 pre.ng-binding {
     display: none;
 }
+*:focus {
+    outline: 0;
+}
 
 /* Custom */
 .menuholder {
@@ -57,20 +60,22 @@ pre.ng-binding {
 .menu li:hover a {
     color: #aed4e3;
 }
+.menu li i {
+    font-size: 12pt;
+    margin-right: 4pt;
+}
 .main {
     margin: 0;   
     padding: 15pt 25pt;
 }
 .boatlist ,
 .boatcategories,
-.checkout-form{
+.checkout-form,
+.boatdamages {
     width: auto;
     display: inline-block;
-    background: white;
-    border-radius: 5px;
     vertical-align: top;
     margin-right: 10pt;
-    overflow: hidden;
 }
 .boattypesmenu h2 {
     background: #23aee2;
@@ -79,8 +84,10 @@ pre.ng-binding {
     font-size: 10pt;
     font-weight: 400;
     border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
 }
 .boattypesmenu ul {
+    background: white;
 }
 .boattypesmenu ul li {
     padding: 5pt 10pt;
@@ -104,6 +111,13 @@ pre.ng-binding {
     font-weight: 400;
     border-right: 1px solid white;
 }
+boatlist thread th:first-child {
+    border-radius: 5px 0 0 0;
+}
+boatlist thread th:last-child {
+    border-radius: 0 5px 0 0 0;
+    border: 0;
+}
 .boatlist thead th:last-child {
     border: 0;
 }
@@ -111,25 +125,29 @@ pre.ng-binding {
     padding: 10pt;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
+    background: white;
 }
 
 .checkout-form h2 {
-    background: #23aee2;
+    background: #3ECBBF;
     padding: 10pt;
     color: white;
     font-size: 10pt;
     font-weight: 400;
     border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
 }
 .checkout-form form {
     padding: 10pt;
+    background: white;
 }
 .checkout-form label {
     font-weight: 400;
     color: #555;
 }
 .checkout-form td > input,
-.checkout-form select {
+.checkout-form select,
+.checkout-form textarea {
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 5pt;
@@ -140,5 +158,13 @@ pre.ng-binding {
 }
 .checkout-form .dropdown {
     margin-bottom: 10pt;
+}
+.checkout-form td > input,
+.checkout-form select,
+.checkout-form .quickdate,
+.checkout-form .dropdown,
+.checkout-form textarea {
+    margin-right: 10pt;
+    margin-left: 10pt;
 }
     
