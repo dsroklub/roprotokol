@@ -1,73 +1,222 @@
-/* app css stylesheet */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
 
-div.main {
-    margin-left: 0.8em;
-    margin-right: 0.8em;
-}
-
-div.menuholder {
-    text-align: center;
-}
-
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin: 0.8em 0.8em 0.8em 0.8em;
-  padding: 0.5em 0.5em 0.5em 0.5em;
-  border: 1px solid black;
-  background-color: #DAEFFE;
-}
-
-.menu > li {
-  display: inline;
-}
-
-.menu > li > a {
-  font-size: 0.8em;
-  font-weight: bold;
-  color: black;
-  text-decoration: none;
-  //background-color: #F6E9D8;
-  padding: 0 3.5em 0 3.5em;
-  text-align: center;
-}
-
-.boattypesmenu {
-    float: left;
-    margin-right: 1em;
-    border: 1px solid black;
-}
-
-.boattypesmenu > ul {
-    list-style: none;
-    margin: 0 0 0 0.2em;
+/* Generic */
+html, body {
+    margin: 0;
     padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10pt;
+    color: #555;
+    background: #F1F2F7;
+    font-weight: 400;
+}
+a {
+    color: #333;
+    text-decoration: none;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+pre.ng-binding {
+    display: none;
+}
+*:focus {
+    outline: 0;
 }
 
-.boattypesmenu > ul > li {
-    font-size: 0.8em;
-
+button {
+    -webkit-appearance: none;
+    background: none;
+    border-radius: 5px;
+    border: 0;
+    padding: 5pt 10pt;
+    cursor: pointer;
+    margin-top: 5pt;
+    border: 1px solid #ccc;
+}
+button:hover {
+/*    color: #23AEE2;*/
+/*    border: 1px solid #23AEE2;*/
+}
+button i {
+    margin-right: 5pt;
+}
+button.red:hover {   
+    border: 1px solid #FF6C60;
+    color: #FF6C60;
+}
+button.green:hover {   
+    border: 1px solid #3ECBBF;
+    color: #3ECBBF;
+}
+button.yellow:hover {
+    color: #f0ce4e;
+    border: 1px solid #f0ce4e;
 }
 
-.boattypesmenu h2 {
+/* Custom */
+.menuholder {
+    margin: 0;
+}
+.menu li.logo {
+    padding: 0;
+    padding-top: 6pt;
+    padding-left: 15pt;
+}
+.logo img {
+    height: 30pt;
+}
+.menu {
+    list-style: none;
+    background: #0088C0;
+    padding: 0 10pt;
+    margin: 0;
+}
+.menu li {
+    display: inline-block;
+    padding: 15pt 15pt;
+    margin: 0;
+    cursor: pointer;
+    vertical-align: top;
+}
+.menu li a {
     color: white;
-    padding: 0 1em 0 1em;
-    margin: 0.1em 0.1em 0.1em 0.1em;
-    font-size: 0.8em;
-    background-color: #001B7C;
+    text-decoration: none;
+}
+.menu li:hover a {
+    color: #d4d4c8;
+}
+.menu li i {
+    font-size: 12pt;
+    margin-right: 4pt;
+}
+.menu li:hover i {
+    color: #ede511;
+}
+.main {
+    margin: 0;   
+    padding: 15pt 25pt;
+}
+.boatlist ,
+.boatcategories,
+.checkout-form,
+.boatdamages {
+    width: auto;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10pt;
+}
+.boattypesmenu h2 {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.boattypesmenu ul {
+    background: white;
+}
+.boattypesmenu ul li {
+    padding: 5pt 10pt;
+    cursor: pointer;
+}
+.boattypesmenu ul li:hover {
+    background: #57C8F2;
+}
+.boattypesmenu ul li:hover a {
+    color: white;
 }
 
 .boatlist {
-    border: 1px solid black;
+    border-radius: 5px;
+    overflow: auto;
+}
+.boatlist thead th {
+    background: #3ECBBF;
+    color: white;
+    padding: 10pt;
+    font-weight: 400;
+    border-right: 1px solid white;
+}
+boatlist thread th:first-child {
+    border-radius: 5px 0 0 0;
+}
+boatlist thread th:last-child {
+    border-radius: 0 5px 0 0 0;
+    border: 0;
+}
+.boatlist thead th:last-child {
+    border: 0;
+}
+.boatlist td {
+    padding: 10pt;
+    border-right: 1px solid #F1F2F7;
+    border-bottom: 1px solid #F1F2F7;
+    background: white;
 }
 
-.checkout-form {
-    white-space:nowrap;
-    float: left;
+.checkout-form h2 {
+    background: #3ECBBF;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
 }
-
-.checkout-form .checkout_destination {
-    float: left;
-    width: 12em;
-    padding-right: 0.2em;
+.checkout-form form {
+    padding: 10pt;
+    background: white;
 }
+.checkout-form label {
+    font-weight: 400;
+    color: #555;
+}
+.checkout-form td > input,
+.checkout-form select,
+.checkout-form textarea {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5pt;
+    margin-bottom: 10pt;
+}
+.checkout-form .quickdate {
+    margin-bottom: 10pt;
+}
+.checkout-form .dropdown {
+    margin-bottom: 10pt;
+}
+.checkout-form td > input,
+.checkout-form select,
+.checkout-form .quickdate,
+.checkout-form .dropdown,
+.checkout-form textarea {
+    margin-right: 10pt;
+    margin-left: 10pt;
+}
+    
+.damageslist h2 {
+    background: #f0ce4e;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.damageslist ul {
+    background: white;
+    padding: 10pt;
+}
+.damageslist h3 {
+    font-size: 14pt;
+    margin-bottom: 4pt;
+}
+    
