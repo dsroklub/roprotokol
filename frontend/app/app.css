@@ -29,6 +29,29 @@ pre.ng-binding {
     outline: 0;
 }
 
+button {
+    -webkit-appearance: none;
+    background: none;
+    border-radius: 5px;
+    border: 0;
+    padding: 5pt 10pt;
+    cursor: pointer;
+    margin-top: 5pt;
+    background: #F1F2F7;
+}
+button.red {
+    background: #FF6C60;
+    color: white;
+}
+button.green {
+    background: #A9D96C;
+    color: white;
+}
+button.yellow {
+    background: #F8D347;
+    color: white;
+}
+
 /* Custom */
 .menuholder {
     margin: 0;
@@ -166,5 +189,23 @@ boatlist thread th:last-child {
 .checkout-form textarea {
     margin-right: 10pt;
     margin-left: 10pt;
+}
+    
+.damageslist h2 {
+    background: #F8D347;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.damageslist ul {
+    background: white;
+    padding: 10pt;
+}
+.damageslist h3 {
+    font-size: 14pt;
+    margin-bottom: 4pt;
 }
     
