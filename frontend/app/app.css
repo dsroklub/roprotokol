@@ -37,23 +37,27 @@ button {
     padding: 5pt 10pt;
     cursor: pointer;
     margin-top: 5pt;
+    border: 1px solid #ccc;
 }
 button:hover {
-    color: #23AEE2;
+/*    color: #23AEE2;*/
+/*    border: 1px solid #23AEE2;*/
 }
-/*
-button.red {
-    background: #FF6C60;
-    color: white;
+button i {
+    margin-right: 5pt;
 }
-button.green {
-    background: #3ECBBF;
-    color: white;
+button.red:hover {   
+    border: 1px solid #FF6C60;
+    color: #FF6C60;
 }
-button.yellow {
-    background: #f0ce4e;
-    color: white;
-}*/
+button.green:hover {   
+    border: 1px solid #3ECBBF;
+    color: #3ECBBF;
+}
+button.yellow:hover {
+    color: #f0ce4e;
+    border: 1px solid #f0ce4e;
+}
 
 /* Custom */
 .menuholder {
@@ -82,13 +86,17 @@ button.yellow {
 }
 .menu li a {
     color: white;
+    text-decoration: none;
 }
 .menu li:hover a {
-    color: #aed4e3;
+    color: #d4d4c8;
 }
 .menu li i {
     font-size: 12pt;
     margin-right: 4pt;
+}
+.menu li:hover i {
+    color: #ede511;
 }
 .main {
     margin: 0;   
