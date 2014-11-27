@@ -26,4 +26,3 @@ config(['$routeProvider', function($routeProvider) {
   uiSelectConfig.theme = 'bootstrap';
 }]);
 
-;
