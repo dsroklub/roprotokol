@@ -4,7 +4,7 @@
         <li ng-repeat="damage in boatdamages">
             <h3>{{damage.title}}</h3>
             <p>{{damage.comment}}</p>
-            <a href="#/boat/fixdamage/{{damage.id}}">Klarmeld</a>
+            <button class="green" ng-click="fixdamage(selectedboat.id)">Klarmeld</<button>
         </li>
     </ul>   
 </div>
