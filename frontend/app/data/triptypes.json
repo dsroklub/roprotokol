@@ -1,6 +1,16 @@
 [
-    {
-        "id": 1,
-        "name": "Lokaltur"
-    }
+{"id":"1","name":"Lokaltur"},
+{"id":"2","name":"Tastet"},
+{"id":"3","name":"Langtur"},
+{"id":"4","name":"Inriggerkaproning"},
+{"id":"5","name":"Instruktion"},
+{"id":"6","name":"Udstationeret"},
+{"id":"7","name":"Sved P\u00e5 Panden"},
+{"id":"8","name":"Racerkanin"},
+{"id":"9","name":"Teknik+"},
+{"id":"10","name":"Outrigger\/ScullerInstruktion"},
+{"id":"11","name":"Styrmandsinstruktion"},
+{"id":"12","name":"8GP"},
+{"id":"13","name":"Teknik og tur"},
+{"id":"14","name":"Puls og program"}
 ]
