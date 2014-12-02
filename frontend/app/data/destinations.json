@@ -1,22 +1,22 @@
 [
-    {
-        "id": 0,
-        "name": "Ukendt",
-        "distance": 0
-    },
-    {
-        "id": 1,
-        "name": "Bellevue",
-        "distance": 15
-    },
-    {
-        "id": 2,
-        "name": "Charlottenlund",
-        "distance": 7
-    },
-    {
-        "id": 3,
-        "name": "Flakfortet",
-        "distance": 22
-    }
+{"Navn":"Bellevue","Meter":"15000","Gennemsnitlig_varighed_Normal":"2.50","Gennemsnitlig_varighed_Instruktion":"2.60"},
+{"Navn":"Charlottenlund","Meter":"7000","Gennemsnitlig_varighed_Normal":"1.80","Gennemsnitlig_varighed_Instruktion":"2.00"},
+{"Navn":"Hellerup","Meter":"5000","Gennemsnitlig_varighed_Normal":"1.80","Gennemsnitlig_varighed_Instruktion":"1.90"},
+{"Navn":"Kanalen","Meter":"22000","Gennemsnitlig_varighed_Normal":"3.80","Gennemsnitlig_varighed_Instruktion":"4.50"},
+{"Navn":"Skovshoved (11,5km)","Meter":"11500","Gennemsnitlig_varighed_Normal":"2.00","Gennemsnitlig_varighed_Instruktion":"2.20"},
+{"Navn":"Slusen","Meter":"26000","Gennemsnitlig_varighed_Normal":"4.50","Gennemsnitlig_varighed_Instruktion":"6.00"},
+{"Navn":"Tuborg havn","Meter":"3000","Gennemsnitlig_varighed_Normal":"1.30","Gennemsnitlig_varighed_Instruktion":"1.50"},
+{"Navn":"T\u00e5rb\u00e6k","Meter":"18000","Gennemsnitlig_varighed_Normal":"2.50","Gennemsnitlig_varighed_Instruktion":"2.70"},
+{"Navn":"Flakfortet","Meter":"22000","Gennemsnitlig_varighed_Normal":"3.60","Gennemsnitlig_varighed_Instruktion":"0.00"},
+{"Navn":"Margretheholms havn","Meter":"15000","Gennemsnitlig_varighed_Normal":"2.50","Gennemsnitlig_varighed_Instruktion":"2.80"},
+{"Navn":"Langelinie","Meter":"15000","Gennemsnitlig_varighed_Normal":"2.40","Gennemsnitlig_varighed_Instruktion":"3.60"},
+{"Navn":"Vedb\u00e6k","Meter":"33000","Gennemsnitlig_varighed_Normal":"4.80","Gennemsnitlig_varighed_Instruktion":"7.50"},
+{"Navn":"Strandm\u00f8llen (22,5km)","Meter":"22500","Gennemsnitlig_varighed_Normal":"2.60","Gennemsnitlig_varighed_Instruktion":"5.20"},
+{"Navn":"Rungsted","Meter":"42000","Gennemsnitlig_varighed_Normal":"6.60","Gennemsnitlig_varighed_Instruktion":"0.00"},
+{"Navn":"Skodsborg","Meter":"28000","Gennemsnitlig_varighed_Normal":"4.50","Gennemsnitlig_varighed_Instruktion":"6.80"},
+{"Navn":"\u00d8vrige [Skriv i kommentar]","Meter":"5000","Gennemsnitlig_varighed_Normal":"0.00","Gennemsnitlig_varighed_Instruktion":"0.00"},
+{"Navn":"Opfyldningen nord","Meter":"3000","Gennemsnitlig_varighed_Normal":"1.90","Gennemsnitlig_varighed_Instruktion":"1.80"},
+{"Navn":"Knud","Meter":"13500","Gennemsnitlig_varighed_Normal":"2.00","Gennemsnitlig_varighed_Instruktion":"2.70"},
+{"Navn":"Svanem\u00f8llehavnen","Meter":"3000","Gennemsnitlig_varighed_Normal":"1.70","Gennemsnitlig_varighed_Instruktion":"1.60"},
+{"Navn":" V\u00e6lg destination her","Meter":"0","Gennemsnitlig_varighed_Normal":"0.00","Gennemsnitlig_varighed_Instruktion":"0.00"}
 ]

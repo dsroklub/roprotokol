@@ -58,8 +58,9 @@ CREATE TABLE IF NOT EXISTS Båd (
     MotionPlus VARCHAR(100),
     Type VARCHAR(100), -- FIXME was TYPE
     Anvendelse VARCHAR(100),
-    Niveau VARCHAR(100)
-
+    Niveau VARCHAR(100),
+    Location VARCHAR(100),
+    Placement VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS Bådindstilling (
