@@ -7,3 +7,5 @@ select BådID,Båd.Navn,Båd.Pladser, Gruppe.Pladser FROM Båd,Gruppe WHERE Grup
 -- +--------+----------+---------+---------+
 -- Vi skal fjerne Pladser fra Båd
 -- Både i samme gruppe skal også have samme antal sæder.
+
+Mjølner er 4+1=5
