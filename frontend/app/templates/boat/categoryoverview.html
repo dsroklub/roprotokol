@@ -3,14 +3,14 @@
 <table class="boatlist">
     <thead>
         <tr>
-            <th>Båd</th><th>Status</th><th>Information</th>
+            <th>Båd</th><th>Placering</th><th>Status</th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="boat in selectedboats">
             <td><a href="#/boat/checkout/{{boat.id}}">{{boat.name}}</a></td>
+            <td>{{boat.location|nodsr}} {{boat.placement}}</td>
             <td>{{boat.status}}</td>
-            <td></td>
         </tr>
     </tbody>
 </table>

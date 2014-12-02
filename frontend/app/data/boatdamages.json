@@ -2,15 +2,13 @@
     {
         "id": 1,
         "boat_id": 34,
-        "title": "Let lak skade",
-        "comment": "blevet lakeret sidste gang 31/12",
+        "description": "blevet lakeret sidste gang 31/12",
         "level": 1
       },
       {
-        "id": 1,
+        "id": 2,
         "boat_id": 157,
-        "title": "Mangler ror",
-        "comment": "",
+        "description": "Mangler ror",
         "level": 4
       }
 ]

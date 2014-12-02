@@ -1,7 +1,8 @@
 'use strict';
 
-app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', function ($scope, $routeParams, DatabaseService, $interval) {
+app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', function ($scope, $routeParams, DatabaseService, $interval, ngDialog) {
     DatabaseService.init().then(function () {
+      
       // Load Category Overview
       $scope.destinations = DatabaseService.getDestinations();
       $scope.triptypes = DatabaseService.getTripTypes();
@@ -17,7 +18,10 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         var now = new Date();
         
         // Lock boat for the next 30 seconds
-        DatabaseService.lockBoatWithId($routeParams.boat_id, new Date(now.getTime() + 30000));
+        DatabaseService.lockBoatWithId($routeParams.boat_id, new Date(now.getTime() + 30000), function() {
+          // Failed to lock boat
+          // TODO: Give error and redirect back to category list
+        });
         
         $scope.checkout = {
           'destination': $scope.destinations[0],
@@ -36,7 +40,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         $scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat_id);
 
         var setlock = $interval(function () {
-          // Lock boat for 30 seconds more
+          // Lock boat for 30 seconds more every 10 seconds
           DatabaseService.lockBoatWithId(boat_id, new Date((new Date()).getTime() + 30000));
         }, 10000);
 
@@ -44,6 +48,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         $scope.$on("$destroy", function () {
           if (setlock) {
             $interval.cancel(setlock);
+            // Unlock boat
             DatabaseService.lockBoatWithId(boat_id, new Date(0));
           }
         });
@@ -67,11 +72,28 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       $scope.checkout.destination = undefined;
     };
     
+    $scope.reportdamage = function () {
+      ngDialog.open({ template: 'reportdamage.html' });
+    };
+    
+    $scope.savedamage = function (boat_id, description, level) {
+      var damage = { "id": 0, "descrption": description, "level": level }
+      // TODO: Post to server and get id
+      boatdamages.push(damage);
+    };
+  
     $scope.createRower = function (rowers, index) {
       var rower = DatabaseService.createRowerByName(rowers[index]);
       if(rower) {
         rowers[index] = rower;
       }
     };
-
+  
+    $scope.createtrip = function (data) {
+      if(DatabaseService.createTrip(data)) {
+        // TODO: redirect to category list
+      } else {
+        // TODO: give error that we could not save the trip
+      };
+    };
 }]);

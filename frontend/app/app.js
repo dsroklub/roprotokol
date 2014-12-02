@@ -6,6 +6,7 @@ var app = angular.module('myApp', [
   'ui.bootstrap',
   'ui.select',
   'ngQuickDate',
+  'ngDialog',
   'myApp.version',
   'myApp.range',
   'myApp.database',
