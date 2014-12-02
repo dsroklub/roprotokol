@@ -26,7 +26,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         $scope.checkout = {
           'destination': $scope.destinations[0],
           'starttime': now,
-          'expectedtime': new Date(now.getTime() + 60000 * 60),
+          'expectedtime': new Date(now.getTime() + 60000 * 60), // TODO: Calculate this based on the destination and triptype
           'endtime': '',
           'triptype': $scope.triptypes[0],
           'rowers': []
@@ -61,7 +61,14 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     
     // Utility functions for view
     $scope.getRowerByName = function (val) {
-      return DatabaseService.getRowersByNameOrId(val);
+      // Generate list of ids that we already have added
+      var ids = {};
+      for(var i = 0; i < $scope.checkout.rowers.length; i++) {
+        if(typeof($scope.checkout.rowers[i]) === 'object') {
+          ids[$scope.checkout.rowers[i].id] = true;
+        }
+      }
+      return DatabaseService.getRowersByNameOrId(val, ids);
     };
 
     $scope.isObjectAndHasId = function (val) {
@@ -90,6 +97,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     };
   
     $scope.createtrip = function (data) {
+      // TODO: Check if all rowers have ID and don't allow to start trip before it's done
+      
       if(DatabaseService.createTrip(data)) {
         // TODO: redirect to category list
       } else {
