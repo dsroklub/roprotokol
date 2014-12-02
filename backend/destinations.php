@@ -13,7 +13,7 @@ if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
 }
 
-    $s="SELECT Navn as name, Meter/1000.0 as distance, Gennemsnitlig_varighed_Normal, Gennemsnitlig_varighed_Instruktion
+    $s="SELECT DestID as id, Navn as name, Meter as distance, Gennemsnitlig_varighed_Normal, Gennemsnitlig_varighed_Instruktion
     FROM Destination ORDER BY name";
 
 
