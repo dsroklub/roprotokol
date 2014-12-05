@@ -25,7 +25,7 @@ CREATE INDEX turfk on Tur(FK_BådID);
 CREATE INDEX turud on Tur(ud);
 
 CREATE TABLE IF NOT EXISTS Trip (
-       TripID INT,
+       TripID INT AUTO_INCREMENT,
        Season INT,
        BoatID INT NOT NULL,
        OutTime DATETIME,
@@ -39,7 +39,8 @@ CREATE TABLE IF NOT EXISTS Trip (
        EditDate DATE,
        Initials CHAR(10),
        DESTID INT,
-       PRIMARY KEY   (Season,TripID)
+       PRIMARY KEY   (TripID)
+       -- FIXME Season,TripID is the primary key in DSR DB, but then AUTO_INCREMENT does not work in MYSQL
 );
 
 CREATE INDEX  tripfk on Trip(BoatID);

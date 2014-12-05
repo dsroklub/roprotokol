@@ -7,6 +7,15 @@
   </a>
 </script>
 
+<script type="text/ng-template" id="reportdamage.html">
+  <h1>Meld skade</h1>
+  <form novalidate>
+    <label for="damage_comments">Bemærkninger</label>
+    <textarea id="damage_comments" type="text" ng-model="damagetext"></textarea>
+    <button class="yellow" ng-click="savedamage(selectedboat.id, damagetext, 1)"><i class="fa fa-exclamation-triangle"></i> Gem skade</button>
+ </form>
+</script>
+
 <div class="checkout-form">
     <h2>Udskrivning af båd: {{selectedboat.name}}</h2>
   <form novalidate>
@@ -21,10 +30,10 @@
               <ui-select-match placeholder="Vælg Destination">{{$select.selected.name}}</ui-select-match>
               <ui-select-choices repeat="destination in destinations | filter: $select.search">
                 <span ng-bind-html="destination.name | highlight: $select.search"></span>
-                <small ng-bind-html="destination.distance | highlight: $select.search"></small>
+                (<small ng-bind-html="destination.distance | mtokm | highlight: $select.search"></small>)
               </ui-select-choices>
             </ui-select>
-            <input maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" ng-model="checkout.destination.distance" required />km
+            <input maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance" required />km
           </td>
         </tr>
         <tr>
@@ -80,7 +89,7 @@
       </tr>
       <tr>
         <td colspan="2">
-          <button class="green" ng-click="checkout(checkout)"><i class="fa fa-sign-in"></i> Udskriv båd</button>
+          <button class="green" ng-click="createtrip(checkout)"><i class="fa fa-sign-in"></i> Udskriv båd</button>
           <button class="yellow" ng-click="reportdamage(checkout)"><i class="fa fa-exclamation-triangle"></i> Meld skade</button>
         </td>    
       </tr>

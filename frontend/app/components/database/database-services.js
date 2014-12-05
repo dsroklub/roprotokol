@@ -147,5 +147,13 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
         "name": name
       };
   };
+  
+  this.createTrip = function(data) {
+    $http.post('/backend/createtrip.php', data).success(function() {
+      // TODO: make sure we block until the trip is created    
+    });
+    return;
+  };
+  
 
 });

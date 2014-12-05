@@ -23,7 +23,7 @@ ul {
     margin: 0;
 }
 pre.ng-binding {
-    display: none;
+    /* display: none; */
 }
 *:focus {
     outline: 0;
@@ -141,7 +141,7 @@ button.yellow:hover {
 .boatlist thead th {
     background: #3ECBBF;
     color: white;
-    padding: 10pt;
+    padding: 9pt 10pt 9pt 10pt;
     font-weight: 400;
     border-right: 1px solid white;
 }
@@ -156,7 +156,7 @@ boatlist thread th:last-child {
     border: 0;
 }
 .boatlist td {
-    padding: 10pt;
+    padding: 6pt 10pt 6pt 10pt;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
     background: white;
