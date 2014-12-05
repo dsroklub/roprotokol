@@ -134,9 +134,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return triptypes;
   };
   
-  this.getRowersByNameOrId = function(val) {
+  this.getRowersByNameOrId = function(val, preselectedids) {
     return rowers.filter(function(element) {
-      return val.length > 2 && element.search.indexOf(val) > -1;
+      return val.length > 2  
+        && (preselectedids === undefined || !(element.id in preselectedids))
+        && element.search.indexOf(val) > -1;
     });
   };
   

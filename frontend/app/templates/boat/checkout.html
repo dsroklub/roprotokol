@@ -30,7 +30,7 @@
               <ui-select-match placeholder="Vælg Destination">{{$select.selected.name}}</ui-select-match>
               <ui-select-choices repeat="destination in destinations | filter: $select.search">
                 <span ng-bind-html="destination.name | highlight: $select.search"></span>
-                (<small ng-bind-html="destination.distance | mtokm | highlight: $select.search"></small>)
+                (<small ng-bind-html="destination.distance | mtokm | highlight: $select.search"></small>km, 2t)
               </ui-select-choices>
             </ui-select>
             <input maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance" required />km
@@ -84,7 +84,10 @@
         </td>
         <td>
           <input id="checkout_rower{{$index}}" type="text" ng-model="checkout.rowers[$index]" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" />
-          <button ng-if="isObjectAndHasId(checkout.rowers[$index])" ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
+          <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
+            <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
+            <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>
+          </span>
         </td>
       </tr>
       <tr>

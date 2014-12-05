@@ -34,13 +34,13 @@ angular.module('myApp.utilities.transformkm', []).directive('transformkm', funct
     require: 'ngModel',
     link: function(scope, element, attrs, ngModel) {
       if(ngModel) { // Don't do anything unless we have a model
-
-        ngModel.$parsers.push(function (value) {
-          value=value.replace(',','.');
+          ngModel.$parsers.push(function (value) {
+          value = value.replace(',', '.');
           return value*1000;
         });
 
         ngModel.$formatters.push(function (value) {
+          value = value.replace(',', '.');
           return value/1000;
         });
       }
