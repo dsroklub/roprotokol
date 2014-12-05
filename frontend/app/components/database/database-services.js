@@ -7,6 +7,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   var destinations;
   var triptypes;
   var rowers;
+  var statistics;
 
   this.init = function () {
     var boatsloaded = $q.defer();
@@ -14,6 +15,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var destinationsloaded = $q.defer();
     var triptypesloaded = $q.defer();
     var rowersloaded = $q.defer();
+    var statisticsloaded = $q.defer();
 
     if(boats === undefined) {
       //Build indexes and lists for use by API
@@ -88,7 +90,20 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     } else {
       rowersloaded.resolve(true);
     }
-
+      
+    if(statistics === undefined) {
+      $http.get('data/rostat.json').then(function(response) {
+        statistics = [];
+        angular.forEach(response.data, function(stat, index) {
+          stat.search = stat.id + " " + stat.firstname + " " + stat.lasstname;
+          this.push(stat);
+        }, statistics)
+        statisticsloaded.resolve(true);
+      });
+    } else {
+      statisticsloaded.resolve(true);
+    }
+   
     return $q.all([boatsloaded.promise,boatdamagesloaded.promise, destinationsloaded.promise, 
       triptypesloaded.promise, rowersloaded.promise]);
   };
@@ -133,7 +148,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.getTripTypes = function () {
     return triptypes;
   };
-  
+
+  this.getStatistics = function () {
+    return statistics;
+  };
+
   this.getRowersByNameOrId = function(val, preselectedids) {
     return rowers.filter(function(element) {
       return val.length > 2  

@@ -21,6 +21,10 @@ config(['$routeProvider', function($routeProvider) {
     templateUrl: 'templates/boat/categoryoverview.html',
     controller: 'BoatCtrl'
   });
+  $routeProvider.when('/statoverview/', {
+    templateUrl: 'templates/stats/statoverview.html',
+    controller: 'StatCtrl'
+  });
   $routeProvider.otherwise({redirectTo: '/boat/categoryoverview'});
 }])
 .config(['uiSelectConfig', function(uiSelectConfig) {

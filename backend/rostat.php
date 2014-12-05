@@ -12,26 +12,28 @@ if ($rodb->connect_errno) {
 if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
 }
-
-//$WhichYear=strftime("%Y",time());
-$WhichYear="2014";
-    $s="SELECT Sum(Meter/1000) AS Km ,Medlem.MedlemID, Medlem.Fornavn, Medlem.Efternavn  
+$season=date('Y');
+$rodb->query("set @rn = 0");
+    $s="SELECT Sum(Meter) AS distance ,Medlem.MedlemID as id, Medlem.Fornavn as firstname, Medlem.Efternavn as lastname 
     FROM Gruppe,Trip,TripMember,Båd,Medlem 
     WHERE 
       Trip.TripID = TripMember.TripID AND
       Medlem.MedlemID = TripMember.MemberID AND
       Båd.BådID = Trip.BoatID AND     
       Gruppe.GruppeID = Båd.FK_GruppeID AND
-      (((Year(OutTime))=".$WhichYear.") AND ((Gruppe.FK_BådKategoriID)=2)) 
-    GROUP BY Medlem.MedlemID;";
+      (((Year(OutTime))=".$season.") AND ((Gruppe.FK_BådKategoriID)=2)) 
+    GROUP BY Medlem.MedlemID 
+    ORDER BY distance desc";
 
-// echo $s;
+//echo $s;
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';
- $first=1;
+ $rn=1;
  while ($row = $result->fetch_assoc()) {
-	  if ($first) $first=0; else echo ',';	  
+	  if ($rn>1) echo ',';
+      $row['rank']=$rn;
 	  echo json_encode($row);
+      $rn=$rn+1;
 }
 echo ']';
 $rodb->close();
