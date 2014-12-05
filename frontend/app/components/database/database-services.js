@@ -149,7 +149,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
   
   this.createTrip = function(data) {
-    $http.post('/backend/createtrip.php', data).success(function() {
+    $http.post('../../backend/createtrip.php', data).success(function() {
       // TODO: make sure we block until the trip is created    
     });
     return;
