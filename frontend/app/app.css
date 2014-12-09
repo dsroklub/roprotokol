@@ -102,7 +102,8 @@ button.yellow:hover {
     margin: 0;   
     padding: 15pt 25pt;
 }
-.boatlist ,
+.boatlist,
+.statlist,
 .boatcategories,
 .checkout-form,
 .boatdamages {
@@ -160,6 +161,11 @@ boatlist thread th:last-child {
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
     background: white;
+}
+.statlist td {
+    padding: 6pt 10pt 6pt 10pt;
+    border-right: 1px solid #F1F2F7;
+    border-bottom: 1px solid #F1F2F7;
 }
 
 .checkout-form h2 {
@@ -219,4 +225,24 @@ boatlist thread th:last-child {
     font-size: 14pt;
     margin-bottom: 4pt;
 }
-    
+
+.oddstat {
+    background: #FFAA88;
+}
+
+.stattypesmenu h2 {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.stattypesmenu ul li {
+    padding: 5pt 10pt;
+    cursor: pointer;
+}
+.stattypesmenu ul {
+    background: white;
+}

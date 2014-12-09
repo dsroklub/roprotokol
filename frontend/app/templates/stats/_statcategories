@@ -1,0 +1,8 @@
+<div class="stattypesmenu">
+    <h2>Vælg statistik</h2>
+    <ul>
+        <li ng-repeat="statcategory in {'robåd', 'kajak'}">
+            <a href="#/stats/statsoverview/?name={{statcategory|urlencode}}">{{statcategory}}</a>
+        </li>
+    </ul>   
+</div>
