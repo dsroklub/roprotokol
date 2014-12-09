@@ -294,6 +294,8 @@ CREATE TABLE IF NOT EXISTS TurType (
        Aktiv INT
 );
 
+
+-- Vintervedligehold to be removed
 CREATE TABLE IF NOT EXISTS Vintervedligehold (
        Id INT PRIMARY KEY,
        Medlemsnr CHAR(8),
@@ -302,6 +304,12 @@ CREATE TABLE IF NOT EXISTS Vintervedligehold (
        DeletedReason VARCHAR(100)
 );
 CREATE INDEX vintermedlem on Vintervedligehold(Medlemsnr);
+
+CREATE TABLE IF NOT EXISTS volunteerwork (
+       Medlemsnr CHAR(8),
+       Season INT,
+       worktype VARCHAR(100)
+);
 
 
 CREATE TABLE IF NOT EXISTS Destination (
