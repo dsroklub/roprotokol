@@ -1,5 +1,5 @@
 [
-{"id":"1","name":"Absalon","spaces":"3","description":null,"category":"Inrigger 2+", "location": "DSR"},
+{"id":"1","name":"Absalon","spaces":"3","description":null,"category":"Inrigger 2+", "location": "DSR", "rigths": { "Indrigger Roret": "all", "Styrmand": "any" }},
 {"id":"2","name":"Alf","spaces":"1","description":null,"category":"Sculler 1x"},
 {"id":"7","name":"Barracuda","spaces":"1","description":null,"category":"Kajak 1"},
 {"id":"9","name":"Bjarke","spaces":"5","description":null,"category":"Inrigger 4+"},

@@ -27,11 +27,16 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	      'boat' : $scope.selectedboat,
               'destination': $scope.destinations[0],
               'starttime': now,
-              'expectedtime': new Date(now.getTime() + 60000 * 60), // TODO: Calculate this based on the destination and triptype
+              // TODO: Calculate this based on the destination and triptype
+              // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
+              'expectedtime': new Date(now.getTime() + 60000 * 60),
               'endtime': '',
               'triptype': $scope.triptypes[0],
               'rowers': []
         };
+        
+        // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
+        // TODO: Show wrench next to name in checkout view
         
         // Fill the rowers array with empty values
         for (var i = 0; i < $scope.selectedboat.spaces; i++) {

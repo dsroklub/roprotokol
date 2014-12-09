@@ -1,5 +1,7 @@
 [
-{"id":"2001","name":"Malthe Mortensen","initials":null},
+{"id":"2001","name":"Malthe Mortensen","initials":null, 
+ "rights": [ "Indrigger Roret", "Styrmand", "Indrigger Instruktør"]
+},
 {"id":"2002","name":"Jannie Johansen","initials":null},
 {"id":"2003","name":"Hans Bendtsen","initials":null},
 {"id":"2004","name":"Verner Jensen","initials":null},
