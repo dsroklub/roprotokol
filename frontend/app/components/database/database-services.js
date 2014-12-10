@@ -92,7 +92,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
       
     if(statistics === undefined) {
-      $http.get('data/rostat.json').then(function(response) {
+      $http.get('data/rower_statistics.json').then(function(response) {
         statistics = [];
         angular.forEach(response.data, function(stat, index) {
           stat.search = stat.id + " " + stat.firstname + " " + stat.lasstname;

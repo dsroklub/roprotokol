@@ -13,10 +13,10 @@ if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
 }
 
-    $s="SELECT BådID as id,Båd.Navn as name,Gruppe.Pladser as spaces,Båd.Beskrivelse as description,Gruppe.Navn as category, BådKategori.name as boattype
+    $s="SELECT BådID as id,Båd.Navn as name,Gruppe.Pladser as spaces,Båd.Beskrivelse as description,Gruppe.Navn as category, BådKategori.Navn as boattype
     FROM Båd,Gruppe, BådKategori
     WHERE GruppeID=FK_GruppeID
-    AND BådKategori.BådKategoriID =  FK_BådKategoriID";
+    AND BådKategori.BådKategoriID =  Gruppe.FK_BådKategoriID";
 
 
 // echo $s;

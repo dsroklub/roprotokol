@@ -13,6 +13,7 @@ if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
 }
 $season=date('Y');
+//$season='2013';
 $rodb->query("set @rn = 0");
     $s="SELECT Sum(Meter) AS distance ,Medlem.MedlemID as id, Medlem.Fornavn as firstname, Medlem.Efternavn as lastname 
     FROM Gruppe,Trip,TripMember,Båd,Medlem 
@@ -24,6 +25,7 @@ $rodb->query("set @rn = 0");
       (((Year(OutTime))=".$season.") AND ((Gruppe.FK_BådKategoriID)=2)) 
     GROUP BY Medlem.MedlemID 
     ORDER BY distance desc";
+// fixme also for kayaks
 
 //echo $s;
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
