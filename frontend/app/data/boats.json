@@ -1,158 +1,1218 @@
 [
-{"id":"1","name":"Absalon","spaces":"3","description":null,"category":"Inrigger 2+", "location": "DSR", "rigths": { "Indrigger Roret": "all", "Styrmand": "any" }},
-{"id":"2","name":"Alf","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"7","name":"Barracuda","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"9","name":"Bjarke","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"10","name":"Brage","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"13","name":"Dan","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"17","name":"Elektra","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"18","name":"Epsilon","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"19","name":"Fafner","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"22","name":"Freja","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"23","name":"Frigg","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"24","name":"Gamma","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"26","name":"Grumme","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"27","name":"Bl\u00e5musling","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"28","name":"Gudmund","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"33","name":"Heimdal","spaces":"4","description":null,"category":"Gig 3x"},
-{"id":"34","name":"Helge","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"35","name":"Hjalte","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"36","name":"Hroar","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"41","name":"Jon","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"44","name":"Ksi","spaces":"1","description":"SKAL SLETTES!","category":"Sculler 1x"},
-{"id":"45","name":"Kvaser","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"46","name":"Loke","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"49","name":"Minerva","spaces":"2","description":null,"category":"Sculler 2x \/ 2-"},
-{"id":"50","name":"Mj\u00f8lner","spaces":"4","description":null,"category":"4x"},
-{"id":"51","name":"Munin","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"52","name":"Ny","spaces":"1","description":null,"category":"Svava 1x"},
-{"id":"54","name":"Odin","spaces":"5","description":null,"category":"4+ \/ 4-"},
-{"id":"55","name":"Olsen","spaces":"5","description":null,"category":"4+ \/ 4-"},
-{"id":"56","name":"Ormen","spaces":"9","description":null,"category":"8+"},
-{"id":"59","name":"Psi","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"60","name":"Ran","spaces":"1","description":null,"category":"Svava 1x"},
-{"id":"65","name":"Sif","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"66","name":"Sigma","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"69","name":"Svane","spaces":"3","description":null,"category":"Gig 2x"},
-{"id":"70","name":"Svante","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"71","name":"Svava","spaces":"1","description":null,"category":"Svava 1x"},
-{"id":"72","name":"Svip","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"77","name":"Tau","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"78","name":"Thor","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"79","name":"Tjalfe","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"81","name":"Tuto","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"82","name":"Vidar","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"84","name":"Vile","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"85","name":"Vips","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"86","name":"Ydun","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"87","name":"\u00d8resvin","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"89","name":"Sild","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"90","name":"Torsk","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"91","name":"Forel 2","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"92","name":"4-\u00e5res l\u00e5nt b\u00e5d","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"93","name":"R\u00f8skva","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"94","name":"Hu","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"95","name":"Alfa","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"96","name":"\u00d8rred","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"98","name":"S\u00f8Elefant","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"99","name":"Mur\u00e6ne","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"103","name":"Rokke","spaces":"2","description":null,"category":"Kajak 2"},
-{"id":"107","name":"R\u00f8dfisk","spaces":"2","description":null,"category":"Kajak 2"},
-{"id":"110","name":"Hornfisk","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"111","name":"Ulk","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"112","name":"Sildehaj","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"114","name":"Haj","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"115","name":"Pighvar","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"118","name":"Ask","spaces":"5","description":"Bigblade. \nTr\u00e6.","category":"Inrigger 4+"},
-{"id":"119","name":"Nanna","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"120","name":"2-\u00e5res l\u00e5nt b\u00e5d","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"121","name":"Hummer","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"122","name":"Luzern","spaces":"2","description":null,"category":"Sculler 2x \/ 2-"},
-{"id":"123","name":"Sleipner","spaces":"9","description":null,"category":"8+"},
-{"id":"125","name":"L\u00e5nt 2-Kajak","spaces":"2","description":null,"category":"Kajak 2"},
-{"id":"126","name":"1-\u00e5res l\u00e5nt b\u00e5d","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"129","name":"Ask (kajak)","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"130","name":"Urd","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"131","name":"Fj\u00e6sing","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"133","name":"S\u00f8l\u00f8ve","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"134","name":"Snog","spaces":"2","description":null,"category":"Kajak 2"},
-{"id":"135","name":"Hugorm","spaces":"2","description":null,"category":"Kajak 2"},
-{"id":"136","name":"Stenbider","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"139","name":"Papeg\u00f8jefisk","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"142","name":"Embla","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"143","name":"Sardin","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"144","name":"Ansjos","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"145","name":"Njord","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"146","name":"Skalle","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"147","name":"Mulle","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"149","name":"Delfin","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"152","name":"Togo 7","spaces":"0","description":null,"category":"Motorb\u00e5de"},
-{"id":"153","name":"Togo 8","spaces":"0","description":null,"category":"Motorb\u00e5de"},
-{"id":"156","name":"Tangloppe","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"157","name":"Nemo","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"158","name":"Karpe","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"160","name":"Skadi","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"174","name":"Bl\u00e5hval","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"175","name":"Gedde","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"176","name":"Ising","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"177","name":"Knurhane","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"178","name":"L\u00e5ne Kajak 2","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"179","name":"L\u00e5ne Kajak 3","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"180","name":"L\u00e5ne kajak 4","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"181","name":"L\u00e5nt Kajak 1","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"184","name":"Snapper","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"186","name":"Valborg","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"188","name":"Platon","spaces":"2","description":null,"category":"Sculler 2x \/ 2-"},
-{"id":"189","name":"Pallas Athene","spaces":"2","description":null,"category":"Sculler 2x \/ 2-"},
-{"id":"190","name":"Supermax Lady","spaces":"2","description":null,"category":"Sculler 2x \/ 2-"},
-{"id":"191","name":"Gerda","spaces":"2","description":null,"category":"Sculler 2x \/ 2-"},
-{"id":"192","name":"Iota","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"193","name":"Nympha","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"194","name":"My","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"195","name":"Ro","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"196","name":"002","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"197","name":"Aslaug","spaces":"4","description":null,"category":"4x"},
-{"id":"198","name":"Pollux","spaces":"5","description":null,"category":"4+ \/ 4-"},
-{"id":"199","name":"Giallo","spaces":"5","description":null,"category":"4+ \/ 4-"},
-{"id":"200","name":"Hermes","spaces":"5","description":null,"category":"4+ \/ 4-"},
-{"id":"201","name":"Kristian","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"202","name":"Frederik d. IX","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"203","name":"Fenris","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"204","name":"Totu","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"205","name":"Omega","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"206","name":"Afrodite","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"207","name":"Teta","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"208","name":"Delta","spaces":"1","description":null,"category":"Sculler 1x"},
-{"id":"209","name":"Hera","spaces":"2","description":null,"category":"Sculler 2x \/ 2-"},
-{"id":"210","name":"Sct. Cathrine","spaces":"2","description":null,"category":"Sculler 2x \/ 2-"},
-{"id":"211","name":"Bifrost","spaces":"9","description":null,"category":"8+"},
-{"id":"221","name":"Bl\u00e6ksprutte","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"222","name":"Regnbue\u00f8rred (Privat)","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"223","name":"Triton","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"224","name":"Laks","spaces":"2","description":null,"category":"Kajak 2"},
-{"id":"225","name":"Ull","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"227","name":"Grindehval","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"228","name":"Guldmakrel","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"230","name":"M\u00f8hring","spaces":"3","description":null,"category":"Inrigger 2+"},
-{"id":"231","name":"\u00c5l","spaces":"2","description":null,"category":"Kajak 2"},
-{"id":"232","name":"Havkat","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"233","name":"R\u00f8dsp\u00e6tte","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"234","name":"St\u00f8r","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"236","name":"Lambda","spaces":"1","description":"Singlesculler","category":"Sculler 1x"},
-{"id":"237","name":"Balder (4-)","spaces":"4","description":"Coastal","category":"4x"},
-{"id":"238","name":"Balder (4+)","spaces":"4","description":"Coastal","category":"4x"},
-{"id":"239","name":"P\u00e6dagogsculler 1","spaces":"1","description":"P\u00e6dagogsculler","category":"Svava 1x"},
-{"id":"240","name":"Hugin","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"241","name":"214","spaces":"3","description":"Coastal 2er","category":"Inrigger 2+"},
-{"id":"242","name":"109","spaces":"1","description":"Coastal 1er","category":"Sculler 1x"},
-{"id":"243","name":"Makrel","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"244","name":"Us","spaces":"1","description":null,"category":"Kajak 1"},
-{"id":"246","name":"Togo 9","spaces":"0","description":"Hvid motorb\u00e5d ","category":"Motorb\u00e5de"},
-{"id":"247","name":"Togo 10","spaces":"0","description":"Hvid motorb\u00e5d ","category":"Motorb\u00e5de"},
-{"id":"248","name":"VisioSign","spaces":"1","description":"Coastal C1x","category":"Svava 1x"},
-{"id":"249","name":"Skinfaxe","spaces":"3","description":"Coastal C2x","category":"Gig 2x"},
-{"id":"250","name":"Den Gyldne Dame","spaces":"4","description":"Coastal C4x+","category":"4x"},
-{"id":"251","name":"H\u00f8der","spaces":"3","description":"Coastal C2x","category":"Gig 2x"},
-{"id":"252","name":"Modi","spaces":"5","description":null,"category":"Inrigger 4+"},
-{"id":"253","name":"Tyr","spaces":"3","description":null,"category":"Inrigger 2+"}
-] 
+   {
+      "spaces" : "3",
+      "name" : "Absalon",
+      "category" : "Inrigger 2+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "1"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Sculler 1x",
+      "id" : "2",
+      "spaces" : "1",
+      "name" : "Alf"
+   },
+   {
+      "name" : "Barracuda",
+      "spaces" : "1",
+      "id" : "7",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1"
+   },
+   {
+      "id" : "9",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 4+",
+      "name" : "Bjarke",
+      "spaces" : "5"
+   },
+   {
+      "spaces" : "3",
+      "name" : "Brage",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "id" : "10"
+   },
+   {
+      "category" : "Inrigger 4+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "13",
+      "spaces" : "5",
+      "name" : "Dan"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "id" : "17",
+      "spaces" : "3",
+      "name" : "Elektra"
+   },
+   {
+      "id" : "18",
+      "category" : "Sculler 1x",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "name" : "Epsilon",
+      "spaces" : "1"
+   },
+   {
+      "name" : "Fafner",
+      "spaces" : "3",
+      "id" : "19",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 2+"
+   },
+   {
+      "id" : "22",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "name" : "Freja",
+      "spaces" : "3"
+   },
+   {
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "id" : "23",
+      "spaces" : "3",
+      "name" : "Frigg"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "description" : null,
+      "id" : "24",
+      "spaces" : "1",
+      "name" : "Gamma"
+   },
+   {
+      "id" : "26",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "name" : "Grumme",
+      "spaces" : "1"
+   },
+   {
+      "id" : "27",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "name" : "Blåmusling",
+      "spaces" : "1"
+   },
+   {
+      "id" : "28",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 4+",
+      "name" : "Gudmund",
+      "spaces" : "5"
+   },
+   {
+      "name" : "Heimdal",
+      "spaces" : "4",
+      "id" : "33",
+      "boattype" : "Almindelig roning",
+      "category" : "Gig 3x",
+      "description" : null
+   },
+   {
+      "name" : "Helge",
+      "spaces" : "3",
+      "id" : "34",
+      "category" : "Inrigger 2+",
+      "boattype" : "Almindelig roning",
+      "description" : null
+   },
+   {
+      "spaces" : "3",
+      "name" : "Hjalte",
+      "category" : "Inrigger 2+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "35"
+   },
+   {
+      "id" : "36",
+      "category" : "Inrigger 2+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "name" : "Hroar",
+      "spaces" : "3"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Jon",
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "description" : null,
+      "id" : "41"
+   },
+   {
+      "name" : "Ksi",
+      "spaces" : "1",
+      "id" : "44",
+      "description" : "SKAL SLETTES!",
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "id" : "45",
+      "spaces" : "3",
+      "name" : "Kvaser"
+   },
+   {
+      "name" : "Loke",
+      "spaces" : "3",
+      "id" : "46",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 2+"
+   },
+   {
+      "name" : "Minerva",
+      "spaces" : "2",
+      "id" : "49",
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 2x / 2-",
+      "description" : null
+   },
+   {
+      "id" : "50",
+      "category" : "4x",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "name" : "Mjølner",
+      "spaces" : "4"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 4+",
+      "id" : "51",
+      "spaces" : "5",
+      "name" : "Munin"
+   },
+   {
+      "id" : "52",
+      "category" : "Svava 1x",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "name" : "Ny",
+      "spaces" : "1"
+   },
+   {
+      "spaces" : "5",
+      "name" : "Odin",
+      "category" : "4+ / 4-",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "54"
+   },
+   {
+      "id" : "55",
+      "category" : "4+ / 4-",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "name" : "Olsen",
+      "spaces" : "5"
+   },
+   {
+      "spaces" : "9",
+      "name" : "Ormen",
+      "boattype" : "Almindelig roning",
+      "category" : "8+",
+      "description" : null,
+      "id" : "56"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Sculler 1x",
+      "id" : "59",
+      "spaces" : "1",
+      "name" : "Psi"
+   },
+   {
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Svava 1x",
+      "id" : "60",
+      "spaces" : "1",
+      "name" : "Ran"
+   },
+   {
+      "id" : "65",
+      "category" : "Inrigger 2+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "name" : "Sif",
+      "spaces" : "3"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Sculler 1x",
+      "id" : "66",
+      "spaces" : "1",
+      "name" : "Sigma"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Gig 2x",
+      "id" : "69",
+      "spaces" : "3",
+      "name" : "Svane"
+   },
+   {
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "id" : "70",
+      "spaces" : "3",
+      "name" : "Svante"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Svava 1x",
+      "id" : "71",
+      "spaces" : "1",
+      "name" : "Svava"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Svip",
+      "category" : "Sculler 1x",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "72"
+   },
+   {
+      "name" : "Tau",
+      "spaces" : "1",
+      "id" : "77",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Sculler 1x"
+   },
+   {
+      "id" : "78",
+      "category" : "Inrigger 4+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "name" : "Thor",
+      "spaces" : "5"
+   },
+   {
+      "name" : "Tjalfe",
+      "spaces" : "3",
+      "id" : "79",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 2+"
+   },
+   {
+      "name" : "Tuto",
+      "spaces" : "1",
+      "id" : "81",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x"
+   },
+   {
+      "name" : "Vidar",
+      "spaces" : "5",
+      "id" : "82",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 4+"
+   },
+   {
+      "id" : "84",
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 4+",
+      "description" : null,
+      "name" : "Vile",
+      "spaces" : "5"
+   },
+   {
+      "name" : "Vips",
+      "spaces" : "1",
+      "id" : "85",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x"
+   },
+   {
+      "spaces" : "5",
+      "name" : "Ydun",
+      "category" : "Inrigger 4+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "86"
+   },
+   {
+      "name" : "Øresvin",
+      "spaces" : "1",
+      "id" : "87",
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1"
+   },
+   {
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "description" : null,
+      "id" : "89",
+      "spaces" : "1",
+      "name" : "Sild"
+   },
+   {
+      "name" : "Torsk",
+      "spaces" : "1",
+      "id" : "90",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null
+   },
+   {
+      "spaces" : "1",
+      "name" : "Forel 2",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "id" : "91"
+   },
+   {
+      "spaces" : "5",
+      "name" : "4-åres lånt båd",
+      "category" : "Inrigger 4+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "92"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "id" : "93",
+      "spaces" : "3",
+      "name" : "Røskva"
+   },
+   {
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "id" : "94",
+      "spaces" : "3",
+      "name" : "Hu"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Alfa",
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "description" : null,
+      "id" : "95"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Ørred",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "id" : "96"
+   },
+   {
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "description" : null,
+      "id" : "98",
+      "spaces" : "1",
+      "name" : "SøElefant"
+   },
+   {
+      "name" : "Muræne",
+      "spaces" : "1",
+      "id" : "99",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null
+   },
+   {
+      "id" : "103",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 2",
+      "name" : "Rokke",
+      "spaces" : "2"
+   },
+   {
+      "category" : "Kajak 2",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "id" : "107",
+      "spaces" : "2",
+      "name" : "Rødfisk"
+   },
+   {
+      "id" : "110",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "name" : "Hornfisk",
+      "spaces" : "1"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Ulk",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "id" : "111"
+   },
+   {
+      "name" : "Sildehaj",
+      "spaces" : "1",
+      "id" : "112",
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "id" : "114",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "name" : "Haj",
+      "spaces" : "1"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Pighvar",
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "id" : "115"
+   },
+   {
+      "name" : "Ask",
+      "spaces" : "5",
+      "id" : "118",
+      "category" : "Inrigger 4+",
+      "boattype" : "Almindelig roning",
+      "description" : "Bigblade. \nTræ."
+   },
+   {
+      "spaces" : "5",
+      "name" : "Nanna",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 4+",
+      "id" : "119"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "id" : "120",
+      "spaces" : "3",
+      "name" : "2-åres lånt båd"
+   },
+   {
+      "id" : "121",
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "name" : "Hummer",
+      "spaces" : "1"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Sculler 2x / 2-",
+      "id" : "122",
+      "spaces" : "2",
+      "name" : "Luzern"
+   },
+   {
+      "spaces" : "9",
+      "name" : "Sleipner",
+      "category" : "8+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "123"
+   },
+   {
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 2",
+      "id" : "125",
+      "spaces" : "2",
+      "name" : "Lånt 2-Kajak"
+   },
+   {
+      "spaces" : "1",
+      "name" : "1-åres lånt båd",
+      "category" : "Sculler 1x",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "126"
+   },
+   {
+      "id" : "129",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "name" : "Ask (kajak)",
+      "spaces" : "1"
+   },
+   {
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "id" : "130",
+      "spaces" : "1",
+      "name" : "Urd"
+   },
+   {
+      "id" : "131",
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "name" : "Fjæsing",
+      "spaces" : "1"
+   },
+   {
+      "id" : "133",
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "description" : null,
+      "name" : "Søløve",
+      "spaces" : "1"
+   },
+   {
+      "name" : "Snog",
+      "spaces" : "2",
+      "id" : "134",
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 2"
+   },
+   {
+      "spaces" : "2",
+      "name" : "Hugorm",
+      "category" : "Kajak 2",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "id" : "135"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Stenbider",
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "id" : "136"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Papegøjefisk",
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "description" : null,
+      "id" : "139"
+   },
+   {
+      "name" : "Embla",
+      "spaces" : "5",
+      "id" : "142",
+      "category" : "Inrigger 4+",
+      "boattype" : "Almindelig roning",
+      "description" : null
+   },
+   {
+      "name" : "Sardin",
+      "spaces" : "1",
+      "id" : "143",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null
+   },
+   {
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "id" : "144",
+      "spaces" : "1",
+      "name" : "Ansjos"
+   },
+   {
+      "spaces" : "5",
+      "name" : "Njord",
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 4+",
+      "description" : null,
+      "id" : "145"
+   },
+   {
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "id" : "146",
+      "spaces" : "1",
+      "name" : "Skalle"
+   },
+   {
+      "name" : "Mulle",
+      "spaces" : "1",
+      "id" : "147",
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "id" : "149",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "name" : "Delfin",
+      "spaces" : "1"
+   },
+   {
+      "name" : "Tangloppe",
+      "spaces" : "1",
+      "id" : "156",
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "id" : "157",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "name" : "Nemo",
+      "spaces" : "1"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Karpe",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "id" : "158"
+   },
+   {
+      "spaces" : "5",
+      "name" : "Skadi",
+      "category" : "Inrigger 4+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "160"
+   },
+   {
+      "id" : "174",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "name" : "Blåhval",
+      "spaces" : "1"
+   },
+   {
+      "name" : "Gedde",
+      "spaces" : "1",
+      "id" : "175",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null
+   },
+   {
+      "spaces" : "1",
+      "name" : "Ising",
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "description" : null,
+      "id" : "176"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Knurhane",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "id" : "177"
+   },
+   {
+      "name" : "Låne Kajak 2",
+      "spaces" : "1",
+      "id" : "178",
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1"
+   },
+   {
+      "id" : "179",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "name" : "Låne Kajak 3",
+      "spaces" : "1"
+   },
+   {
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "id" : "180",
+      "spaces" : "1",
+      "name" : "Låne kajak 4"
+   },
+   {
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "id" : "181",
+      "spaces" : "1",
+      "name" : "Lånt Kajak 1"
+   },
+   {
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "id" : "184",
+      "spaces" : "1",
+      "name" : "Snapper"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Valborg",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "id" : "186"
+   },
+   {
+      "category" : "Sculler 2x / 2-",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "188",
+      "spaces" : "2",
+      "name" : "Platon"
+   },
+   {
+      "id" : "189",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Sculler 2x / 2-",
+      "name" : "Pallas Athene",
+      "spaces" : "2"
+   },
+   {
+      "category" : "Sculler 2x / 2-",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "190",
+      "spaces" : "2",
+      "name" : "Supermax Lady"
+   },
+   {
+      "id" : "191",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Sculler 2x / 2-",
+      "name" : "Gerda",
+      "spaces" : "2"
+   },
+   {
+      "name" : "Iota",
+      "spaces" : "1",
+      "id" : "192",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x"
+   },
+   {
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "id" : "193",
+      "spaces" : "1",
+      "name" : "Nympha"
+   },
+   {
+      "spaces" : "1",
+      "name" : "My",
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "description" : null,
+      "id" : "194"
+   },
+   {
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "id" : "195",
+      "spaces" : "1",
+      "name" : "Ro"
+   },
+   {
+      "category" : "Sculler 1x",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "196",
+      "spaces" : "1",
+      "name" : "002"
+   },
+   {
+      "id" : "197",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "4x",
+      "name" : "Aslaug",
+      "spaces" : "4"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "category" : "4+ / 4-",
+      "description" : null,
+      "id" : "198",
+      "spaces" : "5",
+      "name" : "Pollux"
+   },
+   {
+      "id" : "199",
+      "category" : "4+ / 4-",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "name" : "Giallo",
+      "spaces" : "5"
+   },
+   {
+      "category" : "4+ / 4-",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "200",
+      "spaces" : "5",
+      "name" : "Hermes"
+   },
+   {
+      "spaces" : "3",
+      "name" : "Kristian",
+      "category" : "Inrigger 2+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "201"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "id" : "202",
+      "spaces" : "3",
+      "name" : "Frederik d. IX"
+   },
+   {
+      "id" : "203",
+      "description" : null,
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "name" : "Fenris",
+      "spaces" : "3"
+   },
+   {
+      "name" : "Totu",
+      "spaces" : "1",
+      "id" : "204",
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "description" : null
+   },
+   {
+      "name" : "Omega",
+      "spaces" : "1",
+      "id" : "205",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Sculler 1x"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "description" : null,
+      "id" : "206",
+      "spaces" : "1",
+      "name" : "Afrodite"
+   },
+   {
+      "category" : "Sculler 1x",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "207",
+      "spaces" : "1",
+      "name" : "Teta"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Delta",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Sculler 1x",
+      "id" : "208"
+   },
+   {
+      "spaces" : "2",
+      "name" : "Hera",
+      "category" : "Sculler 2x / 2-",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "209"
+   },
+   {
+      "name" : "Sct. Cathrine",
+      "spaces" : "2",
+      "id" : "210",
+      "category" : "Sculler 2x / 2-",
+      "boattype" : "Almindelig roning",
+      "description" : null
+   },
+   {
+      "category" : "8+",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "id" : "211",
+      "spaces" : "9",
+      "name" : "Bifrost"
+   },
+   {
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "description" : null,
+      "id" : "221",
+      "spaces" : "1",
+      "name" : "Blæksprutte"
+   },
+   {
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "id" : "222",
+      "spaces" : "1",
+      "name" : "Regnbueørred (Privat)"
+   },
+   {
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1",
+      "id" : "223",
+      "spaces" : "1",
+      "name" : "Triton"
+   },
+   {
+      "id" : "224",
+      "category" : "Kajak 2",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "name" : "Laks",
+      "spaces" : "2"
+   },
+   {
+      "spaces" : "3",
+      "name" : "Ull",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "id" : "225"
+   },
+   {
+      "id" : "227",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "name" : "Grindehval",
+      "spaces" : "1"
+   },
+   {
+      "name" : "Guldmakrel",
+      "spaces" : "1",
+      "id" : "228",
+      "description" : null,
+      "boattype" : "Kajakker",
+      "category" : "Kajak 1"
+   },
+   {
+      "name" : "Møhring",
+      "spaces" : "3",
+      "id" : "230",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 2+"
+   },
+   {
+      "name" : "Ål",
+      "spaces" : "2",
+      "id" : "231",
+      "category" : "Kajak 2",
+      "boattype" : "Kajakker",
+      "description" : null
+   },
+   {
+      "name" : "Havkat",
+      "spaces" : "1",
+      "id" : "232",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1"
+   },
+   {
+      "id" : "233",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "name" : "Rødspætte",
+      "spaces" : "1"
+   },
+   {
+      "spaces" : "1",
+      "name" : "Stør",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "category" : "Kajak 1",
+      "id" : "234"
+   },
+   {
+      "name" : "Lambda",
+      "spaces" : "1",
+      "id" : "236",
+      "description" : "Singlesculler",
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x"
+   },
+   {
+      "name" : "Balder (4-)",
+      "spaces" : "4",
+      "id" : "237",
+      "description" : "Coastal",
+      "boattype" : "Almindelig roning",
+      "category" : "4x"
+   },
+   {
+      "name" : "Balder (4+)",
+      "spaces" : "4",
+      "id" : "238",
+      "boattype" : "Almindelig roning",
+      "category" : "4x",
+      "description" : "Coastal"
+   },
+   {
+      "id" : "239",
+      "description" : "Pædagogsculler",
+      "boattype" : "Almindelig roning",
+      "category" : "Svava 1x",
+      "name" : "Pædagogsculler 1",
+      "spaces" : "1"
+   },
+   {
+      "name" : "Hugin",
+      "spaces" : "5",
+      "id" : "240",
+      "category" : "Inrigger 4+",
+      "boattype" : "Almindelig roning",
+      "description" : null
+   },
+   {
+      "id" : "241",
+      "description" : "Coastal 2er",
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "name" : "214",
+      "spaces" : "3"
+   },
+   {
+      "id" : "242",
+      "boattype" : "Almindelig roning",
+      "category" : "Sculler 1x",
+      "description" : "Coastal 1er",
+      "name" : "109",
+      "spaces" : "1"
+   },
+   {
+      "id" : "243",
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "name" : "Makrel",
+      "spaces" : "1"
+   },
+   {
+      "category" : "Kajak 1",
+      "boattype" : "Kajakker",
+      "description" : null,
+      "id" : "244",
+      "spaces" : "1",
+      "name" : "Us"
+   },
+   {
+      "id" : "248",
+      "category" : "Svava 1x",
+      "boattype" : "Almindelig roning",
+      "description" : "Coastal C1x",
+      "name" : "VisioSign",
+      "spaces" : "1"
+   },
+   {
+      "spaces" : "3",
+      "name" : "Skinfaxe",
+      "boattype" : "Almindelig roning",
+      "category" : "Gig 2x",
+      "description" : "Coastal C2x",
+      "id" : "249"
+   },
+   {
+      "description" : "Coastal C4x+",
+      "boattype" : "Almindelig roning",
+      "category" : "4x",
+      "id" : "250",
+      "spaces" : "4",
+      "name" : "Den Gyldne Dame"
+   },
+   {
+      "spaces" : "3",
+      "name" : "Høder",
+      "boattype" : "Almindelig roning",
+      "category" : "Gig 2x",
+      "description" : "Coastal C2x",
+      "id" : "251"
+   },
+   {
+      "name" : "Modi",
+      "spaces" : "5",
+      "id" : "252",
+      "boattype" : "Almindelig roning",
+      "description" : null,
+      "category" : "Inrigger 4+"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "id" : "253",
+      "spaces" : "3",
+      "name" : "Tyr"
+   }
+]

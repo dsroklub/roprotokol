@@ -1,18 +1,58 @@
 [
-{"id":"1","name":"Lokaltur"},
-{"id":"2","name":"Tastet"},
-{"id":"3","name":"Langtur", "rigths": {"Langtursstyrmand": "any"}},
-{"id":"4","name":"Inriggerkaproning"},
-{"id":"5","name":"Indriggerinstruktion", "rigths": {"Indrigger Instruktør": "anyoverwrite"} },
-{"id":"5","name":"Kajakinstruktion", "rigths": {"Instruktør Kajak": "anyoverwrite"}, "categories": ["Kajak 1", "Kajak 2"]  },
-{"id":"5","name":"SvavaInstruktion", "rigths": {"Instruktør Svava": "anyoverwrite"} },
-{"id":"6","name":"Udstationeret"},
-{"id":"7","name":"Sved P\u00e5 Panden"},
-{"id":"8","name":"Racerkanin", "rigths": {"Indrigger Roret": "anyoverwrite"}, "categories": ["Indrigger 4+", "Indrigger 2+"]},
-{"id":"9","name":"Teknik+"},
-{"id":"10","name":"Outrigger\/ScullerInstruktion"},
-{"id":"11","name":"Styrmandsinstruktion"},
-{"id":"12","name":"8GP"},
-{"id":"13","name":"Teknik og tur"},
-{"id":"14","name":"Puls og program"}
+   {
+      "id" : "1",
+      "name" : "Lokaltur"
+   },
+   {
+      "name" : "Tastet",
+      "id" : "2"
+   },
+   {
+      "name" : "Langtur",
+      "id" : "3"
+   },
+   {
+      "name" : "Inriggerkaproning",
+      "id" : "4"
+   },
+   {
+      "id" : "5",
+      "name" : "Instruktion"
+   },
+   {
+      "id" : "6",
+      "name" : "Udstationeret"
+   },
+   {
+      "id" : "7",
+      "name" : "Sved P� Panden"
+   },
+   {
+      "id" : "8",
+      "name" : "Racerkanin"
+   },
+   {
+      "id" : "9",
+      "name" : "Teknik+"
+   },
+   {
+      "id" : "10",
+      "name" : "Outrigger/ScullerInstruktion"
+   },
+   {
+      "name" : "Styrmandsinstruktion",
+      "id" : "11"
+   },
+   {
+      "id" : "12",
+      "name" : "8GP"
+   },
+   {
+      "id" : "13",
+      "name" : "Teknik og tur"
+   },
+   {
+      "name" : "Puls og program",
+      "id" : "14"
+   }
 ]
