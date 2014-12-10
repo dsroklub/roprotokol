@@ -1,6 +1,6 @@
 [
    {
-      "name" : " Vælg destination her (0km)",
+      "name" : " VÃ¦lg destination her (0km)",
       "duration" : "0.00",
       "distance" : "0",
       "duration_instruction" : "0.00",
@@ -99,7 +99,7 @@
    },
    {
       "duration" : "2.60",
-      "name" : "Strandmøllen (22,5km)",
+      "name" : "StrandmÃ¸llen (22,5km)",
       "id" : "13",
       "duration_instruction" : "5.20",
       "distance" : "22500"
@@ -109,7 +109,7 @@
       "id" : "19",
       "distance" : "3000",
       "duration" : "1.70",
-      "name" : "Svanemøllehavnen (3km)"
+      "name" : "SvanemÃ¸llehavnen (3km)"
    },
    {
       "distance" : "3000",
@@ -119,7 +119,7 @@
       "duration" : "1.30"
    },
    {
-      "name" : "Tårbæk (18km)",
+      "name" : "TÃ¥rbÃ¦k (18km)",
       "duration" : "2.50",
       "distance" : "18000",
       "id" : "8",
@@ -130,13 +130,13 @@
       "id" : "12",
       "distance" : "33000",
       "duration" : "4.80",
-      "name" : "Vedbæk (33km)"
+      "name" : "VedbÃ¦k (33km)"
    },
    {
       "id" : "16",
       "duration_instruction" : "0.00",
       "distance" : "5000",
       "duration" : "0.00",
-      "name" : "Øvrige [Skriv i kommentar]"
+      "name" : "Ã˜vrige [Skriv i kommentar]"
    }
 ]

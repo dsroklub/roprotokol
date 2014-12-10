@@ -108,7 +108,7 @@
       "category" : "Kajak 1",
       "boattype" : "Kajakker",
       "description" : null,
-      "name" : "Blåmusling",
+      "name" : "BlÃ¥musling",
       "spaces" : "1"
    },
    {
@@ -196,7 +196,7 @@
       "category" : "4x",
       "boattype" : "Almindelig roning",
       "description" : null,
-      "name" : "Mjølner",
+      "name" : "MjÃ¸lner",
       "spaces" : "4"
    },
    {
@@ -368,7 +368,7 @@
       "id" : "86"
    },
    {
-      "name" : "Øresvin",
+      "name" : "Ã˜resvin",
       "spaces" : "1",
       "id" : "87",
       "description" : null,
@@ -401,7 +401,7 @@
    },
    {
       "spaces" : "5",
-      "name" : "4-åres lånt båd",
+      "name" : "4-Ã¥res lÃ¥nt bÃ¥d",
       "category" : "Inrigger 4+",
       "boattype" : "Almindelig roning",
       "description" : null,
@@ -413,7 +413,7 @@
       "description" : null,
       "id" : "93",
       "spaces" : "3",
-      "name" : "Røskva"
+      "name" : "RÃ¸skva"
    },
    {
       "description" : null,
@@ -433,7 +433,7 @@
    },
    {
       "spaces" : "1",
-      "name" : "Ørred",
+      "name" : "Ã˜rred",
       "boattype" : "Kajakker",
       "description" : null,
       "category" : "Kajak 1",
@@ -445,10 +445,10 @@
       "description" : null,
       "id" : "98",
       "spaces" : "1",
-      "name" : "SøElefant"
+      "name" : "SÃ¸Elefant"
    },
    {
-      "name" : "Muræne",
+      "name" : "MurÃ¦ne",
       "spaces" : "1",
       "id" : "99",
       "category" : "Kajak 1",
@@ -469,7 +469,7 @@
       "description" : null,
       "id" : "107",
       "spaces" : "2",
-      "name" : "Rødfisk"
+      "name" : "RÃ¸dfisk"
    },
    {
       "id" : "110",
@@ -517,7 +517,7 @@
       "id" : "118",
       "category" : "Inrigger 4+",
       "boattype" : "Almindelig roning",
-      "description" : "Bigblade. \nTræ."
+      "description" : "Bigblade. \nTrÃ¦."
    },
    {
       "spaces" : "5",
@@ -533,7 +533,7 @@
       "category" : "Inrigger 2+",
       "id" : "120",
       "spaces" : "3",
-      "name" : "2-åres lånt båd"
+      "name" : "2-Ã¥res lÃ¥nt bÃ¥d"
    },
    {
       "id" : "121",
@@ -565,11 +565,11 @@
       "category" : "Kajak 2",
       "id" : "125",
       "spaces" : "2",
-      "name" : "Lånt 2-Kajak"
+      "name" : "LÃ¥nt 2-Kajak"
    },
    {
       "spaces" : "1",
-      "name" : "1-åres lånt båd",
+      "name" : "1-Ã¥res lÃ¥nt bÃ¥d",
       "category" : "Sculler 1x",
       "boattype" : "Almindelig roning",
       "description" : null,
@@ -596,7 +596,7 @@
       "description" : null,
       "boattype" : "Kajakker",
       "category" : "Kajak 1",
-      "name" : "Fjæsing",
+      "name" : "FjÃ¦sing",
       "spaces" : "1"
    },
    {
@@ -604,7 +604,7 @@
       "boattype" : "Kajakker",
       "category" : "Kajak 1",
       "description" : null,
-      "name" : "Søløve",
+      "name" : "SÃ¸lÃ¸ve",
       "spaces" : "1"
    },
    {
@@ -633,7 +633,7 @@
    },
    {
       "spaces" : "1",
-      "name" : "Papegøjefisk",
+      "name" : "PapegÃ¸jefisk",
       "boattype" : "Kajakker",
       "category" : "Kajak 1",
       "description" : null,
@@ -732,7 +732,7 @@
       "category" : "Kajak 1",
       "boattype" : "Kajakker",
       "description" : null,
-      "name" : "Blåhval",
+      "name" : "BlÃ¥hval",
       "spaces" : "1"
    },
    {
@@ -760,7 +760,7 @@
       "id" : "177"
    },
    {
-      "name" : "Låne Kajak 2",
+      "name" : "LÃ¥ne Kajak 2",
       "spaces" : "1",
       "id" : "178",
       "description" : null,
@@ -772,7 +772,7 @@
       "category" : "Kajak 1",
       "boattype" : "Kajakker",
       "description" : null,
-      "name" : "Låne Kajak 3",
+      "name" : "LÃ¥ne Kajak 3",
       "spaces" : "1"
    },
    {
@@ -781,7 +781,7 @@
       "category" : "Kajak 1",
       "id" : "180",
       "spaces" : "1",
-      "name" : "Låne kajak 4"
+      "name" : "LÃ¥ne kajak 4"
    },
    {
       "boattype" : "Kajakker",
@@ -789,7 +789,7 @@
       "category" : "Kajak 1",
       "id" : "181",
       "spaces" : "1",
-      "name" : "Lånt Kajak 1"
+      "name" : "LÃ¥nt Kajak 1"
    },
    {
       "description" : null,
@@ -1005,7 +1005,7 @@
       "description" : null,
       "id" : "221",
       "spaces" : "1",
-      "name" : "Blæksprutte"
+      "name" : "BlÃ¦ksprutte"
    },
    {
       "boattype" : "Kajakker",
@@ -1013,7 +1013,7 @@
       "category" : "Kajak 1",
       "id" : "222",
       "spaces" : "1",
-      "name" : "Regnbueørred (Privat)"
+      "name" : "RegnbueÃ¸rred (Privat)"
    },
    {
       "description" : null,
@@ -1056,7 +1056,7 @@
       "category" : "Kajak 1"
    },
    {
-      "name" : "Møhring",
+      "name" : "MÃ¸hring",
       "spaces" : "3",
       "id" : "230",
       "boattype" : "Almindelig roning",
@@ -1064,7 +1064,7 @@
       "category" : "Inrigger 2+"
    },
    {
-      "name" : "Ål",
+      "name" : "Ã…l",
       "spaces" : "2",
       "id" : "231",
       "category" : "Kajak 2",
@@ -1084,12 +1084,12 @@
       "category" : "Kajak 1",
       "boattype" : "Kajakker",
       "description" : null,
-      "name" : "Rødspætte",
+      "name" : "RÃ¸dspÃ¦tte",
       "spaces" : "1"
    },
    {
       "spaces" : "1",
-      "name" : "Stør",
+      "name" : "StÃ¸r",
       "boattype" : "Kajakker",
       "description" : null,
       "category" : "Kajak 1",
@@ -1121,10 +1121,10 @@
    },
    {
       "id" : "239",
-      "description" : "Pædagogsculler",
+      "description" : "PÃ¦dagogsculler",
       "boattype" : "Almindelig roning",
       "category" : "Svava 1x",
-      "name" : "Pædagogsculler 1",
+      "name" : "PÃ¦dagogsculler 1",
       "spaces" : "1"
    },
    {
@@ -1193,7 +1193,7 @@
    },
    {
       "spaces" : "3",
-      "name" : "Høder",
+      "name" : "HÃ¸der",
       "boattype" : "Almindelig roning",
       "category" : "Gig 2x",
       "description" : "Coastal C2x",

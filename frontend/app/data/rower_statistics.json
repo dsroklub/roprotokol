@@ -11,7 +11,7 @@
       "rank" : 2,
       "id" : "828",
       "distance" : "418321",
-      "lastname" : "Sørensen"
+      "lastname" : "SÃ¸rensen"
    },
    {
       "firstname" : "Naja",
@@ -35,7 +35,7 @@
       "firstname" : "Christen"
    },
    {
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "405526",
       "id" : "924",
       "rank" : 6,
@@ -58,7 +58,7 @@
    {
       "rank" : 9,
       "id" : "934",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "370003",
       "firstname" : "Per"
    },
@@ -93,7 +93,7 @@
    {
       "id" : "889",
       "distance" : "350300",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "rank" : 14,
       "firstname" : "Jasmin"
    },
@@ -280,7 +280,7 @@
       "distance" : "300531"
    },
    {
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "299271",
       "id" : "834",
       "rank" : 41,
@@ -345,7 +345,7 @@
    {
       "firstname" : "Zacharias",
       "distance" : "289761",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "id" : "775",
       "rank" : 50
    },
@@ -365,7 +365,7 @@
    },
    {
       "distance" : "288550",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "id" : "997",
       "rank" : 53,
       "firstname" : "Gundhild"
@@ -483,7 +483,7 @@
       "firstname" : "Gunhild"
    },
    {
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "271395",
       "id" : "793",
       "rank" : 70,
@@ -499,7 +499,7 @@
    {
       "firstname" : "Randi",
       "id" : "503",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "270296",
       "rank" : 72
    },
@@ -513,7 +513,7 @@
    {
       "rank" : 74,
       "distance" : "266912",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "773",
       "firstname" : "Rebecca"
    },
@@ -535,7 +535,7 @@
       "firstname" : "Gunner",
       "id" : "912",
       "distance" : "266577",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "rank" : 77
    },
    {
@@ -596,7 +596,7 @@
    },
    {
       "distance" : "259231",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "id" : "616",
       "rank" : 86,
       "firstname" : "Nanna"
@@ -604,7 +604,7 @@
    {
       "rank" : 87,
       "id" : "846",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "259178",
       "firstname" : "Mie"
    },
@@ -633,7 +633,7 @@
       "firstname" : "Frederik",
       "id" : "814",
       "distance" : "257957",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "rank" : 91
    },
    {
@@ -674,7 +674,7 @@
    {
       "firstname" : "Jean",
       "rank" : 97,
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "257037",
       "id" : "854"
    },
@@ -696,12 +696,12 @@
       "firstname" : "Mogens",
       "rank" : 100,
       "id" : "860",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "255307"
    },
    {
       "rank" : 101,
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "254809",
       "id" : "574",
       "firstname" : "Mikkel"
@@ -750,7 +750,7 @@
    },
    {
       "id" : "756",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "250930",
       "rank" : 108,
       "firstname" : "Ragnar"
@@ -800,7 +800,7 @@
    {
       "id" : "971",
       "distance" : "245618",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "rank" : 115,
       "firstname" : "Naja"
    },
@@ -840,7 +840,7 @@
       "rank" : 120
    },
    {
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "242123",
       "id" : "720",
       "rank" : 121,
@@ -983,14 +983,14 @@
       "firstname" : "Filippa",
       "rank" : 141,
       "distance" : "229050",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "750"
    },
    {
       "firstname" : "Victoria",
       "rank" : 142,
       "distance" : "228872",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "824"
    },
    {
@@ -1061,7 +1061,7 @@
       "rank" : 152,
       "id" : "529",
       "distance" : "223873",
-      "lastname" : "Jørgensen"
+      "lastname" : "JÃ¸rgensen"
    },
    {
       "lastname" : "Poulsen",
@@ -1142,14 +1142,14 @@
    },
    {
       "firstname" : "Inger",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "218349",
       "id" : "867",
       "rank" : 164
    },
    {
       "firstname" : "Alexander",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "218308",
       "id" : "378",
       "rank" : 165
@@ -1297,7 +1297,7 @@
    {
       "firstname" : "Tove",
       "rank" : 186,
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "209039",
       "id" : "975"
    },
@@ -1334,11 +1334,11 @@
       "rank" : 191,
       "id" : "632",
       "distance" : "207001",
-      "lastname" : "Jørgensen"
+      "lastname" : "JÃ¸rgensen"
    },
    {
       "rank" : 192,
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "206608",
       "id" : "558",
       "firstname" : "Ronnie"
@@ -1386,7 +1386,7 @@
       "id" : "862"
    },
    {
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "203948",
       "id" : "536",
       "rank" : 199,
@@ -1438,7 +1438,7 @@
       "firstname" : "Malene",
       "rank" : 206,
       "distance" : "200882",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "665"
    },
    {
@@ -1446,7 +1446,7 @@
       "rank" : 207,
       "id" : "672",
       "distance" : "200573",
-      "lastname" : "Møller"
+      "lastname" : "MÃ¸ller"
    },
    {
       "rank" : 208,
@@ -1494,7 +1494,7 @@
       "firstname" : "Jarl",
       "rank" : 214,
       "distance" : "197580",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "820"
    },
    {
@@ -1523,7 +1523,7 @@
       "lastname" : "Nielsen",
       "id" : "850",
       "rank" : 218,
-      "firstname" : "Øivind"
+      "firstname" : "Ã˜ivind"
    },
    {
       "rank" : 219,
@@ -1639,7 +1639,7 @@
    },
    {
       "firstname" : "Thea",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "191833",
       "id" : "696",
       "rank" : 235
@@ -1674,7 +1674,7 @@
    },
    {
       "firstname" : "Gundhild",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "188563",
       "id" : "821",
       "rank" : 240
@@ -1694,7 +1694,7 @@
       "firstname" : "Marie"
    },
    {
-      "firstname" : "Sørine",
+      "firstname" : "SÃ¸rine",
       "rank" : 243,
       "distance" : "186809",
       "lastname" : "Jensen",
@@ -1780,7 +1780,7 @@
    {
       "rank" : 255,
       "distance" : "182790",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "909",
       "firstname" : "Merethe"
    },
@@ -1864,7 +1864,7 @@
    {
       "id" : "623",
       "distance" : "178743",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "rank" : 267,
       "firstname" : "Vagn"
    },
@@ -1927,7 +1927,7 @@
    {
       "firstname" : "Bobby",
       "rank" : 276,
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "176221",
       "id" : "839"
    },
@@ -1971,7 +1971,7 @@
       "distance" : "174947",
       "lastname" : "Rasmussen",
       "id" : "691",
-      "firstname" : "Søs"
+      "firstname" : "SÃ¸s"
    },
    {
       "firstname" : "Iver",
@@ -1995,7 +1995,7 @@
       "firstname" : "Erna"
    },
    {
-      "firstname" : "Bøje",
+      "firstname" : "BÃ¸je",
       "rank" : 286,
       "lastname" : "Thomsen",
       "distance" : "173844",
@@ -2048,7 +2048,7 @@
       "lastname" : "Madsen",
       "distance" : "171757",
       "id" : "855",
-      "firstname" : "Lærke"
+      "firstname" : "LÃ¦rke"
    },
    {
       "id" : "499",
@@ -2087,7 +2087,7 @@
    },
    {
       "id" : "795",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "170534",
       "rank" : 299,
       "firstname" : "Clara"
@@ -2124,7 +2124,7 @@
       "firstname" : "Liva",
       "rank" : 304,
       "id" : "467",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "168228"
    },
    {
@@ -2244,7 +2244,7 @@
       "rank" : 321,
       "id" : "556",
       "distance" : "163232",
-      "lastname" : "Sørensen"
+      "lastname" : "SÃ¸rensen"
    },
    {
       "firstname" : "Zahra",
@@ -2276,7 +2276,7 @@
    },
    {
       "id" : "243",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "161044",
       "rank" : 326,
       "firstname" : "Ane"
@@ -2284,7 +2284,7 @@
    {
       "rank" : 327,
       "id" : "577",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "160774",
       "firstname" : "Edith"
    },
@@ -2326,7 +2326,7 @@
    {
       "firstname" : "Lena",
       "distance" : "159587",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "833",
       "rank" : 333
    },
@@ -2356,7 +2356,7 @@
       "rank" : 337,
       "id" : "554",
       "distance" : "158800",
-      "lastname" : "Møller"
+      "lastname" : "MÃ¸ller"
    },
    {
       "firstname" : "Svenning",
@@ -2369,15 +2369,15 @@
       "firstname" : "Villads",
       "id" : "501",
       "distance" : "158093",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "rank" : 339
    },
    {
       "rank" : 340,
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "157810",
       "id" : "784",
-      "firstname" : "Bøje"
+      "firstname" : "BÃ¸je"
    },
    {
       "firstname" : "Karina",
@@ -2419,7 +2419,7 @@
       "rank" : 346,
       "id" : "609",
       "distance" : "156559",
-      "lastname" : "Jørgensen"
+      "lastname" : "JÃ¸rgensen"
    },
    {
       "rank" : 347,
@@ -2438,7 +2438,7 @@
    {
       "rank" : 349,
       "id" : "272",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "154780",
       "firstname" : "Margrethe"
    },
@@ -2559,7 +2559,7 @@
       "lastname" : "Kristensen",
       "distance" : "146975",
       "rank" : 366,
-      "firstname" : "Øyvind"
+      "firstname" : "Ã˜yvind"
    },
    {
       "distance" : "146168",
@@ -2675,7 +2675,7 @@
    },
    {
       "distance" : "142090",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "357",
       "rank" : 383,
       "firstname" : "Carlo"
@@ -2704,7 +2704,7 @@
    {
       "firstname" : "Dina",
       "distance" : "139906",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "559",
       "rank" : 387
    },
@@ -2725,7 +2725,7 @@
    {
       "firstname" : "Joachim",
       "rank" : 390,
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "139019",
       "id" : "158"
    },
@@ -2767,7 +2767,7 @@
    {
       "id" : "587",
       "distance" : "136977",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "rank" : 396,
       "firstname" : "Kenn"
    },
@@ -2780,7 +2780,7 @@
    },
    {
       "distance" : "136530",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "498",
       "rank" : 398,
       "firstname" : "Josephine"
@@ -2809,7 +2809,7 @@
    {
       "id" : "886",
       "distance" : "135785",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "rank" : 402,
       "firstname" : "Katcha"
    },
@@ -2830,7 +2830,7 @@
    {
       "firstname" : "Palle",
       "distance" : "134947",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "955",
       "rank" : 405
    },
@@ -2853,7 +2853,7 @@
       "rank" : 408,
       "id" : "354",
       "distance" : "134534",
-      "lastname" : "Møller"
+      "lastname" : "MÃ¸ller"
    },
    {
       "firstname" : "Jean",
@@ -2873,7 +2873,7 @@
       "rank" : 411,
       "id" : "826",
       "distance" : "133545",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "firstname" : "Tove"
    },
    {
@@ -2921,7 +2921,7 @@
    {
       "firstname" : "Carl",
       "rank" : 418,
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "130890",
       "id" : "327"
    },
@@ -2937,7 +2937,7 @@
       "distance" : "130590",
       "id" : "324",
       "rank" : 420,
-      "firstname" : "Kåre"
+      "firstname" : "KÃ¥re"
    },
    {
       "firstname" : "Laus",
@@ -3003,7 +3003,7 @@
       "rank" : 429
    },
    {
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "127399",
       "id" : "638",
       "rank" : 430,
@@ -3019,7 +3019,7 @@
    {
       "firstname" : "Astrid",
       "id" : "596",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "126637",
       "rank" : 432
    },
@@ -3034,7 +3034,7 @@
       "rank" : 434,
       "id" : "777",
       "distance" : "125755",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "firstname" : "Erna"
    },
    {
@@ -3139,7 +3139,7 @@
       "firstname" : "Minna",
       "rank" : 449,
       "distance" : "122812",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "723"
    },
    {
@@ -3153,7 +3153,7 @@
       "firstname" : "Jarl",
       "rank" : 451,
       "distance" : "122629",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "591"
    },
    {
@@ -3179,7 +3179,7 @@
    },
    {
       "firstname" : "Kim",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "120935",
       "id" : "308",
       "rank" : 455
@@ -3187,7 +3187,7 @@
    {
       "rank" : 456,
       "id" : "655",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "120933",
       "firstname" : "Sandra"
    },
@@ -3221,7 +3221,7 @@
    },
    {
       "distance" : "119861",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "550",
       "rank" : 461,
       "firstname" : "Ragnhild"
@@ -3285,7 +3285,7 @@
    {
       "rank" : 470,
       "distance" : "118503",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "id" : "535",
       "firstname" : "Johanne"
    },
@@ -3306,14 +3306,14 @@
    {
       "firstname" : "Carsten",
       "id" : "329",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "116867",
       "rank" : 473
    },
    {
       "rank" : 474,
       "distance" : "116796",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "425",
       "firstname" : "Keld"
    },
@@ -3322,7 +3322,7 @@
       "rank" : 475,
       "id" : "210",
       "distance" : "116658",
-      "lastname" : "Sørensen"
+      "lastname" : "SÃ¸rensen"
    },
    {
       "firstname" : "Isabella",
@@ -3399,7 +3399,7 @@
       "lastname" : "Poulsen",
       "distance" : "113989",
       "id" : "662",
-      "firstname" : "Øyvind"
+      "firstname" : "Ã˜yvind"
    },
    {
       "lastname" : "Kristensen",
@@ -3439,7 +3439,7 @@
    {
       "firstname" : "Lena",
       "rank" : 492,
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "112550",
       "id" : "572"
    },
@@ -3465,7 +3465,7 @@
       "firstname" : "Noah"
    },
    {
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "111715",
       "id" : "940",
       "rank" : 496,
@@ -3482,7 +3482,7 @@
       "firstname" : "Erna",
       "rank" : 498,
       "distance" : "111227",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "648"
    },
    {
@@ -3522,7 +3522,7 @@
    },
    {
       "rank" : 504,
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "109717",
       "id" : "515",
       "firstname" : "Karl"
@@ -3712,7 +3712,7 @@
    {
       "rank" : 531,
       "distance" : "101397",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "343",
       "firstname" : "Edith"
    },
@@ -3754,14 +3754,14 @@
    {
       "firstname" : "Bobby",
       "rank" : 537,
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "100200",
       "id" : "238"
    },
    {
       "rank" : 538,
       "distance" : "99667",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "439",
       "firstname" : "Ditte"
    },
@@ -3866,7 +3866,7 @@
    {
       "rank" : 553,
       "id" : "625",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "94391",
       "firstname" : "Villads"
    },
@@ -3879,7 +3879,7 @@
    },
    {
       "firstname" : "Edith",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "92313",
       "id" : "109",
       "rank" : 555
@@ -3915,7 +3915,7 @@
    {
       "rank" : 560,
       "id" : "457",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "90842",
       "firstname" : "James"
    },
@@ -4026,7 +4026,7 @@
    },
    {
       "id" : "611",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "87202",
       "rank" : 576,
       "firstname" : "Sarah"
@@ -4081,7 +4081,7 @@
       "firstname" : "Bo"
    },
    {
-      "firstname" : "Sørine",
+      "firstname" : "SÃ¸rine",
       "rank" : 584,
       "id" : "375",
       "lastname" : "Olsen",
@@ -4097,7 +4097,7 @@
    {
       "rank" : 586,
       "distance" : "85512",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "533",
       "firstname" : "Agnete"
    },
@@ -4349,7 +4349,7 @@
    {
       "firstname" : "Karoline",
       "id" : "246",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "75797",
       "rank" : 622
    },
@@ -4446,7 +4446,7 @@
    },
    {
       "distance" : "72927",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "26",
       "rank" : 636,
       "firstname" : "Jim"
@@ -4468,7 +4468,7 @@
    {
       "rank" : 639,
       "distance" : "72418",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "344",
       "firstname" : "Jytte"
    },
@@ -4504,7 +4504,7 @@
       "firstname" : "Bettina",
       "rank" : 644,
       "distance" : "70092",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "id" : "641"
    },
    {
@@ -4544,7 +4544,7 @@
    },
    {
       "distance" : "68664",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "id" : "330",
       "rank" : 650,
       "firstname" : "Henry"
@@ -4594,7 +4594,7 @@
    {
       "id" : "482",
       "distance" : "67437",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "rank" : 657,
       "firstname" : "Minna"
    },
@@ -4630,7 +4630,7 @@
       "rank" : 662,
       "id" : "506",
       "distance" : "65109",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "firstname" : "Marlene"
    },
    {
@@ -4644,8 +4644,8 @@
       "rank" : 664,
       "id" : "532",
       "distance" : "64735",
-      "lastname" : "Møller",
-      "firstname" : "Lærke"
+      "lastname" : "MÃ¸ller",
+      "firstname" : "LÃ¦rke"
    },
    {
       "firstname" : "Iben",
@@ -4670,7 +4670,7 @@
    },
    {
       "rank" : 668,
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "63626",
       "id" : "320",
       "firstname" : "Janne"
@@ -4775,7 +4775,7 @@
    },
    {
       "firstname" : "Alf",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "58046",
       "id" : "417",
       "rank" : 683
@@ -4796,7 +4796,7 @@
    },
    {
       "id" : "538",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "57580",
       "rank" : 686,
       "firstname" : "Jimmy"
@@ -4825,7 +4825,7 @@
    {
       "rank" : 690,
       "distance" : "56385",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "id" : "155",
       "firstname" : "Dan"
    },
@@ -4865,7 +4865,7 @@
       "firstname" : "Christopher"
    },
    {
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "54839",
       "id" : "74",
       "rank" : 696,
@@ -4901,7 +4901,7 @@
    },
    {
       "id" : "191",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "53728",
       "rank" : 701,
       "firstname" : "Olfert"
@@ -5008,7 +5008,7 @@
       "firstname" : "Ragnhild",
       "id" : "356",
       "distance" : "50989",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "rank" : 716
    },
    {
@@ -5083,7 +5083,7 @@
    },
    {
       "rank" : 727,
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "49284",
       "id" : "785",
       "firstname" : "Ragnar"
@@ -5097,7 +5097,7 @@
    },
    {
       "id" : "199",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "49099",
       "rank" : 729,
       "firstname" : "Beth"
@@ -5133,7 +5133,7 @@
    {
       "firstname" : "Laura",
       "rank" : 734,
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "48325",
       "id" : "405"
    },
@@ -5334,7 +5334,7 @@
       "firstname" : "Sine"
    },
    {
-      "firstname" : "André",
+      "firstname" : "AndrÃ©",
       "rank" : 763,
       "distance" : "41981",
       "lastname" : "Poulsen",
@@ -5373,7 +5373,7 @@
       "lastname" : "Christensen",
       "distance" : "40308",
       "rank" : 768,
-      "firstname" : "Åse"
+      "firstname" : "Ã…se"
    },
    {
       "id" : "601",
@@ -5401,7 +5401,7 @@
       "lastname" : "Nielsen",
       "id" : "510",
       "rank" : 772,
-      "firstname" : "Sørine"
+      "firstname" : "SÃ¸rine"
    },
    {
       "rank" : 773,
@@ -5456,13 +5456,13 @@
       "rank" : 780,
       "id" : "263",
       "distance" : "38342",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "firstname" : "Kristine"
    },
    {
       "firstname" : "Ludvig",
       "distance" : "38242",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "id" : "287",
       "rank" : 781
    },
@@ -5510,7 +5510,7 @@
    },
    {
       "id" : "279",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "37429",
       "rank" : 788,
       "firstname" : "Boris"
@@ -5539,7 +5539,7 @@
    {
       "rank" : 792,
       "distance" : "36646",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "228",
       "firstname" : "Rita"
    },
@@ -5572,11 +5572,11 @@
       "firstname" : "Valdemar"
    },
    {
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "35648",
       "id" : "100",
       "rank" : 797,
-      "firstname" : "Åse"
+      "firstname" : "Ã…se"
    },
    {
       "firstname" : "Laust",
@@ -5589,7 +5589,7 @@
       "firstname" : "Kaspar",
       "id" : "271",
       "distance" : "35228",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "rank" : 799
    },
    {
@@ -5601,14 +5601,14 @@
    },
    {
       "id" : "351",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "35003",
       "rank" : 801,
       "firstname" : "Sara"
    },
    {
       "firstname" : "Anders",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "35003",
       "id" : "216",
       "rank" : 802
@@ -5622,7 +5622,7 @@
    },
    {
       "rank" : 804,
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "34469",
       "id" : "403",
       "firstname" : "Kim"
@@ -5807,7 +5807,7 @@
       "lastname" : "Petersen",
       "distance" : "28017",
       "rank" : 830,
-      "firstname" : "Åse"
+      "firstname" : "Ã…se"
    },
    {
       "firstname" : "Keld",
@@ -5848,12 +5848,12 @@
       "rank" : 836,
       "id" : "475",
       "distance" : "27181",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "firstname" : "Borris"
    },
    {
       "distance" : "27007",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "84",
       "rank" : 837,
       "firstname" : "Jens"
@@ -5890,7 +5890,7 @@
       "firstname" : "Dina",
       "rank" : 842,
       "distance" : "26250",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "205"
    },
    {
@@ -5946,7 +5946,7 @@
       "firstname" : "Bent",
       "rank" : 850,
       "distance" : "22986",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "id" : "120"
    },
    {
@@ -5959,7 +5959,7 @@
    {
       "rank" : 852,
       "id" : "306",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "distance" : "22019",
       "firstname" : "Bobby"
    },
@@ -5974,7 +5974,7 @@
       "firstname" : "Susanne",
       "id" : "292",
       "distance" : "19175",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "rank" : 854
    },
    {
@@ -6014,7 +6014,7 @@
    },
    {
       "id" : "153",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "16751",
       "rank" : 860,
       "firstname" : "Malthe"
@@ -6037,14 +6037,14 @@
       "rank" : 863,
       "id" : "261",
       "distance" : "15055",
-      "lastname" : "Sørensen",
-      "firstname" : "Kåre"
+      "lastname" : "SÃ¸rensen",
+      "firstname" : "KÃ¥re"
    },
    {
       "firstname" : "Julie",
       "rank" : 864,
       "id" : "313",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "13832"
    },
    {
@@ -6056,7 +6056,7 @@
    },
    {
       "id" : "449",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "13645",
       "rank" : 866,
       "firstname" : "Eric"
@@ -6086,7 +6086,7 @@
       "firstname" : "Inger",
       "rank" : 870,
       "id" : "159",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "distance" : "12762"
    },
    {
@@ -6147,7 +6147,7 @@
    },
    {
       "distance" : "10609",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "716",
       "rank" : 879,
       "firstname" : "Nanna"
@@ -6156,7 +6156,7 @@
       "firstname" : "Brian",
       "rank" : 880,
       "id" : "184",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "distance" : "10493"
    },
    {
@@ -6240,7 +6240,7 @@
       "firstname" : "Tonny",
       "id" : "296",
       "distance" : "3908",
-      "lastname" : "Sørensen",
+      "lastname" : "SÃ¸rensen",
       "rank" : 892
    },
    {
@@ -6275,7 +6275,7 @@
       "rank" : 897,
       "id" : "189",
       "distance" : "851",
-      "lastname" : "Jørgensen",
+      "lastname" : "JÃ¸rgensen",
       "firstname" : "Dorte"
    },
    {
@@ -6288,7 +6288,7 @@
    {
       "rank" : 899,
       "distance" : "709",
-      "lastname" : "Møller",
+      "lastname" : "MÃ¸ller",
       "id" : "108",
       "firstname" : "Stig"
    }
