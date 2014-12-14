@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS Båd (
     Anvendelse VARCHAR(100),
     Niveau VARCHAR(100),
     Location VARCHAR(100),
-    Placement VARCHAR(100)
+    Placement VARCHAR(100),
+    Decommissioned DATETIME
 );
 
 CREATE TABLE IF NOT EXISTS Bådindstilling (

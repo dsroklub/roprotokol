@@ -20,7 +20,8 @@ $s="SELECT BådID as id,
            Båd.Placement as placement
     FROM Båd,Gruppe, BådKategori
     WHERE GruppeID=FK_GruppeID
-    AND BådKategori.BådKategoriID =  Gruppe.FK_BådKategoriID";
+    AND BådKategori.BådKategoriID = Gruppe.FK_BådKategoriID
+    AND Båd.Decommissioned IS NULL";
 
 
 // echo $s;

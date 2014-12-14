@@ -9,6 +9,7 @@ numrowers=1000
 
 db = MySQLdb.connect(host="localhost", # your host, usually localhost
                      user="roprotokol", # your username
+                     passwd="roprotokol",
                      charset='utf8',
                       db="roprotokol") # name of the data base
 cur = db.cursor() 
