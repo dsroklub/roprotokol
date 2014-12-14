@@ -1,8 +1,5 @@
 <?php
-ini_set('default_charset', 'utf-8');
-
-if(!isset($_SESSION))  session_start();
-$rodb=new mysqli("localhost","roprotokol","","roprotokol");
+include("inc/common.php");
 
 if ($rodb->connect_errno) {
     printf("Connect failed: %s\n", mysqli_connect_error());
