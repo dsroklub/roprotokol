@@ -4,24 +4,24 @@
       "name" : "Lokaltur"
    },
    {
-      "name" : "Tastet",
-      "id" : "2"
+      "id" : "2",
+      "name" : "Tastet"
    },
    {
-      "name" : "Langtur",
-      "id" : "3"
+      "id" : "3",
+      "name" : "Langtur"
    },
    {
-      "name" : "Inriggerkaproning",
-      "id" : "4"
+      "id" : "4",
+      "name" : "Inriggerkaproning"
    },
    {
       "id" : "5",
       "name" : "Instruktion"
    },
    {
-      "id" : "6",
-      "name" : "Udstationeret"
+      "name" : "Udstationeret",
+      "id" : "6"
    },
    {
       "id" : "7",
@@ -32,8 +32,8 @@
       "name" : "Racerkanin"
    },
    {
-      "id" : "9",
-      "name" : "Teknik+"
+      "name" : "Teknik+",
+      "id" : "9"
    },
    {
       "id" : "10",
@@ -48,11 +48,11 @@
       "name" : "8GP"
    },
    {
-      "id" : "13",
-      "name" : "Teknik og tur"
+      "name" : "Teknik og tur",
+      "id" : "13"
    },
    {
-      "name" : "Puls og program",
-      "id" : "14"
+      "id" : "14",
+      "name" : "Puls og program"
    }
 ]
