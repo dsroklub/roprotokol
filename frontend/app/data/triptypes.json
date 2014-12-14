@@ -1,1 +1,58 @@
-[{"name":"Lokaltur","id":"1"},{"name":"Tastet","id":"2"},{"name":"Langtur","id":"3"},{"name":"Inriggerkaproning","id":"4"},{"name":"Instruktion","id":"5"},{"name":"Udstationeret","id":"6"},{"name":"Sved På Panden","id":"7"},{"name":"Racerkanin","id":"8"},{"name":"Teknik+","id":"9"},{"name":"Outrigger/ScullerInstruktion","id":"10"},{"name":"Styrmandsinstruktion","id":"11"},{"name":"8GP","id":"12"},{"name":"Teknik og tur","id":"13"},{"name":"Puls og program","id":"14"}]
+[
+   {
+      "name" : "Lokaltur",
+      "id" : "1"
+   },
+   {
+      "name" : "Tastet",
+      "id" : "2"
+   },
+   {
+      "name" : "Langtur",
+      "id" : "3"
+   },
+   {
+      "name" : "Inriggerkaproning",
+      "id" : "4"
+   },
+   {
+      "name" : "Instruktion",
+      "id" : "5"
+   },
+   {
+      "name" : "Udstationeret",
+      "id" : "6"
+   },
+   {
+      "name" : "Sved På Panden",
+      "id" : "7"
+   },
+   {
+      "name" : "Racerkanin",
+      "id" : "8"
+   },
+   {
+      "name" : "Teknik+",
+      "id" : "9"
+   },
+   {
+      "name" : "Outrigger/ScullerInstruktion",
+      "id" : "10"
+   },
+   {
+      "name" : "Styrmandsinstruktion",
+      "id" : "11"
+   },
+   {
+      "name" : "8GP",
+      "id" : "12"
+   },
+   {
+      "name" : "Teknik og tur",
+      "id" : "13"
+   },
+   {
+      "name" : "Puls og program",
+      "id" : "14"
+   }
+]
