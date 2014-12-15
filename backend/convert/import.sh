@@ -7,7 +7,7 @@ echo CURRENTSEASON=$CURRENTSEASON
 
 DBCMD="mysql -u roprotokol -proprotokol roprotokol"
 
-for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData Fejl_tur Gruppe  Kajak_typer Kommentar LåsteBåde Medlem Motionstatus Postnr Reservation Skade TurDeltager TurType  Vintervedligehold Destination Kajak_anvendelser Tur; do
+for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData Fejl_tur Gruppe  Kajak_typer Kommentar LåsteBåde Medlem Motionstatus Postnr Reservation Skade TurDeltager TurType  Vintervedligehold Destination Kajak_anvendelser Tur tblMembersSportData; do
     echo DO IMPORT $tb
     echo
     $DBCMD -e "TRUNCATE TABLE $tb;"
@@ -43,3 +43,4 @@ $DBCMD -e "INSERT INTO TripMember (TripID, Season,Seat, MemberID,MemberName,Crea
     SELECT   FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM TurDeltager"
 $DBCMD -e "DROP TABLE Tur"
 $DBCMD -e "DROP TABLE TurDeltager"
+$DBCMD < $SCRIPT_PATH/konvertRights.sql

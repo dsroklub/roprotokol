@@ -1,6 +1,6 @@
 --#!/usr/bin/mysql -u root -p --password=xxx roprotokol
 
-DROP DATABASE IF EXISTS roprotokol;
+-- DROP DATABASE IF EXISTS roprotokol;
 
 CREATE DATABASE IF NOT EXISTS roprotokol;
 use roprotokol;
@@ -331,7 +331,7 @@ CREATE TABLE IF NOT EXISTS Kajak_anvendelser (
        Beskrivelse VARCHAR(1000)
 );
 
-CREATE TABLE tblMembers (
+CREATE TABLE IF NOT EXISTS tblMembers (
   MemberID         INT PRIMARY KEY, 
   LastName         VARCHAR(100), 
   FirstName        VARCHAR(100), 
@@ -389,7 +389,7 @@ CREATE TABLE tblMembers (
   Has_Joined      Boolean NOT NULL
 );
 
-CREATE TABLE tblRowClubs (
+CREATE TABLE IF NOT EXISTS tblRowClubs  (
   MemberID      INT, 
   Name      VARCHAR(500), 
   Address1    VARCHAR(500), 
@@ -399,5 +399,45 @@ CREATE TABLE tblRowClubs (
   NewsletterReceives  Boolean NOT NULL, 
   Date      CHAR (100), 
   Misc      CHAR (100)
+);
+
+
+CREATE TABLE IF NOT EXISTS  tblMembersSportData (
+	MemberID			INT, 
+	Roret			 	DateTime, 
+	TeoretiskStyrmandKursus 	DateTime, 
+	Styrmand		 	DateTime, 
+	TeoretiskLangtursStyrmandKursus	DateTime, 
+	Langtur				DateTime, 
+	Skaergaard			DateTime, 
+	Langtur_Oeresund		DateTime, 
+	Ormen				DateTime, 
+	Svava				DateTime, 
+	Sculler				DateTime, 
+	Kajak				DateTime, 
+	Kajak_2				DateTime, 
+	Swim_400			DateTime, 
+	RoInstruktoer			DateTime, 
+	StyrmandInstruktoer		DateTime, 
+	ScullerInstruktoer		DateTime, 
+	KajakInstruktoer		DateTime, 
+	Kaproer				DateTime, 
+	Motorboat			VARCHAR(40), 
+	KeyType				VARCHAR(2), 
+	KeyDate				DateTime, 
+	KeyFee				Numeric(8,2), 
+	Stilling			VARCHAR(30), 
+	Ordinaert			VARCHAR(2), 
+	diverse1			VARCHAR(140), 
+	diverse2			VARCHAR(140)
+);
+
+
+CREATE TABLE IF NOT EXISTS MemberRights (
+	MemberID			INT, 
+	MemberRight		 	VARCHAR(50),
+        Acquired			DateTime,
+	argument			VARCHAR(100),
+       PRIMARY KEY(MemberID, MemberRight,Acquired,Argument)
 );
 
