@@ -30,3 +30,18 @@ perl -p -i -e "s/Årsag til rettelsen/Årsagtilrettelsen/g" "$SCRIPT_PATH/data/F
 perl -p -i -e "s/Motion\+/MotionPlus/g" "$SCRIPT_PATH/data/Båd.sql"
 perl -p -i -e "s/MotionPlus\+/MotionPlus/g" "$SCRIPT_PATH/data/Båd.sql"
 perl -p -i -e "s/Motion\+/Motion/g" "$SCRIPT_PATH/data/Motionstatus.sql"
+
+for tb in tblMembers; do
+    echo DO Members $tb
+    mdb-export  $SCRIPT_PATH/Members.mdb "$tb" > "$SCRIPT_PATH/data/$tb.csv"
+    mdb-export -D '%F %T' -I mysql $SCRIPT_PATH/Members.mdb "$tb" > "$SCRIPT_PATH/data/$tb.sql"
+done
+perl -p -i -e "s/E-mail+/E_mail/g" "$SCRIPT_PATH/data/tblMembers.sql"
+
+
+RODB=$SCRIPT_PATH/Sportdat.mdb
+echo using $SCRIPT_PATH  $RODB
+for tb in tblMembersSportData; do
+    echo DO Sportdat $tb
+    mdb-export -D '%F %T' -I mysql "$RODB" "$tb" > "$SCRIPT_PATH/data/$tb.sql"
+done
