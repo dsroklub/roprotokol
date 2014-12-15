@@ -9,3 +9,4 @@ select BådID,Båd.Navn,Båd.Pladser, Gruppe.Pladser FROM Båd,Gruppe WHERE Grup
 -- Både i samme gruppe skal også have samme antal sæder.
 
 Mjølner er 4+1=5
+Hermes er 4
