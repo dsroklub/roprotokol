@@ -8,6 +8,7 @@ SELECT MemberID, 'cox', NULL, Styrmand FROM tblMembersSportData WHERE Styrmand I
 SELECT MemberID, 'longdistancetheory',NULL, TeoretiskLangtursStyrmandKursus FROM tblMembersSportData WHERE TeoretiskLangtursStyrmandKursus IS NOT NULL UNION
 SELECT MemberID, 'skærgård',NULL, Skaergaard FROM tblMembersSportData WHERE Skaergaard IS NOT NULL UNION
 SELECT MemberID, 'langturøresund',NULL, Langtur_Oeresund FROM tblMembersSportData WHERE Langtur_Oeresund IS NOT NULL UNION
+SELECT MemberID, 'longdistance',NULL, Langtur FROM tblMembersSportData WHERE Langtur IS NOT NULL UNION
 SELECT MemberID, '8', Ormen, NULL FROM tblMembersSportData WHERE Ormen IS NOT NULL UNION
 SELECT MemberID, 'svava', Svava,NULL FROM tblMembersSportData WHERE Svava IS NOT NULL UNION
 SELECT MemberID, 'sculler', Sculler,NULL FROM tblMembersSportData WHERE Sculler IS NOT NULL UNION

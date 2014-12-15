@@ -7,10 +7,9 @@ import math
 
 numrowers=1000
 
-db = MySQLdb.connect(host="localhost", # your host, usually localhost
-                     user="roprotokol", # your username
-                     charset='utf8',
-                      db="roprotokol") # name of the data base
+# You may want to somehow use a db password here.
+# but do not write it in this file
+db = MySQLdb.connect(host="localhost",  user="roprotokol", charset='utf8', db="roprotokol")
 cur = db.cursor() 
 
 #cur.execute("SELECT * FROM Medlem")
@@ -22,6 +21,7 @@ lnames=["Jensen","Nielsen","Hansen","Pedersen","Andersen","Christensen","Larsen"
 cur.execute("DELETE FROM Medlem")
 cur.execute("DELETE FROM TripMember")
 cur.execute("DELETE FROM Trip")
+cur.execute("DELETE FROM MemberRights")
 
 m=dict()
 
@@ -29,11 +29,34 @@ for fid in range(1, 1000) :
     fname=fnames[random.randrange(0, len(fnames)-1)]
     lname=lnames[random.randrange(0, len(lnames)-1)]
     cur.execute("INSERT INTO Medlem (MedlemID, Medlemsnr, Fornavn, Efternavn) VALUES ("+str(fid)+','+'"'+str(fid+2000)+'","'+fname+'","'+lname+'");')
+    rndrights=random.randrange(0, 100)
+    if (rndrights>15):
+        print "INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2014-12-24","");'
+        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2014-12-24","");')
+    if (rndrights>50):
+        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"cox","2013-12-24","");')
+    if (rndrights>77):
+        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"longdistance","2013-12-24","");')
+    if (rndrights>85):
+        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2013-12-24","row");')
+    rndrights=random.randrange(0, 100)
+    if (rndrights>90):
+        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2013-12-24","sculler");')
+    if (rndrights>92):
+        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2013-12-24","kajak");')
+    if (rndrights>92):
+        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2013-12-24","svava");')
+    if (rndrights>20):
+        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"competition","2013-12-24","");')
+    if (rndrights>90):
+        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"notes","2013-12-24","der er noget lumsk med ham");')
+        
     m[fid]=fname+' A. '+lname
     cur.execute("SELECT BådID, Pladser FROM Båd")
 
 boats=cur.fetchall()
 
+print "we have " +str(len(boats))+ " boats"
 for tid in range(1, 4000):
     boat=boats[random.randrange(0, len(boats)-1)]
     bid=boat[0]
