@@ -7,6 +7,7 @@ var app = angular.module('myApp', [
   'ui.select',
   'ngQuickDate',
   'ngDialog',
+  'ngTable',
   'myApp.version',
   'myApp.range',
   'myApp.database',
@@ -17,6 +18,10 @@ config(['$routeProvider', function($routeProvider) {
     templateUrl: 'templates/boat/checkout.html',
     controller: 'BoatCtrl'
   });
+  $routeProvider.when('/categoryoverview/', {
+    templateUrl: 'templates/boat/categoryoverview.html',
+    controller: 'BoatCtrl'
+  });
   $routeProvider.when('/boat/categoryoverview/', {
     templateUrl: 'templates/boat/categoryoverview.html',
     controller: 'BoatCtrl'
@@ -25,7 +30,10 @@ config(['$routeProvider', function($routeProvider) {
     templateUrl: 'templates/stats/statoverview.html',
     controller: 'StatCtrl'
   });
-  $routeProvider.otherwise({redirectTo: '/boat/categoryoverview'});
+  $routeProvider.when('/', {redirectTo: '/boat/categoryoverview'});
+  $routeProvider.otherwise({
+    templateUrl: 'templates/notimplementet.html',
+  });
 }])
 .config(['uiSelectConfig', function(uiSelectConfig) {
   uiSelectConfig.theme = 'bootstrap';
