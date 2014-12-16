@@ -18,7 +18,10 @@ fi
 DBCMD="mysql -u roprotokol roprotokol"
 
 #if you you a password, put DBCMD="mysql -u roprotokol -p password roprotokol" in secret.sh
+if [ -f $SCRIPT_PATH/secret.sh ];
+then
 . $SCRIPT_PATH/secret.sh
+fi
 
 for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer Kommentar LåsteBåde Medlem Motionstatus Postnr Reservation Skade TurType Destination Kajak_anvendelser; do
     echo DO IMPORT $tb
@@ -68,6 +71,8 @@ done
     $DBCMD -e "DROP TABLE Tur"
     $DBCMD -e "DROP TABLE TurDeltager"
     $DBCMD < $SCRIPT_PATH/konvertRights.sql
+elif [ $arg=="empty" ]; then
+    echo no rower data
 else
     echo unknown argument
 fi

@@ -3,13 +3,22 @@
 import MySQLdb
 import random
 import math
-
+import os.path
+import sys
 
 numrowers=1000
 
 # You may want to somehow use a db password here.
 # but do not write it in this file
-db = MySQLdb.connect(host="localhost",  user="roprotokol", charset='utf8', db="roprotokol")
+pwfile=os.path.dirname(sys.argv[0])+'/secret.db'
+print "checking db pw file "+pwfile
+if os.path.exists(pwfile):
+    dbpw=open(pwfile).readlines()[0]
+    db= MySQLdb.connect(host="localhost",  user="roprotokol", passwd=dbpw,charset='utf8', db="roprotokol")
+else:
+    db= MySQLdb.connect(host="localhost",  user="roprotokol", charset='utf8', db="roprotokol")
+
+
 cur = db.cursor() 
 
 #cur.execute("SELECT * FROM Medlem")
