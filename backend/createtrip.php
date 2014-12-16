@@ -1,11 +1,7 @@
 <?php
-ini_set('default_charset', 'utf-8');
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
+include("inc/common.php");
 
 $season=date('Y');
-if(!isset($_SESSION))  session_start();
-$rodb=new mysqli("localhost","roprotokol","","roprotokol");
 
 error_log('create trip ss'.$season);
 if ($rodb->connect_errno) {

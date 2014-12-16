@@ -1,58 +1,58 @@
 [
    {
-      "id" : "1",
-      "name" : "Lokaltur"
+      "name" : "Lokaltur",
+      "id" : "1"
    },
    {
-      "id" : "2",
-      "name" : "Tastet"
+      "name" : "Tastet",
+      "id" : "2"
    },
    {
-      "id" : "3",
-      "name" : "Langtur"
+      "name" : "Langtur",
+      "id" : "3"
    },
    {
-      "id" : "4",
-      "name" : "Inriggerkaproning"
+      "name" : "Inriggerkaproning",
+      "id" : "4"
    },
    {
-      "id" : "5",
-      "name" : "Instruktion"
+      "name" : "Instruktion",
+      "id" : "5"
    },
    {
       "name" : "Udstationeret",
       "id" : "6"
    },
    {
-      "id" : "7",
-      "name" : "Sved På Panden"
+      "name" : "Sved På Panden",
+      "id" : "7"
    },
    {
-      "id" : "8",
-      "name" : "Racerkanin"
+      "name" : "Racerkanin",
+      "id" : "8"
    },
    {
       "name" : "Teknik+",
       "id" : "9"
    },
    {
-      "id" : "10",
-      "name" : "Outrigger/ScullerInstruktion"
+      "name" : "Outrigger/ScullerInstruktion",
+      "id" : "10"
    },
    {
       "name" : "Styrmandsinstruktion",
       "id" : "11"
    },
    {
-      "id" : "12",
-      "name" : "8GP"
+      "name" : "8GP",
+      "id" : "12"
    },
    {
       "name" : "Teknik og tur",
       "id" : "13"
    },
    {
-      "id" : "14",
-      "name" : "Puls og program"
+      "name" : "Puls og program",
+      "id" : "14"
    }
 ]

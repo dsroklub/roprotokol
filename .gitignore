@@ -1,6 +1,6 @@
 /nbproject/private/
-/konvert/*.mdb
+*.mdb
 /v2/roprotokol/nbproject/private/
 *~
 secret.*
-
+.project
