@@ -34,6 +34,7 @@ echo '[';
  while ($row = $result->fetch_assoc()) {
 	  if ($rn>1) echo ',';
       $row['rank']=$rn;
+      $row['distance']=(int)$row['distance']; //  bad hack
 	  echo json_encode($row);
       $rn=$rn+1;
 }

@@ -1,13 +1,13 @@
 [
    {
-      "distance" : "476877",
+      "distance" : 476877,
       "id" : "866",
       "rank" : 1,
       "lastname" : "Nielsen",
       "firstname" : "Oscar"
    },
    {
-      "distance" : "418321",
+      "distance" : 418321,
       "id" : "828",
       "rank" : 2,
       "lastname" : "Sørensen",

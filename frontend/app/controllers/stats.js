@@ -1,8 +1,8 @@
 'use strict';
 
-app.controller('StatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', function ($scope, $routeParams, DatabaseService, $interval, ngDialog) {
+app.controller('StatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', 'ngTableParams', '$filter',
+			    function ($scope, $routeParams, DatabaseService, $interval, ngDialog, ngTableParams, $filter) {
     DatabaseService.init().then(function () {      
-      $scope.stats = DatabaseService.getStatistics();
       
       // (Need membership Start date, End Date for following information)
       
@@ -41,6 +41,28 @@ app.controller('StatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     });    
     $scope.isObjectAndHasId = function (val) {
       return typeof(val) === 'string' && val.length > 3;
-    };  
-}]);
+    };
+    $scope.tableParams = new ngTableParams({
+      page: 1,            // show first page
+      count: 500,          // count per page
+      filter: {
+        distance: 'asc'       // initial filter
+      },
+      sorting: {
+        rank: 'asc'     // initial sorting
+      }
+    }, {
+      total: function () { return DatabaseService.getStatistics().length; },
+      //total: $scope.stats? $scope.stats.length:10, // length of data
+      getData: function($defer, params) {
+	var filteredData = DatabaseService.getStatistics();
+	var orderedData = params.sorting() ?
+            $filter('orderBy')(filteredData, params.orderBy()) :
+            filteredData;
+        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+      },$scope: { $data: {} }
+ }
+ )
+}
+]);
 
