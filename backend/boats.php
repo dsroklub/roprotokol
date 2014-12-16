@@ -17,11 +17,27 @@ $s="SELECT BådID as id,
            Gruppe.Navn as category,
            BådKategori.Navn as boattype,
            Båd.Location as location,
-           Båd.Placement as placement
-    FROM Båd,Gruppe, BådKategori
-    WHERE GruppeID=FK_GruppeID
-    AND BådKategori.BådKategoriID = Gruppe.FK_BådKategoriID
-    AND Båd.Decommissioned IS NULL";
+           Båd.Placement as placement,
+           COALESCE(MAX(Skade.Grad),0) as damage,
+           MAX(Trip.TripID) as trip,
+           MAX(Trip.OutTime) as outtime,
+           MAX(Trip.ExpectedIn) as expected_in
+    FROM Båd
+         INNER JOIN Gruppe ON (GruppeID=FK_GruppeID)
+         INNER JOIN BådKategori ON (BådKategori.BådKategoriID = Gruppe.FK_BådKategoriID)
+         LEFT OUTER JOIN Skade ON (Skade.FK_BådID=Båd.BådID AND Skade.Repareret IS NULL)
+         LEFT OUTER JOIN Trip ON (Trip.BoatID = Båd.BådID AND Trip.Intime IS NULL)
+    WHERE 
+         Båd.Decommissioned IS NULL
+    GROUP BY
+       BådID,
+       Båd.Navn,
+       Gruppe.Pladser,
+       Båd.Beskrivelse,
+       Gruppe.Navn,
+       Båd.Location,
+       Båd.Placement
+    ";
 
 
 // echo $s;
