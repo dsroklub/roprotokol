@@ -2,7 +2,9 @@
 
 <button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
 <p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
- <p><strong>Filter:</strong> {{tableParams.filter()|json}}
+<p><strong>Filter:</strong> {{tableParams.filter()}}
+<p><strong>cat:</strong> {{tableParams.rowcategory|json}}
+<div>
 <table ng-table="tableParams" class="statlist" show-filter="true">
   <thead>
     <tr>
@@ -23,5 +25,5 @@
     </tr>
   </tbody>
 </table>
-
+</div>
 <!--pre> {{boat_category_id}} </pre-->

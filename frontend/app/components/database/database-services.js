@@ -7,7 +7,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   var destinations;
   var triptypes;
   var rowers;
-  var statistics;
+  var rowerstatistics={'rowboat':undefined,'kayak':undefined,'any':undefined};
+  var boatstatistics={};
 
   this.init = function () {
     var boatsloaded = $q.defer();
@@ -15,8 +16,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var destinationsloaded = $q.defer();
     var triptypesloaded = $q.defer();
     var rowersloaded = $q.defer();
-    var statisticsloaded = $q.defer();
-
+    var boatstatisticsloaded = {'any':$q.defer(),'rowboat':$q.defer(),'kayak':$q.defer()};
+    var rowerstatisticsloaded = {'any':$q.defer(),'rowboat':$q.defer(),'kayak':$q.defer()};
+    var boattypes = ['kayak','any','rowboat'];
+    //var boattypes = ['kayak'];
     if(boats === undefined) {
       //Build indexes and lists for use by API
       $http.get('data/boats.json').then(function(response) {
@@ -91,19 +94,46 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       rowersloaded.resolve(true);
     }
       
-    if(statistics === undefined) {
-      $http.get('data/rower_statistics.json').then(function(response) {
-        statistics = [];
-        angular.forEach(response.data, function(stat, index) {
-          stat.search = stat.id + " " + stat.firstname + " " + stat.lasstname;
-          this.push(stat);
-        }, statistics)
-        statisticsloaded.resolve(true);
-      });
+    if(rowerstatistics['any'] === undefined) {
+      var bx;
+      for (bx in boattypes) {
+	(function(boattype) {
+	var farg="";
+	  if (boattype != "any") {
+	    //	    farg='?boattype='+boattype;
+	    	    farg='Qboattype'+boattype;
+	  }
+	  $http.get('data/rower_statistics'+farg+'.json').then(function(response) {
+            rowerstatistics[boattype] = [];
+            angular.forEach(response.data, function(stat, index) {
+              stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
+              this.push(stat);
+            }, rowerstatistics[boattype])
+	    rowerstatisticsloaded[boattype].resolve(true);
+	  }							    );
+	})(boattypes[bx]);
+      }
     } else {
-      statisticsloaded.resolve(true);
+      rowerstatisticsloaded[boattypes[bx]].resolve(true);
     }
-   
+
+    // if(boatstatistics === undefined) {
+    //   for (boattype in boattypes) {
+    // 	$http.get('data/boat_statistics.json').then(function(response) {
+    //       boatstatistics[boattypes[boattype]] = [];
+    //       angular.forEach(response.data, function(stat, index) {
+    //         stat.search = stat.boatname;
+    //         this.push(stat);
+    //       }, boatstatistics[boattypes[bx]])
+    // 	});
+    //   }
+    //   boatstatisticsloaded[boattypes[bx]].resolve(true);
+    // } else {
+    //   boatstatisticsloaded[boattypes[bx]].resolve(true);
+    // }
+
+
+    
     return $q.all([boatsloaded.promise,boatdamagesloaded.promise, destinationsloaded.promise, 
       triptypesloaded.promise, rowersloaded.promise]);
   };
@@ -149,8 +179,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return triptypes;
   };
 
-  this.getStatistics = function () {
-    return statistics;
+  this.getRowerStatistics = function (boattype) {
+    return rowerstatistics[boattype];
+  };
+  this.getBoatStatistics = function (boattype) {
+    return boatstatistics[boattype];
   };
 
   this.getRowersByNameOrId = function(val, preselectedids) {

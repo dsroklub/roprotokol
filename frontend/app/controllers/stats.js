@@ -1,5 +1,9 @@
 'use strict';
 
+var rabbitComperator = function(mid) {
+  return (mid.length >0 && mid[0]=='k');
+};
+
 app.controller('StatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', 'ngTableParams', '$filter',
 			    function ($scope, $routeParams, DatabaseService, $interval, ngDialog, ngTableParams, $filter) {
     DatabaseService.init().then(function () {      
@@ -39,30 +43,46 @@ app.controller('StatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       
       
     });    
-    $scope.isObjectAndHasId = function (val) {
+     $scope.boattype="any";
+     $scope.dorowers = function (val) {
+       $scope.rowcategory=val;
+	if (val=='kaniner') {
+	  $scope.tableParams.filter({'id':'k'});
+	  $scope.boattype='any';
+	} else {
+	  $scope.tableParams.filter({'id':''});
+	  $scope.boattype=val;
+	  $scope.tableParams.reload();
+	}
+    };
+			      
+      $scope.isObjectAndHasId = function (val) {
       return typeof(val) === 'string' && val.length > 3;
     };
     $scope.tableParams = new ngTableParams({
       page: 1,            // show first page
       count: 500,          // count per page
       filter: {
-        distance: 'asc'       // initial filter
+        id: ''       // initial filter	
       },
       sorting: {
         rank: 'asc'     // initial sorting
       }
     }, {
-      total: function () { return DatabaseService.getStatistics().length; },
-      //total: $scope.stats? $scope.stats.length:10, // length of data
+      total: function () { return DatabaseService.getRowerStatistics($scope.boattype).length; },
       getData: function($defer, params) {
-	var filteredData = DatabaseService.getStatistics();
+	var filterInfo = params.filter();
+	var rawData = DatabaseService.getRowerStatistics($scope.boattype);
+	var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;
+	
 	var orderedData = params.sorting() ?
             $filter('orderBy')(filteredData, params.orderBy()) :
             filteredData;
         $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
       },$scope: { $data: {} }
  }
- )
+					  )
+
 }
 ]);
 
