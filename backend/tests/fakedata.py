@@ -8,6 +8,7 @@ import sys
 
 numrowers=1000
 
+random.seed(42)
 # Password is read from file sectret.db
 # but do not write it in this file
 pwfile=os.path.dirname(sys.argv[0])+'/secret.db'
@@ -36,8 +37,11 @@ m=dict()
 for fid in range(1, 1000) :
     fname=fnames[random.randrange(0, len(fnames)-1)]
     lname=lnames[random.randrange(0, len(lnames)-1)]
-    cur.execute("INSERT INTO Medlem (MedlemID, Medlemsnr, Fornavn, Efternavn) VALUES ("+str(fid)+','+'"'+str(fid+2000)+'","'+fname+'","'+lname+'");')
     rndrights=random.randrange(0, 100)
+    mid=str(fid+2000)
+    if (rndrights<10):
+        mid='k'+str(fid)
+    cur.execute("INSERT INTO Medlem (MedlemID, Medlemsnr, Fornavn, Efternavn) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
     if (rndrights>15):
         print "INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2014-12-24","");'
         cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2014-12-24","");')
