@@ -1,590 +1,584 @@
 [
    {
-      "level" : "1",
-      "boat_id" : "1",
+      "description" : "kølsvin mangler lak. essing: rå træ - mangler lak. bundbræt v. st.m. flækket. smig især på 2er åre.",
       "id" : "2843",
-      "description" : "kølsvin mangler lak. essing: rå træ - mangler lak. bundbræt v. st.m. flækket. smig især på 2er åre."
+      "level" : "1",
+      "boat_id" : "1"
    },
    {
       "level" : "1",
-      "boat_id" : "9",
       "id" : "2775",
-      "description" : "Der kommer vand ind i agterrummet."
+      "description" : "Der kommer vand ind i agterrummet.",
+      "boat_id" : "9"
    },
    {
       "level" : "1",
-      "boat_id" : "10",
       "id" : "2846",
-      "description" : "Læderspændholdt udlånt til frigg"
+      "description" : "Læderspændholdt udlånt til frigg",
+      "boat_id" : "10"
    },
    {
-      "level" : "3",
-      "boat_id" : "10",
       "id" : "2873",
-      "description" : "vintervedligehold"
+      "level" : "3",
+      "description" : "vintervedligehold",
+      "boat_id" : "10"
    },
    {
-      "level" : "3",
-      "boat_id" : "10",
       "id" : "2802",
-      "description" : "Brage har haft en dejlig langtur på Sognefjorden. Hyggelig og fin. Nu skal den lige have lidt lak før den kan komme ud på eget rofarvand igen."
+      "level" : "3",
+      "description" : "Brage har haft en dejlig langtur på Sognefjorden. Hyggelig og fin. Nu skal den lige have lidt lak før den kan komme ud på eget rofarvand igen.",
+      "boat_id" : "10"
    },
    {
       "level" : "3",
-      "boat_id" : "13",
       "id" : "2569",
-      "description" : "Meddelelse fra administratoren: Båden kan ikke længere udskrives."
+      "description" : "Meddelelse fra administratoren: Båden kan ikke længere udskrives.",
+      "boat_id" : "13"
    },
    {
-      "level" : "3",
       "boat_id" : "13",
       "id" : "2335",
+      "level" : "3",
       "description" : "Båden eksisterer ikke mere"
    },
    {
-      "level" : "1",
       "boat_id" : "17",
+      "level" : "1",
       "id" : "2854",
       "description" : "1er sæde kører ujævnt.\nKan godt ros"
    },
    {
-      "level" : "3",
       "boat_id" : "19",
+      "description" : "På vinterophold i Skovshoved - ikke til roning.",
       "id" : "2879",
-      "description" : "På vinterophold i Skovshoved - ikke til roning."
+      "level" : "3"
    },
    {
-      "level" : "1",
       "boat_id" : "23",
-      "id" : "2663",
-      "description" : "Mangler ryglæn, værftopgave"
-   },
-   {
-      "level" : "3",
-      "boat_id" : "27",
-      "id" : "2517",
-      "description" : "Fodspark mangler "
-   },
-   {
+      "description" : "Mangler ryglæn, værftopgave",
       "level" : "1",
+      "id" : "2663"
+   },
+   {
+      "id" : "2517",
+      "level" : "3",
+      "description" : "Fodspark mangler ",
+      "boat_id" : "27"
+   },
+   {
       "boat_id" : "28",
       "id" : "2875",
+      "level" : "1",
       "description" : "Ligger i Nordhavn"
    },
    {
-      "level" : "1",
       "boat_id" : "34",
+      "description" : "Tager 3 bord vand ind i agter rum på tur til Skovshoved",
       "id" : "2812",
-      "description" : "Tager 3 bord vand ind i agter rum på tur til Skovshoved"
+      "level" : "1"
    },
    {
-      "level" : "3",
-      "boat_id" : "34",
       "id" : "2852",
-      "description" : "Revne mellem hæl og køl. Skal tørre. Må ikke ros."
+      "level" : "3",
+      "description" : "Revne mellem hæl og køl. Skal tørre. Må ikke ros.",
+      "boat_id" : "34"
    },
    {
-      "level" : "3",
       "boat_id" : "35",
       "id" : "2677",
+      "level" : "3",
       "description" : "Vintervedligehold"
    },
    {
-      "level" : "2",
-      "boat_id" : "44",
       "id" : "1036",
-      "description" : "Sæde er bortkommet på Hjelmsø."
+      "level" : "2",
+      "description" : "Sæde er bortkommet på Hjelmsø.",
+      "boat_id" : "44"
    },
    {
-      "level" : "3",
       "boat_id" : "44",
-      "id" : "2391",
-      "description" : "Meddelelse fra administratoren: Båden kan ikke længere udskrives."
+      "description" : "Meddelelse fra administratoren: Båden kan ikke længere udskrives.",
+      "level" : "3",
+      "id" : "2391"
    },
    {
-      "level" : "3",
-      "boat_id" : "44",
+      "description" : "Udfaset",
       "id" : "1454",
-      "description" : "Udfaset"
+      "level" : "3",
+      "boat_id" : "44"
    },
    {
-      "level" : "1",
-      "boat_id" : "46",
       "id" : "2868",
-      "description" : "Tager lidt vand ind agterskot."
+      "level" : "1",
+      "description" : "Tager lidt vand ind agterskot.",
+      "boat_id" : "46"
    },
    {
-      "level" : "1",
       "boat_id" : "50",
+      "level" : "1",
       "id" : "2774",
       "description" : "Alle årer skal have stillet gearing og smig - især 1er og 4er, som er gamle reserveårer."
    },
    {
+      "description" : "På vinterophold i Skovshoved - ikke til roning",
       "level" : "3",
-      "boat_id" : "52",
       "id" : "2880",
-      "description" : "På vinterophold i Skovshoved - ikke til roning"
+      "boat_id" : "52"
    },
    {
-      "level" : "1",
-      "boat_id" : "54",
       "id" : "2555",
-      "description" : "tager lidt vand ind men kan sagtens ros."
+      "level" : "1",
+      "description" : "tager lidt vand ind men kan sagtens ros.",
+      "boat_id" : "54"
    },
    {
-      "level" : "1",
       "boat_id" : "55",
+      "level" : "1",
       "id" : "2566",
       "description" : "Tager lidt vand ind, men kan sagtens ros"
    },
    {
-      "level" : "3",
       "boat_id" : "55",
+      "level" : "3",
       "id" : "2651",
       "description" : "Mangler tov til ror (styreline)"
    },
    {
-      "level" : "1",
-      "boat_id" : "56",
+      "description" : "Styrbordbundbræt ved 5er plads er svagt og må ikke trædes på.",
       "id" : "2253",
-      "description" : "Styrbordbundbræt ved 5er plads er svagt og må ikke trædes på."
+      "level" : "1",
+      "boat_id" : "56"
    },
    {
+      "description" : "Fodspark v. 5. plads løsnet fra tværpind. Fastgjort med tape. 7/7-05 \n ",
       "level" : "1",
-      "boat_id" : "56",
       "id" : "740",
-      "description" : "Fodspark v. 5. plads løsnet fra tværpind. Fastgjort med tape. 7/7-05 \n "
+      "boat_id" : "56"
    },
    {
+      "description" : "Fodspark sidder løst og der mangler dæksel",
       "level" : "1",
-      "boat_id" : "59",
       "id" : "2409",
-      "description" : "Fodspark sidder løst og der mangler dæksel"
+      "boat_id" : "59"
    },
    {
       "level" : "1",
-      "boat_id" : "65",
       "id" : "2837",
-      "description" : "Ligger i bådhuset i Nordhavn. "
+      "description" : "Ligger i bådhuset i Nordhavn. ",
+      "boat_id" : "65"
    },
    {
       "level" : "1",
-      "boat_id" : "78",
       "id" : "2859",
-      "description" : "Har brækket næsen efter et ublidt kys på en pæl. Er forseglet med Gaffa og kan sagtens ros. "
+      "description" : "Har brækket næsen efter et ublidt kys på en pæl. Er forseglet med Gaffa og kan sagtens ros. ",
+      "boat_id" : "78"
    },
    {
-      "level" : "1",
-      "boat_id" : "78",
+      "description" : "Manchetter på 1 og 4er plads er revnet. Skal laves til vintervedligehold. ",
       "id" : "2861",
-      "description" : "Manchetter på 1 og 4er plads er revnet. Skal laves til vintervedligehold. "
-   },
-   {
       "level" : "1",
-      "boat_id" : "78",
-      "id" : "2789",
-      "description" : "Agterskot er utæt ind mod båden. Ca. 2. bor i styrbordsside. Skal tætnes ved vintervedligehold."
+      "boat_id" : "78"
    },
    {
-      "level" : "2",
+      "id" : "2789",
+      "level" : "1",
+      "description" : "Agterskot er utæt ind mod båden. Ca. 2. bor i styrbordsside. Skal tætnes ved vintervedligehold.",
+      "boat_id" : "78"
+   },
+   {
       "boat_id" : "78",
+      "level" : "2",
       "id" : "2860",
       "description" : "Fodpladerne ved spændholtet v. 1er pladsen hænger kun fast i 1 skrue. Det er sat fast med Gaffa. Båden kan sagtens ros men det er småirriterende. "
    },
    {
-      "level" : "1",
       "boat_id" : "79",
+      "description" : "Manchet på 2er-åre slidt + svirvel ved 2er slidt.",
       "id" : "2818",
-      "description" : "Manchet på 2er-åre slidt + svirvel ved 2er slidt."
+      "level" : "1"
    },
    {
-      "level" : "1",
-      "boat_id" : "79",
       "id" : "2878",
-      "description" : "På vinterophold i Skovshoved - ikke til roning,"
+      "level" : "1",
+      "description" : "På vinterophold i Skovshoved - ikke til roning,",
+      "boat_id" : "79"
    },
    {
       "level" : "2",
-      "boat_id" : "79",
       "id" : "2866",
-      "description" : "Båden må kun benyttes med forsigtighed.\n\nFodspark på 2er plads: Beslaget/næbbet er knækket og fodsparket er fastgjort med en snor og sidder kun lige fast. Fodsparket kan derfor ikke flyttes.\n\nSkinneskrue ved 2er bagbord er løs."
+      "description" : "Båden må kun benyttes med forsigtighed.\n\nFodspark på 2er plads: Beslaget/næbbet er knækket og fodsparket er fastgjort med en snor og sidder kun lige fast. Fodsparket kan derfor ikke flyttes.\n\nSkinneskrue ved 2er bagbord er løs.",
+      "boat_id" : "79"
    },
    {
       "level" : "1",
-      "boat_id" : "81",
       "id" : "1008",
-      "description" : "Løs skrue i forstørret skruehul på venstre rig (brædtet er let flækket)."
+      "description" : "Løs skrue i forstørret skruehul på venstre rig (brædtet er let flækket).",
+      "boat_id" : "81"
    },
    {
+      "description" : "Tager vand ind i forskoddet og agterenden.",
       "level" : "1",
-      "boat_id" : "82",
       "id" : "2836",
-      "description" : "Tager vand ind i forskoddet og agterenden."
+      "boat_id" : "82"
    },
    {
       "level" : "1",
-      "boat_id" : "82",
       "id" : "2740",
-      "description" : "Mangler bundbræt foran 1er i styrbord side."
+      "description" : "Mangler bundbræt foran 1er i styrbord side.",
+      "boat_id" : "82"
    },
    {
+      "description" : "Der kommer vand ind i for og agterrum.",
       "level" : "1",
-      "boat_id" : "86",
       "id" : "2867",
-      "description" : "Der kommer vand ind i for og agterrum."
+      "boat_id" : "86"
    },
    {
       "level" : "1",
-      "boat_id" : "90",
       "id" : "2743",
-      "description" : "fodspark faldet af. Kan laves med gaffa, men der var ikke noget i skuret. "
+      "description" : "fodspark faldet af. Kan laves med gaffa, men der var ikke noget i skuret. ",
+      "boat_id" : "90"
    },
    {
+      "description" : "Sædet på 1er pladsen kører meget trægt, specielt når der kommer vægt på sædet.",
       "level" : "1",
-      "boat_id" : "93",
       "id" : "2844",
-      "description" : "Sædet på 1er pladsen kører meget trægt, specielt når der kommer vægt på sædet."
+      "boat_id" : "93"
    },
    {
-      "level" : "1",
       "boat_id" : "94",
+      "description" : "Normale spændholdt er ved at blive lavet. Kan ros med kliksko.",
       "id" : "2702",
-      "description" : "Normale spændholdt er ved at blive lavet. Kan ros med kliksko."
+      "level" : "1"
    },
    {
-      "level" : "3",
       "boat_id" : "94",
-      "id" : "2865",
-      "description" : "3. + 4. bord styrbord revnet ved 2er pladsen. Skal tørre før reparation på værft. Må ikke ros!!!"
+      "description" : "3. + 4. bord styrbord revnet ved 2er pladsen. Skal tørre før reparation på værft. Må ikke ros!!!",
+      "level" : "3",
+      "id" : "2865"
    },
    {
-      "level" : "3",
       "boat_id" : "95",
       "id" : "1302",
+      "level" : "3",
       "description" : "Ligger på Bagsværd"
    },
    {
-      "level" : "3",
       "boat_id" : "115",
       "id" : "2551",
+      "level" : "3",
       "description" : "Ror skal justeres og strammes. Det sætter sig fast i skæv position ved roning"
    },
    {
-      "level" : "1",
-      "boat_id" : "118",
+      "description" : "Svivl på etter plads har løse plastikringe (7286)",
       "id" : "2842",
-      "description" : "Svivl på etter plads har løse plastikringe (7286)"
+      "level" : "1",
+      "boat_id" : "118"
    },
    {
       "level" : "1",
-      "boat_id" : "118",
       "id" : "2637",
-      "description" : "Forreste bundprop kan ikke løsnes. Er tæt, men mangler håndgreb."
+      "description" : "Forreste bundprop kan ikke løsnes. Er tæt, men mangler håndgreb.",
+      "boat_id" : "118"
    },
    {
-      "level" : "1",
-      "boat_id" : "118",
       "id" : "2719",
-      "description" : "Mangler bundbræt i agterrum. Dusør gives.\n\nNB: Læg et par fendere i bunden af agterrummet, hvis der skal bagege med."
+      "level" : "1",
+      "description" : "Mangler bundbræt i agterrum. Dusør gives.\n\nNB: Læg et par fendere i bunden af agterrummet, hvis der skal bagege med.",
+      "boat_id" : "118"
    },
    {
+      "description" : "Der er bestilt nyt bundbræt til agterrummet hos bådebyggerne i huset.",
       "level" : "1",
-      "boat_id" : "118",
       "id" : "2813",
-      "description" : "Der er bestilt nyt bundbræt til agterrummet hos bådebyggerne i huset."
+      "boat_id" : "118"
+   },
+   {
+      "boat_id" : "119",
+      "description" : "1 fodspark midterskrue kan ikke strammes eller løsnes så den sidder fast",
+      "level" : "1",
+      "id" : "2849"
    },
    {
       "level" : "1",
-      "boat_id" : "119",
-      "id" : "2849",
-      "description" : "1 fodspark midterskrue kan ikke strammes eller løsnes så den sidder fast"
-   },
-   {
-      "level" : "1",
-      "boat_id" : "119",
       "id" : "2850",
-      "description" : "Trædeplade ud for 3er er flækket"
+      "description" : "Trædeplade ud for 3er er flækket",
+      "boat_id" : "119"
    },
    {
-      "level" : "1",
-      "boat_id" : "119",
       "id" : "2857",
-      "description" : "plastik knækkket ved spændskive, 4. årer"
+      "level" : "1",
+      "description" : "plastik knækkket ved spændskive, 4. årer",
+      "boat_id" : "119"
    },
    {
-      "level" : "2",
       "boat_id" : "122",
+      "description" : "udvendig ridse i 2 bort midt på, skal slibes og lakeres.",
       "id" : "2225",
-      "description" : "udvendig ridse i 2 bort midt på, skal slibes og lakeres."
+      "level" : "2"
    },
    {
-      "level" : "1",
       "boat_id" : "123",
-      "id" : "1257",
-      "description" : "2 åre lånt til olsen"
+      "description" : "2 åre lånt til olsen",
+      "level" : "1",
+      "id" : "1257"
    },
    {
-      "level" : "1",
       "boat_id" : "134",
-      "id" : "2484",
-      "description" : "flækket i agterskroget"
+      "description" : "flækket i agterskroget",
+      "level" : "1",
+      "id" : "2484"
    },
    {
-      "level" : "1",
-      "boat_id" : "142",
       "id" : "2832",
-      "description" : "Åre 4 er muligvis løs mellem håndgreb og resten af åren. "
+      "level" : "1",
+      "description" : "Åre 4 er muligvis løs mellem håndgreb og resten af åren. ",
+      "boat_id" : "142"
    },
    {
-      "level" : "1",
       "boat_id" : "142",
       "id" : "2851",
+      "level" : "1",
       "description" : "Leje trænger til skiftning på 2er sæde (kan godt roes)."
    },
    {
-      "level" : "1",
-      "boat_id" : "143",
       "id" : "2479",
-      "description" : "lakken er slidt af. skal slibes og lakeres"
+      "level" : "1",
+      "description" : "lakken er slidt af. skal slibes og lakeres",
+      "boat_id" : "143"
    },
    {
-      "level" : "3",
-      "boat_id" : "143",
       "id" : "2539",
-      "description" : "Hul i svær... Er blev sparlet d.5 juni"
+      "level" : "3",
+      "description" : "Hul i svær... Er blev sparlet d.5 juni",
+      "boat_id" : "143"
    },
    {
+      "description" : "4. sæde kører ujævnt",
       "level" : "1",
-      "boat_id" : "145",
       "id" : "2864",
-      "description" : "4. sæde kører ujævnt"
+      "boat_id" : "145"
    },
    {
-      "level" : "3",
       "boat_id" : "152",
+      "description" : null,
       "id" : "2711",
-      "description" : null
+      "level" : "3"
    },
    {
       "level" : "3",
-      "boat_id" : "153",
       "id" : "2710",
-      "description" : "Meddelelse fra administratoren: Båden kan ikke længere udskrives."
+      "description" : "Meddelelse fra administratoren: Båden kan ikke længere udskrives.",
+      "boat_id" : "153"
    },
    {
       "level" : "1",
-      "boat_id" : "156",
       "id" : "2596",
-      "description" : "Der var en flænge i bunden af kajakken"
+      "description" : "Der var en flænge i bunden af kajakken",
+      "boat_id" : "156"
    },
    {
-      "level" : "3",
       "boat_id" : "157",
-      "id" : "2808",
-      "description" : "Fodsparket er knækket"
+      "description" : "Fodsparket er knækket",
+      "level" : "3",
+      "id" : "2808"
    },
    {
-      "level" : "1",
-      "boat_id" : "160",
+      "description" : "1er fodspark skrue har sat sig fast, gevindet har sat sig (den skal afmonteres og skrue skiftes)DEN KAN IKKE FLYTTES.",
       "id" : "2853",
-      "description" : "1er fodspark skrue har sat sig fast, gevindet har sat sig (den skal afmonteres og skrue skiftes)DEN KAN IKKE FLYTTES."
+      "level" : "1",
+      "boat_id" : "160"
    },
    {
-      "level" : "1",
       "boat_id" : "160",
       "id" : "2869",
+      "level" : "1",
       "description" : "Der er en del skruer med sort træ i begge sidelangremme."
    },
    {
-      "level" : "1",
       "boat_id" : "174",
+      "description" : "glasfiberskade på oversiden bag cockpit.",
       "id" : "2386",
-      "description" : "glasfiberskade på oversiden bag cockpit."
+      "level" : "1"
    },
    {
+      "description" : "Revne i rød plast foran cockpit",
       "level" : "2",
-      "boat_id" : "177",
       "id" : "1829",
-      "description" : "Revne i rød plast foran cockpit"
+      "boat_id" : "177"
    },
    {
       "level" : "1",
-      "boat_id" : "186",
       "id" : "2480",
-      "description" : "skal repareres ved cockpitkanten (fiberreparation)"
+      "description" : "skal repareres ved cockpitkanten (fiberreparation)",
+      "boat_id" : "186"
    },
    {
+      "description" : "Ligger på Bagsværd, find anden båd",
       "level" : "1",
-      "boat_id" : "188",
       "id" : "1228",
-      "description" : "Ligger på Bagsværd, find anden båd"
+      "boat_id" : "188"
    },
    {
-      "level" : "2",
       "boat_id" : "191",
+      "description" : "Forskellige revner der skal repareres",
       "id" : "2623",
-      "description" : "Forskellige revner der skal repareres"
+      "level" : "2"
    },
    {
-      "level" : "3",
-      "boat_id" : "192",
       "id" : "1681",
-      "description" : "Har en flænge i for- eller akterskib. Skal på værft."
+      "level" : "3",
+      "description" : "Har en flænge i for- eller akterskib. Skal på værft.",
+      "boat_id" : "192"
    },
    {
-      "level" : "1",
-      "boat_id" : "193",
       "id" : "2389",
-      "description" : "Nymphyas bagbords åres håndtag sidder løst, Brug Aslaug 3 årene hvis muligt"
+      "level" : "1",
+      "description" : "Nymphyas bagbords åres håndtag sidder løst, Brug Aslaug 3 årene hvis muligt",
+      "boat_id" : "193"
    },
    {
-      "level" : "2",
       "boat_id" : "196",
+      "level" : "2",
       "id" : "2732",
       "description" : "Bundprop kan ikke skrues rigtigt i. Lak i hullet."
    },
    {
+      "description" : "Fodsparken på 3 pladsen mangler ",
       "level" : "3",
-      "boat_id" : "196",
       "id" : "2728",
-      "description" : "Fodsparken på 3 pladsen mangler "
+      "boat_id" : "196"
    },
    {
       "level" : "3",
-      "boat_id" : "196",
       "id" : "2795",
-      "description" : "Rosæden (fra Thor??) i stykker"
+      "description" : "Rosæden (fra Thor??) i stykker",
+      "boat_id" : "196"
    },
    {
+      "description" : "Kunne godt trænge til at få skiftet rorline ved vintervedligehold.",
       "level" : "1",
-      "boat_id" : "201",
       "id" : "2870",
-      "description" : "Kunne godt trænge til at få skiftet rorline ved vintervedligehold."
+      "boat_id" : "201"
    },
    {
-      "level" : "1",
-      "boat_id" : "201",
-      "id" : "2881",
-      "description" : "Lidt utæt ved bundprop i forreste rum. Er det mon pakning eller gevin, som driller?"
-   },
-   {
-      "level" : "3",
       "boat_id" : "203",
-      "id" : "2871",
-      "description" : "Vintervedligehold, forventet klar medio januar 2015 :o)"
+      "description" : "Vintervedligehold, forventet klar medio januar 2015 :o)",
+      "level" : "3",
+      "id" : "2871"
    },
    {
-      "level" : "3",
       "boat_id" : "205",
-      "id" : "2805",
-      "description" : "Afventer reperation af revner ved sværd."
+      "description" : "Afventer reperation af revner ved sværd.",
+      "level" : "3",
+      "id" : "2805"
    },
    {
-      "level" : "3",
-      "boat_id" : "206",
+      "description" : "Skal tapes på ny.",
       "id" : "2806",
-      "description" : "Skal tapes på ny."
+      "level" : "3",
+      "boat_id" : "206"
    },
    {
-      "level" : "3",
       "boat_id" : "206",
+      "level" : "3",
       "id" : "2809",
       "description" : "Skal have nyt dækken, før den må ros."
    },
    {
-      "level" : "1",
       "boat_id" : "207",
+      "level" : "1",
       "id" : "2350",
       "description" : "Forlugen kan ikke lukkes fast"
    },
    {
-      "level" : "2",
       "boat_id" : "207",
       "id" : "2770",
+      "level" : "2",
       "description" : "Spids knækket af. Lappet med spidsbold, men der er stadig lidt utæt omkring spidsbold.\n\nMå gerne ros, men kun med gaffa omkring hullet ved spidsbolden."
    },
    {
-      "level" : "3",
       "boat_id" : "207",
-      "id" : "2804",
-      "description" : "Mangler tape rundt i kanten på hele båden.\nTape skal ikke påsættes før, vi har rensebenzin til at rense de gamle taperester af først."
-   },
-   {
-      "level" : "1",
-      "boat_id" : "209",
-      "id" : "2250",
-      "description" : "Er skrabet på bagbord side, i spids."
-   },
-   {
+      "description" : "Mangler tape rundt i kanten på hele båden.\nTape skal ikke påsættes før, vi har rensebenzin til at rense de gamle taperester af først.",
       "level" : "3",
+      "id" : "2804"
+   },
+   {
+      "level" : "1",
+      "id" : "2250",
+      "description" : "Er skrabet på bagbord side, i spids.",
+      "boat_id" : "209"
+   },
+   {
       "boat_id" : "210",
-      "id" : "2807",
-      "description" : "Lille skade under bunden ved etter pladsen. Skal tapes på ny."
+      "description" : "Lille skade under bunden ved etter pladsen. Skal tapes på ny.",
+      "level" : "3",
+      "id" : "2807"
    },
    {
-      "level" : "1",
       "boat_id" : "228",
-      "id" : "2476",
-      "description" : "Hak i cockpitkant styrbord og front\nHak i stæv\nHak i top mod stævn"
+      "description" : "Hak i cockpitkant styrbord og front\nHak i stæv\nHak i top mod stævn",
+      "level" : "1",
+      "id" : "2476"
    },
    {
-      "level" : "1",
       "boat_id" : "228",
+      "description" : "Problemer med roret - det er svært at styre lige.",
       "id" : "2742",
-      "description" : "Problemer med roret - det er svært at styre lige."
+      "level" : "1"
    },
    {
-      "level" : "2",
       "boat_id" : "233",
+      "level" : "2",
       "id" : "2661",
       "description" : "Sæde kan ikke sættes fast pga løs spændeskrue skinne "
    },
    {
-      "level" : "2",
-      "boat_id" : "233",
+      "description" : "Skaden var sådan ad jeg prøvede at skrive den ud.",
       "id" : "2662",
-      "description" : "Skaden var sådan ad jeg prøvede at skrive den ud."
-   },
-   {
-      "level" : "1",
-      "boat_id" : "236",
-      "id" : "2771",
-      "description" : "Skal slibes, poleres, vokses efter gelcoatreparation,"
-   },
-   {
       "level" : "2",
+      "boat_id" : "233"
+   },
+   {
+      "boat_id" : "236",
+      "description" : "Skal slibes, poleres, vokses efter gelcoatreparation,",
+      "level" : "1",
+      "id" : "2771"
+   },
+   {
       "boat_id" : "241",
+      "level" : "2",
       "id" : "2823",
       "description" : "Gelcoat slidt igennem ved 1er-sæde. Skaden bør afdækkes med tape før roning."
    },
    {
-      "level" : "1",
       "boat_id" : "250",
+      "description" : "Ligger i Nordhavn",
       "id" : "2872",
-      "description" : "Ligger i Nordhavn"
+      "level" : "1"
    },
    {
-      "level" : "1",
-      "boat_id" : "250",
       "id" : "2874",
-      "description" : "OBS! Den Gyldnae Dame _SKAL_ løftes i bagenden, på vej ind/ud af containeren og over kajkanten - ellers bliver roret ødelagt."
+      "level" : "1",
+      "description" : "OBS! Den Gyldnae Dame _SKAL_ løftes i bagenden, på vej ind/ud af containeren og over kajkanten - ellers bliver roret ødelagt.",
+      "boat_id" : "250"
    },
    {
-      "level" : "2",
       "boat_id" : "251",
+      "level" : "2",
       "id" : "2830",
       "description" : "Skinner under begge sæder er skæve. Listen, skinne hviler på har slået sig - voldsomt!"
    },
    {
-      "level" : "1",
       "boat_id" : "252",
       "id" : "2876",
+      "level" : "1",
       "description" : "Ligger i Nordhavn"
    },
    {
-      "level" : "1",
-      "boat_id" : "253",
+      "description" : "Ligger i Nordhavn",
       "id" : "2877",
-      "description" : "Ligger i Nordhavn"
+      "level" : "1",
+      "boat_id" : "253"
    }
 ]

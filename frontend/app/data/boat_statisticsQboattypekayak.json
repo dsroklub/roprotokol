@@ -1,0 +1,394 @@
+[
+   {
+      "rank" : 1,
+      "boat_type" : "Kajak 1",
+      "distance" : "733.2000",
+      "boatname" : "Ansjos",
+      "num_trips" : 25
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 2,
+      "distance" : "633.6000",
+      "num_trips" : 27,
+      "boatname" : "Ask (kajak)"
+   },
+   {
+      "distance" : "517.9000",
+      "num_trips" : 24,
+      "boatname" : "Barracuda",
+      "rank" : 3,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "distance" : "785.1000",
+      "num_trips" : 36,
+      "boatname" : "Blåhval",
+      "boat_type" : "Kajak 1",
+      "rank" : 4
+   },
+   {
+      "distance" : "873.8000",
+      "num_trips" : 34,
+      "boatname" : "Blåmusling",
+      "boat_type" : "Kajak 1",
+      "rank" : 5
+   },
+   {
+      "num_trips" : 24,
+      "boatname" : "Blæksprutte",
+      "distance" : "484.4000",
+      "boat_type" : "Kajak 1",
+      "rank" : 6
+   },
+   {
+      "rank" : 7,
+      "boat_type" : "Kajak 1",
+      "num_trips" : 34,
+      "boatname" : "Delfin",
+      "distance" : "918.6000"
+   },
+   {
+      "distance" : "859.7000",
+      "num_trips" : 33,
+      "boatname" : "Fjæsing",
+      "boat_type" : "Kajak 1",
+      "rank" : 8
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 9,
+      "boatname" : "Forel 2",
+      "num_trips" : 24,
+      "distance" : "679.1000"
+   },
+   {
+      "rank" : 10,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Gedde",
+      "num_trips" : 25,
+      "distance" : "669.3000"
+   },
+   {
+      "rank" : 11,
+      "boat_type" : "Kajak 1",
+      "num_trips" : 22,
+      "boatname" : "Grindehval",
+      "distance" : "542.2000"
+   },
+   {
+      "boatname" : "Guldmakrel",
+      "num_trips" : 31,
+      "distance" : "581.1000",
+      "boat_type" : "Kajak 1",
+      "rank" : 12
+   },
+   {
+      "rank" : 13,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Haj",
+      "num_trips" : 25,
+      "distance" : "597.8000"
+   },
+   {
+      "boatname" : "Havkat",
+      "num_trips" : 34,
+      "distance" : "1008.1000",
+      "rank" : 14,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "distance" : "658.6000",
+      "boatname" : "Hornfisk",
+      "num_trips" : 30,
+      "rank" : 15,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "boatname" : "Hugorm",
+      "num_trips" : 28,
+      "distance" : "745.9000",
+      "boat_type" : "Kajak 2",
+      "rank" : 16
+   },
+   {
+      "boatname" : "Hummer",
+      "num_trips" : 29,
+      "distance" : "705.7000",
+      "rank" : 17,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "num_trips" : 27,
+      "boatname" : "Ising",
+      "distance" : "801.3000",
+      "boat_type" : "Kajak 1",
+      "rank" : 18
+   },
+   {
+      "rank" : 19,
+      "boat_type" : "Kajak 1",
+      "distance" : "697.9000",
+      "boatname" : "Karpe",
+      "num_trips" : 29
+   },
+   {
+      "distance" : "326.9000",
+      "boatname" : "Knurhane",
+      "num_trips" : 16,
+      "rank" : 20,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "rank" : 21,
+      "boat_type" : "Kajak 2",
+      "distance" : "566.2000",
+      "boatname" : "Laks",
+      "num_trips" : 23
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 22,
+      "num_trips" : 24,
+      "boatname" : "Låne Kajak 2",
+      "distance" : "502.0000"
+   },
+   {
+      "num_trips" : 29,
+      "boatname" : "Låne Kajak 3",
+      "distance" : "699.2000",
+      "boat_type" : "Kajak 1",
+      "rank" : 23
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 24,
+      "distance" : "565.0000",
+      "num_trips" : 22,
+      "boatname" : "Låne kajak 4"
+   },
+   {
+      "boat_type" : "Kajak 2",
+      "rank" : 25,
+      "distance" : "459.1000",
+      "boatname" : "Lånt 2-Kajak",
+      "num_trips" : 18
+   },
+   {
+      "boatname" : "Lånt Kajak 1",
+      "num_trips" : 36,
+      "distance" : "748.6000",
+      "rank" : 26,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "rank" : 27,
+      "boat_type" : "Kajak 1",
+      "distance" : "587.5000",
+      "num_trips" : 27,
+      "boatname" : "Makrel"
+   },
+   {
+      "num_trips" : 26,
+      "boatname" : "Mulle",
+      "distance" : "555.4000",
+      "boat_type" : "Kajak 1",
+      "rank" : 28
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 29,
+      "num_trips" : 16,
+      "boatname" : "Muræne",
+      "distance" : "467.0000"
+   },
+   {
+      "rank" : 30,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Nemo",
+      "num_trips" : 25,
+      "distance" : "446.1000"
+   },
+   {
+      "num_trips" : 26,
+      "boatname" : "Papegøjefisk",
+      "distance" : "605.1000",
+      "rank" : 31,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 32,
+      "boatname" : "Pighvar",
+      "num_trips" : 26,
+      "distance" : "777.8000"
+   },
+   {
+      "rank" : 33,
+      "boat_type" : "Kajak 1",
+      "distance" : "805.8000",
+      "boatname" : "Regnbueørred (Privat)",
+      "num_trips" : 30
+   },
+   {
+      "boat_type" : "Kajak 2",
+      "rank" : 34,
+      "distance" : "554.7000",
+      "num_trips" : 21,
+      "boatname" : "Rokke"
+   },
+   {
+      "rank" : 35,
+      "boat_type" : "Kajak 2",
+      "num_trips" : 24,
+      "boatname" : "Rødfisk",
+      "distance" : "520.1000"
+   },
+   {
+      "rank" : 36,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Rødspætte",
+      "num_trips" : 22,
+      "distance" : "558.8000"
+   },
+   {
+      "distance" : "655.3000",
+      "boatname" : "Sardin",
+      "num_trips" : 27,
+      "rank" : 37,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "distance" : "667.7000",
+      "boatname" : "Sild",
+      "num_trips" : 28,
+      "boat_type" : "Kajak 1",
+      "rank" : 38
+   },
+   {
+      "distance" : "583.3000",
+      "boatname" : "Sildehaj",
+      "num_trips" : 22,
+      "boat_type" : "Kajak 1",
+      "rank" : 39
+   },
+   {
+      "boatname" : "Skalle",
+      "num_trips" : 22,
+      "distance" : "497.7000",
+      "boat_type" : "Kajak 1",
+      "rank" : 40
+   },
+   {
+      "rank" : 41,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Snapper",
+      "num_trips" : 23,
+      "distance" : "558.2000"
+   },
+   {
+      "num_trips" : 32,
+      "boatname" : "Snog",
+      "distance" : "976.7000",
+      "rank" : 42,
+      "boat_type" : "Kajak 2"
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 43,
+      "distance" : "694.1000",
+      "num_trips" : 27,
+      "boatname" : "Stenbider"
+   },
+   {
+      "rank" : 44,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Stør",
+      "num_trips" : 20,
+      "distance" : "585.9000"
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 45,
+      "boatname" : "SøElefant",
+      "num_trips" : 26,
+      "distance" : "777.1000"
+   },
+   {
+      "distance" : "632.5000",
+      "boatname" : "Søløve",
+      "num_trips" : 22,
+      "boat_type" : "Kajak 1",
+      "rank" : 46
+   },
+   {
+      "distance" : "750.3000",
+      "num_trips" : 30,
+      "boatname" : "Tangloppe",
+      "rank" : 47,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "boatname" : "Torsk",
+      "num_trips" : 26,
+      "distance" : "756.3000",
+      "boat_type" : "Kajak 1",
+      "rank" : 48
+   },
+   {
+      "rank" : 49,
+      "boat_type" : "Kajak 1",
+      "distance" : "792.4000",
+      "num_trips" : 35,
+      "boatname" : "Triton"
+   },
+   {
+      "distance" : "665.1000",
+      "num_trips" : 28,
+      "boatname" : "Ulk",
+      "boat_type" : "Kajak 1",
+      "rank" : 50
+   },
+   {
+      "rank" : 51,
+      "boat_type" : "Kajak 1",
+      "distance" : "911.6000",
+      "num_trips" : 34,
+      "boatname" : "Urd"
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 52,
+      "boatname" : "Us",
+      "num_trips" : 20,
+      "distance" : "559.7000"
+   },
+   {
+      "num_trips" : 26,
+      "boatname" : "Valborg",
+      "distance" : "652.7000",
+      "rank" : 53,
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "boatname" : "Ål",
+      "num_trips" : 21,
+      "distance" : "609.8000",
+      "rank" : 54,
+      "boat_type" : "Kajak 2"
+   },
+   {
+      "distance" : "700.7000",
+      "boatname" : "Øresvin",
+      "num_trips" : 27,
+      "boat_type" : "Kajak 1",
+      "rank" : 55
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "rank" : 56,
+      "distance" : "699.4000",
+      "boatname" : "Ørred",
+      "num_trips" : 25
+   }
+]
