@@ -1,142 +1,142 @@
 [
    {
-      "name" : " Vælg destination her (0km)",
-      "duration_instruction" : "0.00",
       "id" : "20",
-      "duration" : "0.00",
-      "distance" : "0"
+      "distance" : "0",
+      "duration_instruction" : "0.00",
+      "name" : " Vælg destination her (0km)",
+      "duration" : "0.00"
    },
    {
+      "duration" : "2.50",
       "name" : "Bellevue (15km)",
       "duration_instruction" : "2.60",
       "id" : "1",
-      "distance" : "15000",
-      "duration" : "2.50"
+      "distance" : "15000"
    },
    {
-      "duration_instruction" : "2.00",
-      "name" : "Charlottenlund (7km)",
       "id" : "2",
+      "distance" : "7000",
+      "duration_instruction" : "2.00",
       "duration" : "1.80",
-      "distance" : "7000"
+      "name" : "Charlottenlund (7km)"
    },
    {
-      "duration_instruction" : "0.00",
+      "duration" : "3.60",
       "name" : "Flakfortet (22km)",
-      "id" : "9",
+      "duration_instruction" : "0.00",
       "distance" : "22000",
-      "duration" : "3.60"
+      "id" : "9"
    },
    {
-      "duration_instruction" : "1.90",
-      "name" : "Hellerup (5km)",
-      "id" : "3",
       "duration" : "1.80",
-      "distance" : "5000"
+      "name" : "Hellerup (5km)",
+      "duration_instruction" : "1.90",
+      "distance" : "5000",
+      "id" : "3"
    },
    {
-      "duration" : "3.80",
+      "id" : "4",
       "distance" : "22000",
-      "name" : "Kanalen (22km)",
       "duration_instruction" : "4.50",
-      "id" : "4"
+      "duration" : "3.80",
+      "name" : "Kanalen (22km)"
    },
    {
-      "distance" : "13500",
+      "name" : "Knud (13,5km)",
       "duration" : "2.00",
-      "duration_instruction" : "2.70",
+      "distance" : "13500",
       "id" : "18",
-      "name" : "Knud (13,5km)"
+      "duration_instruction" : "2.70"
    },
    {
+      "name" : "Langelinie (15km)",
+      "duration" : "2.40",
       "duration_instruction" : "3.60",
       "id" : "11",
-      "name" : "Langelinie (15km)",
-      "distance" : "15000",
-      "duration" : "2.40"
+      "distance" : "15000"
    },
    {
-      "distance" : "15000",
+      "name" : "Margretheholms havn (15km)",
       "duration" : "2.50",
       "duration_instruction" : "2.80",
-      "name" : "Margretheholms havn (15km)",
+      "distance" : "15000",
       "id" : "10"
    },
    {
+      "id" : "17",
       "distance" : "3000",
-      "duration" : "1.90",
       "duration_instruction" : "1.80",
       "name" : "Opfyldningen nord (3km)",
-      "id" : "17"
+      "duration" : "1.90"
    },
    {
       "duration_instruction" : "0.00",
-      "name" : "Rungsted (42km)",
-      "id" : "14",
       "distance" : "42000",
+      "id" : "14",
+      "name" : "Rungsted (42km)",
       "duration" : "6.60"
    },
    {
-      "distance" : "28000",
       "duration" : "4.50",
+      "name" : "Skodsborg (28km)",
       "duration_instruction" : "6.80",
       "id" : "15",
-      "name" : "Skodsborg (28km)"
+      "distance" : "28000"
    },
    {
       "duration_instruction" : "2.20",
-      "id" : "5",
-      "name" : "Skovshoved (11,5km)",
       "distance" : "11500",
-      "duration" : "2.00"
+      "id" : "5",
+      "duration" : "2.00",
+      "name" : "Skovshoved (11,5km)"
    },
    {
+      "distance" : "26000",
+      "id" : "6",
       "duration_instruction" : "6.00",
       "name" : "Slusen (26km)",
-      "id" : "6",
-      "distance" : "26000",
       "duration" : "4.50"
    },
    {
+      "duration" : "2.60",
       "name" : "Strandmøllen (22,5km)",
-      "duration_instruction" : "5.20",
       "id" : "13",
       "distance" : "22500",
-      "duration" : "2.60"
+      "duration_instruction" : "5.20"
    },
    {
-      "duration" : "1.70",
-      "distance" : "3000",
-      "name" : "Svanemøllehavnen (3km)",
       "duration_instruction" : "1.60",
-      "id" : "19"
+      "distance" : "3000",
+      "id" : "19",
+      "name" : "Svanemøllehavnen (3km)",
+      "duration" : "1.70"
    },
    {
-      "name" : "Tuborg havn (3km)",
       "duration_instruction" : "1.50",
       "id" : "7",
+      "distance" : "3000",
       "duration" : "1.30",
-      "distance" : "3000"
+      "name" : "Tuborg havn (3km)"
    },
    {
-      "duration_instruction" : "2.70",
-      "name" : "Tårbæk (18km)",
+      "distance" : "18000",
       "id" : "8",
+      "duration_instruction" : "2.70",
       "duration" : "2.50",
-      "distance" : "18000"
+      "name" : "Tårbæk (18km)"
    },
    {
-      "distance" : "33000",
-      "duration" : "4.80",
-      "id" : "12",
       "duration_instruction" : "7.50",
-      "name" : "Vedbæk (33km)"
+      "id" : "12",
+      "distance" : "33000",
+      "name" : "Vedbæk (33km)",
+      "duration" : "4.80"
    },
    {
-      "duration" : "0.00",
-      "distance" : "5000",
       "name" : "Øvrige [Skriv i kommentar]",
-      "duration_instruction" : "0.00",
-      "id" : "16"
+      "duration" : "0.00",
+      "id" : "16",
+      "distance" : "5000",
+      "duration_instruction" : "0.00"
    }
 ]

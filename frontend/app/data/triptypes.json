@@ -4,24 +4,24 @@
       "id" : "1"
    },
    {
-      "name" : "Tastet",
-      "id" : "2"
+      "id" : "2",
+      "name" : "Tastet"
    },
    {
       "id" : "3",
       "name" : "Langtur"
    },
    {
-      "id" : "4",
-      "name" : "Inriggerkaproning"
+      "name" : "Inriggerkaproning",
+      "id" : "4"
    },
    {
-      "name" : "Instruktion",
-      "id" : "5"
+      "id" : "5",
+      "name" : "Instruktion"
    },
    {
-      "id" : "6",
-      "name" : "Udstationeret"
+      "name" : "Udstationeret",
+      "id" : "6"
    },
    {
       "id" : "7",
@@ -32,24 +32,24 @@
       "name" : "Racerkanin"
    },
    {
-      "id" : "9",
-      "name" : "Teknik+"
+      "name" : "Teknik+",
+      "id" : "9"
    },
    {
-      "id" : "10",
-      "name" : "Outrigger/ScullerInstruktion"
+      "name" : "Outrigger/ScullerInstruktion",
+      "id" : "10"
    },
    {
-      "id" : "11",
-      "name" : "Styrmandsinstruktion"
+      "name" : "Styrmandsinstruktion",
+      "id" : "11"
    },
    {
       "name" : "8GP",
       "id" : "12"
    },
    {
-      "id" : "13",
-      "name" : "Teknik og tur"
+      "name" : "Teknik og tur",
+      "id" : "13"
    },
    {
       "id" : "14",
