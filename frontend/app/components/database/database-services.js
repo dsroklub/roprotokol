@@ -114,7 +114,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	})(boattypes[bx]);
       }
     } else {
-      rowerstatisticsloaded[boattypes[bx]].resolve(true);
+      rowerstatisticsloaded['any'].resolve(true);
     }
 
     // if(boatstatistics === undefined) {
