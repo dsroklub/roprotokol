@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q) {
   var boats;
   var boatcategories;
@@ -9,7 +8,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   var rowers;
   var rowerstatistics={'rowboat':undefined,'kayak':undefined,'any':undefined};
   var boatstatistics={};
-
+  var databasesource=dbmode;
+  function toURL(service){
+    if (databasesource=='real') {
+      return '../../backend/'+service;
+    } else {
+      return 'data/'+service.replace('.php','').replace(/\?/g,'Q').replace(/=/g,'')+".json";
+    }
+  }
+  
   this.init = function () {
     var boatsloaded = $q.defer();
     var boatdamagesloaded = $q.defer();
@@ -19,10 +26,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var boatstatisticsloaded = {'any':$q.defer(),'rowboat':$q.defer(),'kayak':$q.defer()};
     var rowerstatisticsloaded = {'any':$q.defer(),'rowboat':$q.defer(),'kayak':$q.defer()};
     var boattypes = ['kayak','any','rowboat'];
-    //var boattypes = ['kayak'];
     if(boats === undefined) {
       //Build indexes and lists for use by API
-      $http.get('data/boats.json').then(function(response) {
+      $http.get(toURL('boats.php')).then(function(response) {
         boats = {};
         angular.forEach(response.data, function(boat, index) {
           this[boat.id] = boat;
@@ -44,7 +50,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
     
     if(boatdamages === undefined) {
-      $http.get('data/boatdamages.json').then(function(response) {
+      $http.get(toURL('boatdamages.php')).then(function(response) {
         boatdamages = {};
         angular.forEach(response.data, function(boatdamage, index) {
            if(this[boatdamage.boat_id] === undefined) {
@@ -60,7 +66,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
 
     if(destinations === undefined) {
-      $http.get('data/destinations.json').then(function(response) {
+      $http.get(toURL('destinations.php')).then(function(response) {
         destinations = response.data;
         destinationsloaded.resolve(true);
       });
@@ -70,7 +76,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
 
     if(triptypes === undefined) {
-      $http.get('data/triptypes.json').then(function(response) {
+      $http.get(toURL('triptypes.php')).then(function(response) {
         triptypes = response.data;
         triptypesloaded.resolve(true);
       });
@@ -80,7 +86,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
 
     if(rowers === undefined) {
-      $http.get('data/rowers.json').then(function(response) {
+      $http.get(toURL('rowers.php')).then(function(response) {
         rowers = [];
         angular.forEach(response.data, function(rower, index) {
           rower.search = rower.id + " " + rower.name;
@@ -100,13 +106,13 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	(function(boattype) {
 	var farg="";
 	  if (boattype != "any") {
-	    //	    farg='?boattype='+boattype;
-	    	    farg='Qboattype'+boattype;
+	    farg='?boattype='+boattype;
+	    	   // farg='Qboattype'+boattype;
 	  }
-	  $http.get('data/rower_statistics'+farg+'.json').then(function(response) {
+	  $http.get(toURL('rower_statistics'+farg+'.php')).then(function(response) {
             rowerstatistics[boattype] = [];
             angular.forEach(response.data, function(stat, index) {
-              stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
+              //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
               this.push(stat);
             }, rowerstatistics[boattype])
 	    rowerstatisticsloaded[boattype].resolve(true);
