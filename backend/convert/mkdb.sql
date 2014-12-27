@@ -65,6 +65,8 @@ CREATE TABLE IF NOT EXISTS Båd (
     Decommissioned DATETIME
 );
 
+-- CREATE INDEX boat on Båd(FK_GruppeID);
+
 CREATE TABLE IF NOT EXISTS Bådindstilling (
     BådID Int, -- FIXME should be Unique
     Navn VARCHAR(100) NOT NULL,
@@ -221,6 +223,8 @@ CREATE TABLE IF NOT EXISTS  Medlem (
        RedigeretDato DATE,
        Initialer CHAR(10)
 );
+CREATE INDEX  medlemnrix on Medlem(Medlemsnr);
+
 
 CREATE TABLE IF NOT EXISTS  Motionstatus ( -- FIXME was motion+status
        MotionstatusID INT PRIMARY KEY,
@@ -283,6 +287,7 @@ CREATE TABLE IF NOT EXISTS TripMember (
        Initials CHAR(10),
        PRIMARY KEY(TripID,Season,Seat)
 );
+-- CREATE INDEX  triptripix on Trip(TripID);
 
 
 CREATE TABLE IF NOT EXISTS TurType (
@@ -442,3 +447,10 @@ CREATE TABLE IF NOT EXISTS MemberRights (
        PRIMARY KEY(MemberID, MemberRight,Acquired,Argument)
 );
 
+
+CREATE TABLE IF NOT EXISTS TripRights (
+       trip_type VARCHAR(30) NOT NULL,
+       required_right VARCHAR(30) NOT NULL,
+       requirement VARCHAR(10),
+       PRIMARY KEY (trip_type,required_right)
+       )
