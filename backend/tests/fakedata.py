@@ -15,7 +15,8 @@ random.seed(42)
 pwfile=os.path.dirname(sys.argv[0])+'/secret.db'
 print "checking db pw file "+pwfile
 if os.path.exists(pwfile):
-    dbpw=open(pwfile).readlines()[0]
+    dbpw=(open(pwfile).readlines()[0]).strip()
+    print "using PASSWORD #"+dbpw+"#" 
     db= MySQLdb.connect(host="localhost",  user="roprotokol", passwd=dbpw,charset='utf8', db="roprotokol")
 else:
     db= MySQLdb.connect(host="localhost",  user="roprotokol", charset='utf8', db="roprotokol")

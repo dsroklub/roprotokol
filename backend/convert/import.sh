@@ -23,24 +23,23 @@ then
 . $SCRIPT_PATH/secret.sh
 fi
 
-for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer Kommentar LåsteBåde Medlem Motionstatus Postnr Reservation Skade TurType Destination Kajak_anvendelser; do
+for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer LockedBoats Zipcode Reservation Skade TurType Destination Kajak_anvendelser; do
     echo DO IMPORT $tb
     echo
     $DBCMD -e "TRUNCATE TABLE $tb;"
-    $DBCMD < $SCRIPT_PATH/data/$tb.sql
+    $DBCMD < $SCRIPT_PATH/testdata/$tb.sql
 done
+    $DBCMD < $SCRIPT_PATH/TripRights.sql
 
 if [ $arg=="fake" ]; then
     $SCRIPT_PATH/../tests/fakedata.py
 elif [ $arg=="real" ]; then
-    for tb in Fejl_tblMembersSportData Fejl_system Fejl_tur TurDeltager Vintervedligehold Tur tblMembersSportData; do
+    for tb in Fejl_tblMembersSportData Fejl_system Fejl_tur TurDeltager Vintervedligehold Medlem Tur tblMembersSportData; do
 	echo DO IMPORT $tb
 	echo
 	$DBCMD -e "TRUNCATE TABLE $tb;"
 	$DBCMD < $SCRIPT_PATH/data/$tb.sql
-done
-
-
+    done
     for SEASON in $(seq 2010 2013); do
 	echo SEASON $SEASON; 
 	for ST in Tur Turdeltager; do

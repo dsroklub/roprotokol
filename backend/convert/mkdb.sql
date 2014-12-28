@@ -1,6 +1,6 @@
 --#!/usr/bin/mysql -u root -p --password=xxx roprotokol
 
--- DROP DATABASE IF EXISTS roprotokol;
+DROP DATABASE IF EXISTS roprotokol;
 
 CREATE DATABASE IF NOT EXISTS roprotokol;
 use roprotokol;
@@ -200,9 +200,9 @@ CREATE TABLE IF NOT EXISTS Kommentar (
 );
 
 
-CREATE TABLE IF NOT EXISTS LåsteBåde (
+CREATE TABLE IF NOT EXISTS LockedBoats (
        BoatID INT PRIMARY KEY,
-       KlientNavn VARCHAR(100),
+       Client VARCHAR(100),
        locktimeout INT -- type guessed
 );
 
@@ -232,9 +232,9 @@ CREATE TABLE IF NOT EXISTS  Motionstatus ( -- FIXME was motion+status
 
 );
 
-CREATE TABLE IF NOT EXISTS  Postnr (
+CREATE TABLE IF NOT EXISTS  Zipcode (
        Postnr INT PRIMARY KEY,
-       Distrikt CHAR(100) 
+       District CHAR(100) 
 );
 
 CREATE TABLE IF NOT EXISTS Reservation (
@@ -453,4 +453,4 @@ CREATE TABLE IF NOT EXISTS TripRights (
        required_right VARCHAR(30) NOT NULL,
        requirement VARCHAR(10),
        PRIMARY KEY (trip_type,required_right)
-       )
+       );

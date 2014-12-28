@@ -2,6 +2,8 @@
 
 # Installation
 
+apt-get install python-mysqldb
+ 
 Opret database til roprotokollen:
 
     CREATE SCHEMA `roprotokol` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
@@ -14,10 +16,23 @@ Importer skema og views:
     mysql -u roprotokol -p'roprotokol' roprotokol < konvert/mkdb.sql
     mysql -u roprotokol -p'roprotokol' roprotokol < konvert/queries.sql
 
-Eksporter gammel data til sql og csv filer ved at kopier gammel data Roprotokol_sommer.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
+Skriv adgangsvejen til databasen til filen backend/convert/secret.sh og filen backend/tests/secret.db
+Fx:
+  echo 'DBCMD="mysql -u roprotokol --password=roprotokol roprotokol"' >  backend/convert/secret.sh
+  echo "roprotokol" > backend/tests/secret.db
+ 
+Herefter kan man bruge enten rigtig data fra DSR, hvis man har adgang til de gamle databasefiler. Eller man kan bruge testdata uden personhenførbart data. Det består i store træk af DSR båddata og tilfældigt genereret brugerdata for roere..
 
-   ./konvert/eksport.sh
-   ./konvert/eksport2.sh
+
+BRUG TESTDATA:
+
+./import.sh fake
+
+
+BRUG DSR DATA:
+Eksporter gammel data til sql filer ved at kopiere gammel data Roprotokol_sommer.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
+
+   ./convert/eksport.sh
 
 Importer gammel data:
 
