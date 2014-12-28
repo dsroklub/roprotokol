@@ -3,7 +3,10 @@
 # Installation
 
 apt-get install python-mysqldb
- 
+apt-get install php5-mysqlnd
+  # nødvendigt for at få PHP til at kende forskel på strenge og tal
+  # hust at genstarte webserveren
+
 Opret database til roprotokollen:
 
     CREATE SCHEMA `roprotokol` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
