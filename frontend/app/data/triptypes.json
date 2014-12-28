@@ -1,58 +1,33 @@
 [
    {
-      "name" : "Lokaltur",
-      "id" : "1"
+      "Beskrivelse" : "Instruktionsture både for almindelig roning og kajakker",
+      "rights" : {
+         "instruktør" : "any"
+      },
+      "Navn" : "Instruktion"
    },
    {
-      "id" : "2",
-      "name" : "Tastet"
+      "Navn" : "Langtur",
+      "rights" : {
+         "langtursstyrmand" : "any",
+         "rowright" : "all"
+      },
+      "Beskrivelse" : "Uden for lokalt rofarvand"
    },
    {
-      "id" : "3",
-      "name" : "Langtur"
+      "Navn" : "Lokaltur",
+      "Beskrivelse" : "Lokalt rofarvand",
+      "rights" : {
+         "rowright" : "all",
+         "styrmand" : "any"
+      }
    },
    {
-      "name" : "Inriggerkaproning",
-      "id" : "4"
-   },
-   {
-      "id" : "5",
-      "name" : "Instruktion"
-   },
-   {
-      "name" : "Udstationeret",
-      "id" : "6"
-   },
-   {
-      "id" : "7",
-      "name" : "Sved På Panden"
-   },
-   {
-      "id" : "8",
-      "name" : "Racerkanin"
-   },
-   {
-      "name" : "Teknik+",
-      "id" : "9"
-   },
-   {
-      "name" : "Outrigger/ScullerInstruktion",
-      "id" : "10"
-   },
-   {
-      "name" : "Styrmandsinstruktion",
-      "id" : "11"
-   },
-   {
-      "name" : "8GP",
-      "id" : "12"
-   },
-   {
-      "name" : "Teknik og tur",
-      "id" : "13"
-   },
-   {
-      "id" : "14",
-      "name" : "Puls og program"
+      "Beskrivelse" : "Puls og program",
+      "rights" : {
+         "rowright" : "all",
+         "styrmand" : "any"
+      },
+      "Navn" : "Puls og program"
    }
 ]
