@@ -1,10 +1,6 @@
 <?php
 include("inc/common.php");
 
-if ($rodb->connect_errno) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-}
 $s=<<<SQT
 select Navn,Beskrivelse, GROUP_CONCAT(required_right,':',requirement) as rights from TurType, TripRights WHERE aktiv AND trip_type=Navn GROUP BY TurType.Navn;
 SQT

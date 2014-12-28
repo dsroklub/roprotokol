@@ -1,5 +1,5 @@
 <?php
-$rodb=new mysqli("localhost","roprotokol","","roprotokol");
+$rodb=new mysqli("localhost","roprotokol","roprotokol","roprotokol");
 
 if ($rodb->connect_errno) {
     printf("Connect failed: %s\n", mysqli_connect_error());
