@@ -7,27 +7,27 @@
       "Navn" : "Instruktion"
    },
    {
-      "Navn" : "Langtur",
+      "Beskrivelse" : "Uden for lokalt rofarvand",
       "rights" : {
-         "langtursstyrmand" : "any",
-         "rowright" : "all"
+         "rowright" : "all",
+         "langtursstyrmand" : "any"
       },
-      "Beskrivelse" : "Uden for lokalt rofarvand"
+      "Navn" : "Langtur"
    },
    {
-      "Navn" : "Lokaltur",
       "Beskrivelse" : "Lokalt rofarvand",
       "rights" : {
          "rowright" : "all",
          "styrmand" : "any"
-      }
+      },
+      "Navn" : "Lokaltur"
    },
    {
+      "Navn" : "Puls og program",
       "Beskrivelse" : "Puls og program",
       "rights" : {
-         "rowright" : "all",
-         "styrmand" : "any"
-      },
-      "Navn" : "Puls og program"
+         "styrmand" : "any",
+         "rowright" : "all"
+      }
    }
 ]
