@@ -6,7 +6,8 @@ CURRENTSEASON=2014
 echo CURRENTSEASON=$CURRENTSEASON
 arg=$1
 
-if [ "x"$arg == "x" ]
+
+if [[ "x$arg" = "x" ]]
 then
    echo usage:
    echo   import.sh fake
@@ -31,9 +32,11 @@ for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer LockedBoats Zipc
 done
     $DBCMD < $SCRIPT_PATH/TripRights.sql
 
-if [ $arg=="fake" ]; then
+if [[ $arg = "fake" ]]; then
+    echo "Generating fake data..."
     $SCRIPT_PATH/../tests/fakedata.py
-elif [ $arg=="real" ]; then
+elif [[ $arg = "real" ]]; then
+    echo "Using real data..."
     for tb in Fejl_tblMembersSportData Fejl_system Fejl_tur TurDeltager Vintervedligehold Medlem Tur tblMembersSportData; do
 	echo DO IMPORT $tb
 	echo
@@ -59,7 +62,7 @@ elif [ $arg=="real" ]; then
         SELECT FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM Turdeltager_backup${SEASON}"
 	$DBCMD -e "DROP TABLE Tur_backup${SEASON}"
 	$DBCMD -e "DROP TABLE Turdeltager_backup${SEASON}"
-done
+    done
 
     SEASON=$CURRENTSEASON
     $DBCMD -e "INSERT INTO Trip (TripID,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
@@ -70,7 +73,7 @@ done
     $DBCMD -e "DROP TABLE Tur"
     $DBCMD -e "DROP TABLE TurDeltager"
     $DBCMD < $SCRIPT_PATH/konvertRights.sql
-elif [ $arg=="empty" ]; then
+elif [[ $arg = "empty" ]]; then
     echo no rower data
 else
     echo unknown argument
