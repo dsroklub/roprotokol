@@ -109,7 +109,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	    farg='?boattype='+boattype;
 	    	   // farg='Qboattype'+boattype;
 	  }
-	  $http.get(toURL('rower_statistics'+farg+'.php')).then(function(response) {
+	  $http.get(toURL('rower_statistics.php'+farg)).then(function(response) {
             rowerstatistics[boattype] = [];
             angular.forEach(response.data, function(stat, index) {
               //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
