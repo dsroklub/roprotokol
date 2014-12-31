@@ -1,5 +1,6 @@
 <?php
 include("inc/common.php");
+header('Content-type: application/json');
 
 if ($rodb->connect_errno) {
     printf("Connect failed: %s\n", mysqli_connect_error());
@@ -38,6 +39,7 @@ $s="SELECT BådID as id,
        Båd.Location,
        Båd.Placement
     ";
+
 
 
 // echo $s;
