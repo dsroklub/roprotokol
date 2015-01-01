@@ -1,6 +1,7 @@
 <?php
 include("inc/common.php");
 include("inc/utils.php");
+header('Content-type: application/json');
 
 $s="SELECT Medlemsnr as id,CONCAT(Fornavn,' ',Efternavn) as name,Initialer as initials, GROUP_CONCAT(MemberRight,':',argument) as rights".
     "  FROM Medlem,MemberRights Where MemberRights.MemberID=Medlem.MedlemID GROUP BY MemberID";

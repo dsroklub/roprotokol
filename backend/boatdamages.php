@@ -1,5 +1,6 @@
 <?php
 include("inc/common.php");
+header('Content-type: application/json');
 
 $s="SELECT SkadeID as id, FK_BådID as boat_id, Beskrivelse as description, Grad as level
     FROM Skade WHERE Repareret IS NULL ORDER BY  FK_BådID, level";

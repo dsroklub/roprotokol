@@ -1,5 +1,6 @@
 <?php
 include("inc/common.php");
+header('Content-type: application/json');
 
 $season=date('Y');
 

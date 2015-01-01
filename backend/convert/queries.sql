@@ -83,8 +83,8 @@ ORDER BY Tur.ForvInd,TurID;
 
 
 CREATE VIEW qAvailableboats AS
-       SELECT Båd.BådID, Båd.Navn, Båd.FK_GruppeID, Båd.Pladser, qBoatsReserveret.FK_BådID as reserved_baadID, qBoatsOnWater2.FK_BådID as onWater_baadID, qBoatsSkadet.FK_BådID as skade_baadID, qBoatsSkadet.grad, LåsteBåde.locktimeout, qBoatsOnWater2.TurType_Navn AS TurType_navn
-       FROM ((qBoatsReserveret RIGHT JOIN (qBoatsSkadet RIGHT JOIN Båd ON qBoatsSkadet.FK_BådID = Båd.BådID) ON qBoatsReserveret.FK_BådID = Båd.BådID) LEFT JOIN LåsteBåde ON Båd.BådID = LåsteBåde.BoatID) LEFT JOIN qBoatsOnWater2 ON Båd.BådID = qBoatsOnWater2.FK_BådID;
+       SELECT Båd.BådID, Båd.Navn, Båd.FK_GruppeID, Båd.Pladser, qBoatsReserveret.FK_BådID as reserved_baadID, qBoatsOnWater2.FK_BådID as onWater_baadID, qBoatsSkadet.FK_BådID as skade_baadID, qBoatsSkadet.grad, LockedBoats.locktimeout, qBoatsOnWater2.TurType_Navn AS TurType_navn
+       FROM ((qBoatsReserveret RIGHT JOIN (qBoatsSkadet RIGHT JOIN Båd ON qBoatsSkadet.FK_BådID = Båd.BådID) ON qBoatsReserveret.FK_BådID = Båd.BådID) LEFT JOIN LockedBoats ON Båd.BådID = LockedBoats.BoatID) LEFT JOIN qBoatsOnWater2 ON Båd.BådID = qBoatsOnWater2.FK_BådID;
 
 
 
