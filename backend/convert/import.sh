@@ -16,7 +16,7 @@ then
    echo real is for importing real DSR data, it requires that you have SQL dumps from the database
    exit 0
 fi
-DBCMD="mysql -u roprotokol roprotokol"
+DBCMD="mysql -f -u roprotokol roprotokol"
 
 #if you you a password, put DBCMD="mysql -u roprotokol -p password roprotokol" in secret.sh
 if [ -f $SCRIPT_PATH/secret.sh ];
@@ -30,6 +30,7 @@ for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer LockedBoats Zipc
     $DBCMD -e "TRUNCATE TABLE $tb;"
     $DBCMD < $SCRIPT_PATH/testdata/$tb.sql
 done
+echo do trip rights
     $DBCMD < $SCRIPT_PATH/TripRights.sql
 
 if [[ $arg = "fake" ]]; then
@@ -63,15 +64,15 @@ elif [[ $arg = "real" ]]; then
 	$DBCMD -e "DROP TABLE Tur_backup${SEASON}"
 	$DBCMD -e "DROP TABLE Turdeltager_backup${SEASON}"
     done
-
+ echo now season $CURRENTSEASON
     SEASON=$CURRENTSEASON
     $DBCMD -e "INSERT INTO Trip (TripID,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
      SELECT TurID,${SEASON},FK_BådID,Ud,Ind,ForvInd,Destination,Meter,FK_TurTypeID,Kommentar,OprettetDato,RedigeretDato,Initialer,DESTID FROM Tur"
 
     $DBCMD -e "INSERT INTO TripMember (TripID, Season,Seat, MemberID,MemberName,CreatedDate,EditDate,Initials) \
     SELECT   FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM TurDeltager"
-    $DBCMD -e "DROP TABLE Tur"
-    $DBCMD -e "DROP TABLE TurDeltager"
+#    $DBCMD -e "DROP TABLE Tur"
+#    $DBCMD -e "DROP TABLE TurDeltager"
     $DBCMD < $SCRIPT_PATH/konvertRights.sql
 elif [[ $arg = "empty" ]]; then
     echo no rower data
