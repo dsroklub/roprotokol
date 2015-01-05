@@ -4,7 +4,7 @@ include("inc/utils.php");
 header('Content-type: application/json');
 
 $s=<<<SQT
-select Navn,Beskrivelse, GROUP_CONCAT(required_right,':',requirement) as rights from TurType, TripRights WHERE aktiv AND trip_type=Navn GROUP BY TurType.Navn;
+select Navn,Beskrivelse, GROUP_CONCAT(required_right,':§§:',requirement SEPARATOR '££') as rights from TurType, TripRights WHERE aktiv AND trip_type=Navn GROUP BY TurType.Navn;
 SQT
 ;
 // $s="SELECT TurTypeID as id, Navn as name FROM TurType ORDER BY id";
