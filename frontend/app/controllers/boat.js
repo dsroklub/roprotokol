@@ -28,7 +28,6 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	          'boat' : $scope.selectedboat,
               'destination': $scope.destinations[0],
               'starttime': now,
-              // TODO: Calculate this based on the destination and triptype
               // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
               'expectedtime': now,
               'endtime': '',
@@ -82,8 +81,13 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       return typeof(val) === 'string' && val.length > 3;
     };
 
-    $scope.updateExpectedTime = function (val) {
-        
+    $scope.updateExpectedTime = function (item) {
+      // Calculate expected time based on triptype and destination
+      if($scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
+        $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration_instruction * 3600 * 1000)
+      } else {
+        $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration * 3600 * 1000);
+      }
     };
   
     $scope.clearDestination = function () {
