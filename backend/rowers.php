@@ -1,28 +1,19 @@
 <?php
-ini_set('default_charset', 'utf-8');
+include("inc/common.php");
+include("inc/utils.php");
+header('Content-type: application/json');
 
-if(!isset($_SESSION))  session_start();
-$rodb=new mysqli("localhost","roprotokol","","roprotokol");
-
-if ($rodb->connect_errno) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-}
- 
-if (!$rodb->set_charset("utf8")) {
-    printf("Error loading character set utf8: %s\n", $rodb->error);
-}
-
-    $s="SELECT Medlemsnr as id,CONCAT(Fornavn,' ',Efternavn) as name,Initialer as initials
-    FROM Medlem";
+$s="SELECT Medlemsnr as id,CONCAT(Fornavn,' ',Efternavn) as name,Initialer as initials, GROUP_CONCAT(MemberRight,':§§:',argument SEPARATOR '££') as rights".
+    "  FROM Medlem,MemberRights Where MemberRights.MemberID=Medlem.MedlemID  GROUP BY MemberID";
 
 
-// echo $s;
+// echo $s."<br>";
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
 	  if ($first) $first=0; else echo ',';	  
+      $row['rights']=multifield($row['rights']);
 	  echo json_encode($row);
 }
 echo ']';

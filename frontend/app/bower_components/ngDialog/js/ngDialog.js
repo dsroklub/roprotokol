@@ -1,13 +1,24 @@
 /*
  * ngDialog - easy modals and popup windows
  * http://github.com/likeastore/ngDialog
- * (c) 2013 MIT License, https://likeastore.com
+ * (c) 2013-2014 MIT License, https://likeastore.com
  */
 
-(function (window, angular, undefined) {
+(function (root, factory) {
+    if (typeof module !== 'undefined' && module.exports) {
+        // CommonJS
+        module.exports = factory(require('angular'));
+    } else if (typeof define === 'function' && define.amd) {
+        // AMD
+        define(['angular'], factory);
+    } else {
+        // Global Variables
+        factory(root.angular);
+    }
+}(this, function (angular, undefined) {
 	'use strict';
 
-	var module = angular.module('ngDialog', []);
+	var m = angular.module('ngDialog', []);
 
 	var $el = angular.element;
 	var isDef = angular.isDefined;
@@ -16,7 +27,7 @@
 	var animationEndEvent = 'animationend webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend';
 	var forceBodyReload = false;
 
-	module.provider('ngDialog', function () {
+	m.provider('ngDialog', function () {
 		var defaults = this.defaults = {
 			className: 'ngdialog-theme-default',
 			plain: false,
@@ -74,10 +85,10 @@
 					performCloseDialog: function ($dialog, value) {
 						var id = $dialog.attr('id');
 
-						if (typeof window.Hammer !== 'undefined') {
+						if (typeof $window.Hammer !== 'undefined') {
 							var hammerTime = angular.element($dialog).scope().hammerTime;
 							hammerTime.off('tap', closeByDocumentHandler);
-							hammerTime.destroy();
+							hammerTime.destroy && hammerTime.destroy();
 							delete $dialog.scope().hammerTime;
 						} else {
 							$dialog.unbind('click');
@@ -201,7 +212,7 @@
 								var firstLetter = options.data.replace(/^\s*/, '')[0];
 								scope.ngDialogData = (firstLetter === '{' || firstLetter === '[') ? angular.fromJson(options.data) : options.data;
 							} else if (options.data && angular.isObject(options.data)) {
-								scope.ngDialogData = angular.fromJson(angular.toJson(options.data));
+								scope.ngDialogData = options.data;
 							}
 
 							if (options.controller && (angular.isString(options.controller) || angular.isArray(options.controller) || angular.isFunction(options.controller))) {
@@ -285,8 +296,8 @@
 								}
 							};
 
-							if (typeof window.Hammer !== 'undefined') {
-								var hammerTime = scope.hammerTime = window.Hammer($dialog[0]);
+							if (typeof $window.Hammer !== 'undefined') {
+								var hammerTime = scope.hammerTime = $window.Hammer($dialog[0]);
 								hammerTime.on('tap', closeByDocumentHandler);
 							} else {
 								$dialog.bind('click', closeByDocumentHandler);
@@ -332,6 +343,7 @@
 					 * @param {Object} options:
 					 * - template {String} - id of ng-template, url for partial, plain string (if enabled)
 					 * - plain {Boolean} - enable plain string templates, default false
+					 * - name {String}
 					 * - scope {Object}
 					 * - controller {String}
 					 * - className {String} - dialog theme class
@@ -402,7 +414,7 @@
 			}];
 	});
 
-	module.directive('ngDialog', ['ngDialog', function (ngDialog) {
+	m.directive('ngDialog', ['ngDialog', function (ngDialog) {
 		return {
 			restrict: 'A',
 			scope : {
@@ -432,5 +444,4 @@
 			}
 		};
 	}]);
-
-})(window, window.angular);
+}));

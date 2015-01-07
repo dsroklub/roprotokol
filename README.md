@@ -2,26 +2,47 @@
 
 # Installation
 
+apt-get install python-mysqldb
+apt-get install php5-mysqlnd
+  # nødvendigt for at få PHP til at kende forskel på strenge og tal
+  # hust at genstarte webserveren
+
 Opret database til roprotokollen:
 
-    CREATE SCHEMA `roprotokol` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+    CREATE SCHEMA 'roprotokol' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
     CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol';
-    GRANT ALL PRIVILEGES ON `roprotokol`.* TO 'roprotokol'@'localhost';
+    GRANT ALL PRIVILEGES ON 'roprotokol'.* TO 'roprotokol'@'localhost';
     FLUSH PRIVILEGES;
 
 Importer skema og views:
 
-    mysql -u roprotokol -p'roprotokol' roprotokol < konvert/mkdb.sql
-    mysql -u roprotokol -p'roprotokol' roprotokol < konvert/queries.sql
+    mysql -u roprotokol -p'roprotokol' roprotokol < backend/convert/mkdb.sql
+    mysql -u roprotokol -p'roprotokol' roprotokol <  backend/convert/queries.sql
 
-Eksporter gammel data til sql og csv filer ved at kopier gammel data Roprotokol_sommer.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
+Skriv adgangsvejen til databasen til filen backend/convert/secret.sh og filen backend/tests/secret.db
+Fx:
+  echo 'DBCMD="mysql -u roprotokol --password=roprotokol roprotokol"' >  backend/convert/secret.sh
+  echo "roprotokol" > backend/tests/secret.db
 
-   ./konvert/eksport.sh
-   ./konvert/eksport2.sh
+
+Sæt adgangkoden i filen backend/inc/db.php. Det er det 3. argument til mysqli
+
+Herefter kan man bruge enten rigtig data fra DSR, hvis man har adgang til de gamle databasefiler. Eller man kan bruge testdata uden personhenførbart data. Det består i store træk af DSR båddata og tilfældigt genereret brugerdata for roere..
+
+
+BRUG TESTDATA:
+
+./backend/convert/import.sh fake
+
+
+BRUG DSR DATA:
+Eksporter gammel data til sql filer ved at kopiere gammel data Roprotokol_sommer.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
+
+   .backend/convert/eksport.sh
 
 Importer gammel data:
 
-   ./import.sh
+   ./backend/convert/import.sh
 
 # Noter om ASP til PHP konvertering
 
@@ -30,7 +51,6 @@ består af følgende opgaver.
 
 * Lave et MySQL skema
 * Flytte data fra MS Access til Mysql Databasen
-* Konvertere ASP til PHP
 
 ##SQL skema
 
@@ -69,7 +89,5 @@ Skemast skal opdateres. Fx. dur det ikke at vi har tabeller for Tur, Tur_backup2
 * I første omgang skal vi nok sørge for at ikke at ændre skemaet mere end vi kan importere indhold fra MDB.
 * Mange-til-mange forhold mellem ture og turdeltagere, istedet for 9 faste felter.
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
-* tegnsæt
-* Ajax-kode, til autocompletion af Navne
 * filen membersdata.txt i config.php. herfra hentes Navne og medlemsnumre.
   Vi skal have en bedre måde at overføre det på.

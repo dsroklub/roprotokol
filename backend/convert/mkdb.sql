@@ -61,8 +61,11 @@ CREATE TABLE IF NOT EXISTS Båd (
     Anvendelse VARCHAR(100),
     Niveau VARCHAR(100),
     Location VARCHAR(100),
-    Placement VARCHAR(100)
+    Placement VARCHAR(100),
+    Decommissioned DATETIME
 );
+
+-- CREATE INDEX boat on Båd(FK_GruppeID);
 
 CREATE TABLE IF NOT EXISTS Bådindstilling (
     BådID Int, -- FIXME should be Unique
@@ -197,9 +200,9 @@ CREATE TABLE IF NOT EXISTS Kommentar (
 );
 
 
-CREATE TABLE IF NOT EXISTS LåsteBåde (
+CREATE TABLE IF NOT EXISTS LockedBoats (
        BoatID INT PRIMARY KEY,
-       KlientNavn VARCHAR(100),
+       Client VARCHAR(100),
        locktimeout INT -- type guessed
 );
 
@@ -220,6 +223,8 @@ CREATE TABLE IF NOT EXISTS  Medlem (
        RedigeretDato DATE,
        Initialer CHAR(10)
 );
+CREATE INDEX  medlemnrix on Medlem(Medlemsnr);
+
 
 CREATE TABLE IF NOT EXISTS  Motionstatus ( -- FIXME was motion+status
        MotionstatusID INT PRIMARY KEY,
@@ -227,9 +232,9 @@ CREATE TABLE IF NOT EXISTS  Motionstatus ( -- FIXME was motion+status
 
 );
 
-CREATE TABLE IF NOT EXISTS  Postnr (
+CREATE TABLE IF NOT EXISTS  Zipcode (
        Postnr INT PRIMARY KEY,
-       Distrikt CHAR(100) 
+       District CHAR(100) 
 );
 
 CREATE TABLE IF NOT EXISTS Reservation (
@@ -282,6 +287,7 @@ CREATE TABLE IF NOT EXISTS TripMember (
        Initials CHAR(10),
        PRIMARY KEY(TripID,Season,Seat)
 );
+-- CREATE INDEX  triptripix on Trip(TripID);
 
 
 CREATE TABLE IF NOT EXISTS TurType (
@@ -294,6 +300,8 @@ CREATE TABLE IF NOT EXISTS TurType (
        Aktiv INT
 );
 
+
+-- Vintervedligehold to be removed
 CREATE TABLE IF NOT EXISTS Vintervedligehold (
        Id INT PRIMARY KEY,
        Medlemsnr CHAR(8),
@@ -302,6 +310,12 @@ CREATE TABLE IF NOT EXISTS Vintervedligehold (
        DeletedReason VARCHAR(100)
 );
 CREATE INDEX vintermedlem on Vintervedligehold(Medlemsnr);
+
+CREATE TABLE IF NOT EXISTS volunteerwork (
+       Medlemsnr CHAR(8),
+       Season INT,
+       worktype VARCHAR(100)
+);
 
 
 CREATE TABLE IF NOT EXISTS Destination (
@@ -323,7 +337,7 @@ CREATE TABLE IF NOT EXISTS Kajak_anvendelser (
        Beskrivelse VARCHAR(1000)
 );
 
-CREATE TABLE tblMembers (
+CREATE TABLE IF NOT EXISTS tblMembers (
   MemberID         INT PRIMARY KEY, 
   LastName         VARCHAR(100), 
   FirstName        VARCHAR(100), 
@@ -381,7 +395,7 @@ CREATE TABLE tblMembers (
   Has_Joined      Boolean NOT NULL
 );
 
-CREATE TABLE tblRowClubs (
+CREATE TABLE IF NOT EXISTS tblRowClubs  (
   MemberID      INT, 
   Name      VARCHAR(500), 
   Address1    VARCHAR(500), 
@@ -393,3 +407,50 @@ CREATE TABLE tblRowClubs (
   Misc      CHAR (100)
 );
 
+
+CREATE TABLE IF NOT EXISTS  tblMembersSportData (
+	MemberID			INT, 
+	Roret			 	DateTime, 
+	TeoretiskStyrmandKursus 	DateTime, 
+	Styrmand		 	DateTime, 
+	TeoretiskLangtursStyrmandKursus	DateTime, 
+	Langtur				DateTime, 
+	Skaergaard			DateTime, 
+	Langtur_Oeresund		DateTime, 
+	Ormen				DateTime, 
+	Svava				DateTime, 
+	Sculler				DateTime, 
+	Kajak				DateTime, 
+	Kajak_2				DateTime, 
+	Swim_400			DateTime, 
+	RoInstruktoer			DateTime, 
+	StyrmandInstruktoer		DateTime, 
+	ScullerInstruktoer		DateTime, 
+	KajakInstruktoer		DateTime, 
+	Kaproer				DateTime, 
+	Motorboat			VARCHAR(40), 
+	KeyType				VARCHAR(2), 
+	KeyDate				DateTime, 
+	KeyFee				Numeric(8,2), 
+	Stilling			VARCHAR(30), 
+	Ordinaert			VARCHAR(2), 
+	diverse1			VARCHAR(140), 
+	diverse2			VARCHAR(140)
+);
+
+
+CREATE TABLE IF NOT EXISTS MemberRights (
+	MemberID			INT, 
+	MemberRight		 	VARCHAR(50),
+        Acquired			DateTime,
+	argument			VARCHAR(100),
+       PRIMARY KEY(MemberID, MemberRight,Acquired,Argument)
+);
+
+
+CREATE TABLE IF NOT EXISTS TripRights (
+       trip_type VARCHAR(30) NOT NULL,
+       required_right VARCHAR(30) NOT NULL,
+       requirement VARCHAR(10),
+       PRIMARY KEY (trip_type,required_right)
+       );

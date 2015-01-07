@@ -1,29 +1,22 @@
 <?php
-ini_set('default_charset', 'utf-8');
+include("inc/common.php");
+include("inc/utils.php");
+header('Content-type: application/json');
 
-if(!isset($_SESSION))  session_start();
-$rodb=new mysqli("localhost","roprotokol","","roprotokol");
-
-if ($rodb->connect_errno) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-}
- 
-if (!$rodb->set_charset("utf8")) {
-    printf("Error loading character set utf8: %s\n", $rodb->error);
-}
-
-    $s="SELECT TurTypeID as id, Navn as name
-    FROM TurType ORDER BY id";
+$s=<<<SQT
+select Navn,Beskrivelse, GROUP_CONCAT(required_right,':§§:',requirement SEPARATOR '££') as rights from TurType, TripRights WHERE aktiv AND trip_type=Navn GROUP BY TurType.Navn;
+SQT
+;
+// $s="SELECT TurTypeID as id, Navn as name FROM TurType ORDER BY id";
 
 
-// echo $s;
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
-	  if ($first) $first=0; else echo ',';	  
-	  echo json_encode($row);
+	  if ($first) $first=0; else echo ',';
+      $row['rights']=multifield($row['rights']);
+	  echo json_encode($row,JSON_PRETTY_PRINT);
 }
 echo ']';
 $rodb->close();

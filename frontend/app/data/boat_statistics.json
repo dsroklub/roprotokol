@@ -1,0 +1,1094 @@
+[
+   {
+      "rank" : 1,
+      "distance" : "341.8000",
+      "num_trips" : 18,
+      "boatname" : "002",
+      "boat_type" : "Sculler 1x"
+   },
+   {
+      "distance" : "646.4000",
+      "rank" : 2,
+      "boatname" : "1-åres lånt båd",
+      "boat_type" : "Sculler 1x",
+      "num_trips" : 28
+   },
+   {
+      "rank" : 3,
+      "distance" : "885.8000",
+      "num_trips" : 34,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "109"
+   },
+   {
+      "num_trips" : 23,
+      "boatname" : "2-åres lånt båd",
+      "boat_type" : "Inrigger 2+",
+      "rank" : 4,
+      "distance" : "531.6000"
+   },
+   {
+      "distance" : "404.4000",
+      "rank" : 5,
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "214",
+      "num_trips" : 17
+   },
+   {
+      "rank" : 6,
+      "distance" : "700.6000",
+      "num_trips" : 26,
+      "boatname" : "4-åres lånt båd",
+      "boat_type" : "Inrigger 4+"
+   },
+   {
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Absalon",
+      "num_trips" : 25,
+      "distance" : "745.8000",
+      "rank" : 7
+   },
+   {
+      "num_trips" : 23,
+      "boatname" : "Afrodite",
+      "boat_type" : "Sculler 1x",
+      "rank" : 8,
+      "distance" : "688.0000"
+   },
+   {
+      "distance" : "593.1000",
+      "rank" : 9,
+      "boatname" : "Alf",
+      "boat_type" : "Sculler 1x",
+      "num_trips" : 25
+   },
+   {
+      "num_trips" : 20,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Alfa",
+      "rank" : 10,
+      "distance" : "608.5000"
+   },
+   {
+      "num_trips" : 25,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Ansjos",
+      "rank" : 11,
+      "distance" : "733.2000"
+   },
+   {
+      "rank" : 12,
+      "distance" : "529.6000",
+      "num_trips" : 25,
+      "boatname" : "Ask",
+      "boat_type" : "Inrigger 4+"
+   },
+   {
+      "distance" : "633.6000",
+      "rank" : 13,
+      "boatname" : "Ask (kajak)",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 27
+   },
+   {
+      "num_trips" : 26,
+      "boatname" : "Aslaug",
+      "boat_type" : "4x",
+      "rank" : 14,
+      "distance" : "746.0000"
+   },
+   {
+      "distance" : "600.4000",
+      "rank" : 15,
+      "boatname" : "Balder (4+)",
+      "boat_type" : "4x",
+      "num_trips" : 19
+   },
+   {
+      "boat_type" : "4x",
+      "boatname" : "Balder (4-)",
+      "num_trips" : 20,
+      "distance" : "508.0000",
+      "rank" : 16
+   },
+   {
+      "boatname" : "Barracuda",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 24,
+      "distance" : "517.9000",
+      "rank" : 17
+   },
+   {
+      "num_trips" : 26,
+      "boat_type" : "8+",
+      "boatname" : "Bifrost",
+      "rank" : 18,
+      "distance" : "669.2000"
+   },
+   {
+      "rank" : 19,
+      "distance" : "816.8000",
+      "num_trips" : 27,
+      "boatname" : "Bjarke",
+      "boat_type" : "Inrigger 4+"
+   },
+   {
+      "num_trips" : 36,
+      "boatname" : "Blåhval",
+      "boat_type" : "Kajak 1",
+      "rank" : 20,
+      "distance" : "785.1000"
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "boatname" : "Blåmusling",
+      "num_trips" : 34,
+      "distance" : "873.8000",
+      "rank" : 21
+   },
+   {
+      "distance" : "484.4000",
+      "rank" : 22,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Blæksprutte",
+      "num_trips" : 24
+   },
+   {
+      "boatname" : "Brage",
+      "boat_type" : "Inrigger 2+",
+      "num_trips" : 26,
+      "distance" : "705.2000",
+      "rank" : 23
+   },
+   {
+      "distance" : "737.5000",
+      "rank" : 24,
+      "boatname" : "Dan",
+      "boat_type" : "Inrigger 4+",
+      "num_trips" : 31
+   },
+   {
+      "distance" : "918.6000",
+      "rank" : 25,
+      "boatname" : "Delfin",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 34
+   },
+   {
+      "distance" : "968.4000",
+      "rank" : 26,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Delta",
+      "num_trips" : 36
+   },
+   {
+      "boat_type" : "4x",
+      "boatname" : "Den Gyldne Dame",
+      "num_trips" : 24,
+      "distance" : "591.6000",
+      "rank" : 27
+   },
+   {
+      "num_trips" : 19,
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Elektra",
+      "rank" : 28,
+      "distance" : "416.8000"
+   },
+   {
+      "num_trips" : 14,
+      "boat_type" : "Inrigger 4+",
+      "boatname" : "Embla",
+      "rank" : 29,
+      "distance" : "330.5000"
+   },
+   {
+      "num_trips" : 25,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Epsilon",
+      "rank" : 30,
+      "distance" : "599.3000"
+   },
+   {
+      "distance" : "646.4000",
+      "rank" : 31,
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Fafner",
+      "num_trips" : 31
+   },
+   {
+      "rank" : 32,
+      "distance" : "781.7000",
+      "num_trips" : 29,
+      "boatname" : "Fenris",
+      "boat_type" : "Inrigger 2+"
+   },
+   {
+      "num_trips" : 33,
+      "boatname" : "Fjæsing",
+      "boat_type" : "Kajak 1",
+      "rank" : 33,
+      "distance" : "859.7000"
+   },
+   {
+      "distance" : "679.1000",
+      "rank" : 34,
+      "boatname" : "Forel 2",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 24
+   },
+   {
+      "rank" : 35,
+      "distance" : "713.3000",
+      "num_trips" : 30,
+      "boatname" : "Frederik d. IX",
+      "boat_type" : "Inrigger 2+"
+   },
+   {
+      "num_trips" : 21,
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Freja",
+      "rank" : 36,
+      "distance" : "490.0000"
+   },
+   {
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Frigg",
+      "num_trips" : 35,
+      "distance" : "849.5000",
+      "rank" : 37
+   },
+   {
+      "rank" : 38,
+      "distance" : "485.7000",
+      "num_trips" : 18,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Gamma"
+   },
+   {
+      "rank" : 39,
+      "distance" : "669.3000",
+      "num_trips" : 25,
+      "boatname" : "Gedde",
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "num_trips" : 25,
+      "boat_type" : "Sculler 2x / 2-",
+      "boatname" : "Gerda",
+      "rank" : 40,
+      "distance" : "731.5000"
+   },
+   {
+      "rank" : 41,
+      "distance" : "549.3000",
+      "num_trips" : 25,
+      "boatname" : "Giallo",
+      "boat_type" : "4+ / 4-"
+   },
+   {
+      "rank" : 42,
+      "distance" : "542.2000",
+      "num_trips" : 22,
+      "boatname" : "Grindehval",
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Grumme",
+      "num_trips" : 31,
+      "distance" : "751.2000",
+      "rank" : 43
+   },
+   {
+      "distance" : "750.2000",
+      "rank" : 44,
+      "boatname" : "Gudmund",
+      "boat_type" : "Inrigger 4+",
+      "num_trips" : 26
+   },
+   {
+      "num_trips" : 31,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Guldmakrel",
+      "rank" : 45,
+      "distance" : "581.1000"
+   },
+   {
+      "num_trips" : 25,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Haj",
+      "rank" : 46,
+      "distance" : "597.8000"
+   },
+   {
+      "rank" : 47,
+      "distance" : "1008.1000",
+      "num_trips" : 34,
+      "boatname" : "Havkat",
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "rank" : 48,
+      "distance" : "850.1000",
+      "num_trips" : 31,
+      "boat_type" : "Gig 3x",
+      "boatname" : "Heimdal"
+   },
+   {
+      "num_trips" : 20,
+      "boatname" : "Helge",
+      "boat_type" : "Inrigger 2+",
+      "rank" : 49,
+      "distance" : "499.5000"
+   },
+   {
+      "distance" : "582.3000",
+      "rank" : 50,
+      "boatname" : "Hera",
+      "boat_type" : "Sculler 2x / 2-",
+      "num_trips" : 20
+   },
+   {
+      "distance" : "571.9000",
+      "rank" : 51,
+      "boat_type" : "4+ / 4-",
+      "boatname" : "Hermes",
+      "num_trips" : 22
+   },
+   {
+      "num_trips" : 35,
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Hjalte",
+      "rank" : 52,
+      "distance" : "854.8000"
+   },
+   {
+      "rank" : 53,
+      "distance" : "658.6000",
+      "num_trips" : 30,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Hornfisk"
+   },
+   {
+      "distance" : "775.9000",
+      "rank" : 54,
+      "boatname" : "Hroar",
+      "boat_type" : "Inrigger 2+",
+      "num_trips" : 26
+   },
+   {
+      "num_trips" : 28,
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Hu",
+      "rank" : 55,
+      "distance" : "721.9000"
+   },
+   {
+      "num_trips" : 27,
+      "boat_type" : "Inrigger 4+",
+      "boatname" : "Hugin",
+      "rank" : 56,
+      "distance" : "686.7000"
+   },
+   {
+      "distance" : "745.9000",
+      "rank" : 57,
+      "boatname" : "Hugorm",
+      "boat_type" : "Kajak 2",
+      "num_trips" : 28
+   },
+   {
+      "distance" : "705.7000",
+      "rank" : 58,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Hummer",
+      "num_trips" : 29
+   },
+   {
+      "rank" : 59,
+      "distance" : "713.4000",
+      "num_trips" : 30,
+      "boat_type" : "Gig 2x",
+      "boatname" : "Høder"
+   },
+   {
+      "rank" : 60,
+      "distance" : "731.9000",
+      "num_trips" : 30,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Iota"
+   },
+   {
+      "distance" : "801.3000",
+      "rank" : 61,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Ising",
+      "num_trips" : 27
+   },
+   {
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Jon",
+      "num_trips" : 27,
+      "distance" : "692.1000",
+      "rank" : 62
+   },
+   {
+      "rank" : 63,
+      "distance" : "697.9000",
+      "num_trips" : 29,
+      "boatname" : "Karpe",
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "distance" : "326.9000",
+      "rank" : 64,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Knurhane",
+      "num_trips" : 16
+   },
+   {
+      "boatname" : "Kristian",
+      "boat_type" : "Inrigger 2+",
+      "num_trips" : 25,
+      "distance" : "545.1000",
+      "rank" : 65
+   },
+   {
+      "num_trips" : 25,
+      "boatname" : "Ksi",
+      "boat_type" : "Sculler 1x",
+      "rank" : 66,
+      "distance" : "612.8000"
+   },
+   {
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Kvaser",
+      "num_trips" : 28,
+      "distance" : "631.3000",
+      "rank" : 67
+   },
+   {
+      "rank" : 68,
+      "distance" : "566.2000",
+      "num_trips" : 23,
+      "boatname" : "Laks",
+      "boat_type" : "Kajak 2"
+   },
+   {
+      "distance" : "497.6000",
+      "rank" : 69,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Lambda",
+      "num_trips" : 21
+   },
+   {
+      "boatname" : "Loke",
+      "boat_type" : "Inrigger 2+",
+      "num_trips" : 34,
+      "distance" : "857.0000",
+      "rank" : 70
+   },
+   {
+      "num_trips" : 32,
+      "boat_type" : "Sculler 2x / 2-",
+      "boatname" : "Luzern",
+      "rank" : 71,
+      "distance" : "752.6000"
+   },
+   {
+      "distance" : "502.0000",
+      "rank" : 72,
+      "boatname" : "Låne Kajak 2",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 24
+   },
+   {
+      "rank" : 73,
+      "distance" : "699.2000",
+      "num_trips" : 29,
+      "boatname" : "Låne Kajak 3",
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "distance" : "565.0000",
+      "rank" : 74,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Låne kajak 4",
+      "num_trips" : 22
+   },
+   {
+      "distance" : "459.1000",
+      "rank" : 75,
+      "boat_type" : "Kajak 2",
+      "boatname" : "Lånt 2-Kajak",
+      "num_trips" : 18
+   },
+   {
+      "rank" : 76,
+      "distance" : "748.6000",
+      "num_trips" : 36,
+      "boatname" : "Lånt Kajak 1",
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "distance" : "587.5000",
+      "rank" : 77,
+      "boatname" : "Makrel",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 27
+   },
+   {
+      "distance" : "725.8000",
+      "rank" : 78,
+      "boatname" : "Minerva",
+      "boat_type" : "Sculler 2x / 2-",
+      "num_trips" : 31
+   },
+   {
+      "boatname" : "Mjølner",
+      "boat_type" : "4x",
+      "num_trips" : 22,
+      "distance" : "604.1000",
+      "rank" : 79
+   },
+   {
+      "distance" : "612.3000",
+      "rank" : 80,
+      "boat_type" : "Inrigger 4+",
+      "boatname" : "Modi",
+      "num_trips" : 23
+   },
+   {
+      "rank" : 81,
+      "distance" : "555.4000",
+      "num_trips" : 26,
+      "boatname" : "Mulle",
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "num_trips" : 33,
+      "boat_type" : "Inrigger 4+",
+      "boatname" : "Munin",
+      "rank" : 82,
+      "distance" : "786.1000"
+   },
+   {
+      "num_trips" : 16,
+      "boatname" : "Muræne",
+      "boat_type" : "Kajak 1",
+      "rank" : 83,
+      "distance" : "467.0000"
+   },
+   {
+      "distance" : "570.0000",
+      "rank" : 84,
+      "boatname" : "My",
+      "boat_type" : "Sculler 1x",
+      "num_trips" : 21
+   },
+   {
+      "rank" : 85,
+      "distance" : "555.0000",
+      "num_trips" : 20,
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Møhring"
+   },
+   {
+      "num_trips" : 22,
+      "boat_type" : "Inrigger 4+",
+      "boatname" : "Nanna",
+      "rank" : 86,
+      "distance" : "498.2000"
+   },
+   {
+      "boatname" : "Nemo",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 25,
+      "distance" : "446.1000",
+      "rank" : 87
+   },
+   {
+      "distance" : "851.8000",
+      "rank" : 88,
+      "boatname" : "Njord",
+      "boat_type" : "Inrigger 4+",
+      "num_trips" : 32
+   },
+   {
+      "rank" : 89,
+      "distance" : "562.1000",
+      "num_trips" : 25,
+      "boatname" : "Ny",
+      "boat_type" : "Svava 1x"
+   },
+   {
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Nympha",
+      "num_trips" : 36,
+      "distance" : "944.6000",
+      "rank" : 90
+   },
+   {
+      "rank" : 91,
+      "distance" : "742.6000",
+      "num_trips" : 28,
+      "boat_type" : "4+ / 4-",
+      "boatname" : "Odin"
+   },
+   {
+      "distance" : "811.1000",
+      "rank" : 92,
+      "boat_type" : "4+ / 4-",
+      "boatname" : "Olsen",
+      "num_trips" : 33
+   },
+   {
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Omega",
+      "num_trips" : 21,
+      "distance" : "521.2000",
+      "rank" : 93
+   },
+   {
+      "boat_type" : "8+",
+      "boatname" : "Ormen",
+      "num_trips" : 14,
+      "distance" : "300.3000",
+      "rank" : 94
+   },
+   {
+      "num_trips" : 30,
+      "boat_type" : "Sculler 2x / 2-",
+      "boatname" : "Pallas Athene",
+      "rank" : 95,
+      "distance" : "680.0000"
+   },
+   {
+      "num_trips" : 26,
+      "boatname" : "Papegøjefisk",
+      "boat_type" : "Kajak 1",
+      "rank" : 96,
+      "distance" : "605.1000"
+   },
+   {
+      "rank" : 97,
+      "distance" : "777.8000",
+      "num_trips" : 26,
+      "boatname" : "Pighvar",
+      "boat_type" : "Kajak 1"
+   },
+   {
+      "boatname" : "Platon",
+      "boat_type" : "Sculler 2x / 2-",
+      "num_trips" : 26,
+      "distance" : "720.3000",
+      "rank" : 98
+   },
+   {
+      "boatname" : "Pollux",
+      "boat_type" : "4+ / 4-",
+      "num_trips" : 33,
+      "distance" : "942.1000",
+      "rank" : 99
+   },
+   {
+      "rank" : 100,
+      "distance" : "531.8000",
+      "num_trips" : 23,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Psi"
+   },
+   {
+      "distance" : "923.7000",
+      "rank" : 101,
+      "boat_type" : "Svava 1x",
+      "boatname" : "Pædagogsculler 1",
+      "num_trips" : 32
+   },
+   {
+      "num_trips" : 28,
+      "boat_type" : "Svava 1x",
+      "boatname" : "Ran",
+      "rank" : 102,
+      "distance" : "652.1000"
+   },
+   {
+      "boatname" : "Regnbueørred (Privat)",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 30,
+      "distance" : "805.8000",
+      "rank" : 103
+   },
+   {
+      "distance" : "359.1000",
+      "rank" : 104,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Ro",
+      "num_trips" : 17
+   },
+   {
+      "boatname" : "Rokke",
+      "boat_type" : "Kajak 2",
+      "num_trips" : 21,
+      "distance" : "554.7000",
+      "rank" : 105
+   },
+   {
+      "distance" : "520.1000",
+      "rank" : 106,
+      "boatname" : "Rødfisk",
+      "boat_type" : "Kajak 2",
+      "num_trips" : 24
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "boatname" : "Rødspætte",
+      "num_trips" : 22,
+      "distance" : "558.8000",
+      "rank" : 107
+   },
+   {
+      "distance" : "471.8000",
+      "rank" : 108,
+      "boatname" : "Røskva",
+      "boat_type" : "Inrigger 2+",
+      "num_trips" : 21
+   },
+   {
+      "num_trips" : 27,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Sardin",
+      "rank" : 109,
+      "distance" : "655.3000"
+   },
+   {
+      "distance" : "622.4000",
+      "rank" : 110,
+      "boat_type" : "Sculler 2x / 2-",
+      "boatname" : "Sct. Cathrine",
+      "num_trips" : 28
+   },
+   {
+      "boatname" : "Sif",
+      "boat_type" : "Inrigger 2+",
+      "num_trips" : 25,
+      "distance" : "604.1000",
+      "rank" : 111
+   },
+   {
+      "rank" : 112,
+      "distance" : "921.2000",
+      "num_trips" : 32,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Sigma"
+   },
+   {
+      "boatname" : "Sild",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 28,
+      "distance" : "667.7000",
+      "rank" : 113
+   },
+   {
+      "boatname" : "Sildehaj",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 22,
+      "distance" : "583.3000",
+      "rank" : 114
+   },
+   {
+      "num_trips" : 25,
+      "boat_type" : "Inrigger 4+",
+      "boatname" : "Skadi",
+      "rank" : 115,
+      "distance" : "626.1000"
+   },
+   {
+      "rank" : 116,
+      "distance" : "497.7000",
+      "num_trips" : 22,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Skalle"
+   },
+   {
+      "distance" : "619.9000",
+      "rank" : 117,
+      "boat_type" : "Gig 2x",
+      "boatname" : "Skinfaxe",
+      "num_trips" : 26
+   },
+   {
+      "boatname" : "Sleipner",
+      "boat_type" : "8+",
+      "num_trips" : 24,
+      "distance" : "639.7000",
+      "rank" : 118
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "boatname" : "Snapper",
+      "num_trips" : 23,
+      "distance" : "558.2000",
+      "rank" : 119
+   },
+   {
+      "boat_type" : "Kajak 2",
+      "boatname" : "Snog",
+      "num_trips" : 32,
+      "distance" : "976.7000",
+      "rank" : 120
+   },
+   {
+      "distance" : "694.1000",
+      "rank" : 121,
+      "boatname" : "Stenbider",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 27
+   },
+   {
+      "distance" : "585.9000",
+      "rank" : 122,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Stør",
+      "num_trips" : 20
+   },
+   {
+      "num_trips" : 35,
+      "boat_type" : "Sculler 2x / 2-",
+      "boatname" : "Supermax Lady",
+      "rank" : 123,
+      "distance" : "1129.8000"
+   },
+   {
+      "boat_type" : "Gig 2x",
+      "boatname" : "Svane",
+      "num_trips" : 21,
+      "distance" : "467.6000",
+      "rank" : 124
+   },
+   {
+      "rank" : 125,
+      "distance" : "624.1000",
+      "num_trips" : 27,
+      "boat_type" : "Inrigger 2+",
+      "boatname" : "Svante"
+   },
+   {
+      "distance" : "479.1000",
+      "rank" : 126,
+      "boat_type" : "Svava 1x",
+      "boatname" : "Svava",
+      "num_trips" : 20
+   },
+   {
+      "boatname" : "Svip",
+      "boat_type" : "Sculler 1x",
+      "num_trips" : 22,
+      "distance" : "547.1000",
+      "rank" : 127
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "boatname" : "SøElefant",
+      "num_trips" : 26,
+      "distance" : "777.1000",
+      "rank" : 128
+   },
+   {
+      "distance" : "632.5000",
+      "rank" : 129,
+      "boatname" : "Søløve",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 22
+   },
+   {
+      "distance" : "750.3000",
+      "rank" : 130,
+      "boatname" : "Tangloppe",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 30
+   },
+   {
+      "num_trips" : 14,
+      "boat_type" : "Sculler 1x",
+      "boatname" : "Tau",
+      "rank" : 131,
+      "distance" : "445.5000"
+   },
+   {
+      "distance" : "593.3000",
+      "rank" : 132,
+      "boatname" : "Teta",
+      "boat_type" : "Sculler 1x",
+      "num_trips" : 24
+   },
+   {
+      "rank" : 133,
+      "distance" : "577.4000",
+      "num_trips" : 23,
+      "boat_type" : "Inrigger 4+",
+      "boatname" : "Thor"
+   },
+   {
+      "distance" : "674.6000",
+      "rank" : 134,
+      "boatname" : "Tjalfe",
+      "boat_type" : "Inrigger 2+",
+      "num_trips" : 25
+   },
+   {
+      "boat_type" : "Motorbåde",
+      "boatname" : "Togo 10",
+      "num_trips" : 25,
+      "distance" : "652.4000",
+      "rank" : 135
+   },
+   {
+      "rank" : 136,
+      "distance" : "687.9000",
+      "num_trips" : 27,
+      "boatname" : "Togo 7",
+      "boat_type" : "Motorbåde"
+   },
+   {
+      "rank" : 137,
+      "distance" : "878.7000",
+      "num_trips" : 27,
+      "boatname" : "Togo 8",
+      "boat_type" : "Motorbåde"
+   },
+   {
+      "num_trips" : 31,
+      "boat_type" : "Motorbåde",
+      "boatname" : "Togo 9",
+      "rank" : 138,
+      "distance" : "719.3000"
+   },
+   {
+      "boat_type" : "Kajak 1",
+      "boatname" : "Torsk",
+      "num_trips" : 26,
+      "distance" : "756.3000",
+      "rank" : 139
+   },
+   {
+      "boatname" : "Totu",
+      "boat_type" : "Sculler 1x",
+      "num_trips" : 22,
+      "distance" : "608.5000",
+      "rank" : 140
+   },
+   {
+      "distance" : "792.4000",
+      "rank" : 141,
+      "boatname" : "Triton",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 35
+   },
+   {
+      "boatname" : "Tuto",
+      "boat_type" : "Sculler 1x",
+      "num_trips" : 21,
+      "distance" : "489.4000",
+      "rank" : 142
+   },
+   {
+      "boatname" : "Tyr",
+      "boat_type" : "Inrigger 2+",
+      "num_trips" : 1,
+      "distance" : "1.6000",
+      "rank" : 143
+   },
+   {
+      "rank" : 144,
+      "distance" : "665.1000",
+      "num_trips" : 28,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Ulk"
+   },
+   {
+      "num_trips" : 25,
+      "boatname" : "Ull",
+      "boat_type" : "Inrigger 2+",
+      "rank" : 145,
+      "distance" : "594.3000"
+   },
+   {
+      "rank" : 146,
+      "distance" : "911.6000",
+      "num_trips" : 34,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Urd"
+   },
+   {
+      "boatname" : "Us",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 20,
+      "distance" : "559.7000",
+      "rank" : 147
+   },
+   {
+      "distance" : "652.7000",
+      "rank" : 148,
+      "boatname" : "Valborg",
+      "boat_type" : "Kajak 1",
+      "num_trips" : 26
+   },
+   {
+      "rank" : 149,
+      "distance" : "446.2000",
+      "num_trips" : 17,
+      "boat_type" : "Inrigger 4+",
+      "boatname" : "Vidar"
+   },
+   {
+      "boat_type" : "Inrigger 4+",
+      "boatname" : "Vile",
+      "num_trips" : 32,
+      "distance" : "852.5000",
+      "rank" : 150
+   },
+   {
+      "num_trips" : 17,
+      "boatname" : "Vips",
+      "boat_type" : "Sculler 1x",
+      "rank" : 151,
+      "distance" : "445.9000"
+   },
+   {
+      "num_trips" : 23,
+      "boatname" : "VisioSign",
+      "boat_type" : "Svava 1x",
+      "rank" : 152,
+      "distance" : "362.0000"
+   },
+   {
+      "num_trips" : 27,
+      "boatname" : "Ydun",
+      "boat_type" : "Inrigger 4+",
+      "rank" : 153,
+      "distance" : "696.7000"
+   },
+   {
+      "rank" : 154,
+      "distance" : "609.8000",
+      "num_trips" : 21,
+      "boat_type" : "Kajak 2",
+      "boatname" : "Ål"
+   },
+   {
+      "rank" : 155,
+      "distance" : "700.7000",
+      "num_trips" : 27,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Øresvin"
+   },
+   {
+      "distance" : "699.4000",
+      "rank" : 156,
+      "boat_type" : "Kajak 1",
+      "boatname" : "Ørred",
+      "num_trips" : 25
+   }
+]

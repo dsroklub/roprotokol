@@ -1,15 +1,8 @@
 <?php
-ini_set('default_charset', 'utf-8');
-if(!isset($_SESSION))  session_start();
-$rodb=new mysqli("localhost","roprotokol","","roprotokol");
-if ($rodb->connect_errno) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-}
-if (!$rodb->set_charset("utf8")) {
-    printf("Error loading character set utf8: %s\n", $rodb->error);
-}
-    $s="SELECT ID as id, FK_BådID as boat_id, start, slut as end, Beskrivelse as description FROM Reservation WHERE slut > Now()";
+include("inc/common.php");
+header('Content-type: application/json');
+
+$s="SELECT ID as id, FK_BådID as boat_id, start, slut as end, Beskrivelse as description FROM Reservation WHERE slut > Now()";
 // for debug    $s="SELECT ID as id, FK_BådID as boat_id, start, slut as end, Beskrivelse as description FROM Reservation WHERE slut > '2013-08-30'";
 
 

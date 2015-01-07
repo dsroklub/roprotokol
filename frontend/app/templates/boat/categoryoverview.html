@@ -10,7 +10,11 @@
         <tr ng-repeat="boat in selectedboats">
             <td><a href="#/boat/checkout/{{boat.id}}">{{boat.name}}</a></td>
             <td>{{boat.location|nodsr}} {{boat.placement}}</td>
-            <td>{{boat.status}}</td>
+            <td><span ng-show="{{boat.trip}}">På vandet</span>
+                <span ng-show="{{boat.damage==3}}">Svært skadet</span>
+                <span ng-show="{{boat.damage==2}}">Middel skadet</span>
+                <span ng-show="{{boat.damage==1}}">Let skadet</span>
+            </td>
         </tr>
     </tbody>
 </table>

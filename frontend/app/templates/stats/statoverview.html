@@ -1,16 +1,29 @@
-<div class="rowstats" ></div>
+<div class="statcategories" ng-include="'templates/stats/_statcategories.html'"></div>
 
-<table class="statlist">
-    <thead>
-        <tr>
-            <th>nr</th><th>medlemsnummer </th> <th>Roer </th> <th>Distance</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="stat in stats">
-            <td>{{stat.rank}}</td><td><a href="#/rower/{{stat.id}}">{{stat.id}}</a></td> <td>{{stat.firstname}} {{stat.lastname}}</td> <td>{{stat.distance/1000}} </td><td>{{foo}}</td>
-        </tr>
-    </tbody>
+<button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
+<p><strong>Filter:</strong> {{tableParams.filter()}}
+<p><strong>cat:</strong> {{tableParams.rowcategory|json}}
+<div>
+<table ng-table="tableParams" class="statlist" show-filter="true">
+  <thead>
+    <tr>
+      <th class="text-center sortable"
+	ng-class="{'sort-asc': tableParams.isSortBy('rank', 'asc'),'sort-desc': tableParams.isSortBy('rank', 'desc')}"
+	ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr</th>
+      <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlemsnummer</th>
+      <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer</th>
+      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}"   ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="stat in $data" ng-class-odd="'oddstat'"> 
+      <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
+      <td data-title="'Medlemsnummer'" sortable="'memberid'"><a href="#/rower/{{stat.id}}">{{stat.id}}</a> </td>
+      <td>{{stat.firstname}} {{stat.lastname}}</td>
+      <td>{{(stat.distance/1000).toFixed(1)}}</td></td>
+    </tr>
+  </tbody>
 </table>
-
-<pre> {{boat_category_id}} </pre>
+</div>
+<!--pre> {{boat_category_id}} </pre-->

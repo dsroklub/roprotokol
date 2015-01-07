@@ -1,8 +1,6 @@
 <?php
-ini_set('default_charset', 'utf-8');
-
-if(!isset($_SESSION))  session_start();
-$rodb=new mysqli("localhost","roprotokol","","roprotokol");
+include("inc/common.php");
+header('Content-type: application/json');
 
 if ($rodb->connect_errno) {
     printf("Connect failed: %s\n", mysqli_connect_error());
@@ -13,9 +11,35 @@ if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
 }
 
-    $s="SELECT BådID as id,Båd.Navn as name,Gruppe.Pladser as spaces,Båd.Beskrivelse as description,Gruppe.Navn as category
-    FROM Båd,Gruppe
-    WHERE GruppeID=FK_GruppeID";
+$s="SELECT BådID as id,
+           Båd.Navn as name,
+           Gruppe.Pladser as spaces,
+           Båd.Beskrivelse as description,
+           Gruppe.Navn as category,
+           BådKategori.Navn as boattype,
+           Båd.Location as location,
+           Båd.Placement as placement,
+           COALESCE(MAX(Skade.Grad),0) as damage,
+           MAX(Trip.TripID) as trip,
+           MAX(Trip.OutTime) as outtime,
+           MAX(Trip.ExpectedIn) as expected_in
+    FROM Båd
+         INNER JOIN Gruppe ON (GruppeID=FK_GruppeID)
+         INNER JOIN BådKategori ON (BådKategori.BådKategoriID = Gruppe.FK_BådKategoriID)
+         LEFT OUTER JOIN Skade ON (Skade.FK_BådID=Båd.BådID AND Skade.Repareret IS NULL)
+         LEFT OUTER JOIN Trip ON (Trip.BoatID = Båd.BådID AND Trip.Intime IS NULL)
+    WHERE 
+         Båd.Decommissioned IS NULL
+    GROUP BY
+       BådID,
+       Båd.Navn,
+       Gruppe.Pladser,
+       Båd.Beskrivelse,
+       Gruppe.Navn,
+       Båd.Location,
+       Båd.Placement
+    ";
+
 
 
 // echo $s;
