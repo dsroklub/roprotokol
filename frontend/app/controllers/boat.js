@@ -23,13 +23,14 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           // TODO: Give error and redirect back to category list
         });
         
+        // Create initial data for checkout
         $scope.checkout = {
 	          'boat' : $scope.selectedboat,
               'destination': $scope.destinations[0],
               'starttime': now,
               // TODO: Calculate this based on the destination and triptype
               // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
-              'expectedtime': new Date(now.getTime() + 60000 * 60),
+              'expectedtime': now,
               'endtime': '',
               'triptype': $scope.triptypes[0],
               'rowers': []
@@ -81,6 +82,10 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       return typeof(val) === 'string' && val.length > 3;
     };
 
+    $scope.updateExpectedTime = function (val) {
+        
+    };
+  
     $scope.clearDestination = function () {
       $scope.checkout.destination = undefined;
     };
@@ -100,7 +105,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       if(rower) {
         rowers[index] = rower;
       }
-    };
+    };  
   
     $scope.createtrip = function (data) {
       // TODO: Check if all rowers have ID and don't allow to start trip before it's done

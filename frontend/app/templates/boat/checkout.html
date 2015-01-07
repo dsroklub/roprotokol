@@ -26,11 +26,11 @@
             <label for="checkout_destination">Destination</label>
           </td>
           <td>
-            <ui-select class="checkout_destination" ng-model="checkout.destination"ng-disabled="disabled">
+            <ui-select class="checkout_destination" ng-model="checkout.destination" style="min-width:400px">
               <ui-select-match placeholder="Vælg Destination">{{$select.selected.name}}</ui-select-match>
               <ui-select-choices repeat="destination in destinations | filter: $select.search">
                 <span ng-bind-html="destination.name | highlight: $select.search"></span>
-                (<small ng-bind-html="destination.distance | mtokm | highlight: $select.search"></small>km, 2t)
+                (<small ng-bind-html="destination.distance | mtokm : $select.search"></small>km, <small ng-bind-html="destination.duration"></small>t)
               </ui-select-choices>
             </ui-select>
             <input maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance" required />km
