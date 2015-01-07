@@ -23,8 +23,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           // TODO: Give error and redirect back to category list
         });
         
-          $scope.checkout = {
-	      'boat' : $scope.selectedboat,
+        $scope.checkout = {
+	          'boat' : $scope.selectedboat,
               'destination': $scope.destinations[0],
               'starttime': now,
               // TODO: Calculate this based on the destination and triptype
