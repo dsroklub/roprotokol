@@ -10,9 +10,10 @@ RENAME TABLE LåsteBåde TO LockedBoat;
 RENAME TABLE Medlem TO Member;
 RENAME TABLE Postnr TO Zipcode;
 RENAME TABLE Skade TO Damage;
+RENAME TABLE TurType TO TripType;
 
 
-ALTER TABLE Member CHANGE MedlemID id INT;
+ALTER TABLE Member CHANGE MedlemID id INT AUTO_INCREMENT;
 ALTER TABLE Member CHANGE Medlemsnr MemberID INT;
 
 ALTER TABLE Member CHANGE Fornavn FirstName VARCHAR(100);
@@ -37,7 +38,7 @@ ALTER TABLE BoatType CHANGE OprettetDato Created DATETIME;
 ALTER TABLE BoatType CHANGE Redigeret Updated DATETIME;
 ALTER TABLE BoatType CHANGE Initialer Initials CHAR(10);
 
-ALTER TABLE Boat CHANGE BoatID id INT;
+ALTER TABLE Boat CHANGE BådID id INT AUTO_INCREMENT;
 ALTER TABLE Boat CHANGE Navn Name VARCHAR(100);
 ALTER TABLE Boat CHANGE FK_GruppeID BoatType INT;
 ALTER TABLE Boat CHANGE Beskrivelse Description VARCHAR(1000);
@@ -57,12 +58,13 @@ ALTER TABLE Damage CHANGE SkadeID id INT;
 ALTER TABLE Damage CHANGE FK_BådID Boat INT;
 ALTER TABLE Damage CHANGE FK_Ansvarlig ResponsibleMember INT;
 ALTER TABLE Damage CHANGE Ødelagt Damaged DATETIME;
-ALTER TABLE Damage CHANGE FK_Reperatør RepairerMember;
+ALTER TABLE Damage CHANGE FK_Reperatør RepairerMember INT;
 ALTER TABLE Damage CHANGE Grad Degree INT;
 ALTER TABLE Damage CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE Damage CHANGE OprettetDato Created DATETIME;
 ALTER TABLE Damage CHANGE RedigeretDato Updated DATETIME;
 ALTER TABLE Damage CHANGE Initialer Initials CHAR(10);
+ALTER TABLE Damage CHANGE Repareret Repaired DATETIME;
 
 ALTER TABLE Destination CHANGE DestID id INT;
 ALTER TABLE Destination CHANGE Navn Name VARCHAR(100);
@@ -103,7 +105,7 @@ ALTER TABLE Kayak_usage CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE LockedBoat CHANGE BoatID Boat INT;
 ALTER TABLE LockedBoat CHANGE KlientNavn ClientName VARCHAR(100);
 
-ALTER TABLE Reservation CHANGE ID INT id;
+ALTER TABLE Reservation CHANGE ID id INT;
 ALTER TABLE Reservation CHANGE FK_BådID Boat INT;
 ALTER TABLE Reservation CHANGE Start Begin DATETIME;
 ALTER TABLE Reservation CHANGE Slut End DATETIME;
@@ -115,6 +117,12 @@ ALTER TABLE Reservation CHANGE OprettetDato  Created DATETIME;
 ALTER TABLE Reservation CHANGE RedigeretDato  Updated DATETIME;
 ALTER TABLE Reservation CHANGE Initialer  Initials CHAR(10);
 
-
+ALTER TABLE TripType CHANGE TurTypeID id INT;
+ALTER TABLE TripType CHANGE Navn Name VARCHAR(100);
+ALTER TABLE TripType CHANGE Beskrivelse Description VARCHAR(1000);
+ALTER TABLE TripType CHANGE OprettetDato Created DATETIME;
+ALTER TABLE TripType CHANGE RedigeretDato Updated DATETIME;
+ALTER TABLE TripType CHANGE Initialer Initials CHAR(10);
+ALTER TABLE TripType CHANGE Aktiv Active INT;
 
 -- TODO: BoatConfiguration, Comment, 

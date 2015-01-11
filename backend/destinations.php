@@ -2,7 +2,7 @@
 include("inc/common.php");
 header('Content-type: application/json');
 
-$s="SELECT DestID as id, Navn as name, Meter as distance, Gennemsnitlig_varighed_Normal AS duration, Gennemsnitlig_varighed_Instruktion AS duration_instruction
+$s="SELECT id, Name as name, Meter as distance, ExpectedDurationNormal AS duration,  ExpectedDurationInstruction AS duration_instruction
     FROM Destination ORDER BY name";
 
 
