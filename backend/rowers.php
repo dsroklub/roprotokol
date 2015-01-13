@@ -3,8 +3,8 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$s="SELECT Member.MemberID as id,CONCAT(FirstName,' ',LastName) as name,Initials as initials, GROUP_CONCAT(MemberRight,':§§:',argument SEPARATOR '££') as rights".
-    "  FROM Member,MemberRights Where MemberRights.MemberID=Member.MemberID  GROUP BY Member.MemberID";
+$s="SELECT Member.MemberID AS id,CONCAT(FirstName,' ',LastName) AS name,Initials AS initials, GROUP_CONCAT(MemberRight,':§§:',argument SEPARATOR '££') AS rights".
+    "  FROM Member,MemberRights WHERE MemberRights.MemberID=Member.MemberID  GROUP BY Member.MemberID";
 
 
 // echo $s."<br>";
