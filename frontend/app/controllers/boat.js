@@ -4,8 +4,6 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     DatabaseService.init().then(function () {
       
       // Load Category Overview
-      $scope.destinations = DatabaseService.getDestinations();
-      $scope.triptypes = DatabaseService.getTripTypes();
       $scope.boatcategories = DatabaseService.getBoatCategories();
 
       // Load selected boats based on boat category
@@ -16,6 +14,9 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       $scope.selectedboat = DatabaseService.getBoatWithId(boat_id);
       if ($scope.selectedboat !== undefined) {
         var now = new Date();
+        
+        $scope.destinations = DatabaseService.getDestinations();
+        $scope.triptypes = DatabaseService.getTripTypes();
         
         // Lock boat for the next 30 seconds
         DatabaseService.lockBoatWithId($routeParams.boat_id, new Date(now.getTime() + 30000), function() {

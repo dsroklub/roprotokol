@@ -7,7 +7,10 @@
       "duration" : "0.00"
    },
    {
-      "distance" : "15000",
+      "distance" : {
+        "DSR": 15000,
+        "Nordhavn": 25000
+      },
       "duration_instruction" : "2.60",
       "name" : "Bellevue",
       "id" : "1",
