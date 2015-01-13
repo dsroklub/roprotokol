@@ -35,12 +35,14 @@ ALTER TABLE BoatType CHANGE Pladser Seatcount INT;
 ALTER TABLE BoatType CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE BoatType CHANGE FK_BådKategoriID Category INT;
 ALTER TABLE BoatType CHANGE OprettetDato Created DATETIME;
-ALTER TABLE BoatType CHANGE Redigeret Updated DATETIME;
+ALTER TABLE BoatType CHANGE RedigeretDato Updated DATETIME;
 ALTER TABLE BoatType CHANGE Initialer Initials CHAR(10);
+ALTER TABLE BoatType DROP COLUMN GruppeNr;
 
 ALTER TABLE Boat CHANGE BådID id INT AUTO_INCREMENT;
 ALTER TABLE Boat CHANGE Navn Name VARCHAR(100);
 ALTER TABLE Boat CHANGE FK_GruppeID BoatType INT;
+ALTER TABLE Boat CHANGE Type KayakModel INT;
 ALTER TABLE Boat CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE Boat CHANGE OprettetDato Created DATETIME;
 ALTER TABLE Boat CHANGE RedigeretDato Updated DATETIME;
@@ -126,3 +128,5 @@ ALTER TABLE TripType CHANGE Initialer Initials CHAR(10);
 ALTER TABLE TripType CHANGE Aktiv Active INT;
 
 -- TODO: BoatConfiguration, Comment, 
+DELETE FROM Destination WHERE Meter=0;
+UPDATE Destination SET Name = SUBSTRING_INDEX(Name,"(",1);
