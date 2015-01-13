@@ -36,6 +36,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
               'rowers': []
         };
         
+        debugger;
+        
         // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
         // TODO: Show wrench next to name in checkout view
         // TODO: Don't default on triptype and block checkout

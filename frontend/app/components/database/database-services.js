@@ -179,10 +179,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   };
   
-  this.getDestinations = function (placement) {
-    if(placement !== undefined) {
+  this.getDestinations = function (location) {
+    if(location !== undefined) {
       return destinations.filter(function(element){
-        return placement in element['distance']['distance'];
+        return location in element['distance'];
       });
     } else {
       return destinations;

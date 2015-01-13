@@ -11,17 +11,19 @@
         "DSR": 15000,
         "Nordhavn": 25000
       },
-      "duration_instruction" : "2.60",
+      "duration" : {
+        "Instruktion" : 2.60,
+        "normal" : 2.50
+      },
       "name" : "Bellevue",
-      "id" : "1",
-      "duration" : "2.50"
+      "id" : 1
    },
    {
-      "duration_instruction" : "2.00",
-      "distance" : "7000",
-      "duration" : "1.80",
+      "duration_instruction" : 2.00,
+      "distance" : 7000,
+      "duration" : 1.80,
       "name" : "Charlottenlund",
-      "id" : "2"
+      "id" : 2
    },
    {
       "duration" : "3.60",

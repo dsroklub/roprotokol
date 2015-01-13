@@ -46,17 +46,22 @@ button:hover {
 button i {
     margin-right: 5pt;
 }
-button.red:hover {   
+button.red {   
     border: 1px solid #FF6C60;
     color: #FF6C60;
 }
-button.green:hover {   
+button.green {   
     border: 1px solid #3ECBBF;
     color: #3ECBBF;
 }
-button.yellow:hover {
+button.yellow {
     color: #f0ce4e;
     border: 1px solid #f0ce4e;
+}
+
+button#createtrip_button[disabled] {
+  color: gray;
+  border: 1px solid gray;
 }
 
 /* Custom */
@@ -261,4 +266,8 @@ boatlist thead th:last-child {
 }
 .stattypesmenu ul {
     background: white;
+}
+
+.error {
+  color: red;
 }
