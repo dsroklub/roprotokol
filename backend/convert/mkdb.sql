@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS Båd (
     RedigeretDato DATETIME,
     Initialer CHAR(10),
     MotionPlus VARCHAR(100),
-    BoatType VARCHAR(100), -- FIXME was TYPE
+    Type VARCHAR(100), -- FIXME was TYPE
     Anvendelse VARCHAR(100),
     Niveau VARCHAR(100),
     Location VARCHAR(100),

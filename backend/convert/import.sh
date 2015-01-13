@@ -73,8 +73,10 @@ elif [[ $arg = "real" ]]; then
     $DBCMD -e "INSERT INTO TripMember (TripID, Season,Seat, MemberID,MemberName,CreatedDate,EditDate,Initials) \
     SELECT   FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM TurDeltager"
 #    $DBCMD -e "DROP TABLE Tur"
-#    $DBCMD -e "DROP TABLE TurDeltager"
+    #    $DBCMD -e "DROP TABLE TurDeltager"
+    echo "konverting rights"
     $DBCMD < $SCRIPT_PATH/konvertRights.sql
+    echo "renaming"
     $DBCMD < $SCRIPT_PATH/rename.sql
 
 elif [[ $arg = "empty" ]]; then
