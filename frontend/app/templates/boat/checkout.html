@@ -17,8 +17,8 @@
 </script>
 
 <div class="checkout-form">
-    <h2>Udskrivning af båd: {{selectedboat.name}}</h2>
-  <form novalidate>
+  <h2>Udskrivning af båd: {{selectedboat.name}}</h2>
+  <form name="checkoutForm" novalidate>
     <table>
       <tbody>
         <tr>
@@ -83,11 +83,14 @@
           <label for="checkout_rower{{$index}}">{{rower.id}}</label>
         </td>
         <td>
-          <input id="checkout_rower{{$index}}" type="text" ng-model="checkout.rowers[$index]" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" />
-          <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
-            <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
-            <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>
-          </span>
+          <ng-form name="rowerFieldForm">
+            <input id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" required />
+            <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
+              <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
+              <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>
+            </span>
+            <span class="error" ng-show="rowerFieldForm.name.$error.required"> Required!</span><br>
+          </ng-form>
         </td>
       </tr>
       <tr>
