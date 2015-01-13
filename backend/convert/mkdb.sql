@@ -57,13 +57,13 @@ CREATE TABLE IF NOT EXISTS Båd (
     RedigeretDato DATETIME,
     Initialer CHAR(10),
     MotionPlus VARCHAR(100),
-    Type VARCHAR(100), -- FIXME was TYPE
+    BoatType VARCHAR(100), -- FIXME was TYPE
     Anvendelse VARCHAR(100),
     Niveau VARCHAR(100),
     Location VARCHAR(100),
     Placement VARCHAR(100),
     Decommissioned DATETIME,
-    PRIMARY KEY BådID
+    PRIMARY KEY (BådID)
 );
 
 -- CREATE INDEX boat on Båd(FK_GruppeID);
@@ -226,7 +226,6 @@ CREATE TABLE IF NOT EXISTS  Medlem (
 );
 CREATE INDEX  medlemnrix on Medlem(Medlemsnr);
 
-
 CREATE TABLE IF NOT EXISTS  Motionstatus ( -- FIXME was motion+status
        MotionstatusID INT PRIMARY KEY,
        Motionstatus VARCHAR(100)
@@ -236,7 +235,7 @@ CREATE TABLE IF NOT EXISTS  Motionstatus ( -- FIXME was motion+status
 CREATE TABLE IF NOT EXISTS  Zipcode (
        Postnr INT PRIMARY KEY,
        District CHAR(100),
-       COUNTRY CHAR(2);
+       COUNTRY CHAR(2)
 );
 
 CREATE TABLE IF NOT EXISTS Reservation (
