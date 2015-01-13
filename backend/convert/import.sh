@@ -35,6 +35,7 @@ echo do trip rights
 
 if [[ $arg = "fake" ]]; then
     echo "Generating fake data..."
+    $DBCMD < $SCRIPT_PATH/rename.sql
     $SCRIPT_PATH/../tests/fakedata.py
 elif [[ $arg = "real" ]]; then
     echo "Using real data..."
