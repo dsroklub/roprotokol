@@ -23,7 +23,7 @@ else:
 
 cur = db.cursor() 
 
-#cur.execute("SELECT * FROM Medlem")
+#cur.execute("SELECT * FROM Member")
 
 destinations=["No dest","Bellevue","Charlottenlund","Flakfortet","Hellerup","Kanalen","Knud","Langelinie","Margretheholms havn","Opfyldningen nord","Rungsted","Skodsborg","Skovshoved","Slusen","Strandmøllen",
               "Svanemøllehavnen","Tuborg havn","Tårbæk","Vedbæk","Langt Væk","London"];
@@ -32,7 +32,7 @@ fnames=["Agnes","Agnete","Alberte","Amalie","Amanda","Andrea","Ane","Anette","An
 
 lnames=["Jensen","Nielsen","Hansen","Pedersen","Andersen","Christensen","Larsen","Sørensen","Rasmussen","Jørgensen","Petersen","Madsen","Kristensen","Olsen","Thomsen","Christiansen","Poulsen","Johansen","Møller","Mortensen","Bendtsen","Wilhelmsen"]
 
-cur.execute("DELETE FROM Medlem")
+cur.execute("DELETE FROM Member")
 cur.execute("DELETE FROM TripMember")
 cur.execute("DELETE FROM Trip")
 cur.execute("DELETE FROM MemberRights")
@@ -46,7 +46,7 @@ for fid in range(1, 1000) :
     mid=str(fid+2000)
     if (rndrights<10):
         mid='k'+str(fid)
-    cur.execute("INSERT INTO Medlem (MedlemID, Medlemsnr, Fornavn, Efternavn) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
+    cur.execute("INSERT INTO Member (id, MemberID, FirstName, LastName) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
     if (rndrights>15):
         print "INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2014-12-24","");'
         cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2014-12-24","");')
@@ -69,7 +69,7 @@ for fid in range(1, 1000) :
         cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"notes","2013-12-24","der er noget lumsk med ham");')
         
     m[fid]=fname+' A. '+lname
-    cur.execute("SELECT BådID, Pladser FROM Båd")
+    cur.execute("SELECT Boat.id, Seatcount FROM Boat,BoatType Where BoatType.id=Boat.BoatType;")
 
 boats=cur.fetchall()
 
