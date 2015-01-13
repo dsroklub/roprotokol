@@ -11,33 +11,33 @@ if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
 }
 
-$s="SELECT BådID as id,
-           Båd.Navn as name,
-           Gruppe.Pladser as spaces,
-           Båd.Beskrivelse as description,
-           Gruppe.Navn as category,
-           BådKategori.Navn as boattype,
-           Båd.Location as location,
-           Båd.Placement as placement,
-           COALESCE(MAX(Skade.Grad),0) as damage,
+$s="SELECT Boat.id,
+           Boat.Name as name,
+           BoatType.Seatcount as spaces,
+           Boat.Description as description,
+           BoatType.Name as category,
+           BoatCategory.Name as boattype,
+           Boat.Location as location,
+           Boat.Placement as placement,
+           COALESCE(MAX(Damage.Degree),0) as damage,
            MAX(Trip.TripID) as trip,
            MAX(Trip.OutTime) as outtime,
            MAX(Trip.ExpectedIn) as expected_in
-    FROM Båd
-         INNER JOIN Gruppe ON (GruppeID=FK_GruppeID)
-         INNER JOIN BådKategori ON (BådKategori.BådKategoriID = Gruppe.FK_BådKategoriID)
-         LEFT OUTER JOIN Skade ON (Skade.FK_BådID=Båd.BådID AND Skade.Repareret IS NULL)
-         LEFT OUTER JOIN Trip ON (Trip.BoatID = Båd.BådID AND Trip.Intime IS NULL)
+    FROM Boat
+         INNER JOIN BoatType ON (BoatType.id=BoatType)
+         INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
+         LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
+         LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
     WHERE 
-         Båd.Decommissioned IS NULL
+         Boat.Decommissioned IS NULL
     GROUP BY
-       BådID,
-       Båd.Navn,
-       Gruppe.Pladser,
-       Båd.Beskrivelse,
-       Gruppe.Navn,
-       Båd.Location,
-       Båd.Placement
+       Boat.id,
+       Boat.Name,
+       BoatType.Seatcount,
+       Boat.Description,
+       BoatType.Name,
+       Boat.Location,
+       Boat.Placement
     ";
 
 

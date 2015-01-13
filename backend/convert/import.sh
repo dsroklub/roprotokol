@@ -74,6 +74,8 @@ elif [[ $arg = "real" ]]; then
 #    $DBCMD -e "DROP TABLE Tur"
 #    $DBCMD -e "DROP TABLE TurDeltager"
     $DBCMD < $SCRIPT_PATH/konvertRights.sql
+    $DBCMD < $SCRIPT_PATH/rename.sql
+
 elif [[ $arg = "empty" ]]; then
     echo no rower data
 else
