@@ -29,7 +29,7 @@ if (isset($_GET["boattype"])) {
     FROM BoatType,Trip,TripMember,Boat,Member 
     WHERE 
       Trip.TripID = TripMember.TripID AND
-      Member.MemberID = TripMember.MemberID AND
+      Member.id = TripMember.MemberID AND
       Boat.id = Trip.BoatID AND     
       BoatType.id = Boat.BoatType AND
       (((Year(OutTime))=".$season.") " . $boatclause .")".
@@ -37,7 +37,7 @@ if (isset($_GET["boattype"])) {
     ORDER BY distance desc";
 
 
-// echo $s;
+//echo $s;
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
      $result= $stmt->get_result();
