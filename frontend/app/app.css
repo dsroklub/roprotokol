@@ -146,10 +146,10 @@ button.yellow:hover {
     font-weight: 400;
     border-right: 1px solid white;
 }
-boatlist thread th:first-child {
+boatlist thead th:first-child {
     border-radius: 5px 0 0 0;
 }
-boatlist thread th:last-child {
+boatlist thead th:last-child {
     border-radius: 0 5px 0 0 0;
     border: 0;
 }
