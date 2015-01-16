@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Tur (
        Kommentar VARCHAR(1000),
        OprettetDato DATE,
        RedigeretDato DATE,
-       Initialer CHAR(10),
+       Initialer VARCHAR(10),
        DESTID INT
 );
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS Trip (
        Comment VARCHAR(1000),
        CreatedDate DATE,
        EditDate DATE,
-       Initials CHAR(10),
+       Initials VARCHAR(10),
        DESTID INT,
        PRIMARY KEY   (TripID)
        -- FIXME Season,TripID is the primary key in DSR DB, but then AUTO_INCREMENT does not work in MYSQL
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Båd (
     Beskrivelse VARCHAR(100),
     OprettetDato DATETIME,
     RedigeretDato DATETIME,
-    Initialer CHAR(10),
+    Initialer VARCHAR(10),
     MotionPlus VARCHAR(100),
     Type VARCHAR(100), -- FIXME was TYPE
     Anvendelse VARCHAR(100),
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS Bådindstilling (
     OprettetDato DATETIME,
     RedigeretDato DATETIME,
     Kommentar VARCHAR(1000),
-    Initialer CHAR(10)
+    Initialer VARCHAR(10)
 );
 
 
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS BådKategori (
        Beskrivelse VARCHAR(1000),
        OprettetDato DATETIME,
        RedigeretDato DATETIME,
-       Initialer CHAR(10)
+       Initialer VARCHAR(10)
 );
 
 CREATE TABLE IF NOT EXISTS Fejl_system (
@@ -181,14 +181,14 @@ CREATE TABLE IF NOT EXISTS Gruppe (
        FK_BådKategoriID INT,
        OprettetDato DATETIME,
        RedigeretDato DATETIME,
-       Initialer CHAR(10)
+       Initialer VARCHAR(10)
 );
 CREATE INDEX gruppenavn on Gruppe(Navn);
 
 
 CREATE TABLE IF NOT EXISTS  Kajak_typer (
        ID INT PRIMARY KEY,
-       Typenavn CHAR(100) UNIQUE NOT NULL
+       Typenavn VARCHAR(100) UNIQUE NOT NULL
 );
 
 
@@ -201,28 +201,28 @@ CREATE TABLE IF NOT EXISTS Kommentar (
 );
 
 
-CREATE TABLE IF NOT EXISTS LockedBoats (
+CREATE TABLE IF NOT EXISTS LåsteBåde (
        BoatID INT PRIMARY KEY,
-       Client VARCHAR(100),
+       KlientNavn VARCHAR(100),
        locktimeout INT -- type guessed
 );
 
 CREATE TABLE IF NOT EXISTS  Medlem (
        MedlemID INT PRIMARY KEY,
-       Medlemsnr CHAR(10) NOT NULL,  -- FIXME UNIQUE: 4419 Frederik Thuesen
+       Medlemsnr VARCHAR(10) NOT NULL,  -- FIXME UNIQUE: 4419 Frederik Thuesen
        Fornavn VARCHAR(100),
        Efternavn VARCHAR(100),
        Adresse VARCHAR(100),
        FK_Postnr INT,
-       Telefon1 CHAR(20),
-       Telefon2 CHAR(20),
+       Telefon1 VARCHAR(20),
+       Telefon2 VARCHAR(20),
        Fødselsdag DATETIME,
        Password VARCHAR(100),
        Aktiv INT,
        Rettigheder VARCHAR(100),
        OprettetDato DATE,
        RedigeretDato DATE,
-       Initialer CHAR(10)
+       Initialer VARCHAR(10)
 );
 CREATE INDEX  medlemnrix on Medlem(Medlemsnr);
 
@@ -232,10 +232,10 @@ CREATE TABLE IF NOT EXISTS  Motionstatus ( -- FIXME was motion+status
 
 );
 
-CREATE TABLE IF NOT EXISTS  Zipcode (
+CREATE TABLE IF NOT EXISTS  Postnr (
        Postnr INT PRIMARY KEY,
-       District CHAR(100),
-       COUNTRY CHAR(2)
+       Distrikt VARCHAR(100),
+       COUNTRY CHAR(2) DEFAULT 'DK'
 );
 
 CREATE TABLE IF NOT EXISTS Reservation (
@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS Reservation (
        Formål VARCHAR(100),
        OprettetDato DATE,
        RedigeretDato DATE,
-       Initialer CHAR(10)
+       Initialer VARCHAR(10)
 );
 
 CREATE TABLE IF NOT EXISTS Skade (
@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS Skade (
        Beskrivelse VARCHAR(1000),
        OprettetDato DATE,
        RedigeretDato DATE,
-       Initialer CHAR(10)
+       Initialer VARCHAR(10)
 );
 
 CREATE TABLE IF NOT EXISTS TurDeltager (
@@ -273,7 +273,7 @@ CREATE TABLE IF NOT EXISTS TurDeltager (
        Navn VARCHAR(100),
        OprettetDato DATE,
        RedigeretDato DATE,
-       Initialer CHAR(10),
+       Initialer VARCHAR(10),
        PRIMARY KEY(FK_TurID,Plads)
 );
 
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS TripMember (
        MemberName VARCHAR(100),
        CreatedDate DATE,
        EditDate DATE,
-       Initials CHAR(10),
+       Initials VARCHAR(10),
        PRIMARY KEY(TripID,Season,Seat)
 );
 -- CREATE INDEX  triptripix on Trip(TripID);
@@ -297,7 +297,7 @@ CREATE TABLE IF NOT EXISTS TurType (
        Beskrivelse VARCHAR(1000),
        OprettetDato DATE,
        RedigeretDato DATE,
-       Initialer CHAR(10),
+       Initialer VARCHAR(10),
        Aktiv INT
 );
 
@@ -305,7 +305,7 @@ CREATE TABLE IF NOT EXISTS TurType (
 -- Vintervedligehold to be removed
 CREATE TABLE IF NOT EXISTS Vintervedligehold (
        Id INT PRIMARY KEY,
-       Medlemsnr CHAR(8),
+       Medlemsnr VARCHAR(8),
        Season INT,
        HasRedKey INT,
        DeletedReason VARCHAR(100)
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS Vintervedligehold (
 CREATE INDEX vintermedlem on Vintervedligehold(Medlemsnr);
 
 CREATE TABLE IF NOT EXISTS volunteerwork (
-       Medlemsnr CHAR(8),
+       Medlemsnr VARCHAR(8),
        Season INT,
        worktype VARCHAR(100)
 );
@@ -327,7 +327,7 @@ CREATE TABLE IF NOT EXISTS Destination (
        Beskrivelse VARCHAR(1000),
        OprettetDato DATE,
        RedigeretDato DATE,
-       Initialer CHAR(10),
+       Initialer VARCHAR(10),
        Gennemsnitlig_varighed_Normal NUMERIC(8,2),
        Gennemsnitlig_varighed_Instruktion NUMERIC(8,2),
        PRIMARY KEY(Navn,Location)
@@ -345,14 +345,14 @@ CREATE TABLE IF NOT EXISTS tblMembers (
   LastName         VARCHAR(100), 
   FirstName        VARCHAR(100), 
   Birthdate        DATETIME, 
-  Sex              CHAR(2), 
-  Address1         CHAR(54), 
-  Address2         CHAR(54), 
-  Postnr           CHAR(8), 
-  City             CHAR(40), 
-  Telephone1       CHAR(40), 
-  Telephone2       CHAR(40), 
-  Fax              CHAR(40), 
+  Sex              VARCHAR(2), 
+  Address1         VARCHAR(54), 
+  Address2         VARCHAR(54), 
+  Postnr           VARCHAR(8), 
+  City             VARCHAR(40), 
+  Telephone1       VARCHAR(40), 
+  Telephone2       VARCHAR(40), 
+  Fax              VARCHAR(40), 
   E_mail           VARCHAR(500), 
   MemberType       Int, 
   Diverse1         VARCHAR (100), 
@@ -403,11 +403,11 @@ CREATE TABLE IF NOT EXISTS tblRowClubs  (
   Name      VARCHAR(500), 
   Address1    VARCHAR(500), 
   Address2    VARCHAR(500), 
-  Postnr      CHAR (8), 
-  City      CHAR (30), 
+  Postnr      VARCHAR (8), 
+  City      VARCHAR (30), 
   NewsletterReceives  Boolean NOT NULL, 
-  Date      CHAR (100), 
-  Misc      CHAR (100)
+  Date      VARCHAR (100), 
+  Misc      VARCHAR (100)
 );
 
 

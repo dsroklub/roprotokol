@@ -36,7 +36,7 @@ ALTER TABLE BoatType CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE BoatType CHANGE FK_BådKategoriID Category INT;
 ALTER TABLE BoatType CHANGE OprettetDato Created DATETIME;
 ALTER TABLE BoatType CHANGE RedigeretDato Updated DATETIME;
-ALTER TABLE BoatType CHANGE Initialer Initials CHAR(10);
+ALTER TABLE BoatType CHANGE Initialer Initials VARCHAR(10);
 ALTER TABLE BoatType DROP COLUMN GruppeNr;
 
 ALTER TABLE Boat CHANGE BådID id INT AUTO_INCREMENT;
@@ -46,7 +46,7 @@ ALTER TABLE Boat CHANGE Type KayakModel INT;
 ALTER TABLE Boat CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE Boat CHANGE OprettetDato Created DATETIME;
 ALTER TABLE Boat CHANGE RedigeretDato Updated DATETIME;
-ALTER TABLE Boat CHANGE Initialer Initials CHAR(10);
+ALTER TABLE Boat CHANGE Initialer Initials VARCHAR(10);
 ALTER TABLE Boat DROP COLUMN Pladser;
 
 ALTER TABLE BoatCategory CHANGE BådKategoriID id INT;
@@ -54,7 +54,7 @@ ALTER TABLE BoatCategory CHANGE Navn Name VARCHAR(100);
 ALTER TABLE BoatCategory CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE BoatCategory CHANGE OprettetDato Created DATETIME;
 ALTER TABLE BoatCategory CHANGE RedigeretDato Updated DATETIME;
-ALTER TABLE BoatCategory CHANGE Initialer Initials CHAR(10);
+ALTER TABLE BoatCategory CHANGE Initialer Initials VARCHAR(10);
 
 ALTER TABLE Damage CHANGE SkadeID id INT;
 ALTER TABLE Damage CHANGE FK_BådID Boat INT;
@@ -65,7 +65,7 @@ ALTER TABLE Damage CHANGE Grad Degree INT;
 ALTER TABLE Damage CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE Damage CHANGE OprettetDato Created DATETIME;
 ALTER TABLE Damage CHANGE RedigeretDato Updated DATETIME;
-ALTER TABLE Damage CHANGE Initialer Initials CHAR(10);
+ALTER TABLE Damage CHANGE Initialer Initials VARCHAR(10);
 ALTER TABLE Damage CHANGE Repareret Repaired DATETIME;
 
 ALTER TABLE Destination CHANGE DestID id INT;
@@ -73,7 +73,7 @@ ALTER TABLE Destination CHANGE Navn Name VARCHAR(100);
 ALTER TABLE Destination CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE Destination CHANGE OprettetDato Created DATETIME;
 ALTER TABLE Destination CHANGE RedigeretDato Updated DATETIME;
-ALTER TABLE Destination CHANGE Initialer Initials CHAR(10);
+ALTER TABLE Destination CHANGE Initialer Initials VARCHAR(10);
 ALTER TABLE Destination CHANGE Gennemsnitlig_varighed_Normal ExpectedDurationNormal NUMERIC(8,2);
 ALTER TABLE Destination CHANGE Gennemsnitlig_varighed_Instruktion ExpectedDurationInstruction NUMERIC(8,2);
 
@@ -117,15 +117,18 @@ ALTER TABLE Reservation CHANGE FK_SlettetAf CancelledBy INT;
 ALTER TABLE Reservation CHANGE Formål Purpose VARCHAR(100);
 ALTER TABLE Reservation CHANGE OprettetDato  Created DATETIME;
 ALTER TABLE Reservation CHANGE RedigeretDato  Updated DATETIME;
-ALTER TABLE Reservation CHANGE Initialer  Initials CHAR(10);
+ALTER TABLE Reservation CHANGE Initialer  Initials VARCHAR(10);
 
 ALTER TABLE TripType CHANGE TurTypeID id INT;
 ALTER TABLE TripType CHANGE Navn Name VARCHAR(100);
 ALTER TABLE TripType CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE TripType CHANGE OprettetDato Created DATETIME;
 ALTER TABLE TripType CHANGE RedigeretDato Updated DATETIME;
-ALTER TABLE TripType CHANGE Initialer Initials CHAR(10);
+ALTER TABLE TripType CHANGE Initialer Initials VARCHAR(10);
 ALTER TABLE TripType CHANGE Aktiv Active INT;
+
+ALTER TABLE Zipcode CHANGE Postnr Zipcode INT;
+ALTER TABLE Zipcode CHANGE Distrikt District VARCHAR(100);
 
 -- TODO: BoatConfiguration, Comment, 
 DELETE FROM Destination WHERE Meter=0;
