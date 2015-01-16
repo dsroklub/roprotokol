@@ -1,4 +1,3 @@
-* Remove (X km) from destinations.php on database output
 * Add location to distance in destinations.php
      "distance" : {
         "DSR": 15000,
