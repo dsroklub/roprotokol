@@ -17,8 +17,8 @@
 </script>
 
 <div class="checkout-form">
-    <h2>Udskrivning af båd: {{selectedboat.name}}</h2>
-  <form novalidate>
+  <h2>Udskrivning af båd: {{selectedboat.name}}</h2>
+  <form name="checkoutForm" novalidate>
     <table>
       <tbody>
         <tr>
@@ -26,11 +26,11 @@
             <label for="checkout_destination">Destination</label>
           </td>
           <td>
-            <ui-select class="checkout_destination" ng-model="checkout.destination"ng-disabled="disabled">
+            <ui-select class="checkout_destination" ng-model="checkout.destination" on-select="updateExpectedTime($item)" style="min-width:400px">
               <ui-select-match placeholder="Vælg Destination">{{$select.selected.name}}</ui-select-match>
               <ui-select-choices repeat="destination in destinations | filter: $select.search">
                 <span ng-bind-html="destination.name | highlight: $select.search"></span>
-                (<small ng-bind-html="destination.distance | mtokm | highlight: $select.search"></small>km, 2t)
+                (<small ng-bind-html="destination.distance | mtokm : $select.search"></small>km, <small ng-bind-html="destination.duration | totime"></small>t)
               </ui-select-choices>
             </ui-select>
             <input maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance" required />km
@@ -65,7 +65,9 @@
           <label for="checkout_triptype">Tur type</label>
         </td>
         <td>
-          <select id="checkout_triptype" type="text" ng-model="checkout.triptype" ng-options="item as item.name for item in triptypes">
+          <select id="checkout_triptype" type="text" ng-model="checkout.triptype" ng-options="item as item.name for item in triptypes" ng-change="updateExpectedTime(checkout.destination)" required>
+            
+            <option value="">Vælg tur type</option> 
           </select>
         </td>    
       </tr>
@@ -83,17 +85,20 @@
           <label for="checkout_rower{{$index}}">{{rower.id}}</label>
         </td>
         <td>
-          <input id="checkout_rower{{$index}}" type="text" ng-model="checkout.rowers[$index]" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" />
-          <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
-            <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
-            <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>
-          </span>
+          <ng-form name="rowerFieldForm">
+            <input id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" required />
+            <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
+              <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
+              <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>
+            </span>
+            <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span><br>
+          </ng-form>
         </td>
       </tr>
       <tr>
         <td colspan="2">
-          <button class="green" ng-click="createtrip(checkout)"><i class="fa fa-sign-in"></i> Udskriv båd</button>
-          <button class="yellow" ng-click="reportdamage(checkout)"><i class="fa fa-exclamation-triangle"></i> Meld skade</button>
+          <button id="createtrip_button" class="green" ng-click="createtrip(checkout)" ng-disabled="checkoutForm.$invalid"><i class="fa fa-sign-in"></i> Udskriv båd</button>
+          <button id="reportdamage_button" class="yellow" ng-click="reportdamage(checkout)"><i class="fa fa-exclamation-triangle"></i> Meld skade</button>
         </td>    
       </tr>
       </tbody>

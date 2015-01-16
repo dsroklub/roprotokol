@@ -2,16 +2,13 @@
    {
       "boattype" : "Almindelig roning",
       "id" : "1",
-      "trip" : null,
-      "description" : null,
+      "description" : "Kilkbygget Viktor Jensen fra 1950",
       "spaces" : "3",
       "damage" : "0",
       "category" : "Inrigger 2+",
-      "expected_in" : null,
       "name" : "Absalon",
-      "outtime" : null,
-      "placement" : null,
-      "location" : null
+      "placement" : "Port 1 Bagerst Venstre Hylde",
+      "location" : "DSR"
    },
    {
       "location" : null,
