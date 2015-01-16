@@ -146,3 +146,6 @@ SELECT Name,Meter-2000,ExpectedDurationNormal-1,ExpectedDurationInstruction-2,'F
 FROM Destination WHERE Name IN ("Flakfortet","Langelinie");
 
 UPDATE Destination SET ExpectedDurationInstruction=1 WHERE ExpectedDurationInstruction <= 0;
+
+UPDATE Boat set Location='DSR';
+UPDATE Boat set Location='Forpost' WHERE Name in ("Freja","Tyr");
