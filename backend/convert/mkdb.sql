@@ -320,15 +320,17 @@ CREATE TABLE IF NOT EXISTS volunteerwork (
 
 
 CREATE TABLE IF NOT EXISTS Destination (
-       DestID INT  PRIMARY KEY,
-       Navn VARCHAR(100) UNIQUE NOT NULL,
+       DestID INT,
+       Location VARCHAR(100),
+       Navn VARCHAR(100) NOT NULL,
        Meter INT,
        Beskrivelse VARCHAR(1000),
        OprettetDato DATE,
        RedigeretDato DATE,
        Initialer CHAR(10),
        Gennemsnitlig_varighed_Normal NUMERIC(8,2),
-       Gennemsnitlig_varighed_Instruktion NUMERIC(8,2)
+       Gennemsnitlig_varighed_Instruktion NUMERIC(8,2),
+       PRIMARY KEY(Navn,Location)
 );
 
 
