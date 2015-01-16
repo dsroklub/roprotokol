@@ -179,8 +179,14 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   };
   
-  this.getDestinations = function () {
-    return destinations;
+  this.getDestinations = function (location) {
+    if(location !== undefined) {
+      return destinations.filter(function(element){
+        return location in element['distance'];
+      });
+    } else {
+      return destinations;
+    }
   };
   
   this.getTripTypes = function () {

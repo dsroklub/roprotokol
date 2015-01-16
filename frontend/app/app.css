@@ -46,17 +46,22 @@ button:hover {
 button i {
     margin-right: 5pt;
 }
-button.red:hover {   
+button.red {   
     border: 1px solid #FF6C60;
     color: #FF6C60;
 }
-button.green:hover {   
+button.green {   
     border: 1px solid #3ECBBF;
     color: #3ECBBF;
 }
-button.yellow:hover {
+button.yellow {
     color: #f0ce4e;
     border: 1px solid #f0ce4e;
+}
+
+button#createtrip_button[disabled] {
+  color: gray;
+  border: 1px solid gray;
 }
 
 /* Custom */
@@ -125,8 +130,13 @@ button.yellow:hover {
     background: white;
 }
 .boattypesmenu ul li {
-    padding: 5pt 10pt;
     cursor: pointer;
+}
+.boattypesmenu ul li a {
+    padding: 5pt 10pt;
+    display:block;
+    height:100%;
+    width:100%;
 }
 .boattypesmenu ul li:hover {
     background: #57C8F2;
@@ -134,7 +144,6 @@ button.yellow:hover {
 .boattypesmenu ul li:hover a {
     color: white;
 }
-
 .boatlist {
     border-radius: 5px;
     overflow: auto;
@@ -157,10 +166,22 @@ boatlist thead th:last-child {
     border: 0;
 }
 .boatlist td {
-    padding: 6pt 10pt 6pt 10pt;
+    padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
     background: white;
+}
+.boatlist tr td a {
+    padding: 6pt 10pt 6pt 10pt;
+    display:block;
+    height:100%;
+    width:100%;
+}
+.boatlist tr td:hover {
+    background: #6ad7ce;
+}
+.boatlist tr td:hover a {
+    color: white;
 }
 .statlist td {
     padding: 6pt 10pt 6pt 10pt;
@@ -245,4 +266,8 @@ boatlist thead th:last-child {
 }
 .stattypesmenu ul {
     background: white;
+}
+
+.error {
+  color: red;
 }

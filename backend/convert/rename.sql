@@ -130,3 +130,22 @@ ALTER TABLE TripType CHANGE Aktiv Active INT;
 -- TODO: BoatConfiguration, Comment, 
 DELETE FROM Destination WHERE Meter=0;
 UPDATE Destination SET Name = SUBSTRING_INDEX(Name,"(",1);
+
+UPDATE Destination SET Location = "DSR";
+
+INSERT INTO Destination (Name,Meter,ExpectedDurationNormal,ExpectedDurationInstruction,Location)
+SELECT Name,Meter+10000,ExpectedDurationNormal+2,ExpectedDurationInstruction+4,'Forpost'
+FROM Destination WHERE Name IN ("Bellevue","Charlottenlund","Hellerup","Skovshoved","Tuborg havn","Tårbæk","Vedbæk","Strandmøllen","Rungsted","Skodsborg","Opfyldningen nord","Knud","Svanemøllehavnen");
+
+INSERT INTO Destination (Name,Meter,ExpectedDurationNormal,ExpectedDurationInstruction,Location)
+SELECT Name,Meter-10000,ExpectedDurationNormal-2,ExpectedDurationInstruction-3,'Forpost'
+FROM Destination WHERE Name IN ("Kanalen","Margretheholms havn","Slusen");
+
+INSERT INTO Destination (Name,Meter,ExpectedDurationNormal,ExpectedDurationInstruction,Location)
+SELECT Name,Meter-2000,ExpectedDurationNormal-1,ExpectedDurationInstruction-2,'Forpost'
+FROM Destination WHERE Name IN ("Flakfortet","Langelinie");
+
+UPDATE Destination SET ExpectedDurationInstruction=1 WHERE ExpectedDurationInstruction <= 0;
+
+UPDATE Boat set Location='DSR';
+UPDATE Boat set Location='Forpost' WHERE Name in ("Freja","Tyr");

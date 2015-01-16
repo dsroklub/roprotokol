@@ -40,6 +40,12 @@ app.controller('StatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       // TODO: Stacked Barchart - Member activiy KM per intervals per year in % (Filter on Date)
       // Member activiy KM per intervals <100, 100-200, 200-300, 300-500, >500
       
+      // TODO: Stacked Barchart - Instructions per finish rabbit
+      
+      // TODO: Who rows with most different people
+      
+      // TODO: Add more from page 11
+      
       
       
     });    
