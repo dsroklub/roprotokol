@@ -37,7 +37,7 @@ BRUG TESTDATA:
 BRUG DSR DATA:
 Eksporter gammel data til sql filer ved at kopiere gammel data Roprotokol_sommer.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
 
-   .backend/convert/eksport.sh
+   ./backend/convert/eksport.sh
 
 Importer gammel data:
 
@@ -91,3 +91,32 @@ SQL-koden virker.
 ##TODO
 
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
+* Administration af både
+** Opret båd
+** Ret båd
+** Pensioner båd
+** Opret/ret/slet lokation
+* Reservation af både
+* Indberetning af fejl på ture
+* Behandling af fejl på ture
+* Opret/ret/slet bådtype
+* Indberetning af fejl i rettigheder -> mail til instruktionschefen
+* Kovertering af kanin/midlertidig roer
+* Administration af røde svensknøgler
+* Skift rosæson
+* Udskriv båd
+* Indskriv båd
+** Hvis turen er kortere end x minutter, så foreslå at slette turen i stedet
+* Meld skade
+* Kommenter skade
+* Klarmeld skade
+* Skadesliste for alle både
+* Vis roer
+** Rettigheder
+** Statistik fordelt på turtyper
+** Turoversigt
+* Dagens ture
+** Både på vandet
+* Statistik for både
+* Statistik over roere
+* Årsstatistik

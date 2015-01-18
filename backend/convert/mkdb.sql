@@ -47,6 +47,13 @@ CREATE INDEX  tripfk on Trip(BoatID);
 CREATE INDEX tripout on Trip(OutTime);
 
 
+CREATE TABLE IF NOT EXISTS Location (
+	id INT AUTO_INCREMENT,
+	Name VARCHAR(100) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+
 CREATE TABLE IF NOT EXISTS Båd (
     BådID INT AUTO_INCREMENT,
     Navn VARCHAR(100) NOT NULL, -- FIXME should be unique: Balder
@@ -60,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Båd (
     Type VARCHAR(100), -- FIXME was TYPE
     Anvendelse VARCHAR(100),
     Niveau VARCHAR(100),
-    Location VARCHAR(100),
+    Location INT,
     Placement VARCHAR(100),
     Decommissioned DATETIME,
     PRIMARY KEY (BådID)
@@ -321,7 +328,7 @@ CREATE TABLE IF NOT EXISTS volunteerwork (
 
 CREATE TABLE IF NOT EXISTS Destination (
        DestID INT,
-       Location VARCHAR(100),
+       Location INT,
        Navn VARCHAR(100) NOT NULL,
        Meter INT,
        Beskrivelse VARCHAR(1000),

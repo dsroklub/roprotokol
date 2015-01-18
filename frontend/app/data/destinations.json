@@ -1,303 +1,306 @@
 [
    {
-      "name" : "Bellevue ",
+      "distance" : {
+         "DSR" : "15000",
+         "Nordhavn" : "25000"
+      },
       "duration" : {
          "DSR" : "2.50",
-         "Forpost" : "4.50"
+         "Nordhavn" : "4.50"
       },
-      "id" : "1",
       "duration_instruction" : {
          "DSR" : "2.60",
-         "Forpost" : "6.60"
+         "Nordhavn" : "6.60"
       },
-      "distance" : {
-         "Forpost" : "25000",
-         "DSR" : "15000"
-      }
+      "id" : "1",
+      "name" : "Bellevue "
    },
    {
       "distance" : {
-         "Forpost" : "17000",
-         "DSR" : "7000"
-      },
-      "duration" : {
-         "Forpost" : "3.80",
-         "DSR" : "1.80"
-      },
-      "name" : "Charlottenlund ",
-      "id" : "2",
-      "duration_instruction" : {
-         "DSR" : "2.00",
-         "Forpost" : "6.00"
-      }
-   },
-   {
-      "duration" : {
-         "Forpost" : "2.60",
-         "DSR" : "3.60"
-      },
-      "name" : "Flakfortet ",
-      "id" : "9",
-      "duration_instruction" : {
-         "Forpost" : "1.00",
-         "DSR" : "1.00"
-      },
-      "distance" : {
-         "Forpost" : "20000",
-         "DSR" : "22000"
-      }
-   },
-   {
-      "distance" : {
-         "Forpost" : "15000",
-         "DSR" : "5000"
+         "DSR" : "7000",
+         "Nordhavn" : "17000"
       },
       "duration" : {
          "DSR" : "1.80",
-         "Forpost" : "3.80"
+         "Nordhavn" : "3.80"
       },
-      "name" : "Hellerup ",
-      "id" : "3",
       "duration_instruction" : {
-         "Forpost" : "5.90",
-         "DSR" : "1.90"
-      }
+         "DSR" : "2.00",
+         "Nordhavn" : "6.00"
+      },
+      "id" : "2",
+      "name" : "Charlottenlund "
    },
    {
       "distance" : {
-         "Forpost" : "12000",
-         "DSR" : "22000"
+         "DSR" : "22000",
+         "Nordhavn" : "20000"
       },
-      "name" : "Kanalen ",
+      "duration" : {
+         "DSR" : "3.60",
+         "Nordhavn" : "2.60"
+      },
+      "duration_instruction" : {
+         "DSR" : "1.00",
+         "Nordhavn" : "1.00"
+      },
+      "id" : "9",
+      "name" : "Flakfortet "
+   },
+   {
+      "distance" : {
+         "DSR" : "5000",
+         "Nordhavn" : "15000"
+      },
+      "duration" : {
+         "DSR" : "1.80",
+         "Nordhavn" : "3.80"
+      },
+      "duration_instruction" : {
+         "DSR" : "1.90",
+         "Nordhavn" : "5.90"
+      },
+      "id" : "3",
+      "name" : "Hellerup "
+   },
+   {
+      "distance" : {
+         "DSR" : "22000",
+         "Nordhavn" : "12000"
+      },
       "duration" : {
          "DSR" : "3.80",
-         "Forpost" : "1.80"
+         "Nordhavn" : "1.80"
       },
-      "id" : "4",
       "duration_instruction" : {
          "DSR" : "4.50",
-         "Forpost" : "1.50"
-      }
+         "Nordhavn" : "1.50"
+      },
+      "id" : "4",
+      "name" : "Kanalen "
    },
    {
       "distance" : {
-         "Forpost" : "23500",
-         "DSR" : "13500"
+         "DSR" : "13500",
+         "Nordhavn" : "23500"
+      },
+      "duration" : {
+         "DSR" : "2.00",
+         "Nordhavn" : "4.00"
       },
       "duration_instruction" : {
-         "Forpost" : "6.70",
-         "DSR" : "2.70"
+         "DSR" : "2.70",
+         "Nordhavn" : "6.70"
       },
       "id" : "18",
-      "name" : "Knud ",
-      "duration" : {
-         "Forpost" : "4.00",
-         "DSR" : "2.00"
-      }
+      "name" : "Knud "
    },
    {
-      "id" : "11",
-      "duration_instruction" : {
-         "Forpost" : "1.60",
-         "DSR" : "3.60"
+      "distance" : {
+         "DSR" : "15000",
+         "Nordhavn" : "13000"
       },
       "duration" : {
          "DSR" : "2.40",
-         "Forpost" : "1.40"
-      },
-      "name" : "Langelinie ",
-      "distance" : {
-         "DSR" : "15000",
-         "Forpost" : "13000"
-      }
-   },
-   {
-      "name" : "Margretheholms havn ",
-      "duration" : {
-         "Forpost" : "0.50",
-         "DSR" : "2.50"
+         "Nordhavn" : "1.40"
       },
       "duration_instruction" : {
-         "Forpost" : "1.00",
-         "DSR" : "2.80"
+         "DSR" : "3.60",
+         "Nordhavn" : "1.60"
+      },
+      "id" : "11",
+      "name" : "Langelinie "
+   },
+   {
+      "distance" : {
+         "DSR" : "15000",
+         "Nordhavn" : "5000"
+      },
+      "duration" : {
+         "DSR" : "2.50",
+         "Nordhavn" : "0.50"
+      },
+      "duration_instruction" : {
+         "DSR" : "2.80",
+         "Nordhavn" : "1.00"
       },
       "id" : "10",
-      "distance" : {
-         "Forpost" : "5000",
-         "DSR" : "15000"
-      }
+      "name" : "Margretheholms havn "
    },
    {
       "distance" : {
          "DSR" : "3000",
-         "Forpost" : "13000"
+         "Nordhavn" : "13000"
       },
-      "name" : "Opfyldningen nord ",
       "duration" : {
          "DSR" : "1.90",
-         "Forpost" : "3.90"
+         "Nordhavn" : "3.90"
       },
       "duration_instruction" : {
-         "Forpost" : "5.80",
-         "DSR" : "1.80"
+         "DSR" : "1.80",
+         "Nordhavn" : "5.80"
       },
-      "id" : "17"
+      "id" : "17",
+      "name" : "Opfyldningen nord "
    },
    {
-      "id" : "14",
-      "duration_instruction" : {
-         "Forpost" : "4.00",
-         "DSR" : "1.00"
+      "distance" : {
+         "DSR" : "42000",
+         "Nordhavn" : "52000"
       },
       "duration" : {
-         "Forpost" : "8.60",
-         "DSR" : "6.60"
+         "DSR" : "6.60",
+         "Nordhavn" : "8.60"
       },
-      "name" : "Rungsted ",
-      "distance" : {
-         "Forpost" : "52000",
-         "DSR" : "42000"
-      }
+      "duration_instruction" : {
+         "DSR" : "1.00",
+         "Nordhavn" : "4.00"
+      },
+      "id" : "14",
+      "name" : "Rungsted "
    },
    {
       "distance" : {
          "DSR" : "28000",
-         "Forpost" : "38000"
+         "Nordhavn" : "38000"
       },
-      "name" : "Skodsborg ",
       "duration" : {
          "DSR" : "4.50",
-         "Forpost" : "6.50"
+         "Nordhavn" : "6.50"
+      },
+      "duration_instruction" : {
+         "DSR" : "6.80",
+         "Nordhavn" : "10.80"
       },
       "id" : "15",
-      "duration_instruction" : {
-         "Forpost" : "10.80",
-         "DSR" : "6.80"
-      }
+      "name" : "Skodsborg "
    },
    {
       "distance" : {
          "DSR" : "11500",
-         "Forpost" : "21500"
+         "Nordhavn" : "21500"
+      },
+      "duration" : {
+         "DSR" : "2.00",
+         "Nordhavn" : "4.00"
       },
       "duration_instruction" : {
          "DSR" : "2.20",
-         "Forpost" : "6.20"
+         "Nordhavn" : "6.20"
       },
       "id" : "5",
-      "duration" : {
-         "DSR" : "2.00",
-         "Forpost" : "4.00"
-      },
       "name" : "Skovshoved "
    },
    {
-      "duration" : {
-         "DSR" : "4.50",
-         "Forpost" : "2.50"
-      },
-      "name" : "Slusen ",
-      "duration_instruction" : {
-         "DSR" : "6.00",
-         "Forpost" : "3.00"
-      },
-      "id" : "6",
       "distance" : {
          "DSR" : "26000",
-         "Forpost" : "16000"
-      }
-   },
-   {
-      "id" : "13",
-      "duration_instruction" : {
-         "Forpost" : "9.20",
-         "DSR" : "5.20"
+         "Nordhavn" : "16000"
       },
       "duration" : {
-         "Forpost" : "4.60",
-         "DSR" : "2.60"
+         "DSR" : "4.50",
+         "Nordhavn" : "2.50"
       },
-      "name" : "Strandmøllen ",
+      "duration_instruction" : {
+         "DSR" : "6.00",
+         "Nordhavn" : "3.00"
+      },
+      "id" : "6",
+      "name" : "Slusen "
+   },
+   {
       "distance" : {
-         "Forpost" : "32500",
-         "DSR" : "22500"
-      }
+         "DSR" : "22500",
+         "Nordhavn" : "32500"
+      },
+      "duration" : {
+         "DSR" : "2.60",
+         "Nordhavn" : "4.60"
+      },
+      "duration_instruction" : {
+         "DSR" : "5.20",
+         "Nordhavn" : "9.20"
+      },
+      "id" : "13",
+      "name" : "Strandmøllen "
    },
    {
       "distance" : {
          "DSR" : "3000",
-         "Forpost" : "13000"
+         "Nordhavn" : "13000"
       },
-      "id" : "19",
+      "duration" : {
+         "DSR" : "1.70",
+         "Nordhavn" : "3.70"
+      },
       "duration_instruction" : {
          "DSR" : "1.60",
-         "Forpost" : "5.60"
+         "Nordhavn" : "5.60"
       },
-      "name" : "Svanemøllehavnen ",
-      "duration" : {
-         "Forpost" : "3.70",
-         "DSR" : "1.70"
-      }
+      "id" : "19",
+      "name" : "Svanemøllehavnen "
    },
    {
+      "distance" : {
+         "DSR" : "3000",
+         "Nordhavn" : "13000"
+      },
       "duration" : {
          "DSR" : "1.30",
-         "Forpost" : "3.30"
+         "Nordhavn" : "3.30"
       },
-      "name" : "Tuborg havn ",
       "duration_instruction" : {
          "DSR" : "1.50",
-         "Forpost" : "5.50"
+         "Nordhavn" : "5.50"
       },
       "id" : "7",
-      "distance" : {
-         "Forpost" : "13000",
-         "DSR" : "3000"
-      }
+      "name" : "Tuborg havn "
    },
    {
+      "distance" : {
+         "DSR" : "18000",
+         "Nordhavn" : "28000"
+      },
+      "duration" : {
+         "DSR" : "2.50",
+         "Nordhavn" : "4.50"
+      },
+      "duration_instruction" : {
+         "DSR" : "2.70",
+         "Nordhavn" : "6.70"
+      },
       "id" : "8",
-      "duration_instruction" : {
-         "Forpost" : "6.70",
-         "DSR" : "2.70"
-      },
-      "duration" : {
-         "Forpost" : "4.50",
-         "DSR" : "2.50"
-      },
-      "name" : "Tårbæk ",
-      "distance" : {
-         "Forpost" : "28000",
-         "DSR" : "18000"
-      }
+      "name" : "Tårbæk "
    },
    {
-      "duration_instruction" : {
-         "DSR" : "7.50",
-         "Forpost" : "11.50"
-      },
-      "id" : "12",
-      "duration" : {
-         "Forpost" : "6.80",
-         "DSR" : "4.80"
-      },
-      "name" : "Vedbæk ",
       "distance" : {
          "DSR" : "33000",
-         "Forpost" : "43000"
-      }
+         "Nordhavn" : "43000"
+      },
+      "duration" : {
+         "DSR" : "4.80",
+         "Nordhavn" : "6.80"
+      },
+      "duration_instruction" : {
+         "DSR" : "7.50",
+         "Nordhavn" : "11.50"
+      },
+      "id" : "12",
+      "name" : "Vedbæk "
    },
    {
       "distance" : {
-         "DSR" : "5000"
+         "DSR" : "5000",
+         "Nordhavn" : "5000"
+      },
+      "duration" : {
+         "DSR" : "0.00",
+         "Nordhavn" : "0.00"
       },
       "duration_instruction" : {
-         "DSR" : "1.00"
+         "DSR" : "1.00",
+         "Nordhavn" : "1.00"
       },
       "id" : "16",
-      "name" : "Øvrige [Skriv i kommentar]",
-      "duration" : {
-         "DSR" : "0.00"
-      }
+      "name" : "Øvrige [Skriv i kommentar]"
    }
 ]

@@ -17,11 +17,13 @@ $s="SELECT Boat.id,
            Boat.Description as description,
            BoatType.Name as category,
            BoatCategory.Name as boattype,
-           Boat.Location as location,
+           Location.Name as location,
+           Boat.Location as location_id,
            Boat.Placement as placement
     FROM Boat
          INNER JOIN BoatType ON (BoatType.id=BoatType)
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
+         LEFT OUTER JOIN Location ON (Location.id = Boat.Location)
     WHERE 
          Boat.Decommissioned IS NULL
     ";
