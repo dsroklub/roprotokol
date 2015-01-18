@@ -24,11 +24,17 @@ then
 . $SCRIPT_PATH/secret.sh
 fi
 
-for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer LockedBoats Zipcode Reservation Skade TurType Destination Kajak_anvendelser; do
+if [[ $arg = "real" ]]; then
+    DATADIR=data
+else
+    DATADIR=testdata
+fi
+
+for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer LåsteBåde Postnr Reservation Skade TurType Destination Kajak_anvendelser; do
     echo DO IMPORT $tb
     echo
     $DBCMD -e "TRUNCATE TABLE $tb;"
-    $DBCMD < $SCRIPT_PATH/testdata/$tb.sql
+    $DBCMD < $SCRIPT_PATH/$DATADIR/$tb.sql
 done
 echo do trip rights
     $DBCMD < $SCRIPT_PATH/TripRights.sql
