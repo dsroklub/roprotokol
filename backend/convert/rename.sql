@@ -127,7 +127,7 @@ ALTER TABLE TripType CHANGE RedigeretDato Updated DATETIME;
 ALTER TABLE TripType CHANGE Initialer Initials VARCHAR(10);
 ALTER TABLE TripType CHANGE Aktiv Active INT;
 
-ALTER TABLE Zipcode CHANGE Postnr Zipcode INT;
+ALTER TABLE Zipcode CHANGE Postnr Zipcode CHAR(10);
 ALTER TABLE Zipcode CHANGE Distrikt District VARCHAR(100);
 
 -- TODO: BoatConfiguration, Comment, 
