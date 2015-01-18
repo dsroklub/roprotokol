@@ -1,0 +1,1522 @@
+[
+   {
+      "spaces" : "3",
+      "id" : "1",
+      "location" : "DSR",
+      "name" : "Absalon",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "description" : null,
+      "category" : "Inrigger 2+"
+   },
+   {
+      "category" : "Sculler 1x",
+      "description" : null,
+      "placement" : null,
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "2",
+      "boattype" : "Almindelig roning",
+      "name" : "Alf"
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "7",
+      "boattype" : "Kajakker",
+      "name" : "Barracuda",
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Bjarke",
+      "location" : "DSR",
+      "id" : "9",
+      "spaces" : "5",
+      "category" : "Inrigger 4+",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "id" : "10",
+      "spaces" : "3",
+      "location" : "DSR",
+      "name" : "Brage",
+      "boattype" : "Almindelig roning"
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Inrigger 4+",
+      "name" : "Dan",
+      "boattype" : "Almindelig roning",
+      "id" : "13",
+      "spaces" : "5",
+      "location" : "DSR"
+   },
+   {
+      "location" : "DSR",
+      "id" : "17",
+      "spaces" : "3",
+      "boattype" : "Almindelig roning",
+      "name" : "Elektra",
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "name" : "Epsilon",
+      "boattype" : "Almindelig roning",
+      "id" : "18",
+      "spaces" : "1",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Sculler 1x",
+      "description" : null
+   },
+   {
+      "spaces" : "3",
+      "id" : "19",
+      "location" : "DSR",
+      "name" : "Fafner",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Inrigger 2+",
+      "description" : null
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "name" : "Freja",
+      "boattype" : "Almindelig roning",
+      "spaces" : "3",
+      "id" : "22",
+      "location" : "Forpost"
+   },
+   {
+      "name" : "Frigg",
+      "boattype" : "Almindelig roning",
+      "id" : "23",
+      "spaces" : "3",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Inrigger 2+",
+      "description" : null
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Gamma",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "24",
+      "category" : "Sculler 1x",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "id" : "26",
+      "spaces" : "1",
+      "boattype" : "Almindelig roning",
+      "name" : "Grumme",
+      "description" : null,
+      "category" : "Sculler 1x",
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1",
+      "spaces" : "1",
+      "id" : "27",
+      "location" : "DSR",
+      "name" : "Blåmusling",
+      "boattype" : "Kajakker"
+   },
+   {
+      "description" : null,
+      "category" : "Inrigger 4+",
+      "placement" : null,
+      "location" : "DSR",
+      "id" : "28",
+      "spaces" : "5",
+      "boattype" : "Almindelig roning",
+      "name" : "Gudmund"
+   },
+   {
+      "location" : "DSR",
+      "id" : "33",
+      "spaces" : "4",
+      "boattype" : "Almindelig roning",
+      "name" : "Heimdal",
+      "description" : null,
+      "category" : "Gig 3x",
+      "placement" : null
+   },
+   {
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "placement" : null,
+      "location" : "DSR",
+      "spaces" : "3",
+      "id" : "34",
+      "boattype" : "Almindelig roning",
+      "name" : "Helge"
+   },
+   {
+      "id" : "35",
+      "spaces" : "3",
+      "location" : "DSR",
+      "name" : "Hjalte",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Inrigger 2+",
+      "description" : null
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "spaces" : "3",
+      "id" : "36",
+      "location" : "DSR",
+      "name" : "Hroar",
+      "boattype" : "Almindelig roning"
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "41",
+      "boattype" : "Almindelig roning",
+      "name" : "Jon",
+      "category" : "Sculler 1x",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "description" : "SKAL SLETTES!",
+      "category" : "Sculler 1x",
+      "placement" : null,
+      "location" : "DSR",
+      "id" : "44",
+      "spaces" : "1",
+      "boattype" : "Almindelig roning",
+      "name" : "Ksi"
+   },
+   {
+      "placement" : null,
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "name" : "Kvaser",
+      "boattype" : "Almindelig roning",
+      "spaces" : "3",
+      "id" : "45",
+      "location" : "DSR"
+   },
+   {
+      "location" : "DSR",
+      "id" : "46",
+      "spaces" : "3",
+      "boattype" : "Almindelig roning",
+      "name" : "Loke",
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Sculler 2x / 2-",
+      "name" : "Minerva",
+      "boattype" : "Almindelig roning",
+      "id" : "49",
+      "spaces" : "2",
+      "location" : "DSR"
+   },
+   {
+      "spaces" : "4",
+      "id" : "50",
+      "location" : "DSR",
+      "name" : "Mjølner",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "description" : null,
+      "category" : "4x"
+   },
+   {
+      "category" : "Inrigger 4+",
+      "description" : null,
+      "placement" : null,
+      "location" : "DSR",
+      "spaces" : "5",
+      "id" : "51",
+      "boattype" : "Almindelig roning",
+      "name" : "Munin"
+   },
+   {
+      "placement" : null,
+      "category" : "Svava 1x",
+      "description" : null,
+      "name" : "Ny",
+      "boattype" : "Almindelig roning",
+      "id" : "52",
+      "spaces" : "1",
+      "location" : "DSR"
+   },
+   {
+      "location" : "DSR",
+      "id" : "54",
+      "spaces" : "5",
+      "boattype" : "Almindelig roning",
+      "name" : "Odin",
+      "category" : "4+ / 4-",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "description" : null,
+      "category" : "4+ / 4-",
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Olsen",
+      "location" : "DSR",
+      "id" : "55",
+      "spaces" : "5"
+   },
+   {
+      "category" : "8+",
+      "description" : null,
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Ormen",
+      "location" : "DSR",
+      "spaces" : "9",
+      "id" : "56"
+   },
+   {
+      "name" : "Psi",
+      "boattype" : "Almindelig roning",
+      "id" : "59",
+      "spaces" : "1",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Sculler 1x",
+      "description" : null
+   },
+   {
+      "category" : "Svava 1x",
+      "description" : null,
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Ran",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "60"
+   },
+   {
+      "spaces" : "3",
+      "id" : "65",
+      "location" : "DSR",
+      "name" : "Sif",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Inrigger 2+",
+      "description" : null
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Sigma",
+      "location" : "DSR",
+      "id" : "66",
+      "spaces" : "1",
+      "category" : "Sculler 1x",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "id" : "69",
+      "spaces" : "3",
+      "boattype" : "Almindelig roning",
+      "name" : "Svane",
+      "description" : null,
+      "category" : "Gig 2x",
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "3",
+      "id" : "70",
+      "boattype" : "Almindelig roning",
+      "name" : "Svante",
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "placement" : null
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Svava",
+      "location" : "DSR",
+      "id" : "71",
+      "spaces" : "1",
+      "description" : null,
+      "category" : "Svava 1x",
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "category" : "Sculler 1x",
+      "description" : null,
+      "spaces" : "1",
+      "id" : "72",
+      "location" : "DSR",
+      "name" : "Svip",
+      "boattype" : "Almindelig roning"
+   },
+   {
+      "placement" : null,
+      "category" : "Sculler 1x",
+      "description" : null,
+      "spaces" : "1",
+      "id" : "77",
+      "location" : "DSR",
+      "name" : "Tau",
+      "boattype" : "Almindelig roning"
+   },
+   {
+      "spaces" : "5",
+      "id" : "78",
+      "location" : "DSR",
+      "name" : "Thor",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Inrigger 4+",
+      "description" : null
+   },
+   {
+      "name" : "Tjalfe",
+      "boattype" : "Almindelig roning",
+      "spaces" : "3",
+      "id" : "79",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Inrigger 2+",
+      "description" : null
+   },
+   {
+      "name" : "Tuto",
+      "boattype" : "Almindelig roning",
+      "spaces" : "1",
+      "id" : "81",
+      "location" : "DSR",
+      "placement" : null,
+      "description" : null,
+      "category" : "Sculler 1x"
+   },
+   {
+      "category" : "Inrigger 4+",
+      "description" : null,
+      "placement" : null,
+      "location" : "DSR",
+      "id" : "82",
+      "spaces" : "5",
+      "boattype" : "Almindelig roning",
+      "name" : "Vidar"
+   },
+   {
+      "description" : null,
+      "category" : "Inrigger 4+",
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Vile",
+      "location" : "DSR",
+      "spaces" : "5",
+      "id" : "84"
+   },
+   {
+      "name" : "Vips",
+      "boattype" : "Almindelig roning",
+      "spaces" : "1",
+      "id" : "85",
+      "location" : "DSR",
+      "placement" : null,
+      "description" : null,
+      "category" : "Sculler 1x"
+   },
+   {
+      "spaces" : "5",
+      "id" : "86",
+      "location" : "DSR",
+      "name" : "Ydun",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Inrigger 4+",
+      "description" : null
+   },
+   {
+      "name" : "Øresvin",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "87",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "id" : "89",
+      "spaces" : "1",
+      "location" : "DSR",
+      "name" : "Sild",
+      "boattype" : "Kajakker",
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null,
+      "name" : "Torsk",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "90",
+      "location" : "DSR"
+   },
+   {
+      "boattype" : "Kajakker",
+      "name" : "Forel 2",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "91",
+      "description" : null,
+      "category" : "Kajak 1",
+      "placement" : null
+   },
+   {
+      "id" : "92",
+      "spaces" : "5",
+      "location" : "DSR",
+      "name" : "4-åres lånt båd",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Inrigger 4+",
+      "description" : null
+   },
+   {
+      "id" : "93",
+      "spaces" : "3",
+      "location" : "DSR",
+      "name" : "Røskva",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Inrigger 2+",
+      "description" : null
+   },
+   {
+      "name" : "Hu",
+      "boattype" : "Almindelig roning",
+      "spaces" : "3",
+      "id" : "94",
+      "location" : "DSR",
+      "placement" : null,
+      "description" : null,
+      "category" : "Inrigger 2+"
+   },
+   {
+      "id" : "95",
+      "spaces" : "1",
+      "location" : "DSR",
+      "name" : "Alfa",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Sculler 1x",
+      "description" : null
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1",
+      "name" : "Ørred",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "96",
+      "location" : "DSR"
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1",
+      "spaces" : "1",
+      "id" : "98",
+      "location" : "DSR",
+      "name" : "SøElefant",
+      "boattype" : "Kajakker"
+   },
+   {
+      "spaces" : "1",
+      "id" : "99",
+      "location" : "DSR",
+      "name" : "Muræne",
+      "boattype" : "Kajakker",
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "category" : "Kajak 2",
+      "description" : null,
+      "placement" : null,
+      "boattype" : "Kajakker",
+      "name" : "Rokke",
+      "location" : "DSR",
+      "id" : "103",
+      "spaces" : "2"
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "2",
+      "id" : "107",
+      "boattype" : "Kajakker",
+      "name" : "Rødfisk",
+      "category" : "Kajak 2",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null,
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "110",
+      "boattype" : "Kajakker",
+      "name" : "Hornfisk"
+   },
+   {
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null,
+      "name" : "Ulk",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "111",
+      "location" : "DSR"
+   },
+   {
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null,
+      "id" : "112",
+      "spaces" : "1",
+      "location" : "DSR",
+      "name" : "Sildehaj",
+      "boattype" : "Kajakker"
+   },
+   {
+      "name" : "Haj",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "114",
+      "location" : "DSR",
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1"
+   },
+   {
+      "boattype" : "Kajakker",
+      "name" : "Pighvar",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "115",
+      "description" : null,
+      "category" : "Kajak 1",
+      "placement" : null
+   },
+   {
+      "spaces" : "5",
+      "id" : "118",
+      "location" : "DSR",
+      "name" : "Ask",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Inrigger 4+",
+      "description" : "Bigblade. \nTræ."
+   },
+   {
+      "id" : "119",
+      "spaces" : "5",
+      "location" : "DSR",
+      "name" : "Nanna",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "description" : null,
+      "category" : "Inrigger 4+"
+   },
+   {
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "2-åres lånt båd",
+      "location" : "DSR",
+      "spaces" : "3",
+      "id" : "120"
+   },
+   {
+      "description" : null,
+      "category" : "Kajak 1",
+      "placement" : null,
+      "location" : "DSR",
+      "id" : "121",
+      "spaces" : "1",
+      "boattype" : "Kajakker",
+      "name" : "Hummer"
+   },
+   {
+      "category" : "Sculler 2x / 2-",
+      "description" : null,
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Luzern",
+      "location" : "DSR",
+      "id" : "122",
+      "spaces" : "2"
+   },
+   {
+      "name" : "Sleipner",
+      "boattype" : "Almindelig roning",
+      "spaces" : "9",
+      "id" : "123",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "8+",
+      "description" : null
+   },
+   {
+      "placement" : null,
+      "category" : "Kajak 2",
+      "description" : null,
+      "name" : "Lånt 2-Kajak",
+      "boattype" : "Kajakker",
+      "id" : "125",
+      "spaces" : "2",
+      "location" : "DSR"
+   },
+   {
+      "location" : "DSR",
+      "id" : "126",
+      "spaces" : "1",
+      "boattype" : "Almindelig roning",
+      "name" : "1-åres lånt båd",
+      "category" : "Sculler 1x",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "129",
+      "boattype" : "Kajakker",
+      "name" : "Ask (kajak)",
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null,
+      "name" : "Urd",
+      "boattype" : "Kajakker",
+      "id" : "130",
+      "spaces" : "1",
+      "location" : "DSR"
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1",
+      "name" : "Fjæsing",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "131",
+      "location" : "DSR"
+   },
+   {
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null,
+      "boattype" : "Kajakker",
+      "name" : "Søløve",
+      "location" : "DSR",
+      "id" : "133",
+      "spaces" : "1"
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 2",
+      "spaces" : "2",
+      "id" : "134",
+      "location" : "DSR",
+      "name" : "Snog",
+      "boattype" : "Kajakker"
+   },
+   {
+      "description" : null,
+      "category" : "Kajak 2",
+      "placement" : null,
+      "boattype" : "Kajakker",
+      "name" : "Hugorm",
+      "location" : "DSR",
+      "id" : "135",
+      "spaces" : "2"
+   },
+   {
+      "location" : "DSR",
+      "id" : "136",
+      "spaces" : "1",
+      "boattype" : "Kajakker",
+      "name" : "Stenbider",
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "description" : null,
+      "category" : "Kajak 1",
+      "placement" : null,
+      "boattype" : "Kajakker",
+      "name" : "Papegøjefisk",
+      "location" : "DSR",
+      "id" : "139",
+      "spaces" : "1"
+   },
+   {
+      "name" : "Embla",
+      "boattype" : "Almindelig roning",
+      "spaces" : "5",
+      "id" : "142",
+      "location" : "DSR",
+      "placement" : null,
+      "description" : null,
+      "category" : "Inrigger 4+"
+   },
+   {
+      "name" : "Sardin",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "143",
+      "location" : "DSR",
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1"
+   },
+   {
+      "spaces" : "1",
+      "id" : "144",
+      "location" : "DSR",
+      "name" : "Ansjos",
+      "boattype" : "Kajakker",
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "name" : "Njord",
+      "boattype" : "Almindelig roning",
+      "id" : "145",
+      "spaces" : "5",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Inrigger 4+",
+      "description" : null
+   },
+   {
+      "boattype" : "Kajakker",
+      "name" : "Skalle",
+      "location" : "DSR",
+      "id" : "146",
+      "spaces" : "1",
+      "description" : null,
+      "category" : "Kajak 1",
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null,
+      "name" : "Mulle",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "147",
+      "location" : "DSR"
+   },
+   {
+      "boattype" : "Kajakker",
+      "name" : "Delfin",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "149",
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "name" : "Tangloppe",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "156",
+      "location" : "DSR",
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1"
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1",
+      "name" : "Nemo",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "157",
+      "location" : "DSR"
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1",
+      "spaces" : "1",
+      "id" : "158",
+      "location" : "DSR",
+      "name" : "Karpe",
+      "boattype" : "Kajakker"
+   },
+   {
+      "placement" : null,
+      "category" : "Inrigger 4+",
+      "description" : null,
+      "name" : "Skadi",
+      "boattype" : "Almindelig roning",
+      "spaces" : "5",
+      "id" : "160",
+      "location" : "DSR"
+   },
+   {
+      "spaces" : "1",
+      "id" : "174",
+      "location" : "DSR",
+      "name" : "Blåhval",
+      "boattype" : "Kajakker",
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "175",
+      "boattype" : "Kajakker",
+      "name" : "Gedde",
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "spaces" : "1",
+      "id" : "176",
+      "location" : "DSR",
+      "name" : "Ising",
+      "boattype" : "Kajakker",
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1"
+   },
+   {
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null,
+      "id" : "177",
+      "spaces" : "1",
+      "location" : "DSR",
+      "name" : "Knurhane",
+      "boattype" : "Kajakker"
+   },
+   {
+      "location" : "DSR",
+      "id" : "178",
+      "spaces" : "1",
+      "boattype" : "Kajakker",
+      "name" : "Låne Kajak 2",
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "name" : "Låne Kajak 3",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "179",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "name" : "Låne kajak 4",
+      "boattype" : "Kajakker",
+      "id" : "180",
+      "spaces" : "1",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null,
+      "boattype" : "Kajakker",
+      "name" : "Lånt Kajak 1",
+      "location" : "DSR",
+      "id" : "181",
+      "spaces" : "1"
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1",
+      "spaces" : "1",
+      "id" : "184",
+      "location" : "DSR",
+      "name" : "Snapper",
+      "boattype" : "Kajakker"
+   },
+   {
+      "spaces" : "1",
+      "id" : "186",
+      "location" : "DSR",
+      "name" : "Valborg",
+      "boattype" : "Kajakker",
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Sculler 2x / 2-",
+      "name" : "Platon",
+      "boattype" : "Almindelig roning",
+      "id" : "188",
+      "spaces" : "2",
+      "location" : "DSR"
+   },
+   {
+      "description" : null,
+      "category" : "Sculler 2x / 2-",
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Pallas Athene",
+      "location" : "DSR",
+      "id" : "189",
+      "spaces" : "2"
+   },
+   {
+      "description" : null,
+      "category" : "Sculler 2x / 2-",
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Supermax Lady",
+      "location" : "DSR",
+      "id" : "190",
+      "spaces" : "2"
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "2",
+      "id" : "191",
+      "boattype" : "Almindelig roning",
+      "name" : "Gerda",
+      "description" : null,
+      "category" : "Sculler 2x / 2-",
+      "placement" : null
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Iota",
+      "location" : "DSR",
+      "id" : "192",
+      "spaces" : "1",
+      "description" : null,
+      "category" : "Sculler 1x",
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "description" : null,
+      "category" : "Sculler 1x",
+      "spaces" : "1",
+      "id" : "193",
+      "location" : "DSR",
+      "name" : "Nympha",
+      "boattype" : "Almindelig roning"
+   },
+   {
+      "category" : "Sculler 1x",
+      "description" : null,
+      "placement" : null,
+      "location" : "DSR",
+      "id" : "194",
+      "spaces" : "1",
+      "boattype" : "Almindelig roning",
+      "name" : "My"
+   },
+   {
+      "id" : "195",
+      "spaces" : "1",
+      "location" : "DSR",
+      "name" : "Ro",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Sculler 1x",
+      "description" : null
+   },
+   {
+      "placement" : null,
+      "category" : "Sculler 1x",
+      "description" : null,
+      "id" : "196",
+      "spaces" : "1",
+      "location" : "DSR",
+      "name" : "002",
+      "boattype" : "Almindelig roning"
+   },
+   {
+      "placement" : null,
+      "category" : "4x",
+      "description" : null,
+      "id" : "197",
+      "spaces" : "4",
+      "location" : "DSR",
+      "name" : "Aslaug",
+      "boattype" : "Almindelig roning"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Pollux",
+      "location" : "DSR",
+      "spaces" : "5",
+      "id" : "198",
+      "description" : null,
+      "category" : "4+ / 4-",
+      "placement" : null
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Giallo",
+      "location" : "DSR",
+      "id" : "199",
+      "spaces" : "5",
+      "category" : "4+ / 4-",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "id" : "200",
+      "spaces" : "5",
+      "boattype" : "Almindelig roning",
+      "name" : "Hermes",
+      "category" : "4+ / 4-",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Kristian",
+      "location" : "DSR",
+      "spaces" : "3",
+      "id" : "201",
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "3",
+      "id" : "202",
+      "boattype" : "Almindelig roning",
+      "name" : "Frederik d. IX",
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "id" : "203",
+      "spaces" : "3",
+      "location" : "DSR",
+      "name" : "Fenris",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "category" : "Inrigger 2+",
+      "description" : null
+   },
+   {
+      "description" : null,
+      "category" : "Sculler 1x",
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Totu",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "204"
+   },
+   {
+      "category" : "Sculler 1x",
+      "description" : null,
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Omega",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "205"
+   },
+   {
+      "name" : "Afrodite",
+      "boattype" : "Almindelig roning",
+      "id" : "206",
+      "spaces" : "1",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Sculler 1x",
+      "description" : null
+   },
+   {
+      "category" : "Sculler 1x",
+      "description" : null,
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Teta",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "207"
+   },
+   {
+      "description" : null,
+      "category" : "Sculler 1x",
+      "placement" : null,
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "208",
+      "boattype" : "Almindelig roning",
+      "name" : "Delta"
+   },
+   {
+      "category" : "Sculler 2x / 2-",
+      "description" : null,
+      "placement" : null,
+      "location" : "DSR",
+      "spaces" : "2",
+      "id" : "209",
+      "boattype" : "Almindelig roning",
+      "name" : "Hera"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Sct. Cathrine",
+      "location" : "DSR",
+      "spaces" : "2",
+      "id" : "210",
+      "description" : null,
+      "category" : "Sculler 2x / 2-",
+      "placement" : null
+   },
+   {
+      "category" : "8+",
+      "description" : null,
+      "placement" : null,
+      "location" : "DSR",
+      "id" : "211",
+      "spaces" : "9",
+      "boattype" : "Almindelig roning",
+      "name" : "Bifrost"
+   },
+   {
+      "description" : null,
+      "category" : "Kajak 1",
+      "placement" : null,
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "221",
+      "boattype" : "Kajakker",
+      "name" : "Blæksprutte"
+   },
+   {
+      "name" : "Regnbueørred (Privat)",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "222",
+      "location" : "DSR",
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null
+   },
+   {
+      "location" : "DSR",
+      "id" : "223",
+      "spaces" : "1",
+      "boattype" : "Kajakker",
+      "name" : "Triton",
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "id" : "224",
+      "spaces" : "2",
+      "boattype" : "Kajakker",
+      "name" : "Laks",
+      "description" : null,
+      "category" : "Kajak 2",
+      "placement" : null
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Ull",
+      "location" : "DSR",
+      "id" : "225",
+      "spaces" : "3",
+      "description" : null,
+      "category" : "Inrigger 2+",
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null,
+      "name" : "Grindehval",
+      "boattype" : "Kajakker",
+      "id" : "227",
+      "spaces" : "1",
+      "location" : "DSR"
+   },
+   {
+      "description" : null,
+      "category" : "Kajak 1",
+      "placement" : null,
+      "boattype" : "Kajakker",
+      "name" : "Guldmakrel",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "228"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "Møhring",
+      "location" : "DSR",
+      "id" : "230",
+      "spaces" : "3",
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "boattype" : "Kajakker",
+      "name" : "Ål",
+      "location" : "DSR",
+      "id" : "231",
+      "spaces" : "2",
+      "category" : "Kajak 2",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "name" : "Havkat",
+      "boattype" : "Kajakker",
+      "spaces" : "1",
+      "id" : "232",
+      "location" : "DSR",
+      "placement" : null,
+      "description" : null,
+      "category" : "Kajak 1"
+   },
+   {
+      "boattype" : "Kajakker",
+      "name" : "Rødspætte",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "233",
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "boattype" : "Kajakker",
+      "name" : "Stør",
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "234",
+      "description" : null,
+      "category" : "Kajak 1",
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "236",
+      "boattype" : "Almindelig roning",
+      "name" : "Lambda",
+      "description" : "Singlesculler",
+      "category" : "Sculler 1x",
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "id" : "237",
+      "spaces" : "4",
+      "boattype" : "Almindelig roning",
+      "name" : "Balder (4-)",
+      "category" : "4x",
+      "description" : "Coastal",
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "category" : "4x",
+      "description" : "Coastal",
+      "name" : "Balder (4+)",
+      "boattype" : "Almindelig roning",
+      "spaces" : "4",
+      "id" : "238",
+      "location" : "DSR"
+   },
+   {
+      "name" : "Pædagogsculler 1",
+      "boattype" : "Almindelig roning",
+      "spaces" : "1",
+      "id" : "239",
+      "location" : "DSR",
+      "placement" : null,
+      "description" : "Pædagogsculler",
+      "category" : "Svava 1x"
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "5",
+      "id" : "240",
+      "boattype" : "Almindelig roning",
+      "name" : "Hugin",
+      "description" : null,
+      "category" : "Inrigger 4+",
+      "placement" : null
+   },
+   {
+      "description" : "Coastal 2er",
+      "category" : "Inrigger 2+",
+      "placement" : null,
+      "location" : "DSR",
+      "id" : "241",
+      "spaces" : "3",
+      "boattype" : "Almindelig roning",
+      "name" : "214"
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "1",
+      "id" : "242",
+      "boattype" : "Almindelig roning",
+      "name" : "109",
+      "category" : "Sculler 1x",
+      "description" : "Coastal 1er",
+      "placement" : null
+   },
+   {
+      "location" : "DSR",
+      "id" : "243",
+      "spaces" : "1",
+      "boattype" : "Kajakker",
+      "name" : "Makrel",
+      "category" : "Kajak 1",
+      "description" : null,
+      "placement" : null
+   },
+   {
+      "placement" : null,
+      "category" : "Kajak 1",
+      "description" : null,
+      "name" : "Us",
+      "boattype" : "Kajakker",
+      "id" : "244",
+      "spaces" : "1",
+      "location" : "DSR"
+   },
+   {
+      "boattype" : "Almindelig roning",
+      "name" : "VisioSign",
+      "location" : "DSR",
+      "id" : "248",
+      "spaces" : "1",
+      "description" : "Coastal C1x",
+      "category" : "Svava 1x",
+      "placement" : null
+   },
+   {
+      "spaces" : "3",
+      "id" : "249",
+      "location" : "DSR",
+      "name" : "Skinfaxe",
+      "boattype" : "Almindelig roning",
+      "placement" : null,
+      "description" : "Coastal C2x",
+      "category" : "Gig 2x"
+   },
+   {
+      "location" : "DSR",
+      "spaces" : "4",
+      "id" : "250",
+      "boattype" : "Almindelig roning",
+      "name" : "Den Gyldne Dame",
+      "category" : "4x",
+      "description" : "Coastal C4x+",
+      "placement" : null
+   },
+   {
+      "category" : "Gig 2x",
+      "description" : "Coastal C2x",
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Høder",
+      "location" : "DSR",
+      "id" : "251",
+      "spaces" : "3"
+   },
+   {
+      "placement" : null,
+      "category" : "Inrigger 4+",
+      "description" : null,
+      "spaces" : "5",
+      "id" : "252",
+      "location" : "DSR",
+      "name" : "Modi",
+      "boattype" : "Almindelig roning"
+   },
+   {
+      "category" : "Inrigger 2+",
+      "description" : null,
+      "placement" : null,
+      "boattype" : "Almindelig roning",
+      "name" : "Tyr",
+      "location" : "Forpost",
+      "spaces" : "3",
+      "id" : "253"
+   }
+]
