@@ -98,12 +98,14 @@ button.yellow:hover {
 .menu li:hover i {
     color: #ede511;
 }
+
 .main {
     margin: 0;   
     padding: 15pt 25pt;
 }
 .boatlist,
 .statlist,
+.rower,
 .boatcategories,
 .checkout-form,
 .boatdamages {
