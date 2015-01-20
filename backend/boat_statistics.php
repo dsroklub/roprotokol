@@ -1,7 +1,13 @@
 <?php
 include("inc/common.php");
+header('Content-type: application/json');
 
-$season=date('Y');
+
+if (isset($_GET["season"])) {
+    $season=$_GET["season"];
+} else {
+  $season=date('Y');
+}
 
 
 $boatclause="";
@@ -10,9 +16,9 @@ if (isset($_GET["boattype"])) {
     if ($boattype=="any") {
         $boatclause="";
     } elseif ($boattype=="kayak") {
-        $boatclause=" AND ((Gruppe.FK_BådKategoriID)=1) ";
+        $boatclause=" AND (BoatType.Category=1) ";
     } elseif ($boattype=="rowboat") {
-        $boatclause=" AND ((Gruppe.FK_BådKategoriID)=2)";
+        $boatclause=" AND (BoatType.Category=2)";
     } else {
         error_log('unknown boattype: '.$boattype);
         echo "unknown boattype: ".$boattype;
@@ -21,13 +27,14 @@ if (isset($_GET["boattype"])) {
 }
 
 
-$s="SELECT Båd.Navn AS boatname, Gruppe.Navn AS boat_type, Sum(ROUND(Meter/100)/10) AS distance, Count(Trip.TripID) AS num_trips
-FROM (Gruppe INNER JOIN Båd ON Gruppe.GruppeID = Båd.FK_GruppeID) LEFT JOIN Trip ON Båd.BådID = Trip.BoatID
-WHERE Year(OutTime)=".$season ." ". $boatclause .
-    " GROUP BY Båd.Navn, Gruppe.Navn";
+$s="SELECT Boat.Name AS boatname, BoatType.Name AS boat_type, Sum(ROUND(Meter/100)/10) AS distance, Count(Trip.TripID) AS num_trips
+FROM (BoatType INNER JOIN Boat ON BoatType.id = Boat.BoatType) LEFT JOIN Trip ON Boat.id = Trip.BoatID
+WHERE Year(OutTime)=? ". $boatclause .
+    " GROUP BY Boat.Name, BoatType.Name";
     
 //    echo $s;
 if ($stmt = $rodb->prepare($s)) {
+     $stmt->bind_param("s", $season);
      $stmt->execute(); 
      $result= $stmt->get_result();
      echo '[';

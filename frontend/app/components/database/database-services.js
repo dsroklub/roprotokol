@@ -104,12 +104,14 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       var bx;
       for (bx in boattypes) {
 	(function(boattype) {
-	var farg="";
+	  //var farg="?noop=42";
+	  // FIXME for test purposes
+	  var farg="?season=2014";
 	  if (boattype != "any") {
-	    farg='?boattype='+boattype;
+	    farg+='&boattype='+boattype;
 	    	   // farg='Qboattype'+boattype;
 	  }
-	  $http.get(toURL('rower_statistics'+farg+'.php')).then(function(response) {
+	  $http.get(toURL('rower_statistics.php'+farg)).then(function(response) {
             rowerstatistics[boattype] = [];
             angular.forEach(response.data, function(stat, index) {
               //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
@@ -177,8 +179,14 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   };
   
-  this.getDestinations = function () {
-    return destinations;
+  this.getDestinations = function (location) {
+    if(location !== undefined) {
+      return destinations.filter(function(element){
+        return location in element['distance'];
+      });
+    } else {
+      return destinations;
+    }
   };
   
   this.getTripTypes = function () {

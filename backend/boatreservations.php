@@ -1,7 +1,8 @@
 <?php
 include("inc/common.php");
+header('Content-type: application/json');
 
-$s="SELECT ID as id, FK_BådID as boat_id, start, slut as end, Beskrivelse as description FROM Reservation WHERE slut > Now()";
+$s="SELECT id, Boat as boat_id, Begin as start, End as end, Description as description FROM Reservation WHERE End > Now()";
 // for debug    $s="SELECT ID as id, FK_BådID as boat_id, start, slut as end, Beskrivelse as description FROM Reservation WHERE slut > '2013-08-30'";
 
 

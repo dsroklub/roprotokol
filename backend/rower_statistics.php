@@ -1,8 +1,12 @@
 <?php
 include("inc/common.php");
+header('Content-type: application/json');
 
-$season=date('Y');
-
+if (isset($_GET["season"])) {
+    $season=$_GET["season"];
+} else {
+  $season=date('Y');
+}
 
 $boatclause="";
 if (isset($_GET["boattype"])) {
@@ -10,9 +14,9 @@ if (isset($_GET["boattype"])) {
     if ($boattype=="any") {
         $boatclause="";
     } elseif ($boattype=="kayak") {
-        $boatclause="AND ((Gruppe.FK_BådKategoriID)=1) ";
+        $boatclause="AND ((BoatType.Category)=1) ";
     } elseif ($boattype=="rowboat") {
-        $boatclause="AND ((Gruppe.FK_BådKategoriID)=2)";
+        $boatclause="AND ((BoatType.Category)=2)";
     } else {
         error_log('unknown boattype: '.$boattype);
         echo "unknown boattype: ".$boattype;
@@ -21,19 +25,19 @@ if (isset($_GET["boattype"])) {
 }
 // echo "boats:". $boatclause."\n<br>";
 //$season='2013';
-    $s="SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance ,Medlem.Medlemsnr as id, Medlem.Fornavn as firstname, Medlem.Efternavn as lastname 
-    FROM Gruppe,Trip,TripMember,Båd,Medlem 
+    $s="SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance ,Member.MemberID as id, Member.FirstName as firstname, Member.LastName as lastname 
+    FROM BoatType,Trip,TripMember,Boat,Member 
     WHERE 
       Trip.TripID = TripMember.TripID AND
-      Medlem.MedlemID = TripMember.MemberID AND
-      Båd.BådID = Trip.BoatID AND     
-      Gruppe.GruppeID = Båd.FK_GruppeID AND
+      Member.id = TripMember.MemberID AND
+      Boat.id = Trip.BoatID AND     
+      BoatType.id = Boat.BoatType AND
       (((Year(OutTime))=".$season.") " . $boatclause .")".
-    " GROUP BY Medlem.MedlemID 
+    " GROUP BY Member.MemberID 
     ORDER BY distance desc";
 
 
-// echo $s;
+//echo $s;
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
      $result= $stmt->get_result();

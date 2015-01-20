@@ -4,8 +4,6 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     DatabaseService.init().then(function () {
       
       // Load Category Overview
-      $scope.destinations = DatabaseService.getDestinations();
-      $scope.triptypes = DatabaseService.getTripTypes();
       $scope.boatcategories = DatabaseService.getBoatCategories();
 
       // Load selected boats based on boat category
@@ -17,26 +15,33 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       if ($scope.selectedboat !== undefined) {
         var now = new Date();
         
+        $scope.destinations = DatabaseService.getDestinations();
+        $scope.triptypes = DatabaseService.getTripTypes();
+        
         // Lock boat for the next 30 seconds
         DatabaseService.lockBoatWithId($routeParams.boat_id, new Date(now.getTime() + 30000), function() {
           // Failed to lock boat
           // TODO: Give error and redirect back to category list
         });
         
-          $scope.checkout = {
-	      'boat' : $scope.selectedboat,
+        // Create initial data for checkout
+        $scope.checkout = {
+	          'boat' : $scope.selectedboat,
               'destination': $scope.destinations[0],
               'starttime': now,
-              // TODO: Calculate this based on the destination and triptype
               // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
-              'expectedtime': new Date(now.getTime() + 60000 * 60),
+              'expectedtime': now,
               'endtime': '',
               'triptype': $scope.triptypes[0],
               'rowers': []
         };
         
+        debugger;
+        
         // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
         // TODO: Show wrench next to name in checkout view
+        // TODO: Don't default on triptype and block checkout
+        // TODO: Make sure we calculate from boat placement
         
         // Fill the rowers array with empty values
         for (var i = 0; i < $scope.selectedboat.spaces; i++) {
@@ -81,6 +86,15 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       return typeof(val) === 'string' && val.length > 3;
     };
 
+    $scope.updateExpectedTime = function (item) {
+      // Calculate expected time based on triptype and destination
+      if($scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
+        $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration_instruction * 3600 * 1000)
+      } else {
+        $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration * 3600 * 1000);
+      }
+    };
+  
     $scope.clearDestination = function () {
       $scope.checkout.destination = undefined;
     };
@@ -100,7 +114,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       if(rower) {
         rowers[index] = rower;
       }
-    };
+    };  
   
     $scope.createtrip = function (data) {
       // TODO: Check if all rowers have ID and don't allow to start trip before it's done

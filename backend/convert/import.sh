@@ -6,7 +6,8 @@ CURRENTSEASON=2014
 echo CURRENTSEASON=$CURRENTSEASON
 arg=$1
 
-if [ "x"$arg == "x" ]
+
+if [[ "x$arg" = "x" ]]
 then
    echo usage:
    echo   import.sh fake
@@ -15,7 +16,7 @@ then
    echo real is for importing real DSR data, it requires that you have SQL dumps from the database
    exit 0
 fi
-DBCMD="mysql -u roprotokol roprotokol"
+DBCMD="mysql -f -u roprotokol roprotokol"
 
 #if you you a password, put DBCMD="mysql -u roprotokol -p password roprotokol" in secret.sh
 if [ -f $SCRIPT_PATH/secret.sh ];
@@ -23,17 +24,27 @@ then
 . $SCRIPT_PATH/secret.sh
 fi
 
-for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer LockedBoats Zipcode Reservation Skade TurType Destination Kajak_anvendelser; do
+if [[ $arg = "real" ]]; then
+    DATADIR=data
+else
+    DATADIR=testdata
+fi
+
+for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer LåsteBåde Postnr Reservation Skade TurType Destination Kajak_anvendelser; do
     echo DO IMPORT $tb
     echo
     $DBCMD -e "TRUNCATE TABLE $tb;"
-    $DBCMD < $SCRIPT_PATH/testdata/$tb.sql
+    $DBCMD < $SCRIPT_PATH/$DATADIR/$tb.sql
 done
+echo do trip rights
     $DBCMD < $SCRIPT_PATH/TripRights.sql
 
-if [ $arg=="fake" ]; then
+if [[ $arg = "fake" ]]; then
+    echo "Generating fake data..."
+    $DBCMD < $SCRIPT_PATH/rename.sql
     $SCRIPT_PATH/../tests/fakedata.py
-elif [ $arg=="real" ]; then
+elif [[ $arg = "real" ]]; then
+    echo "Using real data..."
     for tb in Fejl_tblMembersSportData Fejl_system Fejl_tur TurDeltager Vintervedligehold Medlem Tur tblMembersSportData; do
 	echo DO IMPORT $tb
 	echo
@@ -59,18 +70,22 @@ elif [ $arg=="real" ]; then
         SELECT FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM Turdeltager_backup${SEASON}"
 	$DBCMD -e "DROP TABLE Tur_backup${SEASON}"
 	$DBCMD -e "DROP TABLE Turdeltager_backup${SEASON}"
-done
-
+    done
+ echo now season $CURRENTSEASON
     SEASON=$CURRENTSEASON
     $DBCMD -e "INSERT INTO Trip (TripID,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
      SELECT TurID,${SEASON},FK_BådID,Ud,Ind,ForvInd,Destination,Meter,FK_TurTypeID,Kommentar,OprettetDato,RedigeretDato,Initialer,DESTID FROM Tur"
 
     $DBCMD -e "INSERT INTO TripMember (TripID, Season,Seat, MemberID,MemberName,CreatedDate,EditDate,Initials) \
     SELECT   FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM TurDeltager"
-    $DBCMD -e "DROP TABLE Tur"
-    $DBCMD -e "DROP TABLE TurDeltager"
+#    $DBCMD -e "DROP TABLE Tur"
+    #    $DBCMD -e "DROP TABLE TurDeltager"
+    echo "konverting rights"
     $DBCMD < $SCRIPT_PATH/konvertRights.sql
-elif [ $arg=="empty" ]; then
+    echo "renaming"
+    $DBCMD < $SCRIPT_PATH/rename.sql
+
+elif [[ $arg = "empty" ]]; then
     echo no rower data
 else
     echo unknown argument

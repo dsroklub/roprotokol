@@ -28,20 +28,31 @@ angular.module('myApp.utilities.mtokm', []).filter('mtokm', function() {
   };
 });
 
+angular.module('myApp.utilities.totime', []).filter('totime', function() {
+  return function(hours) { 
+    var hrs = Math.floor(hours)
+    var min = Math.round(hours % 1 * 60)
+    min = min < 10 ? "0"+min : min.toString();
+    return hrs+":"+min;
+  };
+});
+
 angular.module('myApp.utilities.transformkm', []).directive('transformkm', function() {
   return { 
     restrict: 'A',
     require: 'ngModel',
     link: function(scope, element, attrs, ngModel) {
-      if(ngModel) { // Don't do anything unless we have a model
-          ngModel.$parsers.push(function (value) {
+      if (ngModel) { // Don't do anything unless we have a model
+        ngModel.$parsers.push(function (value) {
           value = value.replace(',', '.');
-          return value*1000;
+          return value * 1000;
         });
 
         ngModel.$formatters.push(function (value) {
-          value = value.replace(',', '.');
-          return value/1000;
+          if (value !== undefined) {
+            value = value.replace(',', '.');
+            return value / 1000;
+          }
         });
       }
     }
@@ -53,5 +64,6 @@ angular.module('myApp.utilities', [
   'myApp.utilities.urlencode',
   'myApp.utilities.nodsr',
   'myApp.utilities.transformkm',
-  'myApp.utilities.mtokm'
+  'myApp.utilities.mtokm',
+  'myApp.utilities.totime'
 ]).value('version', '0.1');

@@ -5,3 +5,4 @@
 secret.*
 .project
 db.php
+config.ini
