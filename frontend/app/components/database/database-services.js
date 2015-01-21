@@ -190,8 +190,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return triptypes;
   };
 
-  this.getRowerTrips = function (mid,onSuccess) {
-    $http.get(toURL('rowertrips.php?member='+mid)).then(onSuccess);
+  this.getRowerTripsAggregated = function (member,onSuccess) {
+    $http.get(toURL('rowertripsaggregated.php?member='+member.id)).then(onSuccess);
+  }
+  this.getRowerTrips = function (member,onSuccess) {
+    $http.get(toURL('rowertrips.php?member='+member.id)).then(onSuccess);
   }
 
   this.getRowerStatistics = function (boattype) {
