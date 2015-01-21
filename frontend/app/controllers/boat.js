@@ -1,6 +1,7 @@
 'use strict';
 
 app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', function ($scope, $routeParams, DatabaseService, $interval, ngDialog) {
+  $scope.allboatdamages=[];
     DatabaseService.init().then(function () {
       
       // Load Category Overview
@@ -12,6 +13,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       // Checkout code
       var boat_id = $routeParams.boat_id;
       $scope.selectedboat = DatabaseService.getBoatWithId(boat_id);
+      $scope.allboatdamages = DatabaseService.getDamages();
       if ($scope.selectedboat !== undefined) {
         var now = new Date();
         
@@ -36,7 +38,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
               'rowers': []
         };
         
-        debugger;
+        // debugger;
         
         // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
         // TODO: Show wrench next to name in checkout view
@@ -48,7 +50,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           $scope.checkout.rowers.push("");
         }
 
-        $scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat_id);
+	$scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat_id);
 
         var setlock = $interval(function () {
           // Lock boat for 30 seconds more every 10 seconds

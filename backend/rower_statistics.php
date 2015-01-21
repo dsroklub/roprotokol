@@ -2,12 +2,6 @@
 include("inc/common.php");
 header('Content-type: application/json');
 
-if (isset($_GET["season"])) {
-    $season=$_GET["season"];
-} else {
-  $season=date('Y');
-}
-
 $boatclause="";
 if (isset($_GET["boattype"])) {
     $boattype=$_GET["boattype"];

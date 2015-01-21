@@ -66,7 +66,7 @@ elif [[ $arg = "real" ]]; then
 	$DBCMD -e "INSERT INTO Trip (TripID,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
      SELECT TurID,${SEASON},FK_BådID,Ud,Ind,ForvInd,Destination,Meter,FK_TurTypeID,Kommentar,OprettetDato,RedigeretDato,Initialer,DESTID FROM Tur_backup${SEASON}"
 
-	$DBCMD -e "INSERT INTO TripMember (TripID, Season, Seat, MemberID,MemberName,CreatedDate,EditDate,Initials) \
+	$DBCMD -e "INSERT INTO TripMember (TripID, Season, Seat, member_id,MemberName,CreatedDate,EditDate,Initials) \
         SELECT FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM Turdeltager_backup${SEASON}"
 	$DBCMD -e "DROP TABLE Tur_backup${SEASON}"
 	$DBCMD -e "DROP TABLE Turdeltager_backup${SEASON}"

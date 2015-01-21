@@ -80,7 +80,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
         triptypes = response.data;
         triptypesloaded.resolve(true);
       });
-
     } else {
       triptypesloaded.resolve(true);
     }
@@ -92,10 +91,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
           rower.search = rower.id + " " + rower.name;
           this.push(rower);
         }, rowers);
-
         rowersloaded.resolve(true);
       });
-
     } else {
       rowersloaded.resolve(true);
     }
@@ -168,6 +165,17 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return boatdamages[boat_id];
   };
 
+  this.getDamages = function () {    
+    var ra=[];
+    angular.forEach(boatdamages,function(d,i) {
+      var bi;
+      for (bi in d) {
+	this.push(d[bi]);
+      }
+    },ra);						    
+    return ra;
+  };
+
   this.getBoatsWithCategoryName = function (categoryname) {
     var boats = boatcategories[categoryname];
     if (boats) {
@@ -193,6 +201,13 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return triptypes;
   };
 
+  this.getRowerTripsAggregated = function (member,onSuccess) {
+    $http.get(toURL('rowertripsaggregated.php?member='+member.id)).then(onSuccess);
+  }
+  this.getRowerTrips = function (member,onSuccess) {
+    $http.get(toURL('rowertrips.php?member='+member.id)).then(onSuccess);
+  }
+
   this.getRowerStatistics = function (boattype) {
     return rowerstatistics[boattype];
   };
@@ -200,12 +215,19 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return boatstatistics[boattype];
   };
 
-  this.getRowersByNameOrId = function(val, preselectedids) {
-    return rowers.filter(function(element) {
-      return val.length > 2  
-        && (preselectedids === undefined || !(element.id in preselectedids))
-        && element.search.indexOf(val) > -1;
+
+  this.getRower = function(val) {
+    var rs=rowers.filter(function(element) {
+      return element['id']==val;
     });
+    return rs[0];
+  }
+    
+  this.getRowersByNameOrId = function(val, preselectedids) {
+    var rf= rowers.filter(function(element) {
+      return (preselectedids === undefined || !(element.id in preselectedids)) && element.search.indexOf(val) > -1;
+    });
+    return rf;
   };
   
   this.createRowerByName = function(name) {
@@ -222,6 +244,4 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     });
     return;
   };
-  
-
 });

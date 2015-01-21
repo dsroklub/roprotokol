@@ -127,7 +127,7 @@ ALTER TABLE TripType CHANGE RedigeretDato Updated DATETIME;
 ALTER TABLE TripType CHANGE Initialer Initials VARCHAR(10);
 ALTER TABLE TripType CHANGE Aktiv Active INT;
 
-ALTER TABLE Zipcode CHANGE Postnr Zipcode INT;
+ALTER TABLE Zipcode CHANGE Postnr Zipcode CHAR(10);
 ALTER TABLE Zipcode CHANGE Distrikt District VARCHAR(100);
 
 -- TODO: BoatConfiguration, Comment, 
@@ -157,3 +157,4 @@ UPDATE Destination SET ExpectedDurationInstruction=1 WHERE ExpectedDurationInstr
 UPDATE Boat set Location='DSR';
 UPDATE Boat set Location='Nordhavn' WHERE Name in ("Freja","Tyr","Modi","Embla");
 UPDATE Boat set Decommissioned = Now() WHERE Name in ("Dan");
+ALTER TABLE TripMember CHANGE MemberID member_id INT;
