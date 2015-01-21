@@ -1,4 +1,4 @@
-# copy to config.ini and edit
+; copy to config.ini and edit
 dbpassword=roprotokol
 database=roprotokol
 dbuser=roprotokol
