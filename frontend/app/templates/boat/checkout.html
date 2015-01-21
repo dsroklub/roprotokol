@@ -33,7 +33,8 @@
                 (<small ng-bind-html="destination.distance | mtokm : $select.search"></small>km, <small ng-bind-html="destination.duration | totime"></small>t)
               </ui-select-choices>
             </ui-select>
-            <input maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance" required />km
+            <input maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance['DSR']" required />km
+	    <!-- FIXME also handle forpost -->
           </td>
         </tr>
         <tr>
