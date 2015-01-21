@@ -27,6 +27,10 @@ var app = angular.module('myApp', [
 	  templateUrl: 'templates/rowers/rower.html',
 	  controller: 'RowerCtrl'
 	});
+	$routeProvider.when('/damages/', {
+	  templateUrl: 'templates/damages.html',
+	  controller: 'BoatCtrl'
+	});
 	$routeProvider.when('/boat/categoryoverview/', {
 	  templateUrl: 'templates/boat/categoryoverview.html',
 	  controller: 'BoatCtrl'

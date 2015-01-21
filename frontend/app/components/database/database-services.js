@@ -165,6 +165,17 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return boatdamages[boat_id];
   };
 
+  this.getDamages = function () {    
+    var ra=[];
+    angular.forEach(boatdamages,function(d,i) {
+      var bi;
+      for (bi in d) {
+	this.push(d[bi]);
+      }
+    },ra);						    
+    return ra;
+  };
+
   this.getBoatsWithCategoryName = function (categoryname) {
     var boats = boatcategories[categoryname];
     if (boats) {
