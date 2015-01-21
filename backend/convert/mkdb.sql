@@ -48,9 +48,11 @@ CREATE INDEX tripout on Trip(OutTime);
 
 
 CREATE TABLE IF NOT EXISTS Location (
-	id INT AUTO_INCREMENT,
-	Name VARCHAR(100) NOT NULL,
-    PRIMARY KEY(id)
+    Name VARCHAR(10) NOT NULL,
+    Description VARCHAR(500),
+    Latitude Numeric(3,5),
+    Longitude Numeric(3,5),
+    PRIMARY KEY(Name)
 );
 
 
@@ -67,7 +69,7 @@ CREATE TABLE IF NOT EXISTS Båd (
     Type VARCHAR(100), -- FIXME was TYPE
     Anvendelse VARCHAR(100),
     Niveau VARCHAR(100),
-    Location INT,
+    Location VARCHAR(100),
     Placement VARCHAR(100),
     Decommissioned DATETIME,
     PRIMARY KEY (BådID)
@@ -328,7 +330,7 @@ CREATE TABLE IF NOT EXISTS volunteerwork (
 
 CREATE TABLE IF NOT EXISTS Destination (
        DestID INT,
-       Location INT,
+       Location VARCHAR(10),
        Navn VARCHAR(100) NOT NULL,
        Meter INT,
        Beskrivelse VARCHAR(1000),
