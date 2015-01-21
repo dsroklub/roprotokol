@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS TripMember (
        TripID INT,
        Season INT,
        Seat INT,
-       MemberID INT,
+       member_id INT,
        MemberName VARCHAR(100),
        CreatedDate DATE,
        EditDate DATE,

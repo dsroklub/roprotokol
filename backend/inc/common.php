@@ -6,6 +6,12 @@ error_reporting(E_ALL);
 if(!isset($_SESSION)){
   session_start();
 }
+if (isset($_GET["season"])) {
+    $season=$_GET["season"];
+} else {
+//  $season=date('Y');
+    $season=2014;
+}
 
 require_once("db.php");
 if (!$rodb->set_charset("utf8")) {

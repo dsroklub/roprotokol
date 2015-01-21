@@ -87,9 +87,9 @@ for tid in range(1, 4000):
     q="INSERT INTO Trip (TripID, Season, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, intime) VALUES ("+str(tid)+',2014,'+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+',"2014-05-14 02:02:03", '+str(intime)+')';
     print q
     cur.execute(q);
-    for d in range(1,pladser+1):
+    for d in range(0,pladser):
         rower=int(math.sqrt(random.randrange(0, (numrowers-1)**2)))
-        qm='INSERT INTO TripMember (TripID,Season,Seat,MemberID,MemberName,CreatedDate) VALUES ('+str(tid)+',2014,'+str(d)+','+str(rower)+',"'+m[rower]+'","2014-04-14 00:00:00")'
+        qm='INSERT INTO TripMember (TripID,Season,Seat,member_id,MemberName,CreatedDate) VALUES ('+str(tid)+',2014,'+str(d)+','+str(rower)+',"'+m[rower]+'","2014-04-14 00:00:00")'
         print qm
         cur.execute(qm)
 

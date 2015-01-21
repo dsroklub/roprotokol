@@ -152,3 +152,4 @@ UPDATE Destination SET ExpectedDurationInstruction=1 WHERE ExpectedDurationInstr
 
 UPDATE Boat set Location='DSR';
 UPDATE Boat set Location='Forpost' WHERE Name in ("Freja","Tyr");
+ALTER TABLE TripMember CHANGE MemberID member_id INT;
