@@ -13,24 +13,23 @@ if (!$rodb->set_charset("utf8")) {
 
 $s="SELECT Boat.id,
            Boat.Name as name,
-           BoatType.Seatcount as spaces,
-           Boat.Description as description,
-           BoatType.Name as category,
-           BoatCategory.Name as boattype,
-           Location.Name as location,
-           Boat.Location as location_id,
-           Boat.Placement as placement
+           COALESCE(MAX(Damage.Degree),0) as damage,
+           MAX(Trip.TripID) as trip,
+           MAX(Trip.OutTime) as outtime,
+           MAX(Trip.ExpectedIn) as expected_in
     FROM Boat
-         INNER JOIN BoatType ON (BoatType.id=BoatType)
-         INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
-         LEFT OUTER JOIN Location ON (Location.id = Boat.Location)
+         LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
+         LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
     WHERE 
          Boat.Decommissioned IS NULL
+    GROUP BY
+       Boat.id,
+       Boat.Name
     ";
 
 
 
-
+// echo $s;
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';
  $first=1;

@@ -24,11 +24,17 @@ then
 . $SCRIPT_PATH/secret.sh
 fi
 
-for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer LockedBoats Zipcode Reservation Skade TurType Destination Kajak_anvendelser; do
+if [[ $arg = "real" ]]; then
+    DATADIR=data
+else
+    DATADIR=testdata
+fi
+
+for tb in Location Båd Bådindstilling BådKategori Gruppe  Kajak_typer LåsteBåde Postnr Reservation Skade TurType Destination Kajak_anvendelser; do
     echo DO IMPORT $tb
     echo
     $DBCMD -e "TRUNCATE TABLE $tb;"
-    $DBCMD < $SCRIPT_PATH/testdata/$tb.sql
+    $DBCMD < $SCRIPT_PATH/$DATADIR/$tb.sql
 done
 echo do trip rights
     $DBCMD < $SCRIPT_PATH/TripRights.sql
@@ -73,8 +79,10 @@ elif [[ $arg = "real" ]]; then
     $DBCMD -e "INSERT INTO TripMember (TripID, Season,Seat, MemberID,MemberName,CreatedDate,EditDate,Initials) \
     SELECT   FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM TurDeltager"
 #    $DBCMD -e "DROP TABLE Tur"
-#    $DBCMD -e "DROP TABLE TurDeltager"
+    #    $DBCMD -e "DROP TABLE TurDeltager"
+    echo "konverting rights"
     $DBCMD < $SCRIPT_PATH/konvertRights.sql
+    echo "renaming"
     $DBCMD < $SCRIPT_PATH/rename.sql
 
 elif [[ $arg = "empty" ]]; then

@@ -1,33 +1,33 @@
 [
-  {
-    "description": "Instruktionsture både for almindelig roning og kajakker",
-    "rights": {
-      "instruktør": "any"
-    },
-    "name": "Instruktion"
+   {
+      "rights" : {
+         "instruktør" : "any"
+      },
+      "description" : "Instruktionsture både for almindelig roning og kajakker",
+      "name" : "Instruktion"
    },
-  {
-    "description": "Uden for lokalt rofarvand",
-    "rights": {
-      "rowright": "all",
-      "langtursstyrmand": "any"
-    },
-    "name": "Langtur"
+   {
+      "name" : "Langtur",
+      "description" : "Uden for lokalt rofarvand",
+      "rights" : {
+         "langtursstyrmand" : "cox",
+         "rowright" : "all"
+      }
    },
-  {
-    "description": "Lokalt rofarvand",
-    "rights": {
-      "rowright": "all",
-      "styrmand": "any"
-    },
-    "name": "Lokaltur"
+   {
+      "description" : "Lokalt rofarvand",
+      "name" : "Lokaltur",
+      "rights" : {
+         "rowright" : "all",
+         "styrmand" : "cox"
+      }
    },
-  {
-    "name": "Puls og program",
-    "description": "Puls og program",
-    "rights": {
-      "styrmand": "any",
-      "rowright": "all"
-    }
+   {
+      "rights" : {
+         "styrmand" : "cox",
+         "rowright" : "all"
+      },
+      "name" : "Puls og program",
+      "description" : "Puls og program"
    }
 ]

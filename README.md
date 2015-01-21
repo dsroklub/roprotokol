@@ -17,7 +17,6 @@ Opret database til roprotokollen:
 Importer skema og views:
 
     mysql -u roprotokol -p'roprotokol' roprotokol < backend/convert/mkdb.sql
-    mysql -u roprotokol -p'roprotokol' roprotokol <  backend/convert/queries.sql
 
 Skriv adgangsvejen til databasen til filen backend/convert/secret.sh og filen backend/tests/secret.db
 Fx:
@@ -38,23 +37,28 @@ BRUG TESTDATA:
 BRUG DSR DATA:
 Eksporter gammel data til sql filer ved at kopiere gammel data Roprotokol_sommer.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
 
-   .backend/convert/eksport.sh
+   ./backend/convert/eksport.sh
 
 Importer gammel data:
 
-   ./backend/convert/import.sh
+   ./backend/convert/import.sh real
+
+
+
 
 # Noter om ASP til PHP konvertering
 
-Migrering til MySQL and PHP
-består af følgende opgaver.
+Migrering til MySQL and PHP består af følgende opgaver.
 
 * Lave et MySQL skema
 * Flytte data fra MS Access til Mysql Databasen
 
+Begge dele er overstået.
+Der er genereret PHP ud fra ASP-koden, men det benyttes ikke og er kun vedlagt som reference. I stedet er der skrevet et nyt system i Angular med en simpel backend i PHP. 
+
 ##SQL skema
 
-Nyt skema er i konvert/mkdb.sql
+Nyt skema er i backend/convert/mkdb.sql
 Det er lavet med mdb-schema, baseret på Roprotokol_sommer.mdb og Members.mdb. Derefter tilrettet i hånden. Tilretningere består af:
 
 * Primærnøgler 
@@ -71,7 +75,8 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 ##Procedurer Views
 
-Access/ASP gør brug af en hel del gemte queries. De er konterveret til SQL views i filen queries.sql
+Access/ASP gør brug af en hel del gemte queries. De er konverteret til SQL views i filen queries.sql
+Det forventes, at disse views ikke skal anvendes i det nye system.
 
 ##Konvertering fra ASP til PHP
 
@@ -85,9 +90,33 @@ SQL-koden virker.
 
 ##TODO
 
-Skemast skal opdateres. Fx. dur det ikke at vi har tabeller for Tur, Tur_backup2012,Tur_backup2011 osv.
-* I første omgang skal vi nok sørge for at ikke at ændre skemaet mere end vi kan importere indhold fra MDB.
-* Mange-til-mange forhold mellem ture og turdeltagere, istedet for 9 faste felter.
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
-* filen membersdata.txt i config.php. herfra hentes Navne og medlemsnumre.
-  Vi skal have en bedre måde at overføre det på.
+* Administration af både
+** Opret båd
+** Ret båd
+** Pensioner båd
+** Opret/ret/slet lokation
+* Reservation af både
+* Indberetning af fejl på ture
+* Behandling af fejl på ture
+* Opret/ret/slet bådtype
+* Indberetning af fejl i rettigheder -> mail til instruktionschefen
+* Kovertering af kanin/midlertidig roer
+* Administration af røde svensknøgler
+* Skift rosæson
+* Udskriv båd
+* Indskriv båd
+** Hvis turen er kortere end x minutter, så foreslå at slette turen i stedet
+* Meld skade
+* Kommenter skade
+* Klarmeld skade
+* Skadesliste for alle både
+* Vis roer
+** Rettigheder
+** Statistik fordelt på turtyper
+** Turoversigt
+* Dagens ture
+** Både på vandet
+* Statistik for både
+* Statistik over roere
+* Årsstatistik
