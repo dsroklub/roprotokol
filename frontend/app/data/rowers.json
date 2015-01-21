@@ -1,0 +1,9497 @@
+[
+   {
+      "name" : "Freddy Jensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2001"
+   },
+   {
+      "id" : "2002",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Jonas Thomsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Solvej Jensen",
+      "id" : "2003",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Annette Andersen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2004"
+   },
+   {
+      "id" : "2005",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "name" : "Karoline Kristensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2006",
+      "name" : "Mads Thomsen",
+      "initials" : null
+   },
+   {
+      "id" : "2008",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Nikolai Kristensen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2009",
+      "initials" : null,
+      "name" : "Bent Bendtsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Mikael Kristensen",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2010"
+   },
+   {
+      "name" : "Jean Jensen",
+      "initials" : null,
+      "id" : "2011",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2012",
+      "initials" : null,
+      "name" : "Dagmar Andersen"
+   },
+   {
+      "id" : "2013",
+      "rights" : {
+         "rowright" : ""
+      },
+      "name" : "Frans Sørensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2014",
+      "initials" : null,
+      "name" : "Lærke Mortensen"
+   },
+   {
+      "name" : "Inge Christiansen",
+      "initials" : null,
+      "id" : "2015",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Ziggy Olsen",
+      "initials" : null,
+      "id" : "2016",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Nicklas Poulsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2017"
+   },
+   {
+      "id" : "2018",
+      "rights" : {
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      },
+      "initials" : null,
+      "name" : "Mie Christensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Paw Larsen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2019"
+   },
+   {
+      "initials" : null,
+      "name" : "Ronni Jørgensen",
+      "id" : "2020",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Brian Christensen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2021"
+   },
+   {
+      "initials" : null,
+      "name" : "Sarah Andersen",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2022"
+   },
+   {
+      "id" : "2023",
+      "rights" : {
+         "competition" : ""
+      },
+      "name" : "Doris Jensen",
+      "initials" : null
+   },
+   {
+      "id" : "k24",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Laus Rasmussen"
+   },
+   {
+      "initials" : null,
+      "name" : "Øyvind Madsen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2025"
+   },
+   {
+      "initials" : null,
+      "name" : "Andrea Christiansen",
+      "id" : "2026",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Lærke Olsen",
+      "initials" : null,
+      "id" : "2027",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Tina Bendtsen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2028"
+   },
+   {
+      "id" : "2029",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "name" : "Albert Pedersen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2030",
+      "initials" : null,
+      "name" : "Maya Olsen"
+   },
+   {
+      "name" : "Kenneth Madsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2031"
+   },
+   {
+      "name" : "Agnes Larsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "id" : "k32"
+   },
+   {
+      "name" : "Peder Johansen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2033"
+   },
+   {
+      "initials" : null,
+      "name" : "Peder Mortensen",
+      "id" : "k34",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Charlotte Christiansen",
+      "id" : "2035",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Viola Madsen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2036"
+   },
+   {
+      "id" : "2037",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "name" : "Sonja Andersen",
+      "initials" : null
+   },
+   {
+      "name" : "Jonna Larsen",
+      "initials" : null,
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2038"
+   },
+   {
+      "initials" : null,
+      "name" : "Sys Petersen",
+      "id" : "2039",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Nete Kristensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2040"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2041",
+      "initials" : null,
+      "name" : "Charlotte Olsen"
+   },
+   {
+      "name" : "Oliver Nielsen",
+      "initials" : null,
+      "id" : "2042",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Karin Hansen",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2043"
+   },
+   {
+      "id" : "2044",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "name" : "Victoria Poulsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Edith Jørgensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2045"
+   },
+   {
+      "name" : "Johnnie Thomsen",
+      "initials" : null,
+      "id" : "2046",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Signe Sørensen",
+      "initials" : null,
+      "id" : "2047",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2048",
+      "name" : "Jannie Jørgensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Lene Mortensen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2049"
+   },
+   {
+      "name" : "Bob Nielsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2050"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2051",
+      "initials" : null,
+      "name" : "Vagn Mortensen"
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2052",
+      "name" : "Yda Andersen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2053",
+      "initials" : null,
+      "name" : "Rita Bendtsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Tina Rasmussen",
+      "id" : "2054",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "id" : "2055",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Boris Christiansen"
+   },
+   {
+      "initials" : null,
+      "name" : "Ulrik Kristensen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2056"
+   },
+   {
+      "id" : "2057",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Britta Kristensen"
+   },
+   {
+      "name" : "Dan Thomsen",
+      "initials" : null,
+      "id" : "2059",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Philip Christensen",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2060"
+   },
+   {
+      "name" : "Solveig Kristensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2061"
+   },
+   {
+      "id" : "2062",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Josefine Christiansen"
+   },
+   {
+      "initials" : null,
+      "name" : "Herbert Larsen",
+      "id" : "2063",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "id" : "2064",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Clara Jørgensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Clara Andersen",
+      "id" : "2065",
+      "rights" : {
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Per Møller",
+      "id" : "2066",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "2067",
+      "rights" : {
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Mikkel Thomsen"
+   },
+   {
+      "id" : "2068",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Gorm Jensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Elna Madsen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2070"
+   },
+   {
+      "name" : "Jimmy Andersen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2071"
+   },
+   {
+      "initials" : null,
+      "name" : "Yrsa Mortensen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2072"
+   },
+   {
+      "id" : "k73",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Sonja Christensen"
+   },
+   {
+      "name" : "Frans Christensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2074"
+   },
+   {
+      "initials" : null,
+      "name" : "Stina Jensen",
+      "id" : "k75",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Richardt Madsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2076"
+   },
+   {
+      "id" : "2077",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Gundhild Hansen"
+   },
+   {
+      "id" : "2078",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "name" : "Leif Møller",
+      "initials" : null
+   },
+   {
+      "id" : "2079",
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "name" : "Lene Hansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "competition" : ""
+      },
+      "id" : "2080",
+      "initials" : null,
+      "name" : "Sigrid Olsen"
+   },
+   {
+      "name" : "Osvald Bendtsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2081"
+   },
+   {
+      "initials" : null,
+      "name" : "Annette Christiansen",
+      "id" : "2082",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Ludvig Møller",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2083"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2084",
+      "initials" : null,
+      "name" : "Lasse Hansen"
+   },
+   {
+      "name" : "Katcha Johansen",
+      "initials" : null,
+      "id" : "2085",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "2087",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Nana Møller"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2088",
+      "initials" : null,
+      "name" : "Frede Rasmussen"
+   },
+   {
+      "initials" : null,
+      "name" : "Søren Hansen",
+      "id" : "2089",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "cox" : "",
+         "longdistance" : ""
+      }
+   },
+   {
+      "name" : "Uffe Christensen",
+      "initials" : null,
+      "id" : "2090",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2091",
+      "initials" : null,
+      "name" : "John Larsen"
+   },
+   {
+      "name" : "Rosa Kristensen",
+      "initials" : null,
+      "id" : "2092",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2093",
+      "initials" : null,
+      "name" : "Agnes Mortensen"
+   },
+   {
+      "name" : "Julius Thomsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2094"
+   },
+   {
+      "name" : "Hans Larsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2095"
+   },
+   {
+      "id" : "2096",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Joachim Larsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Signe Larsen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2097"
+   },
+   {
+      "name" : "Tage Thomsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2098"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k99",
+      "name" : "Merete Madsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Stine Kristensen",
+      "id" : "2100",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Sørine Andersen",
+      "initials" : null,
+      "id" : "2101",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k102",
+      "initials" : null,
+      "name" : "Leif Pedersen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2103",
+      "name" : "Flemming Sørensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2104",
+      "initials" : null,
+      "name" : "Herbert Andersen"
+   },
+   {
+      "id" : "2105",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "initials" : null,
+      "name" : "Lea Jørgensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2106",
+      "name" : "Sofia Olsen",
+      "initials" : null
+   },
+   {
+      "id" : "2107",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Zara Christensen"
+   },
+   {
+      "name" : "Karsten Poulsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2108"
+   },
+   {
+      "id" : "2109",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Inger Bendtsen"
+   },
+   {
+      "name" : "Lene Johansen",
+      "initials" : null,
+      "id" : "2110",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Henrik Bendtsen",
+      "initials" : null,
+      "rights" : {
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2111"
+   },
+   {
+      "initials" : null,
+      "name" : "Poul Kristensen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2112"
+   },
+   {
+      "name" : "Mikael Madsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2113"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2114",
+      "initials" : null,
+      "name" : "Viola Christensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2115",
+      "name" : "Kenny Petersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Conny Larsen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2116"
+   },
+   {
+      "id" : "2117",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Bertram Hansen"
+   },
+   {
+      "name" : "Jean Nielsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2118"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2119",
+      "name" : "Sofie Andersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Christoffer Thomsen",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2120"
+   },
+   {
+      "name" : "Ritt Jensen",
+      "initials" : null,
+      "id" : "2121",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2122",
+      "name" : "Ole Bendtsen",
+      "initials" : null
+   },
+   {
+      "id" : "2123",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Bjarne Kristensen"
+   },
+   {
+      "name" : "Sussie Jensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2124"
+   },
+   {
+      "id" : "2125",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Signe Pedersen"
+   },
+   {
+      "id" : "2126",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Erling Jensen"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2127",
+      "initials" : null,
+      "name" : "Asta Olsen"
+   },
+   {
+      "name" : "Birte Sørensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2128"
+   },
+   {
+      "initials" : null,
+      "name" : "Kenn Sørensen",
+      "id" : "2129",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "k130",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Leonora Nielsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2131",
+      "initials" : null,
+      "name" : "Aage Sørensen"
+   },
+   {
+      "name" : "Gert Christiansen",
+      "initials" : null,
+      "id" : "2132",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "name" : "Anne Pedersen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2133"
+   },
+   {
+      "initials" : null,
+      "name" : "Bruno Andersen",
+      "id" : "2134",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Iben Kristensen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2135"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2137",
+      "initials" : null,
+      "name" : "Michelle Thomsen"
+   },
+   {
+      "id" : "2138",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "name" : "Jim Nielsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Elisabeth Poulsen",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2139"
+   },
+   {
+      "id" : "2140",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "name" : "Erna Bendtsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2141",
+      "initials" : null,
+      "name" : "Stina Sørensen"
+   },
+   {
+      "id" : "2142",
+      "rights" : {
+         "competition" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "name" : "Nils Johansen",
+      "initials" : null
+   },
+   {
+      "name" : "Frans Johansen",
+      "initials" : null,
+      "id" : "2143",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Jon Bendtsen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2144"
+   },
+   {
+      "initials" : null,
+      "name" : "Bertil Petersen",
+      "id" : "2145",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Lærke Johansen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2146"
+   },
+   {
+      "initials" : null,
+      "name" : "Per Christensen",
+      "id" : "2147",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Rita Jensen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2148"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2149",
+      "initials" : null,
+      "name" : "Karen Poulsen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "id" : "k150",
+      "name" : "Jano Christensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2151",
+      "name" : "Dina Christiansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2152",
+      "initials" : null,
+      "name" : "Jack Olsen"
+   },
+   {
+      "name" : "Dorte Andersen",
+      "initials" : null,
+      "id" : "2153",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2154",
+      "name" : "Christian Jørgensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Karl Larsen",
+      "id" : "2155",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2156",
+      "name" : "Leonora Hansen",
+      "initials" : null
+   },
+   {
+      "id" : "2157",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Bent Poulsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Yasmin Christiansen",
+      "id" : "2158",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2159",
+      "initials" : null,
+      "name" : "Margit Hansen"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2160",
+      "name" : "Ingrid Jensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Verner Madsen",
+      "id" : "2161",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Otto Petersen",
+      "id" : "2162",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2163",
+      "initials" : null,
+      "name" : "Vera Jørgensen"
+   },
+   {
+      "id" : "2164",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "name" : "Tage Petersen",
+      "initials" : null
+   },
+   {
+      "name" : "Bruno Larsen",
+      "initials" : null,
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2166"
+   },
+   {
+      "id" : "2167",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Kenneth Kristensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2168",
+      "initials" : null,
+      "name" : "Anton Jørgensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Ziggy Larsen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2169"
+   },
+   {
+      "id" : "2170",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Julius Mortensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2171",
+      "initials" : null,
+      "name" : "Gustav Pedersen"
+   },
+   {
+      "id" : "2172",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Agnete Jørgensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Kirstin Thomsen",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2173"
+   },
+   {
+      "name" : "Iver Mortensen",
+      "initials" : null,
+      "id" : "2174",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      }
+   },
+   {
+      "name" : "Gustav Mortensen",
+      "initials" : null,
+      "id" : "2175",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Georg Mortensen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2176"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2177",
+      "initials" : null,
+      "name" : "Herdis Larsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2178",
+      "name" : "Maria Hansen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Thomas Petersen",
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2179"
+   },
+   {
+      "name" : "Berit Jørgensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2180"
+   },
+   {
+      "initials" : null,
+      "name" : "Dorte Bendtsen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2181"
+   },
+   {
+      "id" : "2182",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Tobias Bendtsen"
+   },
+   {
+      "name" : "Beth Christiansen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2183"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2184",
+      "name" : "Ronnie Pedersen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2185",
+      "initials" : null,
+      "name" : "Zahra Nielsen"
+   },
+   {
+      "name" : "Henry Møller",
+      "initials" : null,
+      "id" : "2186",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Maria Mortensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2187"
+   },
+   {
+      "initials" : null,
+      "name" : "Tina Larsen",
+      "id" : "2188",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2189",
+      "initials" : null,
+      "name" : "Signe Petersen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2190",
+      "name" : "Birger Rasmussen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2191",
+      "name" : "Keld Olsen",
+      "initials" : null
+   },
+   {
+      "id" : "2192",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Bob Mortensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Erna Bendtsen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2193"
+   },
+   {
+      "name" : "Helen Madsen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2194"
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2195",
+      "name" : "Øivind Mortensen",
+      "initials" : null
+   },
+   {
+      "id" : "2196",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Mike Petersen"
+   },
+   {
+      "id" : "2197",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "name" : "Majken Johansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2198",
+      "initials" : null,
+      "name" : "Bobby Rasmussen"
+   },
+   {
+      "name" : "Peder Møller",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2199"
+   },
+   {
+      "initials" : null,
+      "name" : "Sofia Mortensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2200"
+   },
+   {
+      "id" : "2201",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Margit Larsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2202",
+      "initials" : null,
+      "name" : "Yvonne Pedersen"
+   },
+   {
+      "name" : "Bobby Madsen",
+      "initials" : null,
+      "id" : "2203",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2204",
+      "initials" : null,
+      "name" : "Janni Thomsen"
+   },
+   {
+      "id" : "2205",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Klaus Jensen",
+      "initials" : null
+   },
+   {
+      "name" : "Marcus Rasmussen",
+      "initials" : null,
+      "id" : "2206",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k207",
+      "name" : "Werner Petersen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2208",
+      "initials" : null,
+      "name" : "Clavs Møller"
+   },
+   {
+      "name" : "Arne Jørgensen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2209"
+   },
+   {
+      "id" : "2210",
+      "rights" : {
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Gorm Pedersen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2211",
+      "initials" : null,
+      "name" : "Nete Thomsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Noah Møller",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2212"
+   },
+   {
+      "id" : "2213",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "name" : "Joachim Christiansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : ""
+      },
+      "id" : "2214",
+      "initials" : null,
+      "name" : "Cecilie Olsen"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k215",
+      "initials" : null,
+      "name" : "Karlo Jørgensen"
+   },
+   {
+      "name" : "Palle Jørgensen",
+      "initials" : null,
+      "id" : "2216",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2217",
+      "name" : "Birgit Poulsen",
+      "initials" : null
+   },
+   {
+      "id" : "2218",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Grethe Madsen"
+   },
+   {
+      "name" : "Ida Nielsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2219"
+   },
+   {
+      "initials" : null,
+      "name" : "Kristine Mortensen",
+      "id" : "2220",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Line Christensen",
+      "id" : "k221",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Richard Thomsen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2222"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2223",
+      "name" : "Nora Kristensen",
+      "initials" : null
+   },
+   {
+      "id" : "2224",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Lene Johansen"
+   },
+   {
+      "id" : "2225",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Yasmin Andersen"
+   },
+   {
+      "initials" : null,
+      "name" : "Øivind Larsen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2226"
+   },
+   {
+      "id" : "2227",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "name" : "Majken Madsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2228",
+      "name" : "Birte Kristensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Margrethe Poulsen",
+      "id" : "2229",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2230",
+      "initials" : null,
+      "name" : "Frans Olsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2231",
+      "initials" : null,
+      "name" : "Gunner Johansen"
+   },
+   {
+      "name" : "Frode Larsen",
+      "initials" : null,
+      "id" : "2232",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Johnny Nielsen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2233"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2234",
+      "name" : "Inger Hansen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "August Mortensen",
+      "id" : "2235",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Michael Petersen",
+      "initials" : null,
+      "id" : "2236",
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Nete Hansen",
+      "initials" : null,
+      "id" : "2237",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      },
+      "id" : "2238",
+      "initials" : null,
+      "name" : "Ulf Møller"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2239",
+      "name" : "Ulrik Poulsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2240",
+      "initials" : null,
+      "name" : "Ane Madsen"
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava"
+      },
+      "id" : "2241",
+      "name" : "Herbert Kristensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Elna Andersen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k242"
+   },
+   {
+      "id" : "2243",
+      "rights" : {
+         "rowright" : ""
+      },
+      "name" : "Brian Mortensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Matthias Mortensen",
+      "id" : "2244",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Gertrud Mortensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2245"
+   },
+   {
+      "id" : "2246",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Edith Møller"
+   },
+   {
+      "name" : "Henry Christiansen",
+      "initials" : null,
+      "id" : "2247",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Jørgen Pedersen",
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2248"
+   },
+   {
+      "name" : "Yvonne Rasmussen",
+      "initials" : null,
+      "id" : "2249",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Randi Jørgensen",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2250"
+   },
+   {
+      "id" : "2251",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava",
+         "cox" : "",
+         "competition" : ""
+      },
+      "name" : "Elin Thomsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2252",
+      "initials" : null,
+      "name" : "paulina Rasmussen"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2253",
+      "name" : "Nikolai Jørgensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Daniel Jensen",
+      "id" : "2254",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "k255",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Ester Madsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Julie Andersen",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2256"
+   },
+   {
+      "name" : "Gundhild Møller",
+      "initials" : null,
+      "id" : "k257",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2258",
+      "name" : "Grethe Hansen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Gustav Jensen",
+      "id" : "k259",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Kristina Larsen",
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2260"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2261",
+      "initials" : null,
+      "name" : "Julius Madsen"
+   },
+   {
+      "name" : "Kristian Petersen",
+      "initials" : null,
+      "id" : "2262",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Tim Jensen",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2263"
+   },
+   {
+      "id" : "2264",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "name" : "Andreas Jørgensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2265",
+      "initials" : null,
+      "name" : "Winnie Rasmussen"
+   },
+   {
+      "name" : "Rolf Nielsen",
+      "initials" : null,
+      "id" : "k266",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Catrine Christensen",
+      "initials" : null,
+      "id" : "2267",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2268",
+      "name" : "Naja Bendtsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2269",
+      "initials" : null,
+      "name" : "Dennis Hansen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2270",
+      "name" : "George Poulsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Tilde Andersen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2271"
+   },
+   {
+      "name" : "Sofie Nielsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2272"
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2273",
+      "initials" : null,
+      "name" : "Regitze Pedersen"
+   },
+   {
+      "id" : "k274",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Mike Nielsen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2275",
+      "name" : "Marcus Madsen",
+      "initials" : null
+   },
+   {
+      "name" : "Nanna Hansen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2276"
+   },
+   {
+      "id" : "2277",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      },
+      "initials" : null,
+      "name" : "Karsten Møller"
+   },
+   {
+      "name" : "Dave Sørensen",
+      "initials" : null,
+      "id" : "2278",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2279",
+      "initials" : null,
+      "name" : "Gunnar Andersen"
+   },
+   {
+      "name" : "Ragnhild Poulsen",
+      "initials" : null,
+      "id" : "2280",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Niels Bendtsen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2281"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2282",
+      "name" : "Frederik Jensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2283",
+      "name" : "Lærke Pedersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Nete Jensen",
+      "id" : "2284",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2285",
+      "initials" : null,
+      "name" : "Selma Hansen"
+   },
+   {
+      "name" : "Karl Andersen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2286"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2287",
+      "name" : "Randi Christiansen",
+      "initials" : null
+   },
+   {
+      "id" : "2288",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Dina Nielsen"
+   },
+   {
+      "name" : "Herman Christensen",
+      "initials" : null,
+      "id" : "2289",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Sørine Christensen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2290"
+   },
+   {
+      "name" : "Stine Christensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2291"
+   },
+   {
+      "initials" : null,
+      "name" : "Henrik Jensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2292"
+   },
+   {
+      "initials" : null,
+      "name" : "Amalie Larsen",
+      "id" : "2293",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Line Larsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k294"
+   },
+   {
+      "initials" : null,
+      "name" : "Inger Sørensen",
+      "id" : "2295",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k296",
+      "name" : "Mikkel Poulsen",
+      "initials" : null
+   },
+   {
+      "id" : "2297",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "initials" : null,
+      "name" : "Bettina Jensen"
+   },
+   {
+      "id" : "2298",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "name" : "Casper Kristensen",
+      "initials" : null
+   },
+   {
+      "id" : "2299",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Emilie Jensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2300",
+      "initials" : null,
+      "name" : "Eric Johansen"
+   },
+   {
+      "initials" : null,
+      "name" : "Niels Christensen",
+      "id" : "2301",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Sara Larsen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2302"
+   },
+   {
+      "id" : "2303",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Iben Petersen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2304",
+      "initials" : null,
+      "name" : "Robert Sørensen"
+   },
+   {
+      "initials" : null,
+      "name" : "David Christiansen",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2306"
+   },
+   {
+      "id" : "2307",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "name" : "Kjeld Petersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Thea Mortensen",
+      "id" : "2308",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2309",
+      "initials" : null,
+      "name" : "Ernst Møller"
+   },
+   {
+      "initials" : null,
+      "name" : "Cecilie Jørgensen",
+      "id" : "2310",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Britta Petersen",
+      "initials" : null,
+      "id" : "2311",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Britta Johansen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k312"
+   },
+   {
+      "id" : "2313",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "name" : "Ole Kristensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2314",
+      "initials" : null,
+      "name" : "Boe Poulsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2315",
+      "name" : "Malthe Olsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2316",
+      "name" : "Gunhild Nielsen",
+      "initials" : null
+   },
+   {
+      "id" : "2317",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Nina Christiansen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2318",
+      "initials" : null,
+      "name" : "Lena Jørgensen"
+   },
+   {
+      "name" : "Helen Sørensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2319"
+   },
+   {
+      "name" : "Nete Kristensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2320"
+   },
+   {
+      "initials" : null,
+      "name" : "Catrine Nielsen",
+      "id" : "2321",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "name" : "Johan Olsen",
+      "initials" : null,
+      "id" : "2322",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Natasha Kristensen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2323"
+   },
+   {
+      "name" : "Ulrik Thomsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2324"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2325",
+      "initials" : null,
+      "name" : "Søren Larsen"
+   },
+   {
+      "id" : "2326",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "initials" : null,
+      "name" : "Marcus Thomsen"
+   },
+   {
+      "name" : "Ivan Madsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2327"
+   },
+   {
+      "id" : "2328",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Pernille Sørensen"
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2329",
+      "name" : "Timmy Petersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Conny Johansen",
+      "id" : "2330",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Mikkel Møller",
+      "initials" : null,
+      "id" : "k331",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Kenny Hansen",
+      "initials" : null,
+      "id" : "2332",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Mike Poulsen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2333"
+   },
+   {
+      "initials" : null,
+      "name" : "Sussie Rasmussen",
+      "id" : "2334",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2335",
+      "initials" : null,
+      "name" : "Søs Christensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Benny Larsen",
+      "id" : "2336",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Mikkel Sørensen",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2337"
+   },
+   {
+      "id" : "2338",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Trine Christensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2339",
+      "name" : "Ulf Johansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2340",
+      "name" : "Lene Olsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Ella Johansen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2341"
+   },
+   {
+      "name" : "Kenneth Christensen",
+      "initials" : null,
+      "id" : "2342",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "cox" : "",
+         "longdistance" : ""
+      }
+   },
+   {
+      "name" : "Sussie Mortensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2343"
+   },
+   {
+      "initials" : null,
+      "name" : "Olga Jensen",
+      "id" : "k344",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2345",
+      "name" : "Klara Bendtsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Stefan Johansen",
+      "id" : "2346",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "id" : "2347",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "initials" : null,
+      "name" : "Gerda Larsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Gertrud Thomsen",
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2348"
+   },
+   {
+      "name" : "Dagmar Christensen",
+      "initials" : null,
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2349"
+   },
+   {
+      "initials" : null,
+      "name" : "John Madsen",
+      "id" : "2350",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "id" : "2351",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Merete Nielsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2352",
+      "initials" : null,
+      "name" : "Tine Hansen"
+   },
+   {
+      "name" : "Anette Petersen",
+      "initials" : null,
+      "id" : "2353",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2354",
+      "name" : "Stine Kristensen",
+      "initials" : null
+   },
+   {
+      "id" : "2355",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "initials" : null,
+      "name" : "Hans Nielsen"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2356",
+      "initials" : null,
+      "name" : "Arne Petersen"
+   },
+   {
+      "id" : "2357",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Sabine Jørgensen"
+   },
+   {
+      "name" : "Line Jensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2358"
+   },
+   {
+      "initials" : null,
+      "name" : "Johnny Olsen",
+      "id" : "2359",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Nanni Jensen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2360"
+   },
+   {
+      "id" : "2361",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Ingelise Poulsen"
+   },
+   {
+      "name" : "Flemming Johansen",
+      "initials" : null,
+      "id" : "k362",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Beth Mortensen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "id" : "2364"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2365",
+      "initials" : null,
+      "name" : "Birger Christensen"
+   },
+   {
+      "name" : "Paula Poulsen",
+      "initials" : null,
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2366"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2367",
+      "initials" : null,
+      "name" : "Ester Sørensen"
+   },
+   {
+      "name" : "Preben Rasmussen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2368"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2369",
+      "initials" : null,
+      "name" : "Åse Mortensen"
+   },
+   {
+      "initials" : null,
+      "name" : "John Nielsen",
+      "id" : "2370",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "name" : "Bjarne Larsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k371"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2372",
+      "name" : "Mette Kristensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2373",
+      "initials" : null,
+      "name" : "Olivia Jensen"
+   },
+   {
+      "id" : "2374",
+      "rights" : {
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "name" : "Aage Christensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2375",
+      "initials" : null,
+      "name" : "Connie Olsen"
+   },
+   {
+      "name" : "Holger Bendtsen",
+      "initials" : null,
+      "id" : "2376",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k377",
+      "initials" : null,
+      "name" : "Kurt Jensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2378",
+      "name" : "Ragna Rasmussen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2379",
+      "name" : "Holger Mortensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Carsten Madsen",
+      "id" : "2380",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2381",
+      "initials" : null,
+      "name" : "Lene Hansen"
+   },
+   {
+      "name" : "Ruth Madsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2382"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      },
+      "id" : "2383",
+      "name" : "Tammy Bendtsen",
+      "initials" : null
+   },
+   {
+      "name" : "Zahra Hansen",
+      "initials" : null,
+      "id" : "2384",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k385",
+      "name" : "Rasmus Jørgensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Niels Larsen",
+      "id" : "2386",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Bertram Møller",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2387"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2388",
+      "initials" : null,
+      "name" : "Steen Olsen"
+   },
+   {
+      "name" : "Erna Andersen",
+      "initials" : null,
+      "id" : "2389",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2390",
+      "initials" : null,
+      "name" : "Annette Madsen"
+   },
+   {
+      "id" : "k391",
+      "rights" : {
+         "competition" : ""
+      },
+      "name" : "Bobby Kristensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2392",
+      "initials" : null,
+      "name" : "Aage Christiansen"
+   },
+   {
+      "id" : "2393",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "name" : "Matthias Nielsen",
+      "initials" : null
+   },
+   {
+      "name" : "Thea Thomsen",
+      "initials" : null,
+      "id" : "2394",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : ""
+      },
+      "id" : "2395",
+      "name" : "Kurt Olsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Gurli Pedersen",
+      "id" : "2397",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2398",
+      "initials" : null,
+      "name" : "Nora Mortensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Lene Olsen",
+      "id" : "2399",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2400",
+      "initials" : null,
+      "name" : "Merethe Madsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Tage Pedersen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2401"
+   },
+   {
+      "name" : "Dennis Johansen",
+      "initials" : null,
+      "id" : "2402",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Asta Jensen",
+      "id" : "2403",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2404",
+      "initials" : null,
+      "name" : "Gert Poulsen"
+   },
+   {
+      "id" : "2405",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Adam Olsen"
+   },
+   {
+      "name" : "Yasmin Poulsen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2406"
+   },
+   {
+      "initials" : null,
+      "name" : "Clara Nielsen",
+      "id" : "2407",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2408",
+      "name" : "Josefine Kristensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Jon Møller",
+      "id" : "2409",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Randi Madsen",
+      "id" : "2410",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Lærke Christensen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k411"
+   },
+   {
+      "name" : "Ronja Kristensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2412"
+   },
+   {
+      "id" : "2413",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Helen Larsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Kenneth Petersen",
+      "id" : "2414",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Mia Jensen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2415"
+   },
+   {
+      "name" : "Ulrik Andersen",
+      "initials" : null,
+      "id" : "2416",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Zara Møller",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2417"
+   },
+   {
+      "id" : "2418",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Bent Johansen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2419",
+      "initials" : null,
+      "name" : "John Poulsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Carl Andersen",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2420"
+   },
+   {
+      "name" : "Aksel Poulsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      },
+      "id" : "2421"
+   },
+   {
+      "initials" : null,
+      "name" : "Hugo Hansen",
+      "id" : "2422",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "name" : "Laust Sørensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2423"
+   },
+   {
+      "initials" : null,
+      "name" : "Johanne Petersen",
+      "id" : "2424",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Gerda Larsen",
+      "initials" : null,
+      "id" : "2425",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Dennis Petersen",
+      "initials" : null,
+      "id" : "2426",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Henriette Bendtsen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2427"
+   },
+   {
+      "id" : "2428",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Natasja Johansen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2429",
+      "initials" : null,
+      "name" : "Maya Johansen"
+   },
+   {
+      "id" : "2430",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Villads Kristensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Iver Jensen",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava",
+         "competition" : ""
+      },
+      "id" : "2431"
+   },
+   {
+      "id" : "2432",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Kåre Poulsen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2433",
+      "name" : "Christoffer Pedersen",
+      "initials" : null
+   },
+   {
+      "name" : "Nick Pedersen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2434"
+   },
+   {
+      "initials" : null,
+      "name" : "Timmy Hansen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k435"
+   },
+   {
+      "id" : "2436",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Gurli Thomsen",
+      "initials" : null
+   },
+   {
+      "name" : "Sebastian Møller",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2437"
+   },
+   {
+      "id" : "2438",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Gertrud Andersen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      },
+      "id" : "2439",
+      "name" : "Arne Larsen",
+      "initials" : null
+   },
+   {
+      "name" : "Nina Sørensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2440"
+   },
+   {
+      "name" : "Frederik Thomsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2441"
+   },
+   {
+      "initials" : null,
+      "name" : "Lea Madsen",
+      "rights" : {
+         "competition" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : ""
+      },
+      "id" : "2442"
+   },
+   {
+      "id" : "2443",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Mathilde Larsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Mille Sørensen",
+      "id" : "2444",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2445",
+      "initials" : null,
+      "name" : "Majken Hansen"
+   },
+   {
+      "id" : "2446",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "name" : "Werner Johansen",
+      "initials" : null
+   },
+   {
+      "name" : "Marianne Larsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2447"
+   },
+   {
+      "initials" : null,
+      "name" : "Søs Christensen",
+      "id" : "2448",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2449",
+      "initials" : null,
+      "name" : "Bertil Mortensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2450",
+      "initials" : null,
+      "name" : "Emil Kristensen"
+   },
+   {
+      "id" : "k451",
+      "rights" : {
+         "competition" : ""
+      },
+      "name" : "August Olsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Jimmy Hansen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2452"
+   },
+   {
+      "name" : "Bob Mortensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      },
+      "id" : "2453"
+   },
+   {
+      "id" : "2454",
+      "rights" : {
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "initials" : null,
+      "name" : "Peder Petersen"
+   },
+   {
+      "name" : "Minna Olsen",
+      "initials" : null,
+      "id" : "2455",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "rights" : {
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2456",
+      "name" : "Carsten Madsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Ron Pedersen",
+      "id" : "2457",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Rune Bendtsen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2458"
+   },
+   {
+      "id" : "2459",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Svenning Bendtsen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava"
+      },
+      "id" : "2460",
+      "initials" : null,
+      "name" : "Amanda Madsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Margrethe Bendtsen",
+      "id" : "2461",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Søren Johansen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2462"
+   },
+   {
+      "name" : "Elsebeth Pedersen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2463"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2464",
+      "initials" : null,
+      "name" : "Janne Christiansen"
+   },
+   {
+      "id" : "2465",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "name" : "Keld Pedersen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k466",
+      "name" : "Mik Petersen",
+      "initials" : null
+   },
+   {
+      "id" : "2467",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Janne Hansen"
+   },
+   {
+      "name" : "Lone Andersen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : ""
+      },
+      "id" : "2468"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k469",
+      "name" : "Merete Christiansen",
+      "initials" : null
+   },
+   {
+      "name" : "Jacob Nielsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2470"
+   },
+   {
+      "id" : "2471",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "initials" : null,
+      "name" : "Sigrid Petersen"
+   },
+   {
+      "initials" : null,
+      "name" : "Michala Hansen",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2472"
+   },
+   {
+      "name" : "Karlo Kristensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2474"
+   },
+   {
+      "name" : "Vera Madsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2475"
+   },
+   {
+      "initials" : null,
+      "name" : "Lena Christiansen",
+      "id" : "2476",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "name" : "Tanja Thomsen",
+      "initials" : null,
+      "id" : "k477",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2478",
+      "initials" : null,
+      "name" : "Carina Madsen"
+   },
+   {
+      "name" : "Gunhild Larsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2479"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k480",
+      "initials" : null,
+      "name" : "Josephine Kristensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Magnus Jørgensen",
+      "id" : "2481",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2482",
+      "name" : "Britta Jørgensen",
+      "initials" : null
+   },
+   {
+      "id" : "2483",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Sara Johansen"
+   },
+   {
+      "name" : "Birgit Sørensen",
+      "initials" : null,
+      "rights" : {
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava",
+         "competition" : ""
+      },
+      "id" : "k484"
+   },
+   {
+      "name" : "Stig Nielsen",
+      "initials" : null,
+      "id" : "2485",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "id" : "2486",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "name" : "Sille Poulsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Frode Rasmussen",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2487"
+   },
+   {
+      "initials" : null,
+      "name" : "Ove Mortensen",
+      "id" : "2488",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2489",
+      "initials" : null,
+      "name" : "Gustav Madsen"
+   },
+   {
+      "id" : "2490",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Ingrid Madsen"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k491",
+      "initials" : null,
+      "name" : "Katcha Jensen"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2492",
+      "initials" : null,
+      "name" : "Herman Madsen"
+   },
+   {
+      "name" : "Lena Sørensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      },
+      "id" : "2493"
+   },
+   {
+      "name" : "Johannes Hansen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2494"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2496",
+      "initials" : null,
+      "name" : "Elisabeth Jensen"
+   },
+   {
+      "name" : "Birgitte Christiansen",
+      "initials" : null,
+      "id" : "2497",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Karina Møller",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k498"
+   },
+   {
+      "initials" : null,
+      "name" : "Marianne Johansen",
+      "id" : "2499",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Danny Thomsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2500"
+   },
+   {
+      "initials" : null,
+      "name" : "Grete Olsen",
+      "id" : "2501",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "id" : "2502",
+      "initials" : null,
+      "name" : "Carina Mortensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      },
+      "id" : "2503",
+      "initials" : null,
+      "name" : "Ernst Rasmussen"
+   },
+   {
+      "id" : "2504",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Tage Thomsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Sofie Pedersen",
+      "id" : "2505",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2506",
+      "initials" : null,
+      "name" : "Viola Johansen"
+   },
+   {
+      "name" : "Mads Mortensen",
+      "initials" : null,
+      "id" : "2507",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Boris Hansen",
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2508"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2509",
+      "name" : "Georg Mortensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Johannes Andersen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2510"
+   },
+   {
+      "id" : "2511",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "David Møller"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2512",
+      "name" : "Johan Madsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Nanni Bendtsen",
+      "id" : "k513",
+      "rights" : {
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2514",
+      "initials" : null,
+      "name" : "Troels Hansen"
+   },
+   {
+      "name" : "Laura Kristensen",
+      "initials" : null,
+      "id" : "2515",
+      "rights" : {
+         "competition" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "2516",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Bobby Poulsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2517",
+      "initials" : null,
+      "name" : "paulina Christensen"
+   },
+   {
+      "id" : "2518",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Elin Bendtsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2519",
+      "initials" : null,
+      "name" : "Ronni Sørensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Karoline Pedersen",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      },
+      "id" : "2520"
+   },
+   {
+      "initials" : null,
+      "name" : "Christen Rasmussen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2521"
+   },
+   {
+      "id" : "2522",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Rita Johansen"
+   },
+   {
+      "name" : "Ivan Christensen",
+      "initials" : null,
+      "id" : "2523",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2524",
+      "initials" : null,
+      "name" : "Frede Petersen"
+   },
+   {
+      "initials" : null,
+      "name" : "Ida Christiansen",
+      "id" : "2525",
+      "rights" : {
+         "competition" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2527",
+      "name" : "Nikolai Mortensen",
+      "initials" : null
+   },
+   {
+      "id" : "2528",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Sine Johansen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2529",
+      "name" : "Amanda Petersen",
+      "initials" : null
+   },
+   {
+      "id" : "2530",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Henrik Kristensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Alberte Madsen",
+      "id" : "k531",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k532",
+      "initials" : null,
+      "name" : "Majken Bendtsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2533",
+      "name" : "Herman Poulsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Edith Pedersen",
+      "id" : "2534",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Marius Christensen",
+      "id" : "2535",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2536",
+      "initials" : null,
+      "name" : "Sigrid Madsen"
+   },
+   {
+      "name" : "Ib Johansen",
+      "initials" : null,
+      "id" : "2537",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Ken Nielsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2538"
+   },
+   {
+      "id" : "2539",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Britta Jensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Sussanne Poulsen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2540"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k541",
+      "initials" : null,
+      "name" : "Dorthe Madsen"
+   },
+   {
+      "name" : "Otto Møller",
+      "initials" : null,
+      "id" : "2542",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Connie Mortensen",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2543"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      },
+      "id" : "2544",
+      "name" : "Benedikte Mortensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Claus Christiansen",
+      "id" : "2545",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "2546",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Conny Pedersen",
+      "initials" : null
+   },
+   {
+      "id" : "2547",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Sabine Møller",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2548",
+      "initials" : null,
+      "name" : "Gertrud Bendtsen"
+   },
+   {
+      "id" : "2549",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Verner Nielsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Nicoline Poulsen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2550"
+   },
+   {
+      "initials" : null,
+      "name" : "Klaus Jensen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "id" : "2551"
+   },
+   {
+      "initials" : null,
+      "name" : "Yvonne Sørensen",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2552"
+   },
+   {
+      "id" : "k553",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Holger Olsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2555",
+      "name" : "Jesper Olsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2556",
+      "name" : "Ellen Jensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Maiken Hansen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2557"
+   },
+   {
+      "id" : "k558",
+      "rights" : {
+         "competition" : ""
+      },
+      "name" : "Boe Rasmussen",
+      "initials" : null
+   },
+   {
+      "name" : "Dorte Kristensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2559"
+   },
+   {
+      "initials" : null,
+      "name" : "Marie Rasmussen",
+      "id" : "k560",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2561",
+      "name" : "Robert Bendtsen",
+      "initials" : null
+   },
+   {
+      "id" : "2562",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Ritt Hansen"
+   },
+   {
+      "id" : "2563",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Caroline Jørgensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Conny Christensen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2564"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2565",
+      "name" : "Dan Andersen",
+      "initials" : null
+   },
+   {
+      "id" : "2566",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Timmy Larsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Nanna Sørensen",
+      "id" : "2567",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "2568",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Verner Hansen"
+   },
+   {
+      "rights" : {
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2569",
+      "name" : "Jonna Larsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Marie Thomsen",
+      "id" : "2570",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Laura Sørensen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2571"
+   },
+   {
+      "initials" : null,
+      "name" : "Emilie Madsen",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2572"
+   },
+   {
+      "name" : "Hugo Madsen",
+      "initials" : null,
+      "id" : "2573",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Jens Jørgensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2574"
+   },
+   {
+      "id" : "2575",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "name" : "Martin Poulsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2576",
+      "initials" : null,
+      "name" : "Frank Christensen"
+   },
+   {
+      "id" : "2577",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "name" : "Laurits Nielsen",
+      "initials" : null
+   },
+   {
+      "id" : "2578",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "name" : "Selma Petersen",
+      "initials" : null
+   },
+   {
+      "name" : "Birger Poulsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2579"
+   },
+   {
+      "initials" : null,
+      "name" : "Bent Olsen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k580"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2581",
+      "name" : "Gunnar Sørensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2582",
+      "initials" : null,
+      "name" : "William Thomsen"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k583",
+      "name" : "Ulf Jørgensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2584",
+      "initials" : null,
+      "name" : "Alf Petersen"
+   },
+   {
+      "initials" : null,
+      "name" : "Tammy Rasmussen",
+      "id" : "2585",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Sofie Bendtsen",
+      "initials" : null,
+      "id" : "2587",
+      "rights" : {
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Gitte Larsen",
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2588"
+   },
+   {
+      "initials" : null,
+      "name" : "Yasmin Jørgensen",
+      "id" : "2589",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Mimi Larsen",
+      "initials" : null,
+      "id" : "2590",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2591",
+      "initials" : null,
+      "name" : "Nils Olsen"
+   },
+   {
+      "name" : "William Christensen",
+      "initials" : null,
+      "id" : "2592",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2593",
+      "initials" : null,
+      "name" : "Borris Bendtsen"
+   },
+   {
+      "name" : "Janne Olsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2594"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2595",
+      "name" : "Elias Andersen",
+      "initials" : null
+   },
+   {
+      "id" : "2596",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Jean Andersen"
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2597",
+      "initials" : null,
+      "name" : "Caroline Hansen"
+   },
+   {
+      "name" : "Naja Jørgensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2598"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2599",
+      "name" : "Asger Olsen",
+      "initials" : null
+   },
+   {
+      "id" : "2600",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Claus Sørensen"
+   },
+   {
+      "name" : "Marius Thomsen",
+      "initials" : null,
+      "id" : "2601",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2602",
+      "initials" : null,
+      "name" : "Dina Hansen"
+   },
+   {
+      "name" : "Isabella Thomsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2603"
+   },
+   {
+      "initials" : null,
+      "name" : "Gertrud Rasmussen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2604"
+   },
+   {
+      "id" : "2605",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Jakob Olsen"
+   },
+   {
+      "name" : "Yvonne Hansen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2606"
+   },
+   {
+      "initials" : null,
+      "name" : "Marius Bendtsen",
+      "id" : "2608",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2609",
+      "name" : "Ivan Rasmussen",
+      "initials" : null
+   },
+   {
+      "id" : "2610",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Daniella Jensen"
+   },
+   {
+      "id" : "2611",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Majken Madsen",
+      "initials" : null
+   },
+   {
+      "name" : "Jørgen Poulsen",
+      "initials" : null,
+      "id" : "2612",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Emilie Poulsen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2613"
+   },
+   {
+      "initials" : null,
+      "name" : "Matthias Jensen",
+      "id" : "2614",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2615",
+      "initials" : null,
+      "name" : "Ziggy Hansen"
+   },
+   {
+      "id" : "2616",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Mathilde Bendtsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Mark Jørgensen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2617"
+   },
+   {
+      "initials" : null,
+      "name" : "Klara Johansen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2618"
+   },
+   {
+      "name" : "Jeppe Olsen",
+      "initials" : null,
+      "id" : "2619",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Josephine Andersen",
+      "id" : "k620",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2621",
+      "initials" : null,
+      "name" : "Maren Madsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Marianne Christensen",
+      "id" : "2622",
+      "rights" : {
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      }
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2623",
+      "name" : "Holger Nielsen",
+      "initials" : null
+   },
+   {
+      "id" : "2624",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "initials" : null,
+      "name" : "Rune Bendtsen"
+   },
+   {
+      "name" : "Osvald Christensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2625"
+   },
+   {
+      "id" : "2626",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Kenn Thomsen"
+   },
+   {
+      "id" : "2627",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Lærke Rasmussen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2628",
+      "initials" : null,
+      "name" : "Per Nielsen"
+   },
+   {
+      "name" : "Svenning Sørensen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2629"
+   },
+   {
+      "id" : "2630",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Agnete Poulsen"
+   },
+   {
+      "id" : "2631",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Tove Olsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Benny Andersen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2632"
+   },
+   {
+      "name" : "Lærke Johansen",
+      "initials" : null,
+      "id" : "2633",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Bøje Petersen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2634"
+   },
+   {
+      "id" : "2635",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Birgitte Hansen"
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2636",
+      "initials" : null,
+      "name" : "Esmarelda Møller"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2637",
+      "initials" : null,
+      "name" : "Torben Andersen"
+   },
+   {
+      "name" : "George Pedersen",
+      "initials" : null,
+      "id" : "2638",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2639",
+      "initials" : null,
+      "name" : "Gorm Christensen"
+   },
+   {
+      "name" : "Herdis Rasmussen",
+      "initials" : null,
+      "id" : "2640",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Kirstine Olsen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2641"
+   },
+   {
+      "id" : "2642",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "name" : "Vivian Hansen",
+      "initials" : null
+   },
+   {
+      "id" : "2643",
+      "rights" : {
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "name" : "Amanda Thomsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Sonja Hansen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k644"
+   },
+   {
+      "initials" : null,
+      "name" : "Johnnie Hansen",
+      "id" : "2645",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2646",
+      "initials" : null,
+      "name" : "Gerda Poulsen"
+   },
+   {
+      "id" : "2647",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Øivind Hansen"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2648",
+      "initials" : null,
+      "name" : "George Jørgensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Gurli Rasmussen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2649"
+   },
+   {
+      "name" : "Ditte Hansen",
+      "initials" : null,
+      "id" : "2650",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Ronja Bendtsen",
+      "id" : "2651",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2652",
+      "initials" : null,
+      "name" : "Malene Nielsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Ebbe Poulsen",
+      "id" : "2653",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "id" : "2654",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "name" : "Gunner Larsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k655",
+      "initials" : null,
+      "name" : "Karlo Larsen"
+   },
+   {
+      "id" : "2656",
+      "rights" : {
+         "competition" : ""
+      },
+      "name" : "Tommy Petersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Dan Madsen",
+      "id" : "2657",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava"
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Stig Hansen",
+      "id" : "2658",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "id" : "2659",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "cox" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Ragna Thomsen"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k660",
+      "initials" : null,
+      "name" : "Kim Jensen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2661",
+      "name" : "Berit Nielsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2662",
+      "name" : "Esben Petersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Daniella Madsen",
+      "id" : "2663",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Michala Petersen",
+      "initials" : null,
+      "id" : "2664",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Bent Rasmussen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2665"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2666",
+      "name" : "Hugo Nielsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k667",
+      "initials" : null,
+      "name" : "Niels Nielsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Tina Kristensen",
+      "id" : "2668",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Julius Hansen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2669"
+   },
+   {
+      "initials" : null,
+      "name" : "Henriette Bendtsen",
+      "id" : "2670",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Joakim Pedersen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2671"
+   },
+   {
+      "initials" : null,
+      "name" : "Lærke Møller",
+      "id" : "2672",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "k673",
+      "rights" : {
+         "competition" : ""
+      },
+      "name" : "Magnus Christensen",
+      "initials" : null
+   },
+   {
+      "name" : "Casper Nielsen",
+      "initials" : null,
+      "id" : "2674",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2675",
+      "initials" : null,
+      "name" : "Adam Madsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Ella Kristensen",
+      "id" : "2676",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2677",
+      "initials" : null,
+      "name" : "Alexander Jensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Victoria Rasmussen",
+      "rights" : {
+         "competition" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "id" : "2678"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2679",
+      "initials" : null,
+      "name" : "Olfert Madsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Solveig Larsen",
+      "id" : "2680",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Maja Nielsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2681"
+   },
+   {
+      "name" : "Richard Pedersen",
+      "initials" : null,
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      },
+      "id" : "2682"
+   },
+   {
+      "id" : "2683",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Tommy Nielsen"
+   },
+   {
+      "id" : "2684",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "name" : "Niels Larsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Jonna Madsen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2685"
+   },
+   {
+      "name" : "Ulla Kristensen",
+      "initials" : null,
+      "id" : "2686",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2687",
+      "initials" : null,
+      "name" : "Jenny Møller"
+   },
+   {
+      "name" : "Alberte Rasmussen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2688"
+   },
+   {
+      "name" : "Morten Møller",
+      "initials" : null,
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2689"
+   },
+   {
+      "id" : "2690",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Gunnar Johansen"
+   },
+   {
+      "initials" : null,
+      "name" : "August Christensen",
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2691"
+   },
+   {
+      "id" : "k692",
+      "rights" : {
+         "competition" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham"
+      },
+      "name" : "Øyvind Thomsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2693",
+      "initials" : null,
+      "name" : "Ragnar Petersen"
+   },
+   {
+      "id" : "2695",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Martin Nielsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2696",
+      "name" : "Uffe Andersen",
+      "initials" : null
+   },
+   {
+      "id" : "2697",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Lucas Thomsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Maja Nielsen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2698"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2699",
+      "initials" : null,
+      "name" : "Christopher Pedersen"
+   },
+   {
+      "name" : "Sigrid Madsen",
+      "initials" : null,
+      "id" : "2700",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2702",
+      "initials" : null,
+      "name" : "Ivan Johansen"
+   },
+   {
+      "id" : "k703",
+      "rights" : {
+         "competition" : ""
+      },
+      "name" : "Mogens Larsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Paula Petersen",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2704"
+   },
+   {
+      "id" : "2705",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Ziggy Jensen",
+      "initials" : null
+   },
+   {
+      "id" : "2706",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Karlo Christensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2707",
+      "name" : "Gertrud Jensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Frederikke Johansen",
+      "id" : "2708",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Frode Kristensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2709"
+   },
+   {
+      "id" : "2710",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Anne Nielsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Filippa Mortensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2711"
+   },
+   {
+      "initials" : null,
+      "name" : "Bettina Jørgensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2712"
+   },
+   {
+      "name" : "Mathias Rasmussen",
+      "initials" : null,
+      "id" : "k713",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Inge Andersen",
+      "id" : "2714",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2715",
+      "initials" : null,
+      "name" : "Pete Jensen"
+   },
+   {
+      "id" : "2716",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Marlene Rasmussen"
+   },
+   {
+      "name" : "Malou Hansen",
+      "initials" : null,
+      "id" : "2717",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2718",
+      "initials" : null,
+      "name" : "Arne Olsen"
+   },
+   {
+      "id" : "2719",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "name" : "Ziggy Poulsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2720",
+      "initials" : null,
+      "name" : "Yda Mortensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2721",
+      "name" : "Ingrid Larsen",
+      "initials" : null
+   },
+   {
+      "name" : "Kristian Nielsen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2722"
+   },
+   {
+      "initials" : null,
+      "name" : "Kent Bendtsen",
+      "id" : "2723",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Gunnar Christensen",
+      "id" : "2724",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      }
+   },
+   {
+      "id" : "2725",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Britta Bendtsen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : ""
+      },
+      "id" : "2726",
+      "initials" : null,
+      "name" : "Leif Sørensen"
+   },
+   {
+      "id" : "2727",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Inger Kristensen",
+      "initials" : null
+   },
+   {
+      "name" : "Ronni Jensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : ""
+      },
+      "id" : "2728"
+   },
+   {
+      "name" : "Bruno Madsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      },
+      "id" : "2729"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2730",
+      "initials" : null,
+      "name" : "Per Petersen"
+   },
+   {
+      "name" : "Doris Andersen",
+      "initials" : null,
+      "id" : "2731",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2732",
+      "initials" : null,
+      "name" : "Agnes Mortensen"
+   },
+   {
+      "name" : "Jimmy Mortensen",
+      "initials" : null,
+      "id" : "2733",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2734",
+      "initials" : null,
+      "name" : "Anne Kristensen"
+   },
+   {
+      "id" : "2735",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "name" : "Niels Møller",
+      "initials" : null
+   },
+   {
+      "id" : "2736",
+      "rights" : {
+         "competition" : ""
+      },
+      "name" : "Tage Rasmussen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2737",
+      "name" : "Gerda Pedersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Troels Olsen",
+      "id" : "2738",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2739",
+      "initials" : null,
+      "name" : "Jakob Mortensen"
+   },
+   {
+      "id" : "2740",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Clavs Pedersen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2741",
+      "initials" : null,
+      "name" : "Filippa Christiansen"
+   },
+   {
+      "initials" : null,
+      "name" : "Sandra Bendtsen",
+      "id" : "2742",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2743",
+      "name" : "David Mortensen",
+      "initials" : null
+   },
+   {
+      "name" : "Bøje Mortensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2744"
+   },
+   {
+      "initials" : null,
+      "name" : "Kristina Bendtsen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2745"
+   },
+   {
+      "id" : "2746",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "name" : "Ditte Thomsen",
+      "initials" : null
+   },
+   {
+      "name" : "Tammy Christensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2747"
+   },
+   {
+      "id" : "k748",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Liva Hansen"
+   },
+   {
+      "name" : "Johnny Bendtsen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2749"
+   },
+   {
+      "initials" : null,
+      "name" : "Rita Madsen",
+      "id" : "2750",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Oskar Olsen",
+      "id" : "2751",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Connie Johansen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2752"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2753",
+      "name" : "Tom Nielsen",
+      "initials" : null
+   },
+   {
+      "id" : "2754",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "initials" : null,
+      "name" : "Johnny Madsen"
+   },
+   {
+      "id" : "2755",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Dan Kristensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2756",
+      "initials" : null,
+      "name" : "Thomas Pedersen"
+   },
+   {
+      "name" : "Elisabeth Andersen",
+      "initials" : null,
+      "id" : "2757",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Joakim Christiansen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2758"
+   },
+   {
+      "id" : "2759",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Klara Nielsen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2760",
+      "initials" : null,
+      "name" : "Hanne Sørensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Gustav Kristensen",
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2761"
+   },
+   {
+      "name" : "Ida Larsen",
+      "initials" : null,
+      "id" : "k762",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2763",
+      "initials" : null,
+      "name" : "Mia Rasmussen"
+   },
+   {
+      "id" : "2764",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "name" : "Dorte Madsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2765",
+      "initials" : null,
+      "name" : "Randi Jørgensen"
+   },
+   {
+      "name" : "Katja Christensen",
+      "initials" : null,
+      "id" : "k766",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Henrik Nielsen",
+      "initials" : null,
+      "id" : "2767",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2768",
+      "name" : "Vagn Kristensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Martin Rasmussen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2769"
+   },
+   {
+      "name" : "Viola Møller",
+      "initials" : null,
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2770"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2771",
+      "initials" : null,
+      "name" : "Richardt Christiansen"
+   },
+   {
+      "name" : "Lucas Thomsen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2772"
+   },
+   {
+      "initials" : null,
+      "name" : "Keld Pedersen",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava"
+      },
+      "id" : "2773"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : ""
+      },
+      "id" : "2774",
+      "name" : "Magnus Hansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2775",
+      "name" : "Sussanne Bendtsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2776",
+      "initials" : null,
+      "name" : "Lona Mortensen"
+   },
+   {
+      "name" : "Ruth Rasmussen",
+      "initials" : null,
+      "id" : "2777",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Tove Møller",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2778"
+   },
+   {
+      "id" : "2779",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Anton Rasmussen"
+   },
+   {
+      "rights" : {
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2780",
+      "name" : "Claus Christiansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2781",
+      "name" : "Bruno Hansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2782",
+      "name" : "Nina Rasmussen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Einar Jensen",
+      "id" : "2783",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Ebbe Thomsen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k784"
+   },
+   {
+      "name" : "Nanni Andersen",
+      "initials" : null,
+      "id" : "2785",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Ragnar Jensen",
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2786"
+   },
+   {
+      "id" : "2787",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "name" : "Maren Petersen",
+      "initials" : null
+   },
+   {
+      "name" : "Ove Hansen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2788"
+   },
+   {
+      "id" : "2789",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Michael Christensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Janni Andersen",
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2790"
+   },
+   {
+      "initials" : null,
+      "name" : "Ken Møller",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2791"
+   },
+   {
+      "name" : "Helen Larsen",
+      "initials" : null,
+      "id" : "2792",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Mike Johansen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2794"
+   },
+   {
+      "id" : "2795",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Rune Thomsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2797",
+      "initials" : null,
+      "name" : "Rebecca Kristensen"
+   },
+   {
+      "id" : "2798",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Claus Sørensen",
+      "initials" : null
+   },
+   {
+      "name" : "Karsten Thomsen",
+      "initials" : null,
+      "id" : "2799",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2800",
+      "name" : "Henriette Kristensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2801",
+      "initials" : null,
+      "name" : "Georg Thomsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2802",
+      "name" : "Anne Poulsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Ron Olsen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2803"
+   },
+   {
+      "name" : "Leonora Poulsen",
+      "initials" : null,
+      "rights" : {
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava",
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2804"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2805",
+      "initials" : null,
+      "name" : "Frederik Rasmussen"
+   },
+   {
+      "id" : "2806",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "name" : "Leonora Jørgensen",
+      "initials" : null
+   },
+   {
+      "id" : "2807",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Sara Hansen"
+   },
+   {
+      "initials" : null,
+      "name" : "Nicklas Sørensen",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2808"
+   },
+   {
+      "initials" : null,
+      "name" : "Maya Hansen",
+      "id" : "k809",
+      "rights" : {
+         "competition" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham"
+      }
+   },
+   {
+      "name" : "Frede Møller",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2810"
+   },
+   {
+      "initials" : null,
+      "name" : "Poul Larsen",
+      "id" : "2811",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2812",
+      "name" : "Rasmus Poulsen",
+      "initials" : null
+   },
+   {
+      "id" : "2813",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Gustav Thomsen"
+   },
+   {
+      "id" : "2814",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Øyvind Christensen"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2815",
+      "initials" : null,
+      "name" : "Bente Thomsen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2816",
+      "name" : "Johannes Andersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Robert Thomsen",
+      "id" : "2817",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "2818",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Nick Møller"
+   },
+   {
+      "initials" : null,
+      "name" : "Filippa Christensen",
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2819"
+   },
+   {
+      "id" : "2820",
+      "rights" : {
+         "rowright" : ""
+      },
+      "name" : "Isabella Thomsen",
+      "initials" : null
+   },
+   {
+      "name" : "Patricia Christiansen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2821"
+   },
+   {
+      "initials" : null,
+      "name" : "Nanni Christensen",
+      "id" : "2822",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "svava",
+         "rowright" : ""
+      },
+      "id" : "2823",
+      "initials" : null,
+      "name" : "Vera Møller"
+   },
+   {
+      "id" : "2824",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Clara Møller"
+   },
+   {
+      "name" : "Ritt Larsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k825"
+   },
+   {
+      "initials" : null,
+      "name" : "Gerda Andersen",
+      "id" : "2826",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Robert Jørgensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2827"
+   },
+   {
+      "id" : "2828",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Kristian Petersen"
+   },
+   {
+      "name" : "Frank Jensen",
+      "initials" : null,
+      "id" : "2829",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "2830",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "name" : "Iben Poulsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2831",
+      "initials" : null,
+      "name" : "Ditte Kristensen"
+   },
+   {
+      "initials" : null,
+      "name" : "Rebecca Jensen",
+      "id" : "2833",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2834",
+      "initials" : null,
+      "name" : "Jannie Thomsen"
+   },
+   {
+      "id" : "2835",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Jakob Sørensen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2836",
+      "initials" : null,
+      "name" : "Claus Pedersen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2837",
+      "initials" : null,
+      "name" : "Marianne Christiansen"
+   },
+   {
+      "name" : "Paul Bendtsen",
+      "initials" : null,
+      "id" : "2838",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "notes" : "der er noget lumsk med ham",
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : ""
+      },
+      "id" : "2839",
+      "initials" : null,
+      "name" : "paulina Pedersen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2840",
+      "initials" : null,
+      "name" : "Signe Andersen"
+   },
+   {
+      "name" : "Jon Kristensen",
+      "initials" : null,
+      "id" : "2841",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2842",
+      "name" : "George Jensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Benny Nielsen",
+      "id" : "2843",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2844",
+      "name" : "Gorm Jensen",
+      "initials" : null
+   },
+   {
+      "id" : "2845",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Ritt Madsen"
+   },
+   {
+      "id" : "2846",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Jakob Olsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Hans Christensen",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2847"
+   },
+   {
+      "name" : "Mikael Hansen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2848"
+   },
+   {
+      "id" : "2849",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Emilie Hansen"
+   },
+   {
+      "initials" : null,
+      "name" : "Lotte Petersen",
+      "id" : "2850",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2851",
+      "initials" : null,
+      "name" : "Marlene Jensen"
+   },
+   {
+      "id" : "k852",
+      "rights" : {
+         "competition" : ""
+      },
+      "name" : "Sten Larsen",
+      "initials" : null
+   },
+   {
+      "name" : "Robin Johansen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2853"
+   },
+   {
+      "initials" : null,
+      "name" : "Doris Petersen",
+      "id" : "2854",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2855",
+      "initials" : null,
+      "name" : "Liva Andersen"
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2856",
+      "initials" : null,
+      "name" : "Ulla Hansen"
+   },
+   {
+      "id" : "2857",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Marianne Poulsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k858",
+      "initials" : null,
+      "name" : "Dorthe Christiansen"
+   },
+   {
+      "id" : "2859",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "name" : "Hans Pedersen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k860",
+      "initials" : null,
+      "name" : "Erik Møller"
+   },
+   {
+      "id" : "2861",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "name" : "Isabella Rasmussen",
+      "initials" : null
+   },
+   {
+      "id" : "2862",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Rosa Johansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2863",
+      "name" : "Leif Hansen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2864",
+      "initials" : null,
+      "name" : "Thomas Pedersen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2865",
+      "name" : "Ludvig Thomsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2866",
+      "initials" : null,
+      "name" : "paulina Jensen"
+   },
+   {
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "id" : "2867",
+      "name" : "Verner Hansen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Sine Jensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2868"
+   },
+   {
+      "initials" : null,
+      "name" : "Jean Thomsen",
+      "id" : "2869",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Bøje Bendtsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2870"
+   },
+   {
+      "name" : "Anton Thomsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k871"
+   },
+   {
+      "initials" : null,
+      "name" : "Lena Sørensen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2872"
+   },
+   {
+      "id" : "2873",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "name" : "Morten Madsen",
+      "initials" : null
+   },
+   {
+      "name" : "Frederik Pedersen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2874"
+   },
+   {
+      "initials" : null,
+      "name" : "Ove Nielsen",
+      "id" : "2875",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Vagn Nielsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2876"
+   },
+   {
+      "initials" : null,
+      "name" : "Signe Andersen",
+      "id" : "2877",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "id" : "2878",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Tanja Johansen"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2879",
+      "initials" : null,
+      "name" : "Åse Olsen"
+   },
+   {
+      "name" : "Boris Jensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k880"
+   },
+   {
+      "initials" : null,
+      "name" : "Eric Larsen",
+      "id" : "2881",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Herbert Mortensen",
+      "id" : "2882",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2883",
+      "initials" : null,
+      "name" : "Katcha Jørgensen"
+   },
+   {
+      "id" : "2884",
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "name" : "Victoria Olsen",
+      "initials" : null
+   },
+   {
+      "name" : "Ken Andersen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2885"
+   },
+   {
+      "id" : "2886",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Uffe Larsen"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2887",
+      "initials" : null,
+      "name" : "Birgit Pedersen"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2888",
+      "initials" : null,
+      "name" : "Joakim Hansen"
+   },
+   {
+      "name" : "Stefan Rasmussen",
+      "initials" : null,
+      "id" : "2889",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Jimmy Hansen",
+      "id" : "2890",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "competition" : ""
+      }
+   },
+   {
+      "name" : "Mogens Kristensen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2891"
+   },
+   {
+      "id" : "2892",
+      "rights" : {
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Gunner Bendtsen"
+   },
+   {
+      "id" : "2893",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "name" : "August Nielsen",
+      "initials" : null
+   },
+   {
+      "id" : "2894",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "name" : "Yasmin Petersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Christen Christiansen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2895"
+   },
+   {
+      "initials" : null,
+      "name" : "Dave Møller",
+      "id" : "2896",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Villads Mortensen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2897"
+   },
+   {
+      "id" : "2898",
+      "rights" : {
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Uffe Bendtsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2899",
+      "initials" : null,
+      "name" : "Sine Thomsen"
+   },
+   {
+      "id" : "2900",
+      "rights" : {
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "cox" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Jano Møller"
+   },
+   {
+      "name" : "Flemming Andersen",
+      "initials" : null,
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2901"
+   },
+   {
+      "name" : "Nora Thomsen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2902"
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2903",
+      "initials" : null,
+      "name" : "Torben Petersen"
+   },
+   {
+      "name" : "Emilie Sørensen",
+      "initials" : null,
+      "id" : "2904",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2905",
+      "name" : "Henrik Rasmussen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Margrethe Johansen",
+      "id" : "2906",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "id" : "2907",
+      "name" : "Annette Pedersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Karsten Pedersen",
+      "id" : "2908",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "2909",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Morten Thomsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Benedikte Johansen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2910"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2911",
+      "name" : "Jonathan Møller",
+      "initials" : null
+   },
+   {
+      "id" : "2912",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      },
+      "initials" : null,
+      "name" : "Klara Poulsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Helge Mortensen",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "competition" : ""
+      },
+      "id" : "2913"
+   },
+   {
+      "id" : "2914",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      },
+      "initials" : null,
+      "name" : "Victor Larsen"
+   },
+   {
+      "id" : "2915",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "name" : "Leonora Olsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Mikael Mortensen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2916"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2917",
+      "name" : "Kasper Madsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2918",
+      "initials" : null,
+      "name" : "Uffe Larsen"
+   },
+   {
+      "id" : "2919",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Janni Pedersen"
+   },
+   {
+      "name" : "Stina Madsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2920"
+   },
+   {
+      "initials" : null,
+      "name" : "Line Larsen",
+      "id" : "2921",
+      "rights" : {
+         "rowright" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "name" : "Hanne Larsen",
+      "initials" : null,
+      "rights" : {
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "competition" : ""
+      },
+      "id" : "k922"
+   },
+   {
+      "name" : "Emil Olsen",
+      "initials" : null,
+      "id" : "2923",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "paulina Poulsen",
+      "initials" : null,
+      "id" : "2924",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "name" : "Isabella Nielsen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2925"
+   },
+   {
+      "initials" : null,
+      "name" : "Bent Nielsen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2926"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2927",
+      "name" : "Nanni Sørensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "August Bendtsen",
+      "id" : "2928",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Amalie Thomsen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2929"
+   },
+   {
+      "initials" : null,
+      "name" : "Elias Olsen",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : "",
+         "instructor" : "row"
+      },
+      "id" : "2930"
+   },
+   {
+      "id" : "2931",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "row",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "name" : "Minna Mortensen",
+      "initials" : null
+   },
+   {
+      "id" : "2932",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Bertram Christensen"
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2933",
+      "initials" : null,
+      "name" : "Regitze Poulsen"
+   },
+   {
+      "id" : "2934",
+      "rights" : {
+         "rowright" : "",
+         "instructor" : "sculler",
+         "notes" : "der er noget lumsk med ham",
+         "cox" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Rasmus Andersen"
+   },
+   {
+      "name" : "Iben Bendtsen",
+      "initials" : null,
+      "rights" : {
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2935"
+   },
+   {
+      "id" : "2936",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "initials" : null,
+      "name" : "Catrine Thomsen"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2937",
+      "name" : "Sonja Hansen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Victor Poulsen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "instructor" : "svava",
+         "notes" : "der er noget lumsk med ham",
+         "rowright" : ""
+      },
+      "id" : "2938"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2939",
+      "name" : "Karlo Pedersen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Ditte Nielsen",
+      "id" : "2940",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2941",
+      "initials" : null,
+      "name" : "Carsten Andersen"
+   },
+   {
+      "name" : "Finn Jørgensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k942"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2943",
+      "name" : "Benny Olsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Christopher Thomsen",
+      "id" : "k944",
+      "rights" : {
+         "competition" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler"
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : ""
+      },
+      "id" : "2945",
+      "name" : "Ellen Poulsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Kenny Jørgensen",
+      "id" : "2946",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2947",
+      "initials" : null,
+      "name" : "Viola Madsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Leif Madsen",
+      "rights" : {
+         "instructor" : "row",
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "id" : "2948"
+   },
+   {
+      "id" : "2949",
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "name" : "Hjalte Mortensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Rebecca Mortensen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2950"
+   },
+   {
+      "id" : "2951",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Esmarelda Jensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Timmy Larsen",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2952"
+   },
+   {
+      "name" : "Nina Rasmussen",
+      "initials" : null,
+      "id" : "2953",
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "id" : "2954",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "name" : "Helle Andersen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2955",
+      "name" : "Irma Poulsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2956",
+      "initials" : null,
+      "name" : "Sten Bendtsen"
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k957",
+      "name" : "Marianne Nielsen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2958",
+      "initials" : null,
+      "name" : "Yrsa Larsen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      },
+      "id" : "2959",
+      "name" : "Elisabeth Olsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Thea Kristensen",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2960"
+   },
+   {
+      "initials" : null,
+      "name" : "Bøje Sørensen",
+      "id" : "2961",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2962",
+      "name" : "Alberte Christensen",
+      "initials" : null
+   },
+   {
+      "name" : "Sussie Johansen",
+      "initials" : null,
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "2963"
+   },
+   {
+      "initials" : null,
+      "name" : "Peder Jørgensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2964"
+   },
+   {
+      "name" : "Bobby Pedersen",
+      "initials" : null,
+      "id" : "2965",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      },
+      "id" : "2966",
+      "name" : "Oliver Hansen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Alexander Jensen",
+      "id" : "2968",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "id" : "2969",
+      "name" : "Clavs Mortensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Aage Jørgensen",
+      "id" : "2970",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : ""
+      }
+   },
+   {
+      "id" : "2971",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Katcha Poulsen"
+   },
+   {
+      "initials" : null,
+      "name" : "Ulrike Petersen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2972"
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2973",
+      "name" : "Hans Johansen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Herdis Petersen",
+      "id" : "2974",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Timmy Olsen",
+      "id" : "2975",
+      "rights" : {
+         "competition" : "",
+         "longdistance" : "",
+         "cox" : "",
+         "instructor" : "row",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Yasmin Sørensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2976"
+   },
+   {
+      "id" : "2978",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "name" : "Robin Sørensen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2979",
+      "name" : "Birgit Bendtsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Andreas Johansen",
+      "id" : "2980",
+      "rights" : {
+         "rowright" : "",
+         "competition" : "",
+         "cox" : "",
+         "longdistance" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2981",
+      "initials" : null,
+      "name" : "Birger Pedersen"
+   },
+   {
+      "initials" : null,
+      "name" : "Gorm Johansen",
+      "rights" : {
+         "rowright" : "",
+         "cox" : "",
+         "competition" : ""
+      },
+      "id" : "2982"
+   },
+   {
+      "id" : "2983",
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Robin Petersen",
+      "initials" : null
+   },
+   {
+      "rights" : {
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2984",
+      "initials" : null,
+      "name" : "Yrsa Petersen"
+   },
+   {
+      "name" : "Gertrud Pedersen",
+      "initials" : null,
+      "id" : "k985",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2986",
+      "initials" : null,
+      "name" : "Karen Pedersen"
+   },
+   {
+      "id" : "2987",
+      "rights" : {
+         "longdistance" : "",
+         "cox" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "name" : "Emma Andersen",
+      "initials" : null
+   },
+   {
+      "name" : "Xenia Petersen",
+      "initials" : null,
+      "id" : "2988",
+      "rights" : {
+         "rowright" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k989",
+      "name" : "Mikkel Jensen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Helle Olsen",
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k990"
+   },
+   {
+      "name" : "Britta Christensen",
+      "initials" : null,
+      "rights" : {
+         "competition" : "",
+         "notes" : "der er noget lumsk med ham",
+         "instructor" : "sculler",
+         "rowright" : ""
+      },
+      "id" : "2991"
+   },
+   {
+      "initials" : null,
+      "name" : "Danny Madsen",
+      "id" : "k992",
+      "rights" : {
+         "competition" : ""
+      }
+   },
+   {
+      "rights" : {
+         "competition" : ""
+      },
+      "id" : "k993",
+      "initials" : null,
+      "name" : "Gustav Christensen"
+   },
+   {
+      "rights" : {
+         "competition" : "",
+         "rowright" : ""
+      },
+      "id" : "2994",
+      "initials" : null,
+      "name" : "Øivind Møller"
+   },
+   {
+      "id" : "2995",
+      "rights" : {
+         "rowright" : "",
+         "longdistance" : "",
+         "cox" : ""
+      },
+      "name" : "Dave Poulsen",
+      "initials" : null
+   },
+   {
+      "initials" : null,
+      "name" : "Gunner Christensen",
+      "id" : "2996",
+      "rights" : {
+         "competition" : "",
+         "cox" : "",
+         "rowright" : ""
+      }
+   },
+   {
+      "initials" : null,
+      "name" : "Tina Kristensen",
+      "rights" : {
+         "rowright" : "",
+         "competition" : ""
+      },
+      "id" : "2997"
+   },
+   {
+      "id" : "2998",
+      "rights" : {
+         "cox" : "",
+         "longdistance" : "",
+         "competition" : "",
+         "rowright" : ""
+      },
+      "initials" : null,
+      "name" : "Elna Andersen"
+   },
+   {
+      "name" : "Solveig Pedersen",
+      "initials" : null,
+      "id" : "k999",
+      "rights" : {
+         "competition" : ""
+      }
+   }
+]

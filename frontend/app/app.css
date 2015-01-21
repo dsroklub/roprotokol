@@ -1,0 +1,273 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+/* Generic */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10pt;
+    color: #555;
+    background: #F1F2F7;
+    font-weight: 400;
+}
+a {
+    color: #333;
+    text-decoration: none;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+pre.ng-binding {
+    /* display: none; */
+}
+*:focus {
+    outline: 0;
+}
+
+button {
+    -webkit-appearance: none;
+    background: none;
+    border-radius: 5px;
+    border: 0;
+    padding: 5pt 10pt;
+    cursor: pointer;
+    margin-top: 5pt;
+    border: 1px solid #ccc;
+}
+button:hover {
+/*    color: #23AEE2;*/
+/*    border: 1px solid #23AEE2;*/
+}
+button i {
+    margin-right: 5pt;
+}
+button.red {   
+    border: 1px solid #FF6C60;
+    color: #FF6C60;
+}
+button.green {   
+    border: 1px solid #3ECBBF;
+    color: #3ECBBF;
+}
+button.yellow {
+    color: #f0ce4e;
+    border: 1px solid #f0ce4e;
+}
+
+button#createtrip_button[disabled] {
+  color: gray;
+  border: 1px solid gray;
+}
+
+/* Custom */
+.menuholder {
+    margin: 0;
+}
+.menu li.logo {
+    padding: 0;
+    padding-top: 6pt;
+    padding-left: 15pt;
+}
+.logo img {
+    height: 30pt;
+}
+.menu {
+    list-style: none;
+    background: #0088C0;
+    padding: 0 10pt;
+    margin: 0;
+}
+.menu li {
+    display: inline-block;
+    padding: 15pt 15pt;
+    margin: 0;
+    cursor: pointer;
+    vertical-align: top;
+}
+.menu li a {
+    color: white;
+    text-decoration: none;
+}
+.menu li:hover a {
+    color: #d4d4c8;
+}
+.menu li i {
+    font-size: 12pt;
+    margin-right: 4pt;
+}
+.menu li:hover i {
+    color: #ede511;
+}
+.main {
+    margin: 0;   
+    padding: 15pt 25pt;
+}
+.boatlist,
+.statlist,
+.boatcategories,
+.checkout-form,
+.boatdamages {
+    width: auto;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10pt;
+}
+.boattypesmenu h2 {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.boattypesmenu ul {
+    background: white;
+}
+.boattypesmenu ul li {
+    cursor: pointer;
+}
+.boattypesmenu ul li a {
+    padding: 5pt 10pt;
+    display:block;
+    height:100%;
+    width:100%;
+}
+.boattypesmenu ul li:hover {
+    background: #57C8F2;
+}
+.boattypesmenu ul li:hover a {
+    color: white;
+}
+.boatlist {
+    border-radius: 5px;
+    overflow: auto;
+}
+.boatlist thead th {
+    background: #3ECBBF;
+    color: white;
+    padding: 9pt 10pt 9pt 10pt;
+    font-weight: 400;
+    border-right: 1px solid white;
+}
+boatlist thead th:first-child {
+    border-radius: 5px 0 0 0;
+}
+boatlist thead th:last-child {
+    border-radius: 0 5px 0 0 0;
+    border: 0;
+}
+.boatlist thead th:last-child {
+    border: 0;
+}
+.boatlist td {
+    padding: 0 0 0 0;
+    border-right: 1px solid #F1F2F7;
+    border-bottom: 1px solid #F1F2F7;
+    background: white;
+}
+.boatlist tr td a {
+    padding: 6pt 10pt 6pt 10pt;
+    display:block;
+    height:100%;
+    width:100%;
+}
+.boatlist tr td:hover {
+    background: #6ad7ce;
+}
+.boatlist tr td:hover a {
+    color: white;
+}
+.statlist td {
+    padding: 6pt 10pt 6pt 10pt;
+    border-right: 1px solid #F1F2F7;
+    border-bottom: 1px solid #F1F2F7;
+}
+
+.checkout-form h2 {
+    background: #3ECBBF;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.checkout-form form {
+    padding: 10pt;
+    background: white;
+}
+.checkout-form label {
+    font-weight: 400;
+    color: #555;
+}
+.checkout-form td > input,
+.checkout-form select,
+.checkout-form textarea {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5pt;
+    margin-bottom: 10pt;
+}
+.checkout-form .quickdate {
+    margin-bottom: 10pt;
+}
+.checkout-form .dropdown {
+    margin-bottom: 10pt;
+}
+.checkout-form td > input,
+.checkout-form select,
+.checkout-form .quickdate,
+.checkout-form .dropdown,
+.checkout-form textarea {
+    margin-right: 10pt;
+    margin-left: 10pt;
+}
+    
+.damageslist h2 {
+    background: #f0ce4e;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.damageslist ul {
+    background: white;
+    padding: 10pt;
+}
+.damageslist h3 {
+    font-size: 14pt;
+    margin-bottom: 4pt;
+}
+
+.oddstat {
+    background: #FFAA88;
+}
+
+.stattypesmenu h2 {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.stattypesmenu ul li {
+    padding: 5pt 10pt;
+    cursor: pointer;
+}
+.stattypesmenu ul {
+    background: white;
+}
+
+.error {
+  color: red;
+}

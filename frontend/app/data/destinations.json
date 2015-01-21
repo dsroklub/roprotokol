@@ -1,0 +1,147 @@
+[
+   {
+      "duration_instruction" : "0.00",
+      "distance" : "0",
+      "id" : "20",
+      "name" : " Vælg destination her",
+      "duration" : "0.00"
+   },
+   {
+      "distance" : {
+        "DSR": 15000,
+        "Nordhavn": 25000
+      },
+      "duration" : {
+        "Instruktion" : 2.60,
+        "normal" : 2.50
+      },
+      "name" : "Bellevue",
+      "id" : 1
+   },
+   {
+      "duration_instruction" : 2.00,
+      "distance" : 7000,
+      "duration" : 1.80,
+      "name" : "Charlottenlund",
+      "id" : 2
+   },
+   {
+      "duration" : "3.60",
+      "name" : "Flakfortet",
+      "id" : "9",
+      "distance" : "22000",
+      "duration_instruction" : "0.00"
+   },
+   {
+      "duration_instruction" : "1.90",
+      "distance" : "5000",
+      "duration" : "1.80",
+      "name" : "Hellerup",
+      "id" : "3"
+   },
+   {
+      "name" : "Kanalen",
+      "id" : "4",
+      "duration" : "3.80",
+      "duration_instruction" : "4.50",
+      "distance" : "22000"
+   },
+   {
+      "duration" : "2.00",
+      "name" : "Knud",
+      "id" : "18",
+      "distance" : "13500",
+      "duration_instruction" : "2.70"
+   },
+   {
+      "name" : "Langelinie",
+      "id" : "11",
+      "duration" : "2.40",
+      "distance" : "15000",
+      "duration_instruction" : "3.60"
+   },
+   {
+      "distance" : "15000",
+      "duration_instruction" : "2.80",
+      "duration" : "2.50",
+      "name" : "Margretheholms havn",
+      "id" : "10"
+   },
+   {
+      "duration" : "1.90",
+      "id" : "17",
+      "name" : "Opfyldningen nord",
+      "duration_instruction" : "1.80",
+      "distance" : "3000"
+   },
+   {
+      "id" : "14",
+      "name" : "Rungsted",
+      "duration" : "6.60",
+      "duration_instruction" : "0.00",
+      "distance" : "42000"
+   },
+   {
+      "name" : "Skodsborg",
+      "id" : "15",
+      "duration" : "4.50",
+      "distance" : "28000",
+      "duration_instruction" : "6.80"
+   },
+   {
+      "distance" : "11500",
+      "duration_instruction" : "2.20",
+      "duration" : "2.00",
+      "id" : "5",
+      "name" : "Skovshoved"
+   },
+   {
+      "duration_instruction" : "6.00",
+      "distance" : "26000",
+      "id" : "6",
+      "name" : "Slusen",
+      "duration" : "4.50"
+   },
+   {
+      "duration" : "2.60",
+      "name" : "Strandmøllen",
+      "id" : "13",
+      "distance" : "22500",
+      "duration_instruction" : "5.20"
+   },
+   {
+      "duration_instruction" : "1.60",
+      "distance" : "3000",
+      "duration" : "1.70",
+      "name" : "Svanemøllehavnen",
+      "id" : "19"
+   },
+   {
+      "id" : "7",
+      "name" : "Tuborg havn",
+      "duration" : "1.30",
+      "duration_instruction" : "1.50",
+      "distance" : "3000"
+   },
+   {
+      "distance" : "18000",
+      "duration_instruction" : "2.70",
+      "duration" : "2.50",
+      "id" : "8",
+      "name" : "Tårbæk"
+   },
+   {
+      "duration_instruction" : "7.50",
+      "distance" : "33000",
+      "duration" : "4.80",
+      "id" : "12",
+      "name" : "Vedbæk"
+   },
+   {
+      "id" : "16",
+      "name" : "Øvrige [Skriv i kommentar]",
+      "duration" : "0.00",
+      "duration_instruction" : "0.00",
+      "distance" : "5000"
+   }
+]
