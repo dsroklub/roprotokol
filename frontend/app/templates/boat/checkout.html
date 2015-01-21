@@ -86,7 +86,7 @@
         </td>
         <td>
           <ng-form name="rowerFieldForm">
-            <input id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" required />
+            <input id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" required />
             <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
               <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
               <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>
