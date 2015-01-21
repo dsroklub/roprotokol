@@ -50,8 +50,8 @@ CREATE INDEX tripout on Trip(OutTime);
 CREATE TABLE IF NOT EXISTS Location (
     Name VARCHAR(10) NOT NULL,
     Description VARCHAR(500),
-    Latitude Numeric(3,5),
-    Longitude Numeric(3,5),
+    Latitude Numeric(8,5),
+    Longitude Numeric(8,5),
     PRIMARY KEY(Name)
 );
 
