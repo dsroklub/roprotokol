@@ -5,11 +5,10 @@ header('Content-type: application/json');
 
 $s="SELECT Destination.id,
            Destination.Name as name,
-           GROUP_CONCAT(Location.Name,':§§:',Meter  SEPARATOR '££') as distance,
-           GROUP_CONCAT(Location.Name,':§§:',ExpectedDurationNormal SEPARATOR '££') AS duration, 
-           GROUP_CONCAT(Location.Name,':§§:',ExpectedDurationInstruction SEPARATOR '££')  AS duration_instruction
+           GROUP_CONCAT(Location,':§§:',Meter  SEPARATOR '££') as distance,
+           GROUP_CONCAT(Location,':§§:',ExpectedDurationNormal SEPARATOR '££') AS duration, 
+           GROUP_CONCAT(Location,':§§:',ExpectedDurationInstruction SEPARATOR '££')  AS duration_instruction
    FROM Destination
-        LEFT OUTER JOIN Location ON (Location.id = Destination.Location) 
    GROUP BY Destination.Name
    ORDER BY name" ;
 
