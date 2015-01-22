@@ -18,13 +18,12 @@ Importer skema og views:
 
     mysql -u roprotokol -p'roprotokol' roprotokol < backend/convert/mkdb.sql
 
+  copier config.ini.template til config.ini og tilret
 Skriv adgangsvejen til databasen til filen backend/convert/secret.sh og filen backend/tests/secret.db
 Fx:
   echo 'DBCMD="mysql -u roprotokol --password=roprotokol roprotokol"' >  backend/convert/secret.sh
   echo "roprotokol" > backend/tests/secret.db
 
-
-Sæt adgangkoden i filen backend/inc/db.php. Det er det 3. argument til mysqli
 
 Herefter kan man bruge enten rigtig data fra DSR, hvis man har adgang til de gamle databasefiler. Eller man kan bruge testdata uden personhenførbart data. Det består i store træk af DSR båddata og tilfældigt genereret brugerdata for roere..
 
