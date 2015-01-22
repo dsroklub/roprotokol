@@ -47,6 +47,15 @@ CREATE INDEX  tripfk on Trip(BoatID);
 CREATE INDEX tripout on Trip(OutTime);
 
 
+CREATE TABLE IF NOT EXISTS Location (
+    Name VARCHAR(10) NOT NULL,
+    Description VARCHAR(500),
+    Latitude Numeric(8,5),
+    Longitude Numeric(8,5),
+    PRIMARY KEY(Name)
+);
+
+
 CREATE TABLE IF NOT EXISTS Båd (
     BådID INT AUTO_INCREMENT,
     Navn VARCHAR(100) NOT NULL, -- FIXME should be unique: Balder
@@ -321,7 +330,7 @@ CREATE TABLE IF NOT EXISTS volunteerwork (
 
 CREATE TABLE IF NOT EXISTS Destination (
        DestID INT,
-       Location VARCHAR(100),
+       Location VARCHAR(10),
        Navn VARCHAR(100) NOT NULL,
        Meter INT,
        Beskrivelse VARCHAR(1000),

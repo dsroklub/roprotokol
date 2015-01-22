@@ -23,7 +23,7 @@ if (isset($_GET["boattype"])) {
     FROM BoatType,Trip,TripMember,Boat,Member 
     WHERE 
       Trip.TripID = TripMember.TripID AND
-      Member.id = TripMember.MemberID AND
+      Member.id = TripMember.member_id AND
       Boat.id = Trip.BoatID AND     
       BoatType.id = Boat.BoatType AND
       (((Year(OutTime))=".$season.") " . $boatclause .")".

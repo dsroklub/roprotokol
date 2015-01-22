@@ -30,7 +30,7 @@ else
     DATADIR=testdata
 fi
 
-for tb in Båd Bådindstilling BådKategori Gruppe  Kajak_typer LåsteBåde Postnr Reservation Skade TurType Destination Kajak_anvendelser; do
+for tb in Location Båd Bådindstilling BådKategori Gruppe  Kajak_typer LåsteBåde Postnr Reservation Skade TurType Destination Kajak_anvendelser; do
     echo DO IMPORT $tb
     echo
     $DBCMD -e "TRUNCATE TABLE $tb;"

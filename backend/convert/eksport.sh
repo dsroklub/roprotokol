@@ -45,3 +45,6 @@ for tb in tblMembersSportData; do
     echo DO Sportdat $tb
     mdb-export -D '%F %T' -I mysql "$RODB" "$tb" > "$SCRIPT_PATH/data/$tb.sql"
 done
+
+echo "INSERT INTO Location (Name) VALUES ('DSR');" > "$SCRIPT_PATH/data/Location.sql"
+echo "INSERT INTO Location (Name) VALUES ('Nordhavn');" >> "$SCRIPT_PATH/data/Location.sql"
