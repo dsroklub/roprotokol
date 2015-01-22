@@ -1,2 +1,2 @@
-INSERT INTO Location (id, Name) VALUES (1, 'DSR');
-INSERT INTO Location (id, Name) VALUES (2, 'Nordhavn');
+INSERT INTO Location (Name,Description) VALUES ('DSR','Danske Studenters Roklub');
+INSERT INTO Location (Name,Description) VALUES ('Nordhavn','Den midlertidige Forpost til kanalen kommer');

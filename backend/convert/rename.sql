@@ -134,7 +134,7 @@ ALTER TABLE Zipcode CHANGE Distrikt District VARCHAR(100);
 DELETE FROM Destination WHERE Meter=0;
 UPDATE Destination SET Name = SUBSTRING_INDEX(Name,"(",1);
 
-UPDATE Destination SET Location = 1;
+UPDATE Destination SET Location = 'DSR';
 
 INSERT INTO Destination (Name,Meter,ExpectedDurationNormal,ExpectedDurationInstruction,Location)
 SELECT Name,Meter+10000,ExpectedDurationNormal+2,ExpectedDurationInstruction+4,'Nordhavn'
@@ -149,10 +149,10 @@ SELECT Name,Meter-2000,ExpectedDurationNormal-1,ExpectedDurationInstruction-2,'N
 FROM Destination WHERE Name IN ("Flakfortet","Langelinie");
 
 INSERT INTO Destination (Name,Meter,ExpectedDurationNormal,ExpectedDurationInstruction,Location)
-SELECT Name,Meter,ExpectedDurationNormal,ExpectedDurationInstruction,'DSR'
+SELECT Name,Meter,ExpectedDurationNormal,ExpectedDurationInstruction,'Nordhavn'
 FROM Destination WHERE Name IN ("Øvrige [Skriv i kommentar]");
 
-UPDATE Destination SET ExpectedDurationInstruction=1 WHERE ExpectedDurationInstruction <= 0;
+UPDATE Destination SET ExpectedDurationInstruction='DSR' WHERE ExpectedDurationInstruction <= 0;
 
 UPDATE Boat set Location='DSR';
 UPDATE Boat set Location='Nordhavn' WHERE Name in ("Freja","Tyr","Modi","Embla");
