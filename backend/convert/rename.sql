@@ -9,6 +9,7 @@ RENAME TABLE Kommentar TO Comment;
 RENAME TABLE LåsteBåde TO LockedBoat;
 RENAME TABLE Medlem TO Member;
 RENAME TABLE Postnr TO Zipcode;
+DROP TABLES IF EXISTS  Damage;
 RENAME TABLE Skade TO Damage;
 RENAME TABLE TurType TO TripType;
 
@@ -133,6 +134,8 @@ ALTER TABLE Zipcode CHANGE Distrikt District VARCHAR(100);
 -- TODO: BoatConfiguration, Comment, 
 DELETE FROM Destination WHERE Meter=0;
 UPDATE Destination SET Name = SUBSTRING_INDEX(Name,"(",1);
+
+UPDATE Trip SET Destination = SUBSTRING_INDEX(Destination,"(",1);
 
 UPDATE Destination SET Location = 'DSR';
 

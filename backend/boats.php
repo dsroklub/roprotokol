@@ -17,7 +17,8 @@ $s="SELECT Boat.id,
            Boat.Description as description,
            BoatType.Name as category,
            BoatCategory.Name as boattype,
-           Boat.Placement as placement
+           Boat.Placement as placement,
+           Boat.Location as location
     FROM Boat
          INNER JOIN BoatType ON (BoatType.id=BoatType)
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
