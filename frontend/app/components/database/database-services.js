@@ -88,7 +88,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       $http.get(toURL('rowers.php')).then(function(response) {
         rowers = [];
         angular.forEach(response.data, function(rower, index) {
-          rower.search = rower.id + " " + rower.name;
+          rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
           this.push(rower);
         }, rowers);
         rowersloaded.resolve(true);
@@ -223,11 +223,12 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return rs[0];
   }
     
-  this.getRowersByNameOrId = function(val, preselectedids) {
-    var rf= rowers.filter(function(element) {
-      return (preselectedids === undefined || !(element.id in preselectedids)) && element.search.indexOf(val) > -1;
+  this.getRowersByNameOrId = function(nameorid, preselectedids) {
+    var val = nameorid.toLowerCase();
+    var result = rowers.filter(function(element) {
+      return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
     });
-    return rf;
+    return result;
   };
   
   this.createRowerByName = function(name) {
