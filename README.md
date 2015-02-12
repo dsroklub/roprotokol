@@ -42,7 +42,11 @@ Importer gammel data:
 
    ./backend/convert/import.sh real
 
+Test Webserver:
 
+Kør
+   php5 -S localhost:8080
+i roden
 
 
 # Noter om ASP til PHP konvertering
