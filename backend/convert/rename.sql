@@ -136,6 +136,8 @@ DELETE FROM Destination WHERE Meter=0;
 UPDATE Destination SET Name = SUBSTRING_INDEX(Name,"(",1);
 
 UPDATE Trip SET Destination = SUBSTRING_INDEX(Destination,"(",1);
+UPDATE Destination set Name= TRIM(Name);
+
 
 UPDATE Destination SET Location = 'DSR';
 
