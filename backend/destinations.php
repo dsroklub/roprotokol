@@ -3,23 +3,27 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$s="SELECT Destination.Location as location, Destination.Name as name, Meter as distance,ExpectedDurationNormal duration, ExpectedDurationInstruction  AS duration_instruction
+$s="SELECT Destination.Location as location, Destination.Name as name, Meter as distance, ExpectedDurationNormal AS duration, ExpectedDurationInstruction AS duration_instruction
    FROM Destination
    ORDER BY Location,name";
 
 // echo $s;
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
-echo '[';
- $first=1;
-$d="";
- while ($row = $result->fetch_assoc()) {
-   $loc=$row['location'];
-   if (!isset($d[$loc])) {
-     $d[$loc]=array();
-   }
-   array_push($d[$loc],$row);
+if ($stmt = $rodb->prepare($s)) {
+     $stmt->execute(); 
+     $result= $stmt->get_result() or die("Error in destinations query: " . mysqli_error($rodb));
+     echo '[';
+     $first=1;
+     $d="";
+     while ($row = $result->fetch_assoc()) {
+//       var_dump($row);
+       $loc=$row['location'];
+       if (!isset($d[$loc])) {
+         $d[$loc]=array();
+       }
+       array_push($d[$loc],$row);
+     }
+     echo json_encode($d);
+     echo ']';
 }
-echo json_encode($d);
-echo ']';
 $rodb->close();
 ?> 
