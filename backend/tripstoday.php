@@ -1,0 +1,30 @@
+<?php
+include("inc/common.php");
+include("inc/utils.php");
+header('Content-type: application/json');
+
+
+$s="SELECT Trip.TripID as id, Boat.Name AS boat, Trip.Destination as destination, Trip.ExpectedIn as expected_in,GROUP_CONCAT(Member.MemberID,':§§:', MemberName SEPARATOR '££') AS rowers " .
+  " FROM Trip, Boat, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  " .
+  " WHERE Boat.id = Trip.BoatID AND Trip.TripID = TripMember.TripID AND Trip.InTime Is Null AND Trip.Season=? ".
+  " GROUP BY id".
+  " ORDER BY Trip.TripID DESC, TripMember.Seat ";
+
+
+// echo $s."<br>";
+if ($stmt = $rodb->prepare($s)) {
+     $stmt->bind_param('i', $season);
+     $stmt->execute(); 
+     $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
+
+     echo '[';
+     $first=1;
+     while ($row = $result->fetch_assoc()) {
+       if ($first) $first=0; else echo ',';
+       $row['rowers']=multifield($row['rowers']);
+       echo json_encode($row,JSON_PRETTY_PRINT);
+     }
+     echo ']';
+}
+$rodb->close();
+?> 
