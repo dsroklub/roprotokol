@@ -11,7 +11,6 @@ $s="SELECT Destination.Location as location, Destination.Name as name, Meter as 
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
      $result= $stmt->get_result() or die("Error in destinations query: " . mysqli_error($rodb));
-     echo '[';
      $first=1;
      $d="";
      while ($row = $result->fetch_assoc()) {
@@ -23,7 +22,6 @@ if ($stmt = $rodb->prepare($s)) {
        array_push($d[$loc],$row);
      }
      echo json_encode($d);
-     echo ']';
 }
 $rodb->close();
 ?> 

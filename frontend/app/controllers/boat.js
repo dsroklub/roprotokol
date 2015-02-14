@@ -17,7 +17,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       if ($scope.selectedboat !== undefined) {
         var now = new Date();
         
-        $scope.destinations = DatabaseService.getDestinations();
+        $scope.destinations = DatabaseService.getDestinations()[$scope.selectedboat.location];
         $scope.triptypes = DatabaseService.getTripTypes();
         
         // Lock boat for the next 30 seconds
@@ -28,14 +28,14 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         
         // Create initial data for checkout
         $scope.checkout = {
-	          'boat' : $scope.selectedboat,
-              'destination': $scope.destinations[0],
-              'starttime': now,
-              // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
-              'expectedtime': now,
-              'endtime': '',
-              'triptype': $scope.triptypes[0],
-              'rowers': []
+	  'boat' : $scope.selectedboat,
+          'destination': {'distance':999},
+          'starttime': now,
+          // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
+          'expectedtime': now,
+          'endtime': '',
+          'triptype': $scope.triptypes[0],
+          'rowers': []
         };
         
         // debugger;
@@ -88,8 +88,9 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       return typeof(val) === 'string' && val.length > 3;
     };
 
-    $scope.updateExpectedTime = function (item) {
+    $scope.updateCheckout = function (item) {
       // Calculate expected time based on triptype and destination
+      $scope.checkout.destination=item;
       if($scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
         $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration_instruction * 3600 * 1000)
       } else {
@@ -98,7 +99,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     };
   
     $scope.clearDestination = function () {
-      $scope.checkout.destination = undefined;
+//      $scope.checkout.destination = undefined;
     };
     
     $scope.reportdamage = function () {
