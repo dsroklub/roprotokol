@@ -121,23 +121,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     } else {
       rowerstatisticsloaded['any'].resolve(true);
     }
-
-    // if(boatstatistics === undefined) {
-    //   for (boattype in boattypes) {
-    // 	$http.get('data/boat_statistics.json').then(function(response) {
-    //       boatstatistics[boattypes[boattype]] = [];
-    //       angular.forEach(response.data, function(stat, index) {
-    //         stat.search = stat.boatname;
-    //         this.push(stat);
-    //       }, boatstatistics[boattypes[bx]])
-    // 	});
-    //   }
-    //   boatstatisticsloaded[boattypes[bx]].resolve(true);
-    // } else {
-    //   boatstatisticsloaded[boattypes[bx]].resolve(true);
-    // }
-
-
     
     return $q.all([boatsloaded.promise,boatdamagesloaded.promise, destinationsloaded.promise, 
       triptypesloaded.promise, rowersloaded.promise]);
@@ -200,6 +183,16 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.getTripTypes = function () {
     return triptypes;
   };
+
+  this.getOnWater = function (onSuccess) {
+    $http.get(toURL('onwater')).then(onSuccess);
+  }
+  this.getTodaysTrips = function (onSuccess) {
+    $http.get(toURL('tripstoday')).then(onSuccess);
+  }
+  this.getAvailableBoats = function (onSuccess) {
+    $http.get(toURL('availableboats')).then(onSuccess);
+  }
 
   this.getRowerTripsAggregated = function (member,onSuccess) {
     $http.get(toURL('rowertripsaggregated.php?member='+member.id)).then(onSuccess);

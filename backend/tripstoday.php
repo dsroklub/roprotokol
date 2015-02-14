@@ -4,9 +4,9 @@ include("inc/utils.php");
 header('Content-type: application/json');
 
 
-$s="SELECT Trip.TripID as id, Boat.Name AS boat, Trip.Destination as destination, Trip.ExpectedIn as expected_in,GROUP_CONCAT(Member.MemberID,':§§:', MemberName SEPARATOR '££') AS rowers " .
-  " FROM Trip, Boat, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  " .
-  " WHERE Boat.id = Trip.BoatID AND Trip.TripID = TripMember.TripID AND Trip.InTime Is Null AND Trip.Season=? ".
+$s="SELECT Trip.TripID as id, TripType.Name AS triptype, Boat.Name AS boat, Trip.Destination as destination, Trip.ExpectedIn as expectedintime,GROUP_CONCAT(Member.MemberID,':§§:', MemberName SEPARATOR '££') AS rowers " .
+  " FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  " .
+  " WHERE Boat.id = Trip.BoatID AND Trip.TripID = TripMember.TripID AND Trip.InTime Is Null AND Trip.Season=? AND TripType.id = Trip.TripTypeID " .
   " GROUP BY id".
   " ORDER BY Trip.TripID DESC, TripMember.Seat ";
 
