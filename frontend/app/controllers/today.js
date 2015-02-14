@@ -64,7 +64,7 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
     $scope.onwater=res.data;
   }
 				);
-  DatabaseService.getAvailableBoats(function (res) {
+  DatabaseService.getAvailableBoats('DSR',function (res) {
     $scope.available=res.data;
   }
 				);
