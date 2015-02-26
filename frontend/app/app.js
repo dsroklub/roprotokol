@@ -31,6 +31,10 @@ var app = angular.module('myApp', [
 	  templateUrl: 'templates/damages.html',
 	  controller: 'BoatCtrl'
 	});
+	$routeProvider.when('/today/', {
+	  templateUrl: 'templates/today.html',
+	  controller: 'TodayCtrl'
+	});
 	$routeProvider.when('/boat/categoryoverview/', {
 	  templateUrl: 'templates/boat/categoryoverview.html',
 	  controller: 'BoatCtrl'
