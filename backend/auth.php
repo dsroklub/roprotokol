@@ -50,7 +50,7 @@ $pubkey = openssl_get_publickey(file_get_contents("file://".dirname(__FILE__)."/
 $token = jwt_decode($jwt_token, $pubkey, "http://localhost/roprotokol");
 var_dump($token);
 
-function jwt_decode($jwt, $key, $aud) {
+function jwt_decode($jwt, $key, $aud = null) {
     if(substr_count($jwt, '.') !== 2) {
         return [ "error" => 'Not a valid JWT token as it does not contain two dots' ];
     }
@@ -89,15 +89,17 @@ function jwt_decode($jwt, $key, $aud) {
     }
 
     // Validate body
-    if(isset($aud) && (!isset($token['aud']) || $aud !== $token['aud'])) {
-        $body["error"] = "Audience not set in token or did not match";
+    if(isset($aud) && (!isset($body['aud']) || $aud != $body['aud'])) {
+        $body["error"] = "Audience not set in token or did not match : $aud";
         return $body;
     }
-    if(isset($token['nbf']) && $token['nbf'] >= time()) {
+    if(isset($body['nbf']) && $body['nbf'] >= time()) {
         $body["error"] = "Token is not valid yet";
+        return $body;
     }
-    if(isset($token['exp']) && $token['exp'] <= time()) {
+    if(isset($body['exp']) && $body['exp'] <= time()) {
         $body["error"] = "Token has expired";
+        return $body;
     }
 
     return $body;
