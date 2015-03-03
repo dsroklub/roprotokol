@@ -11,10 +11,23 @@ var app = angular.module('myApp', [
   'myApp.version',
   'myApp.range',
   'myApp.database',
-  'myApp.utilities'
-]).
-    config([
+  'myApp.utilities',
+  'oauth'
+])
+/*.config(function($locationProvider) { // OAuth html5 mode seems to break our routing
+    $locationProvider.html5Mode(true).hashPrefix('!')
+})*/
+.config([
       '$routeProvider', function($routeProvider) {
+    $routeProvider.when('/access_token=:accessToken', {
+        template: '',
+        controller: function ($location, AccessToken) {
+            var hash = $location.path().substr(1);
+            AccessToken.setTokenFromString(hash);
+            $location.path('/');
+            $location.replace();
+        }
+    });
 	$routeProvider.when('/boat/checkout/:boat_id', {
 	  templateUrl: 'templates/boat/checkout.html',
 	  controller: 'BoatCtrl'

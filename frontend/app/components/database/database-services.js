@@ -1,5 +1,5 @@
 'use strict';
-angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q) {
+angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q, AccessToken) {
   var boats;
   var boatcategories;
   var boatdamages;
@@ -28,7 +28,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var boattypes = ['kayak','any','rowboat'];
     if(boats === undefined) {
       //Build indexes and lists for use by API
-      $http.get(toURL('boats.php')).then(function(response) {
+      $http.get(toURL('boats.php'), { headers: { Authorization: 'Bearer ' + AccessToken.get().access_token } }).then(function(response) {
         boats = {};
         angular.forEach(response.data, function(boat, index) {
           this[boat.id] = boat;
