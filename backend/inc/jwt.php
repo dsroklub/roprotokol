@@ -1,17 +1,30 @@
 <?php
 
+function jwt_decode_header($header) {
+    if($elements = explode(" ", $_SERVER["HTTP_AUTHORIZATION"])) {
+        if($elements[0] === "Bearer") {
+            $token = jwt_decode($elements[1], "12345678", "http://localhost/app/frontend/");
+            return $token;
+        } else {
+            return [ "error" => "Not a Bearer token" ];
+        }
+    } else {
+        return [ "error" => "No Authorization header set" ]; 
+    }
+}
+
 function jwt_decode($jwt, $key, $aud = null) {
     if(substr_count($jwt, '.') !== 2) {
         return [ "error" => 'Not a valid JWT token as it does not contain two dots' ];
     }
 
-    // Disable token and deserialize
+    // Disassemble token and deserialize JSON
     $elements = explode('.', $jwt);
     $header = json_decode(base64url_decode($elements[0]), true, 2, JSON_BIGINT_AS_STRING);
     $body = json_decode(base64url_decode($elements[1]), true, 2, JSON_BIGINT_AS_STRING);
     $signature = base64url_decode($elements[2]);
     $base64_token = $elements[0].".".$elements[1];
-
+    
     // HASH validation
     if(substr($header['alg'], 0, 2) === "HS") {
         $checksignature = jwt_sign($base64_token, $header['alg'], $key);

@@ -70,7 +70,11 @@ SIGNINFORM;
                     // User information
                     "sub" => $user["sub"]
                 ],
-            $client["aud"]);
+            $client["key"]);
+            
+            //$token = jwt_decode($jwt_token, "12345678", "http://localhost/app/frontend/");
+            //var_dump($token);
+            
             header("Location: {$_POST["redirect_uri"]}#access_token={$jwt_token}&token_type=bearer&expires_in=600&state=/");
             
         } else {
