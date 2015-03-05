@@ -3,15 +3,6 @@ include("inc/common.php");
 
 $season=date('Y');
 
-error_log('create trip ss'.$season);
-if ($rodb->connect_errno) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-}
- 
-if (!$rodb->set_charset("utf8")) {
-  printf("Error loading character set utf8: %s\n", $rodb->error);
-}
 
 $data = file_get_contents("php://input");
 $newtrip=json_decode($data);
@@ -24,6 +15,7 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
   $result= $stmt->get_result();
   if ($result->fetch_assoc()) {
     echo '{"error":"already on water"}';
+    error_log('create trip failed, already on water: '. print_r($newtrip,true);
     $rodb->close();
     exit(0);
   }
