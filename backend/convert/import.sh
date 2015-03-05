@@ -4,18 +4,20 @@ SCRIPT_PATH=$(readlink -f $BASEDIR)
 
 CURRENTSEASON=2014
 echo CURRENTSEASON=$CURRENTSEASON
-arg=$1
+datatype=$1
+password=$2
 
 
-if [[ "x$arg" = "x" ]]
+if [ -z $datatype ]
 then
    echo usage:
-   echo   import.sh fake
-   echo   import.sh real
+   echo   import.sh fake [database password]
+   echo   import.sh real [database password]
    echo fake use DSR data for boats, destinations, etc but generate fake informations about rowers
    echo real is for importing real DSR data, it requires that you have SQL dumps from the database
    exit 0
 fi
+
 DBCMD="mysql -f -u roprotokol roprotokol"
 
 #if you you a password, put DBCMD="mysql -u roprotokol -p password roprotokol" in secret.sh
@@ -24,7 +26,12 @@ then
 . $SCRIPT_PATH/secret.sh
 fi
 
-if [[ $arg = "real" ]]; then
+if [ ! -z $password ]
+then
+    DBCMD="mysql -f -u roprotokol -p$password roprotokol"
+fi
+
+if [[ $datatype = "real" ]]; then
     DATADIR=data
 else
     DATADIR=testdata
@@ -39,11 +46,11 @@ done
 echo do trip rights
     $DBCMD < $SCRIPT_PATH/TripRights.sql
 
-if [[ $arg = "fake" ]]; then
+if [[ $datatype = "fake" ]]; then
     echo "Generating fake data..."
     $DBCMD < $SCRIPT_PATH/rename.sql
     $SCRIPT_PATH/../tests/fakedata.py
-elif [[ $arg = "real" ]]; then
+elif [[ $datatype = "real" ]]; then
     echo "Using real data..."
     for tb in Fejl_tblMembersSportData Fejl_system Fejl_tur TurDeltager Vintervedligehold Medlem Tur tblMembersSportData; do
 	echo DO IMPORT $tb
@@ -85,7 +92,7 @@ elif [[ $arg = "real" ]]; then
     echo "renaming"
     $DBCMD < $SCRIPT_PATH/rename.sql
 
-elif [[ $arg = "empty" ]]; then
+elif [[ $datatype = "empty" ]]; then
     echo no rower data
 else
     echo unknown argument

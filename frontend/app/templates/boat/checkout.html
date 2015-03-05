@@ -18,7 +18,7 @@
 
 <div class="checkout-form">
   <h2>Udskrivning af båd: {{selectedboat.name}}</h2>
-  <form name="checkoutForm" novalidate>
+  <form name="checkoutForm" novalidate noautocomplete>
     <table>
       <tbody>
         <tr>
@@ -86,7 +86,7 @@
           <label for="checkout_rower{{$index}}">{{rower.id}}</label>
         </td>
         <td>
-          <ng-form name="rowerFieldForm">
+          <ng-form name="rowerFieldForm" noautocomplete>
             <input id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" required />
             <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
               <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
