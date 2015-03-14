@@ -8,6 +8,7 @@ require("inc/jwt.php");
 $token = jwt_decode_header($_SERVER["HTTP_AUTHORIZATION"]);
 if(isset($token["error"])) {
     echo json_encode($token["error"]);
+    exit();
 }
 
 if ($rodb->connect_errno) {
