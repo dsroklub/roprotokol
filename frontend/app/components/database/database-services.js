@@ -185,13 +185,13 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
 
   this.getOnWater = function (onSuccess) {
-    $http.get(toURL('onwater')).then(onSuccess);
+    $http.get(toURL('onwater.php')).then(onSuccess);
   }
   this.getTodaysTrips = function (onSuccess) {
-    $http.get(toURL('tripstoday')).then(onSuccess);
+    $http.get(toURL('tripstoday.php')).then(onSuccess);
   }
   this.getAvailableBoats = function (location,onSuccess) {
-    $http.get(toURL('availableboats?location='+location)).then(onSuccess);
+    $http.get(toURL('availableboats.php?location='+location)).then(onSuccess);
   }
 
   this.getRowerTripsAggregated = function (member,onSuccess) {
