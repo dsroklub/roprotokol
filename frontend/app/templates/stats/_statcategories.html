@@ -6,8 +6,6 @@
     </ul>   
     <h3>både</h3>
     <ul ng-init="cats=['alle','robåd', 'kayak']">
-        <li ng-repeat="statcategory in cats">
-            <a href="#/stats/statsobverview/?name={{statcategory|urlencode}}">{{statcategory}}</a>
-        </li>
+        <li ng-repeat="statcategory in cats" ng-click="doboats(statcategory)">{{statcategory}}</li>
     </ul>   
 </div>

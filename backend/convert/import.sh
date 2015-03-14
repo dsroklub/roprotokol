@@ -82,8 +82,7 @@ elif [[ $datatype = "real" ]]; then
     SEASON=$CURRENTSEASON
     $DBCMD -e "INSERT INTO Trip (TripID,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
      SELECT TurID,${SEASON},FK_BådID,Ud,Ind,ForvInd,Destination,Meter,FK_TurTypeID,Kommentar,OprettetDato,RedigeretDato,Initialer,DESTID FROM Tur"
-
-    $DBCMD -e "INSERT INTO TripMember (TripID, Season,Seat, MemberID,MemberName,CreatedDate,EditDate,Initials) \
+    $DBCMD -e "INSERT INTO TripMember (TripID, Season,Seat, member_id, MemberName,CreatedDate,EditDate,Initials) \
     SELECT   FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM TurDeltager"
 #    $DBCMD -e "DROP TABLE Tur"
     #    $DBCMD -e "DROP TABLE TurDeltager"
