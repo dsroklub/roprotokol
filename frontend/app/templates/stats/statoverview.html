@@ -1,10 +1,17 @@
-<div class="statcategories" ng-include="'templates/stats/_statcategories.html'"></div>
+<div class="genericcategories">
+  <div class="genericmenu">
+  <h2>Vælg statistik</h2>
+    <ul>
+      <li ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner']"  ng-click="dorowers(statcategory)" >{{statcategory}}</li>
+    </ul>   
+    <!--h3>både</h3> <ul ng-init="cats=['alle','robåd', 'kayak']"> <li ng-repeat="statcategory in cats" ng-click="doboats(statcategory)">{{statcategory}}</li>  </ul -->   
+</div>
 
-<button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
-<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
-<p><strong>Filter:</strong> {{tableParams.filter()}}
-<p><strong>cat:</strong> {{tableParams.rowcategory|json}}
-<div>
+<button class="genericmenu" ng-click="tableParams.sorting('distance','desc')" align="left" class="btn btn-default ">default sortering</button>
+</div>
+<!--<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}<p><strong>Filter:</strong> {{tableParams.filter()}}<p><strong>cat:</strong> {{tableParams.rowcategory|json}}-->
+
+<div class="stats">
 <table ng-table="tableParams" class="statlist" show-filter="true">
   <thead>
     <tr>
@@ -13,7 +20,7 @@
 	ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr</th>
       <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlemsnummer</th>
       <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer</th>
-      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}"   ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance</th>
+      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}" ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance</th>
     </tr>
   </thead>
   <tbody>

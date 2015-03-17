@@ -16,6 +16,7 @@ a {
 }
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
+    width: auto;
 }
 ul {
     list-style-type: none;
@@ -112,13 +113,47 @@ button#createtrip_button[disabled] {
 .statlist,
 .rower,
 .boatcategories,
+.genericcategories,
+.stats,
 .checkout-form,
 .boatdamages {
-    width: auto;
+    width:auto;
     display: inline-block;
     vertical-align: top;
     margin-right: 10pt;
 }
+.genericmenu h2 {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.genericmenu ul {
+    background: white;
+}
+.genericmenu ul li {
+    cursor: pointer;
+}
+.genericmenu ul li a {
+    padding: 5pt 10pt;
+    display:block;
+    height:100%;
+    width:100%;
+}
+.genericmenu ul li:hover {
+    background: #57C8F2;
+}
+.genericmenu ul li:hover a {
+    color: white;
+}
+
+.genericmenu {
+	     width: auto;
+}
+
 .boattypesmenu h2 {
     background: #23aee2;
     padding: 10pt;
@@ -146,11 +181,11 @@ button#createtrip_button[disabled] {
 .boattypesmenu ul li:hover a {
     color: white;
 }
-.boatlist {
+.boatlist,.statlist {
     border-radius: 5px;
     overflow: auto;
 }
-.boatlist thead th {
+.boatlist,.statlist thead th {
     background: #3ECBBF;
     color: white;
     padding: 9pt 10pt 9pt 10pt;
