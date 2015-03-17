@@ -1,6 +1,8 @@
 <button>TODO: Anmeld ny skade</button>
-<table class="boatlist">
-  <tr><th>Båd</th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>Klarmeld</th></tr>
+<table class="genericlist">
+  <thead>
+    <tr><th>Båd</th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>Klarmeld</th></tr>
+      </thead>
   <tr ng-repeat="bd in allboatdamages">
    <td>{{bd.boat}}</td><td>{{bd.ResponsibleMember}}</td><td>{{bd.created}}</td><td>{{bd.level}}</td><td>{{bd.description}}</td><td>TODO: klarmeld</td>
   </tr>

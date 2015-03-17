@@ -109,12 +109,19 @@ button#createtrip_button[disabled] {
     margin: 0;   
     padding: 15pt 25pt;
 }
+
+.prompt {
+  display:inline-block;
+}
+
 .boatlist,
 .statlist,
+.genericlist,
 .rower,
 .boatcategories,
 .genericcategories,
 .stats,
+.baselayout,
 .checkout-form,
 .boatdamages {
     width:auto;
@@ -181,17 +188,32 @@ button#createtrip_button[disabled] {
 .boattypesmenu ul li:hover a {
     color: white;
 }
-.boatlist,.statlist {
+.boatlist,.statlist,.genericlist {
     border-radius: 5px;
     overflow: auto;
 }
-.boatlist,.statlist thead th {
+.boatlist thead th {
     background: #3ECBBF;
     color: white;
     padding: 9pt 10pt 9pt 10pt;
     font-weight: 400;
     border-right: 1px solid white;
 }
+.genericlist thead th {
+    background: #3ECBBF;
+    color: white;
+    padding: 9pt 10pt 9pt 10pt;
+    font-weight: 400;
+    border-right: 1px solid white;
+}
+.statlist thead th {
+    background: #3ECBBF;
+    color: white;
+    padding: 9pt 10pt 9pt 10pt;
+    font-weight: 400;
+    border-right: 1px solid white;
+}
+
 boatlist thead th:first-child {
     border-radius: 5px 0 0 0;
 }
@@ -202,11 +224,17 @@ boatlist thead th:last-child {
 .boatlist thead th:last-child {
     border: 0;
 }
-.boatlist td {
+.genericlist td {
     padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
     background: white;
+}
+.boatlist tr td a {
+    padding: 6pt 10pt 6pt 10pt;
+    display:block;
+    height:100%;
+    width:100%;
 }
 .boatlist tr td a {
     padding: 6pt 10pt 6pt 10pt;

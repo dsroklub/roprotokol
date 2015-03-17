@@ -1,24 +1,30 @@
-<h2>På vandet</h2>
-<table>
-  <tr><th>Båd</th><th>Tur start</th><th>Forventet inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th></tr>
-  <tr ng-repeat="tw in onwater">
-    <td>{{tw.boat}}</td><td>{{tw.outtime}}</td><td>{{tw.exptextedintime}}</td><td>{{tw.destination}}</td><td>{{tw.id}}</td><td>{{tw.triptype}}</td>
-  </tr>
-</table>
-<h2>Dagens Ture</h2>
-<table>
-  <tr><th>Båd</th><th>Tur start</th><th>Inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th><th>roere</th></tr>
-  <tr ng-repeat="tt in trips">
-    <td>{{tt.boat}}</td><td>{{tt.outtime}}</td><td>{{tt.exptextedintime}}</td><td>{{tt.destination}}</td><td>{{tt.id}}</td><td>{{tt.triptype}}</td>
-    <td>
-      <ol>
-	<li  ng-repeat="roer in tt.rowers"> {{roer}}</li>
-	</ol>
-    </td>
-  </tr>
-</table>
+<div class="baselayout">
+  <table class="genericlist">
+    <caption>På vandet</caption>
+    <thead>
+      <tr><th>Båd</th><th>Tur start</th><th>Forventet inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th></tr>
+    </thead>
+    <tr ng-repeat="tw in onwater">
+      <td>{{tw.boat}}</td><td>{{tw.outtime}}</td><td>{{tw.exptextedintime}}</td><td>{{tw.destination}}</td><td>{{tw.id}}</td><td>{{tw.triptype}}</td>
+    </tr>
+  </table>
 
-<h2>Sæt både</h2>
+  <table class="genericlist">
+  <caption>Dagens Ture</caption>
+    <thead>
+      <tr><th>Båd</th><th>Tur start</th><th>Inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th><th>roere</th></tr>
+    </thead>
+    <tr ng-repeat="tt in trips">
+      <td>{{tt.boat}}</td><td>{{tt.outtime}}</td><td>{{tt.exptextedintime}}</td><td>{{tt.destination}}</td><td>{{tt.id}}</td><td>{{tt.triptype}}</td>
+      <td>
+	<ol>
+	  <li  ng-repeat="roer in tt.rowers"> {{roer}}</li>
+	</ol>
+      </td>
+    </tr>
+  </table>
+
+  <h2>Sæt både</h2>
 
 <dl>
   <dt>2 åres Inrigger</dt>{{available["Inrigger 2+"].amount}}: {{available["Inrigger 2+"].boats}}<dd></dd>
@@ -44,4 +50,4 @@ Der kan komme {{maxcrew}} roere og styrmænd på vandet.
 </tr>
 </tr>
 </table>
-
+<div>
