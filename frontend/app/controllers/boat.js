@@ -17,7 +17,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       if ($scope.selectedboat !== undefined) {
         var now = new Date();
         
-        $scope.destinations = DatabaseService.getDestinations()[$scope.selectedboat.location];
+        $scope.destinations = DatabaseService.getDestinations($scope.selectedboat.location);
         $scope.triptypes = DatabaseService.getTripTypes();
         
         // Lock boat for the next 30 seconds
@@ -105,7 +105,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     $scope.reportdamage = function () {
       ngDialog.open({ template: 'reportdamage.html' });
     };
-    
+
     $scope.savedamage = function (boat_id, description, level) {
       var damage = { "id": 0, "descrption": description, "level": level }
       // TODO: Post to server and get id

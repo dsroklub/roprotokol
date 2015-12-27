@@ -133,7 +133,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.getBoatWithId = function (boat_id) {
     return boats[boat_id];
   };
-  
+
+  this.getBoats = function () {
+    return boats;
+  };
+
   this.getBoatStatuses = function (boat_id) {
     // On the water(Checkouted), Being booked(Locked until), Reserved, Has damage(Severe, Medium, Light) = ?
   };
@@ -171,13 +175,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
   
   this.getDestinations = function (location) {
+    var loc='DSR';
     if(location !== undefined) {
-      return destinations.filter(function(element){
-        return location in element['distance'];
-      });
-    } else {
-      return destinations;
+      loc=location;
     }
+      return destinations[loc];
   };
   
   this.getTripTypes = function () {

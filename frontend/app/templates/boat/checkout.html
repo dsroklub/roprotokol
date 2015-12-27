@@ -8,8 +8,8 @@
 </script>
 
 <script type="text/ng-template" id="reportdamage.html">
-  <h1>Meld skade</h1>
-  <form novalidate>
+  <h1>Meld Skade</h1>
+  <ng-form novalidate>
     <label for="damage_comments">Bemærkninger</label>
     <textarea id="damage_comments" type="text" ng-model="damagetext"></textarea>
     <button class="yellow" ng-click="savedamage(selectedboat.id, damagetext, 1)"><i class="fa fa-exclamation-triangle"></i> Gem skade</button>
@@ -30,10 +30,11 @@
               <ui-select-match placeholder="Vælg Destination">{{$select.selected.name}}</ui-select-match>
               <ui-select-choices repeat="destination in destinations | filter: $select.search">
                 <span ng-bind-html="destination.name | highlight: $select.search"></span>
-                (<small ng-bind-html="destination.distance[selectedboat.location] | mtokm : $select.search"></small>km, <small ng-bind-html="destination.duration[selectedboat.location] | totime"></small>t)
+                (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km,
+		<small ng-bind-html="destination.duration | totime"></small>t)
               </ui-select-choices>
             </ui-select>
-            <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance[selectedboat.location]" required />km
+            <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance" required />km
 	    <!-- FIXME also handle forpost -->
           </td>
         </tr>
