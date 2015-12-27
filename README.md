@@ -115,14 +115,21 @@ SQL-koden virker.
 * Klarmeld skade
 * Skadesliste for alle både
 * Vis roer
-** Rettigheder
-** Statistik fordelt på turtyper
-** Turoversigt
+** Roller og Rettigheder. Fx at man ikke skal logge ind på terminalerne i bådhallen.
+** Statistik fordelt på turtyper.
+   SQL forespørgslerne er lavet. Der skal laves et webinterface til dem.
+** Turoversigt: handler om at de steder, vi viser ture, skal man kunne
+  klikke på en tur og se turens data og roerne på turen, og de steder vi
+  viser roere, skal man kunne klikke på en roer og se roeren ture.
+  Vi bliver nok nødt til at reorganisere lidt. Måske lave et nested scope.
 * Dagens ture
 ** Både på vandet
 * Statistik for både
 * Statistik over roere
 * Årsstatistik
+* Konfiguration af klienter. Noget local storage. Klienter i bådhallen skal vide, at de er i bådhallen og hvilken klient de er (fx et hostnavn)
+* Updatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
+* Do form validation: http://stackoverflow.com/questions/27224661/angularjs-validation-for-ui-select-multiple
 
 
 # Terminaler
