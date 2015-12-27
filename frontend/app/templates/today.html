@@ -1,0 +1,53 @@
+<div class="baselayout">
+  <table class="genericlist">
+    <caption>På vandet</caption>
+    <thead>
+      <tr><th>Båd</th><th>Tur start</th><th>Forventet inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th></tr>
+    </thead>
+    <tr ng-repeat="tw in onwater">
+      <td>{{tw.boat}}</td><td>{{tw.outtime}}</td><td>{{tw.exptextedintime}}</td><td>{{tw.destination}}</td><td>{{tw.id}}</td><td>{{tw.triptype}}</td>
+    </tr>
+  </table>
+
+  <table class="genericlist">
+  <caption>Dagens Ture</caption>
+    <thead>
+      <tr><th>Båd</th><th>Tur start</th><th>Inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th><th>roere</th></tr>
+    </thead>
+    <tr ng-repeat="tt in trips">
+      <td>{{tt.boat}}</td><td>{{tt.outtime}}</td><td>{{tt.exptextedintime}}</td><td>{{tt.destination}}</td><td>{{tt.id}}</td><td>{{tt.triptype}}</td>
+      <td>
+	<ol>
+	  <li  ng-repeat="roer in tt.rowers"> {{roer}}</li>
+	</ol>
+      </td>
+    </tr>
+  </table>
+
+  <h2>Sæt både</h2>
+
+<dl>
+  <dt>2 åres Inrigger</dt>{{available["Inrigger 2+"].amount}}: {{available["Inrigger 2+"].boats}}<dd></dd>
+  <dt>4 åres Inrigger</dt>{{available["Inrigger 4+"].amount}}: {{available["Inrigger 4+"].boats}}<dd></dd>   
+</dl>
+
+
+<table border=1>
+  <tr>
+    <td>    
+      <tr><td>Antal styrmænd</td><td align="right"><input id="numcox" type="number" size="4" ng-model="coxs" ng-change="updatecrew()"></td></tr>
+      <tr><td>Antal menige roere</td><td align="right"><input id="numrowers" type="number" size="4" ng-model="rowers" ng-change="updatecrew()"></td></tr>
+    </table>
+  </td>
+</tr>
+</table>
+<h3>Brug</h3>
+Der kan komme {{maxcrew}} roere og styrmænd på vandet.
+
+<table border=1>
+  <tr> <th>Toere</th><th>Firere</th></tr>    
+  <tr ng-repeat="bc in boatcoms"><td >{{bc.i2}}</td><td>{{bc.i4}}</td>
+</tr>
+</tr>
+</table>
+<div>

@@ -1,6 +1,15 @@
 <?php
-include("inc/common.php");
+require("inc/common.php");
 header('Content-type: application/json');
+
+require("inc/jwt.php");
+
+// Validate JWT token
+$token = jwt_decode_header($_SERVER["HTTP_AUTHORIZATION"]);
+if(isset($token["error"])) {
+    echo json_encode($token["error"]);
+    exit();
+}
 
 if ($rodb->connect_errno) {
     printf("Connect failed: %s\n", mysqli_connect_error());

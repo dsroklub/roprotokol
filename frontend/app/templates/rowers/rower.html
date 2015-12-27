@@ -1,42 +1,46 @@
-<div class="rowerfunctions" ng-include="'templates/rowers/_rowerfunctions.html'"></div>
-<div class="rower" ng-include="'templates/rowers/_findrower.html'"></div>
+<div class="baselayout">
+<!--div class="rowerfunctions" ng-include="'templates/rowers/_rowerfunctions.html'"></div-->
 
-<script type="text/ng-template" id="taTemplate.html">
+  <script type="text/ng-template" id="taTemplate.html">
   <a>
   <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
   <i>({{match.model.id}})</i>
   </a>
-</script>
+  </script>
 
-<h2>Søg efter roer</h2>
-<ng-form name="rowerFieldForm">
+  <h2 class="prompt">Søg efter roer:</h2> <ng-form name="rowerFieldForm">
   <input id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="updateRowerTrips($item)" ng-model="currentrower" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="taTemplate.html" required />
-</ng-form>
+  </ng-form>
+  <br>
+  <h2 class="prompt">Roer <div class="prompt" ng-model="currentrower"> {{currentrower.id}}:  {{currentrower.name}} </div></h2> 
+<br>
+<h3 class="prompt">Rettigheder:</h3>
+<ul>
+  <li ng-if="currentrower" ng-repeat="(right,arg) in currentrower.rights"> {{right}} {{arg}}</a>
+  </li>
+</ul>   
 
-<h2>Roer</h2>
-
-<div ng-model="currentrower"> {{currentrower.id}}:  {{currentrower.name}} </div>
-
-<h3>Rettigheder</h3>
-    <ul>
-        <li ng-if="currentrower" ng-repeat="(right,arg) in currentrower.rights"> {{right}} {{arg}}</a>
-        </li>
-    </ul>   
-
-<h3>Oversigt fordelt på turtyper</h3>
-<table>
-  <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
+<h3>Ture og Turtyper</h3>
+<table class="genericlist">
+  <caption>Oversigt fordelt på turtyper</caption>
+  <thead>
+    <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
+  </thead>
   <tr ng-repeat="ta in rowertripsaggregated">
     <td>{{ta.triptype}}</td><td>{{ta.trip_count}}</td><td>{{ta.distance}}</td><td>{{ta.average}}</td>
   </tr>
 </table>
 
-<h3>Turoversigt</h3>
 
-<table>
-  <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
+
+<table class="genericlist">
+  <caption>Turoversigt</caption>
+  <thead>
+    <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
+  </thead>
   <tr ng-repeat="trip in rowertrips">
     <td>{{trip.id}}</td><td>{{trip.boat}}</td><td>{{trip.destination}}</td><td>{{trip.created}}</td><td>{{trip.distance}}</td>
   </tr>
 </table>
 </div>
+<div>

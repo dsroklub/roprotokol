@@ -75,8 +75,8 @@ ALTER TABLE Destination CHANGE Beskrivelse Description VARCHAR(1000);
 ALTER TABLE Destination CHANGE OprettetDato Created DATETIME;
 ALTER TABLE Destination CHANGE RedigeretDato Updated DATETIME;
 ALTER TABLE Destination CHANGE Initialer Initials VARCHAR(10);
-ALTER TABLE Destination CHANGE Gennemsnitlig_varighed_Normal ExpectedDurationNormal NUMERIC(8,2);
-ALTER TABLE Destination CHANGE Gennemsnitlig_varighed_Instruktion ExpectedDurationInstruction NUMERIC(8,2);
+ALTER TABLE Destination CHANGE Gennemsnitlig_varighed_Normal ExpectedDurationNormal FLOAT;
+ALTER TABLE Destination CHANGE Gennemsnitlig_varighed_Instruktion ExpectedDurationInstruction FLOAT;
 
 ALTER TABLE  Error_Trip CHANGE FejlID id INT;
 ALTER TABLE  Error_Trip CHANGE SletTur DeleteTrip INT;
@@ -136,6 +136,8 @@ DELETE FROM Destination WHERE Meter=0;
 UPDATE Destination SET Name = SUBSTRING_INDEX(Name,"(",1);
 
 UPDATE Trip SET Destination = SUBSTRING_INDEX(Destination,"(",1);
+UPDATE Destination set Name= TRIM(Name);
+
 
 UPDATE Destination SET Location = 'DSR';
 

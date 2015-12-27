@@ -1,5 +1,5 @@
 'use strict';
-angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q) {
+angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q, AccessToken) {
   var boats;
   var boatcategories;
   var boatdamages;
@@ -28,7 +28,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var boattypes = ['kayak','any','rowboat'];
     if(boats === undefined) {
       //Build indexes and lists for use by API
-      $http.get(toURL('boats.php')).then(function(response) {
+      $http.get(toURL('boats.php'), { headers: { Authorization: 'Bearer ' + AccessToken.get().access_token } }).then(function(response) {
         boats = {};
         angular.forEach(response.data, function(boat, index) {
           this[boat.id] = boat;
@@ -121,23 +121,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     } else {
       rowerstatisticsloaded['any'].resolve(true);
     }
-
-    // if(boatstatistics === undefined) {
-    //   for (boattype in boattypes) {
-    // 	$http.get('data/boat_statistics.json').then(function(response) {
-    //       boatstatistics[boattypes[boattype]] = [];
-    //       angular.forEach(response.data, function(stat, index) {
-    //         stat.search = stat.boatname;
-    //         this.push(stat);
-    //       }, boatstatistics[boattypes[bx]])
-    // 	});
-    //   }
-    //   boatstatisticsloaded[boattypes[bx]].resolve(true);
-    // } else {
-    //   boatstatisticsloaded[boattypes[bx]].resolve(true);
-    // }
-
-
     
     return $q.all([boatsloaded.promise,boatdamagesloaded.promise, destinationsloaded.promise, 
       triptypesloaded.promise, rowersloaded.promise]);
@@ -200,6 +183,16 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.getTripTypes = function () {
     return triptypes;
   };
+
+  this.getOnWater = function (onSuccess) {
+    $http.get(toURL('onwater.php')).then(onSuccess);
+  }
+  this.getTodaysTrips = function (onSuccess) {
+    $http.get(toURL('tripstoday.php')).then(onSuccess);
+  }
+  this.getAvailableBoats = function (location,onSuccess) {
+    $http.get(toURL('availableboats.php?location='+location)).then(onSuccess);
+  }
 
   this.getRowerTripsAggregated = function (member,onSuccess) {
     $http.get(toURL('rowertripsaggregated.php?member='+member.id)).then(onSuccess);

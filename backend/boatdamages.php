@@ -6,13 +6,16 @@ $s="SELECT Damage.id,Damage.Boat as boat_id,Boat.Name as boat,Damage.Description
     " FROM Damage,Boat WHERE Damage.Boat=Boat.id AND Repaired IS NULL ORDER BY Boat, level";
 
 //echo $s;
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));
-echo '[';
- $first=1;
- while ($row = $result->fetch_assoc()) {
-	  if ($first) $first=0; else echo ',';	  
-	  echo json_encode($row);
+if ($stmt = $rodb->prepare($s)) {
+     $stmt->execute(); 
+     $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
+     echo '[';
+     $first=1;
+     while ($row = $result->fetch_assoc()) {
+       if ($first) $first=0; else echo ',';	  
+       echo json_encode($row);
+     }
+     echo ']';
 }
-echo ']';
 $rodb->close();
 ?> 

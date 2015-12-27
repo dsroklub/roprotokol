@@ -16,6 +16,7 @@ a {
 }
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
+    width: auto;
 }
 ul {
     list-style-type: none;
@@ -108,17 +109,58 @@ button#createtrip_button[disabled] {
     margin: 0;   
     padding: 15pt 25pt;
 }
+
+.prompt {
+  display:inline-block;
+}
+
 .boatlist,
 .statlist,
+.genericlist,
 .rower,
 .boatcategories,
+.genericcategories,
+.stats,
+.baselayout,
 .checkout-form,
 .boatdamages {
-    width: auto;
+    width:auto;
     display: inline-block;
     vertical-align: top;
     margin-right: 10pt;
 }
+.genericmenu h2 {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.genericmenu ul {
+    background: white;
+}
+.genericmenu ul li {
+    cursor: pointer;
+}
+.genericmenu ul li a {
+    padding: 5pt 10pt;
+    display:block;
+    height:100%;
+    width:100%;
+}
+.genericmenu ul li:hover {
+    background: #57C8F2;
+}
+.genericmenu ul li:hover a {
+    color: white;
+}
+
+.genericmenu {
+	     width: auto;
+}
+
 .boattypesmenu h2 {
     background: #23aee2;
     padding: 10pt;
@@ -146,7 +188,7 @@ button#createtrip_button[disabled] {
 .boattypesmenu ul li:hover a {
     color: white;
 }
-.boatlist {
+.boatlist,.statlist,.genericlist {
     border-radius: 5px;
     overflow: auto;
 }
@@ -157,6 +199,21 @@ button#createtrip_button[disabled] {
     font-weight: 400;
     border-right: 1px solid white;
 }
+.genericlist thead th {
+    background: #3ECBBF;
+    color: white;
+    padding: 9pt 10pt 9pt 10pt;
+    font-weight: 400;
+    border-right: 1px solid white;
+}
+.statlist thead th {
+    background: #3ECBBF;
+    color: white;
+    padding: 9pt 10pt 9pt 10pt;
+    font-weight: 400;
+    border-right: 1px solid white;
+}
+
 boatlist thead th:first-child {
     border-radius: 5px 0 0 0;
 }
@@ -167,11 +224,17 @@ boatlist thead th:last-child {
 .boatlist thead th:last-child {
     border: 0;
 }
-.boatlist td {
+.genericlist td {
     padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
     background: white;
+}
+.boatlist tr td a {
+    padding: 6pt 10pt 6pt 10pt;
+    display:block;
+    height:100%;
+    width:100%;
 }
 .boatlist tr td a {
     padding: 6pt 10pt 6pt 10pt;

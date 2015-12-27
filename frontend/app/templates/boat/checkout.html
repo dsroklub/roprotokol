@@ -26,7 +26,7 @@
             <label for="checkout_destination">Destination</label>
           </td>
           <td>
-            <ui-select class="checkout_destination" ng-model="checkout.destination" on-select="updateExpectedTime($item)" style="min-width:400px">
+            <ui-select class="checkout_destination" ng-model="checkout.destination" on-select="updateCheckout($item)" style="min-width:400px">
               <ui-select-match placeholder="Vælg Destination">{{$select.selected.name}}</ui-select-match>
               <ui-select-choices repeat="destination in destinations | filter: $select.search">
                 <span ng-bind-html="destination.name | highlight: $select.search"></span>
