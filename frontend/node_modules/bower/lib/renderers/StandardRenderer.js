@@ -5,6 +5,7 @@ var archy = require('archy');
 var Q = require('q');
 var stringifyObject = require('stringify-object');
 var os = require('os');
+var semverUtils = require('semver-utils');
 var pkg = require(path.join(__dirname, '../..', 'package.json'));
 var template = require('../util/template');
 
@@ -23,7 +24,7 @@ function StandardRenderer(command, config) {
     };
 
     this._command = command;
-    this._config = config;
+    this._config = config || {};
 
     if (this.constructor._wideCommands.indexOf(command) === -1) {
         this._compact = true;
@@ -71,15 +72,15 @@ StandardRenderer.prototype.error = function (err) {
     // Print trace if verbose, the error has no code
     // or if the error is a node error
     if (this._config.verbose || !err.code || err.errno) {
-        /*jshint camelcase:false*/
+        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
         stack = err.fstream_stack || err.stack || 'N/A';
         str = chalk.yellow('\nStack trace:\n');
         str += (Array.isArray(stack) ? stack.join('\n') : stack) + '\n';
         str += chalk.yellow('\nConsole trace:\n');
-        /*jshint camelcase:true*/
+        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 
         this._write(process.stderr, str);
-        console.trace();
+        this._write(process.stderr, new Error().stack);
 
         // Print bower version, node version and system info.
         this._write(process.stderr, chalk.yellow('\nSystem info:\n'));
@@ -209,6 +210,19 @@ StandardRenderer.prototype._info = function (data) {
 
     // Render the versions at the end
     if (includeVersions) {
+        data.hidePreReleases = false;
+        data.numPreReleases = 0;
+        // If output isn't verbose, hide prereleases
+        if (!this._config.verbose) {
+            data.versions = mout.array.filter(data.versions, function(version) {
+                version = semverUtils.parse(version);
+                if (!version.release && !version.build) {
+                    return true;
+                }
+                data.numPreReleases++;
+            });
+            data.hidePreReleases = !!data.numPreReleases;
+        }
         str += '\n' + template.render('std/info.std', data);
     }
 

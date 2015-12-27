@@ -1,5 +1,5 @@
 #!/bin/sh
-#apt-get install python-mysqldb  php5-mysqlnd mysql
+#apt-get install python-mysqldb  php5-mysqlnd mysql nodejs npm
 
 mysql -u roprotokol --password=roprotokol roprotokol<<EOSQL
   CREATE SCHEMA 'roprotokol' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;

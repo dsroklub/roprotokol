@@ -33,7 +33,7 @@
                 (<small ng-bind-html="destination.distance[selectedboat.location] | mtokm : $select.search"></small>km, <small ng-bind-html="destination.duration[selectedboat.location] | totime"></small>t)
               </ui-select-choices>
             </ui-select>
-            <input maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance[selectedboat.location]" required />km
+            <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance[selectedboat.location]" required />km
 	    <!-- FIXME also handle forpost -->
           </td>
         </tr>
@@ -87,7 +87,7 @@
         </td>
         <td>
           <ng-form name="rowerFieldForm" noautocomplete>
-            <input id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" required />
+            <input  autocomplete="off" id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" required />
             <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
               <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
               <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>

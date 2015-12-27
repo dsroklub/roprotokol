@@ -9,7 +9,7 @@
   </script>
 
   <h2 class="prompt">Søg efter roer:</h2> <ng-form name="rowerFieldForm">
-  <input id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="updateRowerTrips($item)" ng-model="currentrower" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="taTemplate.html" required />
+  <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="updateRowerTrips($item)" ng-model="currentrower" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="taTemplate.html" required />
   </ng-form>
   <br>
   <h2 class="prompt">Roer <div class="prompt" ng-model="currentrower"> {{currentrower.id}}:  {{currentrower.name}} </div></h2> 

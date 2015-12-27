@@ -25,9 +25,9 @@ You can set the amount of decimal digits (default is `1`):
 You can customize the abbreviation by passing a custom "dictionary":
 
     var _ptbrDict = {
-        thousands : ' mil',
-        millions : ' Mi',
-        billions : ' Bi'
+        thousand: ' mil',
+        million: ' Mi',
+        billion: ' Bi'
     };
     function customAbbr(val) {
         return abbreviate(val, 1, _ptbrDict);
@@ -93,6 +93,11 @@ Maximum 32-bit signed integer value. `Math.pow(2, 31) - 1`
 ```js
 console.log( MAX_INT ); // 2147483647
 ```
+
+
+## MAX_SAFE_INTEGER:Number
+
+Maximum safe integer. `Math.pow(2,53) − 1`
 
 
 ## MAX_UINT:Number
