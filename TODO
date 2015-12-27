@@ -10,10 +10,6 @@
   Vi bliver nok nødt til at reorganisere lidt. Måske lave et nested scope.
 
 
-* Udgaa autocomplete i browsere, der hvor vi bruger vores egen autocomplete.
-  i Første omgang kan vi måske konfigurere det på terminalerne i bådhallen.
-  på længere sigt, skal vi en løsning, der virker i alle browsere, hvis det skal kunne bruges udefra.
-
 
 * Konfiguration af klienter. Noget local storage. Klienter i bådhallen skal vide, at de er i bådhallen og hvilken klient de er (fx et hostnavn)
 

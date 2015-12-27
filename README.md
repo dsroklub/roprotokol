@@ -123,3 +123,8 @@ SQL-koden virker.
 * Statistik for både
 * Statistik over roere
 * Årsstatistik
+
+
+# Terminaler
+
+Slå autofill fra i Chromium
