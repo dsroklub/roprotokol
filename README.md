@@ -34,7 +34,7 @@ BRUG TESTDATA:
 
 
 BRUG DSR DATA:
-Eksporter gammel data til sql filer ved at kopiere gammel data Roprotokol_sommer.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
+Eksporter gammel data til sql filer ved at kopiere gammel data Roprotokol.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
 
    ./backend/convert/eksport.sh
 
@@ -62,7 +62,7 @@ Der er genereret PHP ud fra ASP-koden, men det benyttes ikke og er kun vedlagt s
 ##SQL skema
 
 Nyt skema er i backend/convert/mkdb.sql
-Det er lavet med mdb-schema, baseret på Roprotokol_sommer.mdb og Members.mdb. Derefter tilrettet i hånden. Tilretningere består af:
+Det er lavet med mdb-schema, baseret på Roprotokol.mdb og Members.mdb. Derefter tilrettet i hånden. Tilretningere består af:
 
 * Primærnøgler 
 * Indexes. 

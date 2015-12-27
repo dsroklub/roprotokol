@@ -11,6 +11,13 @@
 </div>
 <!--<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}<p><strong>Filter:</strong> {{tableParams.filter()}}<p><strong>cat:</strong> {{tableParams.rowcategory|json}}-->
 
+<button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
+<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
+<p><strong>Filter:</strong> {{tableParams.filter()}}
+<p><strong>cat:</strong> {{tableParams.rowcategory|json}}
+<div>
+Søg efter roer: <input ng-model="filter"><button ng-click="tableParams.filter('')">Clear</button>
+</div>
 <div class="stats">
 <table ng-table="tableParams" class="statlist" show-filter="true">
   <thead>
@@ -26,9 +33,9 @@
   <tbody>
     <tr ng-repeat="stat in $data" ng-class-odd="'oddstat'"> 
       <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
-      <td data-title="'Medlemsnummer'" sortable="'memberid'"><a href="#/rower/{{stat.id}}">{{stat.id}}</a> </td>
-      <td>{{stat.firstname}} {{stat.lastname}}</td>
-      <td>{{(stat.distance/1000).toFixed(1)}}</td></td>
+      <td data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}"><a href="#/rower/{{stat.id}}">{{stat.id}}</a> </td>
+      <td data-title="'Navn'" sortable="'name'" filter="{'fistname':'text'}">{{stat.firstname}} {{stat.lastname}}</td>
+      <td data-title="'Distance'" sortable="'distance'">{{(stat.distance/1000).toFixed(1)}}</td></td>
     </tr>
   </tbody>
 </table>

@@ -38,9 +38,8 @@ select TurType.Navn as turtype, sum(Trip.Meter)/1000 as Afstand, count(Trip.Trip
 select floor(meh.km/100), count(meh.medlemsnr) as antal, count(meh.medlemsnr)/673*100 as andel FROM (select TripMember.MemberID as medlemsnr, sum(Trip.Meter)/1000 as km from Trip INNER JOIN TripMember ON Trip.TripID = TripMember.TripID WHERE Trip.Season=2014 GROUP BY medlemsnr) as meh group by floor(meh.km/100);
 
 
--- Tabel 8 - Aktive instruktører 2014
-
-select TripMember.MemberName as navn, COUNT(TripMember.MemberID)  as ture FROM Trip  JOIN TripMember ON (TripMember.TripID = Trip.TripID) INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) where Trip.season='2014' AND TripMember.Seat=0 AND Gruppe.FK_BådKategoriID=2 AND Trip.TripTypeID IN (5) GROUP BY TripMember.MemberID order by ture desc, navn asc;
+-- Tabel 8 - Aktive instruktører 2015
+select TripMember.member_id as medlemsnr, TripMember.MemberName as navn, COUNT(TripMember.member_id)  as ture FROM Trip  JOIN TripMember ON (TripMember.TripID = Trip.TripID) INNER JOIN Boat ON (Boat.id = Trip.BoatID) where Trip.season='2015' AND Boat.BoatType IN (1, 2) AND TripMember.Seat=0 AND Trip.TripTypeID IN (5) GROUP BY TripMember.member_id order by ture desc, navn asc;
 
 
 -- Tabel 9 - Kaniners aktivitet efter roret

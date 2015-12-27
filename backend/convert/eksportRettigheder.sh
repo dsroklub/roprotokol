@@ -3,7 +3,7 @@
 BASEDIR=$(dirname $0)
 SCRIPT_PATH=$(readlink -f $BASEDIR)
 
-RODB=$SCRIPT_PATH/Roprotokol_sommer.mdb
+RODB=$SCRIPT_PATH/Roprotokol.mdb
 
 echo using $SCRIPT_PATH  $RODB
 for tb in Medlemsrettigheder; do

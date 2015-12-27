@@ -2,7 +2,7 @@
 BASEDIR=$(dirname $0)
 SCRIPT_PATH=$(readlink -f $BASEDIR)
 
-CURRENTSEASON=2014
+CURRENTSEASON=2015
 echo CURRENTSEASON=$CURRENTSEASON
 datatype=$1
 password=$2
@@ -58,7 +58,7 @@ elif [[ $datatype = "real" ]]; then
 	$DBCMD -e "TRUNCATE TABLE $tb;"
 	$DBCMD < $SCRIPT_PATH/data/$tb.sql
     done
-    for SEASON in $(seq 2010 2013); do
+    for SEASON in $(seq 2010 2014); do
 	echo SEASON $SEASON; 
 	for ST in Tur Turdeltager; do
 	    tb=${ST}_backup${SEASON}
@@ -69,7 +69,7 @@ elif [[ $datatype = "real" ]]; then
 	done
     done
 
-    for SEASON in $(seq 2010 2013); do
+    for SEASON in $(seq 2010 2014); do
 	$DBCMD -e "INSERT INTO Trip (TripID,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
      SELECT TurID,${SEASON},FK_BådID,Ud,Ind,ForvInd,Destination,Meter,FK_TurTypeID,Kommentar,OprettetDato,RedigeretDato,Initialer,DESTID FROM Tur_backup${SEASON}"
 
