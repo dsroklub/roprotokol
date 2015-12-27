@@ -3,7 +3,6 @@ var mout = require('mout');
 var Q = require('q');
 var Project = require('../core/Project');
 var semver = require('../util/semver');
-var cli = require('../util/cli');
 var defaultConfig = require('../config');
 
 function list(logger, options, config) {
@@ -82,7 +81,7 @@ function checkVersions(project, tree, logger) {
     }, true);
 
     if (nodes.length) {
-        logger.info('check-new', 'Checking for new versions of the project dependencies..');
+        logger.info('check-new', 'Checking for new versions of the project dependencies...');
     }
 
     // Check for new versions for each node
@@ -151,20 +150,17 @@ function normalize(src) {
 
 // -------------------
 
-list.line = function (logger, argv) {
-    var options = list.options(argv);
-    return list(logger, options);
-};
+list.readOptions = function (argv) {
+    var cli = require('../util/cli');
 
-list.options = function (argv) {
-    return cli.readOptions({
+    var options = cli.readOptions({
         'paths': { type: Boolean, shorthand: 'p' },
         'relative': { type: Boolean, shorthand: 'r' }
     }, argv);
-};
 
-list.completion = function () {
-    // TODO:
+    delete options.argv;
+
+    return [options];
 };
 
 module.exports = list;
