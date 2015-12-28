@@ -13,11 +13,18 @@ if (!$rodb->set_charset("utf8")) {
 
 $s="SELECT Boat.id,
            Boat.Name as name,
+           BoatType.Seatcount as spaces,
+           Boat.Description as description,
+           BoatCategory.Name as boattype,
+           BoatType.Name as category,
+           Boat.Location as location,
            COALESCE(MAX(Damage.Degree),0) as damage,
            MAX(Trip.TripID) as trip,
            MAX(Trip.OutTime) as outtime,
            MAX(Trip.ExpectedIn) as expected_in
     FROM Boat
+         INNER JOIN BoatType ON (BoatType.id=BoatType)
+         INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
          LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
          LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
     WHERE 
@@ -25,6 +32,7 @@ $s="SELECT Boat.id,
     GROUP BY
        Boat.id,
        Boat.Name
+    ORDER BY Boat.Name
     ";
 
 

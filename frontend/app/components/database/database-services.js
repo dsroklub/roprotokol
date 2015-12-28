@@ -33,7 +33,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       if (accessToken) {
 	  headers['Authorization'] = 'Bearer ' + accessToken.access_token;
       }
-      $http.get(toURL('boats.php'), { headers: headers } ).then(function(response) {
+      $http.get(toURL('boat_status.php'), { headers: headers } ).then(function(response) {
         boats = {};
         angular.forEach(response.data, function(boat, index) {
           this[boat.id] = boat;

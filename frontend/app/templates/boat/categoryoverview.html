@@ -8,9 +8,15 @@
     </thead>
     <tbody>
         <tr ng-repeat="boat in selectedboats">
-            <td><a href="#/boat/checkout/{{boat.id}}">{{boat.name}}</a></td>
+          <td><div ng-hide="{{boat.trip}}">
+	      <a href="#/boat/checkout/{{boat.id}}">{{boat.name}}</a>
+	    </div>
+	    <div class="onwater" ng-show="{{boat.trip}}">
+	      {{boat.name}}
+	    </div>
+	  </td>
             <td>{{boat.location|nodsr}} {{boat.placement}}</td>
-            <td><span ng-show="{{boat.trip}}">På vandet</span>
+            <td><span ng-show="{{boat.trip}}">På vandet</span> <!-- TODO link to trip here -->
                 <span ng-show="{{boat.damage==3}}">Svært skadet</span>
                 <span ng-show="{{boat.damage==2}}">Middel skadet</span>
                 <span ng-show="{{boat.damage==1}}">Let skadet</span>
