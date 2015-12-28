@@ -28,7 +28,12 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var boattypes = ['kayak','any','rowboat'];
     if(boats === undefined) {
       //Build indexes and lists for use by API
-      $http.get(toURL('boats.php'), { headers: { Authorization: 'Bearer ' + AccessToken.get().access_token } }).then(function(response) {
+      var headers = {};
+      var accessToken = AccessToken.get();
+      if (accessToken) {
+	  headers['Authorization'] = 'Bearer ' + accessToken.access_token;
+      }
+      $http.get(toURL('boats.php'), { headers: headers } ).then(function(response) {
         boats = {};
         angular.forEach(response.data, function(boat, index) {
           this[boat.id] = boat;

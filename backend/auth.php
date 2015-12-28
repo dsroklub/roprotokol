@@ -25,12 +25,12 @@ $users = [
 if(startsWith($_SERVER["REQUEST_URI"], $auth_url . "/oauth/authorize")) {
     // Try to look up client to see if we have this client_id and redirect uri 
     if(   isset($_GET["client_id"])
-       && isset($_GET["redirect_url"])
+       && isset($_GET["redirect_uri"])
        && isset($_GET["response_type"])
        && isset($clients[$_GET["client_id"]][$_GET["redirect_uri"]][$_GET["response_type"]])) {
        $client = $clients[$_GET["client_id"]][$_GET["redirect_uri"]][$_GET["response_type"]];
 
-        $scope = isset($_GET["scope"]) ? $_GET["scope"]) : '';
+        $scope = isset($_GET["scope"]) ? $_GET["scope"] : '';
         $state = isset($_GET["state"]) ? $_GET["state"] : '';
 
 $form = <<<SIGNINFORM
@@ -56,10 +56,10 @@ SIGNINFORM;
 	   isset($_POST["client_id"])
         && isset($_POST["redirect_uri"])
         && isset($_POST["response_type"])
-        && isset($client = $clients[$_POST["client_id"]][$_POST["redirect_uri"]][$_POST["response_type"]])) {
+        && isset($clients[$_POST["client_id"]][$_POST["redirect_uri"]][$_POST["response_type"]])) {
 	
 	$client = $clients[$_POST["client_id"]][$_POST["redirect_uri"]][$_POST["response_type"]];
-        $scope = isset($_GET["scope"]) ? $_GET["scope"]) : (isset($_POST["scope"]) ? $_POST["scope"] : '');
+        $scope = isset($_GET["scope"]) ? $_GET["scope"] : (isset($_POST["scope"]) ? $_POST["scope"] : '');
         $state = isset($_GET["state"]) ? $_GET["state"] : (isset($_POST["state"]) ? $_POST["state"] : '');
 
         // Validate username passwor,d, TODO: Passwords should be hashed
