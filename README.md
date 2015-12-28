@@ -94,6 +94,7 @@ SQL-koden virker.
 ##TODO
 
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
+* Caching af data is databaseservices. Det skal invalideres server-side
 * Administration af både
 ** Opret båd
 ** Ret båd
@@ -113,7 +114,6 @@ SQL-koden virker.
 * Meld skade
 * Kommenter skade
 * Klarmeld skade
-* Skadesliste for alle både
 * Vis roer
 ** Roller og Rettigheder. Fx at man ikke skal logge ind på terminalerne i bådhallen.
 ** Statistik fordelt på turtyper.
@@ -123,9 +123,11 @@ SQL-koden virker.
   viser roere, skal man kunne klikke på en roer og se roeren ture.
   Vi bliver nok nødt til at reorganisere lidt. Måske lave et nested scope.
 * Dagens ture
+* status paa baade ved udskrivning.
 ** Både på vandet
-* Statistik for både
-* Statistik over roere
+* Statistik
+	** både
+	** over roere
 * Årsstatistik
 * Konfiguration af klienter. Noget local storage. Klienter i bådhallen skal vide, at de er i bådhallen og hvilken klient de er (fx et hostnavn)
 * Updatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
