@@ -15,7 +15,7 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
   $result= $stmt->get_result();
   if ($result->fetch_assoc()) {
     echo '{"error":"already on water"}';
-    error_log('create trip failed, already on water: '. print_r($newtrip,true);
+    error_log('create trip failed, already on water: '. print_r($newtrip,true));
     $rodb->close();
     exit(0);
   }
