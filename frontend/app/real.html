@@ -21,15 +21,14 @@
 </head>
 <body>
   <oauth
-    site="http://localhost:8080/backend/auth.php"
+    site="/backend/auth.php"
     client-id="d6d2b510d18471d2e22aa202216e86c42beac80f9a6ac2da505dcb79c7b2fd99"
-    redirect-uri="http://localhost:8080/frontend/app/real.html"
+    redirect-uri="/frontend/app/real.html"
     scope="public">
   </oauth>
   
-  
-    <div class="menuholder">
-        <ul class="menu">
+   <div class="menuholder">
+       <ul class="menu">
             <li class="logo">
                 <img src="assets/dsrlogo.svg">  
             </li>
@@ -40,8 +39,8 @@
             <li><a href="#/damages"><i class="fa fa-exclamation-triangle"></i> Skader</a></li>
             <li><a href="#/corrections"><i class="fa fa-pencil-square-o"></i> Rettelser</a></li>
             <li><a href="#/admin"><i class="fa fa-wrench"></i> Admin</a></li>
-        </ul>
-    </div>
+       </ul>
+   </div>
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -66,7 +65,7 @@
   <script src="bower_components/ngDialog/js/ngDialog.min.js"></script>
   <script src="bower_components/ng-table/ng-table.js"></script>
   <script src="bower_components/ngstorage/ngStorage.js"></script>
-  <script src="bower_components/oauth-ng/dist/oauth-ng.js"></script>
+  <script src="bower_components/oauth-ng/dist/oauth-ng.js"></script> 
   <script src="app.js"></script>
   <script src="controllers/boat.js"></script>
   <script src="controllers/today.js"></script>

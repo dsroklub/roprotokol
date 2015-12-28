@@ -1,15 +1,15 @@
 <?php
 require("inc/jwt.php");
 
-$auth_issuer = "http://localhost/auth";
+$auth_issuer = "/auth";
 $auth_url = "/backend/auth.php";
 
 $clients = [
     "d6d2b510d18471d2e22aa202216e86c42beac80f9a6ac2da505dcb79c7b2fd99" => [
-        "http://localhost:8080/frontend/app/real.html" => [
+        "/frontend/app/real.html" => [
             "token" => [
                 "key" => "12345678",
-                "aud" => "http://localhost/app/frontend/"
+                "aud" => "/app/frontend/"
             ]
         ],
     ]    
@@ -21,11 +21,17 @@ $users = [
     ]
 ];
 
+
 if(startsWith($_SERVER["REQUEST_URI"], $auth_url . "/oauth/authorize")) {
     // Try to look up client to see if we have this client_id and redirect uri 
-    if($client = $clients[$_GET["client_id"]][$_GET["redirect_uri"]][$_GET["response_type"]]) {
-        $scope = $_GET["scope"];
-        $state = $_GET["state"];
+    if(   isset($_GET["client_id"])
+       && isset($_GET["redirect_url"])
+       && isset($_GET["response_type"])
+       && isset($clients[$_GET["client_id"]][$_GET["redirect_uri"]][$_GET["response_type"]])) {
+       $client = $clients[$_GET["client_id"]][$_GET["redirect_uri"]][$_GET["response_type"]];
+
+        $scope = isset($_GET["scope"]) ? $_GET["scope"]) : '';
+        $state = isset($_GET["state"]) ? $_GET["state"] : '';
 
 $form = <<<SIGNINFORM
 <html>
@@ -46,10 +52,16 @@ $form = <<<SIGNINFORM
 SIGNINFORM;
         echo $form;
         
-    } elseif($client = $clients[$_POST["client_id"]][$_POST["redirect_uri"]][$_POST["response_type"]]) {
-        $scope = $_GET["scope"];
-        $state = $_GET["state"];
-        
+    } elseif(
+	   isset($_POST["client_id"])
+        && isset($_POST["redirect_uri"])
+        && isset($_POST["response_type"])
+        && isset($client = $clients[$_POST["client_id"]][$_POST["redirect_uri"]][$_POST["response_type"]])) {
+	
+	$client = $clients[$_POST["client_id"]][$_POST["redirect_uri"]][$_POST["response_type"]];
+        $scope = isset($_GET["scope"]) ? $_GET["scope"]) : (isset($_POST["scope"]) ? $_POST["scope"] : '');
+        $state = isset($_GET["state"]) ? $_GET["state"] : (isset($_POST["state"]) ? $_POST["state"] : '');
+
         // Validate username passwor,d, TODO: Passwords should be hashed
         if($user = $users[$_POST["username"]." ".$_POST["password"]]) {
             
@@ -103,8 +115,8 @@ $jwt_token = jwt_encode(
     [
         // Authority information
         "jti" => uniqid("a:"), // Create a unique ID and add a prefix to for the node creating it
-        "iss" => "http://localhost/auth",
-        "aud" => "http://localhost/roprotokol",
+        "iss" => "/auth",
+        "aud" => "/roprotokol",
         "iat" => time(),
         "nbf" => time() - 60* 5, // 5 minutes skrew
         "exp" => time() + 60 * 10, // expires in 10 minutes
@@ -114,7 +126,7 @@ $jwt_token = jwt_encode(
 $pkeyid);
 var_dump($jwt_token);
 $pubkey = openssl_get_publickey(file_get_contents("file://".dirname(__FILE__)."/certs/example.org.crt"));
-$token = jwt_decode($jwt_token, $pubkey, "http://localhost/roprotokol");
+$token = jwt_decode($jwt_token, $pubkey, "/roprotokol");
 var_dump($token);
 */
 

@@ -1,9 +1,21 @@
 <?php
 
-function jwt_decode_header($header) {
-    if($elements = explode(" ", $_SERVER["HTTP_AUTHORIZATION"])) {
+function jwt_decode_header() {
+    $auth_header = "";
+    if (isset($_SERVER["HTTP_AUTHORIZATION"])) {
+       $auth_header = $_SERVER["HTTP_AUTHORIZATION"];
+    } elseif (isset($_ENV["HTTP_AUTHORIZATION"])) {
+      $auth_header = $_ENV["HTTP_AUTHORIZATION"];
+    } else {
+      $all_headers = getallheaders();
+      if (isset($all_headers["Authorization"])) {
+      	 $auth_header = $all_headers["Authorization"];
+      }
+    }
+
+    if($auth_header && ($elements = explode(" ", $auth_header))) {
         if($elements[0] === "Bearer") {
-            $token = jwt_decode($elements[1], "12345678", "http://localhost/app/frontend/");
+            $token = jwt_decode($elements[1], "12345678", "/app/frontend/");
             return $token;
         } else {
             return [ "error" => "Not a Bearer token" ];

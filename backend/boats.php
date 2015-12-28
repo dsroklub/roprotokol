@@ -4,8 +4,10 @@ header('Content-type: application/json');
 
 require("inc/jwt.php");
 
+ini_set("display_errors", 0);
+
 // Validate JWT token
-$token = jwt_decode_header($_SERVER["HTTP_AUTHORIZATION"]);
+$token = jwt_decode_header();
 if(isset($token["error"])) {
     echo json_encode($token["error"]);
     exit();

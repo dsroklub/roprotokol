@@ -1,0 +1,5 @@
+
+RewriteEngine On
+RewriteRule /backend/auth.php/ /backend/auth.php [QSA,L]
+
+
