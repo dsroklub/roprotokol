@@ -34,7 +34,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	  headers['Authorization'] = 'Bearer ' + accessToken.access_token;
       }
       $http.get(toURL('boat_status.php'), { headers: headers } ).then(function(response) {
-        boats = {};
+        boats = [];
         angular.forEach(response.data, function(boat, index) {
           this[boat.id] = boat;
         }, boats);
@@ -46,7 +46,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
           }
           this[category].push(boat);
         }, boatcategories);
-
        boatsloaded.resolve(true);
       });
 
@@ -245,4 +244,18 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     });
     return;
   };
+
+  this.newDamage = function(data) {
+    var res=1;
+    $http.post('../../backend/newdamage.php', data).success(function(data, status, headers, config) {
+      res=1;      
+    }).error(function(data, status, headers, config) {
+      res=0;
+      alert("det mislykkedes at tilføje ny skade "+status+" "+data);
+    });
+    return res;
+  };
+
+
+  
 });

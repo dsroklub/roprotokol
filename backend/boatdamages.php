@@ -2,10 +2,13 @@
 include("inc/common.php");
 header('Content-type: application/json');
 
-$s="SELECT Damage.id,Damage.Boat as boat_id,Boat.Name as boat,Damage.Description as description,Degree as level,ResponsibleMember,RepairerMember,Repaired as repaired, Damage.Created as created ".
-    " FROM Damage,Boat WHERE Damage.Boat=Boat.id AND Repaired IS NULL ORDER BY Boat, level";
+$s="SELECT Damage.id,Damage.Boat as boat_id,Boat.Name as boat,Damage.Description as description,Degree as level,Damage.ResponsibleMember,RepairerMember,Repaired as repaired, Damage.Created AS CREATED, CONCAT(FirstName,LastName) as reporter ".
+    " FROM Boat, Damage
+      LEFT OUTER JOIN Member ON Member.id=Damage.ResponsibleMember
+      WHERE Damage.Boat=Boat.id AND Repaired IS NULL ORDER BY Boat,level
+ ";
 
-//echo $s;
+# echo $s;
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));

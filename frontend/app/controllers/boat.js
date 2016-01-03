@@ -9,6 +9,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 
       // Load selected boats based on boat category
       $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($routeParams.name);
+      $scope.allboats = DatabaseService.getBoats();
 
       // Checkout code
       var boat_id = $routeParams.boat_id;
@@ -37,7 +38,6 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           'triptype': $scope.triptypes[0],
           'rowers': []
         };
-        
         // debugger;
         
         // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
@@ -72,11 +72,26 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 
     });
     
-    // Utility functions for view
-    $scope.getRowerByName = function (val) {
-      // Generate list of ids that we already have added
-      var ids = {};
-      for(var i = 0; i < $scope.checkout.rowers.length; i++) {
+  // Utility functions for view
+  $scope.getMatchingBoats = function (vv) {
+    var bts=DatabaseService.getBoats();
+    var result = bts
+	.filter(function(element) {
+	  return (element['name'].toLowerCase().indexOf(vv.toLowerCase()) == 0);
+	});
+    return result;
+
+  };
+
+  $scope.getRowerByName = function (val) {
+    // Generate list of ids that we already have added
+    return DatabaseService.getRowersByNameOrId(val);
+  }
+  
+  $scope.getRowersByName = function (val) {
+    // Generate list of ids that we already have added
+    var ids = {};
+    for(var i = 0; i < $scope.checkout.rowers.length; i++) {
         if(typeof($scope.checkout.rowers[i]) === 'object') {
           ids[$scope.checkout.rowers[i].id] = true;
         }
@@ -102,12 +117,41 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 //      $scope.checkout.destination = undefined;
     };
     
-    $scope.reportdamage = function () {
+  $scope.reportFixDamage = function (did) {
+      alert("Damage "+did+" fixed");
+    };
+
+  $scope.reportDamageForBoat = function () {
+    if ($scope.damagedegree && $scope.damagedboat && $scope.damagedboat.id && $scope.damagedescription && $scope.damages.reporter) {
+      var data={
+	"degree":$scope.damagedegree,
+	"boat":$scope.damagedboat,
+	"description":$scope.damagedescription,
+	"reporter":$scope.damages.reporter
+      }
+      $scope.damagesnewstatus="OK";
+      alert("Damage "+JSON.stringify(data));
+      if (!DatabaseService.newDamage(data)) {
+	alert("new damage failed");
+      } else {
+	$scope.damagedegree=null;
+	$scope.damages.reporter=null;
+	$scope.damagedescription=null;
+	$scope.damagedboat=null;
+      }
+    } else {
+      alert("alle felterne skal udfyldes");
+      $scope.damagesnewstatus="alle felterne skal udfyldes";
+    }
+  };
+
+  $scope.reportdamage = function () {
       ngDialog.open({ template: 'reportdamage.html' });
     };
 
     $scope.savedamage = function (boat_id, description, level) {
       var damage = { "id": 0, "descrption": description, "level": level }
+      alert('save damage '+id+' '+description+' level'+level);
       // TODO: Post to server and get id
       boatdamages.push(damage);
     };
@@ -120,12 +164,12 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     };  
   
     $scope.createtrip = function (data) {
-      // TODO: Check if all rowers have ID and don't allow to start trip before it's done
-      
+      // TODO: Check if all rowers have ID and don't allow to start trip before it's done      
       if(DatabaseService.createTrip(data)) {
         // TODO: redirect to category list
       } else {
         // TODO: give error that we could not save the trip
       };
     };
+  
 }]);

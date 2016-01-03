@@ -2,10 +2,13 @@
 
 # Installation
 
-apt-get install python-mysqldb
+apt-get install python-mysqldb memcached php5-memcached 
 apt-get install php5-mysqlnd
   # nødvendigt for at få PHP til at kende forskel på strenge og tal
-  # hust at genstarte webserveren
+  # husk at genstarte webserveren
+
+# for debug scripts
+apt-get install php5-cli
 
 Opret database til roprotokollen:
 
@@ -94,7 +97,7 @@ SQL-koden virker.
 ##TODO
 
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
-* Caching af data is databaseservices. Det skal invalideres server-side
+* Caching af data i databaseservices. Det skal invalideres server-side. Vi vil bruge php shared memory
 * Administration af både
 ** Opret båd
 ** Ret båd
@@ -111,7 +114,6 @@ SQL-koden virker.
 * Udskriv båd
 * Indskriv båd
 ** Hvis turen er kortere end x minutter, så foreslå at slette turen i stedet
-* Meld skade
 * Kommenter skade
 * Klarmeld skade
 * Vis roer

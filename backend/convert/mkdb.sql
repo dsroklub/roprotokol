@@ -262,7 +262,7 @@ CREATE TABLE IF NOT EXISTS Reservation (
 );
 
 CREATE TABLE IF NOT EXISTS Skade (
-       SkadeID INT PRIMARY KEY,
+       SkadeID INT NOT NULL AUTO_INCREMENT,
        FK_BådID INT NOT NULL,
        FK_Ansvarlig INT,
        Ødelagt DATETIME,
@@ -272,7 +272,8 @@ CREATE TABLE IF NOT EXISTS Skade (
        Beskrivelse VARCHAR(1000),
        OprettetDato DATE,
        RedigeretDato DATE,
-       Initialer VARCHAR(10)
+       Initialer VARCHAR(10),
+       PRIMARY KEY(SkadeID)
 );
 
 CREATE TABLE IF NOT EXISTS TurDeltager (
