@@ -4,23 +4,7 @@ header('Content-type: application/json');
 
 require("inc/jwt.php");
 
-ini_set("display_errors", 0);
-
-// Validate JWT token
-$token = jwt_decode_header();
-if(isset($token["error"])) {
-    echo json_encode($token["error"]);
-    exit();
-}
-
-if ($rodb->connect_errno) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-}
- 
-if (!$rodb->set_charset("utf8")) {
-    printf("Error loading character set utf8: %s\n", $rodb->error);
-}
+set_etag("boat");
 
 $s="SELECT Boat.id,
            Boat.Name as name,
@@ -35,6 +19,7 @@ $s="SELECT Boat.id,
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
     WHERE 
          Boat.Decommissioned IS NULL
+    GROUP BY id
     ";
 
 
