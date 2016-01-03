@@ -1,5 +1,7 @@
 <?php
 include("inc/common.php");
+include("inc/verify_user.php");
+include("inc/etag.php");
 
 $season=date('Y');
 
@@ -8,7 +10,6 @@ $data = file_get_contents("php://input");
 $newtrip=json_decode($data);
 
 $rodb->query("BEGIN TRANSACTION");
-
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) { 
   $stmt->bind_param('i', $newtrip->boat->id);
   $stmt->execute();
@@ -36,6 +37,6 @@ if ($stmt = $rodb->prepare("INSERT INTO TripMember(TripID,Season,Seat,MemberID,M
   }
 } 
 $rodb->query("END TRANSACTION");
-
+invalidate_etag("trip");
 $rodb->close();
 ?> 
