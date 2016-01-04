@@ -45,17 +45,21 @@ angular.module('myApp.utilities.transformkm', []).directive('transformkm', funct
     link: function(scope, element, attrs, ngModel) {
       if (ngModel) { // Don't do anything unless we have a model
         ngModel.$parsers.push(function (val) {
-	    if (typeof value == 'string') {
-              value = value.replace(',', '.');
+          if (val !== undefined) {
+	    var fval=val;
+	    if (typeof fval == 'string') {
+              fval = val.replace(',', '.');
 	    }
-              return value * 1000;
+            return fval * 1000;
+	  }
         });
-        ngModel.$formatters.push(function (value) {
-          if (value !== undefined) {
-	    if (typeof value == 'string') {
-              value = value.replace(',', '.');
+        ngModel.$formatters.push(function (val) {
+          if (val !== undefined) {
+	    var fval=val;
+	    if (typeof val == 'string') {
+              fval = val.replace(',', '.');
 	    }
-            return value / 1000;
+            return fval / 1000;
           }
         });
       }
