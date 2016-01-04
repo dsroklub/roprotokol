@@ -2,7 +2,7 @@
 
 # Installation
 
-apt-get install python-mysqldb memcached php5-memcached 
+apt-get install python-mysqldb memcached php5-memcached
 apt-get install php5-mysqlnd
   # nødvendigt for at få PHP til at kende forskel på strenge og tal
   # husk at genstarte webserveren
@@ -97,25 +97,30 @@ SQL-koden virker.
 ##TODO
 
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
+
+* Udskriv båd ?
+* Indskriv båd ?
+
 * Caching af data i databaseservices. Det skal invalideres server-side. Vi vil bruge php shared memory
-* Administration af både
-** Opret båd
-** Ret båd
-** Pensioner båd
-** Opret/ret/slet lokation
-* Reservation af både
+
 * Indberetning af fejl på ture
 * Behandling af fejl på ture
-* Opret/ret/slet bådtype
-* Indberetning af fejl i rettigheder -> mail til instruktionschefen
 * Kovertering af kanin/midlertidig roer
 * Administration af røde svensknøgler
+
+
+* Administration af både
+  ** Opret/ret/slet bådtype
+  ** Opret båd
+  ** Ret båd
+  ** Pensioner båd
+  ** Opret/ret/slet lokation
+
+* Reservation af både
+* Indberetning af fejl i rettigheder -> mail til instruktionschefen
 * Skift rosæson
-* Udskriv båd
-* Indskriv båd
 ** Hvis turen er kortere end x minutter, så foreslå at slette turen i stedet
 * Kommenter skade
-* Klarmeld skade
 * Vis roer
 ** Roller og Rettigheder. Fx at man ikke skal logge ind på terminalerne i bådhallen.
 ** Statistik fordelt på turtyper.
@@ -129,13 +134,11 @@ SQL-koden virker.
 ** Både på vandet
 * Statistik
 	** både
-	** over roere
 * Årsstatistik
 * Konfiguration af klienter. Noget local storage. Klienter i bådhallen skal vide, at de er i bådhallen og hvilken klient de er (fx et hostnavn)
 * Updatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
 * Do form validation: http://stackoverflow.com/questions/27224661/angularjs-validation-for-ui-select-multiple
 
-
-# Terminaler
+### Terminaler
 
 Slå autofill fra i Chromium
