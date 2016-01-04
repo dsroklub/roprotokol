@@ -246,14 +246,19 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
 
   this.newDamage = function(data) {
-    var res=1;
     $http.post('../../backend/newdamage.php', data).success(function(data, status, headers, config) {
-      res=1;      
     }).error(function(data, status, headers, config) {
-      res=0;
       alert("det mislykkedes at tilføje ny skade "+status+" "+data);
     });
-    return res;
+    return 1;
+  };
+
+  this.fixDamage = function(data) {
+    $http.post('../../backend/fixdamage.php', data).success(function(data, status, headers, config) {
+    }).error(function(data, status, headers, config) {
+      alert("det mislykkedes at klarmelde skade "+status+" "+data);
+    });
+    return 1;
   };
 
 

@@ -13,8 +13,16 @@
 </script>
 
 <ng-form name="reportDamage">
-  <label for="select_boat">B&aring;d</label>
+  <label for="damages.anmelder">skademelder/klarmelder</label>
+  <input  autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="damages.reporter" typeahead-min-length="3" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="reporterTemplate.html" required />
+  <label ng-bind="damagesnewstatus"></label>
+
+<br>
+
+<label for="select_boat">B&aring;d</label>
   <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="damagedboat" typeahead-min-length="1" typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="damageTemplate.html" required>
+
+  
   <select name="damage" ng-model="damagedegree">
     <option value="1">1 let</option>
     <option value="2">2 middel</option>
@@ -23,21 +31,17 @@
   <label for="damages.damage">Skade</label>
   <input autocomplete="off" id="damages.damage" name="skade" type="text" ng-model="damagedescription"  required >
 
-  <label for="damages.anmelder">anmelder</label>
-  
-  <input  autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="damages.reporter" typeahead-min-length="3" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="reporterTemplate.html" required />
   
   <button id="newdamagereport_button" ng-click="reportDamageForBoat()">Anmeld ny skade</button>
-  <label ng-bind="damagesnewstatus">foo</label>
 </ng-form>
 
 
 <table class="genericlist">
   <thead>
     <tr><th>Båd</th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>Klarmeld</th></tr>
-      </thead>
-  <tr ng-repeat="bd in allboatdamages">
+  </thead>
+  <tr ng-repeat="bd in allboatdamages | filter: matchBoat(damagedboat)">
     <td>{{bd.boat}}</td><td>{{bd.ResponsibleMember}}</td><td>{{bd.created}}</td><td>{{bd.level}}</td><td>{{bd.description}}</td>
-    <td ng-click="reportFix(bd.boat,bd.id)">klarmeld</td>
+    <td ng-click="reportFixDamage(bd)">klarmeld</td>
   </tr>
 </table>

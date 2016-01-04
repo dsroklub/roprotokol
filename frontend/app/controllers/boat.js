@@ -124,9 +124,22 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 //      $scope.checkout.destination = undefined;
     };
     
-  $scope.reportFixDamage = function (did) {
-      alert("Damage "+did+" fixed");
-    };
+  $scope.reportFixDamage = function (bd) {
+    if ($scope.damages && $scope.damages.reporter && bd) {
+      var data={
+	"damage":bd,
+	"reporter":$scope.damages.reporter
+      }
+      if (!DatabaseService.fixDamage(data)) {
+	alert("new damage failed");
+      } else {
+	alert("Skade for "+bd.boat+" klarmeldt");
+	$scope.damages.reporter=null;
+      }
+    } else {
+      $scope.damagesnewstatus="du skal angive, hvem du er";
+    }
+  };
 
   $scope.reportDamageForBoat = function () {
     if ($scope.damagedegree && $scope.damagedboat && $scope.damagedboat.id && $scope.damagedescription && $scope.damages.reporter) {
@@ -152,6 +165,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     }
   };
 
+
+  // Unused
   $scope.reportdamage = function () {
       ngDialog.open({ template: 'reportdamage.html' });
     };
