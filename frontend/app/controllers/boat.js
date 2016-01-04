@@ -71,7 +71,14 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       }
 
     });
-    
+
+
+  $scope.matchBoat = function(boat) {
+    return function(damage) {
+      return (boat==null || damage.boat_id==boat.id);
+    }
+  };
+
   // Utility functions for view
   $scope.getMatchingBoats = function (vv) {
     var bts=DatabaseService.getBoats();
