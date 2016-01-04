@@ -124,7 +124,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 //      $scope.checkout.destination = undefined;
     };
     
-  $scope.reportFixDamage = function (bd) {
+  $scope.reportFixDamage = function (bd,ix) {
     if ($scope.damages && $scope.damages.reporter && bd) {
       var data={
 	"damage":bd,
@@ -133,8 +133,11 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       if (!DatabaseService.fixDamage(data)) {
 	alert("new damage failed");
       } else {
+	$scope.allboatdamages.splice(ix,1);
+	DatabaseService.reload();
 	alert("Skade for "+bd.boat+" klarmeldt");
 	$scope.damages.reporter=null;
+	$scope.allboatdamages = DatabaseService.getDamages();
       }
     } else {
       $scope.damagesnewstatus="du skal angive, hvem du er";

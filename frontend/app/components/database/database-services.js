@@ -3,6 +3,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   var boats;
   var boatcategories;
   var boatdamages;
+  var boatdamages_flat;
   var destinations;
   var triptypes;
   var rowers;
@@ -53,10 +54,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       boatsloaded.resolve(true);
     }
     
-    if(boatdamages === undefined) {
+    if(boatdamages === undefined || boatdamages_flat === undefined) {
       $http.get(toURL('boatdamages.php')).then(function(response) {
         boatdamages = {};
-        angular.forEach(response.data, function(boatdamage, index) {
+	boatdamages_flat = response.data;
+        angular.forEach(boatdamages_flat, function(boatdamage, index) {
            if(this[boatdamage.boat_id] === undefined) {
             this[boatdamage.boat_id] = [];
           }
@@ -130,7 +132,12 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       triptypesloaded.promise, rowersloaded.promise]);
   };
   
-  this.getBoatCategories = function () {
+  this.reload= function () {
+    boatdamages=undefined;
+    this.init();
+  }
+
+    this.getBoatCategories = function () {
     return Object.keys(boatcategories).sort();
   };
 
@@ -157,14 +164,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
 
   this.getDamages = function () {    
-    var ra=[];
-    angular.forEach(boatdamages,function(d,i) {
-      var bi;
-      for (bi in d) {
-	this.push(d[bi]);
-      }
-    },ra);						    
-    return ra;
+    return boatdamages_flat;
   };
 
   this.getBoatsWithCategoryName = function (categoryname) {

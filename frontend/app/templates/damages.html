@@ -35,13 +35,13 @@
   <button id="newdamagereport_button" ng-click="reportDamageForBoat()">Anmeld ny skade</button>
 </ng-form>
 
-
+<br>
 <table class="genericlist">
   <thead>
     <tr><th>Båd</th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>Klarmeld</th></tr>
   </thead>
   <tr ng-repeat="bd in allboatdamages | filter: matchBoat(damagedboat)">
     <td>{{bd.boat}}</td><td>{{bd.ResponsibleMember}}</td><td>{{bd.created}}</td><td>{{bd.level}}</td><td>{{bd.description}}</td>
-    <td ng-click="reportFixDamage(bd)">klarmeld</td>
+    <td ng-click="reportFixDamage(bd,$index)">klarmeld</td>
   </tr>
 </table>
