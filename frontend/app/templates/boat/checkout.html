@@ -1,6 +1,6 @@
 <div class="boatcategories" ng-include="'templates/boat/_boatcategories.html'"></div>
 
-<script type="text/ng-template" id="customTemplate.html">
+<script type="text/ng-template" id="rowersTemplate.html">
   <a>
   <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
   <i>({{match.model.id}})</i>
@@ -12,7 +12,7 @@
   <ng-form novalidate>
     <label for="damage_comments">Bemærkninger</label>
     <textarea id="damage_comments" type="text" ng-model="damagetext"></textarea>
-    <button class="yellow" ng-click="savedamage(selectedboat.id, damagetext, 1)"><i class="fa fa-exclamation-triangle"></i> Gem skade</button>
+    <button class="yellow" ng-click="savedamage(selectedboat.id,damagetext,1)"><i class="fa fa-exclamation-triangle"></i> Gem skade</button>
  </form>
 </script>
 
@@ -89,8 +89,8 @@
           <label for="checkout_rower{{$index}}">{{rower.id}}</label>
         </td>
         <td>
-          <ng-form name="rowerFieldForm" noautocomplete>
-            <input  autocomplete="off" id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="customTemplate.html" required />
+          <ng-form name="rowerFieldForm">
+            <input  autocomplete="off" id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" typeahead="rower as rower.name for rower in getRowersByName($viewValue)" typeahead-template-url="rowersTemplate.html" required />
             <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
               <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
               <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>
