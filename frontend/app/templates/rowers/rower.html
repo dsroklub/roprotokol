@@ -27,18 +27,27 @@
     <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
   </thead>
   <tr ng-repeat="ta in rowertripsaggregated">
-    <td>{{ta.triptype}}</td><td>{{ta.trip_count}}</td><td>{{ta.distance}}</td><td>{{ta.average}}</td>
+    <td>{{ta.triptype}}</td><td class="rnum">{{ta.trip_count}}</td><td class="rnum">{{ta.distance}}</td><td class="rnum">{{ta.average}}</td>
   </tr>
 </table>
-
 
 <table class="genericlist">
   <caption>Turoversigt</caption>
   <thead>
     <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
   </thead>
-  <tr ng-repeat="trip in rowertrips">
-    <td>{{trip.id}}</td><td>{{trip.boat}}</td><td>{{trip.destination}}</td><td>{{trip.created}}</td><td>{{trip.distance}}</td>
+  <tr ng-repeat="trip in rowertrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
+    <td class="selected">{{trip.id}}</td><td>{{trip.boat}}</td><td>{{trip.destination}}</td><td>{{trip.created}}</td><td class="rnum" >{{trip.distance}}</td>
+  </tr>
+</table>
+
+<table class="genericlist">
+  <caption>Tur {{trip.destination}}</caption>
+  <thead>
+    <tr><th>Roer</th><th>Medlemsnummer</th></tr>
+  </thead>
+  <tr ng-repeat="tripmember in tripmembers">
+    <td >{{tripmember.MemberName}}</td><td class="rnum">{{tripmember.member_id}}</td></td>
   </tr>
 </table>
 

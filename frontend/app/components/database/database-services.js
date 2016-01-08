@@ -18,6 +18,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   }
   
+  this.onDBerror = function (err) {
+    alert(err);
+  };
+
   this.init = function () {
     var boatsloaded = $q.defer();
     var boatdamagesloaded = $q.defer();
@@ -206,14 +210,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.getRowerTrips = function (member,onSuccess) {
     $http.get(toURL('rowertrips.php?member='+member.id)).then(onSuccess);
   }
-
+  this.getTripMembers = function (tripid,onSuccess) {
+    $http.get(toURL('tripmembers.php?trip='+tripid)).then(onSuccess,this.onDBerror);
+  }  
   this.getRowerStatistics = function (boattype) {
     return rowerstatistics[boattype];
   };
   this.getBoatStatistics = function (boattype) {
     return boatstatistics[boattype];
   };
-
 
   this.getRower = function(val) {
     var rs=rowers.filter(function(element) {

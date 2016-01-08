@@ -12,9 +12,9 @@ if (isset($_GET["memberid"])) {
     $memberid=$_GET["memberid"];
 }
         
-$s="SELECT Trip.TripID as trip_id, Boat.Name AS boat, Trip.Destination as destination, Trip.CreatedDate , Meter AS Triplength, Member.MemberID as member_id, FirstName & \" \" & LastName AS name ".
-    " FROM Boat RIGHT JOIN (Member INNER JOIN (Trip INNER JOIN TripMember ON Trip.TripID = TripMember.TripID) ON Member.id=TripMember.member_id) ON Boat.id = Trip.BoatID ".
-    "WHERE Member.MemberID=? ORDER BY Trip.TripID DESC";
+$s="SELECT Trip.id trip_id, Boat.Name AS boat, Trip.Destination as destination, Trip.CreatedDate , Meter AS Triplength, Member.MemberID as member_id, FirstName & \" \" & LastName AS name ".
+    " FROM Boat RIGHT JOIN (Member INNER JOIN (Trip INNER JOIN TripMember ON Trip.id = TripMember.TripID) ON Member.id=TripMember.member_id) ON Boat.id = Trip.BoatID ".
+    "WHERE Member.MemberID=? ORDER BY Trip.id DESC";
 
 // echo $s."\n<p>\n";
 if ($stmt = $rodb->prepare($s)) {

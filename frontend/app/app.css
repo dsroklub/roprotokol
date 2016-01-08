@@ -114,6 +114,7 @@ button#createtrip_button[disabled] {
   display:inline-block;
 }
 
+
 .boatlist,
 .statlist,
 .genericlist,
@@ -224,12 +225,26 @@ boatlist thead th:last-child {
 .boatlist thead th:last-child {
     border: 0;
 }
+
 .genericlist td {
     padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
     background: white;
 }
+
+.rnum {
+     text-align: right!important;
+}
+
+.selected td {
+    padding: 0 0 0 0;
+    border-right: 1px solid #F1F2F7;
+    border-bottom: 1px solid #F1F2F7;
+    background: #ff0066;
+}
+
+
 .boatlist tr td a {
     padding: 6pt 10pt 6pt 10pt;
     display:block;
