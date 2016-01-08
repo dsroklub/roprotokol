@@ -2,7 +2,7 @@
 
 <script type="text/ng-template" id="rowersTemplate.html">
   <a>
-  <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+  <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
   <i>({{match.model.id}})</i>
   </a>
 </script>
@@ -42,26 +42,30 @@
         </tr>
         <tr>
           <td>
-            <label for="checkout_starttime">Ud</label> 
-          </td>
+	    <label for="checkout_starttime">Ud</label>
+	  </td>
           <td>
-            <quick-datepicker id="checkout_starttime" ng-model='checkout.starttime' label-format="yyyy-MM-dd HH:mm" date-format="yyyy-MM-dd" time-format="HH:mm"></quick-datepicker>
-          </td>    
-      </tr>
+	    <button class="btn btn-default dropdown-toggle" type="button" ng-click="togglecheckout('start')"> {{ checkout.starttime | date:'HH:mm yyyy-MM-dd'}} </button>
+	    <datetimepicker ng-if="timeopen.start" ng-change="togglecheckout('start')" data-ng-model="checkout.starttime" data-datetimepicker-config="{minuteStep:15, startView:'hour'}"/>
+          </td>
+	  <td>
+	</tr>
       <tr>
         <td>
-          <label for="checkout_expectedtime">Forventet ind</label>
-        </td>
+	  <label for="checkout_expectedtime">Forventet ind</label>
+	</td>
         <td>
-          <quick-datepicker id="checkout_starttime" ng-model='checkout.expectedtime' label-format="yyyy-MM-dd HH:mm" date-format="yyyy-MM-dd" time-format="HH:mm"></quick-datepicker>
-        </td>    
+	  <button class="btn btn-default dropdown-toggle" type="button" ng-click="togglecheckout('expected')">{{checkout.expectedtime | date:'HH:mm yyyy-MM-dd'}}</button>
+	  <datetimepicker ng-if="timeopen.expected" ng-change="togglecheckout('expected')" data-ng-model="checkout.expectedtime" data-datetimepicker-config="{minuteStep:15, startView:'hour'}"/>
+	</td>
       </tr>
       <tr>
         <td>
           <label for="checkout_endtime">Ind</label>
         </td>
         <td>
-          <quick-datepicker placeholder="vælg check-ind tid" id="checkout_starttime" ng-model='checkout.endtime' label-format="yyyy-MM-dd HH:mm" date-format="yyyy-MM-dd" time-format="HH:mm"></quick-datepicker>
+	    <button class="btn btn-default dropdown-toggle" type="button" ng-click="togglecheckout('end')"> {{checkout.endtime | date:'HH:mm yyyy-MM-dd'}} </button>
+	    <datetimepicker  ng-if="timeopen.end" ng-change="togglecheckout('end')" data-ng-model="checkout.endtime" data-datetimepicker-config="{minuteStep:15, startView:'hour'}"/>
         </td>    
       </tr>
       <tr>
@@ -90,7 +94,7 @@
         </td>
         <td>
           <ng-form name="rowerFieldForm">
-            <input  autocomplete="off" id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" typeahead="rower as rower.name for rower in getRowersByName($viewValue)" typeahead-template-url="rowersTemplate.html" required />
+            <input  autocomplete="off" id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)" uibTypeahead-template-url="rowersTemplate.html" required />
             <span ng-if="isObjectAndHasId(checkout.rowers[$index])">
               <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
               <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>

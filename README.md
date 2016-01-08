@@ -7,6 +7,11 @@ apt-get install php5-mysqlnd
   # nødvendigt for at få PHP til at kende forskel på strenge og tal
   # husk at genstarte webserveren
 
+mkdir frontend/app/bower_components
+cd frontent
+bower install ng-table
+npm install
+
 # for debug scripts
 apt-get install php5-cli
 
@@ -48,7 +53,9 @@ Importer gammel data:
 Test Webserver:
 
 Kør
+<code>
    php5 -S localhost:8080
+</code>
 i roden
 
 
@@ -107,7 +114,7 @@ SQL-koden virker.
 * Behandling af fejl på ture
 * Kovertering af kanin/midlertidig roer
 * Administration af røde svensknøgler
-
+* Beregnet forvented sluttid
 
 * Administration af både
   ** Opret/ret/slet bådtype
