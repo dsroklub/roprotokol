@@ -105,7 +105,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
            Boat.Location as location,\
            Boat.Placement as placement,\
            COALESCE(MAX(Damage.Degree),0) as damage,\
-           MAX(Trip.TripID) as trip,\
+           MAX(Trip.id) as trip,\
            MAX(Trip.OutTime) as outtime,\
            MAX(Trip.ExpectedIn) as expected_in\
     FROM Boat\

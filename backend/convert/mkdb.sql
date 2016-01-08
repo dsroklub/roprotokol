@@ -25,7 +25,7 @@ CREATE INDEX turfk on Tur(FK_BådID);
 CREATE INDEX turud on Tur(ud);
 
 CREATE TABLE IF NOT EXISTS Trip (
-       TripID INT AUTO_INCREMENT,
+       id INT AUTO_INCREMENT,
        Season INT,
        BoatID INT NOT NULL,
        OutTime DATETIME,

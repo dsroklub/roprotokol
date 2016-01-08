@@ -15,7 +15,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       var boat_id = $routeParams.boat_id;
       $scope.timeopen={
 	'start':false,
-	'expted':false,
+	'expected':false,
 	'end':false
       };
       $scope.selectedboat = DatabaseService.getBoatWithId(boat_id);
@@ -39,7 +39,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           'starttime': now,
           // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
           'expectedtime': now,
-          'endtime': now, // FIXME
+          'endtime': null, // FIXME
           'triptype': $scope.triptypes[0],
           'rowers': []
         };
@@ -94,6 +94,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     return result;
 
   };
+
 
   $scope.getRowerByName = function (val) {
     // Generate list of ids that we already have added
@@ -186,7 +187,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       boatdamages.push(damage);
     };
 
-  $scope.togglecheckout = function (tm) {   
+      $scope.togglecheckout = function (tm) {   
     $scope.timeopen[tm]=!$scope.timeopen[tm];
   }
   

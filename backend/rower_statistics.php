@@ -22,7 +22,7 @@ if (isset($_GET["boattype"])) {
     $s="SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance ,Member.MemberID as id, Member.FirstName as firstname, Member.LastName as lastname 
     FROM BoatType,Trip,TripMember,Boat,Member 
     WHERE 
-      Trip.TripID = TripMember.TripID AND
+      Trip.id = TripMember.TripID AND
       Member.id = TripMember.member_id AND
       Boat.id = Trip.BoatID AND     
       BoatType.id = Boat.BoatType AND

@@ -162,3 +162,5 @@ UPDATE Destination SET ExpectedDurationInstruction='DSR' WHERE ExpectedDurationI
 UPDATE Boat set Location='DSR';
 UPDATE Boat set Location='Nordhavn' WHERE Name in ("Freja","Tyr","Modi","Embla");
 UPDATE Boat set Decommissioned = Now() WHERE Name in ("Dan");
+
+ALTER TABLE Trip CHANGE TripID id INT;

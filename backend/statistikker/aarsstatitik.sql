@@ -27,23 +27,23 @@ select count(*) FROM tblMembers where  YEAR(JoinDate)=2014 and RemoveDate < '201
 select sum(Trip.Meter)/1000 as km, Gruppe.FK_BådKategoriID as bådkat  FROM Trip  INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) where Trip.season='2014' GROUP BY Gruppe.FK_BådKategoriID;
 
 -- Tabel 5 - Bådture og personture, robåd og kajak
-select count(distinct Trip.TripID) as baadture, COUNT(TripMember.MemberID) as personture, TurType.Navn as turtype, Gruppe.FK_BådKategoriID as bådkat  FROM Trip JOIN TripMember ON (TripMember.TripID = Trip.TripID) INNER JOIN TurType on Trip.TripTypeID = TurType.TurTypeID INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) where Trip.season='2014' GROUP BY Gruppe.FK_BådKategoriID, TurType.TurTypeID order by bådkat, turtype;
+select count(distinct Trip.id) as baadture, COUNT(TripMember.MemberID) as personture, TurType.Navn as turtype, Gruppe.FK_BådKategoriID as bådkat  FROM Trip JOIN TripMember ON (TripMember.TripID = Trip.id) INNER JOIN TurType on Trip.TripTypeID = TurType.TurTypeID INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) where Trip.season='2014' GROUP BY Gruppe.FK_BådKategoriID, TurType.TurTypeID order by bådkat, turtype;
 
 
 -- Tabel 6 - Aktivitetsniveau 2013 og 2014 opdelt på turtyper (robåde)
-select TurType.Navn as turtype, sum(Trip.Meter)/1000 as Afstand, count(Trip.TripID) as baadture, sum(Trip.Meter)/1000/count(Trip.TripID) as km_pr_tur FROM Trip INNER JOIN TurType on Trip.TripTypeID = TurType.TurTypeID INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) where Trip.season='2014' AND Gruppe.FK_BådKategoriID = 2  GROUP BY TurType.TurTypeID order by turtype;
+select TurType.Navn as turtype, sum(Trip.Meter)/1000 as Afstand, count(Trip.id) as baadture, sum(Trip.Meter)/1000/count(Trip.id) as km_pr_tur FROM Trip INNER JOIN TurType on Trip.TripTypeID = TurType.TurTypeID INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) where Trip.season='2014' AND Gruppe.FK_BådKategoriID = 2  GROUP BY TurType.TurTypeID order by turtype;
 
 
 -- Tabel 7 - Aktivitetsprofil for medlemmerne
-select floor(meh.km/100), count(meh.medlemsnr) as antal, count(meh.medlemsnr)/673*100 as andel FROM (select TripMember.MemberID as medlemsnr, sum(Trip.Meter)/1000 as km from Trip INNER JOIN TripMember ON Trip.TripID = TripMember.TripID WHERE Trip.Season=2014 GROUP BY medlemsnr) as meh group by floor(meh.km/100);
+select floor(meh.km/100), count(meh.medlemsnr) as antal, count(meh.medlemsnr)/673*100 as andel FROM (select TripMember.MemberID as medlemsnr, sum(Trip.Meter)/1000 as km from Trip INNER JOIN TripMember ON Trip.id = TripMember.TripID WHERE Trip.Season=2014 GROUP BY medlemsnr) as meh group by floor(meh.km/100);
 
 
 -- Tabel 8 - Aktive instruktører 2015
-select TripMember.member_id as medlemsnr, TripMember.MemberName as navn, COUNT(TripMember.member_id)  as ture FROM Trip  JOIN TripMember ON (TripMember.TripID = Trip.TripID) INNER JOIN Boat ON (Boat.id = Trip.BoatID) where Trip.season='2015' AND Boat.BoatType IN (1, 2) AND TripMember.Seat=0 AND Trip.TripTypeID IN (5) GROUP BY TripMember.member_id order by ture desc, navn asc;
+select TripMember.member_id as medlemsnr, TripMember.MemberName as navn, COUNT(TripMember.member_id)  as ture FROM Trip  JOIN TripMember ON (TripMember.TripID = Trip.id) INNER JOIN Boat ON (Boat.id = Trip.BoatID) where Trip.season='2015' AND Boat.BoatType IN (1, 2) AND TripMember.Seat=0 AND Trip.TripTypeID IN (5) GROUP BY TripMember.member_id order by ture desc, navn asc;
 
 
 -- Tabel 9 - Kaniners aktivitet efter roret
-select TurType.Navn as turtype, COUNT(distinct TripMember.MemberID)  as forskellige, COUNT(TripMember.MemberID)  as ture, count(TripMember.MemberID)/count(distinct TripMember.MemberID) as ture_pr_person FROM Trip  JOIN TripMember ON (TripMember.TripID = Trip.TripID) INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) INNER JOIN TurType on (Trip.TripTypeID = TurType.TurTypeID) INNER JOIN Medlem ON (Medlem.MedlemID = TripMember.MemberID) where Trip.season='2014' AND Gruppe.FK_BådKategoriID=2 AND YEAR(Medlem.OprettetDato) = 2014 AND Trip.TripTypeID NOT IN (5) GROUP BY turtype order by turtype;
+select TurType.Navn as turtype, COUNT(distinct TripMember.MemberID)  as forskellige, COUNT(TripMember.MemberID)  as ture, count(TripMember.MemberID)/count(distinct TripMember.MemberID) as ture_pr_person FROM Trip  JOIN TripMember ON (TripMember.TripID = Trip.id) INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) INNER JOIN TurType on (Trip.TripTypeID = TurType.TurTypeID) INNER JOIN Medlem ON (Medlem.MedlemID = TripMember.MemberID) where Trip.season='2014' AND Gruppe.FK_BådKategoriID=2 AND YEAR(Medlem.OprettetDato) = 2014 AND Trip.TripTypeID NOT IN (5) GROUP BY turtype order by turtype;
 
 
 
@@ -57,7 +57,7 @@ select TurType.Navn as turtype,
                TripMember.MemberID as MemberID,
                COUNT(TripMember.MemberID) as ture
           FROM Trip
-               JOIN TripMember ON (TripMember.TripID = Trip.TripID)
+               JOIN TripMember ON (TripMember.TripID = Trip.id)
                INNER JOIN Båd ON (Båd.BådID = Trip.BoatID)
                INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID)
           WHERE Trip.season='2014' AND Gruppe.FK_BådKategoriID=2
@@ -86,7 +86,7 @@ select count(*)
                   TripMember.MemberID as MemberID,
                   COUNT(TripMember.MemberID) as ture
             FROM Trip
-               INNER JOIN TripMember ON (TripMember.TripID = Trip.TripID)
+               INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
                INNER JOIN Båd ON (Båd.BådID = Trip.BoatID)
                INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID)
           WHERE Trip.season='2014' AND Gruppe.FK_BådKategoriID=2
@@ -117,7 +117,7 @@ select count(*)
 SELECT Båd.Navn AS Båd,
        Gruppe.Navn AS Bådtype,
        FORMAT(Sum(ROUND(Meter/100)/10),1) AS Rodistance,
-       Count(Trip.TripID) AS Antal_ture,
+       Count(Trip.id) AS Antal_ture,
        TurType.Navn AS turtype
   FROM Gruppe
        INNER JOIN Båd ON (Gruppe.GruppeID = Båd.FK_GruppeID)

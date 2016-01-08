@@ -70,7 +70,7 @@ elif [[ $datatype = "real" ]]; then
     done
 
     for SEASON in $(seq 2010 2014); do
-	$DBCMD -e "INSERT INTO Trip (TripID,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
+	$DBCMD -e "INSERT INTO Trip (id,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
      SELECT TurID,${SEASON},FK_BådID,Ud,Ind,ForvInd,Destination,Meter,FK_TurTypeID,Kommentar,OprettetDato,RedigeretDato,Initialer,DESTID FROM Tur_backup${SEASON}"
 
 	$DBCMD -e "INSERT INTO TripMember (TripID, Season, Seat, member_id,MemberName,CreatedDate,EditDate,Initials) \
@@ -80,7 +80,7 @@ elif [[ $datatype = "real" ]]; then
     done
  echo now season $CURRENTSEASON
     SEASON=$CURRENTSEASON
-    $DBCMD -e "INSERT INTO Trip (TripID,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
+    $DBCMD -e "INSERT INTO Trip (id,Season,BoatID,OutTime,InTime,ExpectedIn,Destination,Meter,TripTypeID,Comment,CreatedDate,EditDate,Initials,DESTID) \
      SELECT TurID,${SEASON},FK_BådID,Ud,Ind,ForvInd,Destination,Meter,FK_TurTypeID,Kommentar,OprettetDato,RedigeretDato,Initialer,DESTID FROM Tur"
     $DBCMD -e "INSERT INTO TripMember (TripID, Season,Seat, member_id, MemberName,CreatedDate,EditDate,Initials) \
     SELECT   FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM TurDeltager"

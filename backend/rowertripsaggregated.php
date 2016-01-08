@@ -10,9 +10,9 @@ if (isset($_GET["member"])) {
 }
 
 $sql=
-    "SELECT TripType.Name AS triptype, Count(Trip.TripID) AS trip_count, Sum(Meter) AS distance, Sum(Meter)/Count(Trip.TripID) as average " .
+    "SELECT TripType.Name AS triptype, Count(Trip.id) AS trip_count, Sum(Meter) AS distance, Sum(Meter)/Count(Trip.id) as average " .
     " FROM Trip, TripMember,TripType,Member " .
-    " WHERE  Member.id=TripMember.member_id AND TripMember.TripID=Trip.TripID AND Trip.TripTypeID = TripType.id AND Trip.Season=? " .
+    " WHERE  Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND Trip.TripTypeID = TripType.id AND Trip.Season=? " .
     " AND Member.MemberID=? " .
     " GROUP BY TripType.Name";
 // echo $sql;

@@ -114,7 +114,6 @@ SQL-koden virker.
 * Behandling af fejl på ture
 * Kovertering af kanin/midlertidig roer
 * Administration af røde svensknøgler
-* Beregnet forvented sluttid
 
 * Administration af både
   ** Opret/ret/slet bådtype

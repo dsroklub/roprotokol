@@ -84,7 +84,7 @@ for tid in range(1, 4000):
     pladser=int(boat[1])
     destination=random.randrange(1, 19)
     triptype=random.randrange(1, 12)
-    q="INSERT INTO Trip (TripID, Season, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, intime) VALUES ("+str(tid)+',2015,'+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+',"2015-05-14 02:02:03", '+str(intime)+')';
+    q="INSERT INTO Trip (id, Season, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, intime) VALUES ("+str(tid)+',2015,'+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+',"2015-05-14 02:02:03", '+str(intime)+')';
     print q
     cur.execute(q);
     for d in range(0,pladser):
