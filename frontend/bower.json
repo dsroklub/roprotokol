@@ -19,7 +19,6 @@
     "ngDialog": "*",
     "angular-ui-select": "*",
     "fontawesome": "https://github.com/FortAwesome/Font-Awesome.git#~4.2.0",
-    "bootstrap-ui-datetime-picker": "~2.0.5",
     "angular-momentjs": "~0.2.2",
     "moment": "~2.11.0"
   },
