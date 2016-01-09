@@ -6,7 +6,7 @@
   "license": "GPL",
   "private": true,
   "dependencies": {
-    "oauth-ng": "https://github.com/elgaard/oauth-ng",
+    "oauth-ng": "git@github.com:elgaard/oauth-ng.git#~0.4.7",
     "angular": "1.4.x",
     "angular-sanitize": "1.4.x",
     "angular-route": "1.4.x",
@@ -15,7 +15,7 @@
     "html5-boilerplate": "~4.3.0",
     "angular-bootstrap": "*",
     "bootstrap": "*",
-    "ng-table": "*",
+    "ng-table": "^1.0.0",
     "ngDialog": "*",
     "angular-ui-select": "*",
     "fontawesome": "https://github.com/FortAwesome/Font-Awesome.git#~4.2.0",

@@ -7,7 +7,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   var destinations;
   var triptypes;
   var rowers;
-  var rowerstatistics={'rowboat':undefined,'kayak':undefined,'any':undefined};
+  var rowerstatistics={'rowboat':[],'kayak':undefined,'any':undefined};
   var boatstatistics={};
   var databasesource=dbmode;
   function toURL(service){
@@ -123,17 +123,20 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
             angular.forEach(response.data, function(stat, index) {
               //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
               this.push(stat);
-            }, rowerstatistics[boattype])
+            }, rowerstatistics[boattype]);
 	    rowerstatisticsloaded[boattype].resolve(true);
-	  }							    );
+	  });
 	})(boattypes[bx]);
       }
     } else {
       rowerstatisticsloaded['any'].resolve(true);
+      rowerstatisticsloaded['rowboat'].resolve(true);
+       rowerstatisticsloaded['kayak'].resolve(true);
     }
     
-    return $q.all([boatsloaded.promise,boatdamagesloaded.promise, destinationsloaded.promise, 
-      triptypesloaded.promise, rowersloaded.promise]);
+    var qll=$q.all([boatsloaded.promise,boatdamagesloaded.promise, destinationsloaded.promise, 
+		    triptypesloaded.promise, rowersloaded.promise,rowerstatisticsloaded['any'].promise,rowerstatisticsloaded['kayak'].promise,rowerstatisticsloaded['rowboat'].promise]);
+    return qll;
   };
   
   this.reload= function () {
