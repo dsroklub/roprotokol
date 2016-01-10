@@ -67,18 +67,6 @@ angular.module('myApp.utilities.transformkm', []).directive('transformkm', funct
   };
 });
 
-//TODO: Not working 
-angular.module('myApp.utilities.noautocomplete', []).directive('noautocomplete', function() {
-    return {
-        restrict: 'A',
-        link: function( $scope, el, attr ) {
-            console.log("hello");
-            el.bind('change', function(e) {
-                e.preventDefault();
-            });
-        }
-    }
-});
 
 angular.module('myApp.utilities', [
   'myApp.utilities.urldecode',
@@ -87,5 +75,4 @@ angular.module('myApp.utilities', [
   'myApp.utilities.transformkm',
   'myApp.utilities.mtokm',
   'myApp.utilities.totime',
-  'myApp.utilities.noautocomplete'
 ]).value('version', '0.1');
