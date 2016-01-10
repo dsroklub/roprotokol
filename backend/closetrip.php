@@ -28,4 +28,5 @@ if ($stmt = $rodb->prepare(
 }  
 $rodb->query("END TRANSACTION");
 $rodb->close();
+invalidate('trip')
 ?> 

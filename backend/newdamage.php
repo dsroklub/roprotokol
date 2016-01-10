@@ -3,9 +3,7 @@ include("inc/common.php");
 include("inc/verify_user.php");
 
 $data = file_get_contents("php://input");
-
 error_log("new damage");
-
 $newdamage=json_decode($data);
 
 $rodb->query("BEGIN TRANSACTION");
@@ -40,5 +38,11 @@ if ($stmt = $rodb->prepare("INSERT INTO Damage(Boat,Degree,ResponsibleMember,Des
 }
 
 $rodb->query("END TRANSACTION");
+
+$mem  = new Memcached();
+$mem->setOption(Memcached::OPT_BINARY_PROTOCOL, TRUE);
+$mem->addServer('127.0.0.1',11211);
+$mem->increment('boat', 1, time());
+
 $rodb->close();
 ?> 

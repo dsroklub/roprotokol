@@ -1,7 +1,6 @@
 <?php
 include("inc/common.php");
 include("inc/verify_user.php");
-include("inc/etag.php");
 
 $season=date('Y');
 
@@ -37,6 +36,6 @@ if ($stmt = $rodb->prepare("INSERT INTO TripMember(TripID,Season,Seat,MemberID,M
   }
 } 
 $rodb->query("END TRANSACTION");
-invalidate_etag("trip");
+invalidate("trip");
 $rodb->close();
 ?> 

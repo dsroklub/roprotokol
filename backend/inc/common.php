@@ -21,5 +21,13 @@ if (!$rodb->set_charset("utf8")) {
 }
 
 
+function invalidate($tp) {
+    $mem  = new Memcached();
+    $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, TRUE);
+    $mem->addServer('127.0.0.1',11211);
+    $mem->increment($tp, 1, time());
+
+}
+
 
 ?>

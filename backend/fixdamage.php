@@ -18,4 +18,5 @@ if ($stmt = $rodb->prepare("UPDATE Damage, (SELECT id FROM Member WHERE MemberID
 
 $rodb->query("END TRANSACTION");
 $rodb->close();
+invalidate("boat");
 ?> 
