@@ -12,7 +12,8 @@ var app = angular.module('myApp', [
   'myApp.range',
   'myApp.database',
   'myApp.utilities',
-  'oauth'
+  'oauth',
+  'ui.bootstrap.datetimepicker'
 ])
 /*.config(function($locationProvider) { // OAuth html5 mode seems to break our routing
     $locationProvider.html5Mode(true).hashPrefix('!')

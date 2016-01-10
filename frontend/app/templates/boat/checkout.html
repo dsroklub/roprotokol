@@ -43,10 +43,9 @@
         <tr>
           <td>
 	    <label for="checkout_starttime">Ud</label>
-	  </td>
+	  </td>	  
           <td>
-	    <button class="btn btn-default dropdown-toggle" type="button" ng-click="togglecheckout('start')"> {{ checkout.starttime | date:'HH:mm yyyy-MM-dd'}} </button>
-	    <datetimepicker ng-if="timeopen.start" ng-change="togglecheckout('start')" data-ng-model="checkout.starttime" data-datetimepicker-config="{minuteStep:15, startView:'hour'}"/>
+	  <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" data-ng-model="checkout.starttime"/>
           </td>
 	  <td>
 	</tr>
@@ -55,10 +54,7 @@
 	  <label for="checkout_expectedtime">Forventet ind</label>
 	</td>
         <td>
-	  <button class="btn btn-default dropdown-toggle" type="button" ng-click="togglecheckout('expected')">
-	  {{checkout.expectedtime | date:'HH:mm yyyy-MM-dd'}}
-	  </button>
-	  <datetimepicker ng-if="timeopen.expected" ng-change="togglecheckout('expected')" data-ng-model="checkout.expectedtime" data-datetimepicker-config="{minuteStep:15, startView:'hour'}"/>
+	  <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" data-ng-model="checkout.expectedtime"/>
 	</td>
       </tr>
       <tr>
@@ -66,9 +62,9 @@
           <label for="checkout_endtime">Ind</label>
         </td>
         <td>
-	  <button class="btn btn-default id="checkout_endtime" dropdown-toggle" type="button" ng-click="togglecheckout('end')">
-	  {{(checkout.endtime==null)? "vælg kun sluttidspunkt for at checke både ud og ind": (checkout.endtime| date:'HH:mm yyyy-MM-dd') }} </button>
-	    <datetimepicker  ng-if="timeopen.end" ng-change="togglecheckout('end')" data-ng-model="checkout.endtime" data-datetimepicker-config="{minuteStep:15, startView:'hour'}"/>
+	  <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" data-ng-model="checkout.endtime" placeholder="--"
+			  />
+
         </td>    
       </tr>
       <tr>

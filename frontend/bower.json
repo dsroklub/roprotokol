@@ -12,7 +12,7 @@
     "angular-route": "1.4.x",
     "angular-loader": "1.4.x",
     "angular-mocks": "~1.4.x",
-    "html5-boilerplate": "~4.3.0",
+    "html5-boilerplate": "~5.2.0",
     "angular-bootstrap": "*",
     "bootstrap": "*",
     "ng-table": "^1.0.0",
@@ -20,9 +20,11 @@
     "angular-ui-select": "*",
     "fontawesome": "https://github.com/FortAwesome/Font-Awesome.git#~4.2.0",
     "angular-momentjs": "~0.2.2",
-    "moment": "~2.11.0"
+    "moment": "~2.11.0",
+    "angular-bootstrap-datetimepicker": "~0.4.0",
+    "angular-ui-bootstrap-datetimepicker": "~0.14.4"
   },
   "resolutions": {
-    "angular": ">=1.2.18"
+    "angular": ">=1.4.x"
   }
 }
