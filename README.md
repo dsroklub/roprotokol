@@ -2,10 +2,13 @@
 
 # Installation
 
-apt-get install python-mysqldb memcached php5-memcached
-apt-get install php5-mysqlnd
+apt-get install npm python-mysqldb memcached php5-memcached
+apt-get install php5-mysqlnd nodejs nodejs-legacy
   # nødvendigt for at få PHP til at kende forskel på strenge og tal
   # husk at genstarte webserveren
+
+sudo npm install -g bower
+
 
 mkdir frontend/app/bower_components
 cd frontent

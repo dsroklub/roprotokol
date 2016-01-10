@@ -1,7 +1,7 @@
-<script type="text/ng-template" id="damageTemplate.html">
+<script type="text/ng-template" id="boatTemplate.html">
   <a>
   <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
-  <i>({{match.model.category}})</i>
+  {{match.model.name}} <i>({{match.model.category}})</i>
   </a>
 </script>
 
@@ -14,13 +14,13 @@
 
 <ng-form name="reportDamage">
   <label for="damages.anmelder">skademelder/klarmelder</label>
-  <input  autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="damages.reporter" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="reporterTemplate.html" required />
+  <input  autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="damages.reporter" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="reporterTemplate.html" required />
   <label ng-bind="damagesnewstatus"></label>
 
 <br>
 
 <label for="select_boat">B&aring;d</label>
-  <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="damagedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="damageTemplate.html" required>
+  <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="damagedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
 
   
   <select name="damage" ng-model="damagedegree">

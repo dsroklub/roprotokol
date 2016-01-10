@@ -6,7 +6,6 @@ var app = angular.module('myApp', [
   'ui.bootstrap',
   'ui.select',
   'angular-momentjs',
-  'ui.bootstrap.datetimepicker',
   'ngDialog',
   'ngTable',
   'myApp.version',

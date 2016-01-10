@@ -24,10 +24,10 @@ Søg efter roer: <input ng-model="filter"><button ng-click="tableParams.filter('
     <tr>
       <th class="text-center sortable"
 	ng-class="{'sort-asc': tableParams.isSortBy('rank', 'asc'),'sort-desc': tableParams.isSortBy('rank', 'desc')}"
-	ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr</th>
-      <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlemsnummer</th>
-      <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer</th>
-      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}" ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance</th>
+	ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr ↕</th>
+      <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlemsnummer ↕</th>
+      <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer ↕</th>
+      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}" ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance ↕</th>
     </tr>
   </thead>
   <tbody>
