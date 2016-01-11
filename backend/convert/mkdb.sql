@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Trip (
        EditDate DATE,
        Initials VARCHAR(10),
        DESTID INT,
-       PRIMARY KEY   (TripID)
+       PRIMARY KEY   (id)
        -- FIXME Season,TripID is the primary key in DSR DB, but then AUTO_INCREMENT does not work in MYSQL
 );
 
