@@ -148,6 +148,14 @@ SQL-koden virker.
 * Updatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
 * Do form validation: http://stackoverflow.com/questions/27224661/angularjs-validation-for-ui-select-multiple
 
+* Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
+* Show wrench next to name in checkout view
+* Don't default on triptype and block checkout
+* TODO: Make sure we calculate from boat placement
+
+
+Trim destination names in DB for trailing whitespace
+
 ### Terminaler
 
 Slå autofill fra i Chromium

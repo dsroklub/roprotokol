@@ -39,10 +39,6 @@ if ($stmt = $rodb->prepare("INSERT INTO Damage(Boat,Degree,ResponsibleMember,Des
 
 $rodb->query("END TRANSACTION");
 
-$mem  = new Memcached();
-$mem->setOption(Memcached::OPT_BINARY_PROTOCOL, TRUE);
-$mem->addServer('127.0.0.1',11211);
-$mem->increment('boat', 1, time());
-
+invalidate('boat');
 $rodb->close();
 ?> 

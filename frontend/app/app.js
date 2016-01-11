@@ -33,10 +33,6 @@ var app = angular.module('myApp', [
 	  templateUrl: 'templates/boat/checkout.html',
 	  controller: 'BoatCtrl'
 	});
-	$routeProvider.when('/categoryoverview/', {
-	  templateUrl: 'templates/boat/categoryoverview.html',
-	  controller: 'BoatCtrl'
-	});
 	$routeProvider.when('/rowers/', {
 	  templateUrl: 'templates/rowers/rower.html',
 	  controller: 'RowerCtrl'
@@ -49,8 +45,12 @@ var app = angular.module('myApp', [
 	  templateUrl: 'templates/today.html',
 	  controller: 'TodayCtrl'
 	});
-	$routeProvider.when('/boat/categoryoverview/', {
-	  templateUrl: 'templates/boat/categoryoverview.html',
+	$routeProvider.when('/ud/', {
+	  templateUrl: 'templates/boat/checkout.html',
+	  controller: 'BoatCtrl'
+	});
+	$routeProvider.when('/ind/', {
+	  templateUrl: 'templates/boat/checkin.html',
 	  controller: 'BoatCtrl'
 	});
 	$routeProvider.when('/statoverview/', {

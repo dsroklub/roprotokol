@@ -1,9 +1,3 @@
-<script type="text/ng-template" id="boatTemplate.html">
-  <a>
-  <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
-  {{match.model.name}} <i>({{match.model.category}})</i>
-  </a>
-</script>
 
 <script type="text/ng-template" id="reporterTemplate.html">
   <a>
@@ -19,8 +13,14 @@
 
 <br>
 
-<label for="select_boat">B&aring;d</label>
-  <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="damagedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
+<script type="text/ng-template" id="boatTemplate.html">
+  <a>
+  <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+  {{match.model.name}} <i>({{match.model.category}})</i>
+  </a>
+</script>
+<label for="select_boat">Båd</label>
+  <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
 
   
   <select name="damage" ng-model="damagedegree">
@@ -30,8 +30,6 @@
   </select>
   <label for="damages.damage">Skade</label>
   <input autocomplete="off" id="damages.damage" name="skade" type="text" ng-model="damagedescription"  required >
-
-  
   <button id="newdamagereport_button" ng-click="reportDamageForBoat()">Anmeld ny skade</button>
 </ng-form>
 
@@ -40,8 +38,9 @@
   <thead>
     <tr><th>Båd</th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>Klarmeld</th></tr>
   </thead>
-  <tr ng-repeat="bd in allboatdamages | filter: matchBoat(damagedboat)">
+  <tr ng-repeat="bd in allboatdamages | filter: matchBoat(selectedboat)">
     <td>{{bd.boat}}</td><td>{{bd.ResponsibleMember}}</td><td>{{bd.created}}</td><td>{{bd.level}}</td><td>{{bd.description}}</td>
-    <td ng-click="reportFixDamage(bd,$index)">klarmeld</td>
+    <td ng-click="reportFixDamage(bd,allboatdamages,$index)">klarmeld</td>
   </tr>
 </table>
+<pre>sboat = {{selectedboat | json}}</pre>

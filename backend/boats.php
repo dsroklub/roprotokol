@@ -2,10 +2,6 @@
 require("inc/common.php");
 header('Content-type: application/json');
 
-require("inc/jwt.php");
-
-set_etag("boat");
-
 $s="SELECT Boat.id,
            Boat.Name as name,
            BoatType.Seatcount as spaces,
@@ -21,9 +17,6 @@ $s="SELECT Boat.id,
          Boat.Decommissioned IS NULL
     GROUP BY id
     ";
-
-
-
 //echo $s;
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';

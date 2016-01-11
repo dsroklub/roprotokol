@@ -1,0 +1,48 @@
+  <div class="boattypesmenu" style="float:left">
+    <h2>Vælg bådtype</h2>
+    <ul>
+      <li ng-repeat="boatcategory in boatcategories" ng-click="selectBoatCategory(boatcategory)">{{boatcategory.name}}</li>
+    </ul>   
+  </div>
+  <div>
+
+  <script type="text/ng-template" id="boatTemplate.html">
+  <a>
+  <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+  {{match.model.name}} <i>({{match.model.category}})</i>
+  </a>
+</script>
+<label for="select_boat">Båd</label>
+  <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
+
+
+<div class="boatlist">
+    <table class="boatlist" style="float:right">
+      <thead>
+        <tr>
+          <th>Båd</th><th>Kategori</th><th>Placering</th><th>Status</th><th>Check Ind</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat)"
+	    ng-class="{selected: boat == selectedboat}" ng-if="boat.trip && (!selectedBoatCategory || selectedBoatCategory.name==boat.category)"
+	    >
+          <td ><div ng-click="checkinBoat(boat)">
+	      {{boat.name}}
+	    </div>
+	  </td>
+	  <td>{{boat.category}}</td>
+          <td>{{boat.location|nodsr}} {{boat.placement}}</td>
+          <td ng-click="damagesForBoat=boat">
+            <span ng-show="{{boat.damage==3}}">Svært skadet</span>
+            <span ng-show="{{boat.damage==2}}">Middel skadet</span>
+            <span ng-show="{{boat.damage==1}}">Let skadet</span>
+          </td>
+	  <td><button ng-click="closetrip(boat)"/>Indskriv</td>	  
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<pre>selectedboat = {{selectedboat | json}}</pre>
+<pre>checkin = {{checkin | json}}</pre>
+  <pre>selectedBoatCategory = {{selectedBoatCategory | json}}</pre>

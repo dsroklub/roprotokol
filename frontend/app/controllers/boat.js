@@ -5,14 +5,20 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     DatabaseService.init().then(function () {
       
       // Load Category Overview
-      $scope.boatcategories = DatabaseService.getBoatCategories();
+      $scope.boatcategories = DatabaseService.getBoatTypes();
 
       // Load selected boats based on boat category
-      $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($routeParams.name);
       $scope.allboats = DatabaseService.getBoats();
 
       // Checkout code
       var boat_id = $routeParams.boat_id;
+      var destination = $routeParams.destination;
+      var rowers=[];
+      // TODO set defaults, for eg re-checkin
+      if ($routeParams.rowers) {
+	rowers= $routeParams.rowers.split(",");
+      }
+      $scope.checkoutmessage=null;
       $scope.timeopen={
 	'start':false,
 	'expected':false,
@@ -20,67 +26,75 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       };
       $scope.selectedboat = DatabaseService.getBoatWithId(boat_id);
       $scope.allboatdamages = DatabaseService.getDamages();
+      $scope.triptypes = DatabaseService.getTripTypes();
+      $scope.destinations = DatabaseService.getDestinations(DatabaseService.defaultLocation);
+      $scope.checkoutmessage="";
+      $scope.selectedBoatCategory=null;
+      var now = new Date();        
+
+      $scope.checkin = {
+	'boat' : null,
+      }
+      
+      $scope.checkout = {
+	'boat' : null,
+        'destination': {'distance':999},
+        'starttime': now,
+        // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
+        'expectedtime': now,
+        'endtime': null, // FIXME
+        'triptype': $scope.triptypes[0],
+        'rowers': []
+      };
+
+      if ($scope.triptypes.length>2) {
+	// TODO, hack to set default
+	$scope.checkout.triptype= $scope.triptypes[2];
+      }
+      
       if ($scope.selectedboat !== undefined) {
-        var now = new Date();
-        
-        $scope.destinations = DatabaseService.getDestinations($scope.selectedboat.location);
-        $scope.triptypes = DatabaseService.getTripTypes();
-        
-        // Lock boat for the next 30 seconds
-        DatabaseService.lockBoatWithId($routeParams.boat_id, new Date(now.getTime() + 30000), function() {
-          // Failed to lock boat
-          // TODO: Give error and redirect back to category list
-        });
-        
-        // Create initial data for checkout
-        $scope.checkout = {
-	  'boat' : $scope.selectedboat,
-          'destination': {'distance':999},
-          'starttime': now,
-          // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
-          'expectedtime': now,
-          'endtime': null, // FIXME
-          'triptype': $scope.triptypes[0],
-          'rowers': []
-        };
-        // debugger;
         
         // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
         // TODO: Show wrench next to name in checkout view
-        // TODO: Don't default on triptype and block checkout
-        // TODO: Make sure we calculate from boat placement
-        
-        // Fill the rowers array with empty values
-        for (var i = 0; i < $scope.selectedboat.spaces; i++) {
-          $scope.checkout.rowers.push("");
-        }
-
-	$scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat_id);
-
-        var setlock = $interval(function () {
-          // Lock boat for 30 seconds more every 10 seconds
-          DatabaseService.lockBoatWithId(boat_id, new Date((new Date()).getTime() + 30000));
-        }, 10000);
-
-        // Make sure we stop the timer and cancel the lock when we leave the page
-        $scope.$on("$destroy", function () {
-          if (setlock) {
-            $interval.cancel(setlock);
-            // Unlock boat
-            DatabaseService.lockBoatWithId(boat_id, new Date(0));
-          }
-        });
-
       } else {
         //TODO: Say boat was not found
       }
-
     });
 
+  $scope.selectBoatCategory = function(cat) {
+    $scope.selectedBoatCategory=cat;
+  }
+
+    $scope.do_boat_category = function(cat) {
+    $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
+    for (var i = $scope.checkout.rowers.length; i < cat.seatcount; i++) {
+      $scope.checkout.rowers.push("");
+    }
+     $scope.checkout.rowers=$scope.checkout.rowers.splice(0,cat.seatcount);    
+  }
+
+
+  $scope.checkoutBoat = function(boat) {
+    var oldboat=$scope.checkout.boat;
+    $scope.checkout.boat=boat;
+    $scope.destinations = DatabaseService.getDestinations(boat.location);
+    $scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat.id);
+    if ( (!oldboat && boat.location!=DatabaseService.defaultLocation)  || (oldboat &&  oldboat.location!=boat.location)) {
+      // Distance have changed, and we do not know if user overrode and accouted for location
+      if ($scope.checkout.destination && $scope.checkout.destination.name)
+	$scope.checkout.destination=DatabaseService.nameSearch($scope.destinations,$scope.checkout.destination.name);
+    }
+  }
 
   $scope.matchBoat = function(boat) {
-    return function(damage) {
-      return (boat==null || damage.boat_id==boat.id);
+    return function(matchboat) {
+      return (boat==null || matchboat.boat_id==boat.id);
+    }
+  };
+
+    $scope.matchBoatId = function(boat) {
+    return function(matchboat) {
+      return (boat==null || matchboat===boat);
     }
   };
 
@@ -92,9 +106,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	  return (element['name'].toLowerCase().indexOf(vv.toLowerCase()) == 0);
 	});
     return result;
-
   };
-
 
   $scope.getRowerByName = function (val) {
     // Generate list of ids that we already have added
@@ -119,10 +131,12 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     $scope.updateCheckout = function (item) {
       // Calculate expected time based on triptype and destination
       $scope.checkout.destination=item;
-      if($scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
-        $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration_instruction * 3600 * 1000)
-      } else {
-        $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration * 3600 * 1000);
+      if ($scope.checkout.starttime) {
+	if($scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
+          $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration_instruction * 3600 * 1000)
+	} else {
+          $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration * 3600 * 1000);
+	}
       }
     };
   
@@ -130,16 +144,15 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 //      $scope.checkout.destination = undefined;
     };
     
-  $scope.reportFixDamage = function (bd,ix) {
+  $scope.reportFixDamage = function (bd,damagelist,ix) {
     if ($scope.damages && $scope.damages.reporter && bd) {
       var data={
 	"damage":bd,
 	"reporter":$scope.damages.reporter
       }
       if (!DatabaseService.fixDamage(data)) {
-	alert("new damage failed");
       } else {
-	$scope.allboatdamages.splice(ix,1);
+	damagelist.splice(ix,1);
 	DatabaseService.reload();
 	alert("Skade for "+bd.boat+" klarmeldt");
 	$scope.damages.reporter=null;
@@ -151,10 +164,10 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
   };
 
   $scope.reportDamageForBoat = function () {
-    if ($scope.damagedegree && $scope.damagedboat && $scope.damagedboat.id && $scope.damagedescription && $scope.damages.reporter) {
+    if ($scope.damagedegree && $scope.selectedboat && $scope.selectedboat.id && $scope.damagedescription && $scope.damages.reporter) {
       var data={
 	"degree":$scope.damagedegree,
-	"boat":$scope.damagedboat,
+	"boat":$scope.selectedboat,
 	"description":$scope.damagedescription,
 	"reporter":$scope.damages.reporter
       }
@@ -166,10 +179,9 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	$scope.damagedegree=null;
 	$scope.damages.reporter=null;
 	$scope.damagedescription=null;
-	$scope.damagedboat=null;
+	$scope.selectedboat=null;
       }
     } else {
-      alert("alle felterne skal udfyldes");
       $scope.damagesnewstatus="alle felterne skal udfyldes";
     }
   };
@@ -178,33 +190,80 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
   // Unused
   $scope.reportdamage = function () {
       ngDialog.open({ template: 'reportdamage.html' });
-    };
+  };
 
-    $scope.savedamage = function (boat_id, description, level) {
-      var damage = { "id": 0, "descrption": description, "level": level }
-      alert('save damage '+id+' '+description+' level'+level);
-      // TODO: Post to server and get id
-      boatdamages.push(damage);
-    };
+  $scope.savedamage = function (boat_id, description, level) {
+    var damage = { "id": 0, "descrption": description, "level": level }
+    // TODO: Post to server and get id
+    boatdamages.push(damage);
+  };
 
-      $scope.togglecheckout = function (tm) {   
+  $scope.dateOptions = {
+    showWeeks: false
+  };
+  
+  $scope.togglecheckout = function (tm) {   
     $scope.timeopen[tm]=!$scope.timeopen[tm];
   }
-  
+
+  $scope.validRowers = function () {
+
+    if (!$scope.checkout.rowers || !$scope.checkout.rowers.length>0) {
+      return false;
+    }
+
+    for (var i=0; i<$scope.checkout.rowers.length;i++) {
+      if (! ($scope.checkout.rowers[i] && $scope.checkout.rowers[i].name)) {
+	return false;
+      }
+    }
+    return true;
+  }
   $scope.createRower = function (rowers, index) {
-      var rower = DatabaseService.createRowerByName(rowers[index]);
+      var rower = DatabaseService.createRowerByName($scope.rowers[index]);
       if(rower) {
         rowers[index] = rower;
       }
     };  
   
-    $scope.createtrip = function (data) {
-      // TODO: Check if all rowers have ID and don't allow to start trip before it's done      
-      if(DatabaseService.createTrip(data)) {
-        // TODO: redirect to category list
-      } else {
-        // TODO: give error that we could not save the trip
-      };
+  $scope.closetrip = function (boat) {
+    var data={"boat":boat};
+    var closetrip=DatabaseService.closeTrip(data);
+      closetrip.promise.then(function(status) {
+	DatabaseService.reload(['boat']);
+	if (status.status =='ok') {
+	  data.boat.trip=undefined;
+	  $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ind";
+	  $scope.checkin.boat=null;
+	} else if (status.status =='error' && status.error=="not on water") {
+	  $scope.checkoutmessage = $scope.checkout.boat.name + " er allerede indkrevet";
+	} else {	  
+	  $scope.checkoutmessage="Fejl: "+closetrip;
+	};
+      }
+			  )
+    }
+  
+      $scope.createtrip = function (data) {
+      // TODO: Check if all rowers have ID and don't allow to start trip before it's done
+      var newtrip=DatabaseService.createTrip(data);
+      newtrip.promise.then(function(status) {
+	data.boat.trip=-1;
+	DatabaseService.reload(['boat']);
+	if (status.status =='ok') {
+	  $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud";
+	  $scope.checkout.rowers=[];
+	  $scope.checkout.boat=null;
+          // TODO: clear
+	} else if (status.status =='error' && status.error=="already on water") {
+	  $scope.checkoutmessage = $scope.checkout.boat.name + " er allerede udskrevet, vælg en anden båd";
+	} else {
+	  
+	  $scope.checkoutmessage="Fejl: "+newtrip;
+          // TODO: give error that we could not save the trip
+	};
+      },function() {alert("error")}, function() {alert("notify")}  
+			  )
     };
   
 }]);
