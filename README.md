@@ -1,7 +1,8 @@
 # DSR Roprotokol
 
 # Documentation
- ## [For DSR in Danish:](https://github.com/elgaard/DSR-roprotokol/blob/master/documentation/DSR.html)
+
+## [For DSR in Danish:](http://htmlpreview.github.io/?https://github.com/elgaard/DSR-roprotokol/blob/master/documentation/DSR.html)
 
 # Installation
 
