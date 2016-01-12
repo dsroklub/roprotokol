@@ -198,7 +198,7 @@ button#createtrip_button[disabled] {
 }
 .boatlist,.statlist,.genericlist {
     border-radius: 5px;
-    overflow: auto;
+    overflow: visible;
 }
 .boatlist thead th {
     background: #3ECBBF;
