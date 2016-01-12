@@ -1,5 +1,8 @@
 # DSR Roprotokol
 
+# Documentation
+ ## [For DSR in Danish:](https://github.com/elgaard/DSR-roprotokol/blob/master/documentation/DSR.html)
+
 # Installation
 
 apt-get install npm python-mysqldb memcached php5-memcached
