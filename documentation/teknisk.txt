@@ -1,0 +1,7 @@
+Member.id er et løbenummer
+Member.MemberID er DSR medlemsnumre (dem som medlemmerne selv kender)
+
+Vi bruger member.id databasen
+TripMember.member_id er således en fremmednøgle for member.id (ikke Meber.MemberID)
+
+og Member.MemberID i frontenden
