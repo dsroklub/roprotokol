@@ -1,7 +1,7 @@
 'use strict';
-
+// Not worth caching for this
 app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', function ($scope, $routeParams, DatabaseService, $interval, ngForm) {
-  $scope.trips=[];
+  $scope.tripstoday=[];
   $scope.onwater=[];
   $scope.available=[];
   $scope.num4=0;
@@ -57,7 +57,7 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
     }
 			       );
   DatabaseService.getTodaysTrips(function (res) {
-    $scope.trips=res.data;
+    $scope.tripstoday=res.data;
   }
 				);
   DatabaseService.getOnWater(function (res) {
@@ -67,6 +67,5 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
   DatabaseService.getAvailableBoats('DSR',function (res) {
     $scope.available=res.data;
   }
-				);
-  
+				   );  
 }]);

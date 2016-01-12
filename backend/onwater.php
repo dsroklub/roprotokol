@@ -5,7 +5,7 @@ header('Content-type: application/json');
 
 $s="SELECT Boat.id as boatid, Boat.Name AS boat, OutTime as outtime, ExpectedIn as exptectedintime, Trip.Destination as destination, Trip.id, TripType.Name AS triptype ".
   " FROM TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID ".
-  " WHERE ((Trip.InTime Is Null)) ORDER BY ExpectedIn";
+  " WHERE Trip.InTime Is Null ORDER BY ExpectedIn";
 
 #echo $s;
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;

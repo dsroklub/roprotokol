@@ -44,7 +44,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         'expectedtime': now,
         'endtime': null, // FIXME
         'triptype': $scope.triptypes[0],
-        'rowers': []
+        'rowers': ["","","","",""]
       };
 
       if ($scope.triptypes.length>2) {
@@ -65,14 +65,14 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     $scope.selectedBoatCategory=cat;
   }
 
-    $scope.do_boat_category = function(cat) {
+  $scope.do_boat_category = function(cat) {
     $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
     for (var i = $scope.checkout.rowers.length; i < cat.seatcount; i++) {
       $scope.checkout.rowers.push("");
     }
-     $scope.checkout.rowers=$scope.checkout.rowers.splice(0,cat.seatcount);    
+    $scope.checkout.rowers=$scope.checkout.rowers.splice(0,cat.seatcount);
+    $scope.checkout.boat=null;
   }
-
 
   $scope.checkoutBoat = function(boat) {
     var oldboat=$scope.checkout.boat;
@@ -234,6 +234,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	if (status.status =='ok') {
 	  data.boat.trip=undefined;
 	  $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ind";
+	  $scope.checkin.boat.trip=null;
 	  $scope.checkin.boat=null;
 	} else if (status.status =='error' && status.error=="not on water") {
 	  $scope.checkoutmessage = $scope.checkout.boat.name + " er allerede indkrevet";
@@ -252,14 +253,16 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	DatabaseService.reload(['boat']);
 	if (status.status =='ok') {
 	  $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud";
-	  $scope.checkout.rowers=[];
+	  for (var ir=0; ir<$scope.checkout.rowers.length; ir++) {
+	    $scope.checkout.rowers[ir]="";
+	  }
 	  $scope.checkout.boat=null;
           // TODO: clear
 	} else if (status.status =='error' && status.error=="already on water") {
 	  $scope.checkoutmessage = $scope.checkout.boat.name + " er allerede udskrevet, vælg en anden båd";
 	} else {
 	  
-	  $scope.checkoutmessage="Fejl: "+newtrip;
+	  $scope.checkoutmessage="Fejl: "+JSON.stringify(newtrip);
           // TODO: give error that we could not save the trip
 	};
       },function() {alert("error")}, function() {alert("notify")}  

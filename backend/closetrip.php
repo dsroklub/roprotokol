@@ -1,35 +1,47 @@
 <?php
 include("inc/common.php");
 
-
+$error=null;
+$res=array ("status" => "ok");
+$message="";
 error_log('close trip');
 $data = file_get_contents("php://input");
 $closedtrip=json_decode($data);
 
-$rodb->query("BEGIN TRANSACTION");
-error_log("close trip ". $closedtrip->boat->trip);
+$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+ error_log("close trip ". $closedtrip->boat->trip);
 
-if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND TripID IS NOT NULL")) { 
+if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND id IS NOT NULL")) { 
   $stmt->bind_param('i', $closedtrip->boat->trip);
   $stmt->execute();
   $result= $stmt->get_result();
   if ($result->fetch_assoc()) {
-    echo '{"error":"already checked in this trip"}';
-    error_log('trip already closed: '. print_r($closedtrip,true));
-    $rodb->close();
-    exit(0);
+      $error='notonwater';
+      $message='trip already closed: '. json_encode($closedtrip,true);
+      error_log($error);
+      $rodb->close();
+      exit(0);
   }
 } 
 
-error_log("close trip ID". $closedtrip->boat->trip);
-if ($stmt = $rodb->prepare(
-  "UPDATE Trip SET InTime = NOW() WHERE id=?;"
-)) { 
-     $stmt->bind_param('i', $closedtrip->boat->trip);
-     $stmt->execute(); 
+if (!$error) {
+    error_log("close trip ID". $closedtrip->boat->trip);
+    if ($stmt = $rodb->prepare(
+        "UPDATE Trip SET InTime = NOW() WHERE id=?;"
+    )) { 
+        $stmt->bind_param('i', $closedtrip->boat->trip);
+        $stmt->execute(); 
+        $rodb->commit();
+    }
 }
 
-$rodb->query("END TRANSACTION");
+if ($error) {
+    $res['status']='error';
+    $res['error']=$error;
+}
+$res['message']=$message;
+
 $rodb->close();
-invalidate('trip')
+invalidate('trip');
+echo json_encode($res);
 ?> 

@@ -169,7 +169,7 @@ button#createtrip_button[disabled] {
 	     width: auto;
 }
 
-.boattypesmenu h2 {
+.boattypesmenu h2{
     background: #23aee2;
     padding: 10pt;
     color: white;
@@ -178,6 +178,17 @@ button#createtrip_button[disabled] {
     border-bottom: 1px solid white;
     border-radius: 5px 5px 0 0;
 }
+
+.boattypesmenu table caption {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+
 .boattypesmenu ul {
     background: white;
 }

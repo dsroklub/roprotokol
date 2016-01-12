@@ -38,6 +38,12 @@ angular.module('myApp.utilities.totime', []).filter('totime', function () {
   };
 });
 
+angular.module('myApp.utilities.txttotime', []).filter('txttotime', function () {
+  return function(txt) {
+    return new Date(txt);
+  };
+});
+
 angular.module('myApp.utilities.transformkm', []).directive('transformkm', function () {
   return { 
     restrict: 'A',
@@ -74,5 +80,6 @@ angular.module('myApp.utilities', [
   'myApp.utilities.nodsr',
   'myApp.utilities.transformkm',
   'myApp.utilities.mtokm',
+  'myApp.utilities.txttotime',
   'myApp.utilities.totime',
 ]).value('version', '0.1');

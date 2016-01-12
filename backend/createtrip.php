@@ -10,7 +10,7 @@ $newtrip=json_decode($data);
 $message="createtrip  ".json_encode($newtrip);
 $error=null;
 
-$rodb->query("BEGIN TRANSACTION");
+$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) { 
   $stmt->bind_param('i', $newtrip->boat->id);
   $stmt->execute();
@@ -24,35 +24,45 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
 }
 
 if (!$error) {
-    if ($stmt = $rodb->prepare("INSERT INTO Trip(Season,BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn) VALUES(?,?,?,?,NOW(),NOW(),?,?)")) { 
-        $stmt->bind_param('iisiss', $season, $newtrip->boat->id , $newtrip->destination->name, $newtrip->triptype->id, $newtrip->starttime, $newtrip->expectedtime);
+    if ($stmt = $rodb->prepare("INSERT INTO Trip(Season,BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter) VALUES(?,?,?,?,NOW(),NOW(),?,?,?)")) { 
+        $stmt->bind_param('iisissi', $season, $newtrip->boat->id , $newtrip->destination->name, $newtrip->triptype->id, $newtrip->starttime, $newtrip->expectedtime,$newtrip->destination->distance);
         error_log('now EXE '. json_encode($newtrip));
         if (!$stmt->execute()) {
             $error=mysqli_error($rodb);
             $message=$message."\n"."create trip insert error";
         }
     } 
+    error_log("\n\nnow all rowers ".json_encode($newtrip->rowers));
     
-    if ($stmt = $rodb->prepare("INSERT INTO TripMember(TripID,Season,Seat,MemberID,MemberName,CreatedDate,EditDate)  VALUES(LAST_INSERT_ID(),?,?,?,?,NOW(),NOW())")) {
+    if ($stmt = $rodb->prepare("INSERT INTO TripMember(TripID,Season,Seat,member_id,MemberName,CreatedDate,EditDate) ".
+    "SELECT LAST_INSERT_ID(),?,?,Member.id,?,NOW(),NOW() FROM Member Where MemberID=?"
+    )) {
         $seat=1;
+        error_log("ROWERS");
         foreach ($newtrip->rowers as $rower) {
-            $stmt->bind_param('iiis',$season,$seat, $rower->id,$rower->name);
+            error_log("SEAT".$seat);
+            error_log("DO trip mb ".$rower->name);
+            $stmt->bind_param('issi',$season,$seat,$rower->name,$rower->id);
             $stmt->execute();
             $seat+=1;
         }
-        $rodb->query("END TRANSACTION");
     } else {
-        $error=mysqli_error($rodb);
+        error_log("OOOPs2".$rodb->error);
+        $error="trim member DB error".mysqli_error($rodb);
     }
 }
 
 if ($error) {
     error_log('DB error ' . $error);
+    $res['message']=$message.'\n'.$error;
+    $res['status']='error';
+    $res['error']=$error;
+    $rodb->rollback();
+} else {
+$rodb->commit();
 }
 
 $res['message']=$message;
-$res['error']=$error;
-$rodb->query("END TRANSACTION");
 invalidate("trip");
 $rodb->close();
 echo json_encode($res);
