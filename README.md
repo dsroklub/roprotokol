@@ -89,30 +89,15 @@ Det er lavet med mdb-schema, baseret på Roprotokol.mdb og Members.mdb. Derefter
 
 Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-export og mdb-import med lidt perl-kode, der sørger for at det passer med skemaet.
 
-##Procedurer Views
-
-Access/ASP gør brug af en hel del gemte queries. De er konverteret til SQL views i filen queries.sql
-Det forventes, at disse views ikke skal anvendes i det nye system.
-
-##Konvertering fra ASP til PHP
-
-Er foretaget med asp2php og derefter i et vist omfang tilrettet.
-Til at tilgå databasen bruges mysqli.
-
-##Hvad virker?
-
-Af php-koden er det kun enkelte funktioner, der virker, fx rostatistikken, valg af bådtype.
-SQL-koden virker.
 
 ##TODO
 
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
 
-* Udskriv båd ?
-* Indskriv båd ?
+* ret distance ved indskriv
 
-* Caching af data i databaseservices. Det skal invalideres server-side. Vi vil bruge php shared memory
-
+* Caching af data i databaseservices. Det skal invalideres server-side: det meste er lavet
+ 
 * Indberetning af fejl på ture
 * Behandling af fejl på ture
 * Kovertering af kanin/midlertidig roer
@@ -130,7 +115,8 @@ SQL-koden virker.
 * Skift rosæson
 ** Hvis turen er kortere end x minutter, så foreslå at slette turen i stedet
 * Kommenter skade
-* Vis roer
+
+
 ** Roller og Rettigheder. Fx at man ikke skal logge ind på terminalerne i bådhallen.
 ** Statistik fordelt på turtyper.
    SQL forespørgslerne er lavet. Der skal laves et webinterface til dem.
@@ -138,9 +124,7 @@ SQL-koden virker.
   klikke på en tur og se turens data og roerne på turen, og de steder vi
   viser roere, skal man kunne klikke på en roer og se roeren ture.
   Vi bliver nok nødt til at reorganisere lidt. Måske lave et nested scope.
-* Dagens ture
-* status paa baade ved udskrivning.
-** Både på vandet
+
 * Statistik
 	** både
 * Årsstatistik
