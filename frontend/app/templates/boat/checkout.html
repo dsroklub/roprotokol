@@ -7,7 +7,7 @@
     <h2>Vælg bådtype</h2>
     <ul>
       <li ng-repeat="boatcategory in boatcategories" ng-click="do_boat_category(boatcategory)">{{boatcategory.name}}</li>
-    </ul>   
+    </ul>
   </div>
   
   <div class="boatlist">
@@ -87,7 +87,7 @@
 		  <small ng-bind-html="destination.duration | totime"></small>t)
 		</ui-select-choices>
               </ui-select>
-              <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.destination.distance" required ></input>km
+              <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="checkout.distance" required ></input>km
             </td>
           </tr>
           <tr>
@@ -158,4 +158,4 @@
 <pre>damages = {{boatdamages | json}}</pre>
 <pre>dest= {{destinations | json}}</pre>
 <pre>sboatcat = {{selectedboats | json}}</pre>
-
+<button ng-click="test()">test</button>

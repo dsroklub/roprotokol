@@ -44,7 +44,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         'expectedtime': now,
         'endtime': null, // FIXME
         'triptype': $scope.triptypes[0],
-        'rowers': ["","","","",""]
+        'rowers': ["","","","",""],
+	'distance':1
       };
 
       if ($scope.triptypes.length>2) {
@@ -131,6 +132,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     $scope.updateCheckout = function (item) {
       // Calculate expected time based on triptype and destination
       $scope.checkout.destination=item;
+      $scope.checkout.distance=$scope.checkout.destination.distance;
       if ($scope.checkout.starttime) {
 	if($scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration_instruction * 3600 * 1000)
@@ -267,6 +269,12 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	};
       },function() {alert("error")}, function() {alert("notify")}  
 			  )
-    };
+      };
+
+  $scope.test = function (data) {
+    DatabaseService.test('boat');
+    boats[1].trip=4242;
+  }
+
   
 }]);
