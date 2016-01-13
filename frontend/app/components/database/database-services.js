@@ -1,18 +1,18 @@
 'use strict';
 angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q, AccessToken) {
-  var boats;
-  var boatsA; // Real array
-  var boattypes;
-  var boatcategories;
-  var boatdamages;
-  var boatdamages_flat;
-  var destinations;
-  var triptypes;
-  var rowers;
+  var valid={};
+  var db={};
   var rowerstatistics={'rowboat':[],'kayak':undefined,'any':undefined};
   var boatstatistics={};
   var databasesource=dbmode;
-
+  var tx=null;
+  
+  var cachedepend={
+    'boat':['boats','boatdamages'],
+    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
+    'member':[]
+  };
+  
   var datastatus={
     'boat':null,
     'trip':null,
@@ -31,157 +31,151 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
 
   this.init = function () {
-    var boatsloaded = $q.defer();
-    var boattypesloaded = $q.defer();
-    var boatdamagesloaded = $q.defer();
-    var destinationsloaded = $q.defer();
-    var triptypesloaded = $q.defer();
-    var rowersloaded = $q.defer();
-    var boatstatisticsloaded = {'any':$q.defer(),'rowboat':$q.defer(),'kayak':$q.defer()};
-    var rowerstatisticsloaded = {'any':$q.defer(),'rowboat':$q.defer(),'kayak':$q.defer()};
     var boatmaintypes = ['kayak','any','rowboat'];
-    if(boats === undefined || datastatus['boat']===undefined) {
+
+    var headers = {};
+    var accessToken = AccessToken.get();
+    var promises=[];
+    if (accessToken) {
+      headers['Authorization'] = 'Bearer ' + accessToken.access_token;
+    }
+
+    if(!valid['boats']) {
       //Build indexes and lists for use by API
-      var headers = {};
-      var accessToken = AccessToken.get();
-      if (accessToken) {
-	  headers['Authorization'] = 'Bearer ' + accessToken.access_token;
-      }
+      var bq=$q.defer();
+      promises.push(bq.promise);
       $http.get(toURL('boat_status.php'), { headers: headers } ).then(function(response) {
-        boats = {};
-	boatsA =[];
+        db['boats'] = {};
+	db['boatsA'] =[];
         angular.forEach(response.data, function(boat, index) {
           this[boat.id] = boat;
-	  boatsA.push(boat);
-        }, boats);
-        boatcategories = {};
+	  db['boatsA'].push(boat);
+        }, db['boats']);
+        db['boatcategories'] = {};
         angular.forEach(response.data, function(boat, index) {
           var category = boat.category;
           if(this[category] === undefined) {
             this[category] = [];
           }
           this[category].push(boat);
-        }, boatcategories);
-       boatsloaded.resolve(true);
+        }, db['boatcategories']);
+	valid['boats']=true;
+	bq.resolve(true);
       });
-
-    } else {
-      boatsloaded.resolve(true);
-    }
+    } 
     
-    if(boatdamages === undefined || boatdamages_flat === undefined || datastatus['boat']===undefined) {
+    if (!valid['boatdamages']) {
+      var bdq=$q.defer();
+      promises.push(bdq.promise);
       $http.get(toURL('boatdamages.php')).then(function(response) {
-        boatdamages = {};
-	boatdamages_flat = response.data;
-        angular.forEach(boatdamages_flat, function(boatdamage, index) {
+        db['boatdamages'] = {};
+	db['boatdamages_flat'] = response.data;
+        angular.forEach(db['boatdamages_flat'], function(boatdamage, index) {
            if(this[boatdamage.boat_id] === undefined) {
             this[boatdamage.boat_id] = [];
           }
           this[boatdamage.boat_id].push(boatdamage);
-        }, boatdamages);
-        boatdamagesloaded.resolve(true);
+        }, db['boatdamages']);
+	valid['boatdamages']=true;
+        bdq.resolve(true);
       });
+    } 
 
-    } else {
-      boatdamagesloaded.resolve(true);
-    }
-
-    if(destinations === undefined) {
+    if(!valid['destination']) {
+      var dq=$q.defer();
+      promises.push(dq.promise);
       $http.get(toURL('destinations.php')).then(function(response) {
-        destinations = response.data;
-        destinationsloaded.resolve(true);
+        db['destinations'] = response.data;
+	valid['destination']=true;
+        dq.resolve(true);
       });
-    } else {
-      destinationsloaded.resolve(true);
     }
 
-    if(boattypes === undefined) {
+    if(!valid['boattypes']) {
+      var btq=$q.defer();
+      promises.push(btq.promise);
       $http.get(toURL('boattypes.php')).then(function(response) {
-        boattypes = response.data;
-        boattypesloaded.resolve(true);
+        db['boattypes'] = response.data;
+	valid['boattypes']=true;
+        btq.resolve(true);
       });
-    } else {
-      boattypesloaded.resolve(true);
     }
 
     
-    if(triptypes === undefined) {
+    if(!valid['triptypes']) {
+      var bttq=$q.defer();
+      promises.push(bttq.promise);
       $http.get(toURL('triptypes.php')).then(function(response) {
-        triptypes = response.data;
-        triptypesloaded.resolve(true);
+        db['triptypes'] = response.data;
+	valid['triptypes']=true;
+        bttq.resolve(true);
       });
-    } else {
-      triptypesloaded.resolve(true);
     }
 
-    if(rowers === undefined) {
+    if(!valid['rowers']) {
+      var rq=$q.defer();
+      promises.push(rq.promise);
       $http.get(toURL('rowers.php')).then(function(response) {
-        rowers = [];
+        db['rowers'] = [];
         angular.forEach(response.data, function(rower, index) {
           rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
           this.push(rower);
-        }, rowers);
-        rowersloaded.resolve(true);
+        }, db['rowers']);
+	valid['rowers']=true;
+        rq.resolve(true);
       });
-    } else {
-      rowersloaded.resolve(true);
     }
       
-    if(rowerstatistics['any'] === undefined) {
-      var bx;
-      for (bx in boatmaintypes) {
-	(function(boattype) {
-	  //var farg="?noop=42";
+    for (var bi=0; bi<boatmaintypes.length; bi++) {
+      var boattype= boatmaintypes[bi];
+      if(!valid['rowerstatistics'+boattype]) {
+	(function (bt) {
+	  var sq=$q.defer();
+	  promises.push(sq.promise);
 	  // FIXME for test purposes
 	  var farg="?season=2014";
-	  if (boattype != "any") {
-	    farg+='&boattype='+boattype;
-	    	   // farg='Qboattype'+boattype;
-	  }
+	  if (bt != "any") {
+	    farg+='&boattype='+bt;
+	  }      
 	  $http.get(toURL('rower_statistics.php'+farg)).then(function(response) {
-            rowerstatistics[boattype] = [];
+            rowerstatistics[bt] = [];
             angular.forEach(response.data, function(stat, index) {
               //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
               this.push(stat);
-            }, rowerstatistics[boattype]);
-	    rowerstatisticsloaded[boattype].resolve(true);
+            }, rowerstatistics[bt]);
+	    valid['rowerstatistics'+boattype]=true;	  
+	    sq.resolve(true);
 	  });
-	})(boatmaintypes[bx]);
-      }
-    } else {
-      rowerstatisticsloaded['any'].resolve(true);
-      rowerstatisticsloaded['rowboat'].resolve(true);
-      rowerstatisticsloaded['kayak'].resolve(true);
+	})(boattype);
+      } 
     }
     
-    var qll=$q.all([boatsloaded.promise,boattypesloaded.promise,
-		    boatdamagesloaded.promise, destinationsloaded.promise, 
-		    triptypesloaded.promise, rowersloaded.promise,rowerstatisticsloaded['any'].promise,rowerstatisticsloaded['kayak'].promise,rowerstatisticsloaded['rowboat'].promise]);
+    var qll=$q.all(promises);
+    tx=qll;
     return qll;
   };
 
   this.defaultLocation = 'DSR';
+
   this.sync=function() {
-    $http.post('../../backend/datastatus.php', data).success(function(ds, status, headers, config) {
+    var dbservice=this;
+    $http.post('../../backend/datastatus.php', null).success(function(ds, status, headers, config) {
       var doreload=false;
-      for (tp in ds) {
+      console.log("do db sync");
+      for (var tp in ds) {
 	if (datastatus[tp]!=ds[tp]) {
 	  doreload=true;
-	  if (tp=='boat'){
-	    boats=null;
-	    boatdamages=null;
-	  } else if (tp=='trip') {
-	    boatstatistics=null;
-	    rowerstatistics['any']=null;
-	  } else if (tp=='member') {
-	    boatstatistics=null;
-	    rowers=null;
+	  console.log("  dirty: "+tp);
+	  for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
+	    var subtp=cachedepend[tp][di];
+	    console.log("    invalidate: "+subtp);
+	      valid[subtp]=false;	    
 	  }
 	}
 	datastatus[tp]=ds[tp];
       }
       if (doreload) {
-	this.init();
+	dbservice.init();
       }
     });
   }
@@ -192,15 +186,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   }
 
     this.getBoatTypes = function () {
-    return boattypes;
+    return db['boattypes'];
   };
 
   this.getBoatWithId = function (boat_id) {
-    return boats[boat_id];
+    return (db['boats'])[boat_id];
   };
 
   this.getBoats = function () {
-    return boatsA;
+    return db['boatsA'];
   };
 
   this.getBoatStatuses = function (boat_id) {
@@ -214,17 +208,17 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
   
   this.getDamagesWithBoatId = function (boat_id) {
-    return boatdamages[boat_id];
+    return db['boatdamages'][boat_id];
   };
 
   this.getDamages = function () {    
-    return boatdamages_flat;
+    return db['boatdamages_flat'];
   };
 
   this.getBoatsWithCategoryName = function (categoryname) {
-    var boats = boatcategories[categoryname];
-    if (boats) {
-      return boats.sort(function (a, b) {
+    db['boats'] = db['boatcategories'][categoryname];
+    if (db['boats']) {
+      return db['boats'].sort(function (a, b) {
         return a.name.localeCompare(b.name);
       });
     } else {
@@ -244,11 +238,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     if(location !== undefined) {
       loc=location;
     }
-      return destinations[loc];
+      return db['destinations'][loc];
   };
   
   this.getTripTypes = function () {
-    return triptypes;
+    return db['triptypes'];
   };
 
   this.getOnWater = function (onSuccess) {
@@ -278,7 +272,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
 
   this.getRower = function(val) {
-    var rs=rowers.filter(function(element) {
+    var rs=db['rowers'].filter(function(element) {
       return element['id']==val;
     });
     return rs[0];
@@ -286,7 +280,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     
   this.getRowersByNameOrId = function(nameorid, preselectedids) {
     var val = nameorid.toLowerCase();
-    var result = rowers.filter(function(element) {
+    var result = db['rowers'].filter(function(element) {
       return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
     });
     return result;
@@ -334,7 +328,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }).error(function(data, status, headers, config) {
       alert("det mislykkedes at tilføje ny skade "+status+" "+data);
     });
-    boatdamages=null;
+    valid['boat']=false;
     return 1;
   };
 
@@ -343,8 +337,13 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }).error(function(data, status, headers, config) {
       alert("det mislykkedes at klarmelde skade "+status+" "+data);
     });
-    boatdamages=null;
+    valid['boat']=false;
     return 1;
   };
+
+  this.test = function(src) {
+    var boats = db['boatcategories']["Inrigger 2+"];
+    boats[1].trip=4242;
+  }
 
 });

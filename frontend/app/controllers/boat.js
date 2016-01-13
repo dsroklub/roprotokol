@@ -3,7 +3,8 @@
 app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', function ($scope, $routeParams, DatabaseService, $interval, ngDialog) {
   $scope.allboatdamages=[];
     DatabaseService.init().then(function () {
-      
+
+      console.log("boat DB init done");
       // Load Category Overview
       $scope.boatcategories = DatabaseService.getBoatTypes();
 
@@ -140,6 +141,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration * 3600 * 1000);
 	}
       }
+      DatabaseService.sync();
     };
   
     $scope.clearDestination = function () {
@@ -271,9 +273,13 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 			  )
       };
 
+  $scope.boatSync = function (data) {
+    console.log("sync for boats");
+    DatabaseService.sync();
+  }
+  
   $scope.test = function (data) {
     DatabaseService.test('boat');
-    boats[1].trip=4242;
   }
 
   

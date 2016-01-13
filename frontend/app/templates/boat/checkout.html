@@ -62,7 +62,7 @@
             </td>
             <td>
               <ng-form name="rowerFieldForm">
-		<input  autocomplete="off" id="checkout_rower{{$index}}" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)" typeahead-template-url="rowersTemplate.html" required ></input>
+		<input  autocomplete="off" id="checkout_rower{{$index}}" typeahead-on-select="boatSync()" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)" typeahead-template-url="rowersTemplate.html" required ></input>
 		<span ng-if="isObjectAndHasId(checkout.rowers[$index])">
 		  <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
 		  <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>
@@ -157,5 +157,5 @@
 <pre>form checkout= {{checkout | json}}</pre>
 <pre>damages = {{boatdamages | json}}</pre>
 <pre>dest= {{destinations | json}}</pre>
-<pre>sboatcat = {{selectedboats | json}}</pre>
+<pre>selectedboats = {{selectedboats | json}}</pre>
 <button ng-click="test()">test</button>
