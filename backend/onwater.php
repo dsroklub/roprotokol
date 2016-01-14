@@ -3,7 +3,7 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$s="SELECT Boat.id as boatid, Boat.Name AS boat, OutTime as outtime, ExpectedIn as exptectedintime, Trip.Destination as destination, Trip.id, TripType.Name AS triptype ".
+$s="SELECT Boat.id as boatid, Boat.Name AS boat, OutTime as outtime, ExpectedIn as expectedintime, Trip.Destination as destination, Trip.id, TripType.Name AS triptype ".
   " FROM TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID ".
   " WHERE Trip.InTime Is Null ORDER BY ExpectedIn";
 

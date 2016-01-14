@@ -6,7 +6,7 @@
       <tr><th>Båd</th><th>Tur start</th><th>Forventet inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th></tr>
     </thead>
     <tr ng-repeat="tw in onwater">
-      <td>{{tw.boat}}</td><td>{{tw.outtime | txttotime | date :"HH:mm d. MMM"}}</td><td>{{tw.exptextedintime | txttotime | date :"HH:mm d. MMM"}}</td><td>{{tw.destination}}</td><td>{{tw.id}}</td><td>{{tw.triptype}}</td>
+      <td>{{tw.boat}}</td><td>{{tw.outtime | txttotime | date :"HH:mm d. MMM"}}</td><td>{{tw.expectedintime | txttotime | date :"HH:mm d. MMM"}}</td><td>{{tw.destination}}</td><td>{{tw.id}}</td><td>{{tw.triptype}}</td>
     </tr>
   </table>
 
@@ -16,8 +16,8 @@
       <tr><th>Båd</th><th>Tur start</th><th>Inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th><th>roere</th></tr>
     </thead>
     <tr ng-repeat="tt in tripstoday">
-      <td>{{tt.boat}}</td><td>{{tt.outtime  | txttotime | date :"HH:mm d. MMM"}}</td>
-      <td>{{tt.exptextedintime  | txttotime | date :"HH:mm d. MMM"}}</td>
+      <td>{{tt.boat}}</td><td>{{tt.outtime | txttotime | date :"HH:mm"}}</td>
+      <td>{{tt.expectedintime  | txttotime | date :"HH:mm d. MMM"}}</td>
       <td>{{tt.destination}}</td><td>{{tt.id}}</td><td>{{tt.triptype}}</td>
       <td>
 	<ol>
