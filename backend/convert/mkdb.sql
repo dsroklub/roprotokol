@@ -460,10 +460,22 @@ CREATE TABLE IF NOT EXISTS MemberRights (
        PRIMARY KEY(MemberID, MemberRight,Acquired,Argument)
 );
 
+CREATE TABLE IF NOT EXISTS MemberRightType (
+	member_right  VARCHAR(50) PRIMARY KEY,
+        description  VARCHAR(200)
+);
+
 
 CREATE TABLE IF NOT EXISTS TripRights (
        trip_type VARCHAR(30) NOT NULL,
        required_right VARCHAR(30) NOT NULL,
        requirement VARCHAR(10),
        PRIMARY KEY (trip_type,required_right)
+       );
+
+CREATE TABLE IF NOT EXISTS BoatRights (
+       boat_category VARCHAR(30) NOT NULL,
+       required_right VARCHAR(30) NOT NULL,
+       requirement VARCHAR(10),
+       PRIMARY KEY (boat_category,required_right)
        );
