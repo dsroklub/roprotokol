@@ -50,18 +50,17 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       };
 
       if ($scope.triptypes.length>2) {
-	// TODO, hack to set default
+	// TODO, improve hack to set default
 	$scope.checkout.triptype= $scope.triptypes[2];
       }
-      
-      if ($scope.selectedboat !== undefined) {
-        
-        // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
-        // TODO: Show wrench next to name in checkout view
-      } else {
-        //TODO: Say boat was not found
-      }
     });
+
+  $scope.checkRights() {
+    tripRequirements=$scope.checkout.triptype.rights;
+// HERE
+  }
+         // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
+        // TODO: Show wrench next to name in checkout view
 
   $scope.selectBoatCategory = function(cat) {
     $scope.selectedBoatCategory=cat;
