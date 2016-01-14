@@ -11,16 +11,14 @@ $closedtrip=json_decode($data);
 $rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
  error_log("close trip ". $closedtrip->boat->trip);
 
-if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND id IS NOT NULL")) { 
+if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE id=? AND InTime IS NULL")) { 
   $stmt->bind_param('i', $closedtrip->boat->trip);
   $stmt->execute();
   $result= $stmt->get_result();
-  if ($result->fetch_assoc()) {
+  if (!$result->fetch_assoc()) {
       $error='notonwater';
       $message='trip already closed: '. json_encode($closedtrip,true);
       error_log($error);
-      $rodb->close();
-      exit(0);
   }
 } 
 
@@ -40,6 +38,7 @@ if ($error) {
     $res['error']=$error;
 }
 $res['message']=$message;
+$res['boat']=$closedtrip->boat->name;
 
 $rodb->close();
 invalidate('trip');

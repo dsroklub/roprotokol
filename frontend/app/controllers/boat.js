@@ -67,6 +67,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
   }
 
   $scope.do_boat_category = function(cat) {
+    $scope.selectedBoatCategory=cat;
     $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
     for (var i = $scope.checkout.rowers.length; i < cat.seatcount; i++) {
       $scope.checkout.rowers.push("");
@@ -140,7 +141,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration * 3600 * 1000);
 	}
       }
-      DatabaseService.sync();
+      $scope.boatSync();
     };
   
     $scope.clearDestination = function () {
@@ -236,12 +237,14 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	DatabaseService.reload(['boat']);
 	if (status.status =='ok') {
 	  data.boat.trip=undefined;
-	  $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ind";
-	  $scope.checkin.boat.trip=null;
+	  console.log("ok checkin "+status.message);	 
+	  $scope.checkinmessage= status.boat+" er nu skrevet ind";
 	  $scope.checkin.boat=null;
-	} else if (status.status =='error' && status.error=="not on water") {
-	  $scope.checkoutmessage = $scope.checkout.boat.name + " er allerede indkrevet";
-	} else {	  
+	} else if (status.status =='error' && status.error=="notonwater") {
+	  $scope.checkinmessage= status.boat+" var allerede skrevet ind";
+	  console.log("not on water")
+	} else {
+	  console.log("error "+status.message);
 	  $scope.checkoutmessage="Fejl: "+closetrip;
 	};
       }
@@ -274,12 +277,35 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 
   $scope.boatSync = function (data) {
     console.log("sync for boats");
-    DatabaseService.sync();
+    var ds=DatabaseService.sync(['boat'])
+    console.log(" boatsync ds="+ds);
+    if (ds) {
+      console.log(" boatsync must wait");
+      ds.then(function(what) {
+	console.log(" *** THEN sync boats");
+	if ($scope.selectedBoatCategory) {
+	  $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.selectedBoatCategory.name);
+	  if ($scope.checkout.boat) {
+	    console.log("update selected boats");
+	    $scope.checkout.boat=DatabaseService.getBoatWithId($scope.checkout.boat.id);
+	    if ($scope.checkout.boat.trip) {
+	      console.log("selected boat was taken");
+	      $scope.checkoutmessage=$scope.checkout.boat.name+" was taken";	    
+	      $scope.checkout.boat.trip=null;
+	      $scope.checkout.boat=null;
+	    }
+	  }
+	}
+      });
+    }
   }
   
   $scope.test = function (data) {
     DatabaseService.test('boat');
+    $scope.valid=DatabaseService.valid();
   }
 
-  
+  $scope.valid = function () {
+    DatabaseService.valid();
+  }  
 }]);

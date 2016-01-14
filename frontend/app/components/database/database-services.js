@@ -30,8 +30,25 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     alert(err);
   };
 
+  this.getDB = function (dataid) {
+    return db[dataid];
+  }
+
+    this.getData = function (dataid,promises) {
+    if(!valid[dataid]) {
+      var dq=$q.defer();
+            promises.push(dq.promise);
+      $http.get(toURL(dataid+'.php')).then(function(response) {
+        db[dataid] = response.data;
+	valid[dataid]=true;
+        dq.resolve(dataid);
+      });
+    }
+  }
+
   this.init = function () {
     var boatmaintypes = ['kayak','any','rowboat'];
+    console.log("DB init "+Date());
 
     var headers = {};
     var accessToken = AccessToken.get();
@@ -42,9 +59,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
     if(!valid['boats']) {
       //Build indexes and lists for use by API
+      console.log("  boats not valid");
       var bq=$q.defer();
       promises.push(bq.promise);
       $http.get(toURL('boat_status.php'), { headers: headers } ).then(function(response) {
+	console.log("    received boat statuses");
         db['boats'] = {};
 	db['boatsA'] =[];
         angular.forEach(response.data, function(boat, index) {
@@ -59,6 +78,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
           }
           this[category].push(boat);
         }, db['boatcategories']);
+	console.log("    resolved boat statuses");
 	valid['boats']=true;
 	bq.resolve(true);
       });
@@ -81,36 +101,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       });
     } 
 
-    if(!valid['destination']) {
-      var dq=$q.defer();
-      promises.push(dq.promise);
-      $http.get(toURL('destinations.php')).then(function(response) {
-        db['destinations'] = response.data;
-	valid['destination']=true;
-        dq.resolve(true);
-      });
-    }
-
-    if(!valid['boattypes']) {
-      var btq=$q.defer();
-      promises.push(btq.promise);
-      $http.get(toURL('boattypes.php')).then(function(response) {
-        db['boattypes'] = response.data;
-	valid['boattypes']=true;
-        btq.resolve(true);
-      });
-    }
-
-    
-    if(!valid['triptypes']) {
-      var bttq=$q.defer();
-      promises.push(bttq.promise);
-      $http.get(toURL('triptypes.php')).then(function(response) {
-        db['triptypes'] = response.data;
-	valid['triptypes']=true;
-        bttq.resolve(true);
-      });
-    }
+    this.getData('destinations',promises);
+    this.getData('boattypes',promises);
+    this.getData('triptypes',promises);
 
     if(!valid['rowers']) {
       var rq=$q.defer();
@@ -159,6 +152,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
   this.sync=function() {
     var dbservice=this;
+    var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).success(function(ds, status, headers, config) {
       var doreload=false;
       console.log("do db sync");
@@ -175,9 +169,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	datastatus[tp]=ds[tp];
       }
       if (doreload) {
-	dbservice.init();
+	console.log(" do reload " + JSON.stringify(valid));
+	dbservice.init().then(function() {
+	  sq.resolve("sync done");
+	});
+      } else {
+	sq.resolve("nothing to do");
       }
     });
+    return sq.promise;
   }
   
   this.reload=function (invalidate) {
@@ -201,12 +201,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     // On the water(Checkouted), Being booked(Locked until), Reserved, Has damage(Severe, Medium, Light) = ?
   };
   
-  this.lockBoatWithId = function (boat_id, date) {
-    var timestamp = date.toISOString();
-    // TODO: Send timestamp to server
-    console.log("Lock "+ boat_id + " : " + timestamp);
-  };
-  
   this.getDamagesWithBoatId = function (boat_id) {
     return db['boatdamages'][boat_id];
   };
@@ -216,9 +210,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
 
   this.getBoatsWithCategoryName = function (categoryname) {
-    db['boats'] = db['boatcategories'][categoryname];
-    if (db['boats']) {
-      return db['boats'].sort(function (a, b) {
+    var boats = db['boatcategories'][categoryname];
+    if (boats) {
+      return boats.sort(function (a, b) {
         return a.name.localeCompare(b.name);
       });
     } else {
@@ -341,9 +335,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return 1;
   };
 
+  /// The rest is just for testing
+  
   this.test = function(src) {
     var boats = db['boatcategories']["Inrigger 2+"];
     boats[1].trip=4242;
+  }
+
+  this.valid = function() {
+    return valid;
   }
 
 });

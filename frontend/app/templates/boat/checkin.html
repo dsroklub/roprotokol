@@ -1,4 +1,6 @@
-<div class="boattypesmenu">
+<div class="big">{{checkinmessage}}</div>
+
+    <div class="boattypesmenu">
     <h2>Vælg båd</h2>
 <label for="select_boat">Båd</label>
   <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
