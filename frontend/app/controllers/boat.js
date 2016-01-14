@@ -55,7 +55,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       }
     });
 
-  $scope.checkRights() {
+  $scope.checkRights = function() {
     tripRequirements=$scope.checkout.triptype.rights;
 // HERE
   }
