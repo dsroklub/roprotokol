@@ -4,10 +4,12 @@ include("inc/utils.php");
 header('Content-type: application/json');
 
 $s="SELECT Member.MemberID AS id,CONCAT(FirstName,' ',LastName) AS name,Initials AS initials, GROUP_CONCAT(MemberRight,':§§:',argument SEPARATOR '££') AS rights".
-    "  FROM Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  WHERE MemberRight!='notes' GROUP BY Member.MemberID";
+    "  FROM Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  WHERE MemberRight!='notes' AND Member.MemberID>0 GROUP BY Member.MemberID";
+
+# Member.MemberID should not be necessary, non members should have MemberID=NULL, not 0
 
 
-// echo $s."<br>";
+# echo $s."<br>";
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';
  $first=1;

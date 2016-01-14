@@ -9,8 +9,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   
   var cachedepend={
     'boat':['boats','boatdamages'],
-    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
-    'member':[]
+    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat', 'boats'],
+    'member':['boats']
   };
   
   var datastatus={

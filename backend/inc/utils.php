@@ -1,6 +1,7 @@
 <?php
 function multifield($fld) {
   $res=array();
+#  print_r($fld."\n\n");
   if (!is_null($fld)) {
     $rg=explode('££', $fld);
     foreach ($rg as $ri) {
@@ -8,7 +9,7 @@ function multifield($fld) {
       if (count($ris) > 1) {
         $res[$ris[0]]=$ris[1];
       } else {
-        echo "UUUU";print_r($rg);echo "XXXX";
+        echo "UUUU";print_r($rg);echo "XXXX\n\n";
         error_log("Unparseable multifield: >>$fld<<");
       }
     }

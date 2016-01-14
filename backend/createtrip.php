@@ -22,6 +22,7 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
       error_log($error);
   }
 }
+error_log("udskriv ".$newtrip->boat->name);
 
 if (!$error) {
     if ($stmt = $rodb->prepare("INSERT INTO Trip(Season,BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter) VALUES(?,?,?,?,NOW(),NOW(),?,?,?)")) { 
