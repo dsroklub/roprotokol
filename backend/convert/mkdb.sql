@@ -473,9 +473,10 @@ CREATE TABLE IF NOT EXISTS TripRights (
        PRIMARY KEY (trip_type,required_right)
        );
 
+DROP TABLE BoatRights;
 CREATE TABLE IF NOT EXISTS BoatRights (
-       boat_category VARCHAR(30) NOT NULL,
+       boat_type VARCHAR(30) NOT NULL,
        required_right VARCHAR(30) NOT NULL,
        requirement VARCHAR(10),
-       PRIMARY KEY (boat_category,required_right)
+       PRIMARY KEY (boat_type,required_right)
        );
