@@ -195,12 +195,11 @@ button#createtrip_button[disabled] {
 .boattypesmenu ul li {
     cursor: pointer;
 }
-.boattypesmenu ul li a {
-    padding: 5pt 10pt;
-    display:block;
-    height:100%;
-    width:100%;
+
+li.selected {
+    background: #ff0066;
 }
+
 .boattypesmenu ul li:hover {
     background: #57C8F2;
 }
@@ -255,13 +254,12 @@ boatlist thead th:last-child {
      text-align: right!important;
 }
 
-.selected td{
+.selected td {
     padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
     background: #ff0066;
 }
-
 
 .boatlist tr td a {
     padding: 6pt 10pt 6pt 10pt;
@@ -278,8 +276,8 @@ boatlist thead th:last-child {
 .boatlist tr td:hover {
     background: #6ad7ce;
 }
-.boatlist tr td:hover a {
-    color: white;
+.boatlist tr td {
+    cursor: pointer;
 }
 .statlist td {
     padding: 6pt 10pt 6pt 10pt;

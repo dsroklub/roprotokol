@@ -19,7 +19,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       if ($routeParams.rowers) {
 	rowers= $routeParams.rowers.split(",");
       }
-      $scope.checkoutmessage=null;
+      $scope.checkoutmessage="";
+      $scope.rigthsmessage="rrr";
       $scope.timeopen={
 	'start':false,
 	'expected':false,
@@ -56,8 +57,47 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     });
 
   $scope.checkRights = function() {
-    tripRequirements=$scope.checkout.triptype.rights;
-// HERE
+    if (!$scope.checkout) {
+      return false;
+    }
+    var tripRequirements=($scope.checkout.triptype)?$scope.checkout.triptype.rights:[];
+    var boatRequirements=($scope.selectedBoatCategory)?$scope.selectedBoatCategory.rights:[];
+    var reqs=DatabaseService.mergeArray(tripRequirements,boatRequirements);
+    var norights=[];
+    for (var rq in reqs) {
+      var subject=reqs[rq];
+      if (subject='cox') {
+	if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
+	  if (!(rq in $scope.checkout.rowers[0].rights)) {
+	    norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+rq +" ret");
+	  }
+	}
+      } else if (subject='all') {
+	for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
+	  if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
+	    if (!(rq in $scope.checkout.rowers[ri].rights)) {
+	      norights.push($scope.checkout.rowers[ri].name +" har ikke "+rq + " ret");
+	    }
+	  }
+	}
+      } else if (rq='any') {
+	var ok=false;
+	for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
+	  if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
+	    if (!(rq in $scope.checkout.rowers[ri].rights)) {
+	      ok=true;
+	    }
+	  }
+	}
+		      
+	if (!ok) {
+	  norights.push(" der skal være mindst een roer med "+rq + " ret");
+	}
+      }    
+    }
+    $scope.rightsmessage=norights.join(",");
+    // HERE
+    return norights.length<1;
   }
          // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
         // TODO: Show wrench next to name in checkout view
@@ -290,7 +330,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	    $scope.checkout.boat=DatabaseService.getBoatWithId($scope.checkout.boat.id);
 	    if ($scope.checkout.boat.trip) {
 	      console.log("selected boat was taken");
-	      $scope.checkoutmessage=$scope.checkout.boat.name+" was taken";	    
+	      $scope.checkoutmessage="For sent: "+$scope.checkout.boat.name+" blev taget";
 	      $scope.checkout.boat.trip=null;
 	      $scope.checkout.boat=null;
 	    }

@@ -239,24 +239,33 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return db['triptypes'];
   };
 
-  this.getOnWater = function (onSuccess) {
-    $http.get(toURL('onwater.php')).then(onSuccess);
+  this.getDataNow = function(dataid,arg,onSuccess) {
+    var a="";
+    if (arg) {
+      a="?"+arg;
+    }
+    $http.get(toURL(dataid+a+'.php')).then(onSuccess);
   }
+  
+  this.getOnWater = function (onSuccess) {
+    this.getDataNow(onwater,null,onSuccess);
+  }
+
   this.getTodaysTrips = function (onSuccess) {
-    $http.get(toURL('tripstoday.php')).then(onSuccess);
+    this.getDataNow('tripstoday',null,onSuccess);
   }
   this.getAvailableBoats = function (location,onSuccess) {
-    $http.get(toURL('availableboats.php?location='+location)).then(onSuccess);
+    this.getDataNow('availableboats','location='+location,onSuccess);
   }
 
   this.getRowerTripsAggregated = function (member,onSuccess) {
-    $http.get(toURL('rowertripsaggregated.php?member='+member.id)).then(onSuccess);
+    this.getDataNow('rowertripsaggregated','member='+member.id,onSuccess);
   }
   this.getRowerTrips = function (member,onSuccess) {
-    $http.get(toURL('rowertrips.php?member='+member.id)).then(onSuccess);
+    this.getDataNow('rowertrips','member='+member.id,onSuccess);
   }
   this.getTripMembers = function (tripid,onSuccess) {
-    $http.get(toURL('tripmembers.php?trip='+tripid)).then(onSuccess,this.onDBerror);
+    this.getDataNow('tripmembers','trip='+tripid,onSuccess);
   }  
   this.getRowerStatistics = function (bt) {
     return rowerstatistics[bt];
@@ -271,7 +280,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     });
     return rs[0];
   }
-    
+
   this.getRowersByNameOrId = function(nameorid, preselectedids) {
     var val = nameorid.toLowerCase();
     var result = db['rowers'].filter(function(element) {
@@ -282,9 +291,12 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   
   this.createRowerByName = function(name) {
     // TODO: implement
+    var first;
+    var last;
     return {
         "id": "K1",
-        "name": name
+      "first": first,
+      "lastt": last
       };
   };
   
@@ -335,13 +347,24 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return 1;
   };
 
-  /// The rest is just for testing
+  this.mergeArray = function (array1,array2) {
+    var ra={}
+    if (array1) 
+      for(var item in array1) {
+	ra[item] = array1[item];
+      }
+    if (array2)
+      for(var item in array2) {
+	ra[item] = array2[item];
+      }
+    return ra;
+  }
   
+  /// The rest is just for testing
   this.test = function(src) {
     var boats = db['boatcategories']["Inrigger 2+"];
     boats[1].trip=4242;
   }
-
   this.valid = function() {
     return valid;
   }

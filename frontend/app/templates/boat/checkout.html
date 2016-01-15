@@ -1,12 +1,14 @@
 <div class="checkouts">
   <div>
     <button id="createtrip_button" class="big" ng-if="checkout.boat && checkout.destination.name && validRowers()" ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
-    <div class="big">{{checkoutmessage}}</div>
+  <div class="big">{{checkoutmessage}}</div>
+  <div class="big" ng-show="!checkRights()">{{rightsmessage}}</div>
+
   </div>
   <div class="boattypesmenu" style="float:left">
     <h2>Vælg bådtype</h2>
     <ul>
-      <li ng-repeat="boatcategory in boatcategories" ng-click="do_boat_category(boatcategory)">{{boatcategory.name}}</li>
+      <li ng-repeat="boatcategory in boatcategories" ng-class="{selected: boatcategory == selectedBoatCategory}"  ng-click="do_boat_category(boatcategory)">{{boatcategory.name}}</li>
     </ul>
   </div>
   
@@ -64,7 +66,7 @@
               <ng-form name="rowerFieldForm">
 		<input  autocomplete="off" id="checkout_rower{{$index}}" typeahead-on-select="boatSync()" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)" typeahead-template-url="rowersTemplate.html" required ></input>
 		<span ng-if="isObjectAndHasId(checkout.rowers[$index])">
-		  <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret roer</button>
+		  <button ng-click="createRower(checkout.rowers, $index)" tabindex="-1">Opret kaninroer</button>
 		  <button ng-click="guestRower(checkout.rowers, $index)" tabindex="-1">Gæst</button>
 		</span>
 		<span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
@@ -154,6 +156,7 @@
 </img>
 
 <h2>extra</h2>  
+<pre>sboat cats= {{selectedBoatCategory | json}}</pre>
 <pre>form checkout= {{checkout | json}}</pre>
 <pre>damages = {{boatdamages | json}}</pre>
 <pre>dest= {{destinations | json}}</pre>
