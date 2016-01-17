@@ -95,6 +95,7 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 
 ##TODO
+* Afkobl distance fra json datalisten.
 
 ### BUGS
 
