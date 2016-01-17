@@ -251,7 +251,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     if (arg) {
       a="?"+arg;
     }
-    $http.get(toURL(dataid+a+'.php')).then(onSuccess);
+    $http.get(toURL(dataid+'.php'+a)).then(onSuccess);
   }
   
   this.getOnWater = function (onSuccess) {

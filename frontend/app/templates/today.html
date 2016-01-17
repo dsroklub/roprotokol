@@ -1,5 +1,4 @@
 <div class="boattypesmenu">
-
   <table class="genericlist">
     <caption>På vandet</caption>
     <thead>
@@ -27,35 +26,34 @@
     </tr>
   </table>
 
-  <div class="baselayout">
-    <h2>Sæt både</h2>
+<div class="baselayout">
+  <h2>Sæt både</h2>
+  
+  <dl>
+    <dt>2 åres Inrigger</dt>{{available["Inrigger 2+"].amount}}: {{available["Inrigger 2+"].boats}}<dd></dd>
+    <dt>4 åres Inrigger</dt>{{available["Inrigger 4+"].amount}}: {{available["Inrigger 4+"].boats}}<dd></dd>   
+  </dl>
+  
+  <table border=1>
+    <tr>
+      <td>    
+	<tr>
+	  <td>Antal styrmænd</td>
+	  <td align="right"><input autocomplete="off" id="numcox" type="number" size="4" ng-model="coxs" ng-change="updatecrew()"></td>
+	</tr>
+	<tr><td>Antal menige roere</td>
+	<td align="right"><input autocomplete="off" id="numrowers" type="number" size="4" ng-model="rowers" ng-change="updatecrew()"></td>
+      </tr>
+    </table>
     
-    <dl>
-      <dt>2 åres Inrigger</dt>{{available["Inrigger 2+"].amount}}: {{available["Inrigger 2+"].boats}}<dd></dd>
-      <dt>4 åres Inrigger</dt>{{available["Inrigger 4+"].amount}}: {{available["Inrigger 4+"].boats}}<dd></dd>   
-    </dl>
+    <h2>Brug</h2>
+    Der kan komme {{maxcrew}} roere og styrmænd på vandet.
     
     <table border=1>
-      <tr>
-	<td>    
-	  <tr>
-	    <td>Antal styrmænd</td>
-	    <td align="right"><input autocomplete="off" id="numcox" type="number" size="4" ng-model="coxs" ng-change="updatecrew()"></td>
-	  </tr>
-	  <tr><td>Antal menige roere</td>
-	    <td align="right"><input autocomplete="off" id="numrowers" type="number" size="4" ng-model="rowers" ng-change="updatecrew()"></td>
-	  </tr>
-    </table>
-  </div>
-
- <h2>Brug</h2>
-Der kan komme {{maxcrew}} roere og styrmænd på vandet.
-
-<table border=1>
-  <tr> <th>Toere</th><th>Firere</th></tr>    
-  <tr ng-repeat="bc in boatcoms"><td >{{bc.i2}}</td><td>{{bc.i4}}</td>
-  </tr>
-</table>
+      <tr> <th>Toere</th><th>Firere</th></tr>    
+      <tr ng-repeat="bc in boatcoms"><td >{{bc.i2}}</td><td>{{bc.i4}}</td>
+    </tr>
+  </table>
 </div>
 
 <pre>tripstoday = {{tripstoday | json}}</pre>
