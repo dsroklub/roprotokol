@@ -8,6 +8,11 @@ error_log('close trip');
 $data = file_get_contents("php://input");
 $closedtrip=json_decode($data);
 
+$distance = $closedtrip->boat->meter;
+if (isset($closedtrip->boat->corrected_distance)) {
+    $distance=$closedtrip->boat->corrected_distance;
+}
+
 $rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
  error_log("close trip ". $closedtrip->boat->trip);
 
@@ -25,9 +30,9 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE id=? AND InTime IS NULL"
 if (!$error) {
     error_log("close trip ID". $closedtrip->boat->trip);
     if ($stmt = $rodb->prepare(
-        "UPDATE Trip SET InTime = NOW() WHERE id=?;"
+        "UPDATE Trip SET InTime = NOW(),Meter=? WHERE id=?;"
     )) { 
-        $stmt->bind_param('i', $closedtrip->boat->trip);
+        $stmt->bind_param('ii', $distance,$closedtrip->boat->trip);
         $stmt->execute(); 
         $rodb->commit();
     }

@@ -150,6 +150,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
   this.defaultLocation = 'DSR';
 
+  this.invalidate_dependencies=function(tp) {
+    console.log("  dirty: "+tp);
+    for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
+      var subtp=cachedepend[tp][di];
+      console.log("    invalidate: "+subtp);
+      valid[subtp]=false;	    
+    }
+  }
+  
   this.sync=function() {
     var dbservice=this;
     var sq=$q.defer();
@@ -158,13 +167,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       console.log("do db sync");
       for (var tp in ds) {
 	if (datastatus[tp]!=ds[tp]) {
+	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
-	  console.log("  dirty: "+tp);
-	  for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
-	    var subtp=cachedepend[tp][di];
-	    console.log("    invalidate: "+subtp);
-	      valid[subtp]=false;	    
-	  }
 	}
 	datastatus[tp]=ds[tp];
       }
@@ -180,8 +184,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return sq.promise;
   }
   
-  this.reload=function (invalidate) {
-    datastatus['boat']=undefined;
+  this.reload=function (tps) {
+    for (var ti=0; ti<tps.length; ti++) {
+      console.log('reload '+tps[ti])
+      this.invalidate_dependencies(tps[ti]);
+    }
     this.init();
   }
 
@@ -248,7 +255,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   }
   
   this.getOnWater = function (onSuccess) {
-    this.getDataNow(onwater,null,onSuccess);
+    this.getDataNow('onwater',null,onSuccess);
   }
 
   this.getTodaysTrips = function (onSuccess) {

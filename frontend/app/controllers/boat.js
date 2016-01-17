@@ -270,7 +270,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       }
     };  
   
-  $scope.closetrip = function (boat) {
+  $scope.closetrip = function (boat,index,km) {
     var data={"boat":boat};
     var closetrip=DatabaseService.closeTrip(data);
       closetrip.promise.then(function(status) {
@@ -296,7 +296,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       var newtrip=DatabaseService.createTrip(data);
       newtrip.promise.then(function(status) {
 	data.boat.trip=-1;
-	DatabaseService.reload(['boat']);
+	DatabaseService.reload(['trip']);
 	if (status.status =='ok') {
 	  $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud";
 	  for (var ir=0; ir<$scope.checkout.rowers.length; ir++) {
@@ -306,12 +306,11 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           // TODO: clear
 	} else if (status.status =='error' && status.error=="already on water") {
 	  $scope.checkoutmessage = $scope.checkout.boat.name + " er allerede udskrevet, vælg en anden båd";
-	} else {
-	  
+	} else {	  
 	  $scope.checkoutmessage="Fejl: "+JSON.stringify(newtrip);
           // TODO: give error that we could not save the trip
 	};
-      },function() {alert("error")}, function() {alert("notify")}  
+      },function() {alert("error")}, function() {alert("notify")}
 			  )
       };
 

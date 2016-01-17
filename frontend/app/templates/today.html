@@ -17,7 +17,7 @@
     </thead>
     <tr ng-repeat="tt in tripstoday">
       <td>{{tt.boat}}</td><td>{{tt.outtime | txttotime | date :"HH:mm"}}</td>
-      <td>{{tt.expectedintime  | txttotime | date :"HH:mm d. MMM"}}</td>
+      <td>{{tt.intime  | txttotime | date :"HH:mm d. MMM"}}</td>
       <td>{{tt.destination}}</td><td>{{tt.id}}</td><td>{{tt.triptype}}</td>
       <td>
 	<ol>
@@ -58,5 +58,5 @@ Der kan komme {{maxcrew}} roere og styrmænd på vandet.
 </table>
 </div>
 
-<pre>tripstoday = {{trips | json}}</pre>
+<pre>tripstoday = {{tripstoday | json}}</pre>
 <pre>onwater = {{onwater | json}}</pre>

@@ -26,14 +26,14 @@
     <table class="boatlist" style="float:right">
       <thead>
         <tr>
-          <th>Båd</th><th>Kategori</th><th>Placering</th><th>Status</th><th>Korr. afstand</th><th>Check Ind</th>
+          <th>Båd</th><th>Kategori</th><th>Placering</th><th>Status</th><th>Destination</th><th class="rnum">distance</th><th>Korr. distance</th><th>Check Ind</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat)"
-	    ng-class="{selected: boat == selectedboat}" ng-if="boat.trip && (!selectedBoatCategory || selectedBoatCategory.name==boat.category)"
+        <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat)" ng-model="item"
+	    ng-class="{selected: boat == selectedboat}" ng-show="boat.trip && (!selectedBoatCategory || selectedBoatCategory.name==boat.category)"
 	    >
-          <td ><div ng-click="checkinBoat(boat)">
+          <td ><div>
 	      {{boat.name}}
 	    </div>
 	  </td>
@@ -43,13 +43,14 @@
             <span ng-show="{{boat.damage==3}}">Svært skadet</span>
             <span ng-show="{{boat.damage==2}}">Middel skadet</span>
             <span ng-show="{{boat.damage==1}}">Let skadet</span>
-          </td>
-	  <td>
-	    <input autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="kminput" ></input>
-	    <!-- transformkm-->
-
 	  </td>
-	  <td><button ng-click="closetrip(boat,$index)"/>Indskriv</td>	  
+	  <td>{{boat.destination}}</td>
+	  <td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
+	  <td>
+	    <input autocomplete="off" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" type="text" transformkm name="kminput" ></input>
+	    <!-- transformkm-->
+	  </td>
+	  <td><button ng-click="closetrip(boat,$index,item.km)"/>Indskriv</td>	  
         </tr>
       </tbody>
     </table>

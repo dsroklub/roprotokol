@@ -21,7 +21,9 @@ $s="SELECT Boat.id,
            COALESCE(MAX(Damage.Degree),0) as damage,
            MAX(Trip.id) as trip,
            MAX(Trip.OutTime) as outtime,
-           MAX(Trip.ExpectedIn) as expected_in
+           MAX(Trip.ExpectedIn) as expected_in,
+           MAX(Trip.Destination) as destination,
+           MAX(Trip.Meter) as meter
     FROM Boat
          INNER JOIN BoatType ON (BoatType.id=BoatType)
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)

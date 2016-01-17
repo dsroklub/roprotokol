@@ -96,12 +96,19 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 ##TODO
 
+### BUGS
+
+* Time zone error in checkout times
+
+# Database ission.
+
+can be done manually when we move to the new system.
+
+* Trim destination names in DB for trailing whitespace
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
 
-* ret distance ved indskriv
+### Missing features
 
-* Caching af data i databaseservices. Det skal invalideres server-side: det meste er lavet
- 
 * Indberetning af fejl på ture
 * Behandling af fejl på ture
 * Kovertering af kanin/midlertidig roer
@@ -119,12 +126,12 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 * Reservation af både
 * Indberetning af fejl i rettigheder -> mail til instruktionschefen
-* Skift rosæson
+
 ** Hvis turen er kortere end x minutter, så foreslå at slette turen i stedet
 * Kommenter skade
 
-
 ** Roller og Rettigheder. Fx at man ikke skal logge ind på terminalerne i bådhallen.
+
 ** Statistik fordelt på turtyper.
    SQL forespørgslerne er lavet. Der skal laves et webinterface til dem.
 ** Turoversigt: handler om at de steder, vi viser ture, skal man kunne
@@ -139,13 +146,8 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 * Updatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
 * Do form validation: http://stackoverflow.com/questions/27224661/angularjs-validation-for-ui-select-multiple
 
-* Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
 * Show wrench next to name in checkout view
-* Don't default on triptype and block checkout
-* TODO: Make sure we calculate from boat placement
 
-
-Trim destination names in DB for trailing whitespace
 
 ### Terminaler
 
