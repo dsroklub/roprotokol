@@ -1,5 +1,9 @@
 # DSR Roprotokol
 
+# Documentation
+
+## [For DSR in Danish:](http://htmlpreview.github.io/?https://github.com/elgaard/DSR-roprotokol/blob/master/documentation/DSR.html)
+
 # Installation
 
 apt-get install npm python-mysqldb memcached php5-memcached
@@ -104,6 +108,9 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 * Kovertering af kanin/midlertidig roer
 * Administration af røde svensknøgler
 
+* Administration af rettigheder for roere
+* Administration af rettigheder for turtyper
+
 * Administration af både
   ** Opret/ret/slet bådtype
   ** Opret båd
@@ -144,3 +151,11 @@ Trim destination names in DB for trailing whitespace
 ### Terminaler
 
 Slå autofill fra i Chromium
+
+# Feature ønsker
+
+## Roere.
+
+Vi kunne checke at den samme roer ikke kan være udskrevet flere gange.
+
+Typeahead for roere, der udskrives kunne forfines, så den kun vis roere, som ikke er på vandet og som passer med turtypen. Fx kun kaprorer for INKA ture.

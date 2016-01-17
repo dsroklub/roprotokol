@@ -91,6 +91,8 @@ elif [[ $datatype = "real" ]]; then
     echo "renaming"
     $DBCMD < $SCRIPT_PATH/rename.sql
 
+    $DBCMD < $SCRIPT_PATH/TripRights.sql
+    $DBCMD < $SCRIPT_PATH/memberrighttype.sql
 elif [[ $datatype = "empty" ]]; then
     echo no rower data
 else

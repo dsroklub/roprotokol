@@ -3,7 +3,8 @@
 app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', function ($scope, $routeParams, DatabaseService, $interval, ngDialog) {
   $scope.allboatdamages=[];
     DatabaseService.init().then(function () {
-      
+
+      console.log("boat DB init done");
       // Load Category Overview
       $scope.boatcategories = DatabaseService.getBoatTypes();
 
@@ -18,7 +19,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       if ($routeParams.rowers) {
 	rowers= $routeParams.rowers.split(",");
       }
-      $scope.checkoutmessage=null;
+      $scope.checkoutmessage="";
+      $scope.rigthsmessage="rrr";
       $scope.timeopen={
 	'start':false,
 	'expected':false,
@@ -44,28 +46,68 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         'expectedtime': now,
         'endtime': null, // FIXME
         'triptype': $scope.triptypes[0],
-        'rowers': ["","","","",""]
+        'rowers': ["","","","",""],
+	'distance':1
       };
 
       if ($scope.triptypes.length>2) {
-	// TODO, hack to set default
+	// TODO, improve hack to set default
 	$scope.checkout.triptype= $scope.triptypes[2];
       }
-      
-      if ($scope.selectedboat !== undefined) {
-        
-        // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
-        // TODO: Show wrench next to name in checkout view
-      } else {
-        //TODO: Say boat was not found
-      }
     });
+
+  $scope.checkRights = function() {
+    if (!$scope.checkout) {
+      return false;
+    }
+    var tripRequirements=($scope.checkout.triptype)?$scope.checkout.triptype.rights:[];
+    var boatRequirements=($scope.selectedBoatCategory)?$scope.selectedBoatCategory.rights:[];
+    var reqs=DatabaseService.mergeArray(tripRequirements,boatRequirements);
+    var norights=[];
+    for (var rq in reqs) {
+      var subject=reqs[rq];
+      if (subject='cox') {
+	if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
+	  if (!(rq in $scope.checkout.rowers[0].rights)) {
+	    norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+rq +" ret");
+	  }
+	}
+      } else if (subject='all') {
+	for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
+	  if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
+	    if (!(rq in $scope.checkout.rowers[ri].rights)) {
+	      norights.push($scope.checkout.rowers[ri].name +" har ikke "+rq + " ret");
+	    }
+	  }
+	}
+      } else if (rq='any') {
+	var ok=false;
+	for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
+	  if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
+	    if (!(rq in $scope.checkout.rowers[ri].rights)) {
+	      ok=true;
+	    }
+	  }
+	}
+		      
+	if (!ok) {
+	  norights.push(" der skal være mindst een roer med "+rq + " ret");
+	}
+      }    
+    }
+    $scope.rightsmessage=norights.join(",");
+    // HERE
+    return norights.length<1;
+  }
+         // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
+        // TODO: Show wrench next to name in checkout view
 
   $scope.selectBoatCategory = function(cat) {
     $scope.selectedBoatCategory=cat;
   }
 
   $scope.do_boat_category = function(cat) {
+    $scope.selectedBoatCategory=cat;
     $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
     for (var i = $scope.checkout.rowers.length; i < cat.seatcount; i++) {
       $scope.checkout.rowers.push("");
@@ -131,6 +173,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     $scope.updateCheckout = function (item) {
       // Calculate expected time based on triptype and destination
       $scope.checkout.destination=item;
+      $scope.checkout.distance=$scope.checkout.destination.distance;
       if ($scope.checkout.starttime) {
 	if($scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration_instruction * 3600 * 1000)
@@ -138,6 +181,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration * 3600 * 1000);
 	}
       }
+      $scope.boatSync();
     };
   
     $scope.clearDestination = function () {
@@ -233,12 +277,14 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	DatabaseService.reload(['boat']);
 	if (status.status =='ok') {
 	  data.boat.trip=undefined;
-	  $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ind";
-	  $scope.checkin.boat.trip=null;
+	  console.log("ok checkin "+status.message);	 
+	  $scope.checkinmessage= status.boat+" er nu skrevet ind";
 	  $scope.checkin.boat=null;
-	} else if (status.status =='error' && status.error=="not on water") {
-	  $scope.checkoutmessage = $scope.checkout.boat.name + " er allerede indkrevet";
-	} else {	  
+	} else if (status.status =='error' && status.error=="notonwater") {
+	  $scope.checkinmessage= status.boat+" var allerede skrevet ind";
+	  console.log("not on water")
+	} else {
+	  console.log("error "+status.message);
 	  $scope.checkoutmessage="Fejl: "+closetrip;
 	};
       }
@@ -267,6 +313,39 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 	};
       },function() {alert("error")}, function() {alert("notify")}  
 			  )
-    };
+      };
+
+  $scope.boatSync = function (data) {
+    console.log("sync for boats");
+    var ds=DatabaseService.sync(['boat'])
+    console.log(" boatsync ds="+ds);
+    if (ds) {
+      console.log(" boatsync must wait");
+      ds.then(function(what) {
+	console.log(" *** THEN sync boats");
+	if ($scope.selectedBoatCategory) {
+	  $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.selectedBoatCategory.name);
+	  if ($scope.checkout.boat) {
+	    console.log("update selected boats");
+	    $scope.checkout.boat=DatabaseService.getBoatWithId($scope.checkout.boat.id);
+	    if ($scope.checkout.boat.trip) {
+	      console.log("selected boat was taken");
+	      $scope.checkoutmessage="For sent: "+$scope.checkout.boat.name+" blev taget";
+	      $scope.checkout.boat.trip=null;
+	      $scope.checkout.boat=null;
+	    }
+	  }
+	}
+      });
+    }
+  }
   
+  $scope.test = function (data) {
+    DatabaseService.test('boat');
+    $scope.valid=DatabaseService.valid();
+  }
+
+  $scope.valid = function () {
+    DatabaseService.valid();
+  }  
 }]);
