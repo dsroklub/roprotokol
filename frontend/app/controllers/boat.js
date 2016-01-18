@@ -263,6 +263,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     }
     return true;
   }
+  $scope.boatcat2dk=DatabaseService.boatcat2dk;
+    
   $scope.createRower = function (rowers, index) {
       var rower = DatabaseService.createRowerByName($scope.rowers[index]);
       if(rower) {

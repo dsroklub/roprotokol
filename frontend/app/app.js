@@ -45,6 +45,10 @@ var app = angular.module('myApp', [
 	  templateUrl: 'templates/today.html',
 	  controller: 'TodayCtrl'
 	});
+	$routeProvider.when('/admin/', {
+	  templateUrl: 'templates/admin.html',
+	  controller: 'AdminCtrl'
+	});
 	$routeProvider.when('/ud/', {
 	  templateUrl: 'templates/boat/checkout.html',
 	  controller: 'BoatCtrl'

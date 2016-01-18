@@ -1,0 +1,85 @@
+<h2>Admin</h2>
+
+<h2>Bådtyper</h2>
+    <table class="boatlist" >
+      <thead>
+        <tr>
+          <th>Bådtype</th><th>Antal sæder</th><th>Robåd/kajak</th><th>Rettigheder</th>
+	</tr>	
+      </thead>
+     <tbody>
+        <tr ng-repeat="bt in DB('boattypes')">
+	  <td >{{bt.name}}</td>
+	  <td >{{bt.seatcount}}</td>
+	  <td >{{bt.Category}}</td>
+	  <td >{{bt.rights}}</td>	  
+	</tr>
+      </tbody>
+    </table>
+
+    <h2>Turtyper</h2>
+    <table class="boatlist" >
+      <thead>
+        <tr>
+          <th>Turtype</th><th>Beskrivelse</th><th>Rettigheder</th>
+	</tr>	
+      </thead>
+     <tbody>
+        <tr ng-repeat="tt in DB('triptypes')">
+	  <td >{{tt.name}}</td>
+	  <td >{{tt.description}}</td>
+	  <td >{{tt.rights}}</td>
+	</tr>
+      </tbody>
+    </table>
+
+    <h2>Destinationer</h2>
+    <table class="boatlist" >
+      <thead>
+        <tr>
+          <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
+	</tr>	
+      </thead>
+     <tbody>
+        <tr ng-repeat="ds in DB('destinations').DSR">
+	  <td >{{ds.name}}</td>
+	  <td >{{ds.distance}}</td>
+	  <td >{{ds.duration}}</td>
+	  <td >{{ds.duration_instruction}}</td>
+	</tr>
+      </tbody>
+    </table>
+
+    <h2>Destinationer fra Nordhavn</h2>
+    <table class="boatlist" >
+      <thead>
+        <tr>
+          <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
+	</tr>	
+      </thead>
+     <tbody>
+        <tr ng-repeat="ds in DB('destinations').Forpost">
+	  <td >{{ds.name}}</td>
+	  <td >{{ds.distance}}</td>
+	  <td >{{ds.duration}}</td>
+	  <td >{{ds.duration_instruction}}</td>
+	</tr>
+      </tbody>
+    </table>
+    
+  <script type="text/ng-template" id="taTemplate.html">
+  <a>
+  <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+  <i>({{match.model.id}})</i>
+  </a>
+    </script>
+    <div>
+    <h2 class="prompt">Søg efter roer:</h2>
+    <ng-form name="rowerFieldForm">
+  <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" ng-model="currentrower" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required />
+      </ng-form>
+
+    <div>
+      {{currentrower.name}}      {{currentrower.rights}}
+    </div>
+</div>
