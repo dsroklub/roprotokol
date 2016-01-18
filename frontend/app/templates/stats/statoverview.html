@@ -1,43 +1,87 @@
 <div class="genericcategories">
-  <div class="genericmenu">
-  <h2>Vælg statistik</h2>
-    <ul>
-      <li ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner']"  ng-click="dorowers(statcategory)" >{{statcategory}}</li>
-    </ul>   
-    <!--h3>både</h3> <ul ng-init="cats=['alle','robåd', 'kayak']"> <li ng-repeat="statcategory in cats" ng-click="doboats(statcategory)">{{statcategory}}</li>  </ul -->   
-</div>
-
-<button class="genericmenu" ng-click="tableParams.sorting('distance','desc')" align="left" class="btn btn-default ">default sortering</button>
-</div>
-<!--<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}<p><strong>Filter:</strong> {{tableParams.filter()}}<p><strong>cat:</strong> {{tableParams.rowcategory|json}}-->
-
-<button ng-click="tableParams.sorting({})" class="btn btn-default pull-right">Clear sorting</button>
-<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
-<p><strong>Filter:</strong> {{tableParams.filter()}}
-<p><strong>cat:</strong> {{tableParams.rowcategory|json}}
 <div>
-Søg efter roer: <input ng-model="filter"><button ng-click="tableParams.filter('')">Clear</button>
+ 	<button ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner']"  ng-click="docats(statcategory)" >{{boatcat2dk[statcategory]}}
+	</button>
+
+    <!--button class="genericmenu" ng-click="tableParams.sorting('distance','desc') && boattableParams.sorting('distance','desc')" align="left" class="btn btn-default ">normal sortering</button-->
+    <!--<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}<p><strong>Filter:</strong> {{tableParams.filter()}}<p><strong>cat:</strong> {{tableParams.rowcategory|json}}-->
+  
+    <button ng-click="tableParams.sorting({}) && boattableParams.sorting({})" class="btn btn-default pull-right">Normal Sortering</button>
+      <!--div>
+	Søg efter roer: <input ng-model="filter"><button ng-click="tableParams.filter('')">Clear</button>
+      </div-->
+
 </div>
-<div class="stats">
-<table ng-table="tableParams" class="statlist" show-filter="true">
-  <thead>
-    <tr>
-      <th class="text-center sortable"
-	ng-class="{'sort-asc': tableParams.isSortBy('rank', 'asc'),'sort-desc': tableParams.isSortBy('rank', 'desc')}"
-	ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr ↕</th>
-      <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlemsnummer ↕</th>
-      <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer ↕</th>
-      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}" ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance ↕</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="stat in $data" ng-class-odd="'oddstat'"> 
-      <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
-      <td data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}"><a href="#/rower/{{stat.id}}">{{stat.id}}</a> </td>
-      <td data-title="'Navn'" sortable="'name'" filter="{'fistname':'text'}">{{stat.firstname}} {{stat.lastname}}</td>
-      <td data-title="'Distance'" sortable="'distance'">{{(stat.distance/1000).toFixed(1)}}</td></td>
-    </tr>
-  </tbody>
-</table>
+
+<div>
+  <div style="float:left">
+    <div class="genericmenu">
+      <h2>Statistik for roere</h2>
+    </div>
+    
+      <div class="stats">
+	<table ng-table="tableParams" class="statlist" show-filter="true">
+	  <thead>
+	    <tr>
+	      <th class="text-center sortable"
+		  ng-class="{'sort-asc': tableParams.isSortBy('rank', 'asc'),'sort-desc': tableParams.isSortBy('rank', 'desc')}"
+		  ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr ↕
+	      </th>
+	      <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlemsnummer ↕</th>
+	      <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer ↕</th>
+	      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}" ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance ↕</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr ng-repeat="stat in $data" ng-class-odd="'oddstat'"> 
+	      <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
+	      <td data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}"><a href="#/rower/{{stat.id}}">{{stat.id}}</a> </td>
+	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}">{{stat.firstname}} {{stat.lastname}}</td>
+	      <td data-title="'Distance'" sortable="'distance'">{{(stat.distance/1000).toFixed(1)}}</td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+  </div>
+
+  
+  <div style="float:right"> 
+    <div class="genericmenu">
+      <h2>Statistik for både</h2>
+    </div>
+    
+      <div class="stats">
+	<table ng-table="boattableParams" class="statlist" show-filter="true">
+	  <thead>
+	    <tr>
+	      <th class="text-center sortable"
+		  ng-class="{'sort-asc': boattableParams.isSortBy('rank', 'asc'),'sort-desc': boattableParams.isSortBy('rank', 'desc')}"
+		  ng-click="boattableParams.sorting('rank', boattableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr ↕
+	      </th>
+	      <th ng-click="boattableParams.sorting('boatname', boattableParams.isSortBy('boatname', 'asc') ? 'desc' : 'asc')">Navn ↕</th>
+	      <th ng-click="boattableParams.sorting('boat_type', boattableParams.isSortBy('boat_type', 'asc') ? 'desc' : 'asc')">Type ↕</th>
+	      <th ng-click="boattableParams.sorting('num_trips', boattableParams.isSortBy('num_trips', 'asc') ? 'desc' : 'asc')">Antal Ture ↕</th>
+	      <th  ng-class="{'sort-asc': boattableParams.isSortBy('distance', 'asc'),'sort-desc': boattableParams.isSortBy('distance', 'desc')}" ng-click="boattableParams.sorting('distance', boattableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance ↕</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr ng-repeat="boatstat in $data" ng-class-odd="'oddstat'"> 
+	      <td sortable="'rank'" data-title="'Nr'">{{boatstat.rank}} </td>
+	      <td data-title="'boatname'" sortable="'boatname'"> {{boatstat.boatname}}</td>
+	      <td data-title="'boat_type'" sortable="'boat_type'"> {{boatstat.boat_type}}</td>
+	      <td data-title="'num_trips'" sortable="'num_trips'"> {{boatstat.num_trips}}</td>
+	      <td data-title="'Distance'" sortable="'distance'">{{(boatstat.distance/1000).toFixed(1)}}</td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+  </div>
+</div>
 </div>
 <!--pre> {{boat_category_id}} </pre-->
+
+<p><strong>data:</strong> {{$data|json}}
+<p><strong>BS:</strong> {{$boatdata|json}}
+<p><strong>Sorting:</strong> {{boattableParams.sorting()|json}}
+<p><strong>Filter:</strong> {{boattableParams.filter()}}
+<p><strong>cat:</strong> {{boattableParams.rowcategory|json}}

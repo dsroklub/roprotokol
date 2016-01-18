@@ -3,9 +3,16 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   var valid={};
   var db={};
   var rowerstatistics={'rowboat':[],'kayak':undefined,'any':undefined};
-  var boatstatistics={};
+  var boatstatistics={'rowboat':[],'kayak':undefined,'any':undefined};
   var databasesource=dbmode;
   var tx=null;
+
+  this.boatcat2dk = {
+      'any':'alle',
+      'rowboat':'robåd',
+      'kayak':'kajak',
+      'kaniner':'kaniner'
+  };
   
   var cachedepend={
     'boat':['boats','boatdamages'],
@@ -121,6 +128,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       
     for (var bi=0; bi<boatmaintypes.length; bi++) {
       var boattype= boatmaintypes[bi];
+
       if(!valid['rowerstatistics'+boattype]) {
 	(function (bt) {
 	  var sq=$q.defer();
@@ -140,7 +148,30 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	    sq.resolve(true);
 	  });
 	})(boattype);
-      } 
+      }
+
+      if(!valid['boatstatistics'+boattype]) {
+	(function (bt) {
+	  var sq=$q.defer();
+	  promises.push(sq.promise);
+	  // FIXME for test purposes
+	  var farg="?season=2014";
+	  if (bt != "any") {
+	    farg+='&boattype='+bt;
+	  }      
+	  $http.get(toURL('boat_statistics.php'+farg)).then(function(response) {
+            boatstatistics[bt] = [];
+            angular.forEach(response.data, function(stat, index) {
+              this.push(stat);
+            }, boatstatistics[bt]);
+	    valid['boatstatistics'+boattype]=true;	  
+	    sq.resolve(true);
+	  });
+	})(boattype);
+      }
+
+
+      
     }
     
     var qll=$q.all(promises);

@@ -6,6 +6,7 @@ app.controller('RowerCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
 			       $scope.rowertripsaggregated=[];
 			       $scope.currentrower=null;
 			       $scope.currenttrip=null;
+			       $scope.season=null;
 			       DatabaseService.init().then(function () {
 			       }
 							  );

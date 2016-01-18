@@ -97,11 +97,11 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 ##TODO
 * Afkobl distance fra json datalisten.
 
+* Fjeren Trip.Season from rowertripsaggregated.php
+
 ### BUGS
 
-* Time zone error in checkout times
-
-# Database ission.
+# Database issues.
 
 can be done manually when we move to the new system.
 
@@ -140,8 +140,6 @@ can be done manually when we move to the new system.
   viser roere, skal man kunne klikke på en roer og se roeren ture.
   Vi bliver nok nødt til at reorganisere lidt. Måske lave et nested scope.
 
-* Statistik
-	** både
 * Årsstatistik
 * Konfiguration af klienter. Noget local storage. Klienter i bådhallen skal vide, at de er i bådhallen og hvilken klient de er (fx et hostnavn)
 * Updatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
@@ -151,8 +149,6 @@ can be done manually when we move to the new system.
 
 
 ### Terminaler
-
-Slå autofill fra i Chromium
 
 # Feature ønsker
 

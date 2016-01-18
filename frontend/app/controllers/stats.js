@@ -4,8 +4,8 @@ var rabbitComperator = function(mid) {
   return (mid.length >0 && mid[0]=='k');
 };
 
-app.controller('StatCtrl',          ['$scope', 'DatabaseService', 'NgTableParams', '$filter',
-				     function ($scope,   DatabaseService,   NgTableParams, $filter) {
+app.controller('StatCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter',
+		function ($scope,   DatabaseService,   NgTableParams, $filter) {
     DatabaseService.init().then(function () {
       
       // (Need membership Start date, End Date for following information)
@@ -49,7 +49,7 @@ app.controller('StatCtrl',          ['$scope', 'DatabaseService', 'NgTableParams
       
       
      $scope.boattype="any";
-     $scope.dorowers = function (val) {
+     $scope.docats = function (val) {
        $scope.rowcategory=val;
 	if (val=='kaniner') {
 	  $scope.tableParams.filter({'id':'k'});
@@ -57,49 +57,72 @@ app.controller('StatCtrl',          ['$scope', 'DatabaseService', 'NgTableParams
 	} else {
 	  $scope.tableParams.filter({'id':''});
 	  $scope.boattype=val;
-//	  if ($scope.tableParams.data.length > 0) {
-	    $scope.tableParams.reload();
-//	  }
+	  $scope.tableParams.reload();
+	  $scope.boattableParams.reload();
 	}
     };
 			      
       $scope.isObjectAndHasId = function (val) {
       return typeof(val) === 'string' && val.length > 3;
     };
-    $scope.tableParams = new NgTableParams({
-      page: 1,            // show first page
-      count: 500,          // count per page
-      filter: {
-        id: ''       // initial filter	
-      },
-      sorting: {
-        rank: 'asc'     // initial sorting
-      }
-    }, {
-      getData: $scope.getData
-    }
-					  );
-    }
-			       )
 
-			      $scope.getData = function getData(params) {
-				var filterInfo = params.filter();
-				var rawData = DatabaseService.getRowerStatistics($scope.boattype);
-				var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
-				var orderedData = params.sorting() ?
-				    $filter('orderBy')(filteredData, params.orderBy()) :
-				    filteredData;
-				if (orderedData) {
-				  orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-				}
-				params.total(42);
-				return orderedData;
-			      }
-			      
-			      
-			      
-			      
-			    }
+   $scope.tableParams = new NgTableParams({
+     page: 1,            // show first page
+     count: 500,          // count per page
+     filter: {
+       id: ''       // initial filter	
+     },
+     sorting: {
+       rank: 'asc'     // initial sorting
+     }
+   }, {
+     getData: $scope.getRowerData
+   });
+
+   $scope.boattableParams = new NgTableParams({
+     page: 1,            // show first page
+     count: 500,          // count per page
+     filter: {
+       boatname: ''       // initial filter	
+     },
+     sorting: {
+       rank: 'asc',     // initial sorting
+     }
+   }, {
+     getData: $scope.getBoatData
+   });      
+    }
+      );		  
+       $scope.getRowerData = function getRowerData(params) {
+	var filterInfo = params.filter();
+	var rawData = DatabaseService.getRowerStatistics($scope.boattype);
+	var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
+	var orderedData = params.sorting() ?
+	    $filter('orderBy')(filteredData, params.orderBy()) :
+	    filteredData;
+	if (orderedData) {
+	  orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	}
+	return orderedData;
+      }
+
+      $scope.getBoatData = function getBoatData(params) {
+	 var filterInfo = params.filter();
+	 var rawData = DatabaseService.getBoatStatistics($scope.boattype);
+	 var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
+	 var orderedData = params.sorting() ?
+	     $filter('orderBy')(filteredData, params.orderBy()) :
+	     filteredData;
+	 if (orderedData) {
+	   orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	 }
+	 return orderedData;
+	}
+
+		  
+     		  $scope.boatcat2dk=DatabaseService.boatcat2dk;
+		  
+		}
 			   ]
-	      )
+     )
 
