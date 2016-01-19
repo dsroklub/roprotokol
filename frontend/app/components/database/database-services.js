@@ -1,5 +1,5 @@
 'use strict';
-angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q, AccessToken) {
+angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q,$log, AccessToken) {
   var valid={};
   var db={};
   var rowerstatistics={'rowboat':[],'kayak':undefined,'any':undefined};
@@ -223,8 +223,19 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     this.init();
   }
 
-    this.getBoatTypes = function () {
+  this.getBoatTypes = function () {
     return db['boattypes'];
+  };
+
+  this.getBoatTypeWithName = function (name) {
+    $log.debug("FOO"+name);
+    for (var i=0;i<db['boattypes'].length;i++) {
+      $log.debug(" F"+db['boattypes'][i].name);
+      if (db['boattypes'][i].name==name) {
+	$log.debug("found "+db['boattypes'][i].name);
+	return (db['boattypes'][i]);
+      }
+    }
   };
 
   this.getBoatWithId = function (boat_id) {
@@ -272,7 +283,25 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
       return db['destinations'][loc];
   };
-  
+
+
+  this.getDestinationWithName = function(name,location) {
+    for (var i=0; i<this.getDestinations(location).length;i++) {
+      var dc=this.getDestinations(location)[i];
+      if (angular.equals(dc.name,name)) {
+	return dc;
+      }
+    }
+  }
+
+  this.getTriptypeWithID = function(tid) {
+    for (var i=0; i<db['triptypes'].length;i++) {
+      if (db['triptypes'][i].id==tid) {
+	return db['triptypes'][i];
+      }
+    }
+  }
+
   this.getTripTypes = function () {
     return db['triptypes'];
   };
@@ -338,18 +367,16 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       };
   };
   
-  this.closeTrip = function(data) {
-    var tripClosed=$q.defer();
+  this.closeForm = function(form,data,datakind) {
+    var formClosed=$q.defer();
     var res=undefined;
-    $http.post('../../backend/closetrip.php', data).success(function(sdata,status,headers,config) {
-      tripClosed.resolve(sdata);
-      // TODO: make sure we block until the trip is created    
+    $http.post('../../backend/'+form+'.php', data).success(function(sdata,status,headers,config) {
+      formClosed.resolve(sdata);
     }).error(function(sdata,status,headers,config) {
-      tripClosed.resolve(false);
-      // TODO: make sure we block until the trip is created    
+      formClosed.resolve(false);
     });
-    datastatus['trip']=null;
-    return tripClosed;
+    datastatus[datakind]=null;
+    return formClosed;
   };
 
 

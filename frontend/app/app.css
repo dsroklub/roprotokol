@@ -66,6 +66,12 @@ button.big {
     border: 2px solid #000000;
 }
 
+input.big {
+    color: #000000;
+    background: #ff8866; !important;
+    border: 2px solid #000000;
+}
+
 
 button#createtrip_button[disabled] {
   color: gray;
@@ -187,6 +193,20 @@ button#createtrip_button[disabled] {
     font-weight: 400;
     border-bottom: 1px solid white;
     border-radius: 5px 5px 0 0;
+}
+
+table caption {
+    background: #23aee2;
+    color: white;
+    font-size: 12pt;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid white;
+}
+
+.correction {
+    border-style: solid;
+    border-color: #ff0000;
+    border-radius: 5px 5px 5px 5px;
 }
 
 .boattypesmenu ul {

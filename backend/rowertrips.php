@@ -8,8 +8,9 @@ if (isset($_GET["member"])) {
     echo "please set member";
     exit(1);
 }
-
-$sql="SELECT Trip.id, Boat.Name AS boat, Trip.Destination as destination, Trip.CreatedDate as created, Meter as distance, Member.MemberID, CONCAT(Firstname,' ',Lastname) AS Name " .
+# FIXME replace Trip.Season with outdate comparison
+  
+$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, Trip.Destination as destination, Trip.CreatedDate as created, Meter as distance, InTime as intime, OutTime as outtime " .
     " FROM Boat RIGHT JOIN (Member INNER JOIN (Trip INNER JOIN TripMember ON Trip.id = TripMember.TripID) ON Member.id = TripMember.member_id) ON Boat.id = Trip.BoatID " .
     " WHERE Member.MemberID=? AND Trip.Season=? ORDER BY Trip.id DESC;";
 

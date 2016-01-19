@@ -43,7 +43,7 @@ if (!$error) {
         foreach ($newtrip->rowers as $rower) {
             error_log("SEAT".$seat);
             error_log("DO trip mb ".$rower->name);
-            $stmt->bind_param('issi',$season,$seat,$rower->name,$rower->id);
+            $stmt->bind_param('iisi',$season,$seat,$rower->name,$rower->id);
             $stmt->execute();
             $seat+=1;
         }

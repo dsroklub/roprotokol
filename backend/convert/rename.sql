@@ -164,4 +164,5 @@ UPDATE Boat set Location='Nordhavn' WHERE Name in ("Freja","Tyr","Modi","Embla")
 UPDATE Boat set Decommissioned = Now() WHERE Name in ("Dan");
 
 ALTER TABLE Trip CHANGE TripID id INT AUTO_INCREMENT;
+ALTER TABLE Error_Trip CHANGE  id id INT AUTO_INCREMENT;
 ALTER TABLE MemberRights CHANGE MemberID member_id INT;

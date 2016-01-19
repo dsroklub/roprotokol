@@ -274,7 +274,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
   
   $scope.closetrip = function (boat,index,km) {
     var data={"boat":boat};
-    var closetrip=DatabaseService.closeTrip(data);
+    var closetrip=DatabaseService.closeForm('closetrip',data,'trip');
       closetrip.promise.then(function(status) {
 	DatabaseService.reload(['boat']);
 	if (status.status =='ok') {

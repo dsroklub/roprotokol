@@ -25,7 +25,7 @@ angular.module('myApp.utilities.nodsr', []).filter('nodsr', function () {
 
 angular.module('myApp.utilities.mtokm', []).filter('mtokm', function () {
   return function (meters) {
-    return meters / 1000;
+    return (meters / 1000).toFixed(1);
   };
 });
 

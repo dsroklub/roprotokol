@@ -156,9 +156,13 @@ CREATE TABLE IF NOT EXISTS Fejl_tblMembersSportData (
 CREATE TABLE IF NOT EXISTS  Fejl_tur (
        FejlID INT PRIMARY KEY,
        SletTur INT,
+       CreatedDate DATE,
+       EditDate DATE,
        TurID INT,
        Season INT,
        Båd VARCHAR(100),
+       BoatID INT NOT NULL,
+       TripTypeID INT,
        Ud DATETIME,
        Ind DATETIME,
        Destination VARCHAR(100),
@@ -298,6 +302,18 @@ CREATE TABLE IF NOT EXISTS TripMember (
        Initials VARCHAR(10),
        PRIMARY KEY(TripID,Season,Seat)
 );
+
+CREATE TABLE IF NOT EXISTS Error_TripMember (
+       TripID INT,
+       Seat INT,
+       member_id INT,
+       MemberName VARCHAR(100),
+       CreatedDate DATE,
+       EditDate DATE,
+       Initials VARCHAR(10),
+       PRIMARY KEY(TripID,Seat)
+);
+
 -- CREATE INDEX  triptripix on Trip(TripID);
 
 
