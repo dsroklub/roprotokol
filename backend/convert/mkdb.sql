@@ -5,6 +5,12 @@ DROP DATABASE IF EXISTS roprotokol;
 CREATE DATABASE IF NOT EXISTS roprotokol;
 use roprotokol;
 
+
+CREATE TABLE IF NOT EXISTS Locations (
+       name VARCHAR(30) PRIMARY KEY,
+       description VARCHAR(100) 
+);
+
 CREATE TABLE IF NOT EXISTS Tur (
        TurID INT PRIMARY KEY,
        FK_BådID INT NOT NULL,

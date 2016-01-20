@@ -13,10 +13,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       'kayak':'kajak',
       'kaniner':'kaniner'
   };
-  
+
+
   var cachedepend={
     'boat':['boats','boatdamages'],
-    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat', 'boats'],
+    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat', 'boats','errortrips'],
     'member':['boats']
   };
   
@@ -25,6 +26,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     'trip':null,
     'member':null
   };
+
   function toURL(service){
     if (databasesource=='real') {
       return '../../backend/'+service;
@@ -41,10 +43,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return db[dataid];
   }
 
-    this.getData = function (dataid,promises) {
+  this.getData = function (dataid,promises) {
     if(!valid[dataid]) {
       var dq=$q.defer();
-            promises.push(dq.promise);
+      promises.push(dq.promise);
       $http.get(toURL(dataid+'.php')).then(function(response) {
         db[dataid] = response.data;
 	valid[dataid]=true;
@@ -55,8 +57,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
   this.init = function () {
     var boatmaintypes = ['kayak','any','rowboat'];
-    console.log("DB init "+Date());
-
+    $log.debug("DB init "+Date());
     var headers = {};
     var accessToken = AccessToken.get();
     var promises=[];
@@ -66,11 +67,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
     if(!valid['boats']) {
       //Build indexes and lists for use by API
-      console.log("  boats not valid");
+      $log.debug("  boats not valid");
       var bq=$q.defer();
       promises.push(bq.promise);
       $http.get(toURL('boat_status.php'), { headers: headers } ).then(function(response) {
-	console.log("    received boat statuses");
         db['boats'] = {};
 	db['boatsA'] =[];
         angular.forEach(response.data, function(boat, index) {
@@ -85,7 +85,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
           }
           this[category].push(boat);
         }, db['boatcategories']);
-	console.log("    resolved boat statuses");
 	valid['boats']=true;
 	bq.resolve(true);
       });
@@ -110,7 +109,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
     this.getData('destinations',promises);
     this.getData('boattypes',promises);
+    this.getData('errortrips',promises);
     this.getData('triptypes',promises);
+    this.getData('locations',promises);
+    this.getData('boatkayakcategory',promises);
+    this.getData('memberrighttypes',promises);
 
     if(!valid['rowers']) {
       var rq=$q.defer();
@@ -182,10 +185,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.defaultLocation = 'DSR';
 
   this.invalidate_dependencies=function(tp) {
-    console.log("  dirty: "+tp);
+    $log.debug("  dirty: "+tp);
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
-      console.log("    invalidate: "+subtp);
+      $log.debug("    invalidate: "+subtp);
       valid[subtp]=false;	    
     }
   }
@@ -195,7 +198,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).success(function(ds, status, headers, config) {
       var doreload=false;
-      console.log("do db sync");
+      $log.debug("do db sync");
       for (var tp in ds) {
 	if (datastatus[tp]!=ds[tp]) {
 	  dbservice.invalidate_dependencies(tp);
@@ -204,7 +207,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	datastatus[tp]=ds[tp];
       }
       if (doreload) {
-	console.log(" do reload " + JSON.stringify(valid));
+	$log.debug(" do reload " + JSON.stringify(valid));
 	dbservice.init().then(function() {
 	  sq.resolve("sync done");
 	});
@@ -217,7 +220,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   
   this.reload=function (tps) {
     for (var ti=0; ti<tps.length; ti++) {
-      console.log('reload '+tps[ti])
       this.invalidate_dependencies(tps[ti]);
     }
     this.init();
@@ -228,7 +230,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
 
   this.getBoatTypeWithName = function (name) {
-    $log.debug("FOO"+name);
     for (var i=0;i<db['boattypes'].length;i++) {
       $log.debug(" F"+db['boattypes'][i].name);
       if (db['boattypes'][i].name==name) {

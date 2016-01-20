@@ -61,7 +61,7 @@ var app = angular.module('myApp', [
 	  templateUrl: 'templates/stats/statoverview.html',
 	  controller: 'StatCtrl'
 	});
-	$routeProvider.when('/', {redirectTo: '/boat/categoryoverview'});
+	$routeProvider.when('/', {redirectTo: '/ud'});
 	$routeProvider.otherwise({
 	  templateUrl: 'templates/notimplementet.html',
 	});

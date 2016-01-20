@@ -128,10 +128,10 @@
 	</td>    
       </tr>
       <tr><td>
-	<button class="big" ng-show="tripmembers.length>0 " ng-click="delete_trip()">meld sletning</button>
+	<button class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
 	</td>
 	<td>
-	  <input class="big" type="submit" ng-click="closeCorrection()" value="Indsend rettelser til godkendelse" />
+	  <input class="big" type="submit" ng-click="closeCorrection(false)" value="Indsend rettelser til godkendelse" />
 	</td>
     </tr>
     </tbody>

@@ -105,14 +105,12 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 can be done manually when we move to the new system.
 
-* Trim destination names in DB for trailing whitespace
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
 
 * Der er et problem med den timepicker vi bruger. Man kan slette minutter og senere få en exception
 
 ### Missing features
 
-* Indberetning af fejl på ture
 * Behandling af fejl på ture
 * Kovertering af kanin/midlertidig roer
 * Administration af røde svensknøgler

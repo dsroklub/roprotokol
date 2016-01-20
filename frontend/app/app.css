@@ -66,6 +66,14 @@ button.big {
     border: 2px solid #000000;
 }
 
+button.action {
+    color: #000000;
+    background: #ff8866; !important;
+    border: 1px solid #000000;
+    padding: 0pt 8pt;
+    margin-top:0pt;
+}
+
 input.big {
     color: #000000;
     background: #ff8866; !important;
@@ -136,13 +144,20 @@ button#createtrip_button[disabled] {
 .genericcategories,
 .stats,
 .baselayout,
-.checkout-form,
-.boatdamages {
-    width:auto;
+.checkout-form{
     display: inline-block;
     vertical-align: top;
     margin-right: 10pt;
 }
+
+.boatdamages {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10pt;
+    display: inline-block;
+    padding: 8px;
+}
+
 .genericmenu h2 {
     background: #23aee2;
     padding: 10pt;
@@ -201,6 +216,7 @@ table caption {
     font-size: 12pt;
     border-radius: 5px 5px 0 0;
     border-bottom: 1px solid white;
+    text-align: center;
 }
 
 .correction {
@@ -208,6 +224,21 @@ table caption {
     border-color: #ff0000;
     border-radius: 5px 5px 5px 5px;
 }
+
+.rightbox {
+    border-style: solid;
+    border-color: #ff0000;
+    border-radius: 5px 5px 5px 5px;
+    width:auto;
+    display: inline-block;
+    padding: 8px;
+    float:right;
+}
+
+.blok{
+    display: inline-block;
+}
+
 
 .boattypesmenu ul {
     background: white;
@@ -226,6 +257,10 @@ li.selected {
 .boattypesmenu ul li:hover a {
     color: white;
 }
+.leftblock {
+    max-width:65%;
+}
+
 .boatlist,.statlist,.genericlist {
     border-radius: 5px;
     overflow: visible;
@@ -244,6 +279,7 @@ li.selected {
     font-weight: 400;
     border-right: 1px solid white;
 }
+
 .statlist thead th {
     background: #3ECBBF;
     color: white;
@@ -255,6 +291,7 @@ li.selected {
 boatlist thead th:first-child {
     border-radius: 5px 0 0 0;
 }
+
 boatlist thead th:last-child {
     border-radius: 0 5px 0 0 0;
     border: 0;
@@ -287,6 +324,11 @@ boatlist thead th:last-child {
     height:100%;
     width:100%;
 }
+
+.deletion  {
+    background: #F5B8B8;
+}
+
 .boatlist tr td a {
     padding: 6pt 10pt 6pt 10pt;
     display:block;

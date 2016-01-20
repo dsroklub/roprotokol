@@ -1,6 +1,28 @@
 /*jslint node: true */
 'use strict';
 
+var right2dk = {
+  'rowright':'have roret',
+  'cox':'være styrmand',
+  'coxtheory':'have styrmandsteori',
+  'competition':'være kaproer',
+  '8':'have otterret',
+  '8cox':'have otter styrmandsret',
+  'instructor':'være instruktør',
+  'skærgård':'have skærgårdsret',
+  'longdistancetheory':'have langdistanceteori',
+  'longdistance':'være langtursstyrmand',
+  'kajak':'have kajakret',
+  'svava':'have svavaret',
+  '2kajak':'have 2-er kajak-ret',
+  'swim400':'kunne svømme 400m',
+  'motorboat':'have motorbådsret',
+  'sculler':'have scullerret',
+  'langturøresund':'have øresund langtursret',
+  'outrigger_instructor':'være outriggerinstruktør',
+  'wrench':'have rød svensknøgle'
+};
+
 angular.module('myApp.utilities.urldecode', []).filter('urldecode', function () {
   return function (text) {
     return window.decodeURIComponent(text);
@@ -26,6 +48,22 @@ angular.module('myApp.utilities.nodsr', []).filter('nodsr', function () {
 angular.module('myApp.utilities.mtokm', []).filter('mtokm', function () {
   return function (meters) {
     return (meters / 1000).toFixed(1);
+  };
+});
+
+angular.module('myApp.utilities.rightreqs', []).filter('rightreqs', function () {
+  var ss={'cox':'styrmanden','all':'alle','any':'mindst en','forbidden':'forbudt'};
+  return function (rights) {
+    var res="";
+    angular.forEach(rights, function (subject,right) {
+      if (subject!='none') {
+        if (res!="") {
+          res +=", ";
+        }
+        res+=(ss[subject]+" skal "+(right2dk[right]?right2dk[right]:right));
+      }
+    },this);
+    return res==""?"ingen krav":res;
   };
 });
 
@@ -56,19 +94,19 @@ angular.module('myApp.utilities.transformkm', []).directive('transformkm', funct
       if (ngModel) { // Don't do anything unless we have a model
         ngModel.$parsers.push(function (val) {
           if (val !== undefined) {
-	    var fval=val;
-	    if (typeof fval == 'string') {
+            var fval=val;
+            if (typeof fval == 'string') {
               fval = val.replace(',', '.');
-	    }
+            }
             return fval * 1000;
-	  }
+          }
         });
         ngModel.$formatters.push(function (val) {
           if (val !== undefined) {
-	    var fval=val;
-	    if (typeof val == 'string') {
+            var fval=val;
+            if (typeof val == 'string') {
               fval = val.replace(',', '.');
-	    }
+            }
             return fval / 1000;
           }
         });

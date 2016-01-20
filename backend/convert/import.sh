@@ -94,6 +94,7 @@ elif [[ $datatype = "real" ]]; then
     $DBCMD < $SCRIPT_PATH/TripRights.sql
     $DBCMD < $SCRIPT_PATH/BoatRights.sql
     $DBCMD < $SCRIPT_PATH/memberrighttype.sql
+    $DBCMD < $SCRIPT_PATH/Location.sql
 elif [[ $datatype = "empty" ]]; then
     echo no rower data
 else
