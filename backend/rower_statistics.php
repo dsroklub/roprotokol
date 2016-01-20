@@ -19,8 +19,8 @@ if (isset($_GET["boattype"])) {
 }
 // echo "boats:". $boatclause."\n<br>";
 //$season='2013';
-    $s="SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance ,Member.MemberID as id, Member.FirstName as firstname, Member.LastName as lastname 
-    FROM BoatType,Trip,TripMember,Boat,Member 
+    $s="SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance ,Member.MemberID as id, MemberRight as wrench, Member.FirstName as firstname, Member.LastName as lastname 
+    FROM BoatType,Trip,TripMember,Boat,Member LEFT JOIN MemberRights ON Member.id=member_id and MemberRight='wrench'
     WHERE 
       Trip.id = TripMember.TripID AND
       Member.id = TripMember.member_id AND
@@ -31,7 +31,7 @@ if (isset($_GET["boattype"])) {
     ORDER BY distance desc";
 
 
-//echo $s;
+#echo $s;
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
      $result= $stmt->get_result();

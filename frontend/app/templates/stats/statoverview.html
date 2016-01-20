@@ -3,8 +3,6 @@
  	<button ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner']"  ng-click="docats(statcategory)" >{{boatcat2dk[statcategory]}}
 	</button>
 
-    <!--button class="genericmenu" ng-click="tableParams.sorting('distance','desc') && boattableParams.sorting('distance','desc')" align="left" class="btn btn-default ">normal sortering</button-->
-    <!--<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}<p><strong>Filter:</strong> {{tableParams.filter()}}<p><strong>cat:</strong> {{tableParams.rowcategory|json}}-->
   
     <button ng-click="tableParams.sorting({}) && boattableParams.sorting({})" class="btn btn-default pull-right">Normal Sortering</button>
       <!--div>
@@ -25,18 +23,18 @@
 	    <tr>
 	      <th class="text-center sortable"
 		  ng-class="{'sort-asc': tableParams.isSortBy('rank', 'asc'),'sort-desc': tableParams.isSortBy('rank', 'desc')}"
-		  ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr ↕
+		  ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr <i class="fa fa-sort"></i>
 	      </th>
-	      <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlemsnummer ↕</th>
-	      <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer ↕</th>
-	      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}" ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance ↕</th>
+	      <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlemsnummer <i class="fa fa-sort"></th>
+	      <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer <i class="fa fa-sort"></th>
+	      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}" ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance <i class="fa fa-sort"></th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <tr ng-repeat="stat in $data" ng-class-odd="'oddstat'"> 
 	      <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
 	      <td data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}"><a href="#/rower/{{stat.id}}">{{stat.id}}</a> </td>
-	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}">{{stat.firstname}} {{stat.lastname}}</td>
+	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}"><i ng-show="false" class="fa fa-wrench"></i> {{stat.firstname}} {{stat.lastname}}</td>
 	      <td data-title="'Distance'" sortable="'distance'">{{(stat.distance/1000).toFixed(1)}}</td>
 	    </tr>
 	  </tbody>
@@ -56,12 +54,12 @@
 	    <tr>
 	      <th class="text-center sortable"
 		  ng-class="{'sort-asc': boattableParams.isSortBy('rank', 'asc'),'sort-desc': boattableParams.isSortBy('rank', 'desc')}"
-		  ng-click="boattableParams.sorting('rank', boattableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr ↕
+		  ng-click="boattableParams.sorting('rank', boattableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr <i class="fa fa-sort">
 	      </th>
-	      <th ng-click="boattableParams.sorting('boatname', boattableParams.isSortBy('boatname', 'asc') ? 'desc' : 'asc')">Navn ↕</th>
-	      <th ng-click="boattableParams.sorting('boat_type', boattableParams.isSortBy('boat_type', 'asc') ? 'desc' : 'asc')">Type ↕</th>
-	      <th ng-click="boattableParams.sorting('num_trips', boattableParams.isSortBy('num_trips', 'asc') ? 'desc' : 'asc')">Antal Ture ↕</th>
-	      <th  ng-class="{'sort-asc': boattableParams.isSortBy('distance', 'asc'),'sort-desc': boattableParams.isSortBy('distance', 'desc')}" ng-click="boattableParams.sorting('distance', boattableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance ↕</th>
+	      <th ng-click="boattableParams.sorting('boatname', boattableParams.isSortBy('boatname', 'asc') ? 'desc' : 'asc')">  Navn <i class="fa fa-sort"></th>
+	      <th ng-click="boattableParams.sorting('boat_type', boattableParams.isSortBy('boat_type', 'asc') ? 'desc' : 'asc')">Type <i class="fa fa-sort"></th>
+	      <th ng-click="boattableParams.sorting('num_trips', boattableParams.isSortBy('num_trips', 'asc') ? 'desc' : 'asc')">Antal Ture <i class="fa fa-sort"></th>
+	      <th  ng-class="{'sort-asc': boattableParams.isSortBy('distance', 'asc'),'sort-desc': boattableParams.isSortBy('distance', 'desc')}" ng-click="boattableParams.sorting('distance', boattableParams.isSortBy('distance', 'asc') ? 'desc' : 'asc')">Distance <i class="fa fa-sort"></th>
 	    </tr>
 	  </thead>
 	  <tbody>
