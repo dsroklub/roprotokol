@@ -122,6 +122,7 @@ angular.module('myApp.utilities', [
   'myApp.utilities.nodsr',
   'myApp.utilities.transformkm',
   'myApp.utilities.mtokm',
+  'myApp.utilities.rightreqs',
   'myApp.utilities.txttotime',
   'myApp.utilities.totime',
 ]).value('version', '0.1');
