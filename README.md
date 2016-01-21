@@ -111,19 +111,14 @@ can be done manually when we move to the new system.
 
 ### Missing features
 
-* Behandling af fejl på ture
-* Kovertering af kanin/midlertidig roer
-* Administration af røde svensknøgler
+* klarmeld skader ved checkout
+* Opret roer: kanin/gæst
 
-* Administration af rettigheder for roere
-* Administration af rettigheder for turtyper
+* Kovertering af kanin/midlertidig roer
 
 * Administration af både
-  ** Opret/ret/slet bådtype
-  ** Opret båd
-  ** Ret båd
+  ** slet bådtype
   ** Pensioner båd
-  ** Opret/ret/slet lokation
 
 * Reservation af både
 * Indberetning af fejl i rettigheder -> mail til instruktionschefen

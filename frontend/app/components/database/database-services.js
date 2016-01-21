@@ -114,7 +114,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     this.getData('locations',promises);
     this.getData('boatkayakcategory',promises);
     this.getData('memberrighttypes',promises);
-
+    this.getData('kayak_model',promises);    
     if(!valid['rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);
@@ -380,16 +380,38 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return formClosed;
   };
 
+  this.updateDB_async = function(op,data,arg) {
+    var qup=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/'+op+".php"+(arg?("?arg="+arg):""), data).success(function(sdata,status,headers,config) {
+      qup.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      $log.error(status);
+      qup.resolve(false);
+    });
+    datastatus['trip']=null;
+    datastatus['boat']=null;
+    datastatus['member']=null;
+    return qup.promise;
+  }
+  
+  this.updateDB = function(op,data,arg) {
+    $log.debug(' do '+op+' ,'+arg);
+    this.updateDB_async(op,data,arg).then(function (res) {
+      $log.debug(' done '+op+' ,'+arg);
+      return res;
+    }
+                                    
+                                   );
+  }
 
   this.createTrip = function(data) {
     var tripCreated=$q.defer();
     var res=undefined;
     $http.post('../../backend/createtrip.php', data).success(function(sdata,status,headers,config) {
       tripCreated.resolve(sdata);
-      // TODO: make sure we block until the trip is created    
     }).error(function(sdata,status,headers,config) {
       tripCreated.resolve(false);
-      // TODO: make sure we block until the trip is created    
     });
     datastatus['trip']=null;
     return tripCreated;

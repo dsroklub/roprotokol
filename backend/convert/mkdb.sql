@@ -489,7 +489,7 @@ CREATE TABLE IF NOT EXISTS MemberRightType (
 
 
 CREATE TABLE IF NOT EXISTS TripRights (
-       trip_type VARCHAR(30) NOT NULL,
+       trip_type INT NOT NULL,
        required_right VARCHAR(30) NOT NULL,
        requirement VARCHAR(10),
        PRIMARY KEY (trip_type,required_right)
@@ -497,7 +497,7 @@ CREATE TABLE IF NOT EXISTS TripRights (
 
 DROP TABLE BoatRights;
 CREATE TABLE IF NOT EXISTS BoatRights (
-       boat_type VARCHAR(30) NOT NULL,
+       boat_type INT NOT NULL,
        required_right VARCHAR(30) NOT NULL,
        requirement VARCHAR(10),
        PRIMARY KEY (boat_type,required_right)

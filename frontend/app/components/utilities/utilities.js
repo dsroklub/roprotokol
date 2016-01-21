@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var right2dk = {
+var right2dkm = {
   'rowright':'have roret',
   'cox':'være styrmand',
   'coxtheory':'have styrmandsteori',
@@ -20,8 +20,39 @@ var right2dk = {
   'sculler':'have scullerret',
   'langturøresund':'have øresund langtursret',
   'outrigger_instructor':'være outriggerinstruktør',
-  'wrench':'have rød svensknøgle'
+  'wrench':'have rød svensknøgle',
+  'kanin':'være kanin'
 };
+
+var right2dk = {
+  'kanin':'kanin',
+  'rowright':'roret',
+  'cox':'styrmand',
+  'coxtheory':'styrmandsteori',
+  'competition':'kaproer',
+  '8':'otterret',
+  '8cox':'otter styrmandsret',
+  'instructor':'instruktør',
+  'skærgård':'skærgårdsret',
+  'longdistancetheory':'langdistanceteori',
+  'longdistance':'langtursstyrmand',
+  'kajak':'kajakret',
+  'svava':'svavaret',
+  '2kajak':'2-er kajak-ret',
+  'swim400':'svømme 400m',
+  'motorboat':'motorbådsret',
+  'sculler':'scullerret',
+  'langturøresund':'øresund langtursret',
+  'outrigger_instructor':'outriggerinstruktør',
+  'wrench':'rød svensknøgle'
+};
+
+var subject2dk = {
+  'all':'alle',
+  'cox':'styrmanden',
+  'none':'ingen',
+  'any':'mindst een'
+}
 
 angular.module('myApp.utilities.urldecode', []).filter('urldecode', function () {
   return function (text) {
@@ -60,12 +91,26 @@ angular.module('myApp.utilities.rightreqs', []).filter('rightreqs', function () 
         if (res!="") {
           res +=", ";
         }
-        res+=(ss[subject]+" skal "+(right2dk[right]?right2dk[right]:right));
+        res+=(ss[subject]+" skal "+(right2dkm[right]?right2dkm[right]:right));
       }
     },this);
     return res==""?"ingen krav":res;
   };
 });
+
+angular.module('myApp.utilities.subjecttodk', []).filter('subjecttodk', function () {
+  return function (sb) {
+    var r=subject2dk[sb];
+    return r==""?sb:r;
+  };
+});
+angular.module('myApp.utilities.righttodk', []).filter('righttodk', function () {
+  return function (sb) {
+    var r=right2dk[sb];
+    return (r?sb:r);
+  };
+});
+
 
 angular.module('myApp.utilities.totime', []).filter('totime', function () {
   return function(hours) {
@@ -123,6 +168,8 @@ angular.module('myApp.utilities', [
   'myApp.utilities.transformkm',
   'myApp.utilities.mtokm',
   'myApp.utilities.rightreqs',
+  'myApp.utilities.subjecttodk',
+  'myApp.utilities.righttodk',
   'myApp.utilities.txttotime',
   'myApp.utilities.totime',
 ]).value('version', '0.1');

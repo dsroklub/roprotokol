@@ -18,13 +18,13 @@
         <tr ng-repeat="bt in DB('boattypes')">
 	  <td >{{bt.name}}</td>
 	  <td >{{bt.seatcount}}</td>
-	  <td ><select  ng-model="bt.Category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
+	  <td ><select  ng-change="setboatkayak(bt)" ng-model="bt.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
 	  <td><button class="action" ng-click="doboatrights(bt.rights,bt)">{{bt.rights|rightreqs}}</button></td>
         </tr>
       </tbody>
     </table>
 
-    <form>
+    <form name="boattypeform">
       <table class="boatlist" >
         <caption>Ny Bådtype</caption>
         <thead>
@@ -34,13 +34,13 @@
         </thead>
         <tbody>
 	  <tr>
-	    <td><input type="text" ng-model="newcategory.name"></input></td>
-	    <td><input type="number" ng-model="newcategory.numseats"></input></td>
-	    <td ><select  ng-model="newcategory.Category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
-	    <td ><button class="action" ng-model="newcategory.rights">{{newcategory.rights|rightreqs}}</button></td>
+	    <td><input type="text" ng-model="newboattype.name"></input></td>
+	    <td><input type="number" ng-model="newboattype.numseats"></input></td>
+	    <td ><select  ng-model="newboattype.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
+	    <td ><button class="action" ng-model="newboattype.rights" ng-click="currentboattype=newboattype"> {{newboattype.rights|rightreqs}}</button></td>
 	  </tr>
 	  <tr><td>
-	      <input class="big" ng-show="newcategory.name&&newcategory.numseats&&newcategory.Category" type="submit" ng-click="createBoattype()" value="Opret ny bådtype" />
+	      <button class="big" ng-show="newboattype.name&&newboattype.numseats&&newboattype.category" ng-click="create_boattype(newboattype)">Opret ny bådtype </button>
 	</td></tr>	
         </tbody>
       </table>
@@ -56,15 +56,15 @@
     <tbody>
       <tr ng-repeat="(rt,subject) in requiredrights">
 	<td>{{rt}}</td>	  
-	<td> <select ng-model="subject" ng-options="rt for rt in rightsubjects">{{subject}}</select></td>
-        <td><button class="action" ng-click="removeright('boat',rt)">Fjern ret</button></td>
+	<td> <select ng-model="subject" ng-options="rt  as rt|subjecttodk for rt in rightsubjects">{{subject}}</select></td>
+        <td><button class="action" ng-click="remove_boattype_requirement(rt,$index)">Fjern krav</button></td>
       </tr>
       <tr>
-      <td><select  ng-model="newright.right" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
+        <td><select  ng-model="boattype.newright.right" ng-options="mrt.member_right as mrt.member_right for mrt in memberrighttypes"></select></td>
 	<td>
-	  <select ng-model="newright.subject" ng-options="rt for rt in rightsubjects">{{subject}}</select>
+	  <select ng-model="boattype.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects"></select>
 	</td>	  
-      <td><button ng-show="newright.subject && newright.right" class="action" ng-click="removeright('boat',rt)">Tilføj ret</button></td>
+        <td><button ng-show="boattype.newright.subject && boattype.newright.right" class="action" ng-click="add_boattype_requirement(boattype.newright)">Tilføj krav</button></td>
       </tr>
     </tbody>
     </table>
@@ -81,17 +81,17 @@
   <tbody>
     <tr ng-repeat="boat in allboats">
       <td>{{boat.name}}</td>
-      <td><select  ng-model="boat.category" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
-      <td><select  ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations">
+      <td><select  ng-change="set_cat_for_boat(boat)" ng-model="boat.category" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
+      <td><select  ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations">
 	  </select>
       </td>
-        <td><button class="action">Slet båd</button></td>
+        <td><button ng-click="retire_boat(boat,$index)" class="action">Slet/pensioner båd</button></td>
     </tr>
   </tbody>
   </table>
 
   <div>
-    <form name="newboat" novalidate>
+    <form name="createnewboat" novalidate>
   <table>
     <caption>Ny båd</caption>
     <tbody>	  
@@ -108,7 +108,7 @@
       </td>
       </tr>
       <tr><td>
-	  <input class="big" type="submit" ng-show="newboat.category&&newboat.location&&newboat.name" ng-click="createBoat()" value="Opret ny båd" />
+	  <button ng-click="create_boat(newboat)" ng-model="newboat.create" class="big" ng-show="newboat.category&&newboat.location&&newboat.name">Opret ny båd</button>
       </td></tr>
     </tbody>
   </table>
@@ -145,15 +145,15 @@
     <tbody>
       <tr ng-repeat="(rt,subject) in requiredtriprights">
 	<td>{{rt}}</td>	  
-	<td> <select ng-model="subject" ng-options="rt for rt in rightsubjects">{{subject}}</select></td>
-        <td><button class="action" ng-click="removeright('trip',rt)">Fjern ret</button></td>
+	<td> <select ng-model="subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{subject}}</select></td>
+        <td><button class="action" ng-click="remove_triptype_requirement(rt)">Fjern krav</button></td>
       </tr>
       <tr>
-      <td><select  ng-model="trip.newright.right" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
+        <td><select  ng-model="trip.newright.right" ng-options="mrt.member_right as mrt.member_right for mrt in memberrighttypes"></select></td>
 	<td>
-	  <select ng-model="trip.newright.subject" ng-options="rt for rt in rightsubjects">{{subject}}</select>
+	  <select ng-model="trip.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{subject}}</select>
 	</td>	  
-      <td><button ng-show="trip.newright.subject && trip.newright.right" class="action" ng-click="removeright('trip',rt)">Tilføj ret</button></td>
+      <td><button ng-show="trip.newright.subject && trip.newright.right" class="action" ng-click="add_triptype_requirement(trip.newright)">Tilføj krav</button></td>
       </tr>
     </tbody>
     </table>
@@ -170,9 +170,9 @@
     <tbody>
       <tr ng-repeat="ds in DB('destinations').DSR">
 	<td >{{ds.name}}</td>
-	<td><input type="number" step="0.5" ng-model="ds.distance" transformkm></td>
-	<td><input type="number" ng-model="ds.duration"></td>
-	<td><input type="number" ng-model="ds.duration_instruction"></input></td>
+	<td><input ng-change="set_distance(ds,'DSR')" type="number" step="0.5" ng-model="ds.distance" transformkm></td>
+	<td><input ng-change="set_duration(ds,'DSR')" type="number" step="0.25" ng-model="ds.duration"></td>
+	<td><input ng-change="set_duration(ds,'DSR')" type="number" step="0.25" ng-model="ds.duration_instruction"></input></td>
       </tr>
     </tbody>
   </table>
@@ -185,11 +185,11 @@
       </tr>	
     </thead>
     <tbody>
-      <tr ng-repeat="ds in DB('destinations').Forpost">
+      <tr ng-repeat="ds in DB('destinations').Nordhavn">
 	<td >{{ds.name}}</td>
-	  <td><input type="number" step="0.5" ng-model="ds.distance" transformkm></td>
-	  <td><input type="number" ng-model="ds.duration"></td>
-	  <td><input type="number" ng-model="ds.duration_instruction"></input></td>
+	  <td><input ng-change="set_distance(ds,'DSR')" type="number" step="0.5" ng-model="ds.distance" transformkm></td>
+	  <td><input ng-change="set_duration(ds,'Nordhavn')" type="number" step="0.25" ng-model="ds.duration"></td>
+	  <td><input ng-change="set_duration(ds,'Nordhavn')" type="number" step="0.25" ng-model="ds.duration_instruction"></input></td>
       </tr>
     </tbody>
   </table>
@@ -208,14 +208,22 @@
       <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" ng-model="currentrower" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required />
     </ng-form>
     <div>
-      {{currentrower.name}} ({{currentrower.id}})
-      <ul>
-	<li ng-repeat="(rt,dt) in currentrower.rights"> {{rt}}</li>
-      </ul>
+
+      <table class="boatlist" ng-show="currentrower.id">
+        <caption>Rettigheder for {{currentrower.name}} ({{currentrower.id}})</caption>
+        <thead>
+          <tr> <th>Rettighed</th><th></th> </tr>	
+        </thead>
+        <tbody>
+	  <tr ng-repeat="(rt,dt) in currentrower.rights">
+            <td>{{rt |righttodk}}</td><td><button class="big" ng-click="remove_rower_right(currentrower,rt)">inddrag rettighed</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <label for="rower.newright">Tildel ny rettighed til {{currentrower.name}}</label>
-        <select  ng-model="rower.newright" ng-options="rower.description for rower in DB('memberrighttypes')"></select>
-        
+    <select  ng-change="add_rower_right(rower.newright,currentrower)" ng-model="rower.newright" ng-options="rower.description for rower in DB('memberrighttypes')"></select>
+    
   </div>
 </div>
 
@@ -229,8 +237,8 @@
 	<td>{{et.current|json}} </td>
         <td ng-class="{deletion: et.correction.DeleteTrip}">{{et.correction|json}} </td>
         <td>
-          <button class="green" ng-click="approvecorrection(true)">Godkend</button>
-          <button class="action " ng-click="approvecorrection(false)">Afvis</button>
+          <button class="green" ng-click="approve_correction(et,$index)">Godkend</button>
+          <button class="action " ng-click="reject_correction(et,$index)">Afvis</button>
         </td>
       </tr>
 
@@ -243,8 +251,11 @@
 </div>  
 
 
-
-<pre>ziperrors {{ziperrors}}</pre>
+<pre>requiredtriprights{{requiredtriprights|json}}</pre>
+<pre>rightsubjects {{rightsubjects|json}}</pre>
+<pre>newboat {{newboat}}</pre>
+<pre>newboattype {{newboattype}}</pre>
+<pre>boattypeform {{boattypeform}}</pre>
 <pre>currentboattype {{currentboattype}}</pre>
 <pre>rr {{requiredrights}}</pre>
 <pre>dest {{DB('destinations').DSR}}</pre>
