@@ -6,7 +6,7 @@
   "license": "GPL",
   "private": true,
   "dependencies": {
-    "oauth-ng": "git@github.com:elgaard/oauth-ng.git#~0.4.7",
+    "oauth-ng": "https://github.com/elgaard/oauth-ng.git#~0.4.7",
     "angular": "1.4.x",
     "angular-sanitize": "1.4.x",
     "angular-route": "1.4.x",
