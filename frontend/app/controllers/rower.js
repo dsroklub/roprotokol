@@ -13,20 +13,20 @@ app.controller('RowerCtrl',
                   DatabaseService.init().then(function () {
                     $scope.boatcategories = DatabaseService.getBoatTypes();
                     $scope.triptypes = DatabaseService.getTripTypes();
-                    
+                    $scope.destinations = DatabaseService.getDestinations('DSR');                                     
                   }
                                              );
                   $scope.DB=DatabaseService.getDB;
                   
                   $scope.tripselect= function(trip) {
+                    console.log("trip select");
                     $scope.currenttrip=trip;
-                    $scope.destinations = DatabaseService.getDestinations('DSR');                 
                     DatabaseService.getTripMembers(trip.id,function (res) {
                       $scope.tripmembers=res.data;
+                      if ($scope.correction) {
+                        $scope.start_correct();
+                      }                      
                     });
-                    if ($scope.correction) {
-                      $scope.start_correct();
-                    }
                   }
                   
                   $scope.updateRowerTrips = function(item) {
@@ -68,6 +68,7 @@ app.controller('RowerCtrl',
                   }
                   
                   $scope.updatecorrect = function () {
+                    console.log("upd correct");
                     $scope.correction.rowers=[];
                     for (var i=0; $scope.correction.boattype && i< $scope.correction.boattype.seatcount;i++) {
                       if (i< $scope.tripmembers.length) {
