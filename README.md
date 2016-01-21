@@ -101,6 +101,7 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 ### BUGS
 
+* forkerte roere i fejlmelding til tur
 # Database issues.
 
 can be done manually when we move to the new system.
@@ -113,6 +114,7 @@ can be done manually when we move to the new system.
 
 * klarmeld skader ved checkout
 * Opret roer: kanin/gæst
+* Meld sletning af tur
 
 * Kovertering af kanin/midlertidig roer
 
