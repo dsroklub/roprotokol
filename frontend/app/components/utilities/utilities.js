@@ -101,13 +101,13 @@ angular.module('myApp.utilities.rightreqs', []).filter('rightreqs', function () 
 angular.module('myApp.utilities.subjecttodk', []).filter('subjecttodk', function () {
   return function (sb) {
     var r=subject2dk[sb];
-    return r==""?sb:r;
+    return r?r:sb;
   };
 });
 angular.module('myApp.utilities.righttodk', []).filter('righttodk', function () {
   return function (sb) {
     var r=right2dk[sb];
-    return (r?sb:r);
+    return (r?r:sb);
   };
 });
 

@@ -50,6 +50,13 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('create_boattype',bt);
             }
 
+            $scope.set_duration = function(destination,loc) {
+              var exeres=DatabaseService.updateDB('set_duration',destination);
+            }
+            $scope.set_distance = function(destination,loc) {
+              var exeres=DatabaseService.updateDB('set_distance',destination);
+            }
+
             $scope.set_cat_for_boat = function(boat) {
               var exeres=DatabaseService.updateDB('set_cat_for_boat',boat);
             }
