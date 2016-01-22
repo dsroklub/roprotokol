@@ -134,7 +134,7 @@
         </tr>	
       </thead>
       <tbody>
-        <tr ng-repeat="tt in DB('triptypes')">
+        <tr ng-repeat="tt in DB('triptypes')" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	  <td >{{tt.name}}</td>
 	  <td >{{tt.description}}</td>
 	  <td><button class="action" ng-click="dotriprights(tt.rights,tt)">{{tt.rights|rightreqs}}</button></td>
@@ -150,7 +150,7 @@
       <tr><th>Rettighed</th><th>kræves af</th><th> </th></tr>	
     </thead>
     <tbody>
-      <tr ng-repeat="(rt,subject) in requiredtriprights">
+      <tr ng-repeat="(rt,subject) in requiredtriprights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	<td>{{rt| righttodk }}</td>	  
 	<td> <select ng-model="subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{subject}}</select></td>
         <td><button class="action" ng-click="remove_triptype_requirement(rt)">Fjern krav</button></td>
@@ -175,7 +175,7 @@
       </tr>	
     </thead>
     <tbody>
-      <tr ng-repeat="ds in DB('destinations').DSR">
+      <tr ng-repeat="ds in DB('destinations').DSR" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	<td >{{ds.name}}</td>
 	<td><input ng-change="set_distance(ds)" type="number" step="0.5" ng-model="ds.distance" transformkm></td>
 	<td><input ng-change="set_duration(ds)" type="number" step="0.25" ng-model="ds.duration"></td>
@@ -192,7 +192,7 @@
       </tr>	
     </thead>
     <tbody>
-      <tr ng-repeat="ds in DB('destinations').Nordhavn">
+      <tr ng-repeat="ds in DB('destinations').Nordhavn" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	<td >{{ds.name}}</td>
 	  <td><input ng-change="set_distance(ds)" type="number" step="0.5" ng-model="ds.distance" transformkm></td>
 	  <td><input ng-change="set_duration(ds)" type="number" step="0.25" ng-model="ds.duration"></td>
@@ -222,15 +222,16 @@
           <tr> <th>Rettighed</th><th></th> </tr>	
         </thead>
         <tbody>
-	  <tr ng-repeat="(rt,dt) in currentrower.rights">
+	  <tr ng-repeat="(rt,dt) in currentrower.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
             <td>{{rt |righttodk}}</td><td><button class="big" ng-click="remove_rower_right(currentrower,rt)">inddrag rettighed</button></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <label for="rower.newright">Tildel ny rettighed til {{currentrower.name}}</label>
+    <div ng-show="currentrower.id">
+    <label  for="rower.newright">Tildel ny rettighed til {{currentrower.name}}</label><br>
     <select  ng-change="add_rower_right(rower.newright,currentrower)" ng-model="rower.newright" ng-options="rower.description for rower in DB('memberrighttypes')"></select>
-    
+    </div>
   </div>
 </div>
 
