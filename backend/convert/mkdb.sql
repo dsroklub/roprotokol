@@ -1,11 +1,4 @@
 --#!/usr/bin/mysql -u root -p --password=xxx roprotokol
-
-DROP DATABASE IF EXISTS roprotokol;
-
-CREATE DATABASE IF NOT EXISTS roprotokol;
-use roprotokol;
-
-
 CREATE TABLE IF NOT EXISTS Locations (
        name VARCHAR(30) PRIMARY KEY,
        description VARCHAR(100) 

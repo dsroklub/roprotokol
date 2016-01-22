@@ -12,7 +12,7 @@ if (isset($_GET["season"])) {
     $season=$_GET["season"];
 } else {
 //  $season=date('Y');
-    $season=2014;
+    $season=2015;
 }
 
 require_once("db.php");
