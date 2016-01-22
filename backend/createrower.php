@@ -7,49 +7,43 @@ $data = file_get_contents("php://input");
 $rower=json_decode($data);
 $message="rower  ".json_encode($rower);
 $error=null;
+error_log('createrower '.json_encode($rower));
 
 $rodb->begin_transaction();
-
-if ($stmt = $rodb->prepare("INSERT INTO Member (FirstName, LastName, Created VALUES (?,?,NOW())" )) { 
-    $stmt->bind_param('ss', $rower->first,$rower->last);
-  $stmt->execute();
-  $result= $stmt->get_result();
-  if ($result->fetch_assoc()) {
-      $res["status"]="error";
-      $error="already on water";
-#      $message='create trip failed, already on water: '. json_encode($newtrip,true);
-      error_log($error);
-  }
+$prefix="k";
+if ($rower->type == "guest") {
+    $prefix="g";
 }
-error_log("udskriv ".$newtrip->boat->name);
 
-if (!$error) {
-    if ($stmt = $rodb->prepare("INSERT INTO Trip(Season,BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter) VALUES(?,?,?,?,NOW(),NOW(),?,?,?)")) { 
-        $stmt->bind_param('iisissi', $season, $newtrip->boat->id , $newtrip->destination->name, $newtrip->triptype->id, $newtrip->starttime, $newtrip->expectedtime,$newtrip->distance);
-        error_log('now EXE '. json_encode($newtrip));
-        if (!$stmt->execute()) {
-            $error=mysqli_error($rodb);
-            $message=$message."\n"."create trip insert error";
-        }
-    } 
-    error_log("\n\nnow all rowers ".json_encode($newtrip->rowers));
-    
-    if ($stmt = $rodb->prepare("INSERT INTO TripMember(TripID,Season,Seat,member_id,MemberName,CreatedDate,EditDate) ".
-    "SELECT LAST_INSERT_ID(),?,?,Member.id,?,NOW(),NOW() FROM Member Where MemberID=?"
-    )) {
-        $seat=1;
-        error_log("ROWERS");
-        foreach ($newtrip->rowers as $rower) {
-            error_log("SEAT".$seat);
-            error_log("DO trip mb ".$rower->name);
-            $stmt->bind_param('issi',$season,$seat,$rower->name,$rower->id);
-            $stmt->execute();
-            $seat+=1;
-        }
+$findcurrent="SELECT Mid(MemberID,2,5) AS tid FROM Member WHERE (Member.MemberID LIKE '".$prefix."%') GROUP BY Mid(MemberID,2,5) ORDER BY Mid(MemberID,2,5) DESC LIMIT 1";
+
+$maxid="0001";
+
+if ($stmt = $rodb->prepare($findcurrent)) {
+    $stmt->execute();
+    $result= $stmt->get_result();
+    if ($maxk=$result->fetch_assoc()) {
+        $kx=intval($maxk["tid"])+1;
+        error_log("found tmp rower mx".$kx);
+        $maxid=sprintf('%04d', $kx);
     } else {
-        error_log("OOOPs2".$rodb->error);
-        $error="trim member DB error".mysqli_error($rodb);
+        error_log("no tmp rower found, is this the first?");
     }
+} else {
+    error_log($rodb->error);
+}
+
+
+$newid=$prefix.$maxid;
+
+error_log("new id:".$newid);
+
+if ($stmt = $rodb->prepare("INSERT INTO Member (MemberID,FirstName, LastName, Created) VALUES (?,?,?,NOW())" )) { 
+    $stmt->bind_param('sss', $newid,$rower->firstName,$rower->lastName);
+    error_log("INSERT");
+    $stmt->execute() |  error_log($rodb->error);
+} else {
+    error_log("ERROR in INSERT ".$rodb->error);
 }
 
 if ($error) {
@@ -59,11 +53,14 @@ if ($error) {
     $res['error']=$error;
     $rodb->rollback();
 } else {
-$rodb->commit();
+    $rodb->commit();
 }
 
+$res['id']=$newid;
+$res['name']=($rower->firstName." ".$rower->lastName);
 $res['message']=$message;
-invalidate("trip");
+$res['search']=$newid." ".$res['name'];
+invalidate("member");
 $rodb->close();
 echo json_encode($res);
 ?> 

@@ -265,12 +265,21 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
   }
   $scope.boatcat2dk=DatabaseService.boatcat2dk;
     
-  $scope.createRower = function (rowers, index) {
-      var rower = DatabaseService.createRowerByName($scope.rowers[index]);
-      if(rower) {
-        rowers[index] = rower;
+  $scope.createRower = function (rowers, index,temptype) {
+    var tmpnames=rowers[index].trim().split(" ");
+    var last=tmpnames.splice(-1,2)[0];
+    var first=tmpnames.join(" ");
+    var rowerreq={
+      "firstName":first,
+      "lastName":last,
+      "type":temptype
+    }
+    var rower = DatabaseService.updateDB_async('createrower',rowerreq).then(
+      function(rower) {
+        $scope.checkout.rowers[index] = rower;
       }
-    };  
+    );
+  };  
   
   $scope.closetrip = function (boat,index,km) {
     var data={"boat":boat};
