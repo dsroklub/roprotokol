@@ -66,16 +66,6 @@ Kør
 i roden
 
 
-# Noter om ASP til PHP konvertering
-
-Migrering til MySQL and PHP består af følgende opgaver.
-
-* Lave et MySQL skema
-* Flytte data fra MS Access til Mysql Databasen
-
-Begge dele er overstået.
-Der er genereret PHP ud fra ASP-koden, men det benyttes ikke og er kun vedlagt som reference. I stedet er der skrevet et nyt system i Angular med en simpel backend i PHP. 
-
 ##SQL skema
 
 Nyt skema er i backend/convert/mkdb.sql
@@ -101,7 +91,6 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 ### BUGS
 
-* forkerte roere i fejlmelding til tur
 # Database issues.
 
 can be done manually when we move to the new system.
@@ -114,7 +103,6 @@ can be done manually when we move to the new system.
 
 * klarmeld skader ved checkout
 * Opret roer: kanin/gæst
-* Meld sletning af tur
 
 * Kovertering af kanin/midlertidig roer
 
@@ -142,7 +130,6 @@ can be done manually when we move to the new system.
 * Updatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
 * Do form validation: http://stackoverflow.com/questions/27224661/angularjs-validation-for-ui-select-multiple
 
-* Show wrench next to name in checkout view
 
 
 ### Terminaler
