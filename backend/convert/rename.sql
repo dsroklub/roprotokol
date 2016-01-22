@@ -15,7 +15,7 @@ RENAME TABLE TurType TO TripType;
 
 
 ALTER TABLE Member CHANGE MedlemID id INT AUTO_INCREMENT;
-ALTER TABLE Member CHANGE Medlemsnr MemberID INT;
+ALTER TABLE Member CHANGE Medlemsnr MemberID VARCHAR(10);
 
 ALTER TABLE Member CHANGE Fornavn FirstName VARCHAR(100);
 ALTER TABLE Member CHANGE Efternavn LastName VARCHAR(100);
