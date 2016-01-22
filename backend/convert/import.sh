@@ -52,8 +52,12 @@ for tb in Location Båd Bådindstilling BådKategori Gruppe Kajak_typer Postnr R
     $DBCMD < $SCRIPT_PATH/$DATADIR/$tb.sql
 done
 echo do trip rights
-    $DBCMD < $SCRIPT_PATH/TripRights.sql
+$DBCMD < $SCRIPT_PATH/TripRights.sql
 
+$DBCMD < $SCRIPT_PATH/TripRights.sql
+$DBCMD < $SCRIPT_PATH/BoatRights.sql
+$DBCMD < $SCRIPT_PATH/memberrighttype.sql
+$DBCMD < $SCRIPT_PATH/Location.sql
 if [[ $datatype = "fake" ]]; then
     echo "Generating fake data..."
     $DBCMD < $SCRIPT_PATH/rename.sql
@@ -99,10 +103,6 @@ elif [[ $datatype = "real" ]]; then
     echo "renaming"
     $DBCMD < $SCRIPT_PATH/rename.sql
 
-    $DBCMD < $SCRIPT_PATH/TripRights.sql
-    $DBCMD < $SCRIPT_PATH/BoatRights.sql
-    $DBCMD < $SCRIPT_PATH/memberrighttype.sql
-    $DBCMD < $SCRIPT_PATH/Location.sql
 elif [[ $datatype = "empty" ]]; then
     echo no rower data
 else
