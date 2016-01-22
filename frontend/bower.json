@@ -22,7 +22,8 @@
     "angular-momentjs": "~0.2.2",
     "moment": "~2.11.0",
     "angular-bootstrap-datetimepicker": "~0.4.0",
-    "angular-ui-bootstrap-datetimepicker": "~0.14.4"
+    "angular-ui-bootstrap-datetimepicker": "~0.14.4",
+    "angular-confirm-modal": "~1.2.2"
   },
   "resolutions": {
     "angular": ">=1.4.x"
