@@ -137,7 +137,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	  var sq=$q.defer();
 	  promises.push(sq.promise);
 	  // FIXME for test purposes
-	  var farg="?season=2014";
+	  //var farg="?season=2014";
+          var farg="?old=2014";
 	  if (bt != "any") {
 	    farg+='&boattype='+bt;
 	  }      
@@ -158,7 +159,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	  var sq=$q.defer();
 	  promises.push(sq.promise);
 	  // FIXME for test purposes
-	  var farg="?season=2014";
+	  var farg="?seasonx=2014";
 	  if (bt != "any") {
 	    farg+='&boattype='+bt;
 	  }      
