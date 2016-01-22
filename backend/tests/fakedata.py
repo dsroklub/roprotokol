@@ -8,6 +8,8 @@ import sys
 
 numrowers=1000
 
+rodb=sys.argv[1]
+print "using db: "+rodb
 
 random.seed(42)
 # Password is read from file sectret.db
@@ -17,9 +19,9 @@ print "checking db pw file "+pwfile
 if os.path.exists(pwfile):
     dbpw=(open(pwfile).readlines()[0]).strip()
     print "using PASSWORD #"+dbpw+"#" 
-    db= MySQLdb.connect(host="localhost",  user="roprotokol", passwd=dbpw,charset='utf8', db="roprotokol")
+    db= MySQLdb.connect(host="localhost",  user="roprotokol", passwd=dbpw,charset='utf8', db=rodb)
 else:
-    db= MySQLdb.connect(host="localhost",  user="roprotokol", charset='utf8', db="roprotokol")
+    db= MySQLdb.connect(host="localhost",  user="roprotokol", charset='utf8', db=rodb)
 
 cur = db.cursor() 
 
@@ -48,25 +50,27 @@ for fid in range(1, 1000) :
         mid='k'+str(fid)
     cur.execute("INSERT INTO Member (id, MemberID, FirstName, LastName) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
     if (rndrights>15):
-        print "INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2015-12-24","");'
-        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2014-12-24","");')
+        print "INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2015-12-24","");'
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2014-12-24","");')
     if (rndrights>50):
-        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"cox","2014-12-24","");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"cox","2014-12-24","");')
+    if (rndrights>133):
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"wrench","2014-12-24","");')
     if (rndrights>77):
-        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"longdistance","2014-12-24","");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"longdistance","2014-12-24","");')
     if (rndrights>85):
-        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","row");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","row");')
     rndrights=random.randrange(0, 100)
     if (rndrights>90):
-        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","sculler");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","sculler");')
     if (rndrights>92):
-        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","kajak");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","kajak");')
     if (rndrights>92):
-        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","svava");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","svava");')
     if (rndrights>20):
-        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"competition","2014-12-24","");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"competition","2014-12-24","");')
     if (rndrights>90):
-        cur.execute("INSERT INTO MemberRights (MemberID,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"notes","2014-12-24","der er noget lumsk med ham");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"notes","2014-12-24","der er noget lumsk med ham");')
         
     m[fid]=fname+' A. '+lname
     cur.execute("SELECT Boat.id, Seatcount FROM Boat,BoatType Where BoatType.id=Boat.BoatType;")
@@ -84,7 +88,7 @@ for tid in range(1, 4000):
     pladser=int(boat[1])
     destination=random.randrange(1, 19)
     triptype=random.randrange(1, 12)
-    q="INSERT INTO Trip (id, Season, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, intime) VALUES ("+str(tid)+',2015,'+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+',"2015-05-14 02:02:03", '+str(intime)+')';
+    q="INSERT INTO Trip (id, Season, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, intime) VALUES ("+str(tid)+',2015,'+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+',"2016-01-14 02:02:03", '+str(intime)+')';
     print q
     cur.execute(q);
     for d in range(0,pladser):
