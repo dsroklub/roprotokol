@@ -13,7 +13,7 @@ if (isset($closedtrip->boat->corrected_distance)) {
     $distance=$closedtrip->boat->corrected_distance;
 }
 
-$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+$rodb->begin_transaction();
  error_log("close trip ". $closedtrip->boat->trip);
 
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE id=? AND InTime IS NULL")) { 

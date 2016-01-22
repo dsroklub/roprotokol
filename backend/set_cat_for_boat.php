@@ -7,7 +7,7 @@ $data = file_get_contents("php://input");
 $data=json_decode($data);
 
 $location = $data->location;
-$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+$rodb->begin_transaction();
 error_log("set cat ".json_encode($data));
 error_log("set cat for ". $data->category." -- ".$data->id);
 

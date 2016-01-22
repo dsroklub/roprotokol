@@ -9,7 +9,7 @@ $correction=json_decode($data);
 error_log('new correction '. json_encode($correction));
 
 
-$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+$rodb->begin_transaction();
 
 if ($correction->deleterequest) {
     if ($stmt = $rodb->prepare("INSERT INTO Error_Trip(Trip,DeleteTrip,CreatedDate,Reporter) VALUES(?,1,NOW(),?")) {

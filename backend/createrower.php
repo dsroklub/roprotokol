@@ -8,7 +8,7 @@ $rower=json_decode($data);
 $message="rower  ".json_encode($rower);
 $error=null;
 
-$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+$rodb->begin_transaction();
 
 if ($stmt = $rodb->prepare("INSERT INTO Member (FirstName, LastName, Created VALUES (?,?,NOW())" )) { 
     $stmt->bind_param('ss', $rower->first,$rower->last);

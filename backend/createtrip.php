@@ -10,7 +10,7 @@ $newtrip=json_decode($data);
 $message="createtrip  ".json_encode($newtrip);
 $error=null;
 
-$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+$rodb->begin_transaction();
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) { 
   $stmt->bind_param('i', $newtrip->boat->id);
   $stmt->execute();

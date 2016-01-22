@@ -7,7 +7,7 @@ $data = file_get_contents("php://input");
 $data=json_decode($data);
 
 $location = $data->location;
-$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+$rodb->begin_transaction();
 error_log("new bt ".json_encode($data));
 
 if ($stmt = $rodb->prepare("INSERT INTO BoatType (Name,SeatCount, Category,Created) ".

@@ -6,8 +6,7 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
 
-
-$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+$rodb->begin_transaction();
 error_log('remove right '.json_encode($data));
 
 if ($stmt = $rodb->prepare("DELETE FROM BoatRights WHERE boat_type=? AND required_right=?")) {

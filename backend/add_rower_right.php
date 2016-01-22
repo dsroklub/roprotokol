@@ -7,7 +7,7 @@ $data = file_get_contents("php://input");
 $data=json_decode($data);
 
 
-$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+$rodb->begin_transaction();
 error_log('add rower right right '.json_encode($data));
 
 error_log('id='.$data->rower->id);
