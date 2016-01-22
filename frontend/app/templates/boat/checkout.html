@@ -9,6 +9,7 @@
     <h2>Vælg bådtype</h2>
     <ul>
       <li ng-repeat="boatcategory in boatcategories" ng-class="{selected: boatcategory == selectedBoatCategory}"  ng-click="do_boat_category(boatcategory)">{{boatcategory.name}}</li>
+      <li ng-click="selectedBoatCategory=null">Alle Bådtyper</li>
     </ul>
   </div>
   
@@ -20,8 +21,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="boat in selectedboats" ng-class="{selected: boat == checkout.boat}" ng-if="!boat.trip">
-          <td ><div ng-click="checkoutBoat(boat)">
+        <tr ng-click="checkoutBoat(boat)" ng-repeat="boat in selectedboats" ng-class="{selected: boat == checkout.boat}" ng-if="!boat.trip">
+          <td ><div >
 	      {{boat.name}}
 	    </div>
 	  </td>

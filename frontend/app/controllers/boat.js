@@ -134,7 +134,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 
     $scope.matchBoatId = function(boat) {
     return function(matchboat) {
-      return (boat==null || matchboat===boat);
+      return ((boat==null || matchboat===boat) &&matchboat.trip && (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
     }
   };
 

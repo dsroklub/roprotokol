@@ -6,7 +6,7 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
 
-$rodb->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+$rodb->begin_transaction(); # MYSQLI_TRANS_START_READ_WRITE
 error_log("new boat ".json_encode($data));
 
 if ($stmt = $rodb->prepare("INSERT INTO Boat (Name,BoatType,Location,Created) ".

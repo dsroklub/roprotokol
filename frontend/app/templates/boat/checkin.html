@@ -10,7 +10,8 @@
 <div class="boattypesmenu" style="float:left">
     <h2>Vælg bådtype</h2>
     <ul>
-      <li ng-repeat="boatcategory in boatcategories" ng-click="selectBoatCategory(boatcategory)">{{boatcategory.name}}</li>
+      <li ng-repeat="boatcategory in boatcategories" "{selected: boatcategory == selectedBoatCategory}" ng-click="selectBoatCategory(boatcategory)">{{boatcategory.name}}</li>
+      <li ng-click="selectedBoatCategory=null">Alle bådtyper</li>
     </ul>   
   </div>
   <div>
@@ -31,8 +32,8 @@
       </thead>
       <tbody>
         <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat)" ng-model="item"
-	    ng-class="{selected: boat == selectedboat}" ng-show="boat.trip && (!selectedBoatCategory || selectedBoatCategory.name==boat.category)"
-	    >
+	    ng-class="{selected: boat == selectedboat}" 
+	    ng-class-odd="'oddstat'" >
           <td ><div>
 	      {{boat.name}}
 	    </div>

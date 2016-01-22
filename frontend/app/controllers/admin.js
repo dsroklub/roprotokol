@@ -48,6 +48,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.create_boattype = function(bt) {
               console.log("net boattype");
               var exeres=DatabaseService.updateDB('create_boattype',bt);
+              $scope.DB('boattypes').push(bt);
             }
 
             $scope.set_duration = function(destination,loc) {
@@ -69,6 +70,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             }
             $scope.create_boat = function(boat) {
               var exeres=DatabaseService.updateDB('create_boat',boat);
+              $scope.allboats.push(boat);
             }
 
 
