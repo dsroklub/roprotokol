@@ -13,3 +13,4 @@ UPDATE TripRights SET required_right='outrigger_instructor' where required_right
 UPDATE Destination SET Location="Nordhavn" WHERE Location="Forpost";
 
 ALTER TABLE BoatType CHANGE Name Name varchar(100) NOT NULL UNIQUE;
+ALTER TABLE Member CHANGE MemberID MemberID VARCHAR(10) NOT NULL;

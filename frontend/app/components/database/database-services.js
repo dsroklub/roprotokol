@@ -358,7 +358,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return result;
   };
   
-  this.createRowerByName = function(name) {
+  this.createRowerByName = function(rowereq) {
     // TODO: implement
     var first;
     var last;
