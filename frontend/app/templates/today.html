@@ -4,8 +4,8 @@
     <thead>
       <tr><th>Båd</th><th>Tur start</th><th>Forventet inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th></tr>
     </thead>
-    <tr ng-repeat="tw in onwater">
-      <td>{{tw.boat}}</td><td>{{tw.outtime | txttotime | date :"HH:mm d. MMM"}}</td><td>{{tw.expectedintime | txttotime | date :"HH:mm d. MMM"}}</td><td>{{tw.destination}}</td><td>{{tw.id}}</td><td>{{tw.triptype}}</td>
+    <tr ng-repeat="tw in onwater" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" >
+      <td >{{tw.boat}}</td><td>{{tw.outtime | txttotime | date :"HH:mm d. MMM"}}</td><td>{{tw.expectedintime | txttotime | date :"HH:mm d. MMM"}}</td><td>{{tw.destination}}</td><td>{{tw.id}}</td><td>{{tw.triptype}}</td>
     </tr>
   </table>
 
@@ -14,7 +14,7 @@
     <thead>
       <tr><th>Båd</th><th>Tur start</th><th>Inde</th><th>Destination</th><th>Tur ID</th><th>turtype</th><th>roere</th></tr>
     </thead>
-    <tr ng-repeat="tt in tripstoday">
+    <tr ng-repeat="tt in tripstoday" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" >
       <td>{{tt.boat}}</td><td>{{tt.outtime | txttotime | date :"HH:mm"}}</td>
       <td>{{tt.intime  | txttotime | date :"HH:mm d. MMM"}}</td>
       <td>{{tt.destination}}</td><td>{{tt.id}}</td><td>{{tt.triptype}}</td>

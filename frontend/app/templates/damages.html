@@ -38,9 +38,9 @@
   <thead>
     <tr><th>Båd</th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>Klarmeld</th></tr>
   </thead>
-  <tr ng-repeat="bd in allboatdamages | filter: matchBoat(selectedboat)">
+  <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="bd in allboatdamages | filter: matchBoat(selectedboat)">
     <td>{{bd.boat}}</td><td>{{bd.ResponsibleMember}}</td><td>{{bd.created}}</td><td>{{bd.level}}</td><td>{{bd.description}}</td>
-    <td ng-click="reportFixDamage(bd,allboatdamages,$index)">klarmeld</td>
+    <td ng-click="reportFixDamage(bd,allboatdamages,$index)"><button class="klar">klarmeld</button></td>
   </tr>
 </table>
 <pre>sboat = {{selectedboat | json}}</pre>

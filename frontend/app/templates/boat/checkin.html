@@ -33,7 +33,7 @@
       <tbody>
         <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat)" ng-model="item"
 	    ng-class="{selected: boat == selectedboat}" 
-	    ng-class-odd="'oddstat'" >
+	    ng-class-odd="'oddboat'" ng-class-even="'evenboat'" >
           <td ><div>
 	      {{boat.name}}
 	    </div>
@@ -47,11 +47,11 @@
 	  </td>
 	  <td>{{boat.destination}}</td>
 	  <td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
-	  <td>
-	    <input autocomplete="off" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" type="text" transformkm name="kminput" ></input>
+	  <td class="colinput">
+	    <input  autocomplete="off" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" type="text" transformkm name="kminput" ></input>
 	    <!-- transformkm-->
 	  </td>
-	  <td><button ng-click="closetrip(boat,$index,item.km)"/>Indskriv</td>	  
+	  <td class="colinput"><button ng-click="closetrip(boat,$index,item.km)" class="klar"/>Indskriv</td>	  
         </tr>
       </tbody>
     </table>

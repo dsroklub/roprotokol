@@ -55,6 +55,16 @@ button.green {
     border: 1px solid #3ECBBF;
     color: #3ECBBF;
 }
+button.klar {   
+    border: 1px solid #3ECBBF;
+    color: #000000;
+    background:#F1FFEF;
+    padding: 1pt 3pt;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+}
+
+
 button.yellow {
     color: #f0ce4e;
     border: 1px solid #f0ce4e;
@@ -304,11 +314,11 @@ boatlist thead th:last-child {
     padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
-    background: white;
 }
 
 .rnum {
-     text-align: right!important;
+    text-align: right!important;
+    padding-right: 6px;
 }
 
 .selected td {
@@ -323,6 +333,10 @@ boatlist thead th:last-child {
     display:block;
     height:100%;
     width:100%;
+}
+
+.boatlist tr td.colinput {
+    text-align:center;
 }
 
 .deletion  {
@@ -408,6 +422,14 @@ boatlist thead th:last-child {
 .oddstat {
     background: #FFAA88;
 }
+.oddboat {
+    background: #E8F2F3;
+}
+
+.evenboat {
+    background: #FDF8F6;
+}
+
 
 .stattypesmenu h2 {
     background: #23aee2;
