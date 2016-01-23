@@ -188,6 +188,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     };
     
   $scope.reportFixDamage = function (bd,damagelist,ix) {
+    // FIXME, reporter should be an argument so that it works when calling from checkout is implementerd
     if ($scope.damages && $scope.damages.reporter && bd) {
       var data={
         "damage":bd,
@@ -204,6 +205,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         $scope.damagesnewstatus="Database fejl under klarmelding";
       }
     } else {
+      // FIXME, this does not work when calling from checkout is implementerd
       $scope.damagesnewstatus="du skal angive, hvem du er";
     }
   };

@@ -1,62 +1,61 @@
 <div class="big">{{checkinmessage}}</div>
 
-    <div class="boattypesmenu">
-    <h2>Vælg båd</h2>
-<label for="select_boat">Båd</label>
+<div class="boatselection">
+  <h2>Vælg båd</h2>
+  <label for="select_boat">Båd</label>
   <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
 </div>
 
 
 <div class="boattypesmenu" style="float:left">
-    <h2>Vælg bådtype</h2>
-    <ul>
-      <li ng-repeat="boatcategory in boatcategories" "{selected: boatcategory == selectedBoatCategory}" ng-click="selectBoatCategory(boatcategory)">{{boatcategory.name}}</li>
-      <li ng-click="selectedBoatCategory=null">Alle bådtyper</li>
-    </ul>   
-  </div>
-  <div>
+  <h2>Vælg bådtype</h2>
+  <ul>
+    <li ng-repeat="boatcategory in boatcategories" "{selected: boatcategory == selectedBoatCategory}" ng-click="selectBoatCategory(boatcategory)">{{boatcategory.name}}</li>
+    <li ng-click="selectedBoatCategory=null">Alle bådtyper</li>
+  </ul>   
+</div>
 
-  <script type="text/ng-template" id="boatTemplate.html">
+<script type="text/ng-template" id="boatTemplate.html">
   <a>
-  <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
-  {{match.model.name}} <i>({{match.model.category}})</i>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.category}})</i>
   </a>
-  </script>
+</script>
 
 <div class="boatlist">
-    <table class="boatlist" style="float:right">
-      <thead>
-        <tr>
-          <th>Båd</th><th>Kategori</th><th>Placering</th><th>Status</th><th>Destination</th><th class="rnum">distance</th><th>Korr. distance</th><th>Check Ind</th>
+  <table class="boatlist" style="float:right">
+    <thead>
+      <tr>
+        <th>Båd</th><th>Kategori</th><th>Placering</th><th>Status</th><th>Destination</th><th class="rnum">distance</th><th>Korr. distance</th><th>Check Ind</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat)" ng-model="item"
+	  ng-class="{selected: boat == selectedboat}" 
+	  ng-class-odd="'oddboat'" ng-class-even="'evenboat'" >
+        <td ><div>
+	    {{boat.name}}
+	  </div>
+	</td>
+	<td>{{boat.category}}</td>
+        <td>{{boat.location|nodsr}} {{boat.placement}}</td>
+        <td ng-click="damagesForBoat=boat">
+          <span ng-show="{{boat.damage==3}}">Svært skadet</span>
+          <span ng-show="{{boat.damage==2}}">Middel skadet</span>
+          <span ng-show="{{boat.damage==1}}">Let skadet</span>
+	</td>
+	<td>{{boat.destination}}</td>
+	<td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
+	<td class="colinput">
+	  <input  autocomplete="off" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" type="text" transformkm name="kminput" ></input>
+	  <!-- transformkm-->
+	</td>
+	<td class="colinput"><button ng-click="closetrip(boat,$index,item.km)" class="klar"/>Indskriv</td>	  
         </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat)" ng-model="item"
-	    ng-class="{selected: boat == selectedboat}" 
-	    ng-class-odd="'oddboat'" ng-class-even="'evenboat'" >
-          <td ><div>
-	      {{boat.name}}
-	    </div>
-	  </td>
-	  <td>{{boat.category}}</td>
-          <td>{{boat.location|nodsr}} {{boat.placement}}</td>
-          <td ng-click="damagesForBoat=boat">
-            <span ng-show="{{boat.damage==3}}">Svært skadet</span>
-            <span ng-show="{{boat.damage==2}}">Middel skadet</span>
-            <span ng-show="{{boat.damage==1}}">Let skadet</span>
-	  </td>
-	  <td>{{boat.destination}}</td>
-	  <td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
-	  <td class="colinput">
-	    <input  autocomplete="off" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" type="text" transformkm name="kminput" ></input>
-	    <!-- transformkm-->
-	  </td>
-	  <td class="colinput"><button ng-click="closetrip(boat,$index,item.km)" class="klar"/>Indskriv</td>	  
-        </tr>
-      </tbody>
-    </table>
-  </div>
-<pre>allboats = {{allboats | json}}</pre>
+    </tbody>
+  </table>
+</div>
+<!--pre>allboats = {{allboats | json}}</pre>
 <pre>selectedboat = {{selectedboat | json}}</pre>
 <pre>checkin = {{checkin | json}}</pre>
-<pre>selectedBoatCategory = {{selectedBoatCategory | json}}</pre>
+<pre>selectedBoatCategory = {{selectedBoatCategory | json}}</pre-->

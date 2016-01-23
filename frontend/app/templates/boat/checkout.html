@@ -9,7 +9,7 @@
     <h2>bådtype</h2>
     <ul>
       <li ng-repeat="boatcategory in boatcategories" ng-class="{selected: boatcategory == selectedBoatCategory}"  ng-click="do_boat_category(boatcategory)">{{boatcategory.name}}</li>
-      <li ng-click="selectedBoatCategory=null">Alle Bådtyper</li>
+      <!--li ng-click="selectedBoatCategory=null">Alle Bådtyper</li FIXME requires that we iterator over allboats and filter instead of using categories-->
     </ul>
   </div>
   
@@ -146,7 +146,7 @@
     <h2>Skader på {{checkout.boat.name}}</h2>
     <ul>
         <li ng-repeat="damage in boatdamages">
-            <button class="green" ng-click="reportFixDamage(damage,boatdamages,$index)" class="fa fa-check">Klarmeld</button>
+            <!--button class="green" ng-click="reportFixDamage(damage,boatdamages,$index)" class="fa fa-check">Klarmeld</button-->
             {{damage.description}}
         </li>
     </ul>   
