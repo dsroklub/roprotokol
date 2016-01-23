@@ -142,8 +142,7 @@
     </form>
   </div>
 </div>
-
-<div ng-if="boatdamages" class="damageslist">
+<div ng-show="boatdamages" class="damageslist">
     <h2>Skader på {{checkout.boat.name}}</h2>
     <ul>
         <li ng-repeat="damage in boatdamages">

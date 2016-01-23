@@ -290,7 +290,7 @@ table caption {
 }
 
 li.selected {
-    background: #ff0066;
+    background: #EBA5C1;
 }
 
 .listmenu,.boattypesmenu ul li:hover {
@@ -357,7 +357,7 @@ boatlist thead th:last-child {
     padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
-    background: #ff0066;
+    background: #EBA5C1;
 }
 
 .boatlist tr td a {
@@ -429,8 +429,8 @@ boatlist thead th:last-child {
 .checkout-form .quickdate,
 .checkout-form .dropdown,
 .checkout-form textarea {
-    margin-right: 10pt;
-    margin-left: 10pt;
+    margin-right: 2pt;
+    margin-left: 0pt;
 }
     
 .damageslist h2 {
@@ -446,9 +446,8 @@ boatlist thead th:last-child {
     background: white;
     padding: 10pt;
 }
-.damageslist h3 {
-    font-size: 14pt;
-    margin-bottom: 4pt;
+.damageslist {
+    display: inline-block;
 }
 
 .oddstat {
@@ -459,7 +458,7 @@ boatlist thead th:last-child {
 }
 
 .evenboat {
-    background: #FDF8F6;
+    background: DBC4BB;
 }
 
 
