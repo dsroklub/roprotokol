@@ -88,13 +88,13 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.remove_boattype_requirement = function(rt,ix) {
               var data={boattype:$scope.currentboattype,'right':rt};
               var exeres=DatabaseService.updateDB('remove_boattype_right',data);
-              delete $scope.requiredrights[rt];
+              delete $scope.requiredboatrights[rt];
 
             }
 
             $scope.add_boattype_requirement = function(data) {
               data.boattype=$scope.currentboattype;
-              $scope.requiredrights[data.right]=data.subject;
+              $scope.requiredboatrights[data.right]=data.subject;
               var exeres=DatabaseService.updateDB('add_boattype_req',data);
             }
 
@@ -124,11 +124,19 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.rightsubjects=['cox','all','any','none'];
 
             $scope.doboatrights = function (rr,bt){
-              $scope.requiredrights=rr;
+              if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
+                $scope.requiredboatrights={};
+              } else {
+                $scope.requiredboatrights=rr;
+              }
               $scope.currentboattype=bt;
             }
             $scope.dotriprights = function (rr,tt){
-              $scope.requiredtriprights=rr;
+              if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
+                $scope.requiredtriprights={};
+              } else {
+               $scope.requiredtriprights=rr;
+              }
               $scope.currenttriptype=tt;
             }
 

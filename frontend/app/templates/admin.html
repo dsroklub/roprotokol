@@ -1,10 +1,10 @@
-  <oauth
+<div class="oauth">  <oauth
     site="/backend/auth.php"
     client-id="d6d2b510d18471d2e22aa202216e86c42beac80f9a6ac2da505dcb79c7b2fd99"
     redirect-uri="/frontend/app/real.html"
     scope="public">
   </oauth>
-
+</div>
 <div class="menuholder">
   <button ng-click="do='boat'">Både</button>
   <button ng-click="do='user'">Roere</button>
@@ -22,7 +22,7 @@
         </tr>	
       </thead>
       <tbody>
-        <tr ng-repeat="bt in DB('boattypes')">
+        <tr ng-repeat="bt in boatcategories">
 	  <td >{{bt.name}}</td>
 	  <td >{{bt.seatcount}}</td>
 	  <td ><select  ng-change="setboatkayak(bt)" ng-model="bt.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
@@ -61,7 +61,7 @@
       <tr><th>Rettighed</th><th>kræves af</th><th></th></tr>	
     </thead>
     <tbody>
-      <tr ng-repeat="(rt,subject) in requiredrights">
+      <tr ng-repeat="(rt,subject) in requiredboatrights">
 	<td>{{rt|righttodk}}</td>	  
 	<td> <select ng-model="subject" ng-options="rt  as rt|subjecttodk for rt in rightsubjects">{{subject}}</select></td>
         <td><button class="action" ng-click="remove_boattype_requirement(rt,$index)">Fjern krav</button></td>
@@ -265,7 +265,7 @@
 <pre>newboattype {{newboattype}}</pre>
 <pre>boattypeform {{boattypeform}}</pre>
 <pre>currentboattype {{currentboattype}}</pre>
-<pre>rr {{requiredrights}}</pre>
+<pre>requiredboatrights {{requiredboatrights}}</pre>
 <pre>dest {{DB('destinations').DSR}}</pre>
 <!--pre>bc: boatkayakcategories {{boatkayakcategories|json}}</pre-->
 <pre>bc: {{boatcategories|json}}</pre>
