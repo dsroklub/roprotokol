@@ -9,10 +9,12 @@ $s="SELECT Boat.id,
            BoatType.Name as category,
            BoatCategory.Name as boattype,
            Boat.Placement as placement,
-           Boat.Location as location
+           Boat.Location as location,
+           Boat.brand,
+           Boat.level
     FROM Boat
          INNER JOIN BoatType ON (BoatType.id=BoatType)
-         INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
+         INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)         
     WHERE 
          Boat.Decommissioned IS NULL
     GROUP BY id

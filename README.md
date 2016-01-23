@@ -89,6 +89,7 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 * Afkobl distance fra json datalisten.
 * konverter kaniner til roere
 * Fjeren Trip.Season from rowertripsaggregated.php
+* Admin, båd: avendelse, Båd.brand, båd.level
 
 ### BUGS
 
@@ -136,6 +137,10 @@ Senere kan vi lave en alter statement i databasen, så det ikke sker igen.
 
 
 ### Terminaler
+
+##TODO
+
+Skal konfigureres til ikke at gemme passwords
 
 # Feature ønsker
 

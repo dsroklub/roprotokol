@@ -17,7 +17,7 @@
     <table class="boatlist" style="float:right">
       <thead>
         <tr>
-          <th>Båd</th><th>Placering</th><th>Status</th>
+          <th>Båd</th><th>Placering</th><th>Niveau</th><th>Mærke</th><th>særligt</th> <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +27,9 @@
 	    </div>
 	  </td>
           <td>{{boat.location|nodsr}} {{boat.placement}}</td>
+          <td>{{levels[boat.level]}} </td>
+          <td>{{boat.brand}} </td>
+          <td>{{boat.boatusage}} </td>
           <td ng-click="damagesForBoat=boat"><span ng-show="{{boat.trip}}">På vandet</span> 
             <span ng-show="{{boat.damage==3}}">Svært skadet</span>
             <span ng-show="{{boat.damage==2}}">Middel skadet</span>

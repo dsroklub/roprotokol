@@ -3,8 +3,8 @@ RENAME TABLE BådKategori TO BoatCategory;
 RENAME TABLE Bådindstilling TO BoatConfiguration;
 RENAME TABLE Fejl_tur TO Error_Trip;
 RENAME TABLE Gruppe TO BoatType;
-RENAME TABLE Kajak_anvendelser TO Kayak_usage;
-RENAME TABLE Kajak_typer TO Kayak_model;
+RENAME TABLE Kajak_anvendelser TO boat_usage;
+RENAME TABLE Kajak_typer TO boat_brand;
 RENAME TABLE Kommentar TO Comment;
 RENAME TABLE LåsteBåde TO LockedBoat;
 RENAME TABLE Medlem TO Member;
@@ -102,7 +102,7 @@ ALTER TABLE  Kayak_model CHANGE ID id INT;
 ALTER TABLE  Kayak_model CHANGE Typenavn Name VARCHAR(100);
 
 ALTER TABLE Kayak_usage CHANGE ID id INT;
-ALTER TABLE Kayak_usage CHANGE Anvendelse KayakUsage VARCHAR(100);
+ALTER TABLE Kayak_usage CHANGE Anvendelse name VARCHAR(100);
 ALTER TABLE Kayak_usage CHANGE Beskrivelse Description VARCHAR(1000);
 
 ALTER TABLE LockedBoat CHANGE BoatID Boat INT;
@@ -166,3 +166,12 @@ UPDATE Boat set Decommissioned = Now() WHERE Name in ("Dan");
 -- ALTER TABLE Trip CHANGE TripID id INT AUTO_INCREMENT;
 ALTER TABLE Error_Trip CHANGE  id id INT AUTO_INCREMENT;
 ALTER TABLE MemberRights CHANGE MemberID member_id INT;
+ALTER TABLE Boat CHANGE KayakModel modelid INT;
+ALTER TABLE Boat ADD brand VARCHAR(30);
+ALTER TABLE boat_brand CHANGE  Name name VARCHAR(100);
+UPDATE Boat SET brand=(SELECT Name as model FROM boat_brand WHERE boat_brand.id = Boat.modelid);
+ALTER TABLE Boat DROP COLUMN modelid;
+ALTER TABLE Boat CHANGE Anvendelse boat_usage INT;
+ALTER TABLE Boat CHANGE  Niveau level INT;
+ALTER TABLE boat_usage CHANGE id id  INT AUTO_INCREMENT;
+

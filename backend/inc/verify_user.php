@@ -6,8 +6,8 @@ $cip=$_SERVER['REMOTE_ADDR'];
 error_log("IP address from client ". $cip);
 
 if ($cip=="::1") {
-#    $skiplogin=true;
-#    $userrole['admin']=true;
+    $skiplogin=true;
+    $userrole['admin']=true;
 }
 
     

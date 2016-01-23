@@ -6,9 +6,10 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 
       // Load Category Overview
       $scope.boatcategories = DatabaseService.getBoatTypes();
-
       // Load selected boats based on boat category
       $scope.allboats = DatabaseService.getBoats();
+      $scope.levels =DatabaseService.getDB('boatlevels');
+      $scope.brands =DatabaseService.getDB('boat_brand');
 
       // Checkout code
       var boat_id = $routeParams.boat_id;

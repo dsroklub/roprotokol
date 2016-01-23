@@ -3,7 +3,7 @@ require("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$s="SELECT id,Name as name FROM Kayak_model ORDER by Name";
+$s="SELECT id,name FROM boat_brand ORDER by name";
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';
  $first=1;
