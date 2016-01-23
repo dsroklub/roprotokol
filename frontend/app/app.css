@@ -70,6 +70,16 @@ button.yellow {
     border: 1px solid #f0ce4e;
 }
 
+
+
+td.usage {
+    max-width:14pt;
+}
+
+td.boatname {
+    max-width:10pt;
+}
+
 button.big {
     color: #000000;
     background: #ff8866; !important;
@@ -158,6 +168,7 @@ button#createtrip_button[disabled] {
     display: inline-block;
     vertical-align: top;
     margin-right: 10pt;
+    float:left;
 }
 
 .boatdamages {
@@ -168,7 +179,7 @@ button#createtrip_button[disabled] {
     padding: 8px;
 }
 
-.genericmenu h2 {
+.genericmenu,.boattypesmenu h2 {
     background: #23aee2;
     padding: 10pt;
     color: white;
@@ -200,7 +211,26 @@ button#createtrip_button[disabled] {
 	     width: auto;
 }
 
-.boattypesmenu h2{
+.boattypesmenu {
+    float:left;
+}
+
+.boatstat {
+    float:right;
+}
+.rowerstat {
+    float:left;
+}
+
+.triptypeview {
+    float:left;
+}
+
+.tripview {
+    float:right;
+}
+
+.listmenu,.boattypesmenu caption{
     background: #23aee2;
     padding: 10pt;
     color: white;
@@ -210,7 +240,7 @@ button#createtrip_button[disabled] {
     border-radius: 5px 5px 0 0;
 }
 
-.boattypesmenu table caption {
+.listmenu,.boattypesmenu table caption {
     background: #23aee2;
     padding: 10pt;
     color: white;
@@ -233,6 +263,7 @@ table caption {
     border-style: solid;
     border-color: #ff0000;
     border-radius: 5px 5px 5px 5px;
+    display:inline-block;
 }
 
 .rightbox {
@@ -250,21 +281,22 @@ table caption {
 }
 
 
-.boattypesmenu ul {
+.listmenu,.boattypesmenu ul {
     background: white;
 }
 .boattypesmenu ul li {
     cursor: pointer;
+    background: #C6EFFF;
 }
 
 li.selected {
     background: #ff0066;
 }
 
-.boattypesmenu ul li:hover {
+.listmenu,.boattypesmenu ul li:hover {
     background: #57C8F2;
 }
-.boattypesmenu ul li:hover a {
+.listmenu,.boattypesmenu ul li:hover a {
     color: white;
 }
 .leftblock {
@@ -454,4 +486,8 @@ boatlist thead th:last-child {
 
 .oauth {
     float:right;
+}
+
+.turoversigt {
+    display:inline-block;
 }
