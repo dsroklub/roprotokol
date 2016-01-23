@@ -45,7 +45,8 @@ Herefter kan man bruge enten rigtig data fra DSR, hvis man har adgang til de gam
 
 BRUG TESTDATA:
 
-./backend/convert/import.sh fake
+./backend/convert/import.sh roprotokol fake databasepassword
+(man kan angive en anden database end roprotokol)
 
 
 BRUG DSR DATA:
@@ -86,7 +87,7 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 ##TODO
 * Afkobl distance fra json datalisten.
-
+* konverter kaniner til roere
 * Fjeren Trip.Season from rowertripsaggregated.php
 
 ### BUGS
@@ -96,19 +97,20 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 can be done manually when we move to the new system.
 
 * Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
+Senere kan vi lave en alter statement i databasen, så det ikke sker igen.
 
 * Der er et problem med den timepicker vi bruger. Man kan slette minutter og senere få en exception
+
+* Der er et problem med notes i Memdlemsrettigheder relationen. Skal nok rettes inden vi kan importere
 
 ### Missing features
 
 * klarmeld skader ved checkout
-* Opret roer: kanin/gæst
 
 * Kovertering af kanin/midlertidig roer
 
 * Administration af både
   ** slet bådtype
-  ** Pensioner båd
 
 * Reservation af både
 * Indberetning af fejl i rettigheder -> mail til instruktionschefen
@@ -120,6 +122,7 @@ can be done manually when we move to the new system.
 
 ** Statistik fordelt på turtyper.
    SQL forespørgslerne er lavet. Der skal laves et webinterface til dem.
+
 ** Turoversigt: handler om at de steder, vi viser ture, skal man kunne
   klikke på en tur og se turens data og roerne på turen, og de steder vi
   viser roere, skal man kunne klikke på en roer og se roeren ture.
@@ -138,6 +141,11 @@ can be done manually when we move to the new system.
 
 ## Roere.
 
-Vi kunne checke at den samme roer ikke kan være udskrevet flere gange.
+* Vi kunne checke at den samme roer ikke kan være udskrevet flere gange.
 
-Typeahead for roere, der udskrives kunne forfines, så den kun vis roere, som ikke er på vandet og som passer med turtypen. Fx kun kaprorer for INKA ture.
+* Typeahead for roere, der udskrives kunne forfines, så den kun vis roere, som ikke er på vandet og som passer med turtypen. Fx kun kaprorer for INKA ture.
+
+* Attributter til bådene. Fx egnet til lette/tunge roere, markeres med ikon.
+
+* Slette og genbruge tur. Hvis man har skrevet en båd ud, der viser sig ikke at være i orden. Så kunne man slette turen og komme til checkout-skærmen med de samme rorere og den samme destination og turtype.
+
