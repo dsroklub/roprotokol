@@ -8,8 +8,8 @@
 // TODO edit triptypes required rights
 // TODO edit boat category required rights
 
-app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter',
-                             function ($scope,   DatabaseService,   NgTableParams, $filter) {
+app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
+                             function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
           DatabaseService.init().then(function () {
             $scope.currentrower=null;            
             $scope.DB=DatabaseService.getDB;
@@ -18,6 +18,10 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
             $scope.boatkayakcategories = DatabaseService.getDB('boatkayakcategory');
             var errortrips = DatabaseService.getDB('errortrips');
+            $scope.levels =DatabaseService.getDB('boatlevels');
+            $scope.brands =DatabaseService.getDB('boat_brand');
+            $scope.usages =DatabaseService.getDB('boat_usages');
+
             $scope.ziperrors=[];
             var i=0;
             while (i < errortrips.length -1) {
@@ -36,6 +40,11 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               i++;
             }
             $scope.boatcategories = DatabaseService.getBoatTypes();
+
+            $scope.errorhandler = function(error) {
+              console.log(error);
+              $route.reload();
+            }
             
             $scope.getRowerByName = function (val) {
               return DatabaseService.getRowersByNameOrId(val, undefined);
@@ -49,6 +58,38 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               console.log("net boattype");
               var exeres=DatabaseService.updateDB('create_boattype',bt);
               $scope.DB('boattypes').push(bt);
+            }
+
+            $scope.update_level = function(boat) {
+              var exeres=DatabaseService.updateDB('boat_update_level',boat);
+            }
+            $scope.update_brand = function(boat) {
+              var exeres=DatabaseService.updateDB('boat_update_brand',boat);
+            }
+            $scope.update_usage = function(boat) {
+              var exeres=DatabaseService.updateDB('boat_update_usage',boat);
+            }
+
+            $scope.update_usage_name = function(boat) {
+              var exeres=DatabaseService.updateDB('usage_update_name',boat);
+            }
+            $scope.update_usage_description = function(usage) {
+              var exeres=DatabaseService.updateDB('usage_update_description',usage);
+            }
+            $scope.update_usage_name = function(usage) {
+              var exeres=DatabaseService.updateDB('usage_update_description',usage);
+            }
+            $scope.create_usage = function(usage) {
+              console.log('create new usage '+usage);
+              var exeres=DatabaseService.updateDB_async('usage_create',usage).then(
+                function(newusage) {
+                  if (newusage.status=="ok") {
+                    $scope.usages.push(newusage.newusage);
+                  }                  
+                }
+              );
+              usage.name="";
+              usage.description="";
             }
 
             $scope.set_duration = function(destination,loc) {
@@ -88,16 +129,15 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.remove_boattype_requirement = function(rt,ix) {
               var data={boattype:$scope.currentboattype,'right':rt};
               var exeres=DatabaseService.updateDB('remove_boattype_right',data);
-              delete $scope.requiredrights[rt];
+              delete $scope.requiredboatrights[rt];
 
             }
 
             $scope.add_boattype_requirement = function(data) {
               data.boattype=$scope.currentboattype;
-              $scope.requiredrights[data.right]=data.subject;
-              var exeres=DatabaseService.updateDB('add_boattype_req',data);
+              var exeres=DatabaseService.updateDB('add_boattype_req',data,$scope.errorhandler);
+              $scope.requiredboatrights[data.right]=data.subject;
             }
-
 
             $scope.remove_triptype_requirement = function(rt,ix) {
               var data={triptype:$scope.currenttriptype,'right':rt};
@@ -124,11 +164,19 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.rightsubjects=['cox','all','any','none'];
 
             $scope.doboatrights = function (rr,bt){
-              $scope.requiredrights=rr;
+              if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
+                $scope.requiredboatrights={};
+              } else {
+                $scope.requiredboatrights=rr;
+              }
               $scope.currentboattype=bt;
             }
             $scope.dotriprights = function (rr,tt){
-              $scope.requiredtriprights=rr;
+              if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
+                $scope.requiredtriprights={};
+              } else {
+               $scope.requiredtriprights=rr;
+              }
               $scope.currenttriptype=tt;
             }
 

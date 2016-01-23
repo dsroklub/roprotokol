@@ -451,3 +451,7 @@ boatlist thead th:last-child {
 .error {
   color: red;
 }
+
+.oauth {
+    float:right;
+}

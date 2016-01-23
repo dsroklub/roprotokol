@@ -30,8 +30,8 @@ if(startsWith($_SERVER["REQUEST_URI"], $auth_url . "/oauth/authorize")) {
        && isset($clients[$_GET["client_id"]][$_GET["redirect_uri"]][$_GET["response_type"]])) {
        $client = $clients[$_GET["client_id"]][$_GET["redirect_uri"]][$_GET["response_type"]];
 
-        $scope = isset($_GET["scope"]) ? $_GET["scope"] : '';
-        $state = isset($_GET["state"]) ? $_GET["state"] : '';
+       $scope = isset($_GET["scope"]) ? $_GET["scope"] : '';
+       $state = isset($_GET["state"]) ? $_GET["state"] : '';
 
 $form = <<<SIGNINFORM
 <html>
@@ -62,7 +62,7 @@ SIGNINFORM;
         $scope = isset($_GET["scope"]) ? $_GET["scope"] : (isset($_POST["scope"]) ? $_POST["scope"] : '');
         $state = isset($_GET["state"]) ? $_GET["state"] : (isset($_POST["state"]) ? $_POST["state"] : '');
 
-        // Validate username passwor,d, TODO: Passwords should be hashed
+        // Validate username password, TODO: Passwords should be hashed
         if($user = $users[$_POST["username"]." ".$_POST["password"]]) {
             
             // HS256 (HmacSHA256) with shared key
@@ -91,8 +91,7 @@ SIGNINFORM;
             
         } else {
             die("Unknown username or password");
-        }
-        
+        }        
     } else {
         die("Did not find client_id or redirect_uri");
     }

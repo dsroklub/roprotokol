@@ -18,10 +18,11 @@ function jwt_decode_header() {
             $token = jwt_decode($elements[1], "12345678", "/app/frontend/");
             return $token;
         } else {
-            return [ "error" => "Not a Bearer token" ];
+            return [ "error" => ["error"=>"Not a Bearer token","status"=>"error" ]];
         }
     } else {
-        return [ "error" => "No Authorization header set" ]; 
+        error_log(" auth ".$auth_header);
+        return [ "error" => ['status' =>'notauthorized','error'=>'No Authorization header set']]; 
     }
 }
 

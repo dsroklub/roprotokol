@@ -7,6 +7,14 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   var databasesource=dbmode;
   var tx=null;
 
+  db.boatlevels={
+    1:'Let',
+    2:'Mellem',
+    3:'Svær',
+    4:'Meget svær'
+  }
+
+  // FIXME Not used?
   this.boatcat2dk = {
       'any':'alle',
       'rowboat':'robåd',
@@ -114,7 +122,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     this.getData('locations',promises);
     this.getData('boatkayakcategory',promises);
     this.getData('memberrighttypes',promises);
-    this.getData('kayak_model',promises);    
+    this.getData('boat_brand',promises);
+    this.getData('boat_usages',promises);    
     if(!valid['rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);
@@ -381,10 +390,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return formClosed;
   };
 
-  this.updateDB_async = function(op,data,arg) {
+  this.updateDB_async = function(op,data) {
     var qup=$q.defer();
     var res=undefined;
-    $http.post('../../backend/'+op+".php"+(arg?("?arg="+arg):""), data).success(function(sdata,status,headers,config) {
+    $http.post('../../backend/'+op+".php", data).success(function(sdata,status,headers,config) {
       qup.resolve(sdata);
     }).error(function(sdata,status,headers,config) {
       $log.error(status);
@@ -396,14 +405,21 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return qup.promise;
   }
   
-  this.updateDB = function(op,data,arg) {
-    $log.debug(' do '+op+' ,'+arg);
-    this.updateDB_async(op,data,arg).then(function (res) {
-      $log.debug(' done '+op+' ,'+arg);
-      return res;
-    }
-                                    
-                                   );
+  this.updateDB = function(op,data,eh) {
+    $log.debug(' do '+op);
+    var ar=this.updateDB_async(op,data);
+     var at=ar.then(function (res) {
+       $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
+       if (!res||res.status=="notauthorized") {
+         console.log("auth error");
+         if (eh) {
+           eh(res)}
+         ;
+       }
+       return res;
+     }                                    
+                   );
+    return at;
   }
 
   this.createTrip = function(data) {

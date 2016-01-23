@@ -3,7 +3,7 @@ ini_set('default_charset', 'utf-8');
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
-$skiplogin=1;
+$skiplogin=false;
     
 if(!isset($_SESSION)){
   session_start();

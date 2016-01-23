@@ -23,12 +23,16 @@ $s="SELECT Boat.id,
            MAX(Trip.OutTime) as outtime,
            MAX(Trip.ExpectedIn) as expected_in,
            MAX(Trip.Destination) as destination,
-           MAX(Trip.Meter) as meter
+           MAX(Trip.Meter) as meter,
+           boat_usage.name as boatusage,
+           Boat.brand,
+           Boat.level
     FROM Boat
          INNER JOIN BoatType ON (BoatType.id=BoatType)
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
          LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
          LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
+         LEFT JOIN boat_usage ON Boat.boat_usage=boat_usage.id
     WHERE 
          Boat.Decommissioned IS NULL
     GROUP BY

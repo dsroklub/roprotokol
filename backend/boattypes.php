@@ -1,7 +1,6 @@
 <?php
 require("inc/common.php");
 include("inc/utils.php");
-header('Content-type: application/json');
 
 $s="SELECT id,Name as name ,Seatcount as seatcount, Category as category, GROUP_CONCAT(required_right,':§§:',requirement SEPARATOR '££') AS rights
     FROM BoatType
@@ -10,7 +9,7 @@ $s="SELECT id,Name as name ,Seatcount as seatcount, Category as category, GROUP_
     ORDER by Name
     ";
 //echo $s;
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
+$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
