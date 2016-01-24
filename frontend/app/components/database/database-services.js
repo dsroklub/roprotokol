@@ -65,7 +65,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   }
 
-  this.init = function () {
+  this.fetch = function () {
     var boatmaintypes = ['kayak','any','rowboat'];
     $log.debug("DB init "+Date());
     var headers = {};
@@ -184,19 +184,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	    sq.resolve(true);
 	  });
 	})(boattype);
-      }
-
-
-      
-    }
-    
+      }      
+    }    
     var qll=$q.all(promises);
     tx=qll;
     return qll;
   };
 
+  
   this.defaultLocation = 'DSR';
-
   this.invalidate_dependencies=function(tp) {
     $log.debug("  dirty: "+tp);
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
@@ -204,8 +200,13 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       $log.debug("    invalidate: "+subtp);
       valid[subtp]=false;	    
     }
+  };
+
+
+  this.init = function() {
+    return this.sync();
   }
-  
+
   this.sync=function() {
     var dbservice=this;
     var sq=$q.defer();
@@ -222,7 +223,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       }
       if (doreload) {
 	$log.debug(" do reload " + JSON.stringify(valid));
-	dbservice.init().then(function() {
+	dbservice.fetch().then(function() {
 	  sq.resolve("sync done");
 	});
       } else {

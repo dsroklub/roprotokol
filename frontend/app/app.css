@@ -175,6 +175,12 @@ button.statcat, button.adminbut {
     float:left;
 }
 
+
+.adminrower,.adminconvertrower {
+    float:left;
+    width: 100%;
+}
+
 .checkout-form{
     display: inline-block;
     vertical-align: top;
@@ -334,6 +340,8 @@ li.selected {
     overflow: visible;
 
 }
+
+
 .boatlist thead th {
     background: #3ECBBF;
     color: white;
@@ -389,11 +397,8 @@ li.selected {
     background: #EBA5C1;
 }
 
-.boatlist tr td a {
-    padding: 6pt 10pt 6pt 10pt;
-    display:block;
-    height:100%;
-    width:100%;
+.boatlist tr td {
+    padding: 2pt 4pt 2pt 6pt;
 }
 
 .boatlist tr td.colinput {
