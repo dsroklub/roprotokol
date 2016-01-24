@@ -390,10 +390,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return formClosed;
   };
 
-  this.updateDB_async = function(op,data) {
+  this.updateDB_async = function(op,data,config) {
     var qup=$q.defer();
     var res=undefined;
-    $http.post('../../backend/'+op+".php", data).success(function(sdata,status,headers,config) {
+    $http.post('../../backend/'+op+".php", data,config).success(function(sdata,status,headers,config) {
       qup.resolve(sdata);
     }).error(function(sdata,status,headers,config) {
       $log.error(status);
@@ -405,9 +405,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return qup.promise;
   }
   
-  this.updateDB = function(op,data,eh) {
+  this.updateDB = function(op,data,config,eh) {
     $log.debug(' do '+op);
-    var ar=this.updateDB_async(op,data);
+    var ar=this.updateDB_async(op,data,config);
      var at=ar.then(function (res) {
        $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
        if (!res||res.status=="notauthorized") {

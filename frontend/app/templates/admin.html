@@ -7,11 +7,14 @@
   </oauth-->
 </div>
 <div class="menuholder">
-  <button ng-click="do='boat'">Både</button>
-  <button ng-click="do='user'">Roere</button>
-  <button ng-click="do='trip'">Ture</button>
-  <button ng-click="do='correction'">Fejlrettelser</button>
+  <button class="adminbut" ng-click="do='boat'">Både</button>
+  <button class="adminbut" ng-click="do='user'">Roere</button>
+  <button class="adminbut" ng-click="do='trip'">Ture</button>
+  <button class="adminbut" ng-click="do='correction'">Fejlrettelser</button>
+password: <input type="password" ng-model="config.headers.password"></input>
 </div>
+
+
 
 <div ng-show="do=='boat'">
   <div class="blok">
@@ -293,6 +296,7 @@
 </div>  
 
 
+<pre>config {{config|json}}</pre>
 <pre>usages {{usages|json}}</pre>
 <pre>brands {{brands|json}}</pre>
 <pre>requiredtriprights{{requiredtriprights|json}}</pre>

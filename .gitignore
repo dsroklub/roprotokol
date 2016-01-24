@@ -9,3 +9,4 @@ config.ini
 frontend/node_modules
 frontend/app/bower_components
 TAGS
+pw.php
