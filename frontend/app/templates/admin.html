@@ -11,7 +11,8 @@
   <button class="adminbut" ng-click="do='user'">Roere</button>
   <button class="adminbut" ng-click="do='trip'">Ture</button>
   <button class="adminbut" ng-click="do='correction'">Fejlrettelser</button>
-password: <input type="password" ng-model="config.headers.password"></input>
+  <button class="adminbut" ng-click="do='events'">Hændelser</button>
+  password: <input type="password" ng-model="config.headers.password"></input>
 </div>
 
 
@@ -286,16 +287,29 @@ password: <input type="password" ng-model="config.headers.password"></input>
           <button class="action " ng-click="reject_correction(et,$index)">Afvis</button>
         </td>
       </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>    
+</div>  
 
-      </thead>
-      <tbody>
-        <tr>
-        </tr>
-      </tbody>
-    </table>    
+<div ng-show="do=='events'">
+  <table class="boatlist" >
+    <caption>Hændelser</caption>
+    <thead>
+      <tr> <th>tid</th><th>Hændelse</th></tr>
+      <tr ng-repeat="ev in DB('get_events')">
+	<td>{{ev.event_time}}</td>	  
+	<td>{{ev.event}} </td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>    
 </div>  
 
 
+<pre>events {{events|json}}</pre>
 <pre>config {{config|json}}</pre>
 <pre>usages {{usages|json}}</pre>
 <pre>brands {{brands|json}}</pre>

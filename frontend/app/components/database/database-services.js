@@ -24,9 +24,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
 
   var cachedepend={
-    'boat':['boats','boatdamages'],
-    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat', 'boats','errortrips'],
-    'member':['boats']
+    'boat':['boats','boatdamages','availableboats','boatreservations','boat_status','boat_usages','boat_status','get_events'],
+    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
+    'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
+    'destination':['destinations']
   };
   
   var datastatus={
@@ -52,7 +53,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   }
 
   this.getData = function (dataid,promises) {
-    if(!valid[dataid]) {
+    if(!valid[dataid] || !db[dataid]) {
       var dq=$q.defer();
       promises.push(dq.promise);
       $http.get(toURL(dataid+'.php')).then(function(response) {
@@ -116,6 +117,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     } 
 
     this.getData('destinations',promises);
+    this.getData('get_events',promises);
     this.getData('boattypes',promises);
     this.getData('errortrips',promises);
     this.getData('triptypes',promises);

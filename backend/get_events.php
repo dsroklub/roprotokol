@@ -2,8 +2,8 @@
 require("inc/common.php");
 include("inc/utils.php");
 
-$s="SELECT id,name FROM boat_brand ORDER by name";
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
+$s="SELECT event, event_time FROM event_log ORDER BY event_time DESC";
+$result=$rodb->query($s) or die("Error in event query: " . mysqli_error($rodb));;
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {

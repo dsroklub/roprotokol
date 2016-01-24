@@ -15,13 +15,14 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.DB=DatabaseService.getDB;
             $scope.allboats = DatabaseService.getBoats();
             $scope.locations = DatabaseService.getDB('locations');
+            $scope.events = DatabaseService.getDB('get_events');
             $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
             $scope.boatkayakcategories = DatabaseService.getDB('boatkayakcategory');
             var errortrips = DatabaseService.getDB('errortrips');
             $scope.levels =DatabaseService.getDB('boatlevels');
             $scope.brands =DatabaseService.getDB('boat_brand');
             $scope.usages =DatabaseService.getDB('boat_usages');
-            $scope.config={'headers':{'foo':'bar'}};
+            $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
             $scope.ziperrors=[];
             var i=0;
             while (i < errortrips.length -1) {

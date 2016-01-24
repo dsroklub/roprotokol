@@ -92,14 +92,25 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         if (!ok) {
           norights.push(" der skal være mindst een roer med "+rq + " ret");
         }
-      }    
+      } else if (rq='any') {
+        var ok=true;
+        for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
+          if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
+            if (!(rq in $scope.checkout.rowers[ri].rights)) {
+              ok=false;
+            }
+          }
+        }
+        if (!ok) {
+          norights.push(" der må ikke være nogen "+rq+" i båden");
+        }
+      }
+
+      
     }
     $scope.rightsmessage=norights.join(",");
-    // HERE
     return norights.length<1;
   }
-         // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
-        // TODO: Show wrench next to name in checkout view
 
   $scope.selectBoatCategory = function(cat) {
     $scope.selectedBoatCategory=cat;
@@ -196,8 +207,6 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       }
       if (DatabaseService.fixDamage(data)) {
         damagelist.splice(ix,1);
-        DatabaseService.reload();
-        alert("Skade for "+bd.boat+" klarmeldt");
         $scope.damages.reporter=null;
         $scope.allboatdamages = DatabaseService.getDamages();
         $scope.damagesnewstatus="klarmelde";
@@ -305,7 +314,11 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
   }
  
   $scope.createtrip = function (data) {
-    // TODO: Check if all rowers have ID and don't allow to start trip before it's done
+
+    if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
+      data.event=$scope.rightsmessage;
+    }
+    
     var newtrip=DatabaseService.createTrip(data);
     newtrip.promise.then(function(status) {
       data.boat.trip=-1;

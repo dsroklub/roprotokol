@@ -20,5 +20,6 @@ if ($stmt = $rodb->prepare("INSERT INTO  BoatRights (boat_type,required_right,re
 $rodb->commit();
 $rodb->close();
 invalidate('boat');
+invalidate('member');
 echo json_encode($res);
 ?> 

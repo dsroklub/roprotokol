@@ -1,10 +1,9 @@
 <?php
 include("inc/common.php");
-include("inc/verify_user.php");
 
 $data = file_get_contents("php://input");
 $fix=json_decode($data);
-
+error_log($data);
 $rodb->query("BEGIN TRANSACTION");
 
     error_log($data);
@@ -15,6 +14,15 @@ if ($stmt = $rodb->prepare("UPDATE Damage, (SELECT id FROM Member WHERE MemberID
 } else {
     error_log("fix damage database error ");
 } 
+
+if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
+
+    error_log("des ".$fix->damage->description);
+    error_log("bo ".$fix->damage->boat);
+    $ev=$fix->reporter->name." klarmeldte skaden: ".$fix->damage->description." på båden ".$fix->damage->boat;
+    $stmt->bind_param('s', $ev);
+    $stmt->execute();
+}     
 
 $rodb->query("END TRANSACTION");
 $rodb->close();

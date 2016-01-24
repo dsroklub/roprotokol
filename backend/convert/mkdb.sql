@@ -495,3 +495,9 @@ CREATE TABLE IF NOT EXISTS BoatRights (
        requirement VARCHAR(10),
        PRIMARY KEY (boat_type,required_right)
        );
+
+CREATE TABLE IF NOT EXISTS event_log (
+	event  VARCHAR(500),
+        event_time   DATETIME
+);
+CREATE INDEX eventtime on event_log(event_time);

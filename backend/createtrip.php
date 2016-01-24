@@ -1,6 +1,5 @@
 <?php
 include("inc/common.php");
-include("inc/verify_user.php");
 
 $season=date('Y');
 $res=array ("status" => "ok");
@@ -52,6 +51,17 @@ if (!$error) {
         $error="trim member DB error".mysqli_error($rodb);
     }
 }
+
+
+
+if (isset($newtrip->event)) {
+    if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
+        $ev=$newtrip->triptype->name ." til ". $newtrip->destination->name." i ".$newtrip->boat->name .": ". $newtrip->event;
+        $stmt->bind_param('s', $ev);
+        $stmt->execute();
+    }     
+}
+
 
 if ($error) {
     error_log('DB error ' . $error);
