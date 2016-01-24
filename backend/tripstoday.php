@@ -1,8 +1,6 @@
 <?php
 include("inc/common.php");
 include("inc/utils.php");
-include("inc/verify_user.php");
-header('Content-type: application/json');
 
 
 $s="SELECT Trip.id, TripType.Name AS triptype, Boat.Name AS boat, Trip.Destination as destination, Trip.InTime as intime,Trip.OutTime as outtime, Trip.ExpectedIn as expectedintime,GROUP_CONCAT(Member.MemberID,':§§:', MemberName SEPARATOR '££') AS rowers " .

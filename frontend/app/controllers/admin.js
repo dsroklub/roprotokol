@@ -11,7 +11,8 @@
 app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
                              function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
           DatabaseService.init().then(function () {
-            $scope.currentrower=null;            
+            $scope.currentrower=null;
+            $scope.do="events";
             $scope.DB=DatabaseService.getDB;
             $scope.allboats = DatabaseService.getBoats();
             $scope.locations = DatabaseService.getDB('locations');

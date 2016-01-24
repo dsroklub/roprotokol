@@ -1,6 +1,5 @@
 <?php
 include("inc/common.php");
-include("inc/verify_user.php");
 
 $data = file_get_contents("php://input");
 error_log("new damage");
@@ -36,6 +35,14 @@ if ($stmt = $rodb->prepare("INSERT INTO Damage(Boat,Degree,ResponsibleMember,Des
 } else {
     error_log("new damage database error".$stmt->error);
 }
+
+if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
+    error_log("des ".$newdamage->description);
+    error_log("bo ".$newdamage->boat->name);
+    $ev=$newdamage->reporter->name." meldte skaden: ".$newdamage->description. " grad ".$newdamage->degree." på båden ".$newdamage->boat->name;
+    $stmt->bind_param('s', $ev);
+    $stmt->execute();
+}     
 
 $rodb->query("END TRANSACTION");
 

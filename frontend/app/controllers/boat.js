@@ -219,23 +219,14 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     }
   };
 
-  $scope.reportDamageForBoat = function () {
-    if ($scope.damagedegree && $scope.selectedboat && $scope.selectedboat.id && $scope.damagedescription && $scope.damages.reporter) {
-      var data={
-        "degree":$scope.damagedegree,
-        "boat":$scope.selectedboat,
-        "description":$scope.damagedescription,
-        "reporter":$scope.damages.reporter
-      }
+  $scope.reportDamageForBoat = function (damage) {
+    if (damage.degree && damage.boat && damage.description && damage.reporter) {
       $scope.damagesnewstatus="OK";
-      alert("Damage "+JSON.stringify(data));
-      if (!DatabaseService.newDamage(data)) {
+      alert("Damage "+JSON.stringify(damage));
+      if (!DatabaseService.newDamage(damage)) {
         alert("new damage failed");
       } else {
-        $scope.damagedegree=null;
-        $scope.damages.reporter=null;
-        $scope.damagedescription=null;
-        $scope.selectedboat=null;
+        $scope.newdamage=null;
       }
     } else {
       $scope.damagesnewstatus="alle felterne skal udfyldes";
