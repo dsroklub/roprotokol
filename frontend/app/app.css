@@ -415,7 +415,7 @@ li.selected {
     height:100%;
     width:100%;
 }
-.boatlist tr td:hover {
+.boatlist tr:hover {
     background: #6ad7ce;
 }
 .boatlist tr td {
