@@ -41,9 +41,9 @@
   <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="bd in allboatdamages | filter: matchBoat(newdamage.boat)">
     <td>{{bd.boat}}</td>
     <td>{{bd.reporter}}</td>
-    <td>{{bd.created}}</td><td>{{bd.level}}</td>
+    <td class="degree" >{{bd.created}}</td><td>{{bd.degree}}</td>
     <td>{{bd.description}}</td>
-    <td ng-click="reportFixDamage(bd,allboatdamages,$index)"><button class="klar">klarmeld</button></td>
+    <td ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)"><button class="klar">klarmeld</button></td>
   </tr>
 </table>
 

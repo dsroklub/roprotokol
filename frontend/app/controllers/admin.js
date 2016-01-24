@@ -165,7 +165,11 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.boatcat2dk=DatabaseService.boatcat2dk;
             $scope.rightsubjects=['cox','all','any','none'];
 
-            $scope.doboatrights = function (rr,bt){
+            $scope.rowerconvert = function (fromrower,torower) {
+              var exeres=DatabaseService.updateDB('convert_rower',{"from":fromrower,"to":torower},$scope.config,$scope.errorhandler);
+            }
+
+            $scope.doboatrights = function (rr,bt) {
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
                 $scope.requiredboatrights={};
               } else {

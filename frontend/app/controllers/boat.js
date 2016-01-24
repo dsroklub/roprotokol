@@ -198,16 +198,16 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 //      $scope.checkout.destination = undefined;
     };
     
-  $scope.reportFixDamage = function (bd,damagelist,ix) {
-    // FIXME, reporter should be an argument so that it works when calling from checkout is implementerd
-    if ($scope.damages && $scope.damages.reporter && bd) {
+  $scope.reportFixDamage = function (bd,reporter,damagelist,ix) {
+    // reporter is an argument so that it works when calling from checkout is implementerd
+    if (bd && reporter) {
       var data={
         "damage":bd,
-        "reporter":$scope.damages.reporter
+        "reporter":reporter
       }
       if (DatabaseService.fixDamage(data)) {
         damagelist.splice(ix,1);
-        $scope.damages.reporter=null;
+        $scope.newdamage.reporter=null;
         $scope.allboatdamages = DatabaseService.getDamages();
         $scope.damagesnewstatus="klarmelde";
       } else {
@@ -222,22 +222,19 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
   $scope.reportDamageForBoat = function (damage) {
     if (damage.degree && damage.boat && damage.description && damage.reporter) {
       $scope.damagesnewstatus="OK";
-      alert("Damage "+JSON.stringify(damage));
-      if (!DatabaseService.newDamage(damage)) {
-        alert("new damage failed");
-      } else {
-        $scope.newdamage=null;
-      }
+      var exeres=DatabaseService.updateDB_async('newdamage',damage,$scope.config).then(        
+        function(data) {
+          if (data.status=="ok") {
+            $scope.allboatdamages.splice(0,0,data.damage);
+            $scope.newdamage=null;
+          }                  
+        }
+      )
     } else {
       $scope.damagesnewstatus="alle felterne skal udfyldes";
     }
   };
 
-
-  // Unused
-  $scope.reportdamage = function () {
-      ngDialog.open({ template: 'reportdamage.html' });
-  };
 
   $scope.savedamage = function (boat_id, description, level) {
     var damage = { "id": 0, "descrption": description, "level": level }

@@ -33,7 +33,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   var datastatus={
     'boat':null,
     'trip':null,
-    'member':null
+    'member':null,
+    'destination':null
   };
 
   function toURL(service){
@@ -210,9 +211,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).success(function(ds, status, headers, config) {
       var doreload=false;
-      $log.debug("do db sync");
+      $log.debug("got dbstatus" + JSON.stringify(ds));
       for (var tp in ds) {
 	if (datastatus[tp]!=ds[tp]) {
+          $log.debug("  inval"+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
