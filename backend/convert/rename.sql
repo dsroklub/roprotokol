@@ -175,3 +175,12 @@ ALTER TABLE Boat CHANGE Anvendelse boat_usage INT;
 ALTER TABLE Boat CHANGE  Niveau level INT;
 ALTER TABLE boat_usage CHANGE id id  INT AUTO_INCREMENT;
 
+
+-- These might not be necessary, but they are at least idempotent
+ALTER TABLE Damage change id id INT NOT NULL AUTO_INCREMENT;
+ALTER TABLE BoatType CHANGE id id INT NOT NULL AUTO_INCREMENT;
+UPDATE Trip set Destination = TRIM(Destination);
+UPDATE TripRights SET required_right='instructor' where required_right="instruktør";
+UPDATE TripRights SET required_right='longdistance' where required_right="langtursstyrmand";
+UPDATE TripRights SET required_right='outrigger_instructor' where required_right="outriggerinstruktør";
+UPDATE Destination SET Location="Nordhavn" WHERE Location="Forpost";
