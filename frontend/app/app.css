@@ -154,10 +154,11 @@ button#createtrip_button[disabled] {
 .prompt {
   display:inline-block;
 }
-button.statcat {
+button.statcat, button.adminbut {
     background: #ED5D92;
     margin: 3pt;
 }
+
 
 .boatlist,
 .statlist,
