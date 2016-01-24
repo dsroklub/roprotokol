@@ -1,6 +1,6 @@
 <div class="genericcategories">
   <div>
-    <button ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner']"  ng-click="docats(statcategory)" >{{boatcat2dk[statcategory]}}
+    <button class="statcat" ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner']"  ng-click="docats(statcategory)" >{{boatcat2dk[statcategory]}}
     </button>
     <button ng-click="tableParams.sorting({}) && boattableParams.sorting({})" class="btn btn-default pull-right">Normal Sortering</button>
     <!--div>Søg efter roer: <input ng-model="filter"><button ng-click="tableParams.filter('')">Clear</button>FIXME </div-->
@@ -66,8 +66,8 @@
 </div>
 <!--pre> {{boat_category_id}} </pre-->
 
-<p><strong>data:</strong> {{data|json}}
+<!--p><strong>data:</strong> {{data|json}}
     <p><strong>BS:</strong> {{boatdata|json}}
     <p><strong>Sorting:</strong> {{boattableParams.sorting()|json}}
     <p><strong>Filter:</strong> {{boattableParams.filter()}}
-    <p><strong>cat:</strong> {{boattableParams.rowcategory|json}}>
+    <p><strong>cat:</strong> {{boattableParams.rowcategory|json}}-->

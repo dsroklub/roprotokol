@@ -148,13 +148,16 @@ button#createtrip_button[disabled] {
 
 .main {
     margin: 0;   
-    padding: 15pt 25pt;
+    padding: 5pt 7pt;
 }
 
 .prompt {
   display:inline-block;
 }
-
+button.statcat {
+    background: #ED5D92;
+    margin: 3pt;
+}
 
 .boatlist,
 .statlist,
