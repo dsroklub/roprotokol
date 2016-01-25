@@ -468,11 +468,11 @@ CREATE TABLE IF NOT EXISTS  tblMembersSportData (
 
 
 CREATE TABLE IF NOT EXISTS MemberRights (
-	MemberID			INT, 
+	member_id			INT, 
 	MemberRight		 	VARCHAR(50),
         Acquired			DateTime,
 	argument			VARCHAR(100),
-       PRIMARY KEY(MemberID, MemberRight,Acquired,Argument)
+       PRIMARY KEY(member_id, MemberRight,Acquired,Argument)
 );
 
 CREATE TABLE IF NOT EXISTS MemberRightType (
