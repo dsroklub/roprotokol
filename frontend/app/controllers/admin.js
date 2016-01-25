@@ -46,6 +46,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.errorhandler = function(error) {
               console.log(error);
               $route.reload();
+              alert("du skal logge ind");
             }
             
             $scope.getRowerByName = function (val) {
@@ -66,7 +67,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('boat_update_level',boat,$scope.config,$scope.errorhandler);
             }
             $scope.update_brand = function(boat) {
-              var exeres=DatabaseService.updateDB('boat_update_brand',boat);
+              var exeres=DatabaseService.updateDB('boat_update_brand',boat,$scope.errorhandler);
             }
             $scope.update_usage = function(boat) {
               var exeres=DatabaseService.updateDB('boat_update_usage',boat,$scope.config,$scope.errorhandler);

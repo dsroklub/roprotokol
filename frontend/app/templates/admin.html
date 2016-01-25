@@ -87,7 +87,7 @@
     <caption>Både</caption>
     <thead>
       <tr>
-	<th>Båd</th><th>kategori</th><th>lokalitet</th><th>Niveau</th><th>Mærke</th><th>Særligt</th><th></th>
+	<th>Båd</th><th>kategori</th><th>lokalitet</th><th>Niveau</th><th>Fabrikat</th><th>Særligt</th><th></th>
       </tr>	
     </thead>
   <tbody>
@@ -154,6 +154,7 @@
           <input type="text" ng-model="newusage.description"></input>
         </td>        
         <td>
+	  <button  ng-show="!newusage.name">Udfyld ny anvendelse her</button>
 	  <button ng-click="create_usage(newusage)" ng-model="newusage.create" class="big" ng-show="newusage.name">Opret ny anvendelse</button>
         </td>
       </tr>

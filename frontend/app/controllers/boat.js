@@ -236,12 +236,6 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
   };
 
 
-  $scope.savedamage = function (boat_id, description, level) {
-    var damage = { "id": 0, "descrption": description, "level": level }
-    // TODO: Post to server and get id
-    boatdamages.push(damage);
-  };
-
   $scope.dateOptions = {
     showWeeks: false
   };

@@ -104,6 +104,19 @@ angular.module('myApp.utilities.subjecttodk', []).filter('subjecttodk', function
     return r?r:sb;
   };
 });
+
+var damage_degrees={
+  1:'Let skadet',
+  2: 'Middel skadet',
+  3: 'Svært skadet'
+}
+angular.module('myApp.utilities.damagedegreedk', []).filter('damagedegreedk', function () {
+  return function (dd) {
+    var r=damage_degrees[dd];
+    return r?r:dd;
+  };
+});
+
 angular.module('myApp.utilities.righttodk', []).filter('righttodk', function () {
   return function (sb) {
     var r=right2dk[sb];
@@ -170,6 +183,7 @@ angular.module('myApp.utilities', [
   'myApp.utilities.rightreqs',
   'myApp.utilities.subjecttodk',
   'myApp.utilities.righttodk',
+  'myApp.utilities.damagedegreedk',
   'myApp.utilities.txttotime',
   'myApp.utilities.totime',
 ]).value('version', '0.1');

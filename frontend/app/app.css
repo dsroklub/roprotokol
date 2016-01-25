@@ -36,7 +36,6 @@ button {
     border-radius: 5px;
     border: 0;
     padding: 5pt 10pt;
-    cursor: pointer;
     margin-top: 5pt;
     border: 1px solid #ccc;
 }
@@ -419,7 +418,7 @@ li.selected {
     background: #6ad7ce;
 }
 .boatlist tr td {
-    cursor: pointer;
+    cursor: url('btc.png'),pointer;
 }
 .statlist td {
     padding: 6pt 10pt 6pt 10pt;
@@ -520,4 +519,13 @@ li.selected {
 
 .turoversigt {
     display:inline-block;
+}
+
+textarea.damagetext {
+    width:50%;
+    vertical-align: top;
+}
+
+div.report {
+    margin-top: 1.5em;
 }

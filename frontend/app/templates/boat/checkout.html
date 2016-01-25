@@ -31,9 +31,7 @@
           <td>{{boat.brand}} </td>
           <td class="usage">{{boat.boatusage}} </td>
           <td ng-click="damagesForBoat=boat"><span ng-show="{{boat.trip}}">På vandet</span> 
-            <span ng-show="{{boat.damage==3}}">Svært skadet</span>
-            <span ng-show="{{boat.damage==2}}">Middel skadet</span>
-            <span ng-show="{{boat.damage==1}}">Let skadet</span>
+            <span>{{boat.damage|damagedegreedk}}</span>
           </td>
         </tr>
       </tbody>

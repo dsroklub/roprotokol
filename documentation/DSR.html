@@ -1,56 +1,135 @@
 <!DOCTYPE html>
 <head>
-  <meta charset="utf-8">
+
+<style>
+  h2 { margin-left:-2%; color: blue; background: white; }
+  h1 { margin-left:-4%; color: red; background: white; }
+  h2 { margin-left:-2%; color: blue; background: white; }
+  body { margin-left:5%; color: black; background: white; }
+  code { color: black; background: #FFFF88;}
+  a:link { background-color: #EEEEFF; text-decoration: underline;}
+  a:hover { background-color: #aaff00; text-decoration: none;}
+  a:visited {  background-color: #ffff00; text-decoration: none;}
+  a:active { color: #ff00ff; text-decoration: none;}
+
+</style>
+<meta charset="utf-8">
 </head>
 
 
   <body>
 <h1>I forhold til den gamle roprotokol</h1>
 
-<h2>Udskriv</h2>
+<h2>Udskriv Båd</h2>
 
-Her er de største forskelle. Der er gjort meget for at gøre udskrivning effektiv, da det er den største flaskehals, især når et et helt hold skal skrive deres både ud.
+Her er de største forskelle. Der er gjort meget for at gøre
+udskrivning effektiv, da det er den største flaskehals, især når et et
+helt hold skal skrive deres både ud. Under udskrivning vises kun både, der ikke er på vandet.
 
 <h3>Man kan udfylde alle felterne i den rækkefølge man vil</h3>
- Bortset fra at man ikke kan angive flere roere end der kan være i den bådtype, man har valgt. Man kan også skifte både båd og bådtype uden at skal genindtaste roerne. Hvis man skifter til en bådtype med færre pladser forsvinder de sidste roere dog
 
-  <h3>Der er ikke længere noget "låst af anden klient"</h3>
+Bortset fra at man ikke kan angive flere roere, end der kan være i den
+bådtype, man har valgt. Man kan også skifte både båd og bådtype uden
+at man skal genindtaste roerne. Hvis man skifter til en bådtype med
+færre pladser forsvinder de sidste roere dog
 
-  Den, der først har udfyldt felterne og trykker på den store "udskriv" knap, får båden.
-  Så man kan ikke længere spurte til en termial, vælge en båd og så give sig god tid at finde sine medroeres navne og numre. Nu gælder det om at skynde sig med at få båden skrevet ud, så der bliver plads til de næste ved terminalen. Hvis man er for langsom og nogen har taget båden først, kan man bare vælge en anden båd uden at man skal genindtaste noget.    
+<h3>Der er ikke længere noget "låst af anden klient"</h3>
 
-  <h3>Både har nu placeringer, p.t. DSR og Nordhavn.</h3>
- Man kan se placeringen i bådlisten.
-    Hvis man vælger en destination efter at man har valgt en båd fra forposten i Nordhavn, vil afstandene være anderledes. Hvis man vælger båd efter at man har valgt destination, vil afstanden blive opdateret efter hvor båden er placeret.
+Den, der først har udfyldt felterne og trykker på den store
+"udskriv" knap, får båden.  Så man kan ikke længere spurte til en
+terminal, vælge en båd og så give sig god tid at finde sine medroeres
+navne og numre. Nu gælder det om at skynde sig med at få båden
+skrevet ud, så der bliver plads til de næste ved terminalen. Hvis
+man er for langsom og nogen har taget båden først, kan man bare
+vælge en anden båd uden at man skal genindtaste noget.
+
+  <h3>Både har nu lokationer, p.t. DSR og Nordhavn.</h3>
+
+Man kan se placeringen i bådlisten.  Hvis man vælger en destination
+efter at man har valgt en båd fra forposten i Nordhavn, vil
+afstandene være anderledes. Hvis man vælger båd efter at man har
+valgt destination, vil afstanden blive opdateret efter hvor båden
+er placeret.
 
   <h3>Genbrug af felter</h3>
-  Når man har skrevet en båd ud, bliver turtypen, bådtypen og destinationen stående. Det er for at det skal gå hurtigere når fx INKA skal have 10 både skrevet ud til opfyldningen.
+
+Når man har skrevet en båd ud, bliver turtypen, bådtypen og
+destinationen stående. Det er for, at det skal gå hurtigere når fx
+INKA skal have 10 både skrevet ud til opfyldningen.
 
 <h2>Indskriv</h2>
 
-Indskriv har nu sin egen side.
-Man kan enten finde båden via bådtypen, som i det gamle system.
-Men man kan også søge direkte på bådens navn, eller man kan finde i listen over udskrevne både.
+Indskriv har nu sin egen side.  Man kan enten finde båden via
+bådtypen, som i det gamle system.  Men man kan også søge direkte på
+bådens navn, eller man kan finde i listen over udskrevne både.
+Der vises kun både, der er på vandet. Som regel vil man derfor kunne se sin både direkte på siden så man ikke behøver at vælge en bådtype først.
+
+<h2>Roere</h2>
+Viser statistik og ture for roere. Det er her, man kan indsende rettelser til ture.
 
 
 <h2>Admin</h2>
+
 <h3>Rettigheder</h3>
 
-Rettighedslogikken er lavet om. Roerne har stadig de samme rettigheder.
+Rettighedslogikken er lavet om. Roerne har stadig de samme
+rettigheder.
 
-Men nu kan både og turtyper stille krav til de rettigheder roerne i båden skal have. Og der kan stilles krav til hvem i båden, der skal have rettihgden, type styrmanden eller all.
+Men nu kan både og turtyper stille krav til de rettigheder, roerne i
+båden skal have. Og der kan stilles krav til hvem i båden, der skal
+have rettigheden, typisk styrmanden eller alle.
 
 Rollerne er:
 
 <ul>
 <li> Styrmanden. Det er den første (øverste) roer, der skrives ind. Også selvom roeren måske ikke sidder på den plads i båden. </li>
+
 <li> Alle. Det gælder alle roere i båden.</li>
+
 <li> Nogen/mindst een. Hvis mindst een i båden skal have en bestem ret. Normalt vil man jo stille kravet til styrmanden. Men man kunne fx kræve at der mindst een kanin med på instruktionsture.</li>
+
 <li> Ingen. Hvis der ikke må være nogen med en ret med i på turen. Fx roere med svensknøgler.
+
 </ul>
 
+<h3>Både</h3>
 
+Man kan her:
+<ul>
+  <li>Oprette nye både</li>
+  <li>Pensionere både</li>
+  <li>Angive om det er en robåd eller kajak.  </li>
+  <li>Administrere bådens rettighedskrav</li>
+  <li>Vælge bådens bådtype</li>
+  <li>Angive om båden er i DSR eller Nordhavn</li>
+  <li>Angive niveau, Fabrikat og anvendelse. Det var tidlige kun brugt for kajakker, men nu kan det også bruge for kajakker. Fx til at angive inriggere, der er rigget til lette eller tunge roere</li>
+</ul>
 
+<h3>Både</h3>
+<ul>
+  <li>Administrere rettigheder for rorere.</li>
+  <li>Konvertere rorere (kaniner der også har et medlemsnummer)</li>
+</ul>
+
+<h3>Ture</h3>
+Her administrerer man rettighedskrav for ture.
+<p>
+  Man kan også justere distancer og forventede varigheder for både i henholdsvis DSR og Nordhavn.
+
+  Tallene for Nordhavn er i øjeblikket ikke præcise. Det er bare skøn, jeg har lavet, for at kunne teste roprotokollen.
+
+<h3>Fejlrettelser</h3>
+
+Viser de indberettede fejl. Man kan acceptere eller afvise rettelserne.
+
+<h3>Hændelser</h3>
+Viser de sidste par hundrede registerede hændelser. P.t. er det:
+
+<ul>
+  <li>Både der er udskrevet uden de fornødne rettigheder (så vidt roprotokollen ved)</li>
+  <li>Nye Meldte skader på både</li>
+  <li>Nye klarmeldinger af skalder på både</li>
+</ul>
 
 
 <h3>Røde svensknøgler</h3>
