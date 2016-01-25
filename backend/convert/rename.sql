@@ -8,7 +8,7 @@ RENAME TABLE Kajak_typer TO boat_brand;
 RENAME TABLE Kommentar TO Comment;
 RENAME TABLE LåsteBåde TO LockedBoat;
 RENAME TABLE Medlem TO Member;
-RENAME TABLE Postnr TO Zipcode;
+-- RENAME TABLE Postnr TO Zipcode;
 DROP TABLES IF EXISTS  Damage;
 RENAME TABLE Skade TO Damage;
 RENAME TABLE TurType TO TripType;
@@ -27,7 +27,7 @@ ALTER TABLE Member DROP COLUMN Rettigheder;
 ALTER TABLE Member CHANGE OprettetDato  Created DATETIME;
 ALTER TABLE Member CHANGE RedigeretDato  Updated DATETIME;
 ALTER TABLE Member CHANGE Initialer  Initials CHAR(10);
-ALTER TABLE Member CHANGE FK_Postnr  Zipcode CHAR(20);
+-- ALTER TABLE Member CHANGE FK_Postnr  Zipcode CHAR(20);
 
 
 ALTER TABLE BoatType CHANGE GruppeID  id INT;
@@ -98,12 +98,12 @@ ALTER TABLE  Error_Trip CHANGE TurDeltager9 TripMember9 VARCHAR(100);
 ALTER TABLE  Error_Trip CHANGE Årsagtilrettelsen ReasonForCorrection VARCHAR(1000);
 ALTER TABLE  Error_Trip CHANGE Indberetter  Reporter VARCHAR(100);
 
-ALTER TABLE  Kayak_model CHANGE ID id INT;
-ALTER TABLE  Kayak_model CHANGE Typenavn Name VARCHAR(100);
+ALTER TABLE  boat_brand CHANGE ID id INT;
+ALTER TABLE  boat_brand CHANGE Typenavn name VARCHAR(100);
 
-ALTER TABLE Kayak_usage CHANGE ID id INT;
-ALTER TABLE Kayak_usage CHANGE Anvendelse name VARCHAR(100);
-ALTER TABLE Kayak_usage CHANGE Beskrivelse Description VARCHAR(1000);
+ALTER TABLE boat_usage CHANGE ID id INT;
+ALTER TABLE boat_usage CHANGE Anvendelse name VARCHAR(100);
+ALTER TABLE boat_usage CHANGE Beskrivelse Description VARCHAR(1000);
 
 ALTER TABLE LockedBoat CHANGE BoatID Boat INT;
 ALTER TABLE LockedBoat CHANGE KlientNavn ClientName VARCHAR(100);
@@ -128,8 +128,8 @@ ALTER TABLE TripType CHANGE RedigeretDato Updated DATETIME;
 ALTER TABLE TripType CHANGE Initialer Initials VARCHAR(10);
 ALTER TABLE TripType CHANGE Aktiv Active INT;
 
-ALTER TABLE Zipcode CHANGE Postnr Zipcode CHAR(10);
-ALTER TABLE Zipcode CHANGE Distrikt District VARCHAR(100);
+-- ALTER TABLE Zipcode CHANGE Postnr Zipcode CHAR(10);
+-- ALTER TABLE Zipcode CHANGE Distrikt District VARCHAR(100);
 
 -- TODO: BoatConfiguration, Comment, 
 DELETE FROM Destination WHERE Meter=0;
@@ -165,15 +165,15 @@ UPDATE Boat set Decommissioned = Now() WHERE Name in ("Dan");
 
 -- ALTER TABLE Trip CHANGE TripID id INT AUTO_INCREMENT;
 ALTER TABLE Error_Trip CHANGE  id id INT AUTO_INCREMENT;
-ALTER TABLE MemberRights CHANGE MemberID member_id INT;
-ALTER TABLE Boat CHANGE KayakModel modelid INT;
-ALTER TABLE Boat ADD brand VARCHAR(30);
-ALTER TABLE boat_brand CHANGE  Name name VARCHAR(100);
+-- ALTER TABLE MemberRights CHANGE MemberID member_id INT;
+-- ALTER TABLE Boat CHANGE KayakModel modelid INT;
+-- ALTER TABLE Boat ADD brand VARCHAR(30);
 UPDATE Boat SET brand=(SELECT Name as model FROM boat_brand WHERE boat_brand.id = Boat.modelid);
 ALTER TABLE Boat DROP COLUMN modelid;
 ALTER TABLE Boat CHANGE Anvendelse boat_usage INT;
 ALTER TABLE Boat CHANGE  Niveau level INT;
-ALTER TABLE boat_usage CHANGE id id  INT AUTO_INCREMENT;
+ALTER TABLE boat_usage CHANGE ID id INT AUTO_INCREMENT;
+-- ALTER TABLE boat_usage CHANGE Anvendelse name VARCHAR(100);
 
 
 -- These might not be necessary, but they are at least idempotent

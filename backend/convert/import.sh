@@ -2,7 +2,7 @@
 BASEDIR=$(dirname $0)
 SCRIPT_PATH=$(readlink -f $BASEDIR)
 
-CURRENTSEASON=2015
+CURRENTSEASON=2016
 echo CURRENTSEASON=$CURRENTSEASON
 DB=$1
 datatype=$2
@@ -59,8 +59,9 @@ $DBCMD < $SCRIPT_PATH/BoatRights.sql
 $DBCMD < $SCRIPT_PATH/memberrighttype.sql
 $DBCMD < $SCRIPT_PATH/Location.sql
 if [[ $datatype = "fake" ]]; then
+    echo "RENAMING"
+    $DBCMD --force --line-numbers --show-warnings --verbose < $SCRIPT_PATH/rename.sql
     echo "Generating fake data..."
-    $DBCMD < $SCRIPT_PATH/rename.sql
     $SCRIPT_PATH/../tests/fakedata.py $DB
 elif [[ $datatype = "real" ]]; then
     echo "Using real data..."

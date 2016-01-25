@@ -60,6 +60,9 @@ CREATE TABLE IF NOT EXISTS Båd (
     Navn VARCHAR(100) NOT NULL, -- FIXME should be unique: Balder
     FK_GruppeID INT,
     Pladser INT,
+    Brand VARCHAR(30),
+    modelid INT,
+--    level INT,
     Beskrivelse VARCHAR(100),
     OprettetDato DATETIME,
     RedigeretDato DATETIME,
