@@ -92,14 +92,25 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         if (!ok) {
           norights.push(" der skal være mindst een roer med "+rq + " ret");
         }
-      }    
+      } else if (rq='any') {
+        var ok=true;
+        for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
+          if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
+            if (!(rq in $scope.checkout.rowers[ri].rights)) {
+              ok=false;
+            }
+          }
+        }
+        if (!ok) {
+          norights.push(" der må ikke være nogen "+rq+" i båden");
+        }
+      }
+
+      
     }
     $scope.rightsmessage=norights.join(",");
-    // HERE
     return norights.length<1;
   }
-         // TODO: Check that all rowers has the correct right by looking at the rights table and also make sure we test if instructor
-        // TODO: Show wrench next to name in checkout view
 
   $scope.selectBoatCategory = function(cat) {
     $scope.selectedBoatCategory=cat;
@@ -187,61 +198,43 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
 //      $scope.checkout.destination = undefined;
     };
     
-  $scope.reportFixDamage = function (bd,damagelist,ix) {
-    if ($scope.damages && $scope.damages.reporter && bd) {
+  $scope.reportFixDamage = function (bd,reporter,damagelist,ix) {
+    // reporter is an argument so that it works when calling from checkout is implementerd
+    if (bd && reporter) {
       var data={
         "damage":bd,
-        "reporter":$scope.damages.reporter
+        "reporter":reporter
       }
       if (DatabaseService.fixDamage(data)) {
         damagelist.splice(ix,1);
-        DatabaseService.reload();
-        alert("Skade for "+bd.boat+" klarmeldt");
-        $scope.damages.reporter=null;
+        $scope.newdamage.reporter=null;
         $scope.allboatdamages = DatabaseService.getDamages();
         $scope.damagesnewstatus="klarmelde";
       } else {
         $scope.damagesnewstatus="Database fejl under klarmelding";
       }
     } else {
+      // FIXME, this does not work when calling from checkout is implementerd
       $scope.damagesnewstatus="du skal angive, hvem du er";
     }
   };
 
-  $scope.reportDamageForBoat = function () {
-    if ($scope.damagedegree && $scope.selectedboat && $scope.selectedboat.id && $scope.damagedescription && $scope.damages.reporter) {
-      var data={
-        "degree":$scope.damagedegree,
-        "boat":$scope.selectedboat,
-        "description":$scope.damagedescription,
-        "reporter":$scope.damages.reporter
-      }
+  $scope.reportDamageForBoat = function (damage) {
+    if (damage.degree && damage.boat && damage.description && damage.reporter) {
       $scope.damagesnewstatus="OK";
-      alert("Damage "+JSON.stringify(data));
-      if (!DatabaseService.newDamage(data)) {
-        alert("new damage failed");
-      } else {
-        $scope.damagedegree=null;
-        $scope.damages.reporter=null;
-        $scope.damagedescription=null;
-        $scope.selectedboat=null;
-      }
+      var exeres=DatabaseService.updateDB_async('newdamage',damage,$scope.config).then(        
+        function(data) {
+          if (data.status=="ok") {
+            $scope.allboatdamages.splice(0,0,data.damage);
+            $scope.newdamage=null;
+          }                  
+        }
+      )
     } else {
       $scope.damagesnewstatus="alle felterne skal udfyldes";
     }
   };
 
-
-  // Unused
-  $scope.reportdamage = function () {
-      ngDialog.open({ template: 'reportdamage.html' });
-  };
-
-  $scope.savedamage = function (boat_id, description, level) {
-    var damage = { "id": 0, "descrption": description, "level": level }
-    // TODO: Post to server and get id
-    boatdamages.push(damage);
-  };
 
   $scope.dateOptions = {
     showWeeks: false
@@ -303,7 +296,11 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
   }
  
   $scope.createtrip = function (data) {
-    // TODO: Check if all rowers have ID and don't allow to start trip before it's done
+
+    if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
+      data.event=$scope.rightsmessage;
+    }
+    
     var newtrip=DatabaseService.createTrip(data);
     newtrip.promise.then(function(status) {
       data.boat.trip=-1;

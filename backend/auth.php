@@ -22,6 +22,7 @@ $users = [
 ];
 
 
+error_log("RQURI: ".$_SERVER["REQUEST_URI"]);
 if(startsWith($_SERVER["REQUEST_URI"], $auth_url . "/oauth/authorize")) {
     // Try to look up client to see if we have this client_id and redirect uri 
     if(   isset($_GET["client_id"])

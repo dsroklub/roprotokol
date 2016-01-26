@@ -11,17 +11,19 @@
 app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
                              function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
           DatabaseService.init().then(function () {
-            $scope.currentrower=null;            
+            $scope.currentrower=null;
+            $scope.do="events";
             $scope.DB=DatabaseService.getDB;
             $scope.allboats = DatabaseService.getBoats();
             $scope.locations = DatabaseService.getDB('locations');
+            $scope.events = DatabaseService.getDB('get_events');
             $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
             $scope.boatkayakcategories = DatabaseService.getDB('boatkayakcategory');
             var errortrips = DatabaseService.getDB('errortrips');
             $scope.levels =DatabaseService.getDB('boatlevels');
             $scope.brands =DatabaseService.getDB('boat_brand');
             $scope.usages =DatabaseService.getDB('boat_usages');
-
+            $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
             $scope.ziperrors=[];
             var i=0;
             while (i < errortrips.length -1) {
@@ -44,6 +46,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.errorhandler = function(error) {
               console.log(error);
               $route.reload();
+              alert("du skal logge ind");
             }
             
             $scope.getRowerByName = function (val) {
@@ -51,37 +54,37 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             };
 
             $scope.setboatkayak = function(bt) {
-              var exeres=DatabaseService.updateDB('setboatkayak',bt);
+              var exeres=DatabaseService.updateDB('setboatkayak',bt,$scope.config,$scope.errorhandler);
             }
 
             $scope.create_boattype = function(bt) {
               console.log("net boattype");
-              var exeres=DatabaseService.updateDB('create_boattype',bt);
+              var exeres=DatabaseService.updateDB('create_boattype',bt,$scope.config,$scope.errorhandler);
               $scope.DB('boattypes').push(bt);
             }
 
             $scope.update_level = function(boat) {
-              var exeres=DatabaseService.updateDB('boat_update_level',boat);
+              var exeres=DatabaseService.updateDB('boat_update_level',boat,$scope.config,$scope.errorhandler);
             }
             $scope.update_brand = function(boat) {
-              var exeres=DatabaseService.updateDB('boat_update_brand',boat);
+              var exeres=DatabaseService.updateDB('boat_update_brand',boat,$scope.errorhandler);
             }
             $scope.update_usage = function(boat) {
-              var exeres=DatabaseService.updateDB('boat_update_usage',boat);
+              var exeres=DatabaseService.updateDB('boat_update_usage',boat,$scope.config,$scope.errorhandler);
             }
 
             $scope.update_usage_name = function(boat) {
-              var exeres=DatabaseService.updateDB('usage_update_name',boat);
+              var exeres=DatabaseService.updateDB('usage_update_name',boat,$scope.config,$scope.errorhandler);
             }
             $scope.update_usage_description = function(usage) {
-              var exeres=DatabaseService.updateDB('usage_update_description',usage);
+              var exeres=DatabaseService.updateDB('usage_update_description',usage,$scope.config,$scope.errorhandler);
             }
             $scope.update_usage_name = function(usage) {
-              var exeres=DatabaseService.updateDB('usage_update_description',usage);
+              var exeres=DatabaseService.updateDB('usage_update_description',usage,$scope.config,$scope.errorhandler);
             }
             $scope.create_usage = function(usage) {
               console.log('create new usage '+usage);
-              var exeres=DatabaseService.updateDB_async('usage_create',usage).then(
+              var exeres=DatabaseService.updateDB_async('usage_create',usage,$scope.config).then(
                 function(newusage) {
                   if (newusage.status=="ok") {
                     $scope.usages.push(newusage.newusage);
@@ -93,77 +96,81 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             }
 
             $scope.set_duration = function(destination,loc) {
-              var exeres=DatabaseService.updateDB('set_duration',destination);
+              var exeres=DatabaseService.updateDB('set_duration',destination,$scope.config,$scope.errorhandler);
             }
             $scope.set_distance = function(destination,loc) {
-              var exeres=DatabaseService.updateDB('set_distance',destination);
+              var exeres=DatabaseService.updateDB('set_distance',destination,$scope.config,$scope.errorhandler);
             }
 
             $scope.set_cat_for_boat = function(boat) {
-              var exeres=DatabaseService.updateDB('set_cat_for_boat',boat);
+              var exeres=DatabaseService.updateDB('set_cat_for_boat',boat,$scope.config,$scope.errorhandler);
             }
             $scope.set_loc_for_boat = function(boat) {
-              var exeres=DatabaseService.updateDB('set_loc_for_boat',boat);
+              var exeres=DatabaseService.updateDB('set_loc_for_boat',boat,$scope.config,$scope.errorhandler);
             }
             $scope.retire_boat = function(boat,ix) {
-              var exeres=DatabaseService.updateDB('retire_boat',boat);
+              var exeres=DatabaseService.updateDB('retire_boat',boat,$scope.config,$scope.errorhandler);
               $scope.allboats.splice(ix,1);              
             }
             $scope.create_boat = function(boat) {
-              var exeres=DatabaseService.updateDB('create_boat',boat);
+              var exeres=DatabaseService.updateDB('create_boat',boat,$scope.config,$scope.errorhandler);
               $scope.allboats.push(boat);
             }
 
 
             $scope.add_rower_right = function(right,rower) {
               var data={'right':right,'rower':rower}
-              var exeres=DatabaseService.updateDB('add_rower_right',data);
+              var exeres=DatabaseService.updateDB('add_rower_right',data,$scope.config,$scope.errorhandler);
               $scope.currentrower.rights[right.member_right]=Date();
             }
             $scope.remove_rower_right = function(rower,right) {             
               var data={'right':right,'rower':rower}
-              var exeres=DatabaseService.updateDB('remove_rower_right',data);
+              var exeres=DatabaseService.updateDB('remove_rower_right',data,$scope.config,$scope.errorhandler);
               delete $scope.currentrower.rights[right];
             }
             
             $scope.remove_boattype_requirement = function(rt,ix) {
               var data={boattype:$scope.currentboattype,'right':rt};
-              var exeres=DatabaseService.updateDB('remove_boattype_right',data);
+              var exeres=DatabaseService.updateDB('remove_boattype_right',data,$scope.config,$scope.errorhandler);
               delete $scope.requiredboatrights[rt];
 
             }
 
             $scope.add_boattype_requirement = function(data) {
               data.boattype=$scope.currentboattype;
-              var exeres=DatabaseService.updateDB('add_boattype_req',data,$scope.errorhandler);
+              var exeres=DatabaseService.updateDB('add_boattype_req',data,$scope.config,$scope.errorhandler);
               $scope.requiredboatrights[data.right]=data.subject;
             }
 
             $scope.remove_triptype_requirement = function(rt,ix) {
               var data={triptype:$scope.currenttriptype,'right':rt};
-              var exeres=DatabaseService.updateDB('remove_triptype_req',data);
+              var exeres=DatabaseService.updateDB('remove_triptype_req',data,$scope.config,$scope.errorhandler);
               delete $scope.requiredtriprights[rt];
 
             }
             $scope.add_triptype_requirement = function(data) {
               data.triptype=$scope.currenttriptype;
               $scope.requiredtriprights[data.right]=data.subject;
-              var exeres=DatabaseService.updateDB('add_triptype_req',data);
+              var exeres=DatabaseService.updateDB('add_triptype_req',data,$scope.config,$scope.errorhandler);
             }
 
             $scope.approve_correction = function(data,ix) {
-              var exeres=DatabaseService.updateDB('approve_correction',data);
+              var exeres=DatabaseService.updateDB('approve_correction',data,$scope.config,$scope.errorhandler);
               $scope.ziperrors.splice(ix,1);                            
             }
             $scope.reject_correction = function(data,ix) {
-              var exeres=DatabaseService.updateDB('reject_correction',data);
+              var exeres=DatabaseService.updateDB('reject_correction',data,$scope.config,$scope.errorhandler);
               $scope.ziperrors.splice(ix,1);              
             }
             
             $scope.boatcat2dk=DatabaseService.boatcat2dk;
             $scope.rightsubjects=['cox','all','any','none'];
 
-            $scope.doboatrights = function (rr,bt){
+            $scope.rowerconvert = function (fromrower,torower) {
+              var exeres=DatabaseService.updateDB('convert_rower',{"from":fromrower,"to":torower},$scope.config,$scope.errorhandler);
+            }
+
+            $scope.doboatrights = function (rr,bt) {
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
                 $scope.requiredboatrights={};
               } else {

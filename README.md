@@ -89,7 +89,6 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 * Afkobl distance fra json datalisten.
 * konverter kaniner til roere
 * Fjeren Trip.Season from rowertripsaggregated.php
-* Admin, båd: avendelse, Båd.brand, båd.level
 
 ### BUGS
 
@@ -106,12 +105,11 @@ Senere kan vi lave en alter statement i databasen, så det ikke sker igen.
 
 ### Missing features
 
-* klarmeld skader ved checkout
-
-* Kovertering af kanin/midlertidig roer
-
 * Administration af både
   ** slet bådtype
+
+
+### Feature requests
 
 * Reservation af både
 * Indberetning af fejl i rettigheder -> mail til instruktionschefen
@@ -119,15 +117,6 @@ Senere kan vi lave en alter statement i databasen, så det ikke sker igen.
 ** Hvis turen er kortere end x minutter, så foreslå at slette turen i stedet
 * Kommenter skade
 
-** Roller og Rettigheder. Fx at man ikke skal logge ind på terminalerne i bådhallen.
-
-** Statistik fordelt på turtyper.
-   SQL forespørgslerne er lavet. Der skal laves et webinterface til dem.
-
-** Turoversigt: handler om at de steder, vi viser ture, skal man kunne
-  klikke på en tur og se turens data og roerne på turen, og de steder vi
-  viser roere, skal man kunne klikke på en roer og se roeren ture.
-  Vi bliver nok nødt til at reorganisere lidt. Måske lave et nested scope.
 
 * Årsstatistik
 * Konfiguration af klienter. Noget local storage. Klienter i bådhallen skal vide, at de er i bådhallen og hvilken klient de er (fx et hostnavn)
@@ -140,8 +129,6 @@ Senere kan vi lave en alter statement i databasen, så det ikke sker igen.
 
 ##TODO
 
-Skal konfigureres til ikke at gemme passwords
-
 # Feature ønsker
 
 ## Roere.
@@ -149,8 +136,6 @@ Skal konfigureres til ikke at gemme passwords
 * Vi kunne checke at den samme roer ikke kan være udskrevet flere gange.
 
 * Typeahead for roere, der udskrives kunne forfines, så den kun vis roere, som ikke er på vandet og som passer med turtypen. Fx kun kaprorer for INKA ture.
-
-* Attributter til bådene. Fx egnet til lette/tunge roere, markeres med ikon.
 
 * Slette og genbruge tur. Hvis man har skrevet en båd ud, der viser sig ikke at være i orden. Så kunne man slette turen og komme til checkout-skærmen med de samme rorere og den samme destination og turtype.
 

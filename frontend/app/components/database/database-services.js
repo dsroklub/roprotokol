@@ -24,15 +24,17 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
 
   var cachedepend={
-    'boat':['boats','boatdamages'],
-    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat', 'boats','errortrips'],
-    'member':['boats']
+    'boat':['boats','boatdamages','availableboats','boatreservations','boat_status','boat_usages','boat_status','get_events'],
+    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
+    'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
+    'destination':['destinations']
   };
   
   var datastatus={
     'boat':null,
     'trip':null,
-    'member':null
+    'member':null,
+    'destination':null
   };
 
   function toURL(service){
@@ -52,7 +54,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   }
 
   this.getData = function (dataid,promises) {
-    if(!valid[dataid]) {
+    if(!valid[dataid] || !db[dataid]) {
       var dq=$q.defer();
       promises.push(dq.promise);
       $http.get(toURL(dataid+'.php')).then(function(response) {
@@ -63,7 +65,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   }
 
-  this.init = function () {
+  this.fetch = function () {
     var boatmaintypes = ['kayak','any','rowboat'];
     $log.debug("DB init "+Date());
     var headers = {};
@@ -116,6 +118,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     } 
 
     this.getData('destinations',promises);
+    this.getData('get_events',promises);
     this.getData('boattypes',promises);
     this.getData('errortrips',promises);
     this.getData('triptypes',promises);
@@ -181,19 +184,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	    sq.resolve(true);
 	  });
 	})(boattype);
-      }
-
-
-      
-    }
-    
+      }      
+    }    
     var qll=$q.all(promises);
     tx=qll;
     return qll;
   };
 
+  
   this.defaultLocation = 'DSR';
-
   this.invalidate_dependencies=function(tp) {
     $log.debug("  dirty: "+tp);
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
@@ -201,16 +200,22 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       $log.debug("    invalidate: "+subtp);
       valid[subtp]=false;	    
     }
+  };
+
+
+  this.init = function() {
+    return this.sync();
   }
-  
+
   this.sync=function() {
     var dbservice=this;
     var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).success(function(ds, status, headers, config) {
       var doreload=false;
-      $log.debug("do db sync");
+      $log.debug("got dbstatus" + JSON.stringify(ds));
       for (var tp in ds) {
 	if (datastatus[tp]!=ds[tp]) {
+          $log.debug("  inval"+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
@@ -218,7 +223,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       }
       if (doreload) {
 	$log.debug(" do reload " + JSON.stringify(valid));
-	dbservice.init().then(function() {
+	dbservice.fetch().then(function() {
 	  sq.resolve("sync done");
 	});
       } else {
@@ -390,10 +395,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return formClosed;
   };
 
-  this.updateDB_async = function(op,data) {
+  this.updateDB_async = function(op,data,config) {
     var qup=$q.defer();
     var res=undefined;
-    $http.post('../../backend/'+op+".php", data).success(function(sdata,status,headers,config) {
+    $http.post('../../backend/'+op+".php", data,config).success(function(sdata,status,headers,config) {
       qup.resolve(sdata);
     }).error(function(sdata,status,headers,config) {
       $log.error(status);
@@ -405,9 +410,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return qup.promise;
   }
   
-  this.updateDB = function(op,data,eh) {
+  this.updateDB = function(op,data,config,eh) {
     $log.debug(' do '+op);
-    var ar=this.updateDB_async(op,data);
+    var ar=this.updateDB_async(op,data,config);
      var at=ar.then(function (res) {
        $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
        if (!res||res.status=="notauthorized") {

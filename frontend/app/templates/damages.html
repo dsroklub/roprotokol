@@ -8,7 +8,7 @@
 
 <ng-form name="reportDamage">
   <label for="damages.anmelder">skademelder/klarmelder</label>
-  <input  autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="damages.reporter" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="reporterTemplate.html" required />
+  <input  autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="newdamage.reporter" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="reporterTemplate.html" required />
   <label ng-bind="damagesnewstatus"></label>
 
 <br>
@@ -19,18 +19,20 @@
   {{match.model.name}} <i>({{match.model.category}})</i>
   </a>
 </script>
-<label for="select_boat">Båd</label>
-  <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
-
+<div class="report">
+  <label for="select_boat">Båd</label>
+  <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="newdamage.boat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
   
-  <select name="damage" ng-model="damagedegree">
+  
+  <select name="damage" ng-model="newdamage.degree">
     <option value="1">1 let</option>
     <option value="2">2 middel</option>
-    <option value="3">3 sv&aelig;r</option>
+    <option value="3">3 svær</option>
   </select>
   <label for="damages.damage">Skade</label>
-  <input autocomplete="off" id="damages.damage" name="skade" type="text" ng-model="damagedescription"  required>
-  <button id="newdamagereport_button" ng-click="reportDamageForBoat()">Anmeld ny skade</button>
+  <textarea class="damagetext" autocomplete="off" id="damages.damage" name="skade" type="text" ng-model="newdamage.description" required></textarea>
+  <button class="klar" ng-disabled="!(newdamage.reporter && newdamage.boat && newdamage.description &&newdamage.degree)" id="newdamagereport_button" ng-click="reportDamageForBoat(newdamage)">Meld ny skade</button>
+  </div>
 </ng-form>
 
 <br>
@@ -38,9 +40,14 @@
   <thead>
     <tr><th>Båd</th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>Klarmeld</th></tr>
   </thead>
-  <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="bd in allboatdamages | filter: matchBoat(selectedboat)">
-    <td>{{bd.boat}}</td><td>{{bd.ResponsibleMember}}</td><td>{{bd.created}}</td><td>{{bd.level}}</td><td>{{bd.description}}</td>
-    <td ng-click="reportFixDamage(bd,allboatdamages,$index)"><button class="klar">klarmeld</button></td>
+  <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="bd in allboatdamages | filter: matchBoat(newdamage.boat)">
+    <td>{{bd.boat}}</td>
+    <td>{{bd.reporter}}</td>
+    <td class="degree" >{{bd.created}}</td><td>{{bd.degree|damagedegreedk}}</td>
+    <td>{{bd.description}}</td>
+    <td ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)"><button class="klar">klarmeld</button></td>
   </tr>
 </table>
-<pre>sboat = {{selectedboat | json}}</pre>
+
+<pre>newdamage = {{newdamage | json}}</pre>
+<pre>allboatdamages = {{allboatdamages | json}}</pre>

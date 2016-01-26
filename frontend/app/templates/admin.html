@@ -1,17 +1,21 @@
 <div class="oauth">
-  <oauth
+  <!--oauth
     site="/backend/auth.php"
     client-id="d6d2b510d18471d2e22aa202216e86c42beac80f9a6ac2da505dcb79c7b2fd99"
     redirect-uri="/frontend/app/real.html"
     scope="public">
-  </oauth>
+  </oauth-->
 </div>
 <div class="menuholder">
-  <button ng-click="do='boat'">Både</button>
-  <button ng-click="do='user'">Roere</button>
-  <button ng-click="do='trip'">Ture</button>
-  <button ng-click="do='correction'">Fejlrettelser</button>
+  <button class="adminbut" ng-click="do='boat'">Både</button>
+  <button class="adminbut" ng-click="do='user'">Roere</button>
+  <button class="adminbut" ng-click="do='trip'">Ture</button>
+  <button class="adminbut" ng-click="do='correction'">Fejlrettelser</button>
+  <button class="adminbut" ng-click="do='events'">Hændelser</button>
+  password: <input type="password" ng-model="config.headers.password"></input>
 </div>
+
+
 
 <div ng-show="do=='boat'">
   <div class="blok">
@@ -83,7 +87,7 @@
     <caption>Både</caption>
     <thead>
       <tr>
-	<th>Båd</th><th>kategori</th><th>lokalitet</th><th>Niveau</th><th>Mærke</th><th>Særligt</th><th></th>
+	<th>Båd</th><th>kategori</th><th>lokalitet</th><th>Niveau</th><th>Fabrikat</th><th>Særligt</th><th></th>
       </tr>	
     </thead>
   <tbody>
@@ -150,6 +154,7 @@
           <input type="text" ng-model="newusage.description"></input>
         </td>        
         <td>
+	  <button  ng-show="!newusage.name">Udfyld ny anvendelse her</button>
 	  <button ng-click="create_usage(newusage)" ng-model="newusage.create" class="big" ng-show="newusage.name">Opret ny anvendelse</button>
         </td>
       </tr>
@@ -243,10 +248,10 @@
       <i>({{match.model.id}})</i>
     </a>
   </script>
-  <div>
+  <div class="adminrower">
     <h2 class="prompt">Roer:</h2>
     <ng-form name="rowerFieldForm">
-      <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" ng-model="currentrower" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required />
+      <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required />
     </ng-form>
     <div>
 
@@ -267,6 +272,12 @@
     <select  ng-change="add_rower_right(rower.newright,currentrower)" ng-model="rower.newright" ng-options="rower.description for rower in DB('memberrighttypes')"></select>
     </div>
   </div>
+  <div class="adminconvertrower">
+    <button ng-show="currentrower.id" class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer {{currentrower.name}} til denne</button>
+    <input autocomplete="off" id="findrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" ng-model="converttorower" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required />
+</ng-form>
+
+  </div>
 </div>
 
 <div ng-show="do=='correction'">
@@ -283,16 +294,30 @@
           <button class="action " ng-click="reject_correction(et,$index)">Afvis</button>
         </td>
       </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>    
+</div>  
 
-      </thead>
-      <tbody>
-        <tr>
-        </tr>
-      </tbody>
-    </table>    
+<div ng-show="do=='events'">
+  <table class="boatlist" >
+    <caption>Hændelser</caption>
+    <thead>
+      <tr> <th>tid</th><th>Hændelse</th></tr>
+      <tr ng-repeat="ev in DB('get_events')">
+	<td>{{ev.event_time}}</td>	  
+	<td>{{ev.event}} </td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>    
 </div>  
 
 
+<pre>events {{events|json}}</pre>
+<pre>config {{config|json}}</pre>
 <pre>usages {{usages|json}}</pre>
 <pre>brands {{brands|json}}</pre>
 <pre>requiredtriprights{{requiredtriprights|json}}</pre>

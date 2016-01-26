@@ -19,6 +19,6 @@ if ($stmt = $rodb->prepare("UPDATE Destination SET Meter=? WHERE Name=? AND Loca
 }
 $rodb->commit();
 $rodb->close();
-invalidate('boat');
+invalidate('destination');
 echo json_encode($res);
 ?> 

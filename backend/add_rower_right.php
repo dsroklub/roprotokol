@@ -22,6 +22,6 @@ if ($stmt = $rodb->prepare("INSERT INTO  MemberRights (member_id,MemberRight,Acq
 }
 $rodb->commit();
 $rodb->close();
-invalidate('trip');
+invalidate('member');
 echo json_encode($res);
 ?> 

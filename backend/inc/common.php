@@ -11,8 +11,8 @@ if(!isset($_SESSION)){
 if (isset($_GET["season"])) {
     $season=$_GET["season"];
 } else {
-//  $season=date('Y');
-    $season=2015;
+  $season=date('Y');
+//    $season=2015;
 }
 
 require_once("db.php");

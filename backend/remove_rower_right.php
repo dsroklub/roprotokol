@@ -21,6 +21,6 @@ if ($stmt = $rodb->prepare("DELETE FROM MemberRights WHERE MemberRight=? AND mem
 }
 $rodb->commit();
 $rodb->close();
-invalidate('trip');
+invalidate('member');
 echo json_encode($res);
 ?> 

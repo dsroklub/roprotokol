@@ -60,6 +60,9 @@ CREATE TABLE IF NOT EXISTS Båd (
     Navn VARCHAR(100) NOT NULL, -- FIXME should be unique: Balder
     FK_GruppeID INT,
     Pladser INT,
+    Brand VARCHAR(30),
+    modelid INT,
+--    level INT,
     Beskrivelse VARCHAR(100),
     OprettetDato DATETIME,
     RedigeretDato DATETIME,
@@ -468,11 +471,11 @@ CREATE TABLE IF NOT EXISTS  tblMembersSportData (
 
 
 CREATE TABLE IF NOT EXISTS MemberRights (
-	MemberID			INT, 
+	member_id			INT, 
 	MemberRight		 	VARCHAR(50),
         Acquired			DateTime,
 	argument			VARCHAR(100),
-       PRIMARY KEY(MemberID, MemberRight,Acquired,Argument)
+       PRIMARY KEY(member_id, MemberRight,Acquired,Argument)
 );
 
 CREATE TABLE IF NOT EXISTS MemberRightType (
@@ -495,3 +498,9 @@ CREATE TABLE IF NOT EXISTS BoatRights (
        requirement VARCHAR(10),
        PRIMARY KEY (boat_type,required_right)
        );
+
+CREATE TABLE IF NOT EXISTS event_log (
+	event  VARCHAR(500),
+        event_time   DATETIME
+);
+CREATE INDEX eventtime on event_log(event_time);

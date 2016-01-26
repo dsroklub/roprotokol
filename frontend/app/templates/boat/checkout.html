@@ -5,11 +5,11 @@
   <div class="big" ng-show="!checkRights()">{{rightsmessage}}</div>
 
   </div>
-  <div class="boattypesmenu" style="float:left">
-    <h2>Vælg bådtype</h2>
+  <div class="boattypesmenu">
+    <h2>bådtype</h2>
     <ul>
       <li ng-repeat="boatcategory in boatcategories" ng-class="{selected: boatcategory == selectedBoatCategory}"  ng-click="do_boat_category(boatcategory)">{{boatcategory.name}}</li>
-      <li ng-click="selectedBoatCategory=null">Alle Bådtyper</li>
+      <!--li ng-click="selectedBoatCategory=null">Alle Bådtyper</li FIXME requires that we iterator over allboats and filter instead of using categories-->
     </ul>
   </div>
   
@@ -21,19 +21,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-click="checkoutBoat(boat)" ng-repeat="boat in selectedboats" ng-class="{selected: boat == checkout.boat}" ng-if="!boat.trip">
-          <td ><div >
+        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-click="checkoutBoat(boat)" ng-repeat="boat in selectedboats" ng-class="{selected: boat == checkout.boat}" ng-if="!boat.trip">
+          <td class="boatname"><div >
 	      {{boat.name}}
 	    </div>
 	  </td>
           <td>{{boat.location|nodsr}} {{boat.placement}}</td>
           <td>{{levels[boat.level]}} </td>
           <td>{{boat.brand}} </td>
-          <td>{{boat.boatusage}} </td>
+          <td class="usage">{{boat.boatusage}} </td>
           <td ng-click="damagesForBoat=boat"><span ng-show="{{boat.trip}}">På vandet</span> 
-            <span ng-show="{{boat.damage==3}}">Svært skadet</span>
-            <span ng-show="{{boat.damage==2}}">Middel skadet</span>
-            <span ng-show="{{boat.damage==1}}">Let skadet</span>
+            <span>{{boat.damage|damagedegreedk}}</span>
           </td>
         </tr>
       </tbody>
@@ -57,9 +55,9 @@
   </script>
   
   <div class="checkout-form">
-    <h2>Udskrivning af båd: {{checkout.boat.name}}</h2>
     <form name="checkoutForm" novalidate noautocomplete>
       <table>
+        <caption>Udskrivning af båd: {{checkout.boat.name}}</caption>
 	<tbody>	  
 	  <tr ng-repeat="rower in checkout.rowers track by $index">
             <td>
@@ -85,7 +83,7 @@
             <td>
               <ui-select class="checkout_destination"
 			 ng-model="checkout.destination"
-			 on-select="updateCheckout($item)" style="min-width:400px">
+			 on-select="updateCheckout($item)" style="min-width:200px">
 		<ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
 		<ui-select-choices repeat="destination in destinations | filter: $select.search">
                   <span ng-bind-html="destination.name | highlight: $select.search"></span>
@@ -142,12 +140,11 @@
     </form>
   </div>
 </div>
-
-<div ng-if="boatdamages" class="damageslist">
+<div ng-show="boatdamages" class="damageslist">
     <h2>Skader på {{checkout.boat.name}}</h2>
     <ul>
         <li ng-repeat="damage in boatdamages">
-            <button class="green" ng-click="reportFixDamage(damage,boatdamages,$index)" class="fa fa-check">Klarmeld</button>
+            <!--button class="green" ng-click="reportFixDamage(damage,boatdamages,$index)" class="fa fa-check">Klarmeld</button-->
             {{damage.description}}
         </li>
     </ul>   
@@ -156,10 +153,10 @@
 <img ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" >
 </img>
 
-<h2>extra</h2>  
+<!--h2>extra</h2>  
 <pre>sboat cats= {{selectedBoatCategory | json}}</pre>
 <pre>form checkout= {{checkout | json}}</pre>
 <pre>damages = {{boatdamages | json}}</pre>
 <pre>dest= {{destinations | json}}</pre>
 <pre>selectedboats = {{selectedboats | json}}</pre>
-<button ng-click="test()">test</button>
+<button ng-click="test()">test</button-->

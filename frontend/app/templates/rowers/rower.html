@@ -1,5 +1,4 @@
 <div class="baselayout">
-  
   <script type="text/ng-template" id="taTemplate.html">
     <a>
       <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
@@ -9,159 +8,156 @@
   
   <h3 class="prompt">Søg efter roer:</h3>
   <ng-form name="rowerFieldForm">
-  <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="updateRowerTrips($item)" ng-model="currentrower" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required />
+    <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="updateRowerTrips($item)" ng-model="currentrower" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required />
   </ng-form>
   <strong> <div class="prompt" ng-model="currentrower"> {{currentrower.id}}:  {{currentrower.name}} </div></strong> 
   <br>
   <h4 class="prompt">Rettigheder:</h4>
-
+  
   <ul>
-    <li ng-if="currentrower" ng-repeat="(right,arg) in currentrower.rights"> <strong>{{right}}</strong> <small>{{arg}}</small></a>
+    <li ng-if="currentrower" ng-repeat="(right,arg) in currentrower.rights"> <strong>{{right}}</strong> <small>{{arg}}</small>
     </li>
   </ul>   
 
-  <table class="genericlist" style="float:left">
-    <caption>Oversigt fordelt på turtyper</caption>
-    <thead>
-      <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
-    </thead>
-    <tr ng-repeat="ta in rowertripsaggregated">
-      <td>{{ta.triptype}}</td><td class="rnum">{{ta.trip_count}}</td><td class="rnum">{{ta.distance|mtokm}}</td><td class="rnum">{{ta.average |mtokm}}</td>
-    </tr>
-  </table>
-  
-  <div style="float:right">
+  <div class="triptypeview">
     <table class="genericlist">
-    <caption>Tur: {{currenttrip.destination}}</caption>
-    <thead>
-      <tr><th>Roer</th><th>Medlemsnummer</th></tr>
-    </thead>
-    <tr ng-repeat="tripmember in tripmembers">
-      <td >{{tripmember.name}}</td><td class="rnum">{{tripmember.id}}</td></td>
-    </tr>
-  </table>
-  <br>
-  <button class="big" ng-show="tripmembers.length>0 " ng-click="start_correct()">meld rettelser</button>
+      <caption>Oversigt fordelt på turtyper</caption>
+      <thead>
+        <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
+      </thead>
+      <tr ng-repeat="ta in rowertripsaggregated">
+        <td>{{ta.triptype}}</td><td class="rnum">{{ta.trip_count}}</td><td class="rnum">{{ta.distance|mtokm}}</td><td class="rnum">{{ta.average |mtokm}}</td>
+      </tr>
+    </table>
+  </div>
   
-<div class="correction" ng-show="correction">
-  <form name="correctionForm" novalidate noautocomplete>
-    <table>
-      <caption>Rettelser til turen til {{currenttrip.destination}} {{currenttrip.outtime}}</caption>
-    <tbody>	  
-      <tr><td>
-	<label for="correction.reason">Begrundelse</label>
-      </td>
-      	<td>
-	<input autocomplete="off" id="correction.reason" name="reason" type="text" ng-model="correction.reason"  ng-minlength="3" >
-      </td>
+  <div class="tripview">
+    <table class="genericlist">
+      <caption>Tur: {{currenttrip.destination}}</caption>
+      <thead>
+        <tr><th>Roer</th><th>Medlemsnummer</th></tr>
+      </thead>
+      <tr ng-repeat="tripmember in tripmembers">
+        <td >{{tripmember.name}}</td><td class="rnum">{{tripmember.id}}</td>
       </tr>
-      <tr>
-	<td><label for="correction.reporter">Indberetter (dit eget navn)</label></td>
-	<td><input autocomplete="off" id="correction.reporter" name="reporter" type="text" ng-model="correction.reporter"  ng-minlength="3" ></td>
-      </tr>
-      <tr>
-	<td>Bådtype</td>
-	<td>
-	  <ui-select class="boattype" ng-model="correction.boattype" on-select="updatecorrect()">
-	    <ui-select-match placeholder="Vælg Bådtype">{{$select.selected.name||"vælg bådtype"}}</ui-select-match>
-	    <ui-select-choices repeat="bt in boatcategories | filter: $select.search">{{bt.name}}</ui-select-choices>
-	  </ui-select>
-	</td>
-      </tr>
-      <tr>
-	<td>Båd</td>
-	<td>
-	  <ui-select class="boatlist" ng-model="correction.boat">
-	  <ui-select-match placeholder="Vælg båd">{{$select.selected.name||"vælg båd"}}</ui-select-match>
-	  <ui-select-choices repeat="boat in DB('boatcategories')[correction.boattype.name] | filter: $select.search">{{boat.name}}</ui-select-choices>
-	  </ui-select>
-	</td>
-      </tr>
-      <tr ng-repeat="rower in correction.rowers track by $index">
-	<td>
-	  <label for="correction_rower{{$index}}">{{$first ? 'Styrmand' : 'Roer'}}</label>
-	  <label for="correction_rower{{$index}}">{{rower.id}}</label>
-	</td>
-	<td>
-	  <ng-form name="rowerFieldForm">
-	  <input  autocomplete="off" id="correction_rower{{$index}}"  name="name" type="text" ng-model="correction.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required ></input>
-	  <span ng-if="isObjectAndHasId(correction.rowers[$index])">
-	  </span>
-	  <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>	  
-	  </ng-form>
-	</td>
-      </tr>
-      <tr>
-	<td>
-	  <label for="correction_destination">Destination</label>
-	</td>
-	<td>
-	  <ui-select class="correction_destination" ng-model="correction.destination" on-select="correction.distance=$item.distance" style="min-width:300px">
-	  <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
-	  <ui-select-choices repeat="destination in destinations | filter: $select.search">
-	  <span ng-bind-html="destination.name | highlight: $select.search"></span>
-	  (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km,
-	  <small ng-bind-html="destination.duration | totime"></small>t)
-	  </ui-select-choices>
-	  </ui-select>
-	  <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="correction.distance" required ></input>km
-	</td>
-      </tr>
-      <tr>
-	<td><label for="correction_starttime">Ud</label></td>	  
-	<td>
-	  <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="correction.outtime"/>
-	</td>
-      </tr>
-      <tr>
-	<td><label for="correction_endtime">Ind</label></td>
-
-	<td>
-	  <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="correction.intime"/>
-	</td>
-      </tr>
-      <tr>
-	<td><label for="correction_triptype">Tur type</label></td>
-	<td>
-	  <select id="correction_triptype" type="text" ng-model="correction.triptype" ng-options="item as item.name for item in triptypes" required>		
-	    <option value="">Vælg tur type</option> 
-	  </select>
-	</td>    
-      </tr>
-      <tr><td>
-	<button class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
-	</td>
-	<td>
-	  <input class="big" type="submit" ng-click="closeCorrection(false)" value="Indsend rettelser til godkendelse" />
-	</td>
-    </tr>
-    </tbody>
-  </table>
-    </form>
-</div>
+    </table>
+    <br>
+    <button class="big" ng-show="tripmembers.length>0 " ng-click="start_correct()">meld rettelser</button>
+    
+    <div class="correction" ng-show="correction">
+      <form name="correctionForm" novalidate noautocomplete>
+        <table>
+          <caption>Rettelser til turen til {{currenttrip.destination}} {{currenttrip.outtime}}</caption>
+          <tbody>	  
+            <tr><td>
+	        <label for="correction.reason">Begrundelse</label>
+              </td>
+      	      <td>
+	        <input autocomplete="off" id="correction.reason" name="reason" type="text" ng-model="correction.reason"  ng-minlength="3" >
+              </td>
+            </tr>
+            <tr>
+	      <td><label for="correction.reporter">Indberetter (dit eget navn)</label></td>
+	      <td><input autocomplete="off" id="correction.reporter" name="reporter" type="text" ng-model="correction.reporter"  ng-minlength="3" ></td>
+            </tr>
+            <tr>
+	      <td>Bådtype</td>
+	      <td>
+	        <ui-select class="boattype" ng-model="correction.boattype" on-select="updatecorrect()">
+	          <ui-select-match placeholder="Vælg Bådtype">{{$select.selected.name||"vælg bådtype"}}</ui-select-match>
+	          <ui-select-choices repeat="bt in boatcategories | filter: $select.search">{{bt.name}}</ui-select-choices>
+	        </ui-select>
+	      </td>
+            </tr>
+            <tr>
+	      <td>Båd</td>
+	      <td>
+	        <ui-select class="boatlist" ng-model="correction.boat">
+	          <ui-select-match placeholder="Vælg båd">{{$select.selected.name||"vælg båd"}}</ui-select-match>
+	          <ui-select-choices repeat="boat in DB('boatcategories')[correction.boattype.name] | filter: $select.search">{{boat.name}}</ui-select-choices>
+	        </ui-select>
+	      </td>
+            </tr>
+            <tr ng-repeat="rower in correction.rowers track by $index">
+	      <td>
+	        <label for="correction_rower{{$index}}">{{$first ? 'Styrmand' : 'Roer'}}</label>
+	        <label for="correction_rower{{$index}}">{{rower.id}}</label>
+	      </td>
+	      <td>
+	        <ng-form name="rowerFieldForm">
+	          <input  autocomplete="off" id="correction_rower{{$index}}"  name="name" type="text" ng-model="correction.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required ></input>
+	          <span ng-if="isObjectAndHasId(correction.rowers[$index])">
+	          </span>
+	          <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>	  
+	        </ng-form>
+	      </td>
+            </tr>
+            <tr>
+	      <td>
+	        <label for="correction_destination">Destination</label>
+	      </td>
+	      <td>
+	        <ui-select class="correction_destination" ng-model="correction.destination" on-select="correction.distance=$item.distance" style="min-width:300px">
+	          <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
+	          <ui-select-choices repeat="destination in destinations | filter: $select.search">
+	            <span ng-bind-html="destination.name | highlight: $select.search"></span>
+	            (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km,
+	            <small ng-bind-html="destination.duration | totime"></small>t)
+	          </ui-select-choices>
+	        </ui-select>
+	        <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="correction.distance" required ></input>km
+	      </td>
+            </tr>
+            <tr>
+	      <td><label for="correction_starttime">Ud</label></td>	  
+	      <td>
+	        <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="correction.outtime"/>
+	      </td>
+            </tr>
+            <tr>
+	      <td><label for="correction_endtime">Ind</label></td>              
+	      <td>
+	        <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="correction.intime"/>
+	      </td>
+            </tr>
+            <tr>
+	      <td><label for="correction_triptype">Tur type</label></td>
+	      <td>
+	        <select id="correction_triptype" type="text" ng-model="correction.triptype" ng-options="item as item.name for item in triptypes" required>		
+	          <option value="">Vælg tur type</option> 
+	        </select>
+	      </td>    
+            </tr>
+            <tr><td>
+	        <button class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
+	      </td>
+	      <td>
+	        <input class="big" type="submit" ng-click="closeCorrection(false)" value="Indsend rettelser til godkendelse" />
+	      </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>    
+  </div>
   
+  <div class="turoversigt">
+    <table class="genericlist">
+      <caption>Turoversigt for {{currentrower.name}}</caption>
+      <thead>
+        <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
+      </thead>
+      <tr ng-repeat="trip in rowertrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
+        <td class="selected">{{trip.id}}</td><td>{{trip.boat}}</td><td>{{trip.destination}}</td><td>{{trip.created}}</td><td class="rnum" >{{trip.distance|mtokm}}</td>
+      </tr>
+    </table>
+  </div>
 </div>
-
-<table class="genericlist">
-  <caption>Turoversigt for {{currentrower.name}}</caption>
-  <thead>
-    <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
-  </thead>
-  <tr ng-repeat="trip in rowertrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
-    <td class="selected">{{trip.id}}</td><td>{{trip.boat}}</td><td>{{trip.destination}}</td><td>{{trip.created}}</td><td class="rnum" >{{trip.distance|mtokm}}</td>
-  </tr>
-</table>
-
-
-
-
-</div>
-<div>
-  <!--pre>db= {{DB('boatcategories')|json}}</pre-->
+  <!--pre>db= {{DB('boatcategories')|json}}</pre>
   <pre>tripmembers = {{tripmembers | json}}</pre>
   <pre>correction = {{correction | json}}</pre>
   <pre>tripmembers = {{tripmembers | json}}</pre>
   <pre>currentrs = {{currentrower | json}}</pre>
   <pre>currenttrip = {{currenttrip | json}}</pre>
-  <pre>rowertrips = {{rowertrips | json}}</pre>
+  <pre>rowertrips = {{rowertrips | json}}</pre-->
   
