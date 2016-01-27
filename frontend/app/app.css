@@ -180,7 +180,11 @@ button.statcat, button.adminbut {
     width: 100%;
 }
 
-.checkout-form{
+.checkout_destination {
+    min-width : 200px;
+}
+
+.checkout-form {
     display: inline-block;
     vertical-align: top;
     margin-right: 1pt;
@@ -532,4 +536,22 @@ div.report {
 
 div.guestpenguin {
   margin: 0em 1em 2em 0em !important;
+}
+
+
+.newright {
+    background: #9BDDEF;
+}
+
+.right_select {
+    border-radius: 5px;
+    height: 2em;
+    min-width : 300px;
+    display: inline-block;
+        
+}
+
+input.adminpw {
+    border-radius: 5px;
+    background: yellow;
 }

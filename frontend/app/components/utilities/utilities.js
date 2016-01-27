@@ -27,15 +27,15 @@ var right2dkm = {
 var right2dk = {
   'kanin':'kanin',
   'rowright':'roret',
-  'cox':'styrmand',
+  'cox':'styrmandsret',
   'coxtheory':'styrmandsteori',
   'competition':'kaproer',
   '8':'otterret',
   '8cox':'otter styrmandsret',
-  'instructor':'instruktør',
+  'instructor':'instruktørret',
   'skærgård':'skærgårdsret',
   'longdistancetheory':'langdistanceteori',
-  'longdistance':'langtursstyrmand',
+  'longdistance':'langtursstyrmandsret',
   'kajak':'kajakret',
   'svava':'svavaret',
   '2kajak':'2-er kajak-ret',
@@ -43,7 +43,7 @@ var right2dk = {
   'motorboat':'motorbådsret',
   'sculler':'scullerret',
   'langturøresund':'øresund langtursret',
-  'outrigger_instructor':'outriggerinstruktør',
+  'outrigger_instructor':'outriggerinstruktørret',
   'wrench':'rød svensknøgle'
 };
 

@@ -2,7 +2,7 @@
 
 <div class="boatselection">
   <label for="select_boat">Båd</label>
-  <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
+  <input autocomplete="off" typeahead-editable="false" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
 </div>
 
 

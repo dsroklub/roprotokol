@@ -83,7 +83,7 @@
             <td>
               <ui-select class="checkout_destination"
 			 ng-model="checkout.destination"
-			 on-select="updateCheckout($item)" style="min-width:200px">
+			 on-select="updateCheckout($item)">
 		<ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
 		<ui-select-choices repeat="destination in destinations | filter: $select.search">
                   <span ng-bind-html="destination.name | highlight: $select.search"></span>
