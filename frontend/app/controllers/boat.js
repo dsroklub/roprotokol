@@ -9,9 +9,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       // Load selected boats based on boat category
       $scope.allboats = DatabaseService.getBoats();
       $scope.levels =DatabaseService.getDB('boatlevels');
-      $scope.brands =DatabaseService.getDB('boat_brand');
-
-      // Checkout code
+      $scope.brands =DatabaseService.getDB('boat_brand');      // Checkout code
+      $scope.checkout_open=[];
       var boat_id = $routeParams.boat_id;
       var destination = $routeParams.destination;
       var rowers=[];
@@ -176,8 +175,8 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       return DatabaseService.getRowersByNameOrId(val, ids);
     };
 
-    $scope.isObjectAndHasId = function (val) {
-      return typeof(val) === 'string' && val.length > 3;
+  $scope.isObjectAndHasId = function (val,ix) {
+      return typeof(val) === 'string' && (val.length > 3) && !$scope.checkout_open[ix] ;
     };
 
     $scope.updateCheckout = function (item) {
@@ -270,7 +269,11 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     }
     var rower = DatabaseService.updateDB_async('createrower',rowerreq).then(
       function(rower) {
-        $scope.checkout.rowers[index] = rower;
+        if (rower.error) {
+          $scope.checkoutmessage=rower.error;
+        } else {
+          $scope.checkout.rowers[index] = rower;
+        }
       }
     );
   };  
