@@ -529,3 +529,7 @@ textarea.damagetext {
 div.report {
     margin-top: 1.5em;
 }
+
+div.guestpenguin {
+  margin: 0em 1em 2em 0em !important;
+}
