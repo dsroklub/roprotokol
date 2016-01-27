@@ -88,7 +88,11 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 ##TODO
 * Afkobl distance fra json datalisten.
 * konverter kaniner til roere
-* Fjeren Trip.Season from rowertripsaggregated.php
+* Fjern Trip.Season from rowertripsaggregated.php
+* vis erstatningsknapper, !valid
+
+### Styling.
+ Sørge for at "tilføj kanin/gæst" ikke vælter layoutet. Placeres UNDER roeren.
 
 ### BUGS
 
