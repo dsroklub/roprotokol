@@ -79,7 +79,7 @@ boats=cur.fetchall()
 
 print "we have " +str(len(boats))+ " boats"
 for tid in range(1, 4000):
-    intime='"2016-08-14 03:12:33"'
+    intime='"2016-01-14 03:12:33"'
     boat=boats[random.randrange(0, len(boats)-1)]
     if tid == 3999:
         intime='NULL'
@@ -93,7 +93,7 @@ for tid in range(1, 4000):
     cur.execute(q);
     for d in range(0,pladser):
         rower=int(math.sqrt(random.randrange(0, (numrowers-1)**2)))
-        qm='INSERT INTO TripMember (TripID,Season,Seat,member_id,MemberName,CreatedDate) VALUES ('+str(tid)+',2016,'+str(d)+','+str(rower)+',"'+m[rower]+'","2016-04-14 00:00:00")'
+        qm='INSERT INTO TripMember (TripID,Season,Seat,member_id,MemberName,CreatedDate) VALUES ('+str(tid)+',2016,'+str(d)+','+str(rower)+',"'+m[rower]+'","2016-01-12 00:00:00")'
         print qm
         cur.execute(qm)
 
