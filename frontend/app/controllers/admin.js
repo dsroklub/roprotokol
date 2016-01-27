@@ -123,7 +123,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('add_rower_right',data,$scope.config,$scope.errorhandler);
               $scope.currentrower.rights[right.member_right]=Date();
             }
-            $scope.remove_rower_right = function(rower,right) {             
+            $scope.remove_rower_right = function(right,rower) {             
               var data={'right':right,'rower':rower}
               var exeres=DatabaseService.updateDB('remove_rower_right',data,$scope.config,$scope.errorhandler);
               delete $scope.currentrower.rights[right];
@@ -166,8 +166,14 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.boatcat2dk=DatabaseService.boatcat2dk;
             $scope.rightsubjects=['cox','all','any','none'];
 
+
+            
             $scope.rowerconvert = function (fromrower,torower) {
-              var exeres=DatabaseService.updateDB('convert_rower',{"from":fromrower,"to":torower},$scope.config,$scope.errorhandler);
+              if (fromrower && torower) {
+                var exeres=DatabaseService.updateDB('convert_rower',{"from":fromrower,"to":torower},$scope.config,$scope.errorhandler);
+              } else {
+                alert("begge roere skal være valgt");
+              }
             }
 
             $scope.doboatrights = function (rr,bt) {
@@ -178,6 +184,13 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               }
               $scope.currentboattype=bt;
             }
+
+            $scope.noright= function() {
+                  return function(rtt) {
+                    return (rtt&&$scope.currentrower && typeof($scope.currentrower.rights[rtt.member_right])!=="string");
+                  }
+            }
+            
             $scope.dotriprights = function (rr,tt){
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
                 $scope.requiredtriprights={};

@@ -12,7 +12,7 @@
   <button class="adminbut" ng-click="do='trip'">Ture</button>
   <button class="adminbut" ng-click="do='correction'">Fejlrettelser</button>
   <button class="adminbut" ng-click="do='events'">Hændelser</button>
-  password: <input type="password" ng-model="config.headers.password"></input>
+  kodeord: <input class="adminpw" type="password" ng-model="config.headers.password"></input>
 </div>
 
 
@@ -72,7 +72,7 @@
         <td><button class="action" ng-click="remove_boattype_requirement(rt,$index)">Fjern krav</button></td>
       </tr>
       <tr>
-        <td><select  ng-model="boattype.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes"></select></td>
+        <td><select ng-model="boattype.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes"></select></td>
 	<td>
 	  <select ng-model="boattype.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects"></select>
 	</td>	  
@@ -262,18 +262,21 @@
         </thead>
         <tbody>
 	  <tr ng-repeat="(rt,dt) in currentrower.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-            <td>{{rt |righttodk}}</td><td><button class="big" ng-click="remove_rower_right(currentrower,rt)">inddrag rettighed</button></td>
+            <td>{{rt |righttodk}}</td><td><button class="big" ng-click="remove_rower_right(rt,currentrower)">inddrag rettighed</button></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div ng-show="currentrower.id">
-    <label  for="rower.newright">Tildel ny rettighed til {{currentrower.name}}</label><br>
-    <select  ng-change="add_rower_right(rower.newright,currentrower)" ng-model="rower.newright" ng-options="rower.description for rower in DB('memberrighttypes')"></select>
+    <div class="addright" ng-if="currentrower.id">
+      <ui-select class="right_select" name="rower.addnewright" ng-model="rower.newright" on-select="add_rower_right(rower.newright,currentrower)">
+        <ui-select-match class="newright" placeholder="tildel rettighed til {{currentrower.name}}" >Tildel ny rettighed til {{currentrower.name}}</ui-select-match>        
+        <ui-select-choices class="newright" position="down" repeat="rtt in DB('memberrighttypes')| filter:noright()" >{{rtt.description}}</ui-select-choices>
+
+      </ui-select>
     </div>
   </div>
-  <div class="adminconvertrower">
-    <button ng-show="currentrower.id" class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer {{currentrower.name}} til denne</button>
+  <div class="adminconvertrower" ng-show="currentrower.id">
+    <button  class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer {{currentrower.name}} til denne</button>
     <input autocomplete="off" id="findrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" ng-model="converttorower" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required />
 </ng-form>
 
@@ -316,7 +319,7 @@
 </div>  
 
 
-<pre>events {{events|json}}</pre>
+<pre>currentrower {{currentrower|json}}</pre>
 <pre>config {{config|json}}</pre>
 <pre>usages {{usages|json}}</pre>
 <pre>brands {{brands|json}}</pre>
