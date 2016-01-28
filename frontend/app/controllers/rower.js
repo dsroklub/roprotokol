@@ -59,7 +59,7 @@ app.controller('RowerCtrl',
                   $scope.closeCorrection = function (deleterequest) {
                     $log.debug("close correction");
                     if (deleterequest) {
-                      $scope.correcction.deleterequest=true;
+                      $scope.correction.deleterequest=true;
                     }
                     var closeCorrection=DatabaseService.closeForm('newcorrection',$scope.correction,'trip');
                     closeCorrection.promise.then(function(status) {                   

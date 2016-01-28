@@ -129,11 +129,11 @@
 	      </td>    
             </tr>
             <tr><td>
-	        <button class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
+	        <button ng-show="correction.reason && correction.reporter" class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
 	      </td>
 	      <td>
-	        <input class="big" ng-show="correction.destination && correction.reporter" type="submit" ng-click="closeCorrection(false)" value="Indsend rettelser til godkendelse" />
-                <button ng-hide="correction.destination && correction.reporter" class="notready">Skriv begrundelse og dit navn</button>
+	        <input class="big" ng-show="correction.reason && correction.reporter" type="submit" ng-click="closeCorrection(false)" value="Indsend rettelser til godkendelse" />
+                <button ng-hide="correction.reason && correction.reporter" class="notready">Skriv begrundelse og dit navn</button>
 	      </td>
             </tr>
           </tbody>
