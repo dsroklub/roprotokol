@@ -152,6 +152,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               data.triptype=$scope.currenttriptype;
               $scope.requiredtriprights[data.right]=data.subject;
               var exeres=DatabaseService.updateDB('add_triptype_req',data,$scope.config,$scope.errorhandler);
+              $scope.trip.newright.right=null;
             }
 
             $scope.approve_correction = function(data,ix) {
@@ -190,6 +191,13 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                     return (rtt&&$scope.currentrower && typeof($scope.currentrower.rights[rtt.member_right])!=="string");
                   }
             }
+
+            $scope.noreq= function(allreqs) {
+                  return function(rtt) {
+                    return (allreqs && !allreqs[rtt.member_right]);
+                  }
+            }
+
             
             $scope.dotriprights = function (rr,tt){
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling

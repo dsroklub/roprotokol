@@ -72,7 +72,7 @@
         <td><button class="action" ng-click="remove_boattype_requirement(rt,$index)">Fjern krav</button></td>
       </tr>
       <tr>
-        <td><select ng-model="boattype.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes"></select></td>
+        <td><select ng-model="boattype.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)"></select></td>
 	<td>
 	  <select ng-model="boattype.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects"></select>
 	</td>	  
@@ -195,7 +195,7 @@
         <td><button class="action" ng-click="remove_triptype_requirement(rt)">Fjern krav</button></td>
       </tr>
       <tr>
-        <td><select  ng-model="trip.newright.right" ng-options="mrt.member_right as mrt.member_right | righttodk for mrt in memberrighttypes"></select></td>
+        <td><select  ng-model="trip.newright.right" ng-options="mrt.member_right as mrt.member_right | righttodk for mrt in memberrighttypes| filter: noreq(requiredtriprights)"></select></td>
 	<td>
 	  <select ng-model="trip.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{subject}}</select>
 	</td>	  
