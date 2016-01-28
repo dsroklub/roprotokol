@@ -63,7 +63,7 @@
             <tr>
 	      <td>Bådtype</td>
 	      <td>
-	        <ui-select class="boattype" ng-model="correction.boattype" on-select="updatecorrect()">
+	        <ui-select on-select="correction.boat=null" class="boattype" ng-model="correction.boattype" on-select="updatecorrect()">
 	          <ui-select-match placeholder="Vælg Bådtype">{{$select.selected.name||"vælg bådtype"}}</ui-select-match>
 	          <ui-select-choices repeat="bt in boatcategories | filter: $select.search">{{bt.name}}</ui-select-choices>
 	        </ui-select>
@@ -132,7 +132,8 @@
 	        <button class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
 	      </td>
 	      <td>
-	        <input class="big" type="submit" ng-click="closeCorrection(false)" value="Indsend rettelser til godkendelse" />
+	        <input class="big" ng-show="correction.destination && correction.reporter" type="submit" ng-click="closeCorrection(false)" value="Indsend rettelser til godkendelse" />
+                <button ng-hide="correction.destination && correction.reporter" class="notready">Skriv begrundelse og dit navn</button>
 	      </td>
             </tr>
           </tbody>
