@@ -10,7 +10,7 @@ if (isset($_GET["location"])) {
     exit(1);
 }
 
-$s="SELECT BoatType.id AS boattypeid, BoatType.name as boattype,Count('q') as amount, GROUP_CONCAT(Boat.name) as boats ".
+$s="SELECT BoatType.id AS boattypeid, BoatType.name as boattype,Count('q') as amount, GROUP_CONCAT(Boat.name SEPARATOR ', ') AS boats ".
   " From Boat,BoatType ".
   " WHERE ".
   " Boat.BoatType=BoatType.id AND ".
@@ -20,7 +20,8 @@ $s="SELECT BoatType.id AS boattypeid, BoatType.name as boattype,Count('q') as am
   " Boat.Name NOT LIKE '%Lånt%' AND" .
   " Boat.Name NOT LIKE '%privat%' AND" .
   " NOT EXISTS (SELECT 'x' FROM Reservation WHERE Boat.BoatType=BoatType.id AND Reservation.Boat=Boat.id AND Reservation.Begin<=Now() AND Reservation.End>=Now()) GROUP BY BoatType";
-// echo $s."<br>";
+
+# echo $s."<br>";
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("s", $location);
      $stmt->execute(); 

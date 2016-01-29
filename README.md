@@ -31,6 +31,8 @@ Opret database til roprotokollen:
 
 Importer skema og views:
 
+Sæt <code>group_concat_max_len = 50000</code> i /etc/mysql/my.cnf
+
     mysql -u roprotokol -p'roprotokol' roprotokol < backend/convert/mkdb.sql
 
   copier config.ini.template til config.ini og tilret
@@ -87,12 +89,9 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 ##TODO
 * Afkobl distance fra json datalisten.
-* konverter kaniner til roere
 * Fjern Trip.Season from rowertripsaggregated.php
 * vis erstatningsknapper, !valid
 
-### Styling.
- Sørge for at "tilføj kanin/gæst" ikke vælter layoutet. Placeres UNDER roeren.
 
 ### BUGS
 

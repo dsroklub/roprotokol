@@ -8,7 +8,7 @@
 
 <ng-form name="reportDamage">
   <label for="damages.anmelder">skademelder/klarmelder</label>
-  <input  autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="newdamage.reporter" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="reporterTemplate.html" required />
+  <input  placeholder="skriv dit navn her" autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="newdamage.reporter" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="reporterTemplate.html" required />
   <label ng-bind="damagesnewstatus"></label>
 
 <br>
@@ -20,17 +20,16 @@
   </a>
 </script>
 <div class="report">
-  <label for="select_boat">Båd</label>
-  <input autocomplete="off" id="select_boat" name="name" type="text" ng-model="newdamage.boat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
+  <input placeholder="Vælg båd" autocomplete="off" id="select_boat" name="name" type="text" ng-model="newdamage.boat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
   
   
   <select name="damage" ng-model="newdamage.degree">
+    <option value="" default selected>grad?</option>
     <option value="1">1 let</option>
     <option value="2">2 middel</option>
     <option value="3">3 svær</option>
   </select>
-  <label for="damages.damage">Skade</label>
-  <textarea class="damagetext" autocomplete="off" id="damages.damage" name="skade" type="text" ng-model="newdamage.description" required></textarea>
+  <textarea placeholder="bekskriv skaden" class="damagetext" autocomplete="off" id="damages.damage" name="skade" type="text" ng-model="newdamage.description" required></textarea>
   <button class="klar" ng-disabled="!(newdamage.reporter && newdamage.boat && newdamage.description &&newdamage.degree)" id="newdamagereport_button" ng-click="reportDamageForBoat(newdamage)">Meld ny skade</button>
   </div>
 </ng-form>

@@ -12,7 +12,7 @@
   <button class="adminbut" ng-click="do='trip'">Ture</button>
   <button class="adminbut" ng-click="do='correction'">Fejlrettelser</button>
   <button class="adminbut" ng-click="do='events'">Hændelser</button>
-  kodeord: <input class="adminpw" type="password" ng-model="config.headers.password"></input>
+  <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password"></input>
 </div>
 
 
@@ -37,7 +37,7 @@
     </table>
 
     <form name="boattypeform">
-      <table class="boatlist" >
+      <table class="boatlist blok newboattype" >
         <caption>Ny Bådtype</caption>
         <thead>
 	  <tr>
@@ -82,8 +82,7 @@
     </table>
   </div>
 
-  <br>  
-  <table class="boatlist" >
+  <table class="boatlist blok" >
     <caption>Både</caption>
     <thead>
       <tr>
@@ -106,34 +105,33 @@
   </tbody>
   </table>
 
-  <div>
+  <div class="blok">
     <form name="createnewboat" novalidate>
-  <table>
-    <caption>Ny båd</caption>
-    <tbody>	  
-      <tr><th>Navn</th><th>Kategori</th><th>Lokation</th></tr>
-      <tr>
-	<td>
-	  <input type="text" ng-model="newboat.name"></input>
-	</td>	
-      <td><select  ng-model="newboat.category" ng-options="cat.name as cat.name for cat in boatcategories">
-	  </select>
-      </td>
-      <td><select  ng-model="newboat.location" ng-options="loc.name as loc.name for loc in locations">
-	  </select>
-      </td>
-      </tr>
-      <tr><td>
-	  <button ng-click="create_boat(newboat)" ng-model="newboat.create" class="big" ng-show="newboat.category&&newboat.location&&newboat.name">Opret ny båd</button>
-      </td></tr>
-    </tbody>
-  </table>
-
+      <table>
+        <caption>Ny båd</caption>
+        <tbody>	  
+          <tr><th>Navn</th><th>Kategori</th><th>Lokation</th></tr>
+          <tr>
+	    <td>
+	      <input type="text" ng-model="newboat.name"></input>
+	    </td>	
+            <td><select  ng-model="newboat.category" ng-options="cat.name as cat.name for cat in boatcategories">
+	      </select>
+            </td>
+            <td><select  ng-model="newboat.location" ng-options="loc.name as loc.name for loc in locations">
+	      </select>
+            </td>
+          </tr>
+          <tr><td>
+	      <button ng-click="create_boat(newboat)" ng-model="newboat.create" class="big" ng-show="newboat.category&&newboat.location&&newboat.name">Opret ny båd</button>
+          </td></tr>
+        </tbody>
+      </table>      
     </form>
   </div>
 
 
-  <div>
+  <div class="blok">
   <table>
     <caption>Anvendelser</caption>
     <tbody>	  
@@ -216,9 +214,9 @@
     <tbody>
       <tr ng-repeat="ds in DB('destinations').DSR" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	<td >{{ds.name}}</td>
-	<td><input ng-change="set_distance(ds)" type="number" step="0.5" ng-model="ds.distance" transformkm></td>
-	<td><input ng-change="set_duration(ds)" type="number" step="0.25" ng-model="ds.duration"></td>
-	<td><input ng-change="set_duration(ds)" type="number" step="0.25" ng-model="ds.duration_instruction"></input></td>
+	<td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
+	<td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
+	<td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></input></td>
       </tr>
     </tbody>
   </table>
@@ -233,9 +231,9 @@
     <tbody>
       <tr ng-repeat="ds in DB('destinations').Nordhavn" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	<td >{{ds.name}}</td>
-	  <td><input ng-change="set_distance(ds)" type="number" step="0.5" ng-model="ds.distance" transformkm></td>
-	  <td><input ng-change="set_duration(ds)" type="number" step="0.25" ng-model="ds.duration"></td>
-	  <td><input ng-change="set_duration(ds)" type="number" step="0.25" ng-model="ds.duration_instruction"></input></td>
+	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></input></td>
       </tr>
     </tbody>
   </table>
@@ -288,7 +286,7 @@
     <caption>Turrettelser</caption>
     <thead>
       <tr> <th>Indberetter</th><th>Gældende</th><th>ændret</th><th>ja/nej</th></tr>
-      <tr ng-repeat="et in ziperrors">
+      <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'"  ng-repeat="et in ziperrors">
 	<td>{{et.correction.Reporter}}</td>	  
 	<td>{{et.current|json}} </td>
         <td ng-class="{deletion: et.correction.DeleteTrip}">{{et.correction|json}} </td>

@@ -5,6 +5,7 @@
   <div class="big" ng-show="!checkRights()">{{rightsmessage}}</div>
 
   </div>
+
   <div class="boattypesmenu">
     <h2>bådtype</h2>
     <ul>
@@ -14,7 +15,7 @@
   </div>
   
   <div class="boatlist">
-    <table class="boatlist" style="float:right">
+    <table>
       <thead>
         <tr>
           <th>Båd</th><th>Placering</th><th>Niveau</th><th>Mærke</th><th>særligt</th> <th>Status</th>
@@ -91,7 +92,7 @@
 		  <small ng-bind-html="destination.duration | totime"></small>t)
 		</ui-select-choices>
               </ui-select>
-              <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="number" name="input" transformkm ng-model="checkout.distance" required ></input>km
+              <input  autocomplete="off" min="0" maxlength="4" size="3" class="ui-select-bootstrap" type="number" name="input" transformkm ng-model="checkout.distance" required ></input>km
             </td>
           </tr>
           <tr>

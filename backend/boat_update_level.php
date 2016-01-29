@@ -12,9 +12,9 @@ error_log("update_level ".json_encode($boat));
 
 if ($stmt = $rodb->prepare("UPDATE Boat SET level=? WHERE id=?")) { 
     $stmt->bind_param('ii', $boat->level,$boat->id);
-    $stmt->execute() |  errorlog("update level error :".$rodb->error);
+    $stmt->execute() || $rodb->dump_debug_info();
 } else {
-    errorlog("update level error :".$rodb->error);
+    error_log("update level error :".$rodb->error);
 }
 $rodb->commit();
 $rodb->close();

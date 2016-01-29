@@ -67,7 +67,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('boat_update_level',boat,$scope.config,$scope.errorhandler);
             }
             $scope.update_brand = function(boat) {
-              var exeres=DatabaseService.updateDB('boat_update_brand',boat,$scope.errorhandler);
+              var exeres=DatabaseService.updateDB('boat_update_brand',boat,$scope.config,$scope.errorhandler);
             }
             $scope.update_usage = function(boat) {
               var exeres=DatabaseService.updateDB('boat_update_usage',boat,$scope.config,$scope.errorhandler);

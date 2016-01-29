@@ -6,8 +6,10 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
   $scope.available=[];
   $scope.num4=0;
   $scope.num2=0;
+
+  $scope.boatcoms={'i2':0,'i4':0}
   $scope.rowers=0;
-  $scope.coxs=0;
+  $scope.coxs=1;
   $scope.manerr="";
 
   

@@ -39,6 +39,7 @@ button {
     margin-top: 5pt;
     border: 1px solid #ccc;
 }
+
 button:hover {
 /*    color: #23AEE2;*/
 /*    border: 1px solid #23AEE2;*/
@@ -68,8 +69,6 @@ button.yellow {
     color: #f0ce4e;
     border: 1px solid #f0ce4e;
 }
-
-
 
 td.usage {
     max-width:14pt;
@@ -102,7 +101,7 @@ input.big {
 
 button#createtrip_button[disabled] {
   color: gray;
-  border: 1px solid gray;
+  border: 1px solid blue;
 }
 
 /* Custom */
@@ -166,14 +165,17 @@ button.statcat, button.adminbut {
 .boatcategories,
 .genericcategories,
 .stats,
-.baselayout {
+.baselayout,
+.setboats {
     display: inline-block;
     vertical-align: top;
     margin-right: 3pt;
     margin-left: 3pt;
-    float:left;
 }
 
+.boatlist {
+    float:left;
+}
 
 .adminrower,.adminconvertrower {
     float:left;
@@ -206,13 +208,12 @@ button.statcat, button.adminbut {
     padding: 8px;
 }
 
-.genericmenu,.boattypesmenu h2 {
+.genericmenu h2,.boattypesmenu h2,.setboats h2 {
     background: #23aee2;
     padding: 10pt;
     color: white;
     font-size: 10pt;
     font-weight: 400;
-    border-bottom: 1px solid white;
     border-radius: 5px 5px 0 0;
 }
 .genericmenu ul {
@@ -239,7 +240,8 @@ button.statcat, button.adminbut {
 }
 
 .boattypesmenu {
-    margin-left=2px;
+    margin-left=1%;
+    margin-right=1%;
     float:left;
 }
 
@@ -261,7 +263,6 @@ button.statcat, button.adminbut {
 .listmenu,.boattypesmenu caption{
     background: #23aee2;
     padding: 10pt;
-    color: white;
     font-size: 10pt;
     font-weight: 400;
     border-bottom: 1px solid white;
@@ -304,10 +305,14 @@ table caption {
     float:right;
 }
 
-.blok{
+.blok {
     display: inline-block;
+    float: left
 }
 
+.newboattype {
+    margin-top: 2em;
+}
 
 .listmenu,.boattypesmenu ul {
     background: white;
@@ -341,6 +346,7 @@ li.selected {
 .boatlist,.statlist,.genericlist {
     border-radius: 5px;
     overflow: visible;
+    float:left;
 
 }
 
@@ -352,6 +358,7 @@ li.selected {
     font-weight: 400;
     border-right: 1px solid white;
 }
+
 .genericlist thead th {
     background: #3ECBBF;
     color: white;
@@ -554,4 +561,73 @@ div.guestpenguin {
 input.adminpw {
     border-radius: 5px;
     background: yellow;
+}
+
+.setboats table {
+    min-width: 42em;
+}
+
+.setboats dl dd {
+    min-width: 20em;
+}
+
+.setboats table {
+    min-width: 2em;
+    margin: 1em;
+    border-left: 2px solid #23aee2;
+    border-right: 2px solid #23aee2;
+    border-bottom: 2px solid #23aee2;
+    border-radius: 1.5em;
+    padding: 1em;
+}
+
+
+.boatcrew table {
+    float:left;
+}
+
+.onwater,.todaystrips {
+    float:left;
+    max-width:30%;
+    margin-right:1.5%;
+    margin-bottom:2%;
+}
+
+.setboats {
+    float:left;
+    max-width:25%;
+    margin-bottom:2%;
+}
+
+
+.boatcrew table td{
+  padding: 0.7em;
+}
+
+.numin  {
+    max-width: 3em;
+    text-align: right!important;
+    
+}
+
+input[type=number]::-webkit-inner-spin-button {  
+   opacity: 1;
+}
+
+.boatcombinations tr th {
+    min-width:4em;
+}
+
+select  {
+    border-radius: 1.5empx;
+    border: 1px solid #ccc;
+    padding: 5pt;
+    margin-bottom: 0pt;
+    background-color: #FFB992;
+    border-radius: 5px;
+}
+
+.boattypeform {
+    margin-top: 2em;
+
 }
