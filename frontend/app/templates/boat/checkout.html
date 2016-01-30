@@ -58,7 +58,7 @@
   <div class="checkout-form">
     <form name="checkoutForm" novalidate noautocomplete>
       <table>
-        <caption>Udskrivning af båd: {{checkout.boat.name}}</caption>
+        <caption>Udskrivning af: {{checkout.boat.name}}</caption>
 	<tbody>	  
 	  <tr ng-repeat="rower in checkout.rowers track by $index">
             <td>
@@ -70,7 +70,7 @@
 		<input  typeahead-no-results="norower[$index]"typeahead-select-on-exact="true" typeahead-is-open="checkout_open[$index]" ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }" autocomplete="off" id="checkout_rower{{$index}}" typeahead-on-select="boatSync()" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)" typeahead-template-url="rowersTemplate.html" required ></input>
 		<span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
                 <br>
-		<div class="guestpenguin" ng-show="typeof(checkout.rowers[$index]) === 'string' && (checkout.rowers[$index].length > 3) && $scope.norower[$index]">
+		<div class="guestpenguin" ng-show=" (checkout.rowers[$index].length > 3) && norower[$index]">
 		  <button ng-click="createRower(checkout.rowers, $index,'rabbit')" tabindex="-1">Opret kaninroer</button>
 		  <button ng-click="createRower(checkout.rowers, $index,'guest')" tabindex="-1">Gæst</button>
 		</div>
@@ -154,10 +154,5 @@
 <img ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" >
 </img>
 
-<pre>norower = {{norower | json}}</pre>
-<pre>Checkout = {{checkout | json}}</pre>
-<pre>form checkout= {{checkout | json}}</pre>
-<pre>damages = {{boatdamages | json}}</pre>
-<pre>dest= {{destinations | json}}</pre>
-<pre>selectedboats = {{selectedboats | json}}</pre>
-<button ng-click="test()">test</button>
+<pre> checkout {{checkout|json}}</pre>
+<pre> norower {{norower|json}}</pre>
