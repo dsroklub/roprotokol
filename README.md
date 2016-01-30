@@ -91,7 +91,7 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 * Afkobl distance fra json datalisten.
 * Fjern Trip.Season from rowertripsaggregated.php
 * vis erstatningsknapper, !valid
-
+* bedre håndtering når admin ikke er logget ind. Alert kommer for hver json request
 
 ### BUGS
 

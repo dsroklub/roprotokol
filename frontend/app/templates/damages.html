@@ -24,7 +24,7 @@
   
   
   <select name="damage" ng-model="newdamage.degree">
-    <option value="" default selected>grad?</option>
+    <option value="" disabled default selected>grad?</option>
     <option value="1">1 let</option>
     <option value="2">2 middel</option>
     <option value="3">3 svær</option>
@@ -47,6 +47,3 @@
     <td ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)"><button class="klar">klarmeld</button></td>
   </tr>
 </table>
-
-<pre>newdamage = {{newdamage | json}}</pre>
-<pre>allboatdamages = {{allboatdamages | json}}</pre>

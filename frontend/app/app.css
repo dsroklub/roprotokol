@@ -246,10 +246,11 @@ button.statcat, button.adminbut {
 }
 
 .boatstat {
-    float:right;
+    float:left;
 }
 .rowerstat {
     float:left;
+    margin-bottom: 2em;
 }
 
 .triptypeview {
@@ -347,6 +348,7 @@ li.selected {
     border-radius: 5px;
     overflow: visible;
     float:left;
+    margin-bottom: 2em;
 
 }
 
@@ -588,7 +590,6 @@ input.adminpw {
 
 .onwater,.todaystrips {
     float:left;
-    max-width:30%;
     margin-right:1.5%;
     margin-bottom:2%;
 }
