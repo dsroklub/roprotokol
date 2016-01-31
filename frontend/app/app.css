@@ -526,8 +526,9 @@ li.selected {
   color: red;
 }
 
-.oauth {
-    float:right;
+.oauth,.farvand {
+    float:left;
+    margin-left: 1em;
 }
 
 .turoversigt {

@@ -39,10 +39,14 @@
     <table class="crew">
       <caption>mandskab Der kan komme {{maxcrew}} på vandet</caption>
       <tr>
- 	<td align="right"><input class="numin" autocomplete="off" id="numcox" type="number" min="1" size="3" ng-model="coxs" ng-change="updatecrew()">,</td>
-	<td> styrmand</td> 
-	<td align="right"><input class="numin" autocomplete="off" id="numrowers" type="number" min="0" size="3" ng-model="rowers" ng-change="updatecrew()"> roere</td>
+ 	<td align="right"><input class="numin" autocomplete="off" id="numcox" type="number" min="1" size="3" ng-model="coxs" ng-change="updatecrew()"></td>
+	<td align="right"><input class="numin" autocomplete="off" id="numrowers" type="number" min="0" size="3" ng-model="rowers" ng-change="updatecrew()"></td>
       </tr>
+      <tr>
+	<td>styrmænd</td>
+        <td>roere</td> 
+      </tr>
+      
     </table>
     
     <table class="boatcombinations">
