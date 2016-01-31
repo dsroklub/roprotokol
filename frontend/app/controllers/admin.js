@@ -88,11 +88,11 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                 function(newusage) {
                   if (newusage.status=="ok") {
                     $scope.usages.push(newusage.newusage);
+                    usage.name="";
+                    usage.description="";
                   }                  
                 }
               );
-              usage.name="";
-              usage.description="";
             }
 
             $scope.set_duration = function(destination,loc) {

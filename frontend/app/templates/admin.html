@@ -153,7 +153,7 @@
         </td>        
         <td>
 	  <button  ng-show="!newusage.name">Udfyld ny anvendelse her</button>
-	  <button ng-click="create_usage(newusage)" ng-model="newusage.create" class="big" ng-show="newusage.name">Opret ny anvendelse</button>
+	  <button ng-click="create_usage(newusage)" ng-model="newusage.create" class="big" ng-show="newusage.name && newusage.name.length>0">Opret ny anvendelse</button>
         </td>
       </tr>
     </tbody>
