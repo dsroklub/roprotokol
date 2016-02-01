@@ -30,6 +30,9 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$filte
       $scope.selectedboat = DatabaseService.getBoatWithId(boat_id);
       $scope.allboatdamages = DatabaseService.getDamages();
       $scope.triptypes = DatabaseService.getTripTypes();
+      if ($scope.triptypes.length>2)  {
+        $scope.localtrip=$scope.triptypes[3];
+      }
       $scope.destinations = DatabaseService.getDestinations(DatabaseService.defaultLocation);
       $scope.checkoutmessage="";
       $scope.selectedBoatCategory=null;
@@ -46,15 +49,10 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$filte
         // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
         'expectedtime': now,
         'endtime': null, // FIXME
-        'triptype': $scope.triptypes[0],
+        'triptype': $scope.triptypes<3?null:$scope.triptypes[3],
         'rowers': ["","","","",""],
         'distance':1
       };
-
-      if ($scope.triptypes.length>2) {
-        // TODO, improve hack to set default
-        $scope.checkout.triptype= $scope.triptypes[2];
-      }
     });
 
   $scope.checkRights = function() {

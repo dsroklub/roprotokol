@@ -2,8 +2,8 @@
 angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q,$log, AccessToken) {
   var valid={};
   var db={};
-  var rowerstatistics={'rowboat':[],'kayak':undefined,'any':undefined};
-  var boatstatistics={'rowboat':[],'kayak':undefined,'any':undefined};
+  var rowerstatistics={};
+  var boatstatistics={};
   var databasesource=dbmode;
   var tx=null;
 
@@ -141,50 +141,58 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       });
     }
       
-    for (var bi=0; bi<boatmaintypes.length; bi++) {
-      var boattype= boatmaintypes[bi];
-
-      if(!valid['rowerstatistics'+boattype]) {
-	(function (bt) {
-	  var sq=$q.defer();
-	  promises.push(sq.promise);
-	  // FIXME for test purposes
-	  //var farg="?season=2014";
-          var farg="?old=2014";
-	  if (bt != "any") {
-	    farg+='&boattype='+bt;
-	  }      
-	  $http.get(toURL('rower_statistics.php'+farg)).then(function(response) {
-            rowerstatistics[bt] = [];
-            angular.forEach(response.data, function(stat, index) {
-              //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
-              this.push(stat);
-            }, rowerstatistics[bt]);
-	    valid['rowerstatistics'+boattype]=true;	  
-	    sq.resolve(true);
-	  });
-	})(boattype);
+    
+    var currentyear=true;
+    for (var y=new Date().getFullYear();y>2009;y--) {
+      if (!rowerstatistics[y]) {
+        rowerstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
       }
-
-      if(!valid['boatstatistics'+boattype]) {
-	(function (bt) {
-	  var sq=$q.defer();
-	  promises.push(sq.promise);
-	  // FIXME for test purposes
-	  var farg="?seasonx=2014";
-	  if (bt != "any") {
-	    farg+='&boattype='+bt;
+      if (!boatstatistics[y]) {
+        boatstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
+      }
+      for (var bi=0; bi<boatmaintypes.length; bi++) {
+        var boattype= boatmaintypes[bi];        
+        if(!valid['rowerstatistics'+boattype] || !rowerstatistics[y][boattype]) {
+	  (function (bt) {
+            var year=y;
+	    var sq=$q.defer();
+	    promises.push(sq.promise);
+            var farg="?season="+year;
+	    if (bt != "any") {
+	      farg+='&boattype='+bt;
+	    }      
+	    $http.get(toURL('rower_statistics.php'+farg)).then(function(response) {
+              angular.forEach(response.data, function(stat, index) {
+                //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
+                this.push(stat);
+              }, rowerstatistics[year][bt]);
+	      valid['rowerstatistics'+boattype]=true;	  
+	      sq.resolve(true);
+	    });
+	  })(boattype);
+        }
+        
+        if(!valid['boatstatistics'+boattype]  || !boatstatistics[y][boattype]) {
+	  (function (bt) {
+            var year=y;
+	    var sq=$q.defer();
+	    promises.push(sq.promise);
+	    // FIXME for test purposes
+            var farg="?season="+year;
+	    if (bt != "any") {
+	      farg+='&boattype='+bt;
 	  }      
-	  $http.get(toURL('boat_statistics.php'+farg)).then(function(response) {
-            boatstatistics[bt] = [];
-            angular.forEach(response.data, function(stat, index) {
-              this.push(stat);
-            }, boatstatistics[bt]);
-	    valid['boatstatistics'+boattype]=true;	  
-	    sq.resolve(true);
-	  });
-	})(boattype);
-      }      
+	    $http.get(toURL('boat_statistics.php'+farg)).then(function(response) {
+              angular.forEach(response.data, function(stat, index) {
+                this.push(stat);
+              }, boatstatistics[year][bt]);
+	      valid['boatstatistics'+boattype]=true;	  
+	      sq.resolve(true);
+	    });
+	  })(boattype);
+        }
+      }
+      currentyear=false;
     }    
     var qll=$q.all(promises);
     tx=qll;
@@ -201,7 +209,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       valid[subtp]=false;	    
     }
   };
-
 
   this.init = function() {
     return this.sync();
@@ -350,11 +357,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.getTripMembers = function (tripid,onSuccess) {
     this.getDataNow('tripmembers','trip='+tripid,onSuccess);
   }  
-  this.getRowerStatistics = function (bt) {
-    return rowerstatistics[bt];
+  this.getRowerStatistics = function (bt,y) {
+    return rowerstatistics[y][bt];
   };
-  this.getBoatStatistics = function (bt) {
-    return boatstatistics[bt];
+  this.getBoatStatistics = function (bt,y) {
+    return boatstatistics[y][bt];
   };
 
   this.getRower = function(val) {
