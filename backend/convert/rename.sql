@@ -167,14 +167,12 @@ UPDATE Boat set Decommissioned = Now() WHERE Name in ("Dan");
 ALTER TABLE Error_Trip CHANGE  id id INT AUTO_INCREMENT;
 -- ALTER TABLE MemberRights CHANGE MemberID member_id INT;
 -- ALTER TABLE Boat CHANGE KayakModel modelid INT;
--- ALTER TABLE Boat ADD brand VARCHAR(30);
-UPDATE Boat SET brand=(SELECT Name as model FROM boat_brand WHERE boat_brand.id = Boat.modelid);
-ALTER TABLE Boat DROP COLUMN modelid;
+UPDATE Boat SET brand=(SELECT Name as model FROM boat_brand WHERE boat_brand.id = Boat.KayakModel);
+ALTER TABLE Boat DROP COLUMN KayakModel;
 ALTER TABLE Boat CHANGE Anvendelse boat_usage INT;
 ALTER TABLE Boat CHANGE  Niveau level INT;
 ALTER TABLE boat_usage CHANGE ID id INT AUTO_INCREMENT;
 -- ALTER TABLE boat_usage CHANGE Anvendelse name VARCHAR(100);
-
 
 -- These might not be necessary, but they are at least idempotent
 ALTER TABLE Damage change id id INT NOT NULL AUTO_INCREMENT;

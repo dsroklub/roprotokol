@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS Båd (
     Navn VARCHAR(100) NOT NULL, -- FIXME should be unique: Balder
     FK_GruppeID INT,
     Pladser INT,
-    Brand VARCHAR(30),
+    brand VARCHAR(30),
     modelid INT,
 --    level INT,
     Beskrivelse VARCHAR(100),
@@ -237,6 +237,7 @@ CREATE TABLE IF NOT EXISTS  Medlem (
        Rettigheder VARCHAR(100),
        OprettetDato DATE,
        RedigeretDato DATE,
+       log VARCHAR(2000),
        Initialer VARCHAR(10)
 );
 CREATE INDEX  medlemnrix on Medlem(Medlemsnr);
