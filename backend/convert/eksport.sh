@@ -6,7 +6,7 @@ SCRIPT_PATH=$(readlink -f $BASEDIR)
 RODB=$SCRIPT_PATH/Roprotokol.mdb
 
 echo using $SCRIPT_PATH  $RODB
-for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData Fejl_tur Gruppe Hitcounter Kajak_typer Kommentar LåsteBåde Medlem Motion+status Opsætning Postnr Reservation Skade TurDeltager TurType Version Vintervedligehold Destination Kajak_anvendelser Tur; do
+for tb in Båd Bådindstilling BådKategori Fejl_system Fejl_tblMembersSportData Fejl_tur Gruppe Kajak_typer Kommentar Medlem Motion+status Opsætning Reservation Skade TurDeltager TurType Version Vintervedligehold Destination Kajak_anvendelser Tur; do
     echo DO $tb
     mdb-export -D '%F %T' -I mysql "$RODB" "$tb" > "$SCRIPT_PATH/data/$tb.sql"
 done
