@@ -68,7 +68,7 @@ app.controller('StatCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filt
 
    $scope.tableParams = new NgTableParams({
      page: 1,            // show first page
-     count: 500,          // count per page
+     count: 300,          // count per page
      filter: {
        id: ''       // initial filter	
      },
@@ -76,12 +76,14 @@ app.controller('StatCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filt
        rank: 'asc'     // initial sorting
      }
    }, {
+//FIXME     counts:[7],
+     total: DatabaseService.getBoatStatistics($scope.boattype).length,
      getData: $scope.getRowerData
    });
 
    $scope.boattableParams = new NgTableParams({
      page: 1,            // show first page
-     count: 500,          // count per page
+     count: 300,
      filter: {
        boatname: ''       // initial filter	
      },
@@ -89,6 +91,7 @@ app.controller('StatCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filt
        rank: 'asc',     // initial sorting
      }
    }, {
+     counts:[],
      getData: $scope.getBoatData
    });      
     }

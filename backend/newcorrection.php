@@ -8,7 +8,6 @@ $data = file_get_contents("php://input");
 $correction=json_decode($data);
 error_log('new correction '. json_encode($correction));
 
-
 $rodb->begin_transaction();
 
 if ($correction->deleterequest) {

@@ -98,7 +98,7 @@ ALTER TABLE  Error_Trip CHANGE TurDeltager9 TripMember9 VARCHAR(100);
 ALTER TABLE  Error_Trip CHANGE Årsagtilrettelsen ReasonForCorrection VARCHAR(1000);
 ALTER TABLE  Error_Trip CHANGE Indberetter  Reporter VARCHAR(100);
 
-ALTER TABLE  boat_brand CHANGE ID id INT;
+ALTER TABLE  boat_brand CHANGE ID id INT AUTO_INCREMENT;
 ALTER TABLE  boat_brand CHANGE Typenavn name VARCHAR(100);
 
 ALTER TABLE boat_usage CHANGE ID id INT;

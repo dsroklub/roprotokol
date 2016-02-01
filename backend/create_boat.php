@@ -1,9 +1,5 @@
 <?php
-<<<<<<< HEAD
-include("inc/common.php");
-=======
 include("inc/common.php")
->>>>>>> 28ad4434597d4074eef41a0d0a154aa4c625b1f5
 include("inc/verify_user.php");
 
 $error=null;

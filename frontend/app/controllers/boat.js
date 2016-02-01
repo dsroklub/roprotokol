@@ -1,6 +1,7 @@
 'use strict';
 
-app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', function ($scope, $routeParams, DatabaseService, $interval, ngDialog) {
+app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog',
+                            function ($scope, $routeParams, DatabaseService, $filter, ngDialog) {
   $scope.allboatdamages=[];
     DatabaseService.init().then(function () {
 
@@ -9,9 +10,9 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       // Load selected boats based on boat category
       $scope.allboats = DatabaseService.getBoats();
       $scope.levels =DatabaseService.getDB('boatlevels');
-      $scope.brands =DatabaseService.getDB('boat_brand');
-
-      // Checkout code
+      $scope.brands =DatabaseService.getDB('boat_brand');      // Checkout code
+      $scope.checkout_open=[];
+      $scope.norower=[];
       var boat_id = $routeParams.boat_id;
       var destination = $routeParams.destination;
       var rowers=[];
@@ -69,14 +70,14 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
       if (subject='cox') {
         if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
           if (!(rq in $scope.checkout.rowers[0].rights)) {
-            norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+rq +" ret");
+            norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));
           }
         }
       } else if (subject='all') {
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (!(rq in $scope.checkout.rowers[ri].rights)) {
-              norights.push($scope.checkout.rowers[ri].name +" har ikke "+rq + " ret");
+              norights.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
             }
           }
         }
@@ -90,7 +91,7 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
           }
         }
         if (!ok) {
-          norights.push(" der skal være mindst een roer med "+rq + " ret");
+          norights.push(" der skal være mindst een roer med "+ $filter('righttodk')([rq]));
         }
       } else if (rq='any') {
         var ok=true;
@@ -174,10 +175,6 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
         }
       }
       return DatabaseService.getRowersByNameOrId(val, ids);
-    };
-
-    $scope.isObjectAndHasId = function (val) {
-      return typeof(val) === 'string' && val.length > 3;
     };
 
     $scope.updateCheckout = function (item) {
@@ -270,7 +267,11 @@ app.controller('BoatCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inter
     }
     var rower = DatabaseService.updateDB_async('createrower',rowerreq).then(
       function(rower) {
-        $scope.checkout.rowers[index] = rower;
+        if (rower.error) {
+          $scope.checkoutmessage=rower.error;
+        } else {
+          $scope.checkout.rowers[index] = rower;
+        }
       }
     );
   };  

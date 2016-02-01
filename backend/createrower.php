@@ -1,6 +1,5 @@
 <?php
 include("inc/common.php");
-include("inc/verify_user.php");
 $res=array ("status" => "ok");
 
 $data = file_get_contents("php://input");

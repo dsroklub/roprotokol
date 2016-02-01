@@ -67,7 +67,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('boat_update_level',boat,$scope.config,$scope.errorhandler);
             }
             $scope.update_brand = function(boat) {
-              var exeres=DatabaseService.updateDB('boat_update_brand',boat,$scope.errorhandler);
+              var exeres=DatabaseService.updateDB('boat_update_brand',boat,$scope.config,$scope.errorhandler);
             }
             $scope.update_usage = function(boat) {
               var exeres=DatabaseService.updateDB('boat_update_usage',boat,$scope.config,$scope.errorhandler);
@@ -88,11 +88,11 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                 function(newusage) {
                   if (newusage.status=="ok") {
                     $scope.usages.push(newusage.newusage);
+                    usage.name="";
+                    usage.description="";
                   }                  
                 }
               );
-              usage.name="";
-              usage.description="";
             }
 
             $scope.set_duration = function(destination,loc) {
@@ -123,7 +123,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('add_rower_right',data,$scope.config,$scope.errorhandler);
               $scope.currentrower.rights[right.member_right]=Date();
             }
-            $scope.remove_rower_right = function(rower,right) {             
+            $scope.remove_rower_right = function(right,rower) {             
               var data={'right':right,'rower':rower}
               var exeres=DatabaseService.updateDB('remove_rower_right',data,$scope.config,$scope.errorhandler);
               delete $scope.currentrower.rights[right];
@@ -152,6 +152,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               data.triptype=$scope.currenttriptype;
               $scope.requiredtriprights[data.right]=data.subject;
               var exeres=DatabaseService.updateDB('add_triptype_req',data,$scope.config,$scope.errorhandler);
+              $scope.trip.newright.right=null;
             }
 
             $scope.approve_correction = function(data,ix) {
@@ -166,8 +167,14 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.boatcat2dk=DatabaseService.boatcat2dk;
             $scope.rightsubjects=['cox','all','any','none'];
 
+
+            
             $scope.rowerconvert = function (fromrower,torower) {
-              var exeres=DatabaseService.updateDB('convert_rower',{"from":fromrower,"to":torower},$scope.config,$scope.errorhandler);
+              if (fromrower && torower) {
+                var exeres=DatabaseService.updateDB('convert_rower',{"from":fromrower,"to":torower},$scope.config,$scope.errorhandler);
+              } else {
+                alert("begge roere skal være valgt");
+              }
             }
 
             $scope.doboatrights = function (rr,bt) {
@@ -178,6 +185,20 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               }
               $scope.currentboattype=bt;
             }
+
+            $scope.noright= function() {
+                  return function(rtt) {
+                    return (rtt&&$scope.currentrower && typeof($scope.currentrower.rights[rtt.member_right])!=="string");
+                  }
+            }
+
+            $scope.noreq= function(allreqs) {
+                  return function(rtt) {
+                    return (allreqs && !allreqs[rtt.member_right]);
+                  }
+            }
+
+            
             $scope.dotriprights = function (rr,tt){
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
                 $scope.requiredtriprights={};

@@ -5,6 +5,7 @@
   <div class="big" ng-show="!checkRights()">{{rightsmessage}}</div>
 
   </div>
+
   <div class="boattypesmenu">
     <h2>bådtype</h2>
     <ul>
@@ -14,7 +15,7 @@
   </div>
   
   <div class="boatlist">
-    <table class="boatlist" style="float:right">
+    <table>
       <thead>
         <tr>
           <th>Båd</th><th>Placering</th><th>Niveau</th><th>Mærke</th><th>særligt</th> <th>Status</th>
@@ -57,7 +58,7 @@
   <div class="checkout-form">
     <form name="checkoutForm" novalidate noautocomplete>
       <table>
-        <caption>Udskrivning af båd: {{checkout.boat.name}}</caption>
+        <caption>Udskrivning af: {{checkout.boat.name}}</caption>
 	<tbody>	  
 	  <tr ng-repeat="rower in checkout.rowers track by $index">
             <td>
@@ -66,16 +67,16 @@
             </td>
             <td>
               <ng-form name="rowerFieldForm">
-		<input  autocomplete="off" id="checkout_rower{{$index}}" typeahead-on-select="boatSync()" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)" typeahead-template-url="rowersTemplate.html" required ></input>
-		<span ng-if="isObjectAndHasId(checkout.rowers[$index])">
+		<input  typeahead-no-results="norower[$index]"typeahead-select-on-exact="true" typeahead-is-open="checkout_open[$index]" ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }" autocomplete="off" id="checkout_rower{{$index}}" typeahead-on-select="boatSync()" name="name" type="text" ng-model="checkout.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)" typeahead-template-url="rowersTemplate.html" required ></input>
+		<span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
+                <br>
+		<div class="guestpenguin" ng-show=" (checkout.rowers[$index].length > 3) && norower[$index]">
 		  <button ng-click="createRower(checkout.rowers, $index,'rabbit')" tabindex="-1">Opret kaninroer</button>
 		  <button ng-click="createRower(checkout.rowers, $index,'guest')" tabindex="-1">Gæst</button>
-		</span>
-		<span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
+		</div>
               </ng-form>
             </td>
-	  </tr>
-	  
+	  </tr>	  
           <tr>
             <td>
               <label for="checkout_destination">Destination</label>
@@ -83,7 +84,7 @@
             <td>
               <ui-select class="checkout_destination"
 			 ng-model="checkout.destination"
-			 on-select="updateCheckout($item)" style="min-width:200px">
+			 on-select="updateCheckout($item)">
 		<ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
 		<ui-select-choices repeat="destination in destinations | filter: $select.search">
                   <span ng-bind-html="destination.name | highlight: $select.search"></span>
@@ -91,7 +92,7 @@
 		  <small ng-bind-html="destination.duration | totime"></small>t)
 		</ui-select-choices>
               </ui-select>
-              <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="number" name="input" transformkm ng-model="checkout.distance" required ></input>km
+              <input  autocomplete="off" min="0" maxlength="4" size="3" class="ui-select-bootstrap" type="number" name="input" transformkm ng-model="checkout.distance" required ></input>km
             </td>
           </tr>
           <tr>
@@ -150,13 +151,6 @@
     </ul>   
 </div>
 
-<img ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" >
+<img class="farvand" ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" >
 </img>
 
-<!--h2>extra</h2>  
-<pre>sboat cats= {{selectedBoatCategory | json}}</pre>
-<pre>form checkout= {{checkout | json}}</pre>
-<pre>damages = {{boatdamages | json}}</pre>
-<pre>dest= {{destinations | json}}</pre>
-<pre>selectedboats = {{selectedboats | json}}</pre>
-<button ng-click="test()">test</button-->
