@@ -68,7 +68,7 @@ app.controller('StatCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filt
 
    $scope.tableParams = new NgTableParams({
      page: 1,            // show first page
-     count: 300,          // count per page
+     count: 200,          // count per page
      filter: {
        id: ''       // initial filter	
      },
@@ -76,14 +76,14 @@ app.controller('StatCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filt
        rank: 'asc'     // initial sorting
      }
    }, {
-//FIXME     counts:[7],
+     counts:[100,200,500],
      total: DatabaseService.getBoatStatistics($scope.boattype).length,
      getData: $scope.getRowerData
    });
 
    $scope.boattableParams = new NgTableParams({
      page: 1,            // show first page
-     count: 300,
+     count: 1000,
      filter: {
        boatname: ''       // initial filter	
      },
@@ -100,13 +100,12 @@ app.controller('StatCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filt
 	var filterInfo = params.filter();
 	var rawData = DatabaseService.getRowerStatistics($scope.boattype);
 	var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
-	var orderedData = params.sorting() ?
-	    $filter('orderBy')(filteredData, params.orderBy()) :
-	    filteredData;
+	var orderedData = params.sorting() ?  $filter('orderBy')(filteredData, params.orderBy()) :  filteredData;
 	if (orderedData) {
-	  orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-	}
-	return orderedData;
+	  return orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+	} else {
+	  return rData;
+        }
       }
 
       $scope.getBoatData = function getBoatData(params) {
