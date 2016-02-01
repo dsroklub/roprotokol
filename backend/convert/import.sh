@@ -45,7 +45,8 @@ else
     DATADIR=testdata
 fi
 
-for tb in Location Båd Bådindstilling BådKategori Gruppe Kajak_typer Postnr Reservation Skade TurType Destination Kajak_anvendelser; do
+# Postnr
+for tb in Location Båd Bådindstilling BådKategori Gruppe Kajak_typer  Reservation Skade TurType Destination Kajak_anvendelser; do
     echo DO IMPORT $tb
     echo
     $DBCMD -e "TRUNCATE TABLE $tb;"
@@ -53,10 +54,9 @@ for tb in Location Båd Bådindstilling BådKategori Gruppe Kajak_typer Postnr R
 done
 echo do trip rights
 $DBCMD < $SCRIPT_PATH/TripRights.sql
-
-$DBCMD < $SCRIPT_PATH/TripRights.sql
 $DBCMD < $SCRIPT_PATH/BoatRights.sql
 $DBCMD < $SCRIPT_PATH/memberrighttype.sql
+echo do location rights
 $DBCMD < $SCRIPT_PATH/Location.sql
 if [[ $datatype = "fake" ]]; then
     echo "RENAMING"
@@ -99,13 +99,13 @@ elif [[ $datatype = "real" ]]; then
     SELECT   FK_TurID, ${SEASON}, Plads, FK_MedlemID,Navn,OprettetDato,RedigeretDato,Initialer FROM TurDeltager"
 #    $DBCMD -e "DROP TABLE Tur"
     #    $DBCMD -e "DROP TABLE TurDeltager"
-    echo "konverting rights"
-    $DBCMD < $SCRIPT_PATH/konvertRights.sql
     echo "renaming"
     $DBCMD < $SCRIPT_PATH/rename.sql
+    echo "konverting rights"
+    $DBCMD < $SCRIPT_PATH/konvertRights.sql
 
 elif [[ $datatype = "empty" ]]; then
     echo no rower data
 else
-    echo unknown argument
+    echo unknown argument datatype=$datatype
 fi

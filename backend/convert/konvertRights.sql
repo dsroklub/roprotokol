@@ -1,6 +1,6 @@
 DELETE FROM MemberRights;
 INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument)
-SELECT Member.id, 'motorboat' as MemberRight, Motorboat Acquired, NULL as argument FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND Motorboat NOT LIKE "t%" UNION
+SELECT Member.id, 'motorboat' as MemberRight, Motorboat as Acquired, NULL as argument FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND Motorboat NOT LIKE "t%" UNION
 SELECT Member.id, 'motorboat','1915-01-01', Motorboat FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND Motorboat LIKE "t%"  UNION
 SELECT Member.id, 'rowright', Roret, NULL FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND Roret IS NOT NULL UNION
 SELECT Member.id, 'coxtheory', NULL, TeoretiskStyrmandKursus FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND TeoretiskStyrmandKursus IS NOT NULL UNION
@@ -19,5 +19,9 @@ SELECT Member.id, 'instructor', RoInstruktoer, 'row' FROM tblMembersSportData,Me
 SELECT Member.id, 'instructor', StyrmandInstruktoer, 'cox' FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND StyrmandInstruktoer IS NOT NULL UNION
 SELECT Member.id, 'instructor', ScullerInstruktoer, 'sculler' FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND ScullerInstruktoer IS NOT NULL UNION
 SELECT Member.id, 'instructor', KajakInstruktoer,'kajak' FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND KajakInstruktoer IS NOT NULL UNION
-SELECT Member.id, 'competition', NULL, Kaproer FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND Kaproer IS NOT NULL UNION
-SELECT Member.id, 'notes', '1916-01-01', GROUP_CONCAT(CONCAT(COALESCE(diverse1,""),COALESCE(diverse2,"")))  FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND diverse1 IS NOT NULL OR diverse2 IS NOT NULL GROUP BY Member.MemberID;
+SELECT Member.id, 'competition', NULL, Kaproer FROM tblMembersSportData,Member WHERE Member.MemberID=tblMembersSportData.MemberID AND Kaproer IS NOT NULL
+GROUP BY Member.MemberID;
+
+
+UPDATE Member SET log=NULL;
+UPDATE Member SET log=(SELECT GROUP_CONCAT(CONCAT(COALESCE(diverse1,""),COALESCE(diverse2,""))) as log  FROM tblMembersSportData WHERE Member.MemberID=tblMembersSportData.MemberID AND (diverse1 IS NOT NULL OR diverse2 IS NOT NULL));
