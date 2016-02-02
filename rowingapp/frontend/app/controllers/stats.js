@@ -145,7 +145,7 @@ app.controller(
      
      $scope.boatcat2dk=DatabaseService.boatcat2dk;
      
-     $scope.mk_chart = function() {
+      {
        $scope.triptypestat={};
        $scope.triptypestat.labels=[];
        $scope.triptypestat.series=[];
