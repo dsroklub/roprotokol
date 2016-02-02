@@ -1,7 +1,7 @@
 <?php
 include("inc/common.php");
-header('Content-type: application/json');
 
+error_log("stat season ".$season);
 $boatclause="";
 if (isset($_GET["boattype"])) {
     $boattype=$_GET["boattype"];
@@ -18,7 +18,6 @@ if (isset($_GET["boattype"])) {
     }
 }
 // echo "boats:". $boatclause."\n<br>";
-//$season='2013';
     $s="SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance ,Member.MemberID as id, MemberRight as wrench, Member.FirstName as firstname, Member.LastName as lastname 
     FROM BoatType,Trip,TripMember,Boat,Member LEFT JOIN MemberRights ON Member.id=member_id and MemberRight='wrench'
     WHERE 
@@ -26,13 +25,14 @@ if (isset($_GET["boattype"])) {
       Member.id = TripMember.member_id AND
       Boat.id = Trip.BoatID AND     
       BoatType.id = Boat.BoatType AND
-      (((Year(OutTime))=".$season.") " . $boatclause .")".
+      (((Year(OutTime))=?) " . $boatclause .")".
     " GROUP BY Member.MemberID 
     ORDER BY distance desc";
 
 
-#echo $s;
+// echo $s;
 if ($stmt = $rodb->prepare($s)) {
+    $stmt->bind_param("s",$season);
      $stmt->execute(); 
      $result= $stmt->get_result();
      echo '[';

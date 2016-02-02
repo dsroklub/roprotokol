@@ -66,6 +66,19 @@
       </div>
     </div>
   </div>
+
+<div>  <h3>Roede km per turtype hvert år</h3>
+  <canvas id="tripdistancesyear" class="chart chart-bar"
+          chart-data="triptypestat.distance" chart-labels="triptypestat.labels" chart-series="triptypestat.series" chart-legend="true">
+  </canvas>
+</div>
+<div>
+  <h3>Antal roture per turtype hvert år</h3>
+  <canvas id="numtripsyear" class="chart chart-bar"
+          chart-data="triptypestat.numtrips" chart-labels="triptypestat.labels" chart-series="triptypestat.series" chart-legend="true">
+  </canvas>
+</div>
+  
 </div>
 
 <!--p><strong>data:</strong> {{data|json}}

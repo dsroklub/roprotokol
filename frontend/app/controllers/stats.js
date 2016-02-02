@@ -120,8 +120,13 @@ app.controller(
                   
      $scope.changeSeason= function(ss) {
        console.log("change season to" + $scope.statseason+" a="+ss)
-       $scope.tableParams.reload();
-       $scope.boattableParams.reload(); 
+       if($scope.tableParams) {
+         $scope.tableParams.reload();
+       }
+       if ($scope.boattableParams) {
+         $scope.boattableParams.reload();
+       }
+       $scope.mk_chart();
      }
      
                   
@@ -138,9 +143,45 @@ app.controller(
        return orderedData;
      }
      
-		  
      $scope.boatcat2dk=DatabaseService.boatcat2dk;
      
+     $scope.mk_chart = function() {
+       $scope.triptypestat={};
+       $scope.triptypestat.labels=[];
+       $scope.triptypestat.series=[];
+       $scope.triptypestat.labelmap={};
+       $scope.triptypestat.distance=[];
+       $scope.triptypestat.numtrips=[];
+       DatabaseService.getDataNow('stats/trip_stat_year',"season="+$scope.statseason,function(d) {
+         $scope.triptypestat.fy=d.data[0].year;
+         for (var y=$scope.triptypestat.fy;y<=d.data[d.data.length-1].year;y++) {           
+           $scope.triptypestat.series.push('sæson '+y);
+           $scope.triptypestat.distance.push([]);
+           $scope.triptypestat.numtrips.push([]);
+         }
+         angular.forEach(d.data, function(tt) {
+           if (($scope.triptypestat.labelmap[tt.name] === undefined)) {
+             $scope.triptypestat.labelmap[tt.name]=$scope.triptypestat.labels.length;
+             $scope.triptypestat.labels.push(tt.name);
+           }
+           $scope.triptypestat.distance[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]=tt.distance/1000.0;
+           $scope.triptypestat.numtrips[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]=tt.trips;
+           //$scope.triptypestat.data[1].push(tt.trips);      
+         },this);
+         for (var y=0; y<$scope.triptypestat.distance.length;y++) {
+           var ya=$scope.triptypestat.distance[y];
+           var yt=$scope.triptypestat.numtrips[y];
+           for (var l=0;l<$scope.triptypestat.labels.length;l++) {
+             if (!ya[l]) {
+               ya[l]=0.0;
+               yt[l]=0.0;
+             }
+           }
+         }
+         console.log("got data");
+       }
+                                 );
+     }
    }
      ]
 )

@@ -64,6 +64,7 @@ Test Webserver:
 
 Kør
 <code>
+   cd backend/
    php5 -S localhost:8080
 </code>
 i roden
@@ -92,6 +93,7 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 * Fjern Trip.Season from rowertripsaggregated.php
 * vis erstatningsknapper, !valid
 * bedre håndtering når admin ikke er logget ind. Alert kommer for hver json request
+* Move config.ini out of harms way
 
 ### BUGS
 

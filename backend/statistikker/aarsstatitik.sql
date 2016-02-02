@@ -27,7 +27,7 @@ select count(*) FROM tblMembers where  YEAR(JoinDate)=2014 and RemoveDate < '201
 select sum(Trip.Meter)/1000 as km, Gruppe.FK_BådKategoriID as bådkat  FROM Trip  INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) where Trip.season='2014' GROUP BY Gruppe.FK_BådKategoriID;
 
 -- Tabel 5 - Bådture og personture, robåd og kajak
-select count(distinct Trip.id) as baadture, COUNT(TripMember.MemberID) as personture, TurType.Navn as turtype, Gruppe.FK_BådKategoriID as bådkat  FROM Trip JOIN TripMember ON (TripMember.TripID = Trip.id) INNER JOIN TurType on Trip.TripTypeID = TurType.TurTypeID INNER JOIN Båd ON (Båd.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Båd.FK_GruppeID) where Trip.season='2014' GROUP BY Gruppe.FK_BådKategoriID, TurType.TurTypeID order by bådkat, turtype;
+select count(distinct Trip.id) as baadture, COUNT(TripMember.MemberID) as personture, TripType.Name as turtype, Gruppe.FK_BådKategoriID as bådkat  FROM Trip JOIN TripMember ON (TripMember.TripID = Trip.id) INNER JOIN TripType on Trip.TripTypeID = TripType.TripTypeID INNER JOIN Boat ON (Boat.BådID = Trip.BoatID) INNER JOIN Gruppe ON (Gruppe.GruppeID = Boat.FK_GruppeID) where Trip.season='2014' GROUP BY Gruppe.FK_BådKategoriID, TripType.TripTypeID order by bådkat, turtype;
 
 
 -- Tabel 6 - Aktivitetsniveau 2013 og 2014 opdelt på turtyper (robåde)

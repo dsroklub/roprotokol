@@ -373,10 +373,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
   this.getRowersByNameOrId = function(nameorid, preselectedids) {
     var val = nameorid.toLowerCase();
-    var result = db['rowers'].filter(function(element) {
-      return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
-    });
-    return result;
+    var rowers=db['rowers'];
+    if (rowers) {
+      var result = rowers.filter(function(element) {
+        return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
+      });
+      return result;
+    } else {
+      return [];
+    }    
   };
   
   this.createRowerByName = function(rowereq) {
