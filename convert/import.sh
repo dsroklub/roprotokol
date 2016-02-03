@@ -32,10 +32,10 @@ fi
 
 #if you you a password, put DBCMD="mysql -u roprotokol -p password roprotokol" in secret.sh
 
-echo CHECKING $SCRIPT_PATH/secret.sh
-if [ -f $SCRIPT_PATH/secret.sh ];
+echo CHECKING $SCRIPT_PATH/../secret.sh
+if [ -f $SCRIPT_PATH/../secret.sh ];
 then
-    . $SCRIPT_PATH/secret.sh
+    . $SCRIPT_PATH/../secret.sh
     echo read secret $DBCMD
 fi
 

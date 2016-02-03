@@ -25,9 +25,9 @@ echo "CREATE DATABASE IF NOT EXISTS $DB;" | $superDBCMD
 echo created db
 
 echo NOW mkdb.sql
-$DBCMD < rowingapp/backend/convert/mkdb.sql
+$DBCMD < convert/mkdb.sql
 
 echo NOW FAKE
-./rowingapp/backend/convert/import.sh $DB fake $dbpassword
+./convert/import.sh $DB fake $dbpassword
 
 echo now configure your webserver to server DSR roprotokol
