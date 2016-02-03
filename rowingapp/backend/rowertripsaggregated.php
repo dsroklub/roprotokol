@@ -17,7 +17,7 @@ $sql=
     " GROUP BY TripType.Name";
 // echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
-    $stmt->bind_param("si", $season,$member);
+    $stmt->bind_param("is", $season,$member);
      $stmt->execute();
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
      echo '[';

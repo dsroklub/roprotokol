@@ -10,6 +10,10 @@ html, body {
     background: #F1F2F7;
     font-weight: 400;
 }
+button {
+    border-radius: 5px;
+}
+
 a {
     color: #333;
     text-decoration: none;
@@ -121,6 +125,7 @@ button#createtrip_button[disabled] {
     background: #0088C0;
     padding: 0 10pt;
     margin: 0;
+    width: 70%
 }
 .menu li {
     display: inline-block;
@@ -208,7 +213,7 @@ button.statcat, button.adminbut {
     padding: 8px;
 }
 
-.genericmenu h2,.boattypesmenu h2,.setboats h2 {
+.genericmenu h2,.boattypesmenu h2,.setboats,.seasonschart h2 {
     background: #23aee2;
     padding: 10pt;
     color: white;
@@ -259,6 +264,12 @@ button.statcat, button.adminbut {
 
 .tripview {
     float:right;
+    right:0px;
+    margin-top: 2em;
+    bottom:0px;
+    top:0px;
+    width: 25%;
+    position :fixed;
 }
 
 .listmenu,.boattypesmenu caption{
@@ -531,8 +542,16 @@ li.selected {
     margin-left: 1em;
 }
 
-.turoversigt {
+.turoversigt,.boattrips {
     display:inline-block;
+    float:left;
+    vertiacal-align:top;
+}
+
+.seasonschart {
+    display:inline-block;
+    float:left;
+    width:70%;
 }
 
 textarea.damagetext {
@@ -632,4 +651,9 @@ select  {
 .boattypeform {
     margin-top: 2em;
 
+}
+
+.leftpane {
+    float:left;
+    width:70%;
 }

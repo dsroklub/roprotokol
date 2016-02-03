@@ -348,11 +348,20 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     this.getDataNow('availableboats','location='+location,onSuccess);
   }
 
+  this.getBoatTripsAggregated = function (boat,onSuccess) {
+    this.getDataNow('boattripsaggregated','boat='+boat.id,onSuccess);
+  }
+  this.getBoatTrips = function (boat,onSuccess) {
+    this.getDataNow('boattrips','boat='+boat.id,onSuccess);
+  }
   this.getRowerTripsAggregated = function (member,onSuccess) {
     this.getDataNow('rowertripsaggregated','member='+member.id,onSuccess);
   }
   this.getRowerTrips = function (member,onSuccess) {
     this.getDataNow('rowertrips','member='+member.id,onSuccess);
+  }
+  this.getDateTrips = function (tripdate,onSuccess) {
+    this.getDataNow('datetrips','tripdate='+tripdate,onSuccess);
   }
   this.getTripMembers = function (tripid,onSuccess) {
     this.getDataNow('tripmembers','trip='+tripid,onSuccess);

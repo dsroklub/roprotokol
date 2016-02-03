@@ -4,13 +4,19 @@ app.controller(
   ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', 'ngTableParams', '$filter','$log',
    function ($scope, $routeParams, DatabaseService, $interval, ngDialog, ngTableParams, $filter,$log) {
      $scope.rowertrips=[];
+     $scope.datetrips=[];
      $scope.tripmembers=[];
+     $scope.trip={};
+     $scope.tripdate=null;
      $scope.rowertripsaggregated=[];
      $scope.currentrower=null;
      $scope.correctedboattype=null;
      $scope.currenttrip=null;
      $scope.season=null;
-     
+     $scope.dateOptions = {
+       showWeeks: false
+     };
+
      DatabaseService.init().then(function () {
        $scope.boatcategories = DatabaseService.getBoatTypes();
        $scope.triptypes = DatabaseService.getTripTypes();
@@ -20,7 +26,7 @@ app.controller(
      $scope.DB=DatabaseService.getDB;
      
      $scope.tripselect= function(trip) {
-       console.log("trip select");
+       console.log("trip select "+trip);
        $scope.currenttrip=trip;
        DatabaseService.getTripMembers(trip.id,function (res) {
          $scope.tripmembers=res.data;
@@ -29,12 +35,43 @@ app.controller(
          }                      
        });
      }
+
+       // Utility functions for view
+     $scope.getMatchingBoats = function (vv) {
+       console.log("gmb "+vv);
+       var bts=DatabaseService.getBoats();
+       var result = bts
+           .filter(function(element) {
+             return (element['name'].toLowerCase().indexOf(vv.toLowerCase()) == 0);
+           });
+       return result;
+     };
+
+     $scope.updateBoatTrips = function(item) {
+       console.log("upd boat trips");
+       $scope.correction=null;
+       $scope.currenttrip=null;
+       $scope.currentboat=item;
+       
+       DatabaseService.getBoatTrips($scope.currentboat,function (res) {
+         if (res.data.length>0) {
+           $scope.tripselect(res.data[0]);
+         }
+         $scope.boattrips=res.data;
+       }
+                                   );
+       DatabaseService.getBoatTripsAggregated($scope.currentboat,function (res) {
+         $scope.boattripsaggregated=res.data;
+       }
+                                             );
+       $scope.mk_chart();
+     }
      
      $scope.updateRowerTrips = function(item) {
+       console.log("update rower trips");
+       $scope.correction=null;
+       $scope.currenttrip=null;
        $scope.currentrower=item;
-       if ($scope.rowertrips.length>0) {
-         $scope.tripselect($scope.rowertrips[0]);
-       }
        
        DatabaseService.getRowerTrips($scope.currentrower,function (res) {
          if (res.data.length>0) {
@@ -71,6 +108,7 @@ app.controller(
                   
      $scope.updatecorrect = function () {
        console.log("upd correct");
+       $scope.correction.boat=null;
        $scope.correction.rowers=[];
        for (var i=0; $scope.correction.boattype && i< $scope.correction.boattype.seatcount;i++) {
          if (i< $scope.tripmembers.length) {
@@ -90,6 +128,26 @@ app.controller(
        $scope.updatecorrect();
      };
 
+     $scope.$watch("tripdate", function(tripdate) {
+       if (tripdate) {
+         $scope.correction=null;
+         $scope.currenttrip=null;
+         
+         DatabaseService.getDateTrips(tripdate.toISOString().split("T")[0],function (res) {
+           if (res.data.length>0) {
+             $scope.tripselect(res.data[0]);
+           }
+           $scope.datetrips=res.data;
+         }
+                                     );
+       }
+     }
+     , true);   
+  
+     $scope.datetrips = function() {
+       alert("datetrips");
+     }
+     
      $scope.mk_chart = function() {
        $scope.mo={};
        if ($scope.currentrower) {
@@ -100,18 +158,20 @@ app.controller(
            for (var wn=0;wn<53;wn++) {
              $scope.mo.labels[wn]="uge "+wn;
            }
-           $scope.mo.fy=d.data[0].year;
-           for (var y=$scope.mo.fy;y<=d.data[d.data.length-1].year;y++) {
-             $scope.mo.data.push([]);
-             $scope.mo.series.push("sæson "+y);
-             for (var wn=0;wn<53;wn++) {
-               $scope.mo.data[y-$scope.mo.fy][wn]=0;
-             }             
+           if (d.data.length>0) {
+             $scope.mo.fy=d.data[0].year;
+             for (var y=$scope.mo.fy;y<=d.data[d.data.length-1].year;y++) {
+               $scope.mo.data.push([]);
+               $scope.mo.series.push("sæson "+y);
+               for (var wn=0;wn<53;wn++) {
+                 $scope.mo.data[y-$scope.mo.fy][wn]=0;
+               }             
+             }
+             angular.forEach(d.data, function(w) {
+               console.log("w "+w.week+" d="+w.distance);
+               $scope.mo.data[w.year-$scope.mo.fy][w.week]=w.distance/1000.0;
+             },this);
            }
-           angular.forEach(d.data, function(w) {
-             console.log("w "+w.week+" d="+w.distance);
-             $scope.mo.data[w.year-$scope.mo.fy][w.week]=w.distance/1000.0;
-           },this);
          });
          console.log("got data");
        }
