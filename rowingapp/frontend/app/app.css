@@ -213,7 +213,7 @@ button.statcat, button.adminbut {
     padding: 8px;
 }
 
-.genericmenu h2,.boattypesmenu h2,.setboats,.seasonschart h2 {
+.genericmenu h2,.boattypesmenu h2,.setboats h2,.seasonschart h2 {
     background: #23aee2;
     padding: 10pt;
     color: white;
