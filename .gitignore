@@ -1,5 +1,6 @@
 /nbproject/private/
 *.mdb
+*.accdb
 /v2/roprotokol/nbproject/private/
 *~
 secret.*
