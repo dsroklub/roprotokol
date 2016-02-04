@@ -1,4 +1,4 @@
-// @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+/*// @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);*/
 
 /* Generic */
 html, body {
@@ -317,9 +317,13 @@ table caption {
     float:right;
 }
 
-.blok {
+.blok, .destinations {
     display: inline-block;
-    float: left
+    float: left;
+}
+.rowchart {
+    display: inline-block;
+    width : 100%;
 }
 
 .newboattype {
@@ -442,7 +446,7 @@ li.selected {
     background: #6ad7ce;
 }
 .boatlist tr td {
-    cursor: url('btc.png'),pointer;
+/*    cursor: url('btc.png'),pointer; */
 }
 .statlist td {
     padding: 6pt 10pt 6pt 10pt;

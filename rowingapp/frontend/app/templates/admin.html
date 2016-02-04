@@ -202,41 +202,43 @@
     </tbody>
     </table>
   </div>
-  
-  <table class="boatlist" >
-    <caption>Destinationer</caption>
-    <thead>
-      <tr>
-        <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
-      </tr>	
-    </thead>
-    <tbody>
-      <tr ng-repeat="ds in DB('destinations').DSR" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-	<td >{{ds.name}}</td>
-	<td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
-	<td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
-	<td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></input></td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <table class="boatlist" >
-    <caption>Destinationer fra Nordhavn</caption>
-    <thead>
-      <tr>
-        <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
-      </tr>	
-    </thead>
-    <tbody>
-      <tr ng-repeat="ds in DB('destinations').Nordhavn" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-	<td >{{ds.name}}</td>
+
+  <div class="destinations">
+    <table class="boatlist" >
+      <caption>Destinationer</caption>
+      <thead>
+        <tr>
+          <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
+        </tr>	
+      </thead>
+      <tbody>
+        <tr ng-repeat="ds in DB('destinations').DSR" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+	  <td >{{ds.name}}</td>
 	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
 	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
 	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></input></td>
-      </tr>
-    </tbody>
-  </table>
-</div>    
+        </tr>
+      </tbody>
+    </table>
+  
+    <table class="boatlist" >
+      <caption>Destinationer fra Nordhavn</caption>
+      <thead>
+        <tr>
+          <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
+        </tr>	
+      </thead>
+      <tbody>
+        <tr ng-repeat="ds in DB('destinations').Nordhavn" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+	  <td >{{ds.name}}</td>
+	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></input></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <div ng-show="do=='user'">
   <script type="text/ng-template" id="taTemplate.html">
