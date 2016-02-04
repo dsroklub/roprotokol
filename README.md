@@ -89,11 +89,12 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 
 ##TODO
+* gør rettelse box mindre. datetime popup skal poppe op, ikke ned. begrundelse skal sidst for at give mere plads til pop-downs
 * Afkobl distance fra json datalisten.
 * Fjern Trip.Season from rowertripsaggregated.php
 * vis erstatningsknapper, !valid
-* bedre håndtering når admin ikke er logget ind. Alert kommer for hver json request
-* Move config.ini out of harms way
+
+
 
 ### BUGS
 

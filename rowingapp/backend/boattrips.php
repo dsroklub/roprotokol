@@ -9,10 +9,10 @@ if (isset($_GET["boat"])) {
     exit(1);
 }
   
-$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, Trip.Destination as destination, Trip.CreatedDate as created, Meter as distance, InTime as intime, OutTime as outtime " .
+$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, Trip.Destination as destination, DATE_FORMAT(Trip.CreatedDate,'%Y-%m-%dT%T') as created, Meter as distance, DATE_FORMAT(InTime,'%Y-%m-%dT%T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%dT%T') as outtime " .
     " FROM Boat,Trip WHERE Boat.id=? AND Boat.id = Trip.BoatID AND Trip.Season=? ORDER BY Trip.id DESC";
 
-//echo $sql;
+# echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
     $stmt->bind_param("ii", $boat,$season);
      $stmt->execute();

@@ -39,7 +39,7 @@ button {
     background: none;
     border-radius: 5px;
     border: 0;
-    padding: 5pt 10pt;
+    padding: 4pt 10pt;
     margin-top: 5pt;
     border: 1px solid #ccc;
 }
@@ -114,8 +114,8 @@ button#createtrip_button[disabled] {
 }
 .menu li.logo {
     padding: 0;
-    padding-top: 6pt;
-    padding-left: 15pt;
+    padding-top: 3pt;
+    padding-left: 4pt;
 }
 .logo img {
     height: 30pt;
@@ -129,7 +129,7 @@ button#createtrip_button[disabled] {
 }
 .menu li {
     display: inline-block;
-    padding: 15pt 15pt;
+    padding: 4pt 4pt;
     margin: 0;
     cursor: pointer;
     vertical-align: top;
@@ -151,7 +151,7 @@ button#createtrip_button[disabled] {
 
 .main {
     margin: 0;   
-    padding: 5pt 7pt;
+    padding: 4pt 6pt;
 }
 
 .prompt {
@@ -228,7 +228,7 @@ button.statcat, button.adminbut {
     cursor: pointer;
 }
 .genericmenu ul li a {
-    padding: 5pt 10pt;
+    padding: 3pt 8pt;
     display:block;
     height:100%;
     width:100%;
@@ -268,7 +268,7 @@ button.statcat, button.adminbut {
     margin-top: 2em;
     bottom:0px;
     top:0px;
-    width: 25%;
+    width: 29%;
     position :fixed;
 }
 
@@ -308,13 +308,18 @@ table caption {
 }
 
 .rightbox {
+    float:right;
     border-style: solid;
     border-color: #ff0000;
     border-radius: 5px 5px 5px 5px;
     width:auto;
-    display: inline-block;
-    padding: 8px;
-    float:right;
+//    display: inline-block;
+    padding: 5px;
+    right : 0px;
+    margin-top: 3em;
+    top:0px;
+    max-width: 28%;
+    position :fixed;
 }
 
 .blok, .destinations {
@@ -355,8 +360,8 @@ li.selected {
 .listmenu,.boattypesmenu ul li:hover a {
     color: white;
 }
-.leftblock {
-    max-width:60%;
+.leftblock,.boatadmin {
+    max-width:70%;
 }
 
 .boatlist,.statlist,.genericlist {
@@ -476,7 +481,7 @@ li.selected {
 .checkout-form textarea {
     border-radius: 1.5empx;
     border: 1px solid #ccc;
-    padding: 5pt;
+    padding: 3pt;
     margin-bottom: 0pt;
 }
 .checkout-form .dropdown {
@@ -579,7 +584,7 @@ div.guestpenguin {
 .right_select {
     border-radius: 5px;
     height: 2em;
-    min-width : 300px;
+    min-width : 10em;
     display: inline-block;
         
 }
@@ -646,7 +651,7 @@ input[type=number]::-webkit-inner-spin-button {
 select  {
     border-radius: 1.5empx;
     border: 1px solid #ccc;
-    padding: 5pt;
+    padding: 3pt;
     margin-bottom: 0pt;
     background-color: #FFB992;
     border-radius: 5px;

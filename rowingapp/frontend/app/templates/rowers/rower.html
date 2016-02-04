@@ -155,7 +155,7 @@
 	        <label for="correction_destination">Destination</label>
 	      </td>
 	      <td>
-	        <ui-select class="correction_destination" ng-model="correction.destination" on-select="correction.distance=$item.distance" style="min-width:300px">
+	        <ui-select class="correction_destination" ng-model="correction.destination" on-select="correction.distance=$item.distance">
 	          <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
 	          <ui-select-choices repeat="destination in destinations | filter: $select.search">
 	            <span ng-bind-html="destination.name | highlight: $select.search"></span>
@@ -209,11 +209,9 @@
       </canvas>
     </div>
 </div>
-<pre>currenttrip = {{currenttrip | json}}</pre>
-<pre>mo = {{mo | json}}</pre>
-<pre>correction = {{correction | json}}</pre>
 
 <!--pre>db= {{DB('boatcategories')|json}}</pre>
+  <pre>mo = {{mo | json}}</pre>
   <pre>tripmembers = {{tripmembers | json}}</pre>
   <pre>correction = {{correction | json}}</pre>
   <pre>tripmembers = {{tripmembers | json}}</pre>

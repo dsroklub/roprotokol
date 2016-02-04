@@ -109,7 +109,9 @@ app.controller(
      $scope.updatecorrect = function () {
        console.log("upd correct");
        $scope.correction.boat=null;
-       $scope.correction.rowers=[];
+	 $scope.correction.rowers=[];
+	 $scope.correction.outtime=new Date( $scope.correction.outtime);
+	 $scope.correction.intime=new Date( $scope.correction.intime);
        for (var i=0; $scope.correction.boattype && i< $scope.correction.boattype.seatcount;i++) {
          if (i< $scope.tripmembers.length) {
            $scope.correction.rowers.push($scope.tripmembers[i]);
