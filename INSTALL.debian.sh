@@ -1,22 +1,26 @@
 #!/bin/sh
 #apt-get install python-mysqldb  php5-mysqlnd mysql nodejs npm
 
-
-
-defaultDB=roprotokolx
-
 DB=${1-$defaultDB}
 
+if [ -z $DB ]
+then
+   echo usage:
+   echo   INSTALL.debian.sh databasename
+   exit 0
+fi
+
+
+
 echo using database $DB
-if [ ! -f rowingapp/secret.sh ]; then
+if [ ! -f secret.sh ]; then
     echo 'DBCMD="mysql -u roprotokol --password=roprotokol ' $DB '"' >  secret.sh
-    echo 'superDBCMD="mysql -u roprotokol --password=roprotokol"' >  secret.sh
+    echo 'superDBCMD="mysql -u roprotokol --password=roprotokol"' >>  secret.sh
     echo 'dbpassword=roprotokol' >>  secret.sh
     echo "roprotokol" > secret.db    
 fi
 
-
-. secret.sh
+. ./secret.sh
 
 
 echo using DBCMD $DBCMD $superDBCMD

@@ -6,7 +6,7 @@
 
 # Installation
 
-apt-get install npm python-mysqldb memcached php5-memcached
+apt-get install npm python-mysqldb memcached php5-memcached mysql-server
 apt-get install php5-mysqlnd nodejs nodejs-legacy
   # nødvendigt for at få PHP til at kende forskel på strenge og tal
   # husk at genstarte webserveren
@@ -36,10 +36,9 @@ Sæt <code>group_concat_max_len = 50000</code> i /etc/mysql/my.cnf
     mysql -u roprotokol -p'roprotokol' roprotokol < backend/convert/mkdb.sql
 
   copier config.ini.template til config.ini og tilret
-Skriv adgangsvejen til databasen til filen backend/convert/secret.sh og filen backend/tests/secret.db
+Skriv adgangsvejen til databasen til filen backend/convert/secret.sh
 Fx:
   echo 'DBCMD="mysql -u roprotokol --password=roprotokol roprotokol"' >  backend/convert/secret.sh
-  echo "roprotokol" > backend/tests/secret.db
 
 
 Herefter kan man bruge enten rigtig data fra DSR, hvis man har adgang til de gamle databasefiler. Eller man kan bruge testdata uden personhenførbart data. Det består i store træk af DSR båddata og tilfældigt genereret brugerdata for roere..

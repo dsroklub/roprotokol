@@ -45,8 +45,8 @@ else
     DATADIR=testdata
 fi
 
-# Postnr
-for tb in Location Båd Bådindstilling BådKategori Gruppe Kajak_typer  Reservation Skade TurType Destination Kajak_anvendelser; do
+# Postnr  Reservation Bådindstilling 
+for tb in Location Båd BådKategori Gruppe Kajak_typer  Skade TurType Destination Kajak_anvendelser; do
     echo DO IMPORT $tb
     echo
     $DBCMD -e "TRUNCATE TABLE $tb;"
@@ -62,7 +62,7 @@ if [[ $datatype = "fake" ]]; then
     echo "RENAMING"
     $DBCMD --force --line-numbers --show-warnings --verbose < $SCRIPT_PATH/rename.sql
     echo "Generating fake data..."
-    $SCRIPT_PATH/../tests/fakedata.py $DB
+    $SCRIPT_PATH/tests/fakedata.py $DB
 elif [[ $datatype = "real" ]]; then
     echo "Using real data..."
     for tb in Fejl_tblMembersSportData Fejl_system Fejl_tur TurDeltager Vintervedligehold Medlem Tur tblMembersSportData; do

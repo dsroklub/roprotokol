@@ -14,10 +14,11 @@ print "using db: "+rodb
 random.seed(42)
 # Password is read from file sectret.db
 # but do not write it in this file
-pwfile=os.path.dirname(sys.argv[0])+'/secret.db'
+pwfile=os.path.dirname(sys.argv[0])+'/../../config.ini'
 print "checking db pw file "+pwfile
 if os.path.exists(pwfile):
-    dbpw=(open(pwfile).readlines()[0]).strip()
+    # FIXME, do not assume line 2, check for left side dbpassword
+    dbpw=(open(pwfile).readlines()[1].split('='))[1].strip()
     print "using PASSWORD #"+dbpw+"#" 
     db= MySQLdb.connect(host="localhost",  user="roprotokol", passwd=dbpw,charset='utf8', db=rodb)
 else:
