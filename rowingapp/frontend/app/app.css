@@ -666,3 +666,7 @@ select  {
     float:left;
     width:70%;
 }
+
+.alert {
+    color: #f00;
+}
