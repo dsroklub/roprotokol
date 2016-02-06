@@ -14,7 +14,11 @@ app.controller(
      $scope.currenttrip=null;
      $scope.season=null;
      $scope.dateOptions = {
-       showWeeks: false
+       showWeeks: false,
+       formatDay:"d",
+       formatYear: 'yyyy',
+       formatMonth: 'MMM',
+       title:"foo"
      };
 
      DatabaseService.init().then(function () {
@@ -36,7 +40,7 @@ app.controller(
        });
      }
 
-       // Utility functions for view
+     // Utility functions for view
      $scope.getMatchingBoats = function (vv) {
        console.log("gmb "+vv);
        var bts=DatabaseService.getBoats();
@@ -46,7 +50,7 @@ app.controller(
            });
        return result;
      };
-
+     
      $scope.updateBoatTrips = function(item) {
        console.log("upd boat trips");
        $scope.correction=null;
@@ -105,29 +109,33 @@ app.controller(
          $scope.correction=null;
        })
      }
-                  
-     $scope.updatecorrect = function () {
+                      
+     
+     $scope.updatecorrect = function (boattype) {
        console.log("upd correct");
-       $scope.correction.boat=null;
-	 $scope.correction.rowers=[];
-	 $scope.correction.outtime=new Date( $scope.correction.outtime);
-	 $scope.correction.intime=new Date( $scope.correction.intime);
+       if (boattype) {
+	 $scope.correction.boat=null;
+       }
+       
+       $scope.correction.rowers=[];
+       $scope.correction.outtime=new Date( $scope.correction.outtime);
+       $scope.correction.intime=new Date( $scope.correction.intime);
        for (var i=0; $scope.correction.boattype && i< $scope.correction.boattype.seatcount;i++) {
          if (i< $scope.tripmembers.length) {
-           $scope.correction.rowers.push($scope.tripmembers[i]);
+	   $scope.correction.rowers.push($scope.tripmembers[i]);
          } else {
-           $scope.correction.rowers.push(null);
+	   $scope.correction.rowers.push(null);
          }
        }
-     }
-                   
+     };
+       
      $scope.start_correct = function () {
        $scope.correction=angular.copy($scope.currenttrip);
        $scope.correction.boat=DatabaseService.getBoatWithId($scope.currenttrip.boat_id);
        $scope.correction.boattype=DatabaseService.getBoatTypeWithName($scope.correction.boat.category);
        $scope.correction.destination=DatabaseService.getDestinationWithName($scope.currenttrip.destination,$scope.correction.boat.location);
        $scope.correction.triptype=DatabaseService.getTriptypeWithID($scope.currenttrip.triptype_id,$scope.correction.boat.location);
-       $scope.updatecorrect();
+       $scope.updatecorrect(false);
      };
 
      $scope.$watch("tripdate", function(tripdate) {
@@ -144,8 +152,8 @@ app.controller(
                                      );
        }
      }
-     , true);   
-  
+		   , true);   
+     
      $scope.datetrips = function() {
        alert("datetrips");
      }
@@ -179,5 +187,5 @@ app.controller(
        }
      }
    }
-       ]
+  ]
 );

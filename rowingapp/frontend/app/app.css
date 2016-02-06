@@ -265,7 +265,7 @@ button.statcat, button.adminbut {
 .tripview {
     float:right;
     right:0px;
-    margin-top: 2em;
+    margin-top: 0.5em;
     bottom:0px;
     top:0px;
     width: 29%;
@@ -669,4 +669,8 @@ select  {
 
 .alert {
     color: #f00;
+}
+
+.uib-datepicker-popup {
+    top :0px!important;
 }
