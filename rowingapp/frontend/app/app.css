@@ -451,6 +451,7 @@ li.selected {
     background: #6ad7ce;
 }
 .boatlist tr td {
+    cursor: pointer;
 /*    cursor: url('btc.png'),pointer; */
 }
 .statlist td {
