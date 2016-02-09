@@ -93,7 +93,8 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 * Fjern Trip.Season from rowertripsaggregated.php
 * vis erstatningsknapper, !valid
 
-
+* Make sure old stats (prv years) are not reloaded every time
+* Fix backgroupd, white?
 
 ### BUGS
 

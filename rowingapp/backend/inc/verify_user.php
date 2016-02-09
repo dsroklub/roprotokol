@@ -19,7 +19,7 @@ if(!$skiplogin) {
         $remotepw=$_SERVER['HTTP_PASSWORD'];
     }
     error_log("remotepw=".$remotepw);
-    if (!($password == $remotepw)) {
+    if (!($adminpw == $remotepw)) {
         error_log("login failed");
         echo '{"status":"notauthorized","error":"forkert password"}';
         exit;

@@ -1,4 +1,0 @@
-<?php
-$password="dsr";
-error_log("found PW");
-?> 
