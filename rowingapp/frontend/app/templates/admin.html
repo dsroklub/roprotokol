@@ -57,6 +57,84 @@
         </tbody>
       </table>
     </form>
+
+    <table class="boatlist blok boatadminap" >
+      <caption>Både</caption>
+      <thead>
+	<tr>
+	  <th>Båd</th><th>kategori</th><th>lokalitet</th><th>Niveau</th><th>Fabrikat</th><th>Særligt</th><th></th>
+	</tr>	
+      </thead>
+      <tbody>
+	<tr ng-repeat="boat in allboats">
+	  <td>{{boat.name}}</td>
+	  <td><select  ng-change="set_cat_for_boat(boat)" ng-model="boat.category" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
+	  <td><select  ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations">
+	    </select>
+	  </td>
+	  <td><select  ng-model="boat.level" ng-options="levelid*1 as level for (levelid,level) in levels" ng-change="update_level(boat)"> </select> </td>
+	  <td><select  ng-model="boat.brand" ng-options="brand.name as brand.name for brand in brands" ng-change="update_brand(boat)"> </select> </td>
+	  <td><input ng-model-options="{updateOn:'blur'}" autocomplete="off" id="boat.boatusage" name="boat.boatusage" type="text" ng-model="boat.boatusage" ng-change="update_usage(boat)"></td>
+	  
+          <td><button ng-click="retire_boat(boat,$index)" class="action" confirm="Er du helt sikker på at du vil fjerne {{boat.name}}?">Slet/pensioner båd</button></td>
+	</tr>
+      </tbody>
+    </table>
+
+    <div class="blok">
+      <form name="createnewboat" novalidate>
+	<table>
+          <caption>Ny båd</caption>
+          <tbody>	  
+            <tr><th>Navn</th><th>Kategori</th><th>Lokation</th></tr>
+            <tr>
+	      <td>
+		<input type="text" ng-model="newboat.name"></input>
+	      </td>	
+              <td><select  ng-model="newboat.category" ng-options="cat.name as cat.name for cat in boatcategories">
+		</select>
+              </td>
+              <td><select  ng-model="newboat.location" ng-options="loc.name as loc.name for loc in locations">
+		</select>
+              </td>
+            </tr>
+            <tr><td>
+		<button ng-click="create_boat(newboat)" ng-model="newboat.create" class="big" ng-show="newboat.category&&newboat.location&&newboat.name">Opret ny båd</button>
+            </td></tr>
+          </tbody>
+	</table>      
+      </form>
+    </div>
+    
+
+    <div class="blok">
+      <table>
+	<caption>Anvendelser</caption>
+	<tbody>	  
+	  <tr><th>Anvendelse</th><th>Beskrivelse</th></tr>
+	  <tr ng-repeat="usage in usages">
+	    <td>
+	      <input ng-model-options="{updateOn:'blur'}" type="text" ng-model="usage.name" ng_change="update_usage_name(usage)"></input>
+	    </td>
+	    <td>
+	      <input ng-model-options="{updateOn:'blur'}" type="text" ng-model="usage.description" ng_change="update_usage_description(usage)"></input>
+	    </td>
+	  </tr>
+	  <tr>
+            <td>
+	      <input type="text" ng-model="newusage.name"></input>
+            </td>
+            <td>
+              <input type="text" ng-model="newusage.description"></input>
+            </td>        
+            <td>
+	      <button  ng-show="!newusage.name">Udfyld ny anvendelse her</button>
+	      <button ng-click="create_usage(newusage)" ng-model="newusage.create" class="big" ng-show="newusage.name && newusage.name.length>0">Opret ny anvendelse</button>
+            </td>
+	  </tr>
+	</tbody>
+      </table>
+    </div>
   </div>
 
   <div ng-show="currentboattype" class="rightbox">
@@ -80,84 +158,6 @@
       </tr>
     </tbody>
     </table>
-  </div>
-
-  <table class="boatlist blok boatadminap" >
-    <caption>Både</caption>
-    <thead>
-      <tr>
-	<th>Båd</th><th>kategori</th><th>lokalitet</th><th>Niveau</th><th>Fabrikat</th><th>Særligt</th><th></th>
-      </tr>	
-    </thead>
-  <tbody>
-    <tr ng-repeat="boat in allboats">
-      <td>{{boat.name}}</td>
-      <td><select  ng-change="set_cat_for_boat(boat)" ng-model="boat.category" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
-      <td><select  ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations">
-	  </select>
-      </td>
-      <td><select  ng-model="boat.level" ng-options="levelid*1 as level for (levelid,level) in levels" ng-change="update_level(boat)"> </select> </td>
-      <td><select  ng-model="boat.brand" ng-options="brand.name as brand.name for brand in brands" ng-change="update_brand(boat)"> </select> </td>
-      <td><input ng-model-options="{updateOn:'blur'}" autocomplete="off" id="boat.boatusage" name="boat.boatusage" type="text" ng-model="boat.boatusage" ng-change="update_usage(boat)"></td>
-
-        <td><button ng-click="retire_boat(boat,$index)" class="action" confirm="Er du helt sikker på at du vil fjerne {{boat.name}}?">Slet/pensioner båd</button></td>
-    </tr>
-  </tbody>
-  </table>
-
-  <div class="blok">
-    <form name="createnewboat" novalidate>
-      <table>
-        <caption>Ny båd</caption>
-        <tbody>	  
-          <tr><th>Navn</th><th>Kategori</th><th>Lokation</th></tr>
-          <tr>
-	    <td>
-	      <input type="text" ng-model="newboat.name"></input>
-	    </td>	
-            <td><select  ng-model="newboat.category" ng-options="cat.name as cat.name for cat in boatcategories">
-	      </select>
-            </td>
-            <td><select  ng-model="newboat.location" ng-options="loc.name as loc.name for loc in locations">
-	      </select>
-            </td>
-          </tr>
-          <tr><td>
-	      <button ng-click="create_boat(newboat)" ng-model="newboat.create" class="big" ng-show="newboat.category&&newboat.location&&newboat.name">Opret ny båd</button>
-          </td></tr>
-        </tbody>
-      </table>      
-    </form>
-  </div>
-
-
-  <div class="blok">
-  <table>
-    <caption>Anvendelser</caption>
-    <tbody>	  
-      <tr><th>Anvendelse</th><th>Beskrivelse</th></tr>
-      <tr ng-repeat="usage in usages">
-	<td>
-	  <input ng-model-options="{updateOn:'blur'}" type="text" ng-model="usage.name" ng_change="update_usage_name(usage)"></input>
-	</td>
-	<td>
-	  <input ng-model-options="{updateOn:'blur'}" type="text" ng-model="usage.description" ng_change="update_usage_description(usage)"></input>
-	</td>
-      </tr>
-      <tr>
-        <td>
-	  <input type="text" ng-model="newusage.name"></input>
-        </td>
-        <td>
-          <input type="text" ng-model="newusage.description"></input>
-        </td>        
-        <td>
-	  <button  ng-show="!newusage.name">Udfyld ny anvendelse her</button>
-	  <button ng-click="create_usage(newusage)" ng-model="newusage.create" class="big" ng-show="newusage.name && newusage.name.length>0">Opret ny anvendelse</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
   </div>
 </div>
 

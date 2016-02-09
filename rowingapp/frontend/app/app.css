@@ -318,7 +318,7 @@ table caption {
     right : 0px;
     margin-top: 3em;
     top:0px;
-    max-width: 28%;
+    max-width: 32%;
     position :fixed;
 }
 
@@ -361,7 +361,7 @@ li.selected {
     color: white;
 }
 .leftblock,.boatadmin {
-    max-width:70%;
+    max-width:67%;
 }
 
 .boatlist,.statlist,.genericlist {
@@ -522,7 +522,7 @@ li.selected {
 }
 
 .evenboat {
-    background: DBC4BB;
+    background: #DBC4BB;
 }
 
 
@@ -674,4 +674,8 @@ select  {
 
 .uib-datepicker-popup {
     top :0px!important;
+}
+
+.debug {
+    width:100%;
 }
