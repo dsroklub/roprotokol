@@ -140,7 +140,7 @@
       </table>
     </form>
   </div>
-  <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name">husk at vælge båd</button>
+  <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name || !checkout.rowers[0]">husk at vælge båd</button>
 </div>
 <div ng-show="boatdamages" class="damageslist">
     <h2>Skader på {{checkout.boat.name}}</h2>
@@ -153,12 +153,12 @@
 </div>
 
 <img class="farvand" ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" >
-</img>
-<br clear="all">
+
+<!-- br clear="all">
 <h1 class="debug"ap>debug info</h1>
 <pre>selectedcat = {{$scope.selectedBoatCategory | json}}</pre>
 <pre>checkout= {{checkout | json}}</pre>
 <pre>Destinations = {{destinations | json}}</pre>
 
 
-<!--pre>checkout= {{checkout | json}}</pre-->
+<pre>checkout= {{checkout | json}}</pre-->

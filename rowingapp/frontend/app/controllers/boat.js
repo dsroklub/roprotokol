@@ -390,6 +390,11 @@ app.controller(
     }
      }
      
+     $scope.date_diff = function (od) {
+ //      return 1000;
+       return Math.round((new Date()-new Date(od))/1000/60); // minutes
+     }
+     
      $scope.test = function (data) {
        DatabaseService.test('boat');
        $scope.valid=DatabaseService.valid();

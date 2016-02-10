@@ -88,10 +88,8 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 
 ##TODO
-* gør rettelse box mindre. datetime popup skal poppe op, ikke ned. begrundelse skal sidst for at give mere plads til pop-downs
 * Afkobl distance fra json datalisten.
 * Fjern Trip.Season from rowertripsaggregated.php
-* vis erstatningsknapper, !valid
 
 * Make sure old stats (prv years) are not reloaded every time
 * Fix backgroupd, white?
@@ -107,8 +105,6 @@ Senere kan vi lave en alter statement i databasen, så det ikke sker igen.
 
 * Der er et problem med den timepicker vi bruger. Man kan slette minutter og senere få en exception
 
-* Der er et problem med notes i Memdlemsrettigheder relationen. Skal nok rettes inden vi kan importere
-
 ### Missing features
 
 * Administration af både
@@ -120,7 +116,6 @@ Senere kan vi lave en alter statement i databasen, så det ikke sker igen.
 * Reservation af både
 * Indberetning af fejl i rettigheder -> mail til instruktionschefen
 
-** Hvis turen er kortere end x minutter, så foreslå at slette turen i stedet
 * Kommenter skade
 
 
