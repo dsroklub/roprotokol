@@ -21,8 +21,18 @@ app.controller(
        if ($scope.reuse) {
 	 var reusetrip=DatabaseService.closeForm('trip/reuseopentrip',{'reusetrip':$scope.reuse},'trip');
 	 reusetrip.promise.then(function(status) {
-           if (status.reuse) {
-	     $scope.checkout=reuse;
+           if (status.reuse && status.reuse.id) {
+             $scope.checkout.triptype=DatabaseService.getTriptypeWithID(status.reuse.triptype_id);
+             $scope.checkout.destination=DatabaseService.getDestinationWithName(status.reuse.destination);
+             $scope.checkout.distance=$scope.checkout.destination.distance;
+             $scope.checkout.boat=DatabaseService.getBoatWithId(status.reuse.boat_id);
+             $scope.selectedBoatCategory=DatabaseService.getBoatTypeWithName($scope.checkout.boat.category);
+             $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
+             $scope.checkout.rowers=[];
+             angular.forEach(status.reuse.rowers,function(name,id,kv) {
+               $scope.checkout.rowers.push(DatabaseService.getRower(id));
+             }
+                            );
 	     // FIXME update checkout fields
 	   }
 	 });
@@ -156,9 +166,9 @@ app.controller(
        }
      };
      
-     $scope.matchBoatId = function(boat) {
+     $scope.matchBoatId = function(boat,onwater) {
        return function(matchboat) {
-	 return ((boat==null || matchboat===boat) &&matchboat.trip && (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
+	 return ((boat==null || matchboat===boat) && (!!matchboat.trip==onwater) && (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
        }
      };
 

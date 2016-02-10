@@ -29,7 +29,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat)" ng-model="item"
+      <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat,true)" ng-model="item"
 	  ng-class="{selected: boat == selectedboat}" 
 	  ng-class-odd="'oddboat'" ng-class-even="'evenboat'" >
         <td ><div>
@@ -50,9 +50,11 @@
 	  <!-- transformkm-->
 	</td>
 	<td class="colinput">
-	  <button ng-click="closetrip(boat,$index,item.km)" class="klar">Indskriv</button>
-	  <button ng-click="deleteopentrip(boat,$index)" class="klar">Slet</button>
-	  <a href="#/ud?reuse={{boat.trip}}"><button ng-click="reusetrip(boat,$index)" class="klar">Genbrug</button></a>
+          <div class="checkinactions">
+	    <button uib-tooltip="indskriv turen" ng-click="closetrip(boat,$index,item.km)" class="big">Indskriv</button>
+	    <button uib-tooltip="slet turen hvis båden ikke kom på vandet" ng-click="deleteopentrip(boat,$index)" class="minor">Slet</button>
+	    <a href="#/ud?reuse={{boat.trip}}"><button uib-tooltip="genbrug turoplysinger fx til at skriv en anden båd ud med samme roere og destination" ng-click="reusetrip(boat,$index)" class="minor">Slet+Genbrug</button></a>
+          </div>
 	</td>	  
         </tr>
     </tbody>

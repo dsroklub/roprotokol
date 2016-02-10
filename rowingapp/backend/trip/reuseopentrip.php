@@ -13,7 +13,7 @@ $reuse=json_decode($data);
 $rodb->begin_transaction();
 error_log("reuse open trip ". $reuse->reusetrip);
 
-$s="SELECT Trip.id, TripType.Name AS triptype, Boat.Name AS boat, Trip.Destination as destination, Trip.InTime as intime,Trip.OutTime as outtime, Trip.ExpectedIn as expectedintime,GROUP_CONCAT(Member.MemberID,':§§:', MemberName SEPARATOR '££') AS rowers 
+$s="SELECT Trip.id, TripType.id as triptype_id, TripType.Name AS triptype, Boat.id as boat_id, Boat.Name AS boat, Trip.Destination as destination, Trip.InTime as intime,Trip.OutTime as outtime, Trip.ExpectedIn as expectedintime,GROUP_CONCAT(Member.MemberID,':§§:', MemberName SEPARATOR '££') AS rowers 
    FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  
    WHERE Boat.id=Trip.BoatID AND Trip.id=? AND Trip.InTime IS NULL AND TripType.id=Trip.TripTypeID AND TripMember.TripID=Trip.id
    ORDER BY TripMember.Seat ";

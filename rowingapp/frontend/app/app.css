@@ -18,6 +18,7 @@ a {
     color: #333;
     text-decoration: none;
 }
+
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     width: auto;
@@ -79,7 +80,7 @@ td.usage {
 }
 
 td.boatname {
-    max-width:14pt;
+    max-width:6em;
 }
 
 button.big {
@@ -87,6 +88,16 @@ button.big {
     background: #ff8866; !important;
     border: 2px solid #000000;
 }
+
+button.minor {
+    color: #000000;
+    font-size: 8pt;
+    background: #C76D6B; !important;
+    border: 1px solid #000000;
+    padding 4px;
+    margin-left: 4px;
+}
+
 
 button.action {
     color: #000000;
@@ -227,17 +238,9 @@ button.statcat, button.adminbut {
 .genericmenu ul li {
     cursor: pointer;
 }
-.genericmenu ul li a {
-    padding: 3pt 8pt;
-    display:block;
-    height:100%;
-    width:100%;
-}
+
 .genericmenu ul li:hover {
     background: #57C8F2;
-}
-.genericmenu ul li:hover a {
-    color: white;
 }
 
 .genericmenu {
@@ -360,8 +363,13 @@ li.selected {
 .listmenu,.boattypesmenu ul li:hover a {
     color: white;
 }
+
 .leftblock,.boatadmin {
     max-width:67%;
+}
+
+.boatadminap {
+    font-size: 8pt;
 }
 
 .boatlist,.statlist,.genericlist {
@@ -441,12 +449,6 @@ li.selected {
     background: #F5B8B8;
 }
 
-.boatlist tr td a {
-    padding: 6pt 10pt 6pt 10pt;
-    display:block;
-    height:100%;
-    width:100%;
-}
 .boatlist tr:hover {
     background: #6ad7ce;
 }
@@ -678,4 +680,8 @@ select  {
 
 .debug {
     width:100%;
+}
+
+.checkinactions {
+    display: flex;
 }

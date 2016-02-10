@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-click="checkoutBoat(boat)" ng-repeat="boat in selectedboats" ng-class="{selected: boat == checkout.boat}" ng-if="!boat.trip">
+        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-click="checkoutBoat(boat)" ng-repeat="boat in selectedboats|filter: matchBoatId(selectedboat,false) " ng-class="{selected: boat == checkout.boat}">
           <td class="boatname"><div >
 	      {{boat.name}}
 	    </div>
@@ -140,6 +140,7 @@
       </table>
     </form>
   </div>
+  <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name">husk at vælge båd</button>
 </div>
 <div ng-show="boatdamages" class="damageslist">
     <h2>Skader på {{checkout.boat.name}}</h2>
@@ -155,7 +156,7 @@
 </img>
 <br clear="all">
 <h1 class="debug"ap>debug info</h1>
-<pre>$routeParams = {{$routeParams | json}}</pre>
+<pre>selectedcat = {{$scope.selectedBoatCategory | json}}</pre>
 <pre>checkout= {{checkout | json}}</pre>
 <pre>Destinations = {{destinations | json}}</pre>
 
