@@ -106,7 +106,7 @@ angular.module('myApp.utilities.subjecttodk', []).filter('subjecttodk', function
 });
 
 var damage_degrees={
-  1:'',
+  0: 'ok',
   1:'Let skadet',
   2: 'Middel skadet',
   3: 'Svært skadet'
