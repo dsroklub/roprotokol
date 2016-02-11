@@ -67,13 +67,13 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
   this.fetch = function () {
     var boatmaintypes = ['kayak','any','rowboat'];
-    $log.debug("DB init "+Date());
+    $log.debug("DB fetch "+Date());
     var headers = {};
-    var accessToken = AccessToken.get();
+    // var accessToken = AccessToken.get();
     var promises=[];
-    if (accessToken) {
-      headers['Authorization'] = 'Bearer ' + accessToken.access_token;
-    }
+    //if (accessToken) {
+    //  headers['Authorization'] = 'Bearer ' + accessToken.access_token;
+    //}
 
     if(!valid['boats']) {
       //Build indexes and lists for use by API
@@ -127,6 +127,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     this.getData('memberrighttypes',promises);
     this.getData('boat_brand',promises);
     this.getData('boat_usages',promises);    
+
     if(!valid['rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);
@@ -143,7 +144,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       
     
     var currentyear=true;
-    for (var y=new Date().getFullYear();y>2009;y--) {
+    var thisYear=new Date().getFullYear();
+    var firstYear=2010;
+    
+    for (var y=thisYear; y>=firstYear; y--) {
       if (!rowerstatistics[y]) {
         rowerstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
       }
@@ -152,7 +156,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       }
       for (var bi=0; bi<boatmaintypes.length; bi++) {
         var boattype= boatmaintypes[bi];        
-        if(!valid['rowerstatistics'+boattype] || !rowerstatistics[y][boattype]) {
+
+        if((y==thisYear && !valid['rowerstatistics'+boattype]) || !rowerstatistics[y][boattype]) {
 	  (function (bt) {
             var year=y;
 	    var sq=$q.defer();
@@ -172,7 +177,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	  })(boattype);
         }
         
-        if(!valid['boatstatistics'+boattype]  || !boatstatistics[y][boattype]) {
+        if((y==thisYear && !valid['boatstatistics'+boattype])  || !boatstatistics[y][boattype]) {
 	  (function (bt) {
             var year=y;
 	    var sq=$q.defer();
