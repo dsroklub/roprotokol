@@ -514,6 +514,15 @@ li.selected {
 }
 .damageslist {
     display: inline-block;
+    float:left;
+    clear:left;
+    max-width: 30em;
+    margin-top: 1em;
+}
+
+.checkoutBoat{
+    display: inline-block;
+    float:left;
 }
 
 .oddstat {

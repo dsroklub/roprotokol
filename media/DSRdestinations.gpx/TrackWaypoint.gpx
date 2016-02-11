@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<gpx version="1.0" creator="Viking -- http://viking.sf.net/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www.topografix.com/GPX/1/0"
+xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">
+<wpt lat="55.778238000000002" lon="12.593489999999999">
+  <name>Bellevue</name>
+</wpt>
+<wpt lat="55.745629999999998" lon="12.589798999999999">
+  <name>Charlottenlund</name>
+</wpt>
+<wpt lat="55.703155000000002" lon="12.73122">
+  <name>Flakfortet</name>
+</wpt>
+<wpt lat="55.731507000000001" lon="12.583575">
+  <name>Hellerup</name>
+</wpt>
+<wpt lat="55.670535000000001" lon="12.587502000000001">
+  <name>Kanalen</name>
+</wpt>
+<wpt lat="55.771943" lon="12.597458">
+  <name>Knud</name>
+</wpt>
+<wpt lat="55.694149000000003" lon="12.599454">
+  <name>Langelinie</name>
+</wpt>
+<wpt lat="55.687987" lon="12.617993">
+  <name>Margretheholms Havn</name>
+</wpt>
+<wpt lat="55.725428999999998" lon="12.600795">
+  <name>Opfyldningen</name>
+</wpt>
+<wpt lat="55.886701000000002" lon="12.549479">
+  <name>Rungsted</name>
+</wpt>
+<wpt lat="55.827947999999999" lon="12.575507">
+  <name>Skodsborg</name>
+</wpt>
+<wpt lat="55.761713" lon="12.606942999999999">
+  <name>Skovshoved</name>
+</wpt>
+<wpt lat="55.643231" lon="12.551753">
+  <name>Slusen</name>
+</wpt>
+<wpt lat="55.807972999999997" lon="12.582781000000001">
+  <name>Strandm&#xf8;llen</name>
+</wpt>
+<wpt lat="55.717320000000001" lon="12.590591999999999">
+  <name>Svanem&#xf8;llehavnen</name>
+</wpt>
+<wpt lat="55.725405000000002" lon="12.580346">
+  <name>Tuborg Havn</name>
+</wpt>
+<wpt lat="55.788052999999998" lon="12.596911">
+  <name>T&#xe5;rb&#xe6;k</name>
+</wpt>
+<wpt lat="55.850918999999998" lon="12.573007">
+  <name>Vedb&#xe6;k</name>
+</wpt>
+</gpx>

@@ -1,0 +1,88 @@
+#VIKING GPS Data file http://viking.sf.net/
+FILE_VERSION=1
+
+xmpp=1.000000
+ympp=1.000000
+lat=55.725906
+lon=12.583843
+mode=mercator
+color=#cccccc
+highlightcolor=#eea500
+drawscale=t
+drawcentermark=t
+drawhighlight=t
+
+~Layer Map
+name=Default Map
+mode=13
+directory=
+alpha=255
+autodownload=t
+adlonlymissing=f
+mapzoom=0
+~EndLayer
+
+
+~Layer TrackWaypoint
+name=TrackWaypoint
+tracks_visible=t
+waypoints_visible=t
+routes_visible=t
+trackdrawlabels=t
+trackfontsize=3
+drawmode=0
+trackcolor=#000000
+drawlines=t
+line_thickness=1
+drawdirections=f
+trkdirectionsize=5
+drawpoints=t
+trkpointsize=2
+drawelevation=f
+elevation_factor=30
+drawstops=f
+stop_length=60
+bg_line_thickness=0
+trackbgcolor=#ffffff
+speed_factor=30.000000
+tracksortorder=0
+drawlabels=t
+wpfontsize=4
+wpcolor=#c10d0d
+wptextcolor=#ffffff
+wpbgcolor=#8383c4
+wpbgand=f
+wpsymbol=0
+wpsize=5
+wpsyms=t
+wpsortorder=1
+drawimages=t
+image_size=64
+image_alpha=255
+image_cache_size=300
+
+
+~LayerData
+type="waypointlist"
+type="waypoint" latitude="55.778238000000002" longitude="12.593489999999999" name="Bellevue"
+type="waypoint" latitude="55.745629999999998" longitude="12.589798999999999" name="Charlottenlund"
+type="waypoint" latitude="55.703155000000002" longitude="12.73122" name="Flakfortet"
+type="waypoint" latitude="55.731507000000001" longitude="12.583575" name="Hellerup"
+type="waypoint" latitude="55.771943" longitude="12.597458" name="Knud"
+type="waypoint" latitude="55.694149000000003" longitude="12.599454" name="Langelinie"
+type="waypoint" latitude="55.687987" longitude="12.617993" name="Margretheholms Havn"
+type="waypoint" latitude="55.670535000000001" longitude="12.587502000000001" name="Kanalen"
+type="waypoint" latitude="55.725428999999998" longitude="12.600795" name="Opfyldningen"
+type="waypoint" latitude="55.886701000000002" longitude="12.549479" name="Rungsted"
+type="waypoint" latitude="55.850918999999998" longitude="12.573007" name="Vedbæk"
+type="waypoint" latitude="55.788052999999998" longitude="12.596911" name="Tårbæk"
+type="waypoint" latitude="55.827947999999999" longitude="12.575507" name="Skodsborg"
+type="waypoint" latitude="55.761713" longitude="12.606942999999999" name="Skovshoved"
+type="waypoint" latitude="55.807972999999997" longitude="12.582781000000001" name="Strandmøllen"
+type="waypoint" latitude="55.643231" longitude="12.551753" name="Slusen"
+type="waypoint" latitude="55.717320000000001" longitude="12.590591999999999" name="Svanemøllehavnen"
+type="waypoint" latitude="55.725405000000002" longitude="12.580346" name="Tuborg Havn"
+type="waypointlistend"
+~EndLayerData
+~EndLayer
+
