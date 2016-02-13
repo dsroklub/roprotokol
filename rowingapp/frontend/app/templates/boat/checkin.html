@@ -53,7 +53,10 @@
           <div class="checkinactions">
 	    <button uib-tooltip="indskriv turen" ng-click="closetrip(boat,$index,item.km)" class="big"
                     confirm-if="date_diff(boat.outtime)<10"
-                    confirm="Er du sikker på, at du vil indskrive denne tur. Den er meget kort ({{date_diff(boat.outtime)}} minutter). Slet turen, hvis båden ikke har været på vandet">
+                    confirm="Er du sikker på, at du vil indskrive denne tur. Den er meget kort ({{date_diff(boat.outtime)}} minutter). Slet turen, hvis båden ikke har været på vandet"
+                    confirm-ok="Ja, indskriv turen"
+                    confirm-cancel="Nej, jeg fortryder"
+                    >
               Indskriv
             </button>
 	    <button uib-tooltip="slet turen hvis båden ikke kom på vandet" ng-click="deleteopentrip(boat,$index)" class="minor">Slet</button>
