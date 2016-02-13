@@ -74,11 +74,12 @@ app.controller(
          'triptype': null,
          'rowers': ["","","","",""],
          'distance':1
-       };
-       $scope.do_boat_category(DatabaseService.lookup('boattypes',"name","Inrigger 4+"));
-       
+       };       
+       if ($scope.cico==2) {
+         $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
+       }
      });
-     
+
      $scope.checkRights = function() {
        if (!$scope.checkout) {
 	 return false;
@@ -168,7 +169,7 @@ app.controller(
      
      $scope.matchBoatId = function(boat,onwater) {
        return function(matchboat) {
-	 return ((boat==null || matchboat===boat) && (!!matchboat.trip==onwater) && (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
+	 return ((!boat || matchboat===boat) && (!!matchboat.trip==onwater) && (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
        }
      };
 
