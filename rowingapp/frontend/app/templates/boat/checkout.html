@@ -1,6 +1,6 @@
 <div class="checkouts">
   <div>
-    <button id="createtrip_button" class="big" ng-if="checkout.boat && checkout.destination.name && validRowers()" ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
+    <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?" id="createtrip_button" class="big" ng-if="checkout.boat && checkout.triptype && checkout.destination.name && validRowers()" ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
   <div class="big">{{checkoutmessage}}</div>
   <div class="big" ng-show="!checkRights()">{{rightsmessage}}</div>
 
@@ -152,7 +152,7 @@
     </div>
   </div>
 
-  <img class="farvand" ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" >
+  <!--img class="farvand" ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" -->
 </div>
 
 

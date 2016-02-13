@@ -2,8 +2,6 @@
 # Validate JWT token
 #include("jwt.php");
 
-include("pw.php");
-
 $cip=$_SERVER['REMOTE_ADDR'];
 error_log("IP address from client ". $cip);
 

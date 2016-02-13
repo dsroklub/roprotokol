@@ -55,9 +55,6 @@ app.controller(
        $scope.selectedboat = DatabaseService.getBoatWithId(boat_id);
        $scope.allboatdamages = DatabaseService.getDamages();
        $scope.triptypes = DatabaseService.getTripTypes();
-       if ($scope.triptypes.length>2)  {
-         $scope.localtrip=$scope.triptypes[3];
-       }
        $scope.destinations = DatabaseService.getDestinations(DatabaseService.defaultLocation);
        $scope.checkoutmessage="";
        $scope.selectedBoatCategory=null;
@@ -74,7 +71,7 @@ app.controller(
          // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
          'expectedtime': now,
          'endtime': null, // FIXME
-         'triptype': $scope.triptypes<3?null:$scope.triptypes[3],
+         'triptype': null,
          'rowers': ["","","","",""],
          'distance':1
        };
@@ -88,14 +85,15 @@ app.controller(
        var boatRequirements=($scope.selectedBoatCategory)?$scope.selectedBoatCategory.rights:[];
        var reqs=DatabaseService.mergeArray(tripRequirements,boatRequirements);
        var norights=[];
-       for (var rq in reqs) {
-	 var subject=reqs[rq];
-	 if (subject='cox') {
+       console.log("check rights");
+       angular.forEach(reqs, function(subject,rq) {
+         console.log("check right "+rq);
+         if (subject='cox') {
            if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
              if (!(rq in $scope.checkout.rowers[0].rights)) {
                norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));
              }
-        }
+           }
 	 } else if (subject='all') {
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
@@ -128,8 +126,8 @@ app.controller(
            if (!ok) {
              norights.push(" der må ikke være nogen "+rq+" i båden");
            }
-      }	       
-    }
+      }   
+       },this);
        $scope.rightsmessage=norights.join(",");
        return norights.length<1;
      }
@@ -203,7 +201,7 @@ app.controller(
        $scope.checkout.destination=item;
        $scope.checkout.distance=$scope.checkout.destination.distance;
        if ($scope.checkout.starttime) {
-         if($scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
+         if($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
            $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration_instruction * 3600 * 1000)
          } else {
            $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration * 3600 * 1000);

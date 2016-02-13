@@ -52,7 +52,7 @@
 	<td class="colinput">
           <div class="checkinactions">
 	    <button uib-tooltip="indskriv turen" ng-click="closetrip(boat,$index,item.km)" class="big"
-                    confirm-if="date_diff(boat.outtime)<60*5"
+                    confirm-if="date_diff(boat.outtime)<10"
                     confirm="Er du sikker på, at du vil indskrive denne tur. Den er meget kort ({{date_diff(boat.outtime)}} minutter). Slet turen, hvis båden ikke har været på vandet">
               Indskriv
             </button>
