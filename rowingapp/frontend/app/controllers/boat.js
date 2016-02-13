@@ -75,6 +75,8 @@ app.controller(
          'rowers': ["","","","",""],
          'distance':1
        };
+       $scope.do_boat_category(DatabaseService.lookup('boattypes',"name","Inrigger 4+"));
+       
      });
      
      $scope.checkRights = function() {
