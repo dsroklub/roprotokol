@@ -89,6 +89,8 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 * Fix background, white again
 
+*Ikon til ture
+
 ### BUGS
 
 # Database issues.
@@ -116,7 +118,7 @@ Senere kan vi lave en alter statement i databasen, så det ikke sker igen.
 
 * Årsstatistik
 * Konfiguration af klienter. Noget local storage. Klienter i bådhallen skal vide, at de er i bådhallen og hvilken klient de er (fx et hostnavn)
-* Updatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
+* opdatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
 * Do form validation: http://stackoverflow.com/questions/27224661/angularjs-validation-for-ui-select-multiple
 
 ### Terminaler
