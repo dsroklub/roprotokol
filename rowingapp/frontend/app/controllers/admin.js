@@ -1,13 +1,5 @@
 'use strict';
 
-
-// TODO Edit destinations
-// TODO Edit boat categories
-// TODO Edit boats
-// TODO edit rower rigths
-// TODO edit triptypes required rights
-// TODO edit boat category required rights
-
 app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
                              function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
           DatabaseService.init().then(function () {
@@ -136,10 +128,10 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
 
             }
 
-            $scope.add_boattype_requirement = function(data) {
+            $scope.add_boattype_requirement = function(data,existing_rights) {
               data.boattype=$scope.currentboattype;
               var exeres=DatabaseService.updateDB('add_boattype_req',data,$scope.config,$scope.errorhandler);
-              $scope.requiredboatrights[data.right]=data.subject;
+              existing_rights[data.right]=data.subject;
             }
 
             $scope.remove_triptype_requirement = function(rt,ix) {

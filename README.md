@@ -84,8 +84,6 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 
 ##TODO
-* admin bådtyper rettigheder, opdater lokalt
-* Advar hvis turtype er øvrigt, uden bemærkninger.
 
 * Afkobl distance fra json datalisten.
 

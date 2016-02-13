@@ -49,7 +49,8 @@
 	    <td><input type="text" ng-model="newboattype.name"></input></td>
 	    <td><input type="number" ng-model="newboattype.numseats"></input></td>
 	    <td ><select  ng-model="newboattype.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
-	    <td ><button class="action" ng-model="newboattype.rights" ng-click="currentboattype=newboattype"> {{newboattype.rights|rightreqs}}</button></td>
+            <td>opret først bådtype</td>
+	    <!--td ><button class="action" ng-model="newboattype.rights" ng-click="currentboattype=newboattype"> {{newboattype.rights|rightreqs}}</button></td-->
 	  </tr>
 	  <tr><td>
 	      <button class="big" ng-show="newboattype.name&&newboattype.numseats&&newboattype.category" ng-click="create_boattype(newboattype)">Opret ny bådtype </button>
@@ -154,7 +155,7 @@
 	<td>
 	  <select ng-model="boattype.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects"></select>
 	</td>	  
-        <td><button ng-show="boattype.newright.subject && boattype.newright.right" class="action" ng-click="add_boattype_requirement(boattype.newright)">Tilføj krav</button></td>
+        <td><button ng-show="boattype.newright.subject && boattype.newright.right" class="action" ng-click="add_boattype_requirement(boattype.newright,requiredboatrights)">Tilføj krav</button></td>
       </tr>
     </tbody>
     </table>

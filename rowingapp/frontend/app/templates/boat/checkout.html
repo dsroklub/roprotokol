@@ -1,6 +1,6 @@
 <div ng-init="cico=2" class="checkouts">
   <div>
-    <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?" confirm-ok="Udskriv båd" confirm-cancel="fortryd" id="createtrip_button" class="big" ng-if="checkout.boat && checkout.triptype && checkout.destination.name && validRowers()" ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
+    <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?" confirm-ok="Udskriv båd" confirm-cancel="fortryd" id="createtrip_button" class="big" ng-if="checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')" ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
   <div class="big">{{checkoutmessage}}</div>
   <div class="big" ng-show="!checkRights()">{{rightsmessage}}</div>
 
@@ -129,6 +129,8 @@
               </td>
               <td>
                 <textarea id="checkout_comments" type="text" ng-model="checkout.comments"></textarea>
+                <span class="error" ng-show="!checkout.comments && checkout.destination.name=='Øvrige [Skriv i kommentar]'">Krævet</span>
+
               </td>    
 	    </tr>		
 	    <!-- tr>
@@ -156,6 +158,7 @@
 </div>
 
 
+<pre>checkout= {{checkout | json}}</pre>
 <!-- br clear="all">
 <h1 class="debug"ap>debug info</h1>
 <pre>selectedcat = {{$scope.selectedBoatCategory | json}}</pre>

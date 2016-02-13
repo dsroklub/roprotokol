@@ -87,10 +87,12 @@ angular.module('myApp.utilities.rightreqs', []).filter('rightreqs', function () 
   return function (rights) {
     var res="";
     angular.forEach(rights, function (subject,right) {
-      if (subject!='none') {
         if (res!="") {
           res +=", ";
         }
+      if (subject=='none') {
+        res+=(" ingen må "+(right2dkm[right]?right2dkm[right]:right));        
+      } else {
         res+=(ss[subject]+" skal "+(right2dkm[right]?right2dkm[right]:right));
       }
     },this);

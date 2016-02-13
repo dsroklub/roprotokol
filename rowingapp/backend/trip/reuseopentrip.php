@@ -49,5 +49,5 @@ $res['message']=$message;
 $rodb->commit();
 $rodb->close();
 invalidate('trip');
-echo json_encode($res);
+echo json_encode($res,JSON_FORCE_OBJECT);
 ?> 
