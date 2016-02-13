@@ -13,7 +13,7 @@ echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
 	  if ($first) $first=0; else echo ',';
-	  echo json_encode($row,JSON_PRETTY_PRINT);
+	  echo json_encode($row,JSON_PRETTY_PRINT|JSON_FORCE_OBJECT);
 }
 echo ']';
 $rodb->close();

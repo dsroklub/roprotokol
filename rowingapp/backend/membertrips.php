@@ -10,6 +10,9 @@ if ($rodb->connect_errno) {
 $memberid = -1;
 if (isset($_GET["memberid"])) {
     $memberid=$_GET["memberid"];
+} else {
+    echo "please set memberid";
+    exit(1);
 }
         
 $s="SELECT Trip.id trip_id, Boat.Name AS boat, Trip.Destination as destination, Trip.CreatedDate , Meter AS Triplength, Member.MemberID as member_id, FirstName & \" \" & LastName AS name ".
