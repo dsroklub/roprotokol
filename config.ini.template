@@ -3,4 +3,5 @@ dbpassword=roprotokol
 database=roprotokol
 dbuser=roprotokol
 location=DSR
+adminpassword=dsr
 
