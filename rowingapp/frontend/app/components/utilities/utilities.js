@@ -106,7 +106,8 @@ angular.module('myApp.utilities.subjecttodk', []).filter('subjecttodk', function
 });
 
 var damage_degrees={
-  0: '\u2713',
+  //  0: '\u2713', // until we make it work on windows
+  0: ' ',
   1: 'Let skadet',
   2: 'Middel skadet',
   3: 'Svært skadet'
