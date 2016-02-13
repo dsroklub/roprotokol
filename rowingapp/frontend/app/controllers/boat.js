@@ -1,5 +1,7 @@
 'use strict';
 
+// cico==1 checkin
+// cico=2 checkout
 app.controller(
   'BoatCtrl',
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog',
@@ -73,7 +75,7 @@ app.controller(
          'endtime': null, // FIXME
          'triptype': null,
          'rowers': ["","","","",""],
-         'distance':1
+         'distance':0
        };       
        if ($scope.cico==2) {
          $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));

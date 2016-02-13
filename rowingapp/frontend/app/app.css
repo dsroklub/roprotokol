@@ -517,7 +517,7 @@ li.selected {
     float:left;
     clear:left;
     max-width: 30em;
-    margin-top: 1em;
+    margin-top: 1em;    
 }
 
 .checkoutBoat{
@@ -561,6 +561,7 @@ li.selected {
 .oauth,.farvand {
     float:left;
     margin-left: 1em;
+    margin-top: 1em;
 }
 
 .turoversigt,.boattrips {
