@@ -143,7 +143,7 @@ app.controller(
          $scope.correction=null;
          $scope.currenttrip=null;
          
-         DatabaseService.getDateTrips(tripdate.toISOString().split("T")[0],function (res) {
+         DatabaseService.getDateTrips(tripdate.getFullYear()+'-'+(tripdate.getMonth()+1)+'-'+tripdate.getDate(),function (res) {
            if (res.data.length>0) {
              $scope.tripselect(res.data[0]);
            }
