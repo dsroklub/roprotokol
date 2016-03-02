@@ -1,8 +1,4 @@
 <div ng-init="cico=2" class="checkouts">
-  <div>
-
-  </div>
-
   <div class="boattypesmenu">
     <h2>bådtype</h2>
     <ul>
@@ -54,7 +50,7 @@
 
   <div class="checkoutBoat">
         <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?" confirm-ok="Udskriv båd" confirm-cancel="fortryd" id="createtrip_button" class="big" ng-if="checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')" ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
-  <div class="big">{{checkoutmessage}}</div>
+  <div class="big message">{{checkoutmessage}}</div>
   <div class="big" ng-show="!checkRights()">{{rightsmessage}}</div>
     <div class="checkout-form">
       <form name="checkoutForm" novalidate noautocomplete>
