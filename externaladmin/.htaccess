@@ -1,0 +1,4 @@
+AuthName "medlems synkronisering"
+AuthType Basic
+AuthUserFile /data/konfig/medlemadminpw
+require valid-user
