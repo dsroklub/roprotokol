@@ -83,34 +83,31 @@ td.boatname {
     max-width:6em;
 }
 
-button.big {
-    color: #000000;
-    background: #ff8866; !important;
+button.big,button.action,input.big {
+    background: #D6FFB6; !important;
     border: 2px solid #000000;
+    color: #000000;
+    margin-top:0px;
 }
 
 button.minor {
     color: #000000;
     font-size: 8pt;
-    background: #C76D6B; !important;
+    background: #FFFAC5; !important;
     border: 1px solid #000000;
     padding 4px;
     margin-left: 4px;
+    margin-top:0px;
 }
 
 
 button.action {
     color: #000000;
-    background: #ff8866; !important;
-    border: 1px solid #000000;
     padding: 0pt 8pt;
-    margin-top:0pt;
 }
 
 input.big {
     color: #000000;
-    background: #ff8866; !important;
-    border: 2px solid #000000;
 }
 
 
@@ -169,7 +166,7 @@ button#createtrip_button[disabled] {
   display:inline-block;
 }
 button.statcat, button.adminbut {
-    background: #ED5D92;
+    background: #EEC88E;
     margin: 3pt;
 }
 
@@ -345,6 +342,9 @@ table caption {
     cursor: pointer;
     background: #C6EFFF;
     padding-left:0.5em;
+    user-select:none;
+    -webkit-user-select:none;
+
 }
 
 .boattypesmenu ul li:last-child {
@@ -354,7 +354,7 @@ table caption {
 
 
 li.selected {
-    background: #EBA5C1;
+    background: #50E663 !important;
 }
 
 .listmenu,.boattypesmenu ul li:hover {
@@ -387,6 +387,8 @@ li.selected {
     padding: 9pt 10pt 9pt 10pt;
     font-weight: 400;
     border-right: 1px solid white;
+    user-select:none;
+    -webkit-user-select:none;
 }
 
 .genericlist thead th {
@@ -395,6 +397,8 @@ li.selected {
     padding: 9pt 10pt 9pt 10pt;
     font-weight: 400;
     border-right: 1px solid white;
+    user-select:none;
+    -webkit-user-select:none;
 }
 
 .statlist thead th {
@@ -403,6 +407,8 @@ li.selected {
     padding: 9pt 10pt 9pt 10pt;
     font-weight: 400;
     border-right: 1px solid white;
+    user-select:none;
+    -webkit-user-select:none;
 }
 
 .boatlist thead th:first-child {
@@ -434,11 +440,13 @@ li.selected {
     padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
-    background: #EBA5C1;
+    background: #50E663;
 }
 
 .boatlist tr td {
     padding: 2pt 4pt 2pt 6pt;
+    user-select:none;
+    -webkit-user-select:none;
 }
 
 .boatlist tr td.colinput {
@@ -555,6 +563,10 @@ li.selected {
 }
 
 .error {
+  color: red;
+}
+
+.message {
   color: red;
 }
 
