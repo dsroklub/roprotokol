@@ -562,6 +562,10 @@ li.selected {
     background: white;
 }
 
+.rightsmessage {
+    max-width: 20em;
+}
+
 .error {
   color: red;
 }
