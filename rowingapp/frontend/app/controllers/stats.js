@@ -53,10 +53,6 @@ app.controller(
        // TODO: Stacked Barchart - Instructions per finish rabbit       
        // TODO: Who rows with most different people       
        // TODO: Add more from page 11
-      
-
-      
-      
 
        $scope.boattype="any";
        $scope.docats = function (val) {
@@ -118,15 +114,14 @@ app.controller(
        }
      }
                   
-     $scope.changeSeason= function(ss) {
-       console.log("change season to" + $scope.statseason+" a="+ss)
+     $scope.changeSeason= function() {
+       console.log("change season to " + $scope.statseason)
        if($scope.tableParams) {
          $scope.tableParams.reload();
        }
        if ($scope.boattableParams) {
          $scope.boattableParams.reload();
        }
-       $scope.mk_chart();
      }
      
                   
