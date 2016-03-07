@@ -49,7 +49,6 @@
   </script>
 
   <div class="checkoutBoat">
-        <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?" confirm-ok="Udskriv båd" confirm-cancel="fortryd" id="createtrip_button" class="big" ng-if="checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')" ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
   <div class="big message">{{checkoutmessage}}</div>
   <div class="big" ng-show="!checkRights()">{{rightsmessage}}</div>
     <div class="checkout-form">
@@ -134,7 +133,11 @@
                    < FIXME fixit button id="reportdamage_button" class="yellow" ng-click="reportdamage(checkout)"><i class="fa fa-exclamation-triangle"></i> Meld skade</button>
 </td>    
 </tr -->
+            <TR><td>
+                    <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?" confirm-ok="Udskriv båd" confirm-cancel="fortryd" id="createtrip_button" class="big" ng-if="checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')" ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
+</td></tr>
 	  </tbody>
+          
         </table>
       </form>    
       <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name || !checkout.rowers[0]">husk at vælge båd</button>
