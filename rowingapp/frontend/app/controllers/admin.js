@@ -190,6 +190,25 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                   }
             }
 
+            $scope.correction_diff = function(org,fix) {
+              var res={reason:fix.reason, reporter:fix.reporter};
+              if (fix.DeleteTrip) {
+                res.delete=true;
+              } else {
+                res.diffs={};
+                var fields=['boat','Destination','intime','outtime','distance','triptype'];
+                for (var ki=0; ki<fields.length;ki++) {
+                  var k=fields[ki];
+                  if (org[k]!=fix[k]) {
+                    res.diffs[k]={'from':org[k],'to':fix[k]};
+                  }
+                }
+                if (JSON.stringify(org.rowers) != JSON.stringify(fix.rowers)) {
+                  res.diffs.rowers={'from':org.rowers,'to':fix.rowers}
+                }
+              }
+              return res;
+            }
             
             $scope.dotriprights = function (rr,tt){
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling

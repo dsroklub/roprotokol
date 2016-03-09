@@ -291,7 +291,7 @@
       <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'"  ng-repeat="et in ziperrors">
 	<td>{{et.correction.Reporter}}</td>	  
 	<td>{{et.current|json}} </td>
-        <td ng-class="{deletion: et.correction.DeleteTrip}">{{et.correction|json}} </td>
+        <td ng-class="{deletion: et.correction.DeleteTrip}">{{correction_diff(et.current,et.correction)|json}} </td>
         <td>
           <button class="green" ng-click="approve_correction(et,$index)">Godkend</button>
           <button class="action " ng-click="reject_correction(et,$index)">Afvis</button>
