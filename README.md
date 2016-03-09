@@ -93,9 +93,7 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 * Afkobl distance fra json datalisten.
 
-* Fix background, white again
-
-*Ikon til ture
+* Gør det muligt at lave rettelser til ture med gæsteroere
 
 ### BUGS
 

@@ -16,3 +16,5 @@ UPDATE Trip SET Trip.OutTime="2025-05-03 12:00:00" WHERE Trip.OutTime="1025-05-0
 select * from Trip WHERE Trip.OutTime < '2000';
 
 ALTER TABLE Error_TripMember CHANGE TripID ErrorTripID INT;
+
+UPDATE Error_Trip SET Distance = Distance*1000 WHERE Distance < 400;
