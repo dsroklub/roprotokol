@@ -103,6 +103,8 @@ app.controller(
        $log.debug("close correction");
        if (deleterequest) {
          $scope.correction.deleterequest=true;
+       } else {
+         $scope.correction.deleterequest=false;
        }
        var closeCorrection=DatabaseService.closeForm('newcorrection',$scope.correction,'trip');
        closeCorrection.promise.then(function(status) {                   

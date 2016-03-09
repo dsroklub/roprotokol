@@ -22,7 +22,7 @@ if(!$skiplogin) {
         echo '{"status":"notauthorized","error":"forkert password"}';
         exit;
     }
-    error_log("LPW ".$password);
+#    error_log("LPW ".$password);
 #    $token = jwt_decode_header();
 #    if(isset($token["error"])) {
 #        echo json_encode($token["error"]);
