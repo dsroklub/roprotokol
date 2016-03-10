@@ -584,6 +584,7 @@ li.selected {
     display:inline-block;
     float:left;
     vertiacal-align:top;
+    cursor: pointer;
 }
 
 .seasonschart {
