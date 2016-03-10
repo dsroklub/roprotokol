@@ -21,6 +21,7 @@ UPDATE Error_Trip SET Distance = Distance*1000 WHERE Distance < 400;
 
 UPDATE Error_Trip SET TimeOut=(SELECT OutTime From Trip WHERE Trip.id=Error_Trip.Trip) WHERE TimeOut="0000-00-00 00:00:00";
 UPDATE Error_Trip SET TimeIn=(SELECT InTime From Trip WHERE Trip.id=Error_Trip.Trip) WHERE TimeIn="0000-00-00 00:00:00";
+UPDATE Error_Trip SET TimeIn=(SELECT InTime From Trip WHERE Trip.id=Error_Trip.Trip) WHERE TimeIn=IS NULL;
 UPDATE Error_Trip SET BoatID=(SELECT BoatID From Trip WHERE Trip.id=Error_Trip.Trip) WHERE Boat IS NULL;
 UPDATE Error_Trip SET BoatID=(SELECT BoatID From Trip WHERE Trip.id=Error_Trip.Trip) WHERE Boat=0;
 UPDATE Error_Trip SET Distance=(SELECT Distance From Trip WHERE Trip.id=Error_Trip.Trip) WHERE Distance=0;
