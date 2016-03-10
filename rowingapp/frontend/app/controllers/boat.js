@@ -92,7 +92,7 @@ app.controller(
        var norights=[];
        console.log("check rights");
        angular.forEach(reqs, function(subject,rq) {
-         console.log("check right "+rq);
+         // console.log("check right "+rq);
          if (subject='cox') {
            if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
              if (!(rq in $scope.checkout.rowers[0].rights)) {
@@ -373,9 +373,7 @@ app.controller(
        var ds=DatabaseService.sync(['boat'])
        console.log(" boatsync ds="+ds);
        if (ds) {
-	 console.log(" boatsync must wait");
 	 ds.then(function(what) {
-           console.log(" *** THEN sync boats");
            if ($scope.selectedBoatCategory) {
              $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.selectedBoatCategory.name);
              if ($scope.checkout.boat) {

@@ -2,6 +2,7 @@
 include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
+$fromdate="2010-01-01";
 if (isset($_GET["member"])) {
     $member=$_GET["member"];
 } else {
@@ -12,11 +13,11 @@ if (isset($_GET["member"])) {
   
 $sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, Trip.Destination as destination, Trip.CreatedDate as created, Meter as distance, InTime as intime, OutTime as outtime  
 FROM Boat RIGHT JOIN (Member INNER JOIN (Trip INNER JOIN TripMember ON Trip.id = TripMember.TripID) ON Member.id = TripMember.member_id) ON Boat.id = Trip.BoatID 
-    WHERE Member.MemberID=? AND Trip.Season=? ORDER BY Trip.id DESC;";
+    WHERE Member.MemberID=? AND Trip.OutTime>=? ORDER BY Trip.id DESC;";
 
 //echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
-    $stmt->bind_param("si", $member,$season);
+    $stmt->bind_param("si", $member,$fromdate);
      $stmt->execute();
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
 }

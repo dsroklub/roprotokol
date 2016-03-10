@@ -12,11 +12,11 @@ if (isset($_GET["boat"])) {
 $sql=
     "SELECT TripType.Name AS triptype, Count(Trip.id) AS trip_count, Sum(Meter) AS distance, Sum(Meter)/Count(Trip.id) as average " .
     " FROM Trip, TripMember,TripType " .
-    " WHERE  Trip.BoatID=? AND TripMember.TripID=Trip.id AND Trip.TripTypeID = TripType.id AND Trip.Season=? " .
+    " WHERE  Trip.BoatID=? AND TripMember.TripID=Trip.id AND Trip.TripTypeID = TripType.id AND Trip.OutTime>? " .
     " GROUP BY TripType.Name";
 // echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
-    $stmt->bind_param("ii", $season,$boat);
+    $stmt->bind_param("si", $season,$boat);
      $stmt->execute();
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
      echo '[';

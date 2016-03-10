@@ -30,7 +30,7 @@ app.controller(
      $scope.DB=DatabaseService.getDB;
      
      $scope.tripselect= function(trip) {
-       console.log("trip select "+trip);
+  //     console.log("trip select "+trip);
        $scope.currenttrip=trip;
        DatabaseService.getTripMembers(trip.id,function (res) {
          $scope.tripmembers=res.data;
@@ -42,7 +42,6 @@ app.controller(
 
      // Utility functions for view
      $scope.getMatchingBoats = function (vv) {
-       console.log("gmb "+vv);
        var bts=DatabaseService.getBoats();
        var result = bts
            .filter(function(element) {
@@ -180,12 +179,11 @@ app.controller(
                }             
              }
              angular.forEach(d.data, function(w) {
-               console.log("w "+w.week+" d="+w.distance);
                $scope.mo.data[w.year-$scope.mo.fy][w.week]=w.distance/1000.0;
              },this);
            }
          });
-         console.log("got data");
+//         console.log("got data");
        }
      }
    }
