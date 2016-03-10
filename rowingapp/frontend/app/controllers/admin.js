@@ -2,6 +2,24 @@
 
 app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
                              function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
+
+          var correction_diff = function(current,correction) {
+            var diffs={};
+            if (!correction.DeleteTrip) {
+              var flds=['boat','Destination','intime','outtime','distance','triptype'];
+              for (var ki=0; ki<flds.length;ki++) {
+                var k=flds[ki];
+                if (current[k]!=correction[k]) {
+                  diffs[k]={'from':current[k],'to':correction[k]};
+                }
+              }
+              if (JSON.stringify(current.rowers) != JSON.stringify(correction.rowers)) {
+                diffs.rowers={'from':current.rowers,'to':correction.rowers}
+              }
+            }
+            return diffs;
+          }
+                               
           DatabaseService.init().then(function () {
             $scope.currentrower=null;
             $scope.do="events";
@@ -27,7 +45,8 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                 $scope.ziperrors.push({
                   'trip':errortrips[i].Trip,
                   'current':errortrips[i],
-                  'correction':errortrips[j]
+                  'correction':errortrips[j],
+                  'diffs': correction_diff(errortrips[i],errortrips[j])
                 });
                 j++;
               }
@@ -188,26 +207,6 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                   return function(rtt) {
                     return (allreqs && !allreqs[rtt.member_right]);
                   }
-            }
-
-            $scope.correction_diff = function(org,fix) {
-              var res={reason:fix.reason, reporter:fix.reporter};
-              if (fix.DeleteTrip) {
-                res.delete=true;
-              } else {
-                res.diffs={};
-                var fields=['boat','Destination','intime','outtime','distance','triptype'];
-                for (var ki=0; ki<fields.length;ki++) {
-                  var k=fields[ki];
-                  if (org[k]!=fix[k]) {
-                    res.diffs[k]={'from':org[k],'to':fix[k]};
-                  }
-                }
-                if (JSON.stringify(org.rowers) != JSON.stringify(fix.rowers)) {
-                  res.diffs.rowers={'from':org.rowers,'to':fix.rowers}
-                }
-              }
-              return res;
             }
             
             $scope.dotriprights = function (rr,tt){
