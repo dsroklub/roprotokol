@@ -7,11 +7,11 @@
   </oauth-->
 </div>
 <div class="menuholder">
-  <button class="adminbut" ng-click="do='boat'">Både</button>
-  <button class="adminbut" ng-click="do='user'">Roere</button>
-  <button class="adminbut" ng-click="do='trip'">Ture</button>
-  <button class="adminbut" ng-click="do='correction'">Fejlrettelser</button>
-  <button class="adminbut" ng-click="do='events'">Hændelser</button>
+  <button class="adminbut" ng-class="{selected: do=='boat'}" ng-click="do='boat'">Både</button>
+  <button class="adminbut" ng-class="{selected: do=='user'}" ng-click="do='user'">Roere</button>
+  <button class="adminbut" ng-class="{selected: do=='trip'}" ng-click="do='trip'">Ture</button>
+  <button class="adminbut" ng-class="{selected: do=='correction'}" ng-click="do='correction'">Fejlrettelser</button>
+  <button class="adminbut" ng-class="{selected: do=='events'}" ng-click="do='events'">Hændelser</button>
   <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password"></input>
 </div>
 

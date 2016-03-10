@@ -353,7 +353,7 @@ table caption {
 }
 
 
-li.selected {
+li.selected,button.selected {
     background: #50E663 !important;
 }
 

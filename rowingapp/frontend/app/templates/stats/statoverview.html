@@ -1,6 +1,7 @@
 <div class="genericcategories">
   <div>
-    <button class="statcat" ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner']"  ng-click="docats(statcategory)" >{{boatcat2dk[statcategory]}}
+    <button class="statcat" ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner']"  ng-class="{selected: statcategory==rowcategory}" ng-click="docats(statcategory)">
+      {{boatcat2dk[statcategory]}}
     </button>
     <select  ng-model="statseason" ng-change="changeSeason()">
       <option ng-repeat="ss in seasons">{{ss}}</option>
@@ -82,11 +83,9 @@
 </div>
 
 
-<!--br clear="all">
-<p
-   ><strong>data:</strong> {{data|json}}
-    <p><strong>BS:</strong> {{boatdata|json}}
-    <p><strong>Sorting:</strong> {{boattableParams.sorting()|json}}
-    <p><strong>Filter:</strong> {{boattableParams.filter()}}
-    <p><strong>cat:</strong> {{boattableParams.rowcategory|json}}-->
+<br clear="all">
+<p><strong>data:</strong> {{data|json}}
+<p><strong>cat:</strong> {{rowcategory|json}}
+<p><strong>BS:</strong> {{boatdata|json}}
+
 
