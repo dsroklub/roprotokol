@@ -47,22 +47,13 @@ if ($data->correction->DeleteTrip) {
         $rodb->rollback();
         exit(4);
     }
-
-    if ($stmt = $rodb->prepare("DELETE FROM Error_TripMember WHERE ErrorTripID=?")) {
-        $stmt->bind_param('i', $data->correction->id);
-        $stmt->execute() || error_log(' Delte error trip members'.$rodb->error);
-    } else {
-        error_log('OOOP delete error trip members correction'.$rodb->error);
-        $rodb->rollback();
-        exit(5);
-    }    
 }
 
 if ($stmt = $rodb->prepare("UPDATE Error_Trip SET Fixed=1 WHERE id=?")) {
     $stmt->bind_param('i', $data->correction->id);
     $stmt->execute() || error_log(' Error trip fixed '.$rodb->error);
 } else {
-    error_log('OOOP delete correction'.$rodb->error);
+    error_log('OOOP update error fixed correction'.$rodb->error);
 }    
 
 $rodb->commit();

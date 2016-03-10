@@ -291,12 +291,12 @@
       <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="et in ziperrors">
 	<td>{{et.correction.Reporter}}</td>
         <td>{{et.correction.reason}}</td>	  
-	<td>{{et.current|json}} </td>
+	<td class="currenttripdata">{{et.current|json}}</td>
         <td ng-class="{deletion: et.correction.DeleteTrip}">
+          <strong ng-if="et.correction.DeleteTrip">SLET TUR</strong>
           <ul>
             <li ng-repeat="(tg,dff) in et.diffs"><strong>{{tg}}: </strong>
-              {{dff.from|json}} &rarr; {{dff.to|json}}
-            
+              {{dff.from|json}} &rarr; {{dff.to|json}}            
             </ul>
         </td>
         <td>

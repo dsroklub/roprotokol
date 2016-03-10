@@ -3,6 +3,23 @@
 app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
                              function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
 
+
+
+          var rower_diff = function(current,correction) {
+            var diffs={'from':{},'to':{}};
+            angular.forEach(current, function(rid,rower,kv) {
+              if (correction[rower]!=rid) {
+                diffs.from[rower]=rid;
+              }
+            },this);
+            angular.forEach(correction, function(rid,rower,kv) {
+              if (current[rower]!=rid) {
+                diffs.to[rower]=rid;
+              }
+            },this);
+            return diffs;
+          }
+
           var correction_diff = function(current,correction) {
             var diffs={};
             if (!correction.DeleteTrip) {
@@ -14,7 +31,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                 }
               }
               if (JSON.stringify(current.rowers) != JSON.stringify(correction.rowers)) {
-                diffs.rowers={'from':current.rowers,'to':correction.rowers}
+                diffs.rowers=rower_diff(current.rowers,correction.rowers);
               }
             }
             return diffs;

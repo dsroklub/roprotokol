@@ -711,3 +711,7 @@ select  {
 .checkinactions {
     display: flex;
 }
+
+.currenttripdata {
+    max-width:400px;
+}

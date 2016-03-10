@@ -24,3 +24,5 @@ UPDATE Error_Trip SET TimeIn=(SELECT InTime From Trip WHERE Trip.id=Error_Trip.T
 UPDATE Error_Trip SET BoatID=(SELECT BoatID From Trip WHERE Trip.id=Error_Trip.Trip) WHERE Boat IS NULL;
 UPDATE Error_Trip SET BoatID=(SELECT BoatID From Trip WHERE Trip.id=Error_Trip.Trip) WHERE Boat=0;
 UPDATE Error_Trip SET Distance=(SELECT Distance From Trip WHERE Trip.id=Error_Trip.Trip) WHERE Distance=0;
+
+UPDATE Error_Trip SET BoatID=(SELECT id From Boat WHERE Boat.name=Boat) WHERE BoatID=0 AND Boat IS NOT NULL AND Boat!="";

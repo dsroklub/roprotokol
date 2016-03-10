@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS Fejl_tblMembersSportData (
        Mail VARCHAR(300),
        Kommentar VARCHAR(1000),
        Fixed_Comment VARCHAR(1000),
-       Fixed INT
+       Fixed INT -- 0=open, 1=approved, 2=rejected
 );
 
 CREATE TABLE IF NOT EXISTS  Fejl_tur (
