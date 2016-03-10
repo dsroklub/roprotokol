@@ -16,7 +16,7 @@ $sql=
     " WHERE  Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND Trip.TripTypeID = TripType.id AND Trip.OutTime>? " .
     " AND Member.MemberID=? " .
     " GROUP BY TripType.Name";
-echo $sql;
+# echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
     $stmt->bind_param("ss", $season,$member);
      $stmt->execute();
