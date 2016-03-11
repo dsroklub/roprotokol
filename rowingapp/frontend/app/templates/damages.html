@@ -30,7 +30,10 @@
     <option value="3">3 svær</option>
   </select>
   <textarea placeholder="bekskriv skaden" class="damagetext" autocomplete="off" id="damages.damage" name="skade" type="text" ng-model="newdamage.description" required></textarea>
-  <button class="klar" ng-disabled="!(newdamage.reporter && newdamage.boat && newdamage.description &&newdamage.degree)" id="newdamagereport_button" ng-click="reportDamageForBoat(newdamage)">Meld ny skade</button>
+  <button class="klar" ng-disabled="!(newdamage.reporter && newdamage.boat && newdamage.description && newdamage.degree)" id="newdamagereport_button" ng-click="reportDamageForBoat(newdamage)">
+    Meld ny skade
+  </button>
+  <label class="alert" ng-show="newdamage.description && !newdamage.reporter">Skriv dit navn som skademelder</label>
   </div>
 </ng-form>
 
@@ -47,3 +50,4 @@
     <td ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)"><button class="klar">klarmeld</button></td>
   </tr>
 </table>
+<pre>newdamage= {{newdamage | json}}</pre>

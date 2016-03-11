@@ -594,7 +594,7 @@ li.selected,button.selected {
 }
 
 textarea.damagetext {
-    width:50%;
+    width:40%;
     vertical-align: top;
 }
 
@@ -715,4 +715,9 @@ select  {
 
 .currenttripdata {
     max-width:400px;
+}
+
+button[disabled], html input[disabled] {
+  cursor: default;
+  background: #808080 !important;
 }
