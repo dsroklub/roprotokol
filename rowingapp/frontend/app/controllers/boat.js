@@ -92,9 +92,11 @@ app.controller(
        var norights=[];
        console.log("check rights");
        angular.forEach(reqs, function(subject,rq) {
-         // console.log("check right "+rq);
-         if (subject='cox') {
-           if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
+           // console.log("check right "+rq);
+	 if (rq=="findIndex") {
+	       // ignore
+	 } else if (subject='cox') {
+               if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
              if (!(rq in $scope.checkout.rowers[0].rights)) {
                norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));
              }
