@@ -25,7 +25,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
   var cachedepend={
     'boat':['boats','boatdamages','availableboats','boatreservations','boat_status','boat_usages','boat_status','get_events'],
-    'trip':['rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
+    'trip':['rowers','rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
     'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
     'destination':['destinations']
   };
@@ -140,7 +140,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 	valid['rowers']=true;
         rq.resolve(true);
       });
-    }      
+    }
     
     var currentyear=true;
     var thisYear=new Date().getFullYear();
@@ -156,7 +156,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       for (var bi=0; bi<boatmaintypes.length; bi++) {
         var boattype= boatmaintypes[bi];        
 
-        if((y==(thisYear && !valid['rowerstatistics'+boattype]) || !rowerstatistics[y][boattype]  || rowerstatistics[y][boattype].length<1)) {
+          if ( (y==thisYear && !valid['rowerstatistics'+boattype]) || !rowerstatistics[y][boattype]  || rowerstatistics[y][boattype].length<1) {
 	  (function (bt) {
             var year=y;
 	    var sq=$q.defer();
