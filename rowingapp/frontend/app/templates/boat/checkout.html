@@ -141,6 +141,8 @@
         </table>
       </form>    
       <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name || !checkout.rowers[0]">husk at vælge båd</button>
+      <button class="alert minor" ng-hide="checkout.triptype || !checkout.destination.name || !checkout.rowers[0]">husk turtype</button>
+      <button class="alert minor" ng-hide="checkout.destination || !checkout.triptype || !checkout.rowers[0]">vælg destination</button>
     </div>
     <div ng-show="boatdamages" class="damageslist">
       <h2>Skader på {{checkout.boat.name}}</h2>
