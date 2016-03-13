@@ -16,8 +16,8 @@ if ($correction->deleterequest) {
     }
 } else {
     
-    if ($stmt = $rodb->prepare("INSERT INTO Error_Trip(Trip,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter) VALUES(?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?)")) {
-        $stmt->bind_param('iisissis', $correction->id,$correction->boat->id, $correction->destination->name, $correction->triptype->id, $correction->outtime, $correction->intime,$correction->distance,$correction->reporter);
+    if ($stmt = $rodb->prepare("INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter,Fixed) VALUES(?,?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,0)")) {
+        $stmt->bind_param('isisissis', $correction->id,$correction->reason,$correction->boat->id, $correction->destination->name, $correction->triptype->id, $correction->outtime, $correction->intime,$correction->distance,$correction->reporter);
         error_log('now EXE '. json_encode($correction));
         if (!$stmt->execute()) {
             $error=mysqli_error($rodb);
@@ -29,7 +29,7 @@ if ($correction->deleterequest) {
     }    
     error_log("\n\nnow all rowers ".json_encode($correction->rowers));
     
-    if ($stmt = $rodb->prepare("INSERT INTO Error_TripMember(TripID,Seat,member_id,MemberName,CreatedDate,EditDate) ".
+    if ($stmt = $rodb->prepare("INSERT INTO Error_TripMember(ErrorTripID,Seat,member_id,MemberName,CreatedDate,EditDate) ".
     "SELECT LAST_INSERT_ID(),?,Member.id,?,NOW(),NOW() FROM Member Where MemberID=?"
     )) {
         $seat=1;

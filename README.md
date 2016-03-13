@@ -11,6 +11,7 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
 # Installation
 
+apt-get mdbtools
 apt-get install npm python-mysqldb memcached php5-memcached mysql-server
 apt-get install php5-mysqlnd nodejs nodejs-legacy
   # php5-mysqlnd nødvendig for at få PHP til at kende forskel på strenge og tal
@@ -92,9 +93,7 @@ Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-
 
 * Afkobl distance fra json datalisten.
 
-* Fix background, white again
-
-*Ikon til ture
+* Gør det muligt at lave rettelser til ture med gæsteroere
 
 ### BUGS
 

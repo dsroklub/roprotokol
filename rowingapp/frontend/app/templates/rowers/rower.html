@@ -76,7 +76,7 @@
     
     <div ng-show="currentrower" class="triptypeview">
       <table class="genericlist">
-        <caption>Oversigt for {{currentrower.name}} fordelt på turtyper</caption>
+        <caption>Sæsonoversigt for {{currentrower.name}} fordelt på turtyper</caption>
         <thead>
           <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
         </thead>
@@ -159,7 +159,7 @@
 	            <small ng-bind-html="destination.duration | totime"></small>t)
 	          </ui-select-choices>
 	        </ui-select>
-	        <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" name="input" transformkm ng-model="correction.distance" required >km
+	        <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="number" min="0.5" step="0.5" name="input" transformkm ng-model="correction.distance" required >km
 	      </td>
             </tr>
 	    
@@ -206,8 +206,9 @@
 	        <button ng-show="correction.reason && correction.reporter" class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
 	      </td>
 	      <td>
-	        <button class="big" ng-show="correction.reason && correction.reporter" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse</button>
+	        <button class="big" ng-show="correction.reason && correction.reporter && correction.distance>0" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse</button>
                 <label ng-hide="correction.reason && correction.reporter" class="alert notready">angiv begrundelse og dit navn</label>
+                <label ng-hide="correction.distance" class="alert notready">Distance skal være positiv</label>
 	      </td>
 	    </tr>
 	    	    

@@ -7,11 +7,11 @@
   </oauth-->
 </div>
 <div class="menuholder">
-  <button class="adminbut" ng-click="do='boat'">Både</button>
-  <button class="adminbut" ng-click="do='user'">Roere</button>
-  <button class="adminbut" ng-click="do='trip'">Ture</button>
-  <button class="adminbut" ng-click="do='correction'">Fejlrettelser</button>
-  <button class="adminbut" ng-click="do='events'">Hændelser</button>
+  <button class="adminbut" ng-class="{selected: do=='boat'}" ng-click="do='boat'">Både</button>
+  <button class="adminbut" ng-class="{selected: do=='user'}" ng-click="do='user'">Roere</button>
+  <button class="adminbut" ng-class="{selected: do=='trip'}" ng-click="do='trip'">Ture</button>
+  <button class="adminbut" ng-class="{selected: do=='correction'}" ng-click="do='correction'">Fejlrettelser</button>
+  <button class="adminbut" ng-class="{selected: do=='events'}" ng-click="do='events'">Hændelser</button>
   <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password"></input>
 </div>
 
@@ -287,11 +287,18 @@
   <table class="boatlist" >
     <caption>Turrettelser</caption>
     <thead>
-      <tr> <th>Indberetter</th><th>Gældende</th><th>ændret</th><th>ja/nej</th></tr>
-      <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'"  ng-repeat="et in ziperrors">
-	<td>{{et.correction.Reporter}}</td>	  
-	<td>{{et.current|json}} </td>
-        <td ng-class="{deletion: et.correction.DeleteTrip}">{{et.correction|json}} </td>
+      <tr> <th>Indberetter</th><th>grund</th><th>Gældende</th><th>ændret</th><th>ja/nej</th></tr>
+      <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="et in ziperrors">
+	<td>{{et.correction.Reporter}}</td>
+        <td>{{et.correction.reason}}</td>	  
+	<td class="currenttripdata">{{et.current|json}}</td>
+        <td ng-class="{deletion: et.correction.DeleteTrip}">
+          <strong ng-if="et.correction.DeleteTrip">SLET TUR</strong>
+          <ul>
+            <li ng-repeat="(tg,dff) in et.diffs"><strong>{{tg}}: </strong>
+              {{dff.from|json}} &rarr; {{dff.to|json}}            
+            </ul>
+        </td>
         <td>
           <button class="green" ng-click="approve_correction(et,$index)">Godkend</button>
           <button class="action " ng-click="reject_correction(et,$index)">Afvis</button>
@@ -321,9 +328,6 @@
 
 <!--pre>currentrower {{currentrower|json}}</pre>
 <pre>config {{config|json}}</pre>
-<pre>usages {{usages|json}}</pre>
-<pre>brands {{brands|json}}</pre>
-<pre>requiredtriprights{{requiredtriprights|json}}</pre>
 <pre>rightsubjects {{rightsubjects|json}}</pre>
 <pre>newboat {{newboat}}</pre>
 <pre>newboattype {{newboattype}}</pre>

@@ -353,7 +353,7 @@ table caption {
 }
 
 
-li.selected {
+li.selected,button.selected {
     background: #50E663 !important;
 }
 
@@ -562,6 +562,10 @@ li.selected {
     background: white;
 }
 
+.rightsmessage {
+    max-width: 20em;
+}
+
 .error {
   color: red;
 }
@@ -580,6 +584,7 @@ li.selected {
     display:inline-block;
     float:left;
     vertiacal-align:top;
+    cursor: pointer;
 }
 
 .seasonschart {
@@ -589,7 +594,7 @@ li.selected {
 }
 
 textarea.damagetext {
-    width:50%;
+    width:40%;
     vertical-align: top;
 }
 
@@ -706,4 +711,13 @@ select  {
 
 .checkinactions {
     display: flex;
+}
+
+.currenttripdata {
+    max-width:400px;
+}
+
+button[disabled], html input[disabled] {
+  cursor: default;
+  background: #808080 !important;
 }

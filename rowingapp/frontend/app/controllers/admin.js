@@ -2,6 +2,41 @@
 
 app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
                              function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
+
+
+
+          var rower_diff = function(current,correction) {
+            var diffs={'from':{},'to':{}};
+            angular.forEach(current, function(rid,rower,kv) {
+              if (correction[rower]!=rid) {
+                diffs.from[rower]=rid;
+              }
+            },this);
+            angular.forEach(correction, function(rid,rower,kv) {
+              if (current[rower]!=rid) {
+                diffs.to[rower]=rid;
+              }
+            },this);
+            return diffs;
+          }
+
+          var correction_diff = function(current,correction) {
+            var diffs={};
+            if (!correction.DeleteTrip) {
+              var flds=['boat','Destination','intime','outtime','distance','triptype'];
+              for (var ki=0; ki<flds.length;ki++) {
+                var k=flds[ki];
+                if (current[k]!=correction[k]) {
+                  diffs[k]={'from':current[k],'to':correction[k]};
+                }
+              }
+              if (JSON.stringify(current.rowers) != JSON.stringify(correction.rowers)) {
+                diffs.rowers=rower_diff(current.rowers,correction.rowers);
+              }
+            }
+            return diffs;
+          }
+                               
           DatabaseService.init().then(function () {
             $scope.currentrower=null;
             $scope.do="events";
@@ -27,7 +62,8 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                 $scope.ziperrors.push({
                   'trip':errortrips[i].Trip,
                   'current':errortrips[i],
-                  'correction':errortrips[j]
+                  'correction':errortrips[j],
+                  'diffs': correction_diff(errortrips[i],errortrips[j])
                 });
                 j++;
               }
@@ -189,7 +225,6 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                     return (allreqs && !allreqs[rtt.member_right]);
                   }
             }
-
             
             $scope.dotriprights = function (rr,tt){
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling

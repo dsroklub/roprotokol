@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS Fejl_tblMembersSportData (
        Mail VARCHAR(300),
        Kommentar VARCHAR(1000),
        Fixed_Comment VARCHAR(1000),
-       Fixed INT
+       Fixed INT -- 0=open, 1=approved, 2=rejected
 );
 
 CREATE TABLE IF NOT EXISTS  Fejl_tur (
@@ -297,7 +297,7 @@ CREATE TABLE IF NOT EXISTS TurDeltager (
 CREATE TABLE IF NOT EXISTS TripMember (
        TripID INT,
        Season INT,
-       Seat INT,
+       Seat INT,  -- 1 is cox, 2 is stroke, etc
        member_id INT,
        MemberName VARCHAR(100),
        CreatedDate DATE,
@@ -307,7 +307,7 @@ CREATE TABLE IF NOT EXISTS TripMember (
 );
 
 CREATE TABLE IF NOT EXISTS Error_TripMember (
-       TripID INT,
+       ErrorTripID INT,
        Seat INT,
        member_id INT,
        MemberName VARCHAR(100),

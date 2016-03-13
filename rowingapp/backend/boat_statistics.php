@@ -22,7 +22,8 @@ if (isset($_GET["boattype"])) {
 $s="SELECT Boat.Name AS boatname, BoatType.Name AS boat_type, CAST(Sum(Meter) AS UNSIGNED) AS distance, Count(Trip.id) AS num_trips
 FROM (BoatType INNER JOIN Boat ON BoatType.id = Boat.BoatType) LEFT JOIN Trip ON Boat.id = Trip.BoatID
 WHERE Year(OutTime)=? ". $boatclause .
-    " GROUP BY Boat.Name, BoatType.Name";
+    " GROUP BY Boat.Name, BoatType.Name 
+    ORDER BY distance desc";
     
 //    echo $s;
 if ($stmt = $rodb->prepare($s)) {

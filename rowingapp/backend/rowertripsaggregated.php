@@ -8,16 +8,17 @@ if (isset($_GET["member"])) {
     echo "please set member";
     exit(1);
 }
+error_log("rta season ".$season);
 
 $sql=
     "SELECT TripType.Name AS triptype, Count(Trip.id) AS trip_count, Sum(Meter) AS distance, Sum(Meter)/Count(Trip.id) as average " .
     " FROM Trip, TripMember,TripType,Member " .
-    " WHERE  Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND Trip.TripTypeID = TripType.id AND Trip.Season=? " .
+    " WHERE  Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND Trip.TripTypeID = TripType.id AND Trip.OutTime>? " .
     " AND Member.MemberID=? " .
     " GROUP BY TripType.Name";
-// echo $sql;
+# echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
-    $stmt->bind_param("is", $season,$member);
+    $stmt->bind_param("ss", $season,$member);
      $stmt->execute();
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
      echo '[';
