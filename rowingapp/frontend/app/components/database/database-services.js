@@ -450,7 +450,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
      var at=ar.then(function (res) {
        $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
        if (!res||res.status=="notauthorized") {
-         console.log("auth error");
+         console.log("auth error "+op+JSON.stringify(data));
          if (eh) {
            eh(res)}
          ;
