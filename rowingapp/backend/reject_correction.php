@@ -12,7 +12,7 @@ error_log('reject correction:  '.json_encode($data));
 
 if ($stmt = $rodb->prepare("UPDATE Error_Trip SET Fixed=2 WHERE id=?")) {
     $stmt->bind_param('i', $data->correction->id);
-    $stmt->execute();
+    $stmt->execute() || error_log(' error report rejection failed: '.$rodb->error);
 } else {
     error_log('OOOP'.$rodb->error);
 }

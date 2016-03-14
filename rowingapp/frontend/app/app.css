@@ -714,8 +714,12 @@ select  {
 }
 
 .currenttripdata {
-    max-width:400px;
+    max-width:500px;
 }
+.changedtripdata {
+    max-width:30em;
+}
+
 
 button[disabled], html input[disabled] {
   cursor: default;

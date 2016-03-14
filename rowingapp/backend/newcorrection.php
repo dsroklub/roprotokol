@@ -29,16 +29,16 @@ if ($correction->deleterequest) {
     }    
     error_log("\n\nnow all rowers ".json_encode($correction->rowers));
     
-    if ($stmt = $rodb->prepare("INSERT INTO Error_TripMember(ErrorTripID,Seat,member_id,MemberName,CreatedDate,EditDate) ".
-    "SELECT LAST_INSERT_ID(),?,Member.id,?,NOW(),NOW() FROM Member Where MemberID=?"
+    if ($stmt = $rodb->prepare("INSERT INTO Error_TripMember(ErrorTripID,Seat,member_id,MemberName) ".
+    "SELECT LAST_INSERT_ID(),?,Member.id,? FROM Member Where MemberID=?"
     )) {
         $seat=1;
         error_log("ROWERS");
         foreach ($correction->rowers as $rower) {
             error_log("SEAT".$seat);
-            error_log("DO trip correction mb ".$rower->name);
-            $stmt->bind_param('isi',$seat,$rower->name,$rower->id);
-            $stmt->execute();
+            error_log("DO trip correction mb ".$rower->name . " ID=".$rower->id);
+            $stmt->bind_param('iss',$seat,$rower->name,$rower->id);
+            $stmt->execute() || error_log(' error trip member set failed: '.$rodb->error);
             $seat+=1;
         }
     } else {

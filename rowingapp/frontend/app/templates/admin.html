@@ -290,9 +290,25 @@
       <tr> <th>Indberetter</th><th>grund</th><th>Gældende</th><th>ændret</th><th>ja/nej</th></tr>
       <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="et in ziperrors">
 	<td>{{et.correction.Reporter}}</td>
-        <td>{{et.correction.reason}}</td>	  
-	<td class="currenttripdata">{{et.current|json}}</td>
-        <td ng-class="{deletion: et.correction.DeleteTrip}">
+        <td>{{et.correction.reason}}</td>
+	<td class="currenttripdata">
+	  <table>
+	    <body>
+	      <tr><td>Båd</td><td>{{et.current.boat}}</td></tr>
+	       <tr><td>Destination</td><td>{{et.current.destination}}</td></tr>
+	       <tr><td>Distance</td><td>{{et.current.distance}}</td></tr>
+	       <tr><td>Ud</td><td>{{et.current.outtime}}</td></tr>
+	       <tr><td>Ind</td><td>{{et.current.intime}}</td></tr>
+	       <tr><td>Oprettet</td><td>{{et.current.created}}</td></tr>
+	       <tr><td>Roere</td><td>
+		<ul>
+		  <li ng-repeat="(rower,rid) in et.current.rowers">{{rower}} ({{rid}}) </li>
+		</ul>
+	      </td></tr>
+	    </body>
+	  </table>
+	</td>
+        <td class="changedtripdata" ng-class="{deletion: et.correction.DeleteTrip}">
           <strong ng-if="et.correction.DeleteTrip">SLET TUR</strong>
           <ul>
             <li ng-repeat="(tg,dff) in et.diffs"><strong>{{tg}}: </strong>

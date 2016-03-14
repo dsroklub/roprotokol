@@ -15,6 +15,11 @@ if (isset($_GET["season"])) {
   $season=date('Y');
 }
 
+$sqldebug=false;
+if (isset($_GET["sqldebug"])) {
+    $sqldebug=true;
+}
+
 require_once("db.php");
 if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
