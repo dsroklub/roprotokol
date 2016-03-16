@@ -15,17 +15,17 @@ if ($correction->deleterequest) {
         $stmt->bind_param('is', $correction->id,$correction->reporter);
     }
 } else {
-    
+    error_log(" times: ".$correction->outtime." , ". $correction->intime);
     if ($stmt = $rodb->prepare("INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter,Fixed) VALUES(?,?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,0)")) {
         $stmt->bind_param('isisissis', $correction->id,$correction->reason,$correction->boat->id, $correction->destination->name, $correction->triptype->id, $correction->outtime, $correction->intime,$correction->distance,$correction->reporter);
         error_log('now EXE '. json_encode($correction));
         if (!$stmt->execute()) {
-            $error=mysqli_error($rodb);
+            $error=mysqli_error("new correction exe".$rodb);
             $message=$message."\n"."create trip correction insert error";
         }
     } else {
         $error=mysqli_error($rodb);
-        error_log("DB error ".$error);            
+        error_log("DB prep error: ".$error);            
     }    
     error_log("\n\nnow all rowers ".json_encode($correction->rowers));
     
@@ -43,12 +43,12 @@ if ($correction->deleterequest) {
         }
     } else {
         error_log("OOOPs2".$rodb->error);
-        $error="trim correct member DB error".mysqli_error($rodb);
+        $error="trim correct member DB error: ".mysqli_error($rodb);
     }
 }
 
 if ($error) {
-    error_log('DB error ' . $error);
+    error_log('DB error:: ' . $error);
     $res['message']=$message.'\n'.$error;
     $res['status']='error';
     $res['error']=$error;

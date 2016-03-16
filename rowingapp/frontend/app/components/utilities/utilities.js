@@ -112,12 +112,31 @@ var damage_degrees={
   0: ' ',
   1: 'Let skadet',
   2: 'Middel skadet',
-  3: 'Svært skadet'
+  3: 'Svært skadet',
+  4: 'Vedligehold'
 }
+
+var dktags={
+  'intime': 'ind',
+  'outtime': 'ud',
+  'destination': 'destination',
+  'triptype': 'turtype',
+  'rowers': 'roere',
+  'boat': 'båd'
+}
+
+
 angular.module('myApp.utilities.damagedegreedk', []).filter('damagedegreedk', function () {
   return function (dd) {
     var r=damage_degrees[dd];
     return r?r:dd;
+  };
+});
+
+angular.module('myApp.utilities.dk_tags', []).filter('dk_tags', function () {
+  return function (tag) {
+    var r=dktags[tag];
+    return r?r:tag;
   };
 });
 
@@ -187,6 +206,7 @@ angular.module('myApp.utilities', [
   'myApp.utilities.rightreqs',
   'myApp.utilities.subjecttodk',
   'myApp.utilities.righttodk',
+  'myApp.utilities.dk_tags',
   'myApp.utilities.damagedegreedk',
   'myApp.utilities.txttotime',
   'myApp.utilities.totime',

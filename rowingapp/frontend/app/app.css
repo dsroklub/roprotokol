@@ -725,3 +725,7 @@ button[disabled], html input[disabled] {
   cursor: default;
   background: #808080 !important;
 }
+
+.rowerdiff {
+    margin-left: 3em;
+}

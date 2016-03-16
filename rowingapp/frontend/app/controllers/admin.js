@@ -21,20 +21,20 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
           }
 
           var correction_diff = function(current,correction) {
-            var diffs={};
+	    var res={'diff':{}};
             if (!correction.DeleteTrip) {
               var flds=['boat','Destination','intime','outtime','distance','triptype'];
               for (var ki=0; ki<flds.length;ki++) {
                 var k=flds[ki];
                 if (current[k]!=correction[k]) {
-                  diffs[k]={'from':current[k],'to':correction[k]};
+                  res.diff[k]={'from':current[k],'to':correction[k]};
                 }
               }
               if (JSON.stringify(current.rowers) != JSON.stringify(correction.rowers)) {
-                diffs.rowers=rower_diff(current.rowers,correction.rowers);
+                res.rowerdiff=rower_diff(current.rowers,correction.rowers);
               }
             }
-            return diffs;
+            return res;
           }
                                
           DatabaseService.init().then(function () {

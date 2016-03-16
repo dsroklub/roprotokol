@@ -311,9 +311,21 @@
         <td class="changedtripdata" ng-class="{deletion: et.correction.DeleteTrip}">
           <strong ng-if="et.correction.DeleteTrip">SLET TUR</strong>
           <ul>
-            <li ng-repeat="(tg,dff) in et.diffs"><strong>{{tg}}: </strong>
-              {{dff.from|json}} &rarr; {{dff.to|json}}            
-            </ul>
+            <li ng-repeat="(tg,dff) in et.diffs.diff"><strong>{{tg|dk_tags}}: </strong>
+              {{dff.from}} &rarr; {{dff.to}}            
+          </ul>
+          <div ng-if="et.diffs.rowerdiff"><strong>Roere</strong>:
+            <div class="rowerdiff">
+              <ul>
+                <li ng-repeat="(nm,rid) in et.diffs.rowerdiff.from"><strong>{{nm}} ({{rid}}) </strong>
+              </ul>
+              &darr;
+              <ul>
+                <li ng-repeat="(nm,rid) in et.diffs.rowerdiff.to"><strong>{{nm}} ({{rid}}) </strong>
+              </ul>
+            </div>                            
+          </div>
+          
         </td>
         <td>
           <button class="green" ng-click="approve_correction(et,$index)">Godkend</button>
