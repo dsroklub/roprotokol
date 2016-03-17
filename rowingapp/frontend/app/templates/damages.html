@@ -47,7 +47,7 @@
     <td>{{bd.reporter}}</td>
     <td class="degree" >{{bd.created}}</td><td>{{bd.degree|damagedegreedk}}</td>
     <td>{{bd.description}}</td>
-    <td ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)"><button class="klar">klarmeld</button></td>
+    <td ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)"><button ng-disabled="!(newdamage.reporter)" class="klar">klarmeld</button></td>
   </tr>
 </table>
 <!--pre>newdamage= {{newdamage | json}}</pre-->
