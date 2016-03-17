@@ -17,7 +17,7 @@ app.controller(
        $scope.brands =DatabaseService.getDB('boat_brand');      // Checkout code
        $scope.checkout_open=[];
        $scope.norower=[];
-       $scope.reuse=$routeParams.reuse;
+       $scope.reuse=!!$routeParams.reuse;
        console.log('reuse '+$scope.reuse);
 
        if ($scope.reuse) {

@@ -181,7 +181,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
             var year=y;
 	    var sq=$q.defer();
 	    promises.push(sq.promise);
-	    // FIXME for test purposes
             var farg="?season="+year;
 	    if (bt != "any") {
 	      farg+='&boattype='+bt;
