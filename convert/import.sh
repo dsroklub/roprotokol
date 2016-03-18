@@ -11,14 +11,17 @@ password=$3
 echo data=$datatype
 echo DB=$DB
 
+import_members=0
 
 if [ -z $datatype ]
 then
    echo usage:
    echo   import.sh database fake [database password]
    echo   import.sh database real [database password]
+   echo   import.sh database real+ [database password]
    echo fake use DSR data for boats, destinations, etc but generate fake informations about rowers
    echo real is for importing real DSR data, it requires that you have SQL dumps from the database
+   echo real+ is like real, but also import member data
    exit 0
 fi
 
@@ -37,6 +40,11 @@ if [ -f $SCRIPT_PATH/../secret.sh ];
 then
     . $SCRIPT_PATH/../secret.sh
     echo read secret $DBCMD
+fi
+
+if [[ $datatype = "real+" ]]; then
+    datatype="real"
+    import_members=1
 fi
 
 if [[ $datatype = "real" ]]; then
@@ -104,6 +112,12 @@ elif [[ $datatype = "real" ]]; then
     echo "konverting rights"
     $DBCMD < $SCRIPT_PATH/konvertRights.sql
 
+    if [[ $import_members ]]; then
+	echo IMPORT MEMBER DETAILS tblMember
+	echo
+	$DBCMD -e "TRUNCATE TABLE tblMember;"
+	$DBCMD < $SCRIPT_PATH/data/tblMember.sql
+    fi
 elif [[ $datatype = "empty" ]]; then
     echo no rower data
 else
