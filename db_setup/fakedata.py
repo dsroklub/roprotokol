@@ -14,7 +14,7 @@ print "using db: "+rodb
 random.seed(42)
 # Password is read from file sectret.db
 # but do not write it in this file
-pwfile=os.path.dirname(sys.argv[0])+'/../../config.ini'
+pwfile=os.path.dirname(sys.argv[0])+'/../config.ini'
 print "checking db pw file "+pwfile
 if os.path.exists(pwfile):
     # FIXME, do not assume line 2, check for left side dbpassword
@@ -89,12 +89,12 @@ for tid in range(1, 4000):
     pladser=int(boat[1])
     destination=random.randrange(1, 19)
     triptype=random.randrange(1, 12)
-    q="INSERT INTO Trip (id, Season, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, intime) VALUES ("+str(tid)+',2016,'+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+',"2016-01-14 02:02:03", '+str(intime)+')';
+    q="INSERT INTO Trip (id, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, intime) VALUES ("+str(tid)+','+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+',"2016-01-14 02:02:03", '+str(intime)+')';
     print q
     cur.execute(q);
     for d in range(0,pladser):
         rower=int(math.sqrt(random.randrange(0, (numrowers-1)**2)))
-        qm='INSERT INTO TripMember (TripID,Season,Seat,member_id,MemberName,CreatedDate) VALUES ('+str(tid)+',2016,'+str(d)+','+str(rower)+',"'+m[rower]+'","2016-01-12 00:00:00")'
+        qm='INSERT INTO TripMember (TripID,Seat,member_id,MemberName,CreatedDate) VALUES ('+str(tid)+','+str(d)+','+str(rower)+',"'+m[rower]+'","2016-01-12 00:00:00")'
         print qm
         cur.execute(qm)
 
