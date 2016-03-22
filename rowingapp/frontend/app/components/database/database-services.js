@@ -156,7 +156,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       for (var bi=0; bi<boatmaintypes.length; bi++) {
         var boattype= boatmaintypes[bi];        
 
-          if ( (y==thisYear && !valid['rowerstatistics'+boattype]) || !rowerstatistics[y][boattype]  || rowerstatistics[y][boattype].length<1) {
+        if ( (y==thisYear && !valid['rowerstatistics'+boattype]) || !rowerstatistics[y][boattype]  || rowerstatistics[y][boattype].length<1) {
+          rowerstatistics[y][boattype]=[];
 	  (function (bt) {
             var year=y;
 	    var sq=$q.defer();
@@ -177,6 +178,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
         }
         
         if((y==thisYear && !valid['boatstatistics'+boattype])  || !boatstatistics[y][boattype] ||  boatstatistics[y][boattype].length<1) {
+          boatstatistics[y][boattype]=[];
 	  (function (bt) {
             var year=y;
 	    var sq=$q.defer();
