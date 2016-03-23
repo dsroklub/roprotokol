@@ -96,7 +96,8 @@
           
 	  <td><select  ng-model="boat.level" ng-options="levelid*1 as level for (levelid,level) in levels" ng-change="update_level(boat)"> </select> </td>
 	  <td><select  ng-model="boat.brand" ng-options="brand.name as brand.name for brand in brands" ng-change="update_brand(boat)"> </select> </td>
-	  <td><input ng-model-options="{updateOn:'blur'}" autocomplete="off" id="boat.boatusage" name="boat.boatusage" type="text" ng-model="boat.boatusage" ng-change="update_usage(boat)"></td>
+          <td><select  ng-model="boat.usage_id" ng-options="usage.id as usage.name for usage in usages" ng-change="update_usage(boat)"> </select> </td>
+	  <!--td><input ng-model-options="{updateOn:'blur'}" autocomplete="off" id="boat.boatusage" name="boat.boatusage" type="text" ng-model="boat.boatusage" ng-change="update_usage(boat)"></td-->
 	  
           <td><button ng-click="retire_boat(boat,$index)" class="action" confirm="Er du helt sikker på at du vil fjerne {{boat.name}}?" confirm-ok="ja, slet {{boat.name}}" confirm-cancel="nej">Slet/pensioner båd</button></td>
 	</tr>

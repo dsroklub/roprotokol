@@ -12,10 +12,10 @@ $rodb->begin_transaction();
 error_log("boat update usage ".json_encode($boat));
 
 if ($stmt = $rodb->prepare("UPDATE Boat SET boat_usage=? WHERE id=?")) { 
-    $stmt->bind_param('ii', $boat->boatusage,$boat->id);
-    $stmt->execute() |  errorlog("update usage error :".$rodb->error);
+    $stmt->bind_param('ii', $boat->usage_id,$boat->id);
+    $stmt->execute() ||  error_log("update usage exe error :".$rodb->error);
 } else {
-    errorlog("update usage error :".$rodb->error);
+    error_log("update usage error :".$rodb->error);
 }
 $rodb->commit();
 $rodb->close();
