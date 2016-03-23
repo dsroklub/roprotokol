@@ -20,7 +20,7 @@
 	      {{boat.name}}
 	    </div>
 	  </td>
-          <td>{{boat.location|nodsr}} <i ng-show="boat.placement_level" class="fa fa-level-up"></i></td>
+          <td>{{boat.location|nodsr}} <i uib-tooltip="på hylde" ng-show="boat.placement_level" class="fa fa-level-up"></i></td>
           <td>{{levels[boat.level]}} </td>
           <td>{{boat.brand}} </td>
           <td class="usage">{{boat.boatusage}} </td>
