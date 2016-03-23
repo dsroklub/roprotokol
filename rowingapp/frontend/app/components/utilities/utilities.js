@@ -170,6 +170,7 @@ angular.module('myApp.utilities.leveltodk', []).filter('leveltodk', function () 
 
 angular.module('myApp.utilities.rowtodk', []).filter('rowtodk', function () {
   return function (rw) {
+    if (!rw) return("");
     if (rw==1) return ("mod porten");
     if (rw==2) return ("i midten");
     if (rw==3) return ("inderst");

@@ -145,9 +145,9 @@
       <button class="alert minor" ng-hide="checkout.destination || !checkout.triptype || !checkout.rowers[0]">vælg destination</button>
     </div>
 
-    <div ng-show="checkout.boat.placement_aisle | checkout.boat.placement_level" class="damageslist">
+    <div ng-show="checkout.boat.placement_aisle || checkout.boat.placement_level" class="damageslist">
       <h2>Find {{checkout.boat.name}} her</h2>
-      {{checkout.boat.location}}, port {{checkout.boat.placement_aisle}} {{{checkout.boat.placement_row|row2dk}}  {{checkout.boat.placement_side|sidetodk}}, {{checkout.boat.placement_level|leveltodk}}
+      {{checkout.boat.location}}, port {{checkout.boat.placement_aisle}} {{checkout.boat.placement_row|rowtodk}}  {{checkout.boat.placement_side|sidetodk}}, {{checkout.boat.placement_level|leveltodk}}
     </div>
 
 

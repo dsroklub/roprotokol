@@ -20,6 +20,7 @@ Alter table Error_TripMember DROP column CreatedDate;
 
 ALTER TABLE Boat ADD COLUMN placement_aisle INT;
 ALTER TABLE Boat ADD COLUMN placement_level INT;
+ALTER TABLE Boat ADD COLUMN placement_row INT;
 ALTER TABLE Boat ADD COLUMN placement_side CHAR(6);
 
 
