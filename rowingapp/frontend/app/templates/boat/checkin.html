@@ -37,7 +37,8 @@
 	  </div>
 	</td>
 	<td>{{boat.category}}</td>
-        <td>{{boat.location|nodsr}} {{boat.placement}}</td>
+        <td>{{boat.location|nodsr}} <i uib-tooltip="på hylde" ng-show="boat.placement_level" class="fa fa-level-up"></i> <small uib-tooltip="port {{boat.placement_aisle}}" ng-show="boat.placement_aisle">p{{boat.placement_aisle}}</small>
+        </td>
         <td ng-click="damagesForBoat=boat">
           <span ng-show="{{boat.damage==3}}">Svært skadet</span>
           <span ng-show="{{boat.damage==2}}">Middel skadet</span>

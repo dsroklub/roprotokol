@@ -638,7 +638,6 @@ input.adminpw {
     border-left: 2px solid #23aee2;
     border-right: 2px solid #23aee2;
     border-bottom: 2px solid #23aee2;
-    border-radius: 1.5em;
     padding: 1em;
 }
 
@@ -701,6 +700,10 @@ select  {
     color: #f00;
 }
 
+.datealert {
+    background: #f00;
+}
+
 .uib-datepicker-popup {
     top :0px!important;
 }
@@ -732,4 +735,12 @@ button[disabled], html input[disabled] {
 
 .aisle {
     max-width: 3em;
+}
+
+.ok,.degree {
+    text-align:center;
+}
+
+.crewcount {
+    background: #E3FFE8;
 }
