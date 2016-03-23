@@ -729,3 +729,7 @@ button[disabled], html input[disabled] {
 .rowerdiff {
     margin-left: 3em;
 }
+
+.aisle {
+    max-width: 3em;
+}

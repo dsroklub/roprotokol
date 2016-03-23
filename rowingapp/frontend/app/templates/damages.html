@@ -21,13 +21,13 @@
 </script>
 <div class="report">
   <input placeholder="Vælg båd" autocomplete="off" id="select_boat" name="name" type="text" ng-model="newdamage.boat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
-  
-  
+    
   <select name="damage" ng-model="newdamage.degree">
     <option value="" disabled default selected>grad?</option>
     <option value="1">1 let</option>
     <option value="2">2 middel</option>
     <option value="3">3 svær</option>
+    <option value="4">4 Vedligehold</option>
   </select>
   <textarea placeholder="bekskriv skaden" class="damagetext" autocomplete="off" id="damages.damage" name="skade" type="text" ng-model="newdamage.description" required></textarea>
   <button class="klar" ng-disabled="!(newdamage.reporter && newdamage.boat && newdamage.description && newdamage.degree)" id="newdamagereport_button" ng-click="reportDamageForBoat(newdamage)">
@@ -45,7 +45,7 @@
   <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="bd in allboatdamages | filter: matchBoat(newdamage.boat)">
     <td>{{bd.boat}}</td>
     <td>{{bd.reporter}}</td>
-    <td class="degree" >{{bd.created}}</td><td>{{bd.degree|damagedegreedk}}</td>
+    <td class="degree" >{{bd.created| txttotime | date:"d. MMM yyyy"}}</td><td>{{bd.degree|damagedegreedk}}</td>
     <td>{{bd.description}}</td>
     <td ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)"><button ng-disabled="!(newdamage.reporter)" class="klar">klarmeld</button></td>
   </tr>
