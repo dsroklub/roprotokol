@@ -12,7 +12,7 @@ error_log("rep ".json_encode($newdamage->reporter->id));
     
 if ($stmt = $rodb->prepare("INSERT INTO Damage(Boat,Degree,ResponsibleMember,Description,Created) 
 SELECT ?,?,id,?,NOW() From Member WHERE MemberID=?")) { 
-    $stmt->bind_param('iisi', $newdamage->boat->id , $newdamage->degree, $newdamage->description,$newdamage->reporter->id);
+    $stmt->bind_param('iiss', $newdamage->boat->id , $newdamage->degree, $newdamage->description,$newdamage->reporter->id);
     if (!$stmt->execute()) {
         error_log("could not create damage, DB error".$stmt->error);
     } 
