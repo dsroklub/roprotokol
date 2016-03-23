@@ -47,11 +47,26 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
             $scope.boatkayakcategories = DatabaseService.getDB('boatkayakcategory');
             var errortrips = DatabaseService.getDB('errortrips');
-            $scope.levels =DatabaseService.getDB('boatlevels');
-            $scope.brands =DatabaseService.getDB('boat_brand');
-            $scope.usages =DatabaseService.getDB('boat_usages');
+            $scope.levels=DatabaseService.getDB('boatlevels');
+            $scope.brands=DatabaseService.getDB('boat_brand');
+            $scope.usages=DatabaseService.getDB('boat_usages');
+            $scope.placementlevels=[0,1,2];
             $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
             $scope.ziperrors=[];
+            // var mainplan=[[],[],[],[],[]];
+            // var num_aisles=5;
+            // var num_rows=3;
+            // for (var a=0;a<num_aisles;a++) {
+            //   mainplan[a]=[];
+            //   for (var r=0;r<num_rows;r++) {
+                
+            //   }
+            // }
+            
+            // for (var b=0;b<$scope.allboats.length;b++ ) {
+              
+            // }
+            
             var i=0;
             while (i < errortrips.length -1) {
               while (errortrips[i].id && i < errortrips.length-1) {
@@ -135,6 +150,18 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             }
             $scope.set_loc_for_boat = function(boat) {
               var exeres=DatabaseService.updateDB('set_loc_for_boat',boat,$scope.config,$scope.errorhandler);
+            }
+            $scope.set_aisle_for_boat = function(boat) {
+              var exeres=DatabaseService.updateDB('set_aisle_for_boat',boat,$scope.config,$scope.errorhandler);
+            }
+            $scope.set_row_for_boat = function(boat) {
+              var exeres=DatabaseService.updateDB('set_row_for_boat',boat,$scope.config,$scope.errorhandler);
+            }
+            $scope.set_level_for_boat = function(boat) {
+              var exeres=DatabaseService.updateDB('set_level_for_boat',boat,$scope.config,$scope.errorhandler);
+            }
+            $scope.set_side_for_boat = function(boat) {
+              var exeres=DatabaseService.updateDB('set_side_for_boat',boat,$scope.config,$scope.errorhandler);
             }
             $scope.retire_boat = function(boat,ix) {
               var exeres=DatabaseService.updateDB('retire_boat',boat,$scope.config,$scope.errorhandler);

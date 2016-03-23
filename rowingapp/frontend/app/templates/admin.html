@@ -12,6 +12,7 @@
   <button class="adminbut" ng-class="{selected: do=='trip'}" ng-click="do='trip'">Ture</button>
   <button class="adminbut" ng-class="{selected: do=='correction'}" ng-click="do='correction'">Fejlrettelser</button>
   <button class="adminbut" ng-class="{selected: do=='events'}" ng-click="do='events'">Hændelser</button>
+  <button class="adminbut" ng-class="{selected: do=='plan'}" ng-click="do='plan'">Oversigter</button>
   <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password"></input>
 </div>
 
@@ -63,7 +64,8 @@
       <caption>Både</caption>
       <thead>
 	<tr>
-	  <th>Båd</th><th>kategori</th><th>lokalitet</th><th>Niveau</th><th>Fabrikat</th><th>Særligt</th><th></th>
+	  <th>Båd</th><th>kategori</th><th>lokalitet</th><th>dør</th><th>Rk</th><th>hylde</th><th>side</th>
+          <th>Niveau</th><th>Fabrikat</th><th>Særligt</th><th></th>
 	</tr>	
       </thead>
       <tbody>
@@ -73,6 +75,27 @@
 	  <td><select  ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations">
 	    </select>
 	  </td>
+          
+          <td><input  class="aisle" autocomplete="off" ng-change="set_aisle_for_boat(boat)" type="number" min="1" size="3" maxlength="4" ng-model="boat.placement_aisle"></input>
+          </td>
+          <td>
+            <select  ng-change="set_row_for_boat(boat)" ng-model="boat.placement_row"
+                     ng-options="rw as rw|rowtodk for rw in [1,2,3]">
+	    </select>
+	  </td>
+
+	  <td>
+            <select  ng-change="set_level_for_boat(boat)" ng-model="boat.placement_level" ng-options="lvl as lvl|leveltodk for lvl in placementlevels" >
+	    </select>
+	  </td>
+
+          <td>
+            <select  ng-change="set_side_for_boat(boat)" ng-model="boat.placement_side"
+                     ng-options="sd as sd|sidetodk for sd in ['left','center','right']">
+	    </select>
+	  </td>
+
+          
 	  <td><select  ng-model="boat.level" ng-options="levelid*1 as level for (levelid,level) in levels" ng-change="update_level(boat)"> </select> </td>
 	  <td><select  ng-model="boat.brand" ng-options="brand.name as brand.name for brand in brands" ng-change="update_brand(boat)"> </select> </td>
 	  <td><input ng-model-options="{updateOn:'blur'}" autocomplete="off" id="boat.boatusage" name="boat.boatusage" type="text" ng-model="boat.boatusage" ng-change="update_usage(boat)"></td>
@@ -216,8 +239,8 @@
         <tr ng-repeat="ds in DB('destinations').DSR" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	  <td >{{ds.name}}</td>
 	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></input></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.1" ng-model="ds.duration"></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.1" ng-model="ds.duration_instruction"></input></td>
         </tr>
       </tbody>
     </table>
@@ -344,6 +367,21 @@
     <thead>
       <tr> <th>tid</th><th>Hændelse</th></tr>
       <tr ng-repeat="ev in DB('get_events')">
+	<td>{{ev.event_time}}</td>	  
+	<td>{{ev.event}} </td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>    
+</div>  
+
+<div ng-show="do=='plan'">
+  <table class="boatlist" >
+    <caption>Hændelser</caption>
+    <thead>
+      <tr> <th>tid</th><th>Hændelse</th></tr>
+      <tr ng-repeat="ev in DB('get_mainplan')">
 	<td>{{ev.event_time}}</td>	  
 	<td>{{ev.event}} </td>
       </tr>
