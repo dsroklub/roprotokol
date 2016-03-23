@@ -29,9 +29,9 @@ echo "CREATE DATABASE IF NOT EXISTS $DB;" | $superDBCMD
 echo created db
 
 echo NOW mkdb.sql
-$DBCMD < convert/mkdb.sql
+$DBCMD < db_setup/mkdb.sql
 
 echo NOW FAKE
-./convert/import.sh $DB fake $dbpassword
+./db_setup/import.sh $DB fake $dbpassword
 
 echo now configure your webserver to server DSR roprotokol
