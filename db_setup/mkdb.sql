@@ -15,8 +15,8 @@ CREATE TABLE Boat (
   Location varchar(100),
   Placement varchar(100),
   placement_aisle INT, -- doors in DSR, Containers from left in Nordhavn
-  placement_level INT, -- 0=ground
-  placement_side INT, -- left, right,center
+  placement_level INT, -- 0=ground, 1 .. shelves
+  placement_side Char(6), -- -left, right,center
   Decommissioned datetime,
   PRIMARY KEY (id)
 );

@@ -24,6 +24,14 @@ var right2dkm = {
   'kanin':'være kanin'
 };
 
+var side2dk = {
+  'left':'venstre',
+  'right':'højre',
+  'center':'midtfor'
+}
+
+
+
 var right2dk = {
   'kanin':'kanin',
   'rowright':'roret',
@@ -147,6 +155,31 @@ angular.module('myApp.utilities.righttodk', []).filter('righttodk', function () 
   };
 });
 
+angular.module('myApp.utilities.sidetodk', []).filter('sidetodk', function () {
+  return function (sd) {
+    var r=side2dk[sd];
+    return (r?r:sd);
+  };
+});
+
+angular.module('myApp.utilities.leveltodk', []).filter('leveltodk', function () {
+  return function (lvl) {
+    return (lvl?"hylde "+lvl:"gulv");
+  };
+});
+
+angular.module('myApp.utilities.rowtodk', []).filter('rowtodk', function () {
+  return function (rw) {
+    if (rw==1) return ("mod porten");
+    if (rw==2) return ("i midten");
+    if (rw==3) return ("inderst");
+    return (rw);
+
+  };
+});
+
+
+
 
 angular.module('myApp.utilities.totime', []).filter('totime', function () {
   return function(hours) {
@@ -201,6 +234,9 @@ angular.module('myApp.utilities', [
   'myApp.utilities.urldecode',
   'myApp.utilities.urlencode',
   'myApp.utilities.nodsr',
+  'myApp.utilities.sidetodk',
+  'myApp.utilities.leveltodk',
+  'myApp.utilities.rowtodk',
   'myApp.utilities.transformkm',
   'myApp.utilities.mtokm',
   'myApp.utilities.rightreqs',
