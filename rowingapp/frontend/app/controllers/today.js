@@ -54,9 +54,15 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
     $scope.maxcrew=mc;
     $scope.boatcoms=bcms;
   };
+
+  $scope.critical_time=function(tx) {
+    var t=tx.split(/[- :]/);
+    var et=new Date(t[0], t[1]-1, t[2], t[3]||0, t[4]||0, t[5]||0);
+    return(et< new Date);
+}
   
-    DatabaseService.init().then(function () {
-    }
+  DatabaseService.init().then(function () {
+  }
 			       );
   DatabaseService.getTodaysTrips(function (res) {
     $scope.tripstoday=res.data;
@@ -69,5 +75,7 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
   DatabaseService.getAvailableBoats('DSR',function (res) {
     $scope.available=res.data;
   }
-				   );  
+				   );
+
+  
 }]);
