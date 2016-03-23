@@ -16,8 +16,6 @@
   <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password"></input>
 </div>
 
-
-
 <div ng-show="do=='boat'">
   <div class="blok leftblock">
     <table class="boatlist" >
@@ -80,7 +78,7 @@
           </td>
           <td>
             <select  ng-change="set_row_for_boat(boat)" ng-model="boat.placement_row"
-                     ng-options="rw as rw|rowtodk for rw in [1,2,3]">
+                     ng-options="rw as rw|rowtodk for rw in [1,2]">
 	    </select>
 	  </td>
 
