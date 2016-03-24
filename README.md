@@ -44,23 +44,6 @@ Fx:
   echo 'DBCMD="mysql -u roprotokol --password=roprotokol roprotokol"' >  secret.sh
 
 
-Herefter kan man bruge enten rigtig data fra DSR, hvis man har adgang til de gamle databasefiler. Eller man kan bruge testdata uden personhenførbart data. Det består i store træk af DSR båddata og tilfældigt genereret brugerdata for roere.
-
-
-BRUG TESTDATA:
-
-./convert/import.sh roprotokol fake database password
-(man kan angive en anden database end roprotokol)
-
-
-BRUG DSR DATA:
-Eksporter gammel data til sql filer ved at kopiere gammel data Roprotokol.mdb og Members.mdb.til konvert mappen og køre følgende funktioner:
-
-   ./convert/eksport.sh
-
-Importer gammel data:
-
-   ./convert/import.sh real
 
 Test Webserver:
 
@@ -89,49 +72,3 @@ Det er lavet med mdb-schema, baseret på Roprotokol.mdb og Members.mdb. Derefter
 Det er lavet med konvert/eksport.sh og konvert/import.sh som er baseret på mdb-export og mdb-import med lidt perl-kode, der sørger for at det passer med skemaet.
 
 
-##TODO
-
-* Afkobl distance fra json datalisten.
-
-* Gør det muligt at lave rettelser til ture med gæsteroere
-
-### BUGS
-
-# Database issues.
-
-can be done manually when we move to the new system.
-
-* Unikke nøgler. Der er nøgler som burde være unikke, men ikke er erklæret som sådan fordi der er dubletter i datasættet. Det skal rettes i data først.
-Senere kan vi lave en alter statement i databasen, så det ikke sker igen.
-
-* Der er et problem med den timepicker vi bruger. Man kan slette minutter og senere få en exception
-
-### Missing features
-
-* Administration af både
-  ** slet bådtype
-
-
-### Feature requests
-
-* Reservation af både
-* Indberetning af fejl i rettigheder -> mail til instruktionschefen
-
-* Kommenter skade
-
-
-* Årsstatistik
-* Konfiguration af klienter. Noget local storage. Klienter i bådhallen skal vide, at de er i bådhallen og hvilken klient de er (fx et hostnavn)
-* opdatere browsere i baadhallen. Chrome og Firefox virker i nyeste udgaver.
-* Do form validation: http://stackoverflow.com/questions/27224661/angularjs-validation-for-ui-select-multiple
-
-### Terminaler
-
-##TODO
-
-# Feature ønsker
-
-## Roere.
-
-* Vi kunne checke at den samme roer ikke kan være udskrevet flere gange.
-* Typeahead for roere, der udskrives kunne forfines, så den kun vis roere, som ikke er på vandet og som passer med turtypen. Fx kun kaprorer for INKA ture.
