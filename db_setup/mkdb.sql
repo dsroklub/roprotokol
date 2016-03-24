@@ -228,6 +228,7 @@ CREATE TABLE Trip (
   CreatedDate date,
   EditDate date,
   Initials varchar(10),
+  tripstat_name CHAR(20),
   DESTID int(11),
   PRIMARY KEY (id),
   KEY tripfk (BoatID),
