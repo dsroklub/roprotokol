@@ -1,0 +1,29 @@
+<style type="text/css">
+  h2 {color: blue; background: white; }
+  h1 {color: red; background: white; }
+  h2 {color: blue; background: white; }
+  body { margin-left:5%; color: black; background: white; }
+  code { color: black; background: #FFFF88;}
+  a:link { background-color: #EEEEFF; text-decoration: underline;}
+  a:hover { background-color: #aaff00; text-decoration: none;}
+  a:visited {  background-color: #ffff00; text-decoration: none;}
+  a:active { color: #ff00ff; text-decoration: none;}
+
+  table caption {
+    background: #23aee2;
+    color: white;
+    font-size: 12pt;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid white;
+    text-align: center;
+  }
+
+  table {
+      border-collapse: collapse;
+  }
+  
+  table, th, td {
+   border: 1px solid black;
+}
+
+</style>
