@@ -4,7 +4,6 @@ include("inc/common.php");
 $error=null;
 $res=array ("status" => "ok");
 $message="";
-error_log('close trip');
 $data = file_get_contents("php://input");
 $closedtrip=json_decode($data);
 
@@ -14,7 +13,6 @@ if (isset($closedtrip->boat->corrected_distance)) {
 }
 
 $rodb->begin_transaction();
- error_log("close trip ". $closedtrip->boat->trip);
 
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE id=? AND InTime IS NULL")) { 
   $stmt->bind_param('i', $closedtrip->boat->trip);

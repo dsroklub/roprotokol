@@ -1,7 +1,6 @@
 <?php
 include("inc/common.php");
 
-error_log("stat season ".$season);
 $boatclause="";
 if (isset($_GET["boattype"])) {
     $boattype=$_GET["boattype"];

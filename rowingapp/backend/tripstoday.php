@@ -9,8 +9,10 @@ $s="SELECT Trip.id, TripType.Name AS triptype, Boat.Name AS boat, Trip.Destinati
   " GROUP BY id ".
   " ORDER BY Trip.id DESC, TripMember.Seat ";
 
-
-// echo $s."<br>";
+if ($sqldebug) {
+  echo $s;
+  echo "\n";
+}
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));

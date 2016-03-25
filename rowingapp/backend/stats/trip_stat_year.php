@@ -2,8 +2,15 @@
 set_include_path(get_include_path().':..');
 include("inc/common.php");
 
-$s="SELECT YEAR(Trip.OutTime) as year,TripType.tripstat_name as name,CAST(Sum(Meter) AS UNSIGNED) AS distance, COUNT('x') as trips FROM Trip,TripType WHERE Trip.TripTypeID=TripType.id GROUP BY TripType.name, year ORDER BY year,TripType.tripstat_name";
-#echo $s;
+$s="SELECT YEAR(Trip.OutTime) as year,TripType.tripstat_name as name,CAST(Sum(Meter) AS UNSIGNED) AS distance, COUNT('x') as trips 
+    FROM Trip,TripType,Boat,BoatType
+    WHERE Trip.TripTypeID=TripType.id   AND Trip.BoatID=Boat.id AND Category=2 AND Boat.BoatType=BoatType.id GROUP BY TripType.name, year
+    ORDER BY year,TripType.tripstat_name";
+
+if ($sqldebug) {
+    echo $s;
+}
+
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
      $result= $stmt->get_result();
