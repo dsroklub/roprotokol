@@ -27,4 +27,12 @@
           padding: 0px;
   }
 
+  .notin {
+    background: yellow;
+  }
+
+  .late {
+    background: red;
+  }
+
 </style>

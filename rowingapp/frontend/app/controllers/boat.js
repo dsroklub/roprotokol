@@ -59,8 +59,9 @@ app.controller(
        $scope.triptypes = DatabaseService.getTripTypes();
        $scope.destinations = DatabaseService.getDestinations(DatabaseService.defaultLocation);
        $scope.checkoutmessage="";
+       $scope.usersettime=false;
        $scope.selectedBoatCategory=null;
-       var now = new Date();        
+       var now = new Date();
        
        $scope.checkin = {
          'boat' : null,
@@ -90,7 +91,6 @@ app.controller(
        var boatRequirements=($scope.selectedBoatCategory)?$scope.selectedBoatCategory.rights:[];
        var reqs=DatabaseService.mergeArray(tripRequirements,boatRequirements);
        var norights=[];
-       console.log("check rights");
        angular.forEach(reqs, function(subject,rq) {
            // console.log("check right "+rq);
 	 if (rq=="findIndex") {
@@ -207,17 +207,25 @@ app.controller(
        // Calculate expected time based on triptype and destination
        $scope.checkout.destination=item;
        $scope.checkout.distance=$scope.checkout.destination.distance;
-       if ($scope.checkout.starttime) {
-         if($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && item.duration_instruction) {
-           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration_instruction * 3600 * 1000)
-         } else {
-           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + item.duration * 3600 * 1000);
-         }
+       if (!$scope.checkout.starttime) {
+         var now = new Date();        
+         $scope.checkout.starttime=now;
        }
+       $scope.updateExpectedTime();
        $scope.boatSync();
      };
   
-     $scope.clearDestination = function () {
+     $scope.updateExpectedTime = function () {
+       if ($scope.checkout.starttime && $scope.checkout.destination) {
+         if($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && $scope.checkout.destination.duration_instruction) {
+           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + $scope.checkout.destination.duration_instruction * 3600 * 1000)
+         } else {
+           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + $scope.checkout.destination.duration * 3600 * 1000);
+         }
+       }
+     }
+
+       $scope.clearDestination = function () {
        //      $scope.checkout.destination = undefined;
      };
     
@@ -260,7 +268,7 @@ app.controller(
 
 
      $scope.dateOptions = {
-       showWeeks: false
+       showWeeks: false,
      };
   
      $scope.togglecheckout = function (tm) {   
@@ -355,6 +363,9 @@ app.controller(
 	 DatabaseService.reload(['trip']);
 	 if (status.status =='ok') {
            $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud";
+           $scope.usersettime=false;
+           $scope.checkout.starttime=null;
+           $scope.checkout.expectedtime=null;
            for (var ir=0; ir<$scope.checkout.rowers.length; ir++) {
              $scope.checkout.rowers[ir]="";
            }
@@ -371,7 +382,11 @@ app.controller(
      };
      
      $scope.boatSync = function (data) {
-       console.log("sync for boats");
+       if (!$scope.checkout.starttime) {
+         var now = new Date();        
+         $scope.checkout.starttime=now;
+         $scope.updateExpectedTime();
+       }
        var ds=DatabaseService.sync(['boat'])
        console.log(" boatsync ds="+ds);
        if (ds) {

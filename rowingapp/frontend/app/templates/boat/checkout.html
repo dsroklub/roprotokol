@@ -98,7 +98,7 @@
 	        <label for="checkout_starttime">Ud</label>
 	      </td>	  
               <td>
-	        <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" data-ng-model="checkout.starttime"/>
+	        <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" todayText="i dag" show-meridian="false" data-ng-model="checkout.starttime"/>
               </td>
 	    </tr>
 	    <tr>
@@ -168,10 +168,15 @@
 </div>
 
 
+<br clear="all">
+<pre>checkout= {{checkout | json}}</pre>
 <!-- br clear="all">
+<br clear="all">
+
+<pre>checkout= {{checkout | json}}</pre>
+
 <h1 class="debug"ap>debug info</h1>
 <pre>selectedcat = {{$scope.selectedBoatCategory | json}}</pre>
-<pre>checkout= {{checkout | json}}</pre>
 <pre>Destinations = {{destinations | json}}</pre>
 
 
