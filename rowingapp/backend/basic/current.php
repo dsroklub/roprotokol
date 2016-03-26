@@ -21,7 +21,7 @@ $s="SELECT Boat.id as boatid, Boat.Name AS boat,
    IF (DAYOFYEAR(NOW())=DAYOFYEAR(ExpectedIn),Date_Format(ExpectedIn,'%H:%i'), Date_Format(ExpectedIn,'%e/%c %H:%i')) as expectedintime,
    NOW()>ExpectedIn as late,
    Trip.Destination as destination, Trip.id, TripType.Name AS triptype,
-   GROUP_CONCAT(Member.MemberID,':§§:', MemberName SEPARATOR '££') AS rowers 
+   GROUP_CONCAT(Member.MemberID,':§§:', CONCAT(Member.FirstName,' ',Member.LastName) SEPARATOR '££') AS rowers 
    FROM TripMember LEFT JOIN Member ON Member.id = TripMember.member_id, TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID 
    WHERE Trip.id=TripMember.TripID AND (Trip.InTime Is Null OR Trip.InTime  >= CURDATE()) 
    GROUP BY Trip.id 
