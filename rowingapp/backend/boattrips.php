@@ -9,14 +9,20 @@ if (isset($_GET["boat"])) {
     exit(1);
 }
   
-$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, Trip.Destination as destination, DATE_FORMAT(Trip.CreatedDate,'%Y-%m-%dT%T') as created, Meter as distance, DATE_FORMAT(InTime,'%Y-%m-%dT%T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%dT%T') as outtime " .
-    " FROM Boat,Trip WHERE Boat.id=? AND Boat.id = Trip.BoatID AND Trip.OutTime>=? ORDER BY Trip.id DESC";
+$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, " 
+    ."Trip.Destination as destination, DATE_FORMAT(Trip.CreatedDate,'%Y-%m-%d %T') as created, "
+    ."Meter as distance, DATE_FORMAT(InTime,'%Y-%m-%d %T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%d %T') as outtime, "
+    ."DATE_FORMAT(ExpectedIn,'%Y-%m-%d %T') as expectedin, Comment as comment "
+    ."FROM Boat,Trip WHERE Boat.id=? AND Boat.id = Trip.BoatID AND Trip.OutTime>=? ORDER BY Trip.id DESC";
 
 # echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
     $stmt->bind_param("is", $boat,$season);
      $stmt->execute();
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
+} else {
+	error_log("Prepare failed: " .$rodb->error);
+	$result = [];
 }
 echo '[';
 $first=1;

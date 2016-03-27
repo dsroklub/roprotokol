@@ -11,15 +11,21 @@ if (isset($_GET["member"])) {
 }
 # FIXME replace Trip.Season with outdate comparison
   
-$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, Trip.Destination as destination, Trip.CreatedDate as created, Meter as distance, InTime as intime, OutTime as outtime  
-FROM Boat RIGHT JOIN (Member INNER JOIN (Trip INNER JOIN TripMember ON Trip.id = TripMember.TripID) ON Member.id = TripMember.member_id) ON Boat.id = Trip.BoatID 
-    WHERE Member.MemberID=? AND Trip.OutTime>=? ORDER BY Trip.id DESC;";
+$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, "
+    ."Trip.Destination as destination, DATE_FORMAT(Trip.CreatedDate,'%Y-%m-%d %T') as created, Meter as distance, "
+    ."DATE_FORMAT(InTime,'%Y-%m-%d %T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%d %T') as outtime, "
+    ."DATE_FORMAT(ExpectedIn,'%Y-%m-%d %T') as expectedin, Comment as comment " 
+    ."FROM Boat RIGHT JOIN (Member INNER JOIN (Trip INNER JOIN TripMember ON Trip.id = TripMember.TripID) ON Member.id = TripMember.member_id) ON Boat.id = Trip.BoatID "
+    ."WHERE Member.MemberID=? AND Trip.OutTime>=? ORDER BY Trip.id DESC;";
 
 //echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
     $stmt->bind_param("ss", $member,$fromdate);
      $stmt->execute();
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
+}  else {
+	error_log("Prepare failed: " .$rodb->error);
+	$result = [];
 }
 echo '[';
 $first=1;

@@ -16,6 +16,9 @@ if ($stmt = $rodb->prepare($sql)) {
     $stmt->bind_param("i", $trip);
      $stmt->execute();
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
+} else {
+	error_log("Prepare failed: " .$rodb->error);
+	$result = [];
 }
 echo '[';
 $first=1;

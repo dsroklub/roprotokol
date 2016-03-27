@@ -9,6 +9,7 @@ app.controller(
      $scope.trip={};
      $scope.tripdate=null;
      $scope.rowertripsaggregated=[];
+     $scope.rower='';
      $scope.currentrower=null;
      $scope.correctedboattype=null;
      $scope.currenttrip=null;
@@ -55,6 +56,9 @@ app.controller(
        $scope.correction=null;
        $scope.currenttrip=null;
        $scope.currentboat=item;
+       $scope.rower = '';
+       $scope.currentrower = null;
+       $scope.tripdate = null;
        
        DatabaseService.getBoatTrips($scope.currentboat,function (res) {
          if (res.data.length>0) {
@@ -72,9 +76,12 @@ app.controller(
      
      $scope.updateRowerTrips = function(item) {
        console.log("update rower trips");
+       console.log(item);
        $scope.correction=null;
        $scope.currenttrip=null;
        $scope.currentrower=item;
+       $scope.tripdate=null;
+       $scope.currentboat=null;
        
        DatabaseService.getRowerTrips($scope.currentrower,function (res) {
          if (res.data.length>0) {
@@ -143,6 +150,9 @@ app.controller(
        if (tripdate) {
          $scope.correction=null;
          $scope.currenttrip=null;
+         $scope.rower = "";
+         $scope.currentrower = null;
+         $scope.currentboat=null;
          
          DatabaseService.getDateTrips(tripdate.getFullYear()+'-'+(tripdate.getMonth()+1)+'-'+tripdate.getDate(),function (res) {
            if (res.data.length>0) {

@@ -2,9 +2,10 @@
   <script type="text/ng-template" id="taTemplate.html">
     <a>
       <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
-      <i>({{match.model.id}})</i>
+      {{match.model.name}} <i>({{match.model.id}})</i>
     </a>
   </script>
+
 
   <script type="text/ng-template" id="boatTemplate.html">
     <a>
@@ -13,32 +14,68 @@
     </a>
   </script>
 
-  <div class="leftpane">  
+  <div class="toppane">  
     <h3 class="prompt">Søg efter ture:</h3>
     
     <ng-form name="rowerFieldForm">
-      <input placeholder="roer" autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="updateRowerTrips($item)" ng-model="currentrower" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" />
+      <input placeholder="roer"
+             autocomplete="off"
+             id="findrower"
+             ng-model="rower"
+             name="name"
+             type="text"
+             typeahead-min-length="3"
+             typeahead-on-select="updateRowerTrips($item)"
+             ng-model="currentrower"
+             uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+             typeahead-template-url="taTemplate.html"
+             class="trip-search-field" />
       
       
-      <input placeholder="båd" autocomplete="on" id="selectboat" name="boat_search" type="text" ng-model="trip.boat" typeahead-on-select="updateBoatTrips($item)" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html"/>
+      <input placeholder="båd"
+             autocomplete="off"
+             id="selectboat"
+             name="boat_search"
+             type="text"
+             ng-model="trip.boat"
+             typeahead-on-select="updateBoatTrips($item)"
+             typeahead-min-length="1"
+             uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)"
+             typeahead-template-url="boatTemplate.html"
+             class="trip-search-field" />
       
-      <datetimepicker date-format="d-MMM-yyyy" close-text="vælg" clear-text="rens" current-text="i dag" placeholder="turdato"  show-spinners="false" date-options="dateOptions" hidden-time="true" show-meridian="false" data-ng-model="tripdate"/>
+      <datetimepicker
+             date-format="d-MMM-yyyy"
+             close-text="Vælg"
+             clear-text="Rens"
+             current-text="i dag"
+             placeholder="turdato" 
+             show-spinners="false"
+             date-options="dateOptions"
+             hidden-time="true"
+             show-meridian="false"
+             data-ng-model="tripdate"
+             class="trip-search-field"
+             />
     </ng-form>
-    <div>
-      <strong> <div class="prompt" ng-model="currentrower"> {{currentrower.id}}  {{currentrower.name}} </div></strong> 
-      <br>
-      <div ng-show="currentrower">
-        <h4 class="prompt">Rettigheder:</h4>
-        
-        <ul>
-          <li ng-if="currentrower" ng-repeat="(right,arg) in currentrower.rights"> <strong>{{right}}</strong> <small>{{arg}}</small>
-        </li>
-        </ul>   
-      </div>  
+  </div>
+    <div ng-show="currentrower">
+      <table class="genericlist">
+        <caption>{{currentrower.name}} <i>({{currentrower.id}})</i></caption>
+        <thead>
+           <tr><th>Rettighed</th><th>Detaljer</th></tr>
+        </thead>
+        <tbody>
+          <tr ng-if="currentrower" ng-repeat="(right,arg) in currentrower.rights">
+             <td>{{right}}</td>
+             <td>{{arg}}</td>
+          </tr>      
+        </tbody> 
+      </table>
     </div>
     <div class="turoversigt" ng-show="currentrower">
       <table class="genericlist">
-        <caption>Turoversigt for {{currentrower.name}}</caption>
+        <caption>Turoversigt for {{currentrower.name}} <i>({{currentrower.id}})</i></caption>
         <thead>
           <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
@@ -90,16 +127,19 @@
   <div class="tripview" ng-show="currenttrip">
     <table class="genericlist"  ng-hide="correction">
       <caption>Tur: {{currenttrip.destination}}</caption>
-      <thead>
-        <tr><th>Roer</th><th>Medlemsnummer</th></tr>
-      </thead>
-      <tr ng-repeat="tripmember in tripmembers">
-        <td >{{tripmember.name}}</td><td class="rnum">{{tripmember.id}}</td>
-      </tr>
-      <tr>
-        <td><button class="big" ng-show="tripmembers.length>0 " ng-click="start_correct()">meld rettelser</button></td>
-      </tr>
-        
+        <tr class="tripcomment" ng-show="currenttrip.comment"><td colspan="2">{{ currenttrip.comment }}</td></tr>
+        <tr><td>Distance:</td><td>{{ currenttrip.distance | mtokm }}</td>
+        <tr><td>Båd</td><td>{{ currenttrip.boat }}</td></tr>
+        <tr><td>Ud</td><td>{{ currenttrip.outtime }}</td></tr>
+        <tr ng-show="currenttrip.intime"><td>Ind</td><td>{{ currenttrip.intime }}</td></tr>
+        <tr ng-show="currenttrip.expectedin && !currenttrip.intime"><td>Forventet ind</td><td>{{ currenttrip.expectedin }}</td></tr>
+        <tr class="genericheader"><th>Roer</th><th>Medlemsnummer</th></tr>
+        <tr ng-repeat="tripmember in tripmembers">
+          <td >{{tripmember.name}}</td><td class="rnum">{{tripmember.id}}</td>
+        </tr>
+        <tr>
+          <td><button class="big" ng-show="tripmembers.length>0 " ng-click="start_correct()">meld rettelser</button></td>
+        </tr>        
     </table>
     
     <div class="correction" ng-show="correction">
@@ -216,8 +256,7 @@
         </table>
       </form>
     </div>    
-  </div>
-  
+   </div>
     
     <div class="seasonschart" ng-if="currentrower">
       <h2>Sæsonoversigt for {{currentrower.name}}</h2>
@@ -225,4 +264,4 @@
               chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
       </canvas>
     </div>
-</div>
+

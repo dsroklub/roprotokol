@@ -269,13 +269,13 @@
   <script type="text/ng-template" id="taTemplate.html">
     <a>
       <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
-      <i>({{match.model.id}})</i>
+      {{match.model.name}} <i>({{match.model.id}})</i>
     </a>
   </script>
   <div class="adminrower">
     <h2 class="prompt">Roer:</h2>
     <ng-form name="rowerFieldForm">
-      <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required />
+      <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="taTemplate.html" required />
     </ng-form>
     <div>
 

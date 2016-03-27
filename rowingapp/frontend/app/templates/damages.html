@@ -2,13 +2,13 @@
 <script type="text/ng-template" id="reporterTemplate.html">
   <a>
   <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
-  <i>({{match.model.id}})</i>
+  {{match.model.name}} <i>({{match.model.id}})</i>
   </a>
 </script>
 
 <ng-form name="reportDamage">
   <label for="damages.anmelder">skademelder/klarmelder</label>
-  <input  placeholder="skriv dit navn her" autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="newdamage.reporter" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="reporterTemplate.html" required />
+  <input  placeholder="skriv dit navn her" autocomplete="off" id="anmelder" name="anmelder" type="text" ng-model="newdamage.reporter" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="reporterTemplate.html" required />
   <label class="alert" ng-bind="damagesnewstatus"></label>
 
 <br>

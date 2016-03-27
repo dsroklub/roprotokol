@@ -296,7 +296,6 @@ table caption {
     color: white;
     font-size: 12pt;
     border-radius: 5px 5px 0 0;
-    border-bottom: 1px solid white;
     text-align: center;
 }
 
@@ -391,7 +390,8 @@ li.selected,button.selected {
     -webkit-user-select:none;
 }
 
-.genericlist thead th {
+.genericlist thead th,
+.genericlist tbody tr.genericheader th {
     background: #3ECBBF;
     color: white;
     padding: 9pt 10pt 9pt 10pt;
@@ -582,7 +582,6 @@ li.selected,button.selected {
 
 .turoversigt,.boattrips {
     display:inline-block;
-    float:left;
     vertiacal-align:top;
     cursor: pointer;
 }
@@ -696,6 +695,10 @@ select  {
     width:70%;
 }
 
+.toppane {
+	width: 100%;
+	clear:both;
+}
 .alert {
     color: #f00;
 }
@@ -747,4 +750,18 @@ button[disabled], html input[disabled] {
 
 .crewcount {
     background: #E3FFE8;
+}
+
+.trip-search-field {
+	display: inline;
+	min-height: 34px;
+	padding: 6px;
+}
+
+tr.tripcomment {
+	border: 2px solid #23aee2;
+	border-top: none;
+}
+tr.tripcomment td {
+	padding: 3px;
 }
