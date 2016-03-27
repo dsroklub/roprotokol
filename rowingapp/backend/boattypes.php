@@ -2,7 +2,8 @@
 require("inc/common.php");
 include("inc/utils.php");
 
-$s="SELECT id,Name as name ,Seatcount as seatcount, Category as category, GROUP_CONCAT(required_right,':§§:',requirement SEPARATOR '££') AS rights
+$s="SELECT id,Name as name ,Seatcount as seatcount, Category as category, Description as description,
+           GROUP_CONCAT(required_right,':§§:',requirement SEPARATOR '££') AS rights
     FROM BoatType
     LEFT JOIN  BoatRights ON BoatType.id=boat_type
     GROUP BY BoatType.Name

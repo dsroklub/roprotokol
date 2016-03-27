@@ -22,39 +22,37 @@
       <caption>Bådtyper</caption>
       <thead>
         <tr>
-	  <th>Bådtype</th><th>Antal sæder</th><th>Robåd/kajak</th><th>Rettighedskrav</th>
+	  <th>Bådtype</th><th>Antal sæder</th><th>Robåd/kajak</th><th>&nbsp</th><th>Rettighedskrav</th>
         </tr>	
       </thead>
       <tbody>
         <tr ng-repeat="bt in boatcategories">
-	  <td >{{bt.name}}</td>
-	  <td >{{bt.seatcount}}</td>
-	  <td ><select  ng-change="setboatkayak(bt)" ng-model="bt.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
-	  <td><button class="action" ng-click="doboatrights(bt.rights,bt)">{{bt.rights|rightreqs}}</button></td>
-        </tr>
+		  <td >{{bt.name}}</td>
+		  <td ><input type="number" class="seatcount" size="5" maxlength="5" autocomplete="off" ng-model="bt.seatcount" ng-change="bt.changed=true"></input></td>
+		  <td ><select  ng-change="bt.changed=true" ng-model="bt.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
+		  <td><button ng-show="bt.changed" ng-click="boattype_update(bt)" class="action">Gem</button></td>
+		  <td><button class="action" ng-click="doboatrights(bt.rights,bt)">{{bt.rights|rightreqs}}</button></td>
+	    </tr>
       </tbody>
     </table>
-
+    
     <form name="boattypeform">
       <table class="boatlist blok newboattype" >
         <caption>Ny Bådtype</caption>
         <thead>
 	  <tr>
-	    <th>Bådtype</th><th>Antal sæder</th><th>Robåd/kajak</th><th>Rettighedskrav</th>
+	    <th>Bådtype</th><th>Antal sæder</th><th>Robåd/kajak</th><th>&nbsp;</th>
 	  </tr>	
         </thead>
         <tbody>
 	  <tr>
 	    <td><input type="text" ng-model="newboattype.name"></input></td>
-	    <td><input type="number" ng-model="newboattype.numseats"></input></td>
-	    <td ><select  ng-model="newboattype.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
-            <td>opret først bådtype</td>
+	    <td><input class="seatcount" type="number" maxlength="5" min="1" size="5" autocomplete="off" ng-model="newboattype.numseats"></input></td>
+	    <td><select  ng-model="newboattype.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
+        <td><button class="big" ng-show="newboattype.name&&newboattype.numseats&&newboattype.category" ng-click="create_boattype(newboattype)">Opret ny bådtype </button></td>
 	    <!--td ><button class="action" ng-model="newboattype.rights" ng-click="currentboattype=newboattype"> {{newboattype.rights|rightreqs}}</button></td-->
 	  </tr>
-	  <tr><td>
-	      <button class="big" ng-show="newboattype.name&&newboattype.numseats&&newboattype.category" ng-click="create_boattype(newboattype)">Opret ny bådtype </button>
-	</td></tr>	
-        </tbody>
+	  </tbody>
       </table>
     </form>
 
@@ -62,7 +60,7 @@
       <caption>Både</caption>
       <thead>
 	<tr>
-	  <th>Båd</th><th>kategori</th><th>lokalitet</th><th>dør</th><th>Rk</th><th>hylde</th><th>side</th>
+	  <th>Båd</th><th>Kategori</th><th>Lokalitet</th><th>Port</th><th>Inderst/Yderst</th><th>Hylde</th><th>Side</th>
           <th>Niveau</th><th>Fabrikat</th><th>Særligt</th><th></th>
 	</tr>	
       </thead>
@@ -74,7 +72,7 @@
 	    </select>
 	  </td>
           
-          <td><input  class="aisle" autocomplete="off" ng-change="set_aisle_for_boat(boat)" type="number" min="1" size="3" maxlength="4" ng-model="boat.placement_aisle"></input>
+          <td><input  class="aisle" autocomplete="off" ng-change="set_aisle_for_boat(boat)" type="number" min="1" size="4" maxlength="5" ng-model="boat.placement_aisle"></input>
           </td>
           <td>
             <select  ng-change="set_row_for_boat(boat)" ng-model="boat.placement_row"

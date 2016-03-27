@@ -96,8 +96,9 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               return DatabaseService.getRowersByNameOrId(val, undefined);
             };
 
-            $scope.setboatkayak = function(bt) {
-              var exeres=DatabaseService.updateDB('setboatkayak',bt,$scope.config,$scope.errorhandler);
+            $scope.boattype_update = function(bt) {
+              DatabaseService.updateDB('boattype_update',bt,$scope.config,$scope.errorhandler)
+              .then(function(){bt.changed = false});
             }
 
             $scope.create_boattype = function(bt) {
