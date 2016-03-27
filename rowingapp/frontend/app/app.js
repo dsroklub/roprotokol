@@ -68,9 +68,13 @@ var app = angular.module('myApp', [
 	  templateUrl: 'templates/notimplementet.html',
 	});
       }])
+    // .config(['uiDatetimepickerConfig'], function (uiDatetimepickerConfig) {
+    //   uiDatetimepickerConfig.todayText="i dag";
+    // })
     .config(['uiSelectConfig', function(uiSelectConfig) {
       uiSelectConfig.theme = 'bootstrap';
     }])
+
     .config(['ChartJsProvider', function (ChartJsProvider) {
     // Configure all charts
     ChartJsProvider.setOptions({

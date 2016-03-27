@@ -21,7 +21,7 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
       error_log($error);
   }
 }
-error_log("udskriv ".$newtrip->boat->name);
+# error_log("udskriv ".$newtrip->boat->name);
 
 if (!$error) {
     if ($stmt = $rodb->prepare("INSERT INTO Trip(Season,BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter) VALUES(?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?)")) { 
@@ -32,16 +32,12 @@ if (!$error) {
             $message=$message."\n"."create trip insert error";
         }
     } 
-    error_log("\n\nnow all rowers ".json_encode($newtrip->rowers));
     
     if ($stmt = $rodb->prepare("INSERT INTO TripMember(TripID,Season,Seat,member_id,MemberName,CreatedDate,EditDate) ".
     "SELECT LAST_INSERT_ID(),?,?,Member.id,?,NOW(),NOW() FROM Member Where MemberID=?"
     )) {
         $seat=1;
-        error_log("ROWERS");
         foreach ($newtrip->rowers as $rower) {
-            error_log("SEAT".$seat);
-            error_log("DO trip mb ".$rower->name);
             $stmt->bind_param('iisi',$season,$seat,$rower->name,$rower->id);
             $stmt->execute();
             $seat+=1;
