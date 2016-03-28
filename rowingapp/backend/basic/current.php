@@ -41,14 +41,14 @@ $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 <th>Destination</th>
 <th>Ud</th>
 <th>Ind</th>
-<th>Forventet</th>
+<th>Forv.</th>
 <th>Roere</th>
 </tr>
 
 <?php
  while ($row = $result->fetch_assoc()) {
      if ($row['intime']) {
-         echo "<tr>";
+         echo "<tr class=tripisin>";
      } else if ($row['late']) {
          echo "<tr  class=late>";
      } else {
