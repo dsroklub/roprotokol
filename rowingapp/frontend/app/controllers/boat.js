@@ -1,4 +1,6 @@
 'use strict';
+-// cico==1 checkin
+-// cico=2 checkout
 
 app.controller(
   'BoatCtrl',
@@ -38,6 +40,7 @@ app.controller(
                $scope.checkout.rowers.push(DatabaseService.getRower(id));
              }
                             );
+             $scope.updateExpectedTime();
 	     // FIXME update checkout fields
 	   }
 	 });
@@ -81,8 +84,10 @@ app.controller(
          'rowers': ["","","","",""],
          'client_name':DatabaseService.client_name(),
          'distance':0
-       };       
-         $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
+       };
+        if ($scope.cico==2) {
+          $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
+        }
      });
 
      $scope.checkRights = function() {
