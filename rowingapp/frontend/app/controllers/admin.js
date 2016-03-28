@@ -41,7 +41,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.currentrower=null;
             $scope.do="events";
             $scope.DB=DatabaseService.getDB;
-            $scope.clientname="X";
+            $scope.clientname=DatabaseService.client_name();
             $scope.allboats = DatabaseService.getBoats();
             $scope.locations = DatabaseService.getDB('locations');
             $scope.events = DatabaseService.getDB('get_events');
