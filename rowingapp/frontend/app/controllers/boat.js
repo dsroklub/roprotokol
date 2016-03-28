@@ -1,14 +1,11 @@
 'use strict';
 
-// cico==1 checkin
-// cico=2 checkout
 app.controller(
   'BoatCtrl',
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog',
    function ($scope, $routeParams, DatabaseService, $filter, ngDialog) {
      $scope.allboatdamages=[];
      DatabaseService.init().then(function () {
-       
        // Load Category Overview
        $scope.boatcategories = DatabaseService.getBoatTypes();
        // Load selected boats based on boat category
@@ -76,11 +73,10 @@ app.controller(
          'endtime': null, // FIXME
          'triptype': null,
          'rowers': ["","","","",""],
+         'client_name':DatabaseService.client_name(),
          'distance':0
        };       
-       if ($scope.cico==2) {
          $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
-       }
      });
 
      $scope.checkRights = function() {
@@ -351,8 +347,7 @@ app.controller(
                              )
      }
  
-     $scope.createtrip = function (data) {
-       
+     $scope.createtrip = function (data) {       
        if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
 	 data.event=$scope.rightsmessage;
        }

@@ -230,6 +230,7 @@ CREATE TABLE Trip (
   Initials varchar(10),
   tripstat_name CHAR(20),
   DESTID int(11),
+  info varchar(20),
   PRIMARY KEY (id),
   KEY tripfk (BoatID),
   KEY tripout (OutTime)

@@ -44,3 +44,5 @@ UPDATE TripType SET tripstat_name="Styrmandsinst" WHERE id=11;
 UPDATE TripType SET tripstat_name="outr/scull inst" WHERE id=10;
 UPDATE TripType SET tripstat_name="Udst/8GP" WHERE id=6;
 UPDATE TripType SET tripstat_name="Udst/8GP" WHERE id=12;
+
+ALTER TABLE Trip ADD COLUMN info VARCHAR(20);

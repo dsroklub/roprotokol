@@ -13,7 +13,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     3:'Svær',
     4:'Meget svær'
   }
-
+  
   // FIXME Not used?
   this.boatcat2dk = {
       'any':'alle',
@@ -503,7 +503,15 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       }
     return ra;
   }
-  
+
+  this.client_name =function () {
+    var clientname="terminal";
+    if (localStorage) {
+      clientname=localStorage.getItem("roprotokol.client.name");                    
+    }
+    return(clientname?clientname:"noname");
+  }
+
   /// The rest is just for testing
   this.test = function(src) {
     var boats = db['boatcategories']["Inrigger 2+"];

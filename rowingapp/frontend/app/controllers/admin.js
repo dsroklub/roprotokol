@@ -41,6 +41,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.currentrower=null;
             $scope.do="events";
             $scope.DB=DatabaseService.getDB;
+            $scope.clientname="X";
             $scope.allboats = DatabaseService.getBoats();
             $scope.locations = DatabaseService.getDB('locations');
             $scope.events = DatabaseService.getDB('get_events');
@@ -173,6 +174,11 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               $scope.allboats.push(boat);
             }
 
+           $scope.set_client_name =function(name) {
+             if (localStorage) {
+               $scope.clientname=localStorage.setItem("roprotokol.client.name",$scope.clientname);
+             }
+           }
 
             $scope.add_rower_right = function(right,rower) {
               var data={'right':right,'rower':rower}
@@ -266,9 +272,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                $scope.requiredtriprights=rr;
               }
               $scope.currenttriptype=tt;
-            }
-
-            
+            }            
           }
                                      )
         }

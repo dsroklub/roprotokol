@@ -13,6 +13,7 @@
   <button class="adminbut" ng-class="{selected: do=='correction'}" ng-click="do='correction'">Fejlrettelser</button>
   <button class="adminbut" ng-class="{selected: do=='events'}" ng-click="do='events'">Hændelser</button>
   <button class="adminbut" ng-class="{selected: do=='plan'}" ng-click="do='plan'">Oversigter</button>
+  <button class="adminbut" ng-class="{selected: do=='misc'}" ng-click="do='misc'">Diverse</button>
   <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password"></input>
 </div>
 
@@ -390,6 +391,18 @@
     <tbody>
     </tbody>
   </table>    
+</div>  
+
+<div ng-show="do=='misc'">
+
+  <input ng-model-options="{updateOn:'blur'}"
+         placeholder="Denne terminal hedder"
+         class="terminalnavn"
+         type="text"
+         ng-model="clientname"
+         ng_change="set_client_name()"
+         ></input>
+
 </div>  
 
 
