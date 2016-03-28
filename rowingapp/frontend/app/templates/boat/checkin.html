@@ -25,7 +25,7 @@
   <table class="boatlist" style="float:right">
     <thead>
       <tr>
-        <th>Båd</th><th>Kategori</th><th>Placering</th><th>Status</th><th>Destination</th><th class="rnum">distance</th><th>Korr. distance</th><th>Check Ind</th>
+        <th>Båd</th><th>Kategori</th><th>Placering</th><th>Status</th><th>Destination</th><th>Forventes</th><th class="rnum">distance</th><th>Korr. distance</th><th>Check Ind</th>
       </tr>
     </thead>
     <tbody>
@@ -45,6 +45,8 @@
           <span ng-show="{{boat.damage==1}}">Let skadet</span>
 	</td>
 	<td>{{boat.destination}}</td>
+	<td ng-class="{datealert: critical_time(boat.expected_in)}">{{boat.expected_in| txttotime | date :"HH:mm d. MMM"}}</td>
+        
 	<td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
 	<td class="colinput">
 	  <input  autocomplete="off" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" type="text" transformkm name="kminput"></input>
