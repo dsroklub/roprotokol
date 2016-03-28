@@ -111,7 +111,16 @@
 	        <label for="checkout_starttime">Ud</label>
 	      </td>	  
               <td>
-	        <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" todayText="i dag" show-meridian="false" data-ng-model="checkout.starttime"/>
+	        <datetimepicker
+                   date-format="dd-MMM-yyyy"
+                   show-spinners="false"
+                   current-text="i dag"
+                   close-text="Vælg"
+                   clear-text="Rens"
+                   date-options="dateOptions"
+                   show-meridian="false"
+                   data-ng-model="checkout.starttime"
+                   />
               </td>
 	    </tr>
 	    <tr>
@@ -119,7 +128,16 @@
 	        <label for="checkout_expectedtime">Forventet ind</label>
 	      </td>
               <td>
-	        <datetimepicker date-format="dd-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="checkout.expectedtime"/>
+	        <datetimepicker
+                   date-format="dd-MMM-yyyy"
+                   show-spinners="false"
+                   date-options="dateOptions"
+                   current-text="i dag"
+                   close-text="Vælg"
+                   clear-text="Rens"
+                   show-meridian="false"
+                   ng-model="checkout.expectedtime"
+                   />
 	      </td>
 	    </tr>
 	    <tr>
@@ -127,9 +145,8 @@
                 <label for="checkout_triptype">Tur type</label>
               </td>
               <td>
-                <select ng-selected="localtrip" id="checkout_triptype" type="text" ng-model="checkout.triptype" ng-options="item as item.name for item in triptypes" ng-change="updateExpectedTime(checkout.destination)" required>
-		
-		  <!--option disabled value="">Vælg tur type</option--> 
+                <select ng-selected="localtrip" id="checkout_triptype" type="text" ng-model="checkout.triptype"
+                        ng-options="item as item.name for item in triptypes" ng-change="updateExpectedTime(checkout.destination)" required>
                 </select>
               </td>    
 	    </tr>	
