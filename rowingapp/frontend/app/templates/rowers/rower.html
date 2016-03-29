@@ -67,7 +67,7 @@
         </thead>
         <tbody>
           <tr ng-if="currentrower" ng-repeat="(right,arg) in currentrower.rights">
-             <td>{{right}}</td>
+             <td>{{right|righttodk}}</td>
              <td>{{arg}}</td>
           </tr>      
         </tbody> 

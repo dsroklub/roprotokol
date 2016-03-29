@@ -367,8 +367,10 @@
   <table class="boatlist" >
     <caption>Hændelser</caption>
     <thead>
-      <tr> <th>tid</th><th>Hændelse</th></tr>
-      <tr ng-repeat="ev in DB('get_events')">
+      <tr>
+        <th>tid</th>
+        <th>Hændelse</th></tr>
+      <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="ev in DB('get_events')">
 	<td>{{ev.event_time}}</td>	  
 	<td>{{ev.event}} </td>
       </tr>

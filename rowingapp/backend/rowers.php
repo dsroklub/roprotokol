@@ -4,7 +4,7 @@ include("inc/utils.php");
 header('Content-type: application/json');
 
 $s="SELECT Member.MemberID AS id,CONCAT(FirstName,' ',LastName) AS name,Initials AS initials, GROUP_CONCAT(MemberRight,':§§:',argument SEPARATOR '££') AS rights".
-    "  FROM Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  WHERE Member.MemberID!='0' GROUP BY Member.id,argument";
+    "  FROM Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  WHERE Member.MemberID!='0' GROUP BY Member.id";
 
 # Member.MemberID should not be necessary, non members should have MemberID=NULL, not 0
 
