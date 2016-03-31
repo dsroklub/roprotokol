@@ -14,10 +14,10 @@
   <button class="adminbut" ng-class="{selected: do=='events'}" ng-click="do='events'">Hændelser</button>
   <button class="adminbut" ng-class="{selected: do=='plan'}" ng-click="do='plan'">Oversigter</button>
   <button class="adminbut" ng-class="{selected: do=='misc'}" ng-click="do='misc'">Diverse</button>
-  <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password"></input>
+  <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password">
 </div>
 
-<div ng-show="do=='boat'">
+<div ng-if="do=='boat'">
   <div class="blok leftblock">
     <table class="boatlist" >
       <caption>Bådtyper</caption>
@@ -28,12 +28,12 @@
       </thead>
       <tbody>
         <tr ng-repeat="bt in boatcategories">
-		  <td >{{bt.name}}</td>
-		  <td ><input type="number" class="seatcount" size="5" maxlength="5" autocomplete="off" ng-model="bt.seatcount" ng-change="bt.changed=true"></input></td>
-		  <td ><select  ng-change="bt.changed=true" ng-model="bt.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
-		  <td><button ng-show="bt.changed" ng-click="boattype_update(bt)" class="action">Gem</button></td>
-		  <td><button class="action" ng-click="doboatrights(bt.rights,bt)">{{bt.rights|rightreqs}}</button></td>
-	    </tr>
+	  <td >{{bt.name}}</td>
+	  <td ><input type="number" class="seatcount" size="5" maxlength="5" autocomplete="off" ng-model="bt.seatcount" ng-change="bt.changed=true"></td>
+	  <td ><select  ng-change="bt.changed=true" ng-model="bt.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
+	  <td><button ng-show="bt.changed" ng-click="boattype_update(bt)" class="action">Gem</button></td>
+	  <td><button class="action" ng-click="doboatrights(bt.rights,bt)">{{bt.rights|rightreqs}}</button></td>
+	</tr>
       </tbody>
     </table>
     
@@ -47,8 +47,8 @@
         </thead>
         <tbody>
 	  <tr>
-	    <td><input type="text" ng-model="newboattype.name"></input></td>
-	    <td><input class="seatcount" type="number" maxlength="5" min="1" size="5" autocomplete="off" ng-model="newboattype.seatcount"></input></td>
+	    <td><input type="text" ng-model="newboattype.name"></td>
+	    <td><input class="seatcount" type="number" maxlength="5" min="1" size="5" autocomplete="off" ng-model="newboattype.seatcount"></td>
 	    <td><select  ng-model="newboattype.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
             <td><button class="big" ng-show="newboattype.name && newboattype.seatcount && newboattype.category" ng-click="create_boattype(newboattype)">Opret ny bådtype </button></td>
 	    <!--td ><button class="action" ng-model="newboattype.rights" ng-click="currentboattype=newboattype"> {{newboattype.rights|rightreqs}}</button></td-->
@@ -68,12 +68,13 @@
       <tbody>
 	<tr ng-repeat="boat in allboats">
 	  <td>{{boat.name}}</td>
-	  <td><select  ng-change="set_cat_for_boat(boat)" ng-model="boat.category" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
-	  <td><select  ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations">
+	  <td><select ng-change="set_cat_for_boat(boat)" ng-model="boat.category" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
+	  <td><select ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations">
 	    </select>
 	  </td>
           
-          <td><input  class="aisle" autocomplete="off" ng-change="set_aisle_for_boat(boat)" type="number" min="1" size="4" maxlength="5" ng-model="boat.placement_aisle"></input>
+          <td>
+            <input  class="aisle" autocomplete="off" ng-change="set_aisle_for_boat(boat)" type="number" min="1" size="4" maxlength="5" ng-model="boat.placement_aisle">
           </td>
           <td>
             <select  ng-change="set_row_for_boat(boat)" ng-model="boat.placement_row"
@@ -93,9 +94,9 @@
 	  </td>
 
           
-	  <td><select  ng-model="boat.level" ng-options="levelid*1 as level for (levelid,level) in levels" ng-change="update_level(boat)"> </select> </td>
-	  <td><select  ng-model="boat.brand" ng-options="brand.name as brand.name for brand in brands" ng-change="update_brand(boat)"> </select> </td>
-          <td><select  ng-model="boat.usage_id" ng-options="usage.id as usage.name for usage in usages" ng-change="update_usage(boat)"> </select> </td>
+	  <td><select ng-model="boat.level" ng-options="levelid*1 as level for (levelid,level) in levels" ng-change="update_level(boat)"> </select> </td>
+	  <td><select ng-model="boat.brand" ng-options="brand.name as brand.name for brand in brands" ng-change="update_brand(boat)"> </select> </td>
+          <td><select ng-model="boat.usage_id" ng-options="usage.id as usage.name for usage in usages" ng-change="update_usage(boat)"> </select> </td>
 	  <!--td><input ng-model-options="{updateOn:'blur'}" autocomplete="off" id="boat.boatusage" name="boat.boatusage" type="text" ng-model="boat.boatusage" ng-change="update_usage(boat)"></td-->
 	  
           <td><button ng-click="retire_boat(boat,$index)" class="action" confirm="Er du helt sikker på at du vil fjerne {{boat.name}}?" confirm-ok="ja, slet {{boat.name}}" confirm-cancel="nej">Slet/pensioner båd</button></td>
@@ -111,7 +112,7 @@
             <tr><th>Navn</th><th>Kategori</th><th>Lokation</th></tr>
             <tr>
 	      <td>
-		<input type="text" ng-model="newboat.name"></input>
+		<input type="text" ng-model="newboat.name">
 	      </td>	
               <td><select  ng-model="newboat.category" ng-options="cat.name as cat.name for cat in boatcategories">
 		</select>
@@ -136,18 +137,18 @@
 	  <tr><th>Anvendelse</th><th>Beskrivelse</th></tr>
 	  <tr ng-repeat="usage in usages">
 	    <td>
-	      <input ng-model-options="{updateOn:'blur'}" type="text" ng-model="usage.name" ng_change="update_usage_name(usage)"></input>
+	      <input ng-model-options="{updateOn:'blur'}" type="text" ng-model="usage.name" ng_change="update_usage_name(usage)">
 	    </td>
 	    <td>
-	      <input ng-model-options="{updateOn:'blur'}" type="text" ng-model="usage.description" ng_change="update_usage_description(usage)"></input>
+	      <input ng-model-options="{updateOn:'blur'}" type="text" ng-model="usage.description" ng_change="update_usage_description(usage)">
 	    </td>
 	  </tr>
 	  <tr>
             <td>
-	      <input type="text" ng-model="newusage.name"></input>
+	      <input type="text" ng-model="newusage.name">
             </td>
             <td>
-              <input type="text" ng-model="newusage.description"></input>
+              <input type="text" ng-model="newusage.description">
             </td>        
             <td>
 	      <button  class="minor" ng-show="!newusage.name">Udfyld ny anvendelse her</button>
@@ -168,7 +169,7 @@
 	  </tr>
 	  <tr>
             <td>
-	      <input type="text" placeholder="nyt fabrikat" ng-model="newbrand.name"></input>
+	      <input type="text" placeholder="nyt fabrikat" ng-model="newbrand.name">
             </td>
             <td>
 	      <button ng-click="create_boat_brand(newbrand)" ng-model="newbrand.name" class="big" ng-show="newbrand.name && newbrand.name.length>0">Opret nyt fabrikat</button>
@@ -205,7 +206,7 @@
   </div>
 </div>
 
-<div ng-show="do=='trip'">
+<div ng-if="do=='trip'">
   <div class="blok leftblock">
     <table class="boatlist" >
       <caption>Turtyper</caption>
@@ -222,8 +223,8 @@
         </tr>
         <tr>
         </tr>
-        <td><input type="text" ng-model="newtriptype.name"></input></td>
-        <td><input type="text" ng-model="newtriptype.description"></input></td>
+        <td><input type="text" ng-model="newtriptype.name"></td>
+        <td><input type="text" ng-model="newtriptype.description"></td>
         <td><button class="action" ng-click="create_triptype(newtriptype)">Opret ny turtype</button></td>
 
       </tbody>
@@ -268,7 +269,7 @@
 	  <td >{{ds.name}}</td>
 	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
 	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.1" ng-model="ds.duration"></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.1" ng-model="ds.duration_instruction"></input></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.1" ng-model="ds.duration_instruction"></td>
         </tr>
       </tbody>
     </table>
@@ -285,7 +286,7 @@
 	  <td >{{ds.name}}</td>
 	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
 	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></input></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></td>
         </tr>
       </tbody>
     </table>
@@ -406,7 +407,7 @@
   </table>    
 </div>  
 
-<div ng-show="do=='plan'">
+<div ng-if="do=='plan'">
   <table class="boatlist" >
     <caption>Hændelser</caption>
     <thead>
@@ -421,7 +422,7 @@
   </table>    
 </div>  
 
-<div ng-show="do=='misc'">
+<div ng-if="do=='misc'">
 
 Denne terminal hedder  <input ng-model-options="{updateOn:'blur'}"
          placeholder="Denne terminal hedder"
@@ -429,7 +430,7 @@ Denne terminal hedder  <input ng-model-options="{updateOn:'blur'}"
          type="text"
          ng-model="clientname"
          ng_change="set_client_name()"
-         ></input>
+         >
 
 </div>  
 
