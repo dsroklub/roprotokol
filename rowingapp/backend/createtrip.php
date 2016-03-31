@@ -25,9 +25,9 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
 
 if (!$error) {
         error_log('now new trip'. json_encode($newtrip));
-    if ($stmt = $rodb->prepare("INSERT INTO Trip(Season,BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info) VALUES(?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?)")) {
+    if ($stmt = $rodb->prepare("INSERT INTO Trip(Season,BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment) VALUES(?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?)")) {
         $info="client: ".$newtrip->client_name;
-        $stmt->bind_param('iisissis',
+        $stmt->bind_param('iisississ',
         $season,
         $newtrip->boat->id ,
         $newtrip->destination->name,
@@ -35,7 +35,8 @@ if (!$error) {
         $newtrip->starttime,
         $newtrip->expectedtime,
         $newtrip->distance,
-        $info);
+        $info,
+        $newtrip->comments);
         if (!$stmt->execute()) {
             $error=mysqli_error($rodb);
             $message=$message."\n"."create trip insert error";

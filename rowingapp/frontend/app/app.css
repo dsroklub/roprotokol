@@ -765,3 +765,7 @@ tr.tripcomment {
 tr.tripcomment td {
 	padding: 3px;
 }
+
+input.tripcomment {
+	width: 12em;
+}

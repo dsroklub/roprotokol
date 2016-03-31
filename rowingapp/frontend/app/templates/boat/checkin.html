@@ -25,7 +25,8 @@
   <table class="boatlist" style="float:right">
     <thead>
       <tr>
-        <th>Båd</th><th>Kategori</th><th>Placering</th><th>Status</th><th>Destination</th><th>Forventes</th><th class="rnum">distance</th><th>Korr. distance</th><th>Check Ind</th>
+        <th>Båd</th><th>Kategori</th><th>Placering</th><th>Status</th><th>Destination</th><th>Forventes</th><th class="rnum">distance</th><th>Korr. dist</th>
+        <th>Bemærk</th><th>Check Ind</th>
       </tr>
     </thead>
     <tbody>
@@ -50,8 +51,11 @@
 	<td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
 	<td class="colinput">
 	  <input  autocomplete="off" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" type="text" transformkm name="kminput"></input>
-	  <!-- transformkm-->
 	</td>
+
+	<td class="colinput">
+	  <input  autocomplete="off" maxlength="200" size="3" ng-model="boat.comment" class="tripcomment" type="text" name="tripcomments"></input>
+	</td>        
 	<td class="colinput">
           <div class="checkinactions">
 	    <button uib-tooltip="indskriv turen" ng-click="closetrip(boat,$index,item.km)" class="big"
@@ -72,6 +76,7 @@
 </div>
 
 <!--br clear="all">
+<br clear="all">
 <h1 class="debug"ap>debug info</h1>
 <pre>checkin = {{checkin | json}}</pre>
 <pre>ab = {{allboats | json}}</pre>

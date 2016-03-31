@@ -29,6 +29,7 @@ $s="SELECT Boat.id,
            MAX(Trip.ExpectedIn) as expected_in,
            MAX(Trip.Destination) as destination,
            MAX(Trip.Meter) as meter,
+           MAX(Trip.Comment) as comment,
            boat_usage.name as boatusage,
            Boat.brand,
            Boat.level
