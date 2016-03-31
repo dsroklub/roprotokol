@@ -47,7 +47,7 @@ if (!$error) {
     )) {
         $seat=1;
         foreach ($newtrip->rowers as $rower) {
-            $stmt->bind_param('iisi',$season,$seat,$rower->name,$rower->id);
+            $stmt->bind_param('iiss',$season,$seat,$rower->name,$rower->id);
             $stmt->execute();
             $seat+=1;
         }
