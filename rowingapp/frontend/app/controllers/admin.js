@@ -107,6 +107,16 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('create_boattype',bt,$scope.config,$scope.errorhandler);
               $scope.DB('boattypes').push(bt);
             }
+            $scope.create_boat_brand = function(bb) {
+              var exeres=DatabaseService.updateDB('create_boat_brand',bb,$scope.config,$scope.errorhandler);
+              $scope.DB('boat_brand').push(bb);
+            }
+
+            $scope.create_triptype = function(tt) {
+              console.log("net triptype");
+              var exeres=DatabaseService.updateDB('create_triptype',tt,$scope.config,$scope.errorhandler);
+              $scope.DB('triptypes').push(tt);
+            }
 
             $scope.update_level = function(boat) {
               var exeres=DatabaseService.updateDB('boat_update_level',boat,$scope.config,$scope.errorhandler);

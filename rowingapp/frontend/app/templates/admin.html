@@ -48,9 +48,9 @@
         <tbody>
 	  <tr>
 	    <td><input type="text" ng-model="newboattype.name"></input></td>
-	    <td><input class="seatcount" type="number" maxlength="5" min="1" size="5" autocomplete="off" ng-model="newboattype.numseats"></input></td>
+	    <td><input class="seatcount" type="number" maxlength="5" min="1" size="5" autocomplete="off" ng-model="newboattype.seatcount"></input></td>
 	    <td><select  ng-model="newboattype.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
-        <td><button class="big" ng-show="newboattype.name&&newboattype.numseats&&newboattype.category" ng-click="create_boattype(newboattype)">Opret ny bådtype </button></td>
+            <td><button class="big" ng-show="newboattype.name && newboattype.seatcount && newboattype.category" ng-click="create_boattype(newboattype)">Opret ny bådtype </button></td>
 	    <!--td ><button class="action" ng-model="newboattype.rights" ng-click="currentboattype=newboattype"> {{newboattype.rights|rightreqs}}</button></td-->
 	  </tr>
 	  </tbody>
@@ -159,6 +159,26 @@
     </div>
   </div>
 
+  <div class="blok">
+    <table>
+      <caption>Fabrikater</caption>
+	<tbody>	  
+	  <tr ng-repeat="brand in brands">
+	    <td>{{brand.name}}</td>
+	  </tr>
+	  <tr>
+            <td>
+	      <input type="text" placeholder="nyt fabrikat" ng-model="newbrand.name"></input>
+            </td>
+            <td>
+	      <button ng-click="create_boat_brand(newbrand)" ng-model="newbrand.name" class="big" ng-show="newbrand.name && newbrand.name.length>0">Opret nyt fabrikat</button>
+            </td>
+	  </tr>
+	</tbody>
+      </table>
+    </div>
+  </div>
+
   <div ng-show="currentboattype" class="rightbox">
     <table>
       <caption>Administrer rettigheder for bådtypen {{currentboattype.name}}
@@ -198,8 +218,14 @@
         <tr ng-repeat="tt in DB('triptypes')" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	  <td >{{tt.name}}</td>
 	  <td >{{tt.description}}</td>
-	  <td><button class="action" ng-click="dotriprights(tt.rights,tt)">{{tt.rights|rightreqs}}</button></td>
+	  <td><button class="action" ng-click'="dotriprights(tt.rights,tt)">{{tt.rights|rightreqs}}</button></td>
         </tr>
+        <tr>
+        </tr>
+        <td><input type="text" ng-model="newtriptype.name"></input></td>
+        <td><input type="text" ng-model="newtriptype.description"></input></td>
+        <td><button class="action" ng-click="create_triptype(newtriptype)">Opret ny turtype</button></td>
+
       </tbody>
     </table>
   </div>
