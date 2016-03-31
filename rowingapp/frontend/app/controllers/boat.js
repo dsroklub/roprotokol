@@ -174,7 +174,7 @@ app.controller(
 
      $scope.matchBoat = function(boat) {
        return function(matchboat) {
-	 return (boat==null || matchboat.boat_id==boat.id);
+	 return (matchboat.id && (boat==null || matchboat.boat_id==boat.id));
        }
      };
      
@@ -244,7 +244,9 @@ app.controller(
            "reporter":reporter
 	 }
 	 if (DatabaseService.fixDamage(data)) {
-           damagelist.splice(ix,1);
+           bd.boat_id=null;
+           bd.id=null;
+           //damagelist.splice(ix,1);
            $scope.newdamage.reporter=null;
            $scope.allboatdamages = DatabaseService.getDamages();
            $scope.damagesnewstatus="klarmelde";
