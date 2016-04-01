@@ -77,10 +77,14 @@
       <table class="genericlist">
         <caption>Turoversigt for {{currentrower.name}} <i>({{currentrower.id}})</i></caption>
         <thead>
-          <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
+          <tr><th>TurID</th><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
         <tr ng-repeat="trip in rowertrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
-          <td class="selected">{{trip.id}}</td><td>{{trip.boat}}</td><td>{{trip.destination}}</td><td>{{trip.created}}</td><td class="rnum" >{{trip.distance|mtokm}}</td>
+          <td class="selected">{{trip.id}}</td>
+          <td>{{trip.boat}}</td><td>{{trip.triptype}}</td>
+          <td>{{trip.boat}}</td><td>{{trip.destination}}</td>
+          <td>{{trip.created}}</td>
+          <td class="rnum" >{{trip.distance|mtokm}}</td>
         </tr>
       </table>
     </div>
@@ -102,10 +106,15 @@
       <table class="genericlist">
         <caption>Turoversigt for dagen {{tripdate| date : fulldate: UTC}}</caption>
         <thead>
-          <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
+          <tr><th>TurID</th><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
         <tr ng-repeat="trip in datetrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
-          <td class="selected">{{trip.id}}</td><td>{{trip.boat}}</td><td>{{trip.destination}}</td><td>{{trip.created}}</td><td class="rnum" >{{trip.distance|mtokm}}</td>
+          <td class="selected">{{trip.id}}</td>
+          <td>{{trip.boat}}</td>
+          <td>{{trip.triptype}}</td>
+          <td>{{trip.destination}}</td>
+          <td>{{trip.created}}</td>
+          <td class="rnum" >{{trip.distance|mtokm}}</td>
         </tr>
       </table>
     </div>
