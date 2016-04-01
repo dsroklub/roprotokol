@@ -10,8 +10,8 @@
       <tr>
         <th>Dato</th>
         <th>antal roere<br> ink instruktører</th>
-        <th>Antal roere<br> minus styrman</th>
         <th>Antal Ture</th>
+        <th>Antal roere<br> minus styrman</th>
         <th>både</th>
       </tr>
       <?php
