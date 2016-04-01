@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="basic.css">
+    <meta charset="utf-8">
   </head>
   <body>      
     
@@ -17,10 +18,14 @@
       <?php
          ini_set('default_charset', 'utf-8');
          ini_set('display_errors', 'On');
+
          $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/../config.ini');
          $rodb=new mysqli("localhost",$config["dbuser"],$config["dbpassword"],$config["database"]);
 
-         $s="SELECT Date(OutTime) as day, COUNT(TripMember.member_id) as rowers, COUNT(DISTINCT(Trip.id)) as trips, GROUP_CONCAT(DISTINCT(Boat.Name)) as boats 
+         if (!$rodb->set_charset("utf8")) {
+             printf("Error loading character set utf8: %s\n", $rodb->error);
+         }
+         $s="SELECT Date(OutTime) as day, COUNT(TripMember.member_id) as rowers, COUNT(DISTINCT(Trip.id)) as trips, GROUP_CONCAT(DISTINCT(Boat.Name) ORDER BY Boat.Name) as boats 
              FROM Trip,TripType,TripMember,Boat,BoatType 
              WHERE Trip.TripTypeID=TripType.id AND TripType.Name='Instruktion' AND TripMember.TripID=Trip.id  AND Boat.id=Trip.BoatID AND Boat.BoatType=BoatType.id AND BoatType.Seatcount>2 AND Category=2 
              GROUP BY day
