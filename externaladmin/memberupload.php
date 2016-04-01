@@ -50,14 +50,13 @@ if ($uploadOk == 02) {
     echo "<br> pakker medlemsdata ud</pre><br>";
     system($extract) && die (" member tbl extract failed");
     echo "<br> Importerer til databasen</pre><br>";   
-    $import="mysql < uploads/tblMembers.sql";
     $pw="";
     if ($config["dbpassword"]) {
         $pw=" -p --passwd=".$config["dbpassword"]." ";
     }
     $sl="mysql -f -u ".$config["dbuser"] ." ".$pw . $config["database"]."  < uploads/tblMembers.sql";
-    error_log("load :".$sl);
-    system($sl);
+    error_log("load members:".$sl);
+    system($sl) && die (" member sql inport");;
 
     echo "<br>Opdaterer roprotokollen</pre><br>";   
 
