@@ -52,9 +52,9 @@ if ($uploadOk == 02) {
     echo "<br> Importerer til databasen</pre><br>";   
     $pw="";
     if ($config["dbpassword"]) {
-        $pw=" -p --passwd=".$config["dbpassword"]." ";
+        $pw=" -p --password=".$config["dbpassword"]." ";
     }
-    $sl="mysql -f -u ".$config["dbuser"] ." ".$pw . $config["database"]."  < uploads/tblMembers.sql";
+    $sl="mysql -f -u ".$config["dbuser"] ." ".$pw . $config["database"]."  < uploads/tblMembers.sql > /tmp/mlog 2>&1";
     error_log("load members:".$sl);
     system($sl) && die (" member sql inport");;
 
