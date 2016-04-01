@@ -178,6 +178,8 @@ CREATE TABLE Member (
   Updated datetime,
   log varchar(2000),
   Initials char(10),
+  JoinDate DateTime,
+  RemoveDate DateTime,
   PRIMARY KEY (id),
   KEY medlemnrix (MemberID)
 );
@@ -303,6 +305,21 @@ CREATE TABLE event_log (
   event varchar(500),
   event_time datetime,
   KEY eventtime (event_time)
+);
+
+
+
+DROP TABLE IF EXISTS tblMembersToRoprotokol;
+CREATE TABLE tblMembersToRoprotokol (
+  MemberID           INT, 
+  LastName           Text (50), 
+  FirstName          Text (50), 
+  E_mail             Text (100), 
+  MemberType         Integer, 
+  JoinDate           DateTime, 
+  RemoveDate         DateTime, 
+  OnAddressList      Boolean NOT NULL, 
+  Danish             Boolean NOT NULL
 );
 
 DROP TABLE IF EXISTS tblMembers;

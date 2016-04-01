@@ -46,3 +46,6 @@ UPDATE TripType SET tripstat_name="Udst/8GP" WHERE id=6;
 UPDATE TripType SET tripstat_name="Udst/8GP" WHERE id=12;
 
 ALTER TABLE Trip ADD COLUMN info VARCHAR(20);
+
+ALTER TABLE Member ADD COLUMN   JoinDate DateTime;
+ALTER TABLE Member ADD COLUMN   RemoveDate DateTime;
