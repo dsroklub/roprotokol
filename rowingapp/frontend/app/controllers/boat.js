@@ -85,6 +85,8 @@ app.controller(
          'client_name':DatabaseService.client_name(),
          'distance':0
        };
+       $scope.checkouttime_clean=$scope.checkout.starttime;
+
         if ($scope.cico==2) {
           $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
         }
@@ -214,11 +216,6 @@ app.controller(
        // Calculate expected time based on triptype and destination
        $scope.checkout.destination=item;
        $scope.checkout.distance=$scope.checkout.destination.distance;
-       if (!$scope.checkout.starttime) {
-         var now = new Date();        
-         $scope.checkout.starttime=now;
-       }
-       $scope.updateExpectedTime();
        $scope.boatSync();
      };
   
@@ -388,9 +385,10 @@ app.controller(
      };
      
      $scope.boatSync = function (data) {
-       if (!$scope.checkout.starttime) {
+       if (!$scope.checkout.starttime || $scope.checkouttime_clean==$scope.checkout.starttime) {
          var now = new Date();        
          $scope.checkout.starttime=now;
+         $scope.checkouttime_clean=$scope.checkout.starttime;
          $scope.updateExpectedTime();
        }
        var ds=DatabaseService.sync(['boat'])
