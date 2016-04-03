@@ -769,3 +769,15 @@ tr.tripcomment td {
 input.tripcomment {
 	width: 12em;
 }
+
+
+.widget-clock .time {
+  font-size: 2.0em;
+  margin: 0;
+}
+
+.hours {
+    margin-left: 4em;
+    font-size: 1.0em;
+    color:yellow
+}

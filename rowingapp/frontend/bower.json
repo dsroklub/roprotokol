@@ -24,7 +24,8 @@
     "angular-bootstrap-datetimepicker": "~0.4.0",
     "angular-ui-bootstrap-datetimepicker": "~0.14.4",
     "angular-confirm-modal": "~1.2.2",
-    "angular-chart.js": "~0.8.8"
+    "angular-chart.js": "~0.8.8",
+    "angular-ui-clock": "~0.5.1"
   },
   "resolutions": {
     "angular": ">=1.4.x"
