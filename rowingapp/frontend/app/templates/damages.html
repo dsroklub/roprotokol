@@ -48,7 +48,7 @@
     <td>{{bd.created| txttotime | date:"d. MMM yyyy"}}</td>
     <td class="degree">{{bd.degree|damagedegreedk}}</td>
     <td>{{bd.description}}</td>
-    <td class="ok" ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)"><button ng-disabled="!(newdamage.reporter)" class="klar"><i class="fa fa-thumbs-up"></i></button></td>
+    <td class="ok" ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)"><button ng-disabled="!(newdamage.reporter && newdamage.reporter.id)" class="klar"><i class="fa fa-thumbs-up"></i></button></td>
   </tr>
 </table>
 <!--pre>newdamage= {{newdamage | json}}</pre-->
