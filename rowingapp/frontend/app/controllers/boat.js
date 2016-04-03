@@ -244,12 +244,10 @@ app.controller(
            "reporter":reporter
 	 }
 	 if (DatabaseService.fixDamage(data)) {
-           bd.boat_id=null;
-           bd.id=null;
-           //damagelist.splice(ix,1);
+           damagelist.splice(damagelist.indexOf(bd),1);
            $scope.newdamage.reporter=null;
            $scope.allboatdamages = DatabaseService.getDamages();
-           $scope.damagesnewstatus="klarmelde";
+           $scope.damagesnewstatus="klarmeldt";
 	 } else {
            $scope.damagesnewstatus="Database fejl under klarmelding";
 	 }
