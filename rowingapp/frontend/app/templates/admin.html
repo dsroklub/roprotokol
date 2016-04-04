@@ -219,7 +219,7 @@
         <tr ng-repeat="tt in DB('triptypes')" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	  <td >{{tt.name}}</td>
 	  <td >{{tt.description}}</td>
-	  <td><button class="action" ng-click'="dotriprights(tt.rights,tt)">{{tt.rights|rightreqs}}</button></td>
+	  <td><button class="action" ng-click="dotriprights(tt.rights,tt)">{{tt.rights|rightreqs}}</button></td>
         </tr>
         <tr>
         </tr>
