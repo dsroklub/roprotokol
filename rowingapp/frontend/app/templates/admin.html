@@ -220,8 +220,7 @@
 	  <td >{{tt.name}}</td>
 	  <td >{{tt.description}}</td>
           <td><input type="checkbox" ng-model="tt.active" ng-true-value="1" ng-false-value="0" ng-change="dotripactive(tt)"></td>
-
-	  <td><button class="action" ng-click'="dotriprights(tt.rights,tt)">{{tt.rights|rightreqs}}</button></td>
+	  <td><button class="action" ng-click="dotriprights(tt.rights,tt)">{{tt.rights|rightreqs}}</button></td>
         </tr>
         <tr>
         </tr>
