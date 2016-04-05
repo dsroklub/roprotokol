@@ -146,7 +146,7 @@
               </td>
               <td>
                 <select ng-selected="localtrip" id="checkout_triptype" type="text" ng-model="checkout.triptype"
-                        ng-options="item as item.name for item in triptypes" ng-change="updateExpectedTime(checkout.destination)" required>
+                        ng-options="item as item.name for item in triptypes|filter: {active:1} : true" ng-change="updateExpectedTime(checkout.destination)" required>
                 </select>
               </td>    
 	    </tr>	

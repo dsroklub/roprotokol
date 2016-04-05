@@ -11,9 +11,9 @@ $location = $data->location;
 $rodb->begin_transaction();
 error_log("new bt ".json_encode($data));
 
-if ($stmt = $rodb->prepare("INSERT INTO TripType (Name,Description,Created,Active) ".
-" VALUES (?,?,NOW(),1)")) { 
-    $stmt->bind_param('ss', $data->name,$data->description);
+if ($stmt = $rodb->prepare("INSERT INTO TripType (Name,Description,Created,Active,tripstat_name)".
+" VALUES (?,?,NOW(),1,?)")) { 
+    $stmt->bind_param('sss', $data->name,$data->description,$data->name);
     $stmt->execute();
 } 
 $rodb->commit();

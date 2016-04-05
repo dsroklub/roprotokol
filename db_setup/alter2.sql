@@ -56,3 +56,6 @@ UPDATE Error_Trip SET Fixed=0 WHERE Fixed IS NULL;
 
 UPDATE Member LEFT JOIN tblMembersToRoprotokol on Member.MemberID=tblMembersToRoprotokol.MemberID AND Member.FirstName=tblMembersToRoprotokol.FirstName AND Member.LastName=tblMembersToRoprotokol.LastName
 SET Member.JoinDate=tblMembersToRoprotokol.JoinDate,Member.RemoveDate=tblMembersToRoprotokol.RemoveDate;
+
+UPDATE TripType SET id=17 WHERE id=0;
+ALTER TABLE TripType MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT;
