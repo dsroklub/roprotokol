@@ -81,8 +81,9 @@
         </thead>
         <tr ng-repeat="trip in rowertrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
           <td class="selected">{{trip.id}}</td>
-          <td>{{trip.boat}}</td><td>{{trip.triptype}}</td>
-          <td>{{trip.boat}}</td><td>{{trip.destination}}</td>
+          <td>{{trip.boat}}</td>
+          <td>{{trip.triptype}}</td>
+          <td>{{trip.destination}}</td>
           <td>{{trip.created}}</td>
           <td class="rnum" >{{trip.distance|mtokm}}</td>
         </tr>
