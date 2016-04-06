@@ -411,6 +411,15 @@ app.controller(
 	 });
     }
      }
+
+     // Hack to handle when user clicks outside field
+     // This really should be handled by better autocomplete.
+     $scope.co_rower_leave = function(ix) {
+       var rw=$scope.checkout.rowers[ix];
+       if (typeof(rw)==="string" && rw.length<6 && rw.length>1 && rw.substring(2,6).toUpperCase()==rw.substring(2,6).toLocaleLowerCase()) {
+         $scope.checkout.rowers[ix]=DatabaseService.getRower(rw.toUpperCase());
+       }
+     }
      
      $scope.date_diff = function (od) {
  //      return 1000;

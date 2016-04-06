@@ -76,12 +76,13 @@
 		          type="text"
 		          ng-model="checkout.rowers[$index]"
 		          typeahead-min-length="3"
+                          ng-blur="co_rower_leave($index)"
 		          uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)"
 		          typeahead-template-url="rowersTemplate.html"
 		          required ></input>
 		  <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
                   <br>
-		  <div class="guestpenguin" ng-show=" (checkout.rowers[$index].length > 3) && norower[$index]">
+		  <div class="guestpenguin" ng-show=" (checkout.rowers[$index].length > 4) && norower[$index]">
 		    <button ng-click="createRower(checkout.rowers, $index,'rabbit')" tabindex="-1">Opret kaninroer</button>
 		    <button ng-click="createRower(checkout.rowers, $index,'guest')" tabindex="-1">Gæst</button>
 		  </div>
