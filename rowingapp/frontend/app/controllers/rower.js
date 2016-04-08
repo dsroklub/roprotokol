@@ -82,6 +82,11 @@ app.controller(
        $scope.currentrower=item;
        $scope.tripdate=null;
        $scope.currentboat=null;
+
+       $scope.mates=DatabaseService.getDataNow('stats/rower','rower='+$scope.currentrower.id+"&q=mates", function (res) {
+         $scope.mates=res.data;         
+       }
+                                              );
        
        DatabaseService.getRowerTrips($scope.currentrower,function (res) {
          if (res.data.length>0) {

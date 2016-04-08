@@ -268,7 +268,7 @@ button.statcat, button.adminbut {
     margin-top: 0.5em;
     bottom:0px;
     top:0px;
-    width: 29%;
+    max-width: 29%;
     position :fixed;
 }
 
@@ -780,4 +780,12 @@ input.tripcomment {
     margin-left: 4em;
     font-size: 1.0em;
     color:yellow
+}
+
+.tbody {
+    background : #FFD;
+}
+
+.chart-bar {
+    background : #DFD;
 }

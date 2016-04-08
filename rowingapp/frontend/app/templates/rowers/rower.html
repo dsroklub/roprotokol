@@ -79,6 +79,7 @@
         <thead>
           <tr><th>TurID</th><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
+        <tbody class="tbody">
         <tr ng-repeat="trip in rowertrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
           <td class="selected">{{trip.id}}</td>
           <td>{{trip.boat}}</td>
@@ -87,6 +88,7 @@
           <td>{{trip.created}}</td>
           <td class="rnum" >{{trip.distance|mtokm}}</td>
         </tr>
+        </tbody>
       </table>
     </div>
 
@@ -127,9 +129,11 @@
         <thead>
           <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
         </thead>
+        <tbody class="tbody">
         <tr ng-repeat="ta in rowertripsaggregated">
           <td>{{ta.triptype}}</td><td class="rnum">{{ta.trip_count}}</td><td class="rnum">{{ta.distance|mtokm}}</td><td class="rnum">{{ta.average |mtokm}}</td>
         </tr>
+        </tbody>
       </table>
     </div>    
   </div>
@@ -268,10 +272,27 @@
     </div>    
    </div>
     
+    <div ng-if="currentrower">
+      <table class="genericlist">
+        <caption>{{currentrower.name}}'s Rokammerater</caption>
+        <thead>
+           <tr><th>rokammerater</th><th>km roet</th></tr>
+        </thead>
+        <tbody class="tbody">
+          <tr ng-if="currentrower" ng-repeat="mate in mates">
+             <td>{{mate.mate}}</td>
+             <td class="rnum">{{mate.dist|mtokm}}</td>
+          </tr>      
+        </tbody> 
+      </table>
+    </div>
+    
     <div class="seasonschart" ng-if="currentrower">
       <h2>Sæsonoversigt for {{currentrower.name}}</h2>
       <canvas id="roweractivity" class="chart chart-bar"
               chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
       </canvas>
+
+      
     </div>
 
