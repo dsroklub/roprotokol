@@ -188,6 +188,7 @@ button.statcat, button.adminbut {
 
 .boatlist {
     float:left;
+    min-width:9em;
 }
 
 .adminrower,.adminconvertrower {

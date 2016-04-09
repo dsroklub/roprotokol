@@ -104,7 +104,7 @@
 		    <small ng-bind-html="destination.duration | totime"></small>t)
 		  </ui-select-choices>
                 </ui-select>
-                <input  autocomplete="off" min="0" maxlength="4" size="3" class="ui-select-bootstrap" type="number" name="input" transformkm ng-model="checkout.distance" required ></input>km
+                <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="number" name="input" transformkm ng-model="checkout.distance" required ></input>km
               </td>
             </tr>
             <tr>
