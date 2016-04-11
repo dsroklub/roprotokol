@@ -790,3 +790,22 @@ input.tripcomment {
 .chart-bar {
     background : #DFD;
 }
+
+
+.ng-invalid {
+    background: #F88;
+}
+
+    background: #F88;
+}
+
+.ng-pristine {
+    background: white;
+}
+.ng-pristine {
+    background: white;
+}
+.error {
+    color: red;
+    background:white;
+}

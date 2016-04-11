@@ -178,8 +178,6 @@ angular.module('myApp.utilities.rowtodk', []).filter('rowtodk', function () {
 });
 
 
-
-
 angular.module('myApp.utilities.totime', []).filter('totime', function () {
   return function(hours) {
     var hrs = Math.floor(hours);
@@ -198,6 +196,36 @@ angular.module('myApp.utilities.txttotime', []).filter('txttotime', function () 
     return dd;
   };
 });
+
+angular.module('myApp.utilities.onlynumber', []).directive('onlynumber', function () {
+  return {
+    restrict: 'EA',
+    require: 'ngModel',
+    link: function (scope, elem, attrs, ngModel) {
+
+      function checknumber() {
+        var et=elem.val();
+        if (et==null) return;
+        if (et.length === 0) return;
+        if (isNaN(et)) {
+          et=et.replace(",",".").replace(/[^0-9\.]/g,"").replace(".","D").replace("."," ").replace("D",".");
+          if (et===".") {
+            et="0.";
+          }
+          elem.val(et);
+          ngModel.$setViewValue(et);
+        }
+      }
+      
+      scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+        checknumber();
+
+                              
+      });
+    }
+  };
+}
+                                                          )
 
 angular.module('myApp.utilities.transformkm', []).directive('transformkm', function () {
   return { 
@@ -230,6 +258,7 @@ angular.module('myApp.utilities.transformkm', []).directive('transformkm', funct
 
 
 angular.module('myApp.utilities', [
+  'myApp.utilities.onlynumber',
   'myApp.utilities.urldecode',
   'myApp.utilities.urlencode',
   'myApp.utilities.nodsr',
