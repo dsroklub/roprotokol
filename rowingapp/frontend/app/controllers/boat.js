@@ -365,7 +365,20 @@ app.controller(
 	 data.boat.trip=-1;
 	 DatabaseService.reload(['trip']);
 	 if (status.status =='ok') {
-           $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud";
+           $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+":";
+           if ($scope.checkout.boat.placement_aisle) {
+             $scope.checkoutmessage+=("Dør "+$scope.checkout.boat.placement_aisle);
+           }
+           if ($scope.checkout.boat.placement_level && $scope.checkout.boat.placement_level>0) {
+             $scope.checkoutmessage+=(" hylde "+$scope.checkout.boat.placement_level);
+           }
+           if ($scope.checkout.boat.placement_row==0) {
+             $scope.checkoutmessage+=(" mod porten");
+           }
+           if ($scope.checkout.boat.placement_side) {
+             $scope.checkoutmessage+= (" "+$filter('sidetodk')($scope.checkout.boat.placement_side));
+           }
+           
            $scope.usersettime=false;
            $scope.checkout.starttime=null;
            $scope.checkout.expectedtime=null;
