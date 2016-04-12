@@ -213,7 +213,7 @@ angular.module('myApp.utilities.onlynumber', []).directive('onlynumber', functio
             et="0.";
           }
           elem.val(et);
-          ngModel.$setViewValue(et);
+          ngModel.$setViewValue(et.trim());
         }
       }
       
