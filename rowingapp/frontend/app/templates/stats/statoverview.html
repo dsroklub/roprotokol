@@ -28,8 +28,8 @@
 	  <tbody>
 	    <tr ng-repeat="stat in $data track by $index" ng-class-odd="'oddstat'" > 
 	      <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
-	      <td class="rnum" data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}"><a href="#/rower/{{stat.id}}">{{stat.id}}</a> </td>
-	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}"><i ng-show="stat.wrench" class="fa fa-wrench"></i> {{stat.firstname}} {{stat.lastname}}</td>
+	      <td class="rnum" data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}">{{stat.id}}</td>
+	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}"><i ng-show="stat.wrench" class="fa fa-wrench"></i><a href="#/rowers?rower={{stat.id}}"> {{stat.firstname}} {{stat.lastname}}</a></td>
 	      <td data-title="'Distance'" sortable="'distance'" class="rnum">{{stat.distance|mtokm}}</td>
 	    </tr>
 	  </tbody>
@@ -57,7 +57,7 @@
 	  <tbody>
 	    <tr ng-repeat="boatstat in $data" ng-class-odd="'oddstat'"> 
 	      <td sortable="'rank'" data-title="'Nr'">{{boatstat.rank}} </td>
-	      <td data-title="'boatname'" sortable="'boatname'"> {{boatstat.boatname}}</td>
+	      <td data-title="'boatname'" sortable="'boatname'"><a href="#/rowers?boat={{boatstat.id}}"> {{boatstat.boatname}}</a></td>
 	      <td data-title="'boat_type'" sortable="'boat_type'"> {{boatstat.boat_type}}</td>
 	      <td class="rnum" data-title="'num_trips'" sortable="'num_trips'"> {{boatstat.num_trips}}</td>
 	      <td data-title="'Distance'" sortable="'distance'" class="rnum">{{boatstat.distance|mtokm}}</td>
