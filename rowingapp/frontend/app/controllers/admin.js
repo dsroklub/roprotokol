@@ -55,7 +55,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
           ];
 
           $scope.reservations=[];
-                               $scope.reservation={"start_time":new Date()};
+          $scope.reservation={};
           DatabaseService.init().then(function () {
             $scope.currentrower=null;
             $scope.do="events";
@@ -300,10 +300,16 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             
             $scope.make_reservation = function (reservation){
               var r=angular.copy(reservation);
-              r.end_time=reservation.end_time.toISOString().split('T')[1];
-              r.start_time=reservation.start_time.toISOString().split('T')[1];
-              r.end_date=reservation.end_date.toISOString().split('T')[0];
-              r.start_date=reservation.start_date.toISOString().split('T')[0];
+              r.start_time=$filter('date')(reservation.start_time,"HH:mm");
+              
+              //r.start_time=reservation.start_time.getHours()+":"+reservation.start_time.getMinutes();
+              r.end_time=reservation.end_time.getHours()+":"+reservation.end_time.getMinutes();
+              if (r.end_date) {
+                r.end_date=reservation.end_date.toISOString().split('T')[0];
+              }
+              if (r.start_date) {
+                r.start_date=reservation.start_date.toISOString().split('T')[0];
+              }
               $scope.reservations.push(r);
               
               var exeres=DatabaseService.updateDB_async('make_reservation',r,$scope.config).then(

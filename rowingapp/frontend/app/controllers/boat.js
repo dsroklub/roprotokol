@@ -152,12 +152,20 @@ app.controller(
        angular.forEach($scope.reservations, function(rv) {
          var otime=$scope.checkout.outtime;
          var etime=$scope.checkout.expectedtime;
-         if ($scope.checkout.boat && $scope.checkout.boat.id==rv.boat_id && etime) {
+         if ($scope.checkout.triptype && $scope.checkout.boat && $scope.checkout.boat.id==rv.boat_id && etime) {
            if (rv.dayofweek>0) {
              if (etime.getDay()==(rv.dayofweek)) {
                // var etime="18:13:12.241Z"
-               var st=etime.toISOString().split('T')[0] + "T"+ rv.start_time;
-               var et=etime.toISOString().split('T')[0] + "T"+ rv.end_time;
+               var st=angular.copy(etime);
+               var et=angular.copy(etime);
+               st.setHours(rv.start_time.split(":")[0]);
+               st.setMinutes(rv.start_time.split(":")[1]);
+               st.setSeconds(0);
+               
+               et.setHours(rv.end_time.split(":")[0]);
+               et.setMinutes(rv.end_time.split(":")[1]);
+               et.setSeconds(0);
+               
                if (!
                    (etime < st && otime < st)||
                    (etime > et && otime > et)
@@ -205,7 +213,7 @@ app.controller(
        $scope.destinations = DatabaseService.getDestinations(boat.location);
        $scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat.id);
        if ( (!oldboat && boat.location!=DatabaseService.defaultLocation)  || (oldboat &&  oldboat.location!=boat.location)) {
-	 // Distance have changed, and we do not know if user overrode and accouted for location
+	 // Distance have changed, and we do not know if user overrode and accounted for location
 	 if ($scope.checkout.destination && $scope.checkout.destination.name)
            $scope.checkout.destination=DatabaseService.nameSearch($scope.destinations,$scope.checkout.destination.name);
        }

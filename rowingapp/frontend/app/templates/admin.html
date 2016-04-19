@@ -421,9 +421,13 @@
         <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations">
 	  <td>{{iboats[rv.boat_id].name}}</td>
           <td>{{rv.start_time}}</td>
-          <td>{{rv.start_date}}</td>
-          <td>{{rv.end_time}}</td>
-          <td>{{rv.end_date}}</td>
+          <td>
+            <div ng-show="rv.start_date!='0000-00-00'">{{rv.start_date}}
+            </div>
+          </td>
+          <td>{{rv.end_time}}</td>          
+          <td>
+            <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div></td>
           <td>{{weekdays[rv.dayofweek].day}}</td>
           <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>        
           <td>{{rv.purpose}}</td>
@@ -532,7 +536,7 @@ Denne terminal hedder  <input ng-model-options="{updateOn:'blur'}"
 
 
 <br clear="all">
-<pre>res {{reservation}}</pre>
+<pre>res {{reservations}}</pre>
 <pre>xxx {{xxx}}</pre>
 
 <!--pre>currentrower {{currentrower|json}}</pre>
