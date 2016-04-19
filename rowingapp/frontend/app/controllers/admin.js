@@ -3,8 +3,6 @@
 app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
                              function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
 
-
-
           var rower_diff = function(current,correction) {
             var diffs={'from':{},'to':{}};
             angular.forEach(current, function(rid,rower,kv) {
@@ -36,13 +34,37 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             }
             return res;
           }
-                               
+
+     $scope.dateOptions = {
+       showWeeks: false,
+       formatDay:"d",
+       formatYear: 'yyyy',
+       formatMonth: 'MMM',
+       title:"foo"
+     };
+
+           $scope.weekdays=[
+            {id:0,day:"-"},
+            {id:1,day:"mandag"},
+            {id:2,day:"tirsdag"},
+            {id:3,day:"onsdag"},
+            {id:4,day:"torsdag"},
+            {id:5,day:"fredag"},
+            {id:6,day:"lørdag"},
+            {id:7,day:"søndag"}
+          ];
+
+          $scope.reservations=[];
+                               $scope.reservation={"start_time":new Date()};
           DatabaseService.init().then(function () {
             $scope.currentrower=null;
             $scope.do="events";
             $scope.DB=DatabaseService.getDB;
-            $scope.clientname=DatabaseService.client_name();
+            $scope.triptypes=DatabaseService.getDB('triptypes');
+            $scope.reservations = DatabaseService.getDB('get_reservations');
+            $scope.clientname = DatabaseService.client_name();
             $scope.allboats = DatabaseService.getBoats();
+            $scope.iboats=DatabaseService.getDB('boats');
             $scope.locations = DatabaseService.getDB('locations');
             $scope.events = DatabaseService.getDB('get_events');
             $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
@@ -54,6 +76,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.placementlevels=[0,1,2];
             $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
             $scope.ziperrors=[];
+            $scope.getTriptypeWithID=DatabaseService.getTriptypeWithID;
             // var mainplan=[[],[],[],[],[]];
             // var num_aisles=5;
             // var num_rows=3;
@@ -115,7 +138,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.create_triptype = function(tt) {
               console.log("net triptype");
               var exeres=DatabaseService.updateDB('create_triptype',tt,$scope.config,$scope.errorhandler);
-              $scope.DB('triptypes').push(tt);
+              $scope.triptypes.push(tt);
             }
 
             $scope.update_level = function(boat) {
@@ -274,6 +297,34 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                     return (allreqs && !allreqs[rtt.member_right]);
                   }
             }
+            
+            $scope.make_reservation = function (reservation){
+              var r=angular.copy(reservation);
+              r.end_time=reservation.end_time.toISOString().split('T')[1];
+              r.start_time=reservation.start_time.toISOString().split('T')[1];
+              r.end_date=reservation.end_date.toISOString().split('T')[0];
+              r.start_date=reservation.start_date.toISOString().split('T')[0];
+              $scope.reservations.push(r);
+              
+              var exeres=DatabaseService.updateDB_async('make_reservation',r,$scope.config).then(
+                function(newreservation) {
+                  if (newreservation.status=="ok") {
+                    console.log("reservation made");
+                  }                  
+                }
+              )            }
+
+
+            $scope.cancel_reservation = function (ix){
+              var r=angular.copy($scope.reservations[ix]);
+              $scope.reservations.splice(ix,1);              
+              var exeres=DatabaseService.updateDB_async('cancel_reservation',r,$scope.config).then(
+                function(res) {
+                  if (res.status=="ok") {
+                    console.log("reservation canceled");
+                  }                  
+                }
+              )            }
             
             $scope.dotriprights = function (rr,tt){
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling

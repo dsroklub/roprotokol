@@ -52,3 +52,5 @@ ALTER TABLE Member ADD COLUMN   RemoveDate DateTime;
 
 UPDATE Member LEFT JOIN tblMembersToRoprotokol on Member.MemberID=tblMembersToRoprotokol.MemberID AND Member.FirstName=tblMembersToRoprotokol.FirstName AND Member.LastName=tblMembersToRoprotokol.LastName
 SET Member.JoinDate=tblMembersToRoprotokol.JoinDate,Member.RemoveDate=tblMembersToRoprotokol.RemoveDate;
+
+drop table Reservation;

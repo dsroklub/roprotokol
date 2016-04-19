@@ -200,20 +200,23 @@ CREATE TABLE MemberRights (
   PRIMARY KEY (member_id,MemberRight,Acquired,argument)
 );
 
-DROP TABLE IF EXISTS Reservation;
-CREATE TABLE Reservation (
-  id int(11) NOT NULL,
-  Boat int(11),
-  start_time datetime,
-  end_time datetime,
-  Member int(11),
-  Description varchar(1000),
-  CancelledBy int(11),
+DROP TABLE IF EXISTS reservation;
+CREATE TABLE reservation (
+  boat INT,
+  start_time time,
+  end_time time,
+  start_date date,
+  end_date date,
+  member INT,
+  dayofweek INT,
+  description varchar(1000),
+  triptype INT,
+  CancelledBy INT,
   Purpose varchar(100),
   Created datetime,
   Updated datetime,
   Initials varchar(10),
-  PRIMARY KEY (id)
+  PRIMARY KEY (boat,start_time,start_date,dayofweek)
 );
 
 DROP TABLE IF EXISTS Trip;
