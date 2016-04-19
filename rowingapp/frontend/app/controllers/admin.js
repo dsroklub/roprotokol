@@ -326,14 +326,19 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                 }
               )            }
             
-            $scope.dotriprights = function (rr,tt){
+            $scope.dotriprights = function (rr,tt) {
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
                 $scope.requiredtriprights={};
               } else {
                $scope.requiredtriprights=rr;
               }
               $scope.currenttriptype=tt;
-            }            
+            }
+
+            $scope.dotripactive = function (tt) {
+              var exeres=DatabaseService.updateDB('activate_triptype',tt,$scope.config,$scope.errorhandler);
+            }
+            
           }
                                      )
         }

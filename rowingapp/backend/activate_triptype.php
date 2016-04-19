@@ -7,13 +7,11 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
 
-$location = $data->location;
 $rodb->begin_transaction();
-error_log("new bt ".json_encode($data));
+error_log("activate TT ".json_encode($data));
 
-if ($stmt = $rodb->prepare("INSERT INTO TripType (Name,Description,Created,Active,tripstat_name)".
-" VALUES (?,?,NOW(),1,?)")) { 
-    $stmt->bind_param('sss', $data->name,$data->description,$data->name);
+if ($stmt = $rodb->prepare("UPDATE TripType SET Active=? WHERE id=?")) {
+    $stmt->bind_param('ii', $data->active,$data->id);
     $stmt->execute();
 } 
 $rodb->commit();

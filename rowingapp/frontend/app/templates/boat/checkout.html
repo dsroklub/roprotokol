@@ -76,12 +76,13 @@
 		          type="text"
 		          ng-model="checkout.rowers[$index]"
 		          typeahead-min-length="3"
+                          ng-blur="co_rower_leave($index)"
 		          uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)"
 		          typeahead-template-url="rowersTemplate.html"
 		          required ></input>
 		  <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
                   <br>
-		  <div class="guestpenguin" ng-show=" (checkout.rowers[$index].length > 3) && norower[$index]">
+		  <div class="guestpenguin" ng-show=" (checkout.rowers[$index].length > 4) && norower[$index]">
 		    <button ng-click="createRower(checkout.rowers, $index,'rabbit')" tabindex="-1">Opret kaninroer</button>
 		    <button ng-click="createRower(checkout.rowers, $index,'guest')" tabindex="-1">Gæst</button>
 		  </div>
@@ -93,17 +94,20 @@
                 <label for="checkout_destination">Destination</label>
               </td>
               <td>
-                <ui-select class="checkout_destination"
-			   ng-model="checkout.destination"
-			   on-select="updateCheckout($item)">
-		  <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
-		  <ui-select-choices repeat="destination in destinations | filter: $select.search">
-                    <span ng-bind-html="destination.name | highlight: $select.search"></span>
-                    (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km,
-		    <small ng-bind-html="destination.duration | totime"></small>t)
-		  </ui-select-choices>
-                </ui-select>
-                <input  autocomplete="off" min="0" maxlength="4" size="3" class="ui-select-bootstrap" type="number" name="input" transformkm ng-model="checkout.distance" required ></input>km
+                <ng-form name="destinationForm">
+                  <ui-select class="checkout_destination"
+			     ng-model="checkout.destination"
+			     on-select="updateCheckout($item)">
+		    <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
+		    <ui-select-choices repeat="destination in destinations | filter: $select.search">
+                      <span ng-bind-html="destination.name | highlight: $select.search"></span>
+                      (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km ,
+		      <small ng-bind-html="destination.duration | totime"></small>t)
+		    </ui-select-choices>
+                  </ui-select>
+                  <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="checkout.distance" required ></input>km
+
+                </ng-form>
               </td>
             </tr>
             <tr>
@@ -146,7 +150,7 @@
               </td>
               <td>
                 <select ng-selected="localtrip" id="checkout_triptype" type="text" ng-model="checkout.triptype"
-                        ng-options="item as item.name for item in triptypes" ng-change="updateExpectedTime(checkout.destination)" required>
+                        ng-options="item as item.name for item in triptypes|filter: {active:1} : true" ng-change="updateExpectedTime(checkout.destination)" required>
                 </select>
               </td>    
 	    </tr>	
@@ -166,7 +170,13 @@
 </td>    
 </tr -->
             <TR><td>
-                    <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?" confirm-ok="Udskriv båd" confirm-cancel="fortryd" id="createtrip_button" class="big" ng-if="checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')" ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
+                <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?"
+                        confirm-ok="Udskriv båd"
+                        confirm-cancel="fortryd"
+                        id="createtrip_button"
+                        class="big"
+                        ng-if="checkout.distance >0 && checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')"
+                        ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
 </td></tr>
 	  </tbody>
           
@@ -196,15 +206,3 @@
 
   <!--img class="farvand" ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" -->
 </div>
-
-
-<!-- br clear="all">
-<br clear="all">
-<pre>checkout= {{checkout | json}}</pre>
-
-<h1 class="debug"ap>debug info</h1>
-<pre>selectedcat = {{$scope.selectedBoatCategory | json}}</pre>
-<pre>Destinations = {{destinations | json}}</pre>
-
-
-<pre>checkout= {{checkout | json}}</pre-->

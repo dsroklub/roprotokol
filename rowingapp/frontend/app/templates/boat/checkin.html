@@ -50,7 +50,7 @@
         
 	<td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
 	<td class="colinput">
-	  <input  autocomplete="off" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" type="text" transformkm name="kminput"></input>
+	  <input  autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm name="kminput"></input>
 	</td>
 
 	<td class="colinput">

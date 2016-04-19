@@ -263,7 +263,7 @@ CREATE TABLE TripRights (
 
 DROP TABLE IF EXISTS TripType;
 CREATE TABLE TripType (
-  id int(11) NOT NULL,
+  id int(11) NOT NULL AUTO_INCREMENT,,
   Name varchar(100),
   Description varchar(1000),
   Created datetime,

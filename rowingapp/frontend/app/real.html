@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>DSR Roprotokol 2016</title>
+  <title>DSR Roprotokol</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -17,7 +17,7 @@
   <!--link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"-->
   <link rel="stylesheet" href="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
   <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
-
+  <link rel="stylesheet" href="bower_components/angular-ui-clock/dist/angular-clock.css">
   <link rel="stylesheet" href="app.css"/>
 </head>
 <body>
@@ -41,6 +41,8 @@
             <li><a href="#/damages"><i class="fa fa-exclamation-triangle"></i> Skader</a></li>
             <!--li><a href="#/corrections"><i class="fa fa-pencil-square-o"></i> Rettelser</a></li-->
             <li><a href="#/admin"><i class="fa fa-wrench"></i> Admin</a></li>
+            <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
+</li>
        </ul>
    </div>
 
@@ -89,5 +91,6 @@
   <script src="components/database/database-directives.js"></script>
   <script src="bower_components/Chart.js/Chart.js"></script>
   <script type='text/javascript' src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+  <script src="bower_components/angular-ui-clock/dist/angular-clock.js"></script>
 </body>
 </html>

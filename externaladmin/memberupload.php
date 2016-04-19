@@ -75,6 +75,12 @@ ORDER BY tMem.MemberID;
         echo " FEJL i upload ".$rodb->error;
 
     }
+    if ($stmt = $rodb->prepare("DELETE FROM tblMembersToRoprotokol")) { 
+        $stmt->execute() || die($rodb->error);
+    }  else {
+        error_log("SQL stmt error: ".$rodb->error);
+        echo " FEJL i tbl upload ".$rodb->error;
+    }
     invalidate('member');
     echo "\n<h2>Medlemmer blev importeret</h2>\n";
 }

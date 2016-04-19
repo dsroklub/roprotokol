@@ -9,13 +9,18 @@ if (isset($_GET["boat"])) {
     exit(1);
 }
   
-$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, " 
-    ."Trip.Destination as destination, DATE_FORMAT(Trip.CreatedDate,'%Y-%m-%d %T') as created, "
-    ."Meter as distance, DATE_FORMAT(InTime,'%Y-%m-%d %T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%d %T') as outtime, "
-    ."DATE_FORMAT(ExpectedIn,'%Y-%m-%d %T') as expectedin, Comment as comment "
-    ."FROM Boat,Trip WHERE Boat.id=? AND Boat.id = Trip.BoatID AND Trip.OutTime>=? ORDER BY Trip.id DESC";
+$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id,  
+    Trip.Destination as destination, DATE_FORMAT(Trip.CreatedDate,'%Y-%m-%d %T') as created, 
+    Meter as distance, DATE_FORMAT(InTime,'%Y-%m-%d %T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%d %T') as outtime, 
+    DATE_FORMAT(ExpectedIn,'%Y-%m-%d %T') as expectedin, Comment as comment, TripType.name as triptype
+    FROM Boat,Trip,TripType
+    WHERE Boat.id=? AND Boat.id = Trip.BoatID AND Trip.OutTime>=? AND TripType.id=Trip.TripTypeID
+    ORDER BY Trip.id DESC";
 
-# echo $sql;
+if ($sqldebug) {
+ echo $sql;
+ echo "\n";
+}
 if ($stmt = $rodb->prepare($sql)) {
     $stmt->bind_param("is", $boat,$season);
      $stmt->execute();

@@ -26,6 +26,12 @@ app.controller(
        $scope.boatcategories = DatabaseService.getBoatTypes();
        $scope.triptypes = DatabaseService.getTripTypes();
        $scope.destinations = DatabaseService.getDestinations('DSR');                                     
+       if ($routeParams.rower) {
+         $scope.updateRowerTrips(DatabaseService.getRower($routeParams.rower));
+       }
+       if ($routeParams.boat) {
+         $scope.updateBoatTrips(DatabaseService.getBoatWithId($routeParams.boat));
+       }
      }
                                 );
      $scope.DB=DatabaseService.getDB;
@@ -57,7 +63,7 @@ app.controller(
        $scope.currenttrip=null;
        $scope.currentboat=item;
        $scope.rower = '';
-       $scope.currentrower = null;
+       $scope.currentrower = null;       
        $scope.tripdate = null;
        
        DatabaseService.getBoatTrips($scope.currentboat,function (res) {
@@ -82,6 +88,11 @@ app.controller(
        $scope.currentrower=item;
        $scope.tripdate=null;
        $scope.currentboat=null;
+
+       $scope.mates=DatabaseService.getDataNow('stats/rower','rower='+$scope.currentrower.id+"&q=mates", function (res) {
+         $scope.mates=res.data;         
+       }
+                                              );
        
        DatabaseService.getRowerTrips($scope.currentrower,function (res) {
          if (res.data.length>0) {

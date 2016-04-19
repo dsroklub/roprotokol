@@ -15,8 +15,10 @@ var app = angular.module('myApp', [
   'angular-confirm',
   'chart.js',
   'ui.bootstrap',
-  'ui.bootstrap.datetimepicker'
+  'ui.bootstrap.datetimepicker',
+  'ds.clock'
 ])
+
 /*.config(function($locationProvider) { // OAuth html5 mode seems to break our routing
     $locationProvider.html5Mode(true).hashPrefix('!')
 })*/

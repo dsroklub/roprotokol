@@ -87,6 +87,8 @@ app.controller(
          'client_name':DatabaseService.client_name(),
          'distance':0
        };
+       $scope.checkouttime_clean=$scope.checkout.starttime;
+
         if ($scope.cico==2) {
           $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
         }
@@ -251,11 +253,6 @@ app.controller(
        // Calculate expected time based on triptype and destination
        $scope.checkout.destination=item;
        $scope.checkout.distance=$scope.checkout.destination.distance;
-       if (!$scope.checkout.starttime) {
-         var now = new Date();        
-         $scope.checkout.starttime=now;
-       }
-       $scope.updateExpectedTime();
        $scope.boatSync();
      };
   
@@ -281,12 +278,10 @@ app.controller(
            "reporter":reporter
 	 }
 	 if (DatabaseService.fixDamage(data)) {
-           bd.boat_id=null;
-           bd.id=null;
-           //damagelist.splice(ix,1);
+           damagelist.splice(damagelist.indexOf(bd),1);
            $scope.newdamage.reporter=null;
            $scope.allboatdamages = DatabaseService.getDamages();
-           $scope.damagesnewstatus="klarmelde";
+           $scope.damagesnewstatus="klarmeldt";
 	 } else {
            $scope.damagesnewstatus="Database fejl under klarmelding";
 	 }
@@ -407,7 +402,20 @@ app.controller(
 	 data.boat.trip=-1;
 	 DatabaseService.reload(['trip']);
 	 if (status.status =='ok') {
-           $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud";
+           $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+":";
+           if ($scope.checkout.boat.placement_aisle) {
+             $scope.checkoutmessage+=("Dør "+$scope.checkout.boat.placement_aisle);
+           }
+           if ($scope.checkout.boat.placement_level && $scope.checkout.boat.placement_level>0) {
+             $scope.checkoutmessage+=(" hylde "+$scope.checkout.boat.placement_level);
+           }
+           if ($scope.checkout.boat.placement_row==0) {
+             $scope.checkoutmessage+=(" mod porten");
+           }
+           if ($scope.checkout.boat.placement_side) {
+             $scope.checkoutmessage+= (" "+$filter('sidetodk')($scope.checkout.boat.placement_side));
+           }
+           
            $scope.usersettime=false;
            $scope.checkout.starttime=null;
            $scope.checkout.expectedtime=null;
@@ -427,9 +435,10 @@ app.controller(
      };
      
      $scope.boatSync = function (data) {
-       if (!$scope.checkout.starttime) {
+       if (!$scope.checkout.starttime || $scope.checkouttime_clean==$scope.checkout.starttime) {
          var now = new Date();        
          $scope.checkout.starttime=now;
+         $scope.checkouttime_clean=$scope.checkout.starttime;
          $scope.updateExpectedTime();
        }
        var ds=DatabaseService.sync(['boat'])
@@ -451,6 +460,15 @@ app.controller(
            }
 	 });
     }
+     }
+
+     // Hack to handle when user clicks outside field
+     // This really should be handled by better autocomplete.
+     $scope.co_rower_leave = function(ix) {
+       var rw=$scope.checkout.rowers[ix];
+       if (typeof(rw)==="string" && rw.length<6 && rw.length>1 && rw.substring(2,6).toUpperCase()==rw.substring(2,6).toLocaleLowerCase()) {
+         $scope.checkout.rowers[ix]=DatabaseService.getRower(rw.toUpperCase());
+       }
      }
      
      $scope.date_diff = function (od) {
