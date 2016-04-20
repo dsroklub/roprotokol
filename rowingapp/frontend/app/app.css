@@ -521,6 +521,21 @@ li.selected,button.selected {
     background: white;
     padding: 10pt;
 }
+.reservationlist th {
+    background: #f0ce4e;
+    padding: 10pt;
+}
+
+.reservationlist td {
+    padding: 1em;
+}
+
+.reservationlist caption {
+    background: #961E1E;
+    padding: 10pt;
+    margin-top: 1em;
+}
+
 .damageslist {
     display: inline-block;
     float:left;

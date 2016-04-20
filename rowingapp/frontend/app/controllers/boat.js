@@ -19,6 +19,20 @@ app.controller(
          return(et< new Date);
        };    
 
+       // FIXME also in admin, antiduplicate
+       $scope.getTriptypeWithID=DatabaseService.getTriptypeWithID;
+       $scope.weekdays=[
+         {id:0,day:"-"},
+         {id:1,day:"mandag"},
+         {id:2,day:"tirsdag"},
+         {id:3,day:"onsdag"},
+         {id:4,day:"torsdag"},
+         {id:5,day:"fredag"},
+         {id:6,day:"lørdag"},
+         {id:7,day:"søndag"}
+       ];
+
+
        $scope.allboats = DatabaseService.getBoats();
        $scope.levels =DatabaseService.getDB('boatlevels');
        $scope.brands =DatabaseService.getDB('boat_brand');      // Checkout code
@@ -166,9 +180,11 @@ app.controller(
                et.setMinutes(rv.end_time.split(":")[1]);
                et.setSeconds(0);
                
-               if (!
-                   (etime < st && otime < st)||
+               if (!(
+                 rv.triptype_id==$scope.checkout.triptype.id ||
+                   (etime < st && otime < st) ||
                    (etime > et && otime > et)
+               )
                   ) {
                  norights.push(" Båden er reserveret til "+ rv.triptype + " :"+rv.purpose+
                                " fra "+rv.start_time+" til "+rv.end_time);
@@ -177,9 +193,11 @@ app.controller(
            } else {
              var st=rv.start_date + "T"+ rv.start_time;
              var et=rv.end_date + "T"+ rv.end_time;
-             if (!
+             if (!(
+               rv.triptype_id==$scope.checkout.triptype.id ||
                  (etime < st && otime < st)||
                  (etime > et && otime > et)
+             )
                 )
              {
                norights.push(" Båden er reserveret til "+ rv.triptype + " :"+rv.purpose+

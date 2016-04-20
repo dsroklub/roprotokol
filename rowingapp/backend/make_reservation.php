@@ -8,11 +8,12 @@ $data = file_get_contents("php://input");
 $data=json_decode($data);
 
 
-$start_date=($data->start_date)?$data->start_date:"";
-$end_date=($data->end_date)?$data->end_date:"";
+error_log("new reservation ".json_encode($data));
+
+$start_date=isset($data->start_date)?$data->start_date:"1917-03-28";
+$end_date=isset($data->end_date)?$data->end_date:null;
 
 $rodb->begin_transaction();
-error_log("new reservation ".json_encode($data));
 
 if ($stmt = $rodb->prepare("INSERT INTO reservation (boat,start_time,start_date,end_time,end_date,dayofweek,description,triptype,purpose)
    VALUES (?,?,?,?,?,?,?,?,?)")) { 

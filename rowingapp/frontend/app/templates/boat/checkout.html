@@ -192,6 +192,40 @@
       {{checkout.boat.location}}, port {{checkout.boat.placement_aisle}}, {{checkout.boat.placement_row|rowtodk}},  {{checkout.boat.placement_side|sidetodk}}, {{checkout.boat.placement_level|leveltodk}}
     </div>
 
+    <div ng-if="checkout.boat">
+      <table class="reservationlist" >
+        <caption>Resevationer af {{checkout.boat.name}}</caption>
+        <thead>
+          <tr>
+            <th>ugedag</th>
+            <th>start</th>
+            <th>(dato)</th>
+            <th>slut</th>
+            <th>(dato)</th>
+            <th>turtype</th>
+            <th>formål</th>
+            <!--th>bemærkninger</th-->
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations | filter : {boat_id : checkout.boat.id}:true">
+            <td>{{weekdays[rv.dayofweek].day}}</td>
+            <td>{{rv.start_time}}</td>
+            <td>
+              <div ng-show="rv.dayofweek==0">{{rv.start_date}}
+              </div>
+            </td>
+            <td>{{rv.end_time}}</td>          
+            <td>
+              <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div></td>
+            <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>        
+            <td>{{rv.purpose}}</td>
+            </td>
+          </tr>
+        </tbody>
+      </table>    
+    </div>
+
 
     <div ng-show="boatdamages" class="damageslist">
       <h2>Skader på {{checkout.boat.name}}</h2>

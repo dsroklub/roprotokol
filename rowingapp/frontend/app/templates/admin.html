@@ -424,7 +424,7 @@
 	  <td>{{iboats[rv.boat_id].name}}</td>
           <td>{{rv.start_time}}</td>
           <td>
-            <div ng-show="rv.start_date!='0000-00-00'">{{rv.start_date}}
+            <div ng-show="rv.dayofweek==0">{{rv.start_date}}
             </div>
           </td>
           <td>{{rv.end_time}}</td>          
@@ -537,12 +537,9 @@ Denne terminal hedder  <input ng-model-options="{updateOn:'blur'}"
 </div>
 
 
-<br clear="all">
-<pre>res {{reservations}}</pre>
-<pre>xxx {{xxx}}</pre>
-
 <!--pre>currentrower {{currentrower|json}}</pre>
 <br clear="all">
+<pre>res {{reservations}}</pre>
 <pre>config {{config|json}}</pre>
 <pre>rightsubjects {{rightsubjects|json}}</pre>
 <pre>newboat {{newboat}}</pre>
