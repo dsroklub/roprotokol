@@ -183,6 +183,9 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.set_cat_for_boat = function(boat) {
               var exeres=DatabaseService.updateDB('set_cat_for_boat',boat,$scope.config,$scope.errorhandler);
             }
+            $scope.set_name_for_boat = function(boat) {
+              var exeres=DatabaseService.updateDB('set_name_for_boat',boat,$scope.config,$scope.errorhandler);
+            }
             $scope.set_loc_for_boat = function(boat) {
               var exeres=DatabaseService.updateDB('set_loc_for_boat',boat,$scope.config,$scope.errorhandler);
             }
