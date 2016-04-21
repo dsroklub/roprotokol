@@ -408,11 +408,11 @@
       <thead>
         <tr>
           <th>Båd</th>
+          <th>ugedag</th>
           <th>start</th>
           <th>(dato)</th>
           <th>slut</th>
           <th>(dato)</th>
-          <th>ugedag</th>
           <th>turtype</th>
           <th>formål</th>
           <!--th>bemærkninger</th-->
@@ -422,6 +422,7 @@
       <tbody>
         <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations">
 	  <td>{{iboats[rv.boat_id].name}}</td>
+          <td>{{weekdays[rv.dayofweek].day}}</td>
           <td>{{rv.start_time}}</td>
           <td>
             <div ng-show="rv.dayofweek==0">{{rv.start_date}}
@@ -430,7 +431,6 @@
           <td>{{rv.end_time}}</td>          
           <td>
             <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div></td>
-          <td>{{weekdays[rv.dayofweek].day}}</td>
           <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>        
           <td>{{rv.purpose}}</td>
           <!--td>{{rv.description}}</td-->

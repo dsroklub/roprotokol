@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
-                             function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
+app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm',
+                             function ($scope, DatabaseService, NgTableParams, $filter,$route,$confirm) {
 
           var rower_diff = function(current,correction) {
             var diffs={'from':{},'to':{}};
@@ -184,7 +184,10 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('set_cat_for_boat',boat,$scope.config,$scope.errorhandler);
             }
             $scope.set_name_for_boat = function(boat) {
-              var exeres=DatabaseService.updateDB('set_name_for_boat',boat,$scope.config,$scope.errorhandler);
+              $confirm({text: 'Vil du omdøbe båden til'+boat.name+'?'})
+                .then(function() {
+                  var exeres=DatabaseService.updateDB('set_name_for_boat',boat,$scope.config,$scope.errorhandler);
+                });
             }
             $scope.set_loc_for_boat = function(boat) {
               var exeres=DatabaseService.updateDB('set_loc_for_boat',boat,$scope.config,$scope.errorhandler);
