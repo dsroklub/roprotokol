@@ -192,7 +192,7 @@
       {{checkout.boat.location}}, port {{checkout.boat.placement_aisle}}, {{checkout.boat.placement_row|rowtodk}},  {{checkout.boat.placement_side|sidetodk}}, {{checkout.boat.placement_level|leveltodk}}
     </div>
 
-    <div ng-if="checkout.boat">
+    <div ng-if="checkout.boat && (reservations | filter : {boat_id : checkout.boat.id}:true).length>0">
       <table class="reservationlist" >
         <caption>Resevationer af {{checkout.boat.name}}</caption>
         <thead>
