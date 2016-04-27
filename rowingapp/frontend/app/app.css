@@ -461,6 +461,7 @@ li.selected,button.selected {
 .boatlist tr:hover {
     background: #6ad7ce;
 }
+
 .boatlist tr td {
     cursor: pointer;
 /*    cursor: url('btc.png'),pointer; */
@@ -746,6 +747,7 @@ select  {
 button[disabled], html input[disabled] {
   cursor: default;
   background: #808080 !important;
+  pointer-events: none;
 }
 
 .rowerdiff {

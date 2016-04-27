@@ -400,8 +400,8 @@
 </div>  
 
 <div ng-show="do=='reservations'">
-  <form name="resv" novalidate>
-    <table class="boatlist" >
+  <form name="resv">
+    <table class="genericlist" >
       <caption>Resevationer</caption>
       <thead>
         <tr>
@@ -436,7 +436,9 @@
         </tr>
         <tr>
 	  <td><select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in allboats" required></select></td>
-          <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"></select></td>
+          <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
+                      uib-tooltip="hvis det er en reservation på en fast ugedag. Ellers udfyld start- og slutdato"
+                      ></select></td>
 	  <td> 
             <uib-timepicker
                ng-model="reservation.start_time"
@@ -448,6 +450,7 @@
 	  <td>
             <fieldset ng-disabled="reservation.dayofweek>0">
               <datetimepicker               
+                 uib-tooltip="startdato hvis det ikke er en fast ugedag"
                  popup="d MMM yyyy"
                  current-text="i dag"
                  close-text="vælg"
@@ -473,6 +476,7 @@
           <td>
             <fieldset ng-disabled="reservation.dayofweek>0">
 	      <datetimepicker
+                 uib-tooltip="slutdato hvis det ikke er en fast ugedag"
                  ng-disabled="reservation.dayofweek>0"
                  popup="d MMM yyyy"
                  close-text="vælg"
@@ -487,11 +491,20 @@
                  />
               </fieldset>
           </td>          
-	  <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"></select></td>
-          <td><input type="text" ng-model="reservation.purpose" required></td>
+	  <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"
+                       uib-tooltip="turtypen"
+                       ></select></td>
+          <td><input type="text" ng-model="reservation.purpose" required
+                     uib-tooltip="Reservationsformål. Fx træning, navn på langtur, vedligehold"
+                     ></td>
 	  <!--td><input type="text" ng-model="reservation.description"></td-->
-          <td><button ng-click="make_reservation(reservation)" class="green">ny reservation</button></td>
+          <td><button ng-click="make_reservation(reservation)" class="green"
+                      ng-disabled="resv.$invalid || (reservation.dayofweek==0 && !(reservation.start_date && reservation.start_date))"
+                      >
+              ny reservation</button></td>
         </tr>
+        <tr><td colspan=8>en reservation skal have et start- og sluttidspunkt. Og <strong>enten</strong> en fast ugedag eller start og slutdatoer. Turtype og formål <strong>skal</strong> udfyldes</td></tr>
+
       </tbody>
     </table>    
   </form>
@@ -528,8 +541,10 @@
 </div>
 
 
+
 <!--pre>currentrower {{currentrower|json}}</pre>
 <br clear="all">
+<pre>form {{resv}}</pre>
 <pre>res {{reservations}}</pre>
 <pre>config {{config|json}}</pre>
 <pre>rightsubjects {{rightsubjects|json}}</pre>
