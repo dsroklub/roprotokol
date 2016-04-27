@@ -82,7 +82,6 @@
             <select  ng-change="set_level_for_boat(boat)" ng-model="boat.placement_level" ng-options="lvl as lvl|leveltodk for lvl in placementlevels" >
 	    </select>
 	  </td>
-
           <td>
             <select  ng-change="set_side_for_boat(boat)" ng-model="boat.placement_side"
                      ng-options="sd as sd|sidetodk for sd in ['left','center','right']">
@@ -171,8 +170,8 @@
             </td>
 	  </tr>
 	</tbody>
-      </table>
-    </div>
+    </table>
+  </div>
 </div>
 
 <div ng-show="currentboattype" class="rightbox">
@@ -191,7 +190,6 @@
           <button class="action" ng-click="remove_boattype_requirement(rt,$index)">Fjern krav</button>
         </td>
       </tr>
-
       <tr>
         <td>
           <select ng-model="boattype.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)">
@@ -226,11 +224,11 @@
 	  <td><button class="action" ng-click="dotriprights(tt.rights,tt)">{{tt.rights|rightreqs}}</button></td>
         </tr>
         <tr>
+          <td><input type="text" ng-model="newtriptype.name"></td>
+          <td><input type="text" ng-model="newtriptype.description"></td>
+          <td>ja</td>
+          <td><button class="action" ng-click="create_triptype(newtriptype)">Opret ny turtype</button></td>
         </tr>
-        <td><input type="text" ng-model="newtriptype.name"></td>
-        <td><input type="text" ng-model="newtriptype.description"></td>
-        <td>ja</td>
-        <td><button class="action" ng-click="create_triptype(newtriptype)">Opret ny turtype</button></td>
       </tbody>
     </table>
   </div>
@@ -362,7 +360,7 @@
 	       <tr><td>Ud</td><td>{{et.current.outtime}}</td></tr>
 	       <tr><td>Ind</td><td>{{et.current.intime}}</td></tr>
 	       <tr><td>Oprettet</td><td>{{et.current.created}}</td></tr>
-	       <tr><td>Roere</td><td>
+	      <tr><td>Roere</td><td>
 		<ul>
 		  <li ng-repeat="(rower,rid) in et.current.rowers">{{rower}} ({{rid}}) </li>
 		</ul>
@@ -425,81 +423,71 @@
           <td>{{weekdays[rv.dayofweek].day}}</td>
           <td>{{rv.start_time}}</td>
           <td>
-            <div ng-show="rv.dayofweek==0">{{rv.start_date}}
-            </div>
+            <div ng-show="rv.dayofweek==0">{{rv.start_date}}</div>
           </td>
           <td>{{rv.end_time}}</td>          
           <td>
-            <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div></td>
+            <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div>
+          </td>
           <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>        
           <td>{{rv.purpose}}</td>
           <!--td>{{rv.description}}</td-->
-          <td><button ng-click="cancel_reservation($index)">slet reservation</button>
-          </td>
+          <td><button ng-click="cancel_reservation($index)">slet reservation</button></td>
         </tr>
         <tr>
-          <div>
-	    <td>
-              <select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in allboats" required></select>
-            </td>
-	    <td> 
-              <uib-timepicker
-                 ng-model="reservation.start_time"
-                 show-spinners="false"
-                 show-meridian="false"
-                 required               
-                 />
-            </td>
+	  <td><select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in allboats" required></select></td>
+          <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"></select></td>
+	  <td> 
+            <uib-timepicker
+               ng-model="reservation.start_time"
+               show-spinners="false"
+               show-meridian="false"
+               required               
+               />
+          </td>            
+	  <td>            
+            <datetimepicker
+               ng-disabled="reservation.dayofweek > 0"
+               popup="d MMM yyyy"
+               current-text="i dag"
+               close-text="vælg"
+               clear-text="rens"
+               date-format="yyyy-MM-dd"
+               hidden-time="true"
+               show-spinners="false"
+               date-options="dateOptions"
+               show-meridian="false"
+               ng-model="reservation.start_date"
+               />
+          </td>
+	  <td>
+            <uib-timepicker
+               ng-model="reservation.end_time"
+               show-spinners="false"
+               show-meridian="false"
+               required
+               />
+          </td>
             
-	    <td>            
-              <datetimepicker
-                 ng-disabled="reservation.dayofweek>0"
-                 popup="d MMM yyyy"
-                 current-text="i dag"
-                 close-text="vælg"
-                 clear-text="rens"
-                 current-text="i dag"
-                 date-format="yyyy-MM-dd"
-                 hidden-time="true"
-                 show-spinners="false"
-                 date-options="dateOptions"
-                 show-meridian="false"
-                 ng-model="reservation.start_date"
-                 />
-            </td>
-	    <td>
-              <uib-timepicker
-                 ng-model="reservation.end_time"
-                 show-spinners="false"
-                 show-meridian="false"
-                 required
-                 />
-            </td>
-            
-            <td>
-              <div>
-	        <datetimepicker
-                   ng-disabled="reservation.dayofweek>0"
-                   popup="d MMM yyyy"
-                   close-text="vælg"
-                   clear-text="rens"
-                   current-text="i dag"
-                   date-format="yyyy-MM-dd"
-                   hidden-time="true"
-                   show-spinners="false"
-                   date-options="dateOptions"
-                   show-meridian="false"
-                   ng-model="reservation.end_date"
-                   />
-              </div>
-            </td>
-          
-            <td><select  ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"></select></td>
-	    <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"></select></td>
-            <td><input type="text" ng-model="reservation.purpose" required></td>
-	    <!--td><input type="text" ng-model="reservation.description"></td-->
-            <td><button ng-click="make_reservation(reservation)">ny reservation</button></td>
-          </div>
+          <td>
+	    <datetimepicker
+               ng-disabled="reservation.dayofweek>0"
+               popup="d MMM yyyy"
+               close-text="vælg"
+               clear-text="rens"
+               current-text="i dag"
+               date-format="yyyy-MM-dd"
+               hidden-time="true"
+               show-spinners="false"
+               date-options="dateOptions"
+               show-meridian="false"
+               ng-model="reservation.end_date"
+               />
+          </td>          
+	  <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"></select></td>
+          <td><input type="text" ng-model="reservation.purpose" required></td>
+	  <!--td><input type="text" ng-model="reservation.description"></td-->
+          <td><button ng-click="make_reservation(reservation)">ny reservation</button></td>
         </tr>
       </tbody>
     </table>    
@@ -526,14 +514,14 @@
 
 <div ng-if="do=='misc'">
 
-Denne terminal hedder  <input ng-model-options="{updateOn:'blur'}"
-         placeholder="Denne terminal hedder"
-         class="terminalnavn"
-         type="text"
-         ng-model="clientname"
-         ng_change="set_client_name()"
-         >
-
+  Denne terminal hedder  <input ng-model-options="{updateOn:'blur'}"
+                                placeholder="Denne terminal hedder"
+                                class="terminalnavn"
+                                type="text"
+                                ng-model="clientname"
+                                ng_change="set_client_name()"
+                                >
+</input>
 </div>
 
 
