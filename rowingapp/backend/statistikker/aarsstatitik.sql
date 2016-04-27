@@ -51,7 +51,7 @@ select TripType.Name as turtype, sum(Trip.Meter)/1000 as Afstand, count(Trip.Tri
 
 
 -- Tabel 7 - Aktivitetsprofil for medlemmerne
-select count(distinct TripMember.member_id) from Trip INNER JOIN TripMember ON (Trip.TripID = TripMember.TripID) WHERE Trip.Season = 2015;
+select count(distinct TripMember.member_id) from Trip INNER JOIN TripMember ON (Trip.id = TripMember.TripID) WHERE Trip.Season = 2015;
 
 select floor(meh.km/100), count(meh.medlemsnr) as antal, count(meh.medlemsnr)/702*100 as andel FROM (select TripMember.member_id as medlemsnr, sum(Trip.Meter)/1000 as km from Trip INNER JOIN TripMember ON Trip.TripID = TripMember.TripID WHERE Trip.Season=2015 GROUP BY medlemsnr) as meh group by floor(meh.km/100);
 
