@@ -445,20 +445,21 @@
                required               
                />
           </td>            
-	  <td>            
-            <datetimepicker
-               ng-disabled="reservation.dayofweek > 0"
-               popup="d MMM yyyy"
-               current-text="i dag"
-               close-text="vælg"
-               clear-text="rens"
-               date-format="yyyy-MM-dd"
-               hidden-time="true"
-               show-spinners="false"
-               date-options="dateOptions"
-               show-meridian="false"
-               ng-model="reservation.start_date"
-               />
+	  <td>
+            <fieldset ng-disabled="reservation.dayofweek>0">
+              <datetimepicker               
+                 popup="d MMM yyyy"
+                 current-text="i dag"
+                 close-text="vælg"
+                 clear-text="rens"
+                 date-format="yyyy-MM-dd"
+                 hidden-time="true"
+                 show-spinners="false"
+                 date-options="dateOptions"
+                 show-meridian="false"
+                 ng-model="reservation.start_date"
+                 />
+              </fieldset>
           </td>
 	  <td>
             <uib-timepicker
@@ -470,19 +471,21 @@
           </td>
             
           <td>
-	    <datetimepicker
-               ng-disabled="reservation.dayofweek>0"
-               popup="d MMM yyyy"
-               close-text="vælg"
-               clear-text="rens"
-               current-text="i dag"
-               date-format="yyyy-MM-dd"
-               hidden-time="true"
-               show-spinners="false"
-               date-options="dateOptions"
-               show-meridian="false"
-               ng-model="reservation.end_date"
-               />
+            <fieldset ng-disabled="reservation.dayofweek>0">
+	      <datetimepicker
+                 ng-disabled="reservation.dayofweek>0"
+                 popup="d MMM yyyy"
+                 close-text="vælg"
+                 clear-text="rens"
+                 current-text="i dag"
+                 date-format="yyyy-MM-dd"
+                 hidden-time="true"
+                 show-spinners="false"
+                 date-options="dateOptions"
+                 show-meridian="false"
+                 ng-model="reservation.end_date"
+                 />
+              </fieldset>
           </td>          
 	  <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"></select></td>
           <td><input type="text" ng-model="reservation.purpose" required></td>
