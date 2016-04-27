@@ -839,3 +839,16 @@ textarea {
     margin-left: 4em;
     font-size: 1.0em;
 }
+
+.uib-datepicker tr td {
+    background: #DAD3D3;
+    padding: 0px;
+}
+
+.uib-datepicker button {
+    margin: 0px;
+    padding: 0px;
+}
+.uib-daypicker button {
+    margin: 0px;
+}

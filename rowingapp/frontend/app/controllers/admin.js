@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm',
-                             function ($scope, DatabaseService, NgTableParams, $filter,$route,$confirm) {
+app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm','$log',
+                             function ($scope, DatabaseService, NgTableParams, $filter,$route,$confirm,$log) {
 
           var rower_diff = function(current,correction) {
             var diffs={'from':{},'to':{}};
@@ -111,7 +111,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.boatcategories = DatabaseService.getBoatTypes();
 
             $scope.errorhandler = function(error) {
-              console.log(error);
+              $log.error(error);
               $route.reload();
               alert("du skal logge ind");
             }
@@ -122,11 +122,13 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
 
             $scope.boattype_update = function(bt) {
               DatabaseService.updateDB('boattype_update',bt,$scope.config,$scope.errorhandler)
-              .then(function(){bt.changed = false});
+                .then(function(){
+                  bt.changed = false
+                });
             }
 
             $scope.create_boattype = function(bt) {
-              console.log("net boattype");
+              $log.info("new boattype");
               var exeres=DatabaseService.updateDB('create_boattype',bt,$scope.config,$scope.errorhandler);
               $scope.DB('boattypes').push(bt);
             }
@@ -136,7 +138,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             }
 
             $scope.create_triptype = function(tt) {
-              console.log("net triptype");
+              $log.info("new triptype");
               var exeres=DatabaseService.updateDB('create_triptype',tt,$scope.config,$scope.errorhandler);
               $scope.triptypes.push(tt);
             }
@@ -161,8 +163,8 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('usage_update_description',usage,$scope.config,$scope.errorhandler);
             }
             $scope.create_usage = function(usage) {
-              console.log('create new usage '+usage);
-              var exeres=DatabaseService.updateDB_async('usage_create',usage,$scope.config).then(
+              $log.info('create new usage '+usage);
+              var exeres=DatabaseService.updateDB('usage_create',usage,$scope.config,$scope.errorhandler).then(
                 function(newusage) {
                   if (newusage.status=="ok") {
                     $scope.usages.push(newusage.newusage);
@@ -316,12 +318,12 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               if (r.start_date) {
                 r.start_date=reservation.start_date.toISOString().split('T')[0];
               }
-              $scope.reservations.push(r);
               
-              var exeres=DatabaseService.updateDB_async('make_reservation',r,$scope.config).then(
+              var exeres=DatabaseService.updateDB('make_reservation',r,$scope.config,$scope.errorhandler).then(
                 function(newreservation) {
                   if (newreservation.status=="ok") {
-                    console.log("reservation made");
+                    $log.info("reservation made");
+                    $scope.reservations.push(r);                    
                   }                  
                 }
               )            }
@@ -329,11 +331,11 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
 
             $scope.cancel_reservation = function (ix){
               var r=angular.copy($scope.reservations[ix]);
-              $scope.reservations.splice(ix,1);              
-              var exeres=DatabaseService.updateDB_async('cancel_reservation',r,$scope.config).then(
+              var exeres=DatabaseService.updateDB('cancel_reservation',r,$scope.config,$scope.errorhandler).then(
                 function(res) {
                   if (res.status=="ok") {
-                    console.log("reservation canceled");
+                    $log.info("reservation canceled");
+                    $scope.reservations.splice(ix,1);                                  
                   }                  
                 }
               )            }

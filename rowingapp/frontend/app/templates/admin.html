@@ -4,7 +4,7 @@
   <button class="adminbut" ng-class="{selected: do=='trip'}" ng-click="do='trip'">Ture</button>
   <button class="adminbut" ng-class="{selected: do=='correction'}" ng-click="do='correction'">Fejlrettelser</button>
   <button class="adminbut" ng-class="{selected: do=='events'}" ng-click="do='events'">Hændelser</button>
-  <button class="adminbut" ng-class="{selected: do=='plan'}" ng-click="do='reservations'">Reservationer</button>
+  <button class="adminbut" ng-class="{selected: do=='reservations'}" ng-click="do='reservations'">Reservationer</button>
   <button class="adminbut" ng-class="{selected: do=='misc'}" ng-click="do='misc'">Diverse</button>
   <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password">
 </div>
@@ -432,7 +432,7 @@
           <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>        
           <td>{{rv.purpose}}</td>
           <!--td>{{rv.description}}</td-->
-          <td><button ng-click="cancel_reservation($index)">slet reservation</button></td>
+          <td><button ng-click="cancel_reservation($index)" class="red">slet reservation</button></td>
         </tr>
         <tr>
 	  <td><select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in allboats" required></select></td>
@@ -490,7 +490,7 @@
 	  <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"></select></td>
           <td><input type="text" ng-model="reservation.purpose" required></td>
 	  <!--td><input type="text" ng-model="reservation.description"></td-->
-          <td><button ng-click="make_reservation(reservation)">ny reservation</button></td>
+          <td><button ng-click="make_reservation(reservation)" class="green">ny reservation</button></td>
         </tr>
       </tbody>
     </table>    
