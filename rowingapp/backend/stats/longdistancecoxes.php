@@ -1,6 +1,7 @@
 <?php
 set_include_path(get_include_path().':..');
 include("inc/common.php");
+include("inc/backheader.php");
 header('Content-type: text/csv');
 header('Content-Disposition: filename="langtursstyrmaend.csv"');
 $s='SELECT Concat(FirstName," ",LastName) as name, MemberID,MemberRight

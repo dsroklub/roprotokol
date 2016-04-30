@@ -499,7 +499,7 @@
                      ></td>
 	  <!--td><input type="text" ng-model="reservation.description"></td-->
           <td><button ng-click="make_reservation(reservation)" class="green"
-                      ng-disabled="resv.$invalid || (reservation.dayofweek==0 && !(reservation.start_date && reservation.start_date))"
+                      ng-disabled="resv.$invalid || (!reservation.dayofweek && !(reservation.start_date && reservation.end_date))"
                       >
               ny reservation</button></td>
         </tr>
@@ -537,24 +537,21 @@
                                 ng-model="clientname"
                                 ng_change="set_client_name()"
                                 >
-</input>
+
+  <h2>andre sider</h2>
+  <ul class="tools">
+    <li><a href="/backend/basic/current.php">Dagens Ture.</a>
+      <ul class="tools">
+        <li>rød: skulle have været inde nu</li>
+        <li>gul: på vandet</li>
+        <li>grøn: turen afsluttet</li>        
+      </ul>
+    </li>
+    
+    <li><a href="http://localhost:8080/backend/stats/longdistancecoxes.php">Langdistancestyrmænd som CSV</a></li>
+    <li><a href="https://roprotokol.danskestudentersroklub.dk/public/instruction_stat.php?returnlink=history">Antal instruktører, kaniner og både brugt til instruktion (eksternt link, offentlig adgang)</a></li>
+    <li><a href="/backend/public/instruction_stat.php?returnlink=1">Både brugt til instruktion (internt link)</a></li>
+    <li><a href="http://localhost:8080/backend/public/reservations.php">Bådreservationer, som CVS</a></li>
+    <li><a href="https://roprotokol.danskestudentersroklub.dk/public/reservations.php">Bådreservationer, som CVS, ekstern offentlig adgang</a></li>
+  </ul>
 </div>
-
-
-
-<!--pre>currentrower {{currentrower|json}}</pre>
-<br clear="all">
-<pre>form {{resv}}</pre>
-<pre>res {{reservations}}</pre>
-<pre>config {{config|json}}</pre>
-<pre>rightsubjects {{rightsubjects|json}}</pre>
-<pre>newboat {{newboat}}</pre>
-<pre>newboattype {{newboattype}}</pre>
-<pre>boattypeform {{boattypeform}}</pre>
-<pre>currentboattype {{currentboattype}}</pre>
-<pre>requiredboatrights {{requiredboatrights}}</pre>
-<pre>dest {{DB('destinations').DSR}}</pre>
-<pre>bc: {{boatcategories|json}}</pre>
-<pre>locations {{locations|json}}</pre>
-<pre>all boats {{allboats|json}}</pre>
--->

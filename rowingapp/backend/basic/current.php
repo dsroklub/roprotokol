@@ -11,6 +11,7 @@
 <?php
 set_include_path(get_include_path().':..');
 
+include("inc/backheader.php");
 include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: text/html');
