@@ -5,6 +5,7 @@ include("inc/common.php");
 $s="SELECT YEAR(Trip.OutTime) as year,TripType.tripstat_name as name,CAST(Sum(Meter) AS UNSIGNED) AS distance, COUNT('x') as trips 
     FROM Trip,TripType,Boat,BoatType
     WHERE Trip.TripTypeID=TripType.id   AND Trip.BoatID=Boat.id AND Category=2 AND Boat.BoatType=BoatType.id GROUP BY TripType.name, year
+          AND Trip.OutTime IS NOT NULL
     ORDER BY year,TripType.tripstat_name";
 
 if ($sqldebug) {
