@@ -34,6 +34,11 @@ ul {
     color: blue;
 }
 
+.tools a {
+    color: red;
+    font-weight: bold;
+}
+
 pre.ng-binding {
     /* display: none; */
 }
