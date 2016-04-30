@@ -13,7 +13,7 @@
       {{match.model.name}} <i>({{match.model.category}})</i>
     </a>
   </script>
-
+  
   <div class="toppane">  
     <h3 class="prompt">Søg efter ture:</h3>
     
@@ -56,7 +56,7 @@
              show-meridian="false"
              data-ng-model="tripdate"
              class="trip-search-field"
-             />
+         />
     </ng-form>
   </div>
     <div ng-show="currentrower">
@@ -143,8 +143,8 @@
       <caption>Tur: {{currenttrip.destination}}</caption>
         <tr class="tripcomment" ng-show="currenttrip.comment"><td colspan="2">{{ currenttrip.comment }}</td></tr>
         <tr><td>Distance:</td><td>{{ currenttrip.distance | mtokm }}</td>
-        <tr><td>Båd</td><td>{{ currenttrip.boat }}</td></tr>
-        <tr><td>Ud</td><td>{{ currenttrip.outtime }}</td></tr>
+        <tr><td>Båd</td><td>{{currenttrip.boat }}</td></tr>
+        <tr><td>Ud</td><td>{{currenttrip.outtime }}</td></tr>
         <tr ng-show="currenttrip.intime"><td>Ind</td><td>{{ currenttrip.intime }}</td></tr>
         <tr ng-show="currenttrip.expectedin && !currenttrip.intime"><td>Forventet ind</td><td>{{ currenttrip.expectedin }}</td></tr>
         <tr class="genericheader"><th>Roer</th><th>Medlemsnummer</th></tr>
@@ -205,7 +205,7 @@
 	        <label for="correction_destination">Destination</label>
 	      </td>
 	      <td>
-	        <ui-select class="correction_destination" ng-model="correction.destination" on-select="correction.distance=$item.distance">
+	        <ui-select class="correction_destination" ng-model="correction.destination" on-select="correction.distance=$item.distance" required>
 	          <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
 	          <ui-select-choices repeat="destination in destinations | filter: $select.search">
 	            <span ng-bind-html="destination.name | highlight: $select.search"></span>
@@ -220,14 +220,19 @@
             <tr>
 	      <td><label for="correction_starttime">Ud</label></td>	  
 	      <td>
-	        <datetimepicker popup="d MMM yyyy" position="up" close-text="vælg" clear-text="rens" current-text="i dag" date-format="d-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="correction.outtime"/>
+	        <datetimepicker popup="d MMM yyyy" position="up" close-text="vælg" clear-text="rens"
+                                current-text="i dag" date-format="d-MMM-yyyy"
+                                show-spinners="false"
+                                date-options="dateOptions"
+                                show-meridian="false"
+                                ng-model="correction.outtime" required />
 	      </td>
             </tr>
 
             <tr>
 	      <td><label for="correction_endtime">Ind</label></td>              
 	      <td>
-	        <datetimepicker close-text="vælg" clear-text="rens" current-text="i dag" date-format="d-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="correction.intime"/>
+	        <datetimepicker close-text="vælg" clear-text="rens" current-text="i dag" date-format="d-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="correction.intime"/ required>
 	      </td>
             </tr>
 	    
@@ -235,7 +240,6 @@
 	      <td><label for="correction_triptype">Tur type</label></td>
 	      <td>
 	        <select id="correction_triptype" type="text" ng-model="correction.triptype" ng-options="item as item.name for item in triptypes" required>		
-	          <option value="">Vælg tur type</option> 
 	        </select>
 	      </td>    
             </tr>
@@ -245,22 +249,21 @@
 	        <label for="correction.reason">Begrundelse</label>
               </td>
       	      <td>
-	        <input placeholder="begrundelse" autocomplete="off" id="correction.reason" name="reason" type="text" ng-model="correction.reason"  ng-minlength="3" >
+	        <input placeholder="begrundelse" autocomplete="off" id="correction.reason" name="reason" type="text" ng-model="correction.reason"  ng-minlength="3" required>
               </td>
             </tr>
 
             <tr>
 	      <td><label for="correction.reporter">Indberetter</label></td>
-	      <td><input placeholder="indberetters navn" autocomplete="off" id="correction.reporter" name="reporter" type="text" ng-model="correction.reporter"  ng-minlength="3" ></td>
+	      <td><input placeholder="indberetters navn" autocomplete="off" id="correction.reporter" name="reporter" type="text" ng-model="correction.reporter" ng-minlength="3" required></td>
             </tr>
-
 
 	    <tr>
 	      <td>
-	        <button ng-show="correction.reason && correction.reporter" class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
+	        <button ng-show="correctionForm.$valid" class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
 	      </td>
 	      <td>
-	        <button class="big" ng-show="correction.reason && correction.reporter && correction.distance>0" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse</button>
+	        <button class="big" ng-show="correctionForm.$valid" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse</button>
                 <label ng-hide="correction.reason && correction.reporter" class="alert notready">angiv begrundelse og dit navn</label>
                 <label ng-hide="correction.distance" class="alert notready">Distance skal være positiv</label>
 	      </td>
@@ -270,29 +273,28 @@
         </table>
       </form>
     </div>    
-   </div>
+  </div>
+  
+  <div ng-if="currentrower">
+    <table class="genericlist">
+      <caption>{{currentrower.name}}'s Rokammerater</caption>
+      <thead>
+        <tr><th>rokammerater</th><th>km roet</th></tr>
+      </thead>
+      <tbody class="tbody">
+        <tr ng-if="currentrower" ng-repeat="mate in mates">
+          <td>{{mate.mate}}</td>
+          <td class="rnum">{{mate.dist|mtokm}}</td>
+        </tr>      
+      </tbody> 
+    </table>
+  </div>
     
-    <div ng-if="currentrower">
-      <table class="genericlist">
-        <caption>{{currentrower.name}}'s Rokammerater</caption>
-        <thead>
-           <tr><th>rokammerater</th><th>km roet</th></tr>
-        </thead>
-        <tbody class="tbody">
-          <tr ng-if="currentrower" ng-repeat="mate in mates">
-             <td>{{mate.mate}}</td>
-             <td class="rnum">{{mate.dist|mtokm}}</td>
-          </tr>      
-        </tbody> 
-      </table>
-    </div>
-    
-    <div class="seasonschart" ng-if="currentrower">
-      <h2>Sæsonoversigt for {{currentrower.name}}</h2>
-      <canvas id="roweractivity" class="chart chart-bar"
-              chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
-      </canvas>
-
-      
-    </div>
+  <div class="seasonschart" ng-if="currentrower">
+    <h2>Sæsonoversigt for {{currentrower.name}}</h2>
+    <canvas id="roweractivity" class="chart chart-bar"
+            chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
+    </canvas>         
+  </div>
+</div>
 

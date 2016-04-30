@@ -164,7 +164,7 @@ app.controller(
        // Check reservation
        // WIP, works for daytrips
        angular.forEach($scope.reservations, function(rv) {
-         var otime=$scope.checkout.outtime;
+         var otime=$scope.checkout.starttime;
          var etime=$scope.checkout.expectedtime;
          if ($scope.checkout.triptype && $scope.checkout.boat && $scope.checkout.boat.id==rv.boat_id && etime) {
            if (rv.dayofweek>0) {
@@ -179,7 +179,7 @@ app.controller(
                et.setHours(rv.end_time.split(":")[0]);
                et.setMinutes(rv.end_time.split(":")[1]);
                et.setSeconds(0);
-               
+
                if (!(
                  rv.triptype_id==$scope.checkout.triptype.id ||
                    (etime < st && otime < st) ||
