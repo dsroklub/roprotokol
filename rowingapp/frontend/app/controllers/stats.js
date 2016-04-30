@@ -140,7 +140,7 @@ app.controller(
      
      $scope.boatcat2dk=DatabaseService.boatcat2dk;
      
-      {
+     {
        $scope.triptypestat={};
        $scope.triptypestat.labels=[];
        $scope.triptypestat.series=[];
@@ -148,10 +148,10 @@ app.controller(
        $scope.triptypestat.distance=[];
        $scope.triptypestat.numtrips=[];
        DatabaseService.getDataNow('stats/trip_stat_year',"season="+$scope.statseason,function(d) {
-           $scope.triptypestat.fy=d.data[0].year;
-	   if (!$scope.triptypestat.fy) {
-	       $scope.triptypestat.fy=2010;
-	   }
+         $scope.triptypestat.fy=d.data[0].year;
+	 if (!$scope.triptypestat.fy) {
+	   $scope.triptypestat.fy=2010;
+	 }
          for (var y=$scope.triptypestat.fy;y<=d.data[d.data.length-1].year;y++) {           
            $scope.triptypestat.series.push('sæson '+y);
            $scope.triptypestat.distance.push([]);
