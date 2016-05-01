@@ -13,7 +13,7 @@ if (!$rodb->set_charset("utf8")) {
 }
 
 header('Content-Disposition: filename="bådreservationer.csv"');
-$s='SELECT Boat.Name as boat, GROUP_CONCAT(TIME_FORMAT(start_time,"%H:%m"),"-",TIME_FORMAT(end_time,"%H:%m")," ",TripType.Name SEPARATOR "/") as reservation,dayofweek
+$s='SELECT Boat.Name as boat, GROUP_CONCAT(TIME_FORMAT(start_time,"%H:%i"),"-",TIME_FORMAT(end_time,"%H:%i")," ",TripType.Name SEPARATOR "/") as reservation,dayofweek
     FROM reservation,Boat,TripType,BoatType 
     WHERE Boat.id=boat AND TripType.id=triptype AND BoatType.id=BoatType AND dayofweek>0
     GROUP BY boat,dayofweek
@@ -21,7 +21,8 @@ $s='SELECT Boat.Name as boat, GROUP_CONCAT(TIME_FORMAT(start_time,"%H:%m"),"-",T
 
 $result=$rodb->query($s) or die("Error in reservations query: " . mysqli_error($rodb));;
 echo "Båd,mandag,tirsdag,onsdag,torsdag,fredag,lørdag,søndag";
- while ($row = $result->fetch_assoc()) {
+$row = $result->fetch_assoc();
+ while ($row) {
      $boat=$row["boat"];
      echo "\n".$boat;
      for ($d = 1; $d <= 7; $d++) {
