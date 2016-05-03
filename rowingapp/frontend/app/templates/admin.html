@@ -333,7 +333,7 @@
     <div class="addright" ng-if="currentrower.id">
       <ui-select class="right_select" name="rower.addnewright" ng-model="rower.newright" on-select="add_rower_right(rower.newright,currentrower)">
         <ui-select-match class="newright" placeholder="tildel rettighed til {{currentrower.name}}" >Tildel ny rettighed til {{currentrower.name}}</ui-select-match>        
-        <ui-select-choices class="newright" position="down" repeat="rtt in DB('memberrighttypes')| filter:noright()" >{{rtt.description}}</ui-select-choices>
+        <ui-select-choices class="newright" position="down" repeat="rtt in DB('memberrighttypes')| filter:noright()" >{{rtt.member_right|righttodk}}</ui-select-choices>
       </ui-select>
     </div>
   </div>
