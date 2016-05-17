@@ -210,6 +210,10 @@ app.controller(
          }
        },this);
        
+       if ($scope.checkout.boat && $scope.checkout.boat.damage > 2) {
+	   norights.push(" Båden er svært skadet og må derfor ikke komme på vandet !!!");
+       }
+
        $scope.rightsmessage=norights.join(",");
        return norights.length<1;
      }
