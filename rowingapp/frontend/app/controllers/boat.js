@@ -49,13 +49,15 @@ app.controller(
              $scope.checkout.destination=DatabaseService.getDestinationWithName(status.reuse.destination);
              $scope.checkout.distance=$scope.checkout.destination.distance;
              $scope.checkout.boat=DatabaseService.getBoatWithId(status.reuse.boat_id);
+	     $scope.checkout.comments=status.reuse.comment;
+	     $scope.checkout.starttime=status.reuse.outtime;
+	     $scope.checkout.expectedtime=status.reuse.expectedintime;
              $scope.selectedBoatCategory=DatabaseService.getBoatTypeWithName($scope.checkout.boat.category);
              $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
              $scope.checkout.rowers=[];
              angular.forEach(status.reuse.rowers,function(name,id,kv) {
                $scope.checkout.rowers.push(DatabaseService.getRower(id));
-             }
-                            );
+             });
              $scope.updateExpectedTime();
 	     // FIXME update checkout fields
 	   }
@@ -99,7 +101,8 @@ app.controller(
          'triptype': null,
          'rowers': ["","","","",""],
          'client_name':DatabaseService.client_name(),
-         'distance':0
+         'distance':0,
+         'comments':''
        };
        $scope.checkouttime_clean=$scope.checkout.starttime;
 
