@@ -52,8 +52,8 @@ app.controller(
              $scope.selectedBoatCategory=DatabaseService.getBoatTypeWithName($scope.checkout.boat.category);
              $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
              $scope.checkout.rowers=[];
-             angular.forEach(status.reuse.rowers,function(name,id,kv) {
-               $scope.checkout.rowers.push(DatabaseService.getRower(id));
+             angular.forEach(status.reuse.rowers,function(kv) {
+               $scope.checkout.rowers.push(DatabaseService.getRower(kv.key));
              }
                             );
              $scope.updateExpectedTime();
