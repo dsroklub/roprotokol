@@ -612,12 +612,14 @@ li.selected,button.selected {
 
 
 .checkoutmessage {
-    color: red;
+    color: black;
+    background: #07FF00;
     font-size: 20pt;
     max-width: 30em;        
+    border-radius: 8px;
 }
 
-.oauth,.farvand {
+.farvand {
     float:left;
     margin-left: 1em;
     margin-top: 1em;
