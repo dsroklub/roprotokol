@@ -548,6 +548,14 @@ li.selected,button.selected {
     margin-top: 1em;
 }
 
+.reservations {
+    display: inline-block;
+    float:left;
+    clear:left;
+    max-width: 30em;
+    margin-top: 1em;    
+}
+
 .damageslist {
     display: inline-block;
     float:left;
@@ -600,6 +608,12 @@ li.selected,button.selected {
 
 .message {
     color: red;
+}
+
+
+.checkoutmessage {
+    color: red;
+        font-size: 20pt;
 }
 
 .oauth,.farvand {

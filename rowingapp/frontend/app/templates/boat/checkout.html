@@ -51,7 +51,7 @@
   </script>
 
   <div class="checkoutBoat">
-  <div class="big message">{{checkoutmessage}}</div>
+  <div class="big message checkoutmessage">{{checkoutmessage}}</div>
   <div class="big rightsmessage" ng-show="!checkRights()">{{rightsmessage}}</div>
     <div class="checkout-form">
       <form name="checkoutForm" novalidate noautocomplete>
@@ -194,7 +194,7 @@
       {{checkout.boat.location}}, port {{checkout.boat.placement_aisle}}, {{checkout.boat.placement_row|rowtodk}},  {{checkout.boat.placement_side|sidetodk}}, {{checkout.boat.placement_level|leveltodk}}
     </div>
 
-    <div ng-if="checkout.boat && (reservations | filter : {boat_id : checkout.boat.id}:true).length>0">
+    <div ng-if="checkout.boat && (reservations | filter : {boat_id : checkout.boat.id}:true).length>0" class="reservations">
       <table class="reservationlist" >
         <caption>Resevationer af {{checkout.boat.name}}</caption>
         <thead>
