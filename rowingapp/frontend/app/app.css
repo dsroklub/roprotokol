@@ -613,7 +613,8 @@ li.selected,button.selected {
 
 .checkoutmessage {
     color: red;
-        font-size: 20pt;
+    font-size: 20pt;
+    max-width: 30em;        
 }
 
 .oauth,.farvand {
