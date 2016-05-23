@@ -498,6 +498,12 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return(clientname?clientname:"noname");
   }
 
+  this.toIsoDate= function (d) {
+      return (d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate());
+  };
+
+
+  
   /// The rest is just for testing
   this.test = function(src) {
     var boats = db['boatcategories']["Inrigger 2+"];

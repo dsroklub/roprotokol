@@ -33,17 +33,17 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               }
             }
             return res;
-          }
-
-     $scope.dateOptions = {
-       showWeeks: false,
-       formatDay:"d",
-       formatYear: 'yyyy',
-       formatMonth: 'MMM',
-       title:"foo"
-     };
-
-           $scope.weekdays=[
+          };
+                               
+          $scope.dateOptions = {
+            showWeeks: false,
+            formatDay:"d",
+            formatYear: 'yyyy',
+            formatMonth: 'MMM',
+            title:"dato"
+          };
+                               
+          $scope.weekdays=[
             {id:0,day:"-"},
             {id:1,day:"mandag"},
             {id:2,day:"tirsdag"},
@@ -313,10 +313,10 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               //r.start_time=reservation.start_time.getHours()+":"+reservation.start_time.getMinutes();
               r.end_time=reservation.end_time.getHours()+":"+reservation.end_time.getMinutes();
               if (r.end_date) {
-                r.end_date=reservation.end_date.toISOString().split('T')[0];
+                r.end_date=DatabaseService.toIsoDate(reservation.end_date);
               }
               if (r.start_date) {
-                r.start_date=reservation.start_date.toISOString().split('T')[0];
+                r.start_date=DatabaseService.toIsoDate(reservation.start_date);
               }
               
               var exeres=DatabaseService.updateDB('make_reservation',r,$scope.config,$scope.errorhandler).then(
