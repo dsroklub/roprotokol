@@ -223,19 +223,33 @@
             <tr>
 	      <td><label for="correction_starttime">Ud</label></td>	  
 	      <td>
-	        <datetimepicker popup="d MMM yyyy" position="up" close-text="vælg" clear-text="rens"
-                                current-text="i dag" date-format="d-MMM-yyyy"
-                                show-spinners="false"
-                                date-options="dateOptions"
-                                show-meridian="false"
-                                ng-model="correction.outtime" required />
+	        <datetimepicker
+                   class="toppopup"
+                   popup="d MMM yyyy"
+                   position="up"
+                   close-text="vælg" clear-text="rens"
+                   current-text="i dag" date-format="d-MMM-yyyy"
+                   show-spinners="false"
+                   date-options="dateOptions"
+                   show-meridian="false"
+                   ng-model="correction.outtime" required />
 	      </td>
             </tr>
 
             <tr>
 	      <td><label for="correction_endtime">Ind</label></td>              
 	      <td>
-	        <datetimepicker close-text="vælg" clear-text="rens" current-text="i dag" date-format="d-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="correction.intime"/ required>
+	        <datetimepicker
+                   class="toppopup"
+                   close-text="vælg"
+                   clear-text="rens"
+                   current-text="i dag"
+                   date-format="d-MMM-yyyy"
+                   show-spinners="false"
+                   date-options="dateOptions"
+                   show-meridian="false"
+                   ng-model="correction.intime"/
+                   required>
 	      </td>
             </tr>
 	    
