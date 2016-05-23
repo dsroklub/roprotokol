@@ -23,7 +23,7 @@ if ($stmt = $rodb->prepare("$s")) {
   $stmt->execute();
   $result= $stmt->get_result() or die("Error in reuse query: " . mysqli_error($rodb));
   if ($row = $result->fetch_assoc()) {
-      $row['rowers']=multifield_array($row['rowers']);
+      $row['rowers']=multifield_array($row['rowers'],"member_id","name");
       $res['reuse']=$row;
   }
 } 

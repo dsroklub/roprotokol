@@ -63,12 +63,15 @@
       <table class="genericlist">
         <caption>{{currentrower.name}} <i>({{currentrower.id}})</i></caption>
         <thead>
-           <tr><th>Rettighed</th><th>Detaljer</th></tr>
+          <tr>
+            <th>Rettighed</th>
+            <th>Detaljer</th>
+          </tr>
         </thead>
         <tbody>
-          <tr ng-if="currentrower" ng-repeat="(right,arg) in currentrower.rights">
-             <td>{{right|righttodk}}</td>
-             <td>{{arg}}</td>
+          <tr ng-if="currentrower" ng-repeat="rr in currentrower.rights">
+             <td>{{rr.right|righttodk}}</td>
+             <td>{{rr.arg}}</td>
           </tr>      
         </tbody> 
       </table>

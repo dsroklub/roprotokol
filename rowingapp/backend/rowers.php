@@ -16,8 +16,8 @@ echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
 	  if ($first) $first=0; else echo ',';	  
-      $row['rights']=multifield($row['rights']);
-	  echo json_encode($row,JSON_FORCE_OBJECT);
+      $row['rights']=multifield_array($row['rights'],"right","arg");
+	  echo json_encode($row,JSON_PRETTY_PRINT);
 }
 echo ']';
 $rodb->close();

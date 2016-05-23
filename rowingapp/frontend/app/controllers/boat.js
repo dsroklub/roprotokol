@@ -53,7 +53,7 @@ app.controller(
              $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
              $scope.checkout.rowers=[];
              angular.forEach(status.reuse.rowers,function(kv) {
-               $scope.checkout.rowers.push(DatabaseService.getRower(kv.key));
+               $scope.checkout.rowers.push(DatabaseService.getRower(kv.member_id));
              }
                             );
              $scope.updateExpectedTime();
@@ -108,6 +108,15 @@ app.controller(
         }
      });
 
+     var has_right = function(right,arg,rightlist) {
+       for (var ri=0; ri<rightlist.length; ri++) {
+         if (rightlist[ri].right==right && (!arg || arg==rightlist[ri].arg)) {
+           return true;
+         }
+       }
+       return false;
+     }
+
      $scope.checkRights = function() {
        if (!$scope.checkout) {
 	 return false;
@@ -122,14 +131,14 @@ app.controller(
 	       // ignore
 	 } else if (subject='cox') {
                if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
-             if (!(rq in $scope.checkout.rowers[0].rights)) {
-               norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));
-             }
-           }
+                 if (!(has_right(rq,null,$scope.checkout.rowers[0].rights))) {
+                   norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));
+                 }
+               }
 	 } else if (subject='all') {
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-               if (!(rq in $scope.checkout.rowers[ri].rights)) {
+               if (!(has_right(rq,null,$scope.checkout.rowers[ri].rights))) {
 		 norights.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
                }
              }
@@ -138,7 +147,7 @@ app.controller(
            var ok=false;
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-               if (!(rq in $scope.checkout.rowers[ri].rights)) {
+               if (!(has_right(rq,null,$scope.checkout.rowers[ri].rights))) {
 		 ok=true;
                }
              }
@@ -146,11 +155,11 @@ app.controller(
            if (!ok) {
              norights.push(" der skal være mindst een roer med "+ $filter('righttodk')([rq]));
            }
-	 } else if (rq='any') {
+	 } else if (rq='none') {
            var ok=true;
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-               if (!(rq in $scope.checkout.rowers[ri].rights)) {
+               if (!(has_right(rq,null,$scope.checkout.rowers[ri].rights))) {
 		 ok=false;
                }
              }
