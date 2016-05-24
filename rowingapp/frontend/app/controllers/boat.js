@@ -12,7 +12,7 @@ app.controller(
        $scope.boatcategories = DatabaseService.getBoatTypes();
        // Load selected boats based on boat category
        $scope.reservations = DatabaseService.getDB('get_reservations');
-
+       $scope.checkin={update_destination_for:null};
        $scope.critical_time = function (tx) {
          var t=tx.split(/[- :]/);
          var et=new Date(t[0], t[1]-1, t[2], t[3]||0, t[4]||0, t[5]||0);
@@ -499,6 +499,13 @@ app.controller(
     }
      }
 
+
+     $scope.update_checkin_destiation = function(d) {
+       $scope.checkin.update_destination_for.destination=d.name;
+       $scope.checkin.update_destination_for.meter=d.distance;
+       $scope.checkin.update_destination_for=null;
+     }
+     
      // Hack to handle when user clicks outside field
      // This really should be handled by better autocomplete.
      $scope.co_rower_leave = function(ix) {

@@ -14,7 +14,7 @@ if (isset($closedtrip->boat->corrected_distance)) {
 
 $rodb->begin_transaction();
 
-if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE id=? AND InTime IS NULL")) { 
+if ($stmt = $rodb->prepare("SELECT 'x' FROM Trip WHERE id=? AND InTime IS NULL")) { 
   $stmt->bind_param('i', $closedtrip->boat->trip);
   $stmt->execute();
   $result= $stmt->get_result();
@@ -28,9 +28,9 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE id=? AND InTime IS NULL"
 if (!$error) {
     error_log("close trip ID". $closedtrip->boat->trip);
     if ($stmt = $rodb->prepare(
-        "UPDATE Trip SET InTime = NOW(),Meter=?,Comment=? WHERE id=?;"
+        "UPDATE Trip SET InTime = NOW(),Meter=?, Destination=?,Comment=? WHERE id=?;"
     )) { 
-        $stmt->bind_param('isi', $distance, $closedtrip->boat->comment,$closedtrip->boat->trip);
+        $stmt->bind_param('issi', $distance,$closedtrip->boat->destination ,$closedtrip->boat->comment,$closedtrip->boat->trip);
         $stmt->execute(); 
         $rodb->commit();
     }
