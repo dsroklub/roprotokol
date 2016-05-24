@@ -600,6 +600,7 @@ li.selected,button.selected {
 
 .rightsmessage {
     max-width: 20em;
+    background: yellow;
 }
 
 .error {

@@ -177,6 +177,7 @@ app.controller(
          var etime=$scope.checkout.expectedtime;
          if ($scope.checkout.triptype && $scope.checkout.boat && $scope.checkout.boat.id==rv.boat_id && etime) {
            if (rv.dayofweek>0) {
+             // Ugereservering
              if (etime.getDay()==(rv.dayofweek)) {
                // var etime="18:13:12.241Z"
                var st=angular.copy(etime);
@@ -195,11 +196,12 @@ app.controller(
                    (etime > et && otime > et)
                )
                   ) {
-                 norights.push(" Båden er reserveret til "+ rv.triptype + " :"+rv.purpose+
+                 norights.push(" Båden er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + " :"+rv.purpose+
                                " fra "+rv.start_time+" til "+rv.end_time);
                }             
              }
            } else {
+             // kalendereservering
              var st=rv.start_date + "T"+ rv.start_time;
              var et=rv.end_date + "T"+ rv.end_time;
              if (!(
@@ -209,7 +211,7 @@ app.controller(
              )
                 )
              {
-               norights.push(" Båden er reserveret til "+ rv.triptype + " :"+rv.purpose+
+               norights.push(" Båden er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + " :"+rv.purpose+
                              " fra " +st+" til "+et);
              }
            }
