@@ -19,39 +19,8 @@
   <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
   <link rel="stylesheet" href="bower_components/angular-ui-clock/dist/angular-clock.css">
   <link rel="stylesheet" href="app.css"/>
-</head>
-<body>  
-   <div class="menuholder">
-       <ul class="menu">
-            <li class="logo">
-                <img src="assets/dsrlogo.svg">  
-            </li>
-            <li><a href="#/ud"><i class="fa fa-anchor fa-rotate-180"></i> Udskriv</a></li>
-	    <li><a href="#/ind"><i class="fa fa-anchor"></i> Indskriv</a></li>
-            <li><a href="#/today"><i class="fa fa-newspaper-o"></i> Rovagt</a></li>
-            <li><a href="#/statoverview"><i class="fa fa-area-chart"></i>Statistik</a></li>
-            <li><a href="#/rowers"><i class="fa fa-flag-checkered"></i> Ture</a></li>
-            <li><a href="#/damages"><i class="fa fa-exclamation-triangle"></i> Skader</a></li>
-            <!--li><a href="#/corrections"><i class="fa fa-pencil-square-o"></i> Rettelser</a></li-->
-            <li><a href="#/admin"><i class="fa fa-wrench"></i> Admin</a></li>
-            <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
-</li>
-       </ul>
-   </div>
+  <!--base href="/frontend/app"-->
 
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-  
-  <div class="main" ng-init="databasesource=real">
-    <div ng-view></div>
-  </div>
-
-  <!-- <div>Angular seed app: v<span app-version></span></div> -->
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="components/angular-locale_da-dk.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
@@ -73,17 +42,50 @@
   <script src="controllers/admin.js"></script>
   <script src="controllers/stats.js"></script>
   <script src="controllers/rower.js"></script>
+  <script src="controllers/menu.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
   <script src="components/range/range.js"></script>
   <script src="components/utilities/utilities.js"></script>
   <script src="components/database/database.js"></script>
-  <script>var dbmode='real'; </script>
+  <script>var dbmode='real';
+  </script>
   <script src="components/database/database-services.js"></script>
   <script src="components/database/database-directives.js"></script>
   <script src="bower_components/Chart.js/Chart.js"></script>
   <script type='text/javascript' src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
   <script src="bower_components/angular-ui-clock/dist/angular-clock.js"></script>
+</head>
+<body>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+  
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+
+  <div class="menuholder" >
+    <ul class="menu" ng-controller="menuCtrl">
+      <li class="logo">
+        <img src="assets/dsrlogo.svg">  
+      </li>
+      <li ng-class="{topsel: activePath=='/ud/'}"><a href="#/ud"><i class="fa fa-anchor fa-rotate-180"></i>Udskriv</a></li>
+      <li ng-class="{topsel:activePath=='/ind/'}"><a href="#/ind"><i class="fa fa-anchor"></i>Indskriv</a></li>
+      <li ng-class="{topsel:activePath=='/today/'}"><a href="#/today"><i class="fa fa-newspaper-o"></i>Rovagt</a></li>
+      <li ng-class="{topsel:activePath=='/statoverview/'}"><a href="#/statoverview"><i class="fa fa-area-chart"></i>Statistik</a></li>
+      <li ng-class="{topsel:activePath=='/rowers/'}"><a href="#/rowers"><i class="fa fa-flag-checkered"></i> Ture</a></li>
+      <li ng-class="{topsel:activePath=='/damages/'}"><a href="#/damages"><i class="fa fa-exclamation-triangle"></i> Skader</a></li>
+      <li ng-class="{topsel:activePath=='/admin/'}"><a href="#/admin"><i class="fa fa-wrench"></i> Admin</a></li>
+      <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
+      </li>
+    </ul>
+  </div>
+  <div class="main" ng-init="databasesource=real">
+    <div ng-view></div>
+  </div>
+
 </body>
 </html>

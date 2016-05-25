@@ -23,8 +23,8 @@ if ($stmt = $rodb->prepare("$s")) {
   $stmt->execute();
   $result= $stmt->get_result() or die("Error in reuse query: " . mysqli_error($rodb));
   if ($row = $result->fetch_assoc()) {
-  $row['rowers']=multifield($row['rowers']);
-  $res['reuse']=$row;
+      $row['rowers']=multifield_array($row['rowers'],"member_id","name");
+      $res['reuse']=$row;
   }
 } 
 
@@ -32,7 +32,8 @@ if ($stmt = $rodb->prepare("DELETE FROM Trip WHERE id=? AND InTime IS NULL")) {
   $stmt->bind_param('i', $reuse->reusetrip);
   $stmt->execute();
   $result= $stmt->get_result();
-} 
+}
+
 if ($stmt = $rodb->prepare("DELETE FROM TripMember WHERE TripID=?")) { 
   $stmt->bind_param('i', $reuse->reusetrip);
   $stmt->execute();
@@ -49,5 +50,5 @@ $res['message']=$message;
 $rodb->commit();
 $rodb->close();
 invalidate('trip');
-echo json_encode($res,JSON_FORCE_OBJECT);
+echo json_encode($res,JSON_PRETTY_PRINT);
 ?> 

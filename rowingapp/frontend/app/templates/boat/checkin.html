@@ -20,12 +20,23 @@
     {{match.model.name}} <i>({{match.model.category}})</i>
   </a>
 </script>
+<div ng-if="checkin.update_destination_for" class="destinationlist">
+  <table >
+    <caption>Opdater destination<img ng-click="checkin.update_destination_for=null"  width="40px" src="/frontend/app/media/popclose.svg" ></caption>
+    <tr><th>destination</th><th>distance</th></tr>
+    <tr ng-repeat="destination in destinations" ng-click="update_checkin_destiation(destination)">
+      <td>{{destination.name}}</td>
+      <td>{{destination.distance|mtokm}}</td>
+    </tr>
+  </table>
 
+</div>
 <div class="boatlist">
   <table class="boatlist" style="float:right">
     <thead>
       <tr>
-        <th>Båd</th><th>Kategori</th><th>Hvor</th><th>Status</th><th>Destination</th><th>Forventes</th><th class="rnum">km</th><th>Korr. dist</th>
+        <th>Båd</th><th>Kategori</th><th>Hvor</th><th>Status</th><th>Destination</th><th>Forventes</th><th class="rnum">km</th>
+        <th>Korr. dist</th>
         <th>Bemærkning</th><th>Check Ind</th>
       </tr>
     </thead>
@@ -44,8 +55,11 @@
           <span ng-show="{{boat.damage==3}}">Svært skadet</span>
           <span ng-show="{{boat.damage==2}}">Middel skadet</span>
           <span ng-show="{{boat.damage==1}}">Let skadet</span>
-	</td>
-	<td>{{boat.destination}}</td>
+	</td>        
+        <td ng-click="checkin.update_destination_for=boat">
+          &#9998;
+          {{boat.destination}}
+        </td>
 	<td ng-class="{datealert: critical_time(boat.expected_in)}">{{boat.expected_in| txttotime | date :"HH:mm d. MMM"}}</td>
         
 	<td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
@@ -76,6 +90,8 @@
 </div>
 
 <!--br clear="all">
+<br clear="all">
+<pre>allboats = {{allboats | json}}</pre>
 <br clear="all">
 <h1 class="debug"ap>debug info</h1>
 <pre>checkin = {{checkin | json}}</pre>

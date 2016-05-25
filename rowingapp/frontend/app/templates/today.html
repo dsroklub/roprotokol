@@ -7,11 +7,10 @@
     <tr ng-repeat="tw in onwater" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" >
       <td >{{tw.boat}}</td><td>{{tw.outtime | txttotime | date :"HH:mm d. MMM"}}</td>
       <td ng-class="{datealert: critical_time(tw.expectedintime)}">{{tw.expectedintime | txttotime | date :"HH:mm d. MMM"}}</td>
-
       <td>{{tw.destination}}</td><td>{{tw.id}}</td><td>{{tw.triptype}}</td>
       <td>
 	<ol>
-	  <li ng-repeat="roer in tw.rowers"> {{roer}}</li>
+	  <li ng-repeat="roer in tw.rowers">{{roer.name}}</li>
 	</ol>
       </td>      
     </tr>
@@ -30,7 +29,7 @@
       <td>{{tt.destination}}</td><td>{{tt.id}}</td><td>{{tt.triptype}}</td>
       <td>
 	<ol>
-	  <li  ng-repeat="roer in tt.rowers"> {{roer}}</li>
+	  <li ng-repeat="roer in tt.rowers"> {{roer.name}}</li>
 	</ol>
       </td>
     </tr>

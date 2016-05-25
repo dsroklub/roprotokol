@@ -21,8 +21,8 @@ if ($stmt = $rodb->prepare($s)) {
      $first=1;
      while ($row = $result->fetch_assoc()) {
        if ($first) $first=0; else echo ',';
-       $row['rowers']=multifield($row['rowers']);
-       echo json_encode($row,JSON_PRETTY_PRINT|JSON_FORCE_OBJECT);
+       $row['rowers']=multifield_array($row['rowers'],"member_id","name");
+       echo json_encode($row,JSON_PRETTY_PRINT);
      }
      echo ']';
 }

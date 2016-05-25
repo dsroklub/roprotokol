@@ -63,12 +63,15 @@
       <table class="genericlist">
         <caption>{{currentrower.name}} <i>({{currentrower.id}})</i></caption>
         <thead>
-           <tr><th>Rettighed</th><th>Detaljer</th></tr>
+          <tr>
+            <th>Rettighed</th>
+            <th>Detaljer</th>
+          </tr>
         </thead>
         <tbody>
-          <tr ng-if="currentrower" ng-repeat="(right,arg) in currentrower.rights">
-             <td>{{right|righttodk}}</td>
-             <td>{{arg}}</td>
+          <tr ng-if="currentrower" ng-repeat="rr in currentrower.rights">
+             <td>{{rr.right|righttodk}}</td>
+             <td>{{rr.arg}}</td>
           </tr>      
         </tbody> 
       </table>
@@ -141,16 +144,16 @@
   <div class="tripview" ng-show="currenttrip">
     <table class="genericlist"  ng-hide="correction">
       <caption>Tur: {{currenttrip.destination}}</caption>
-        <tr class="tripcomment" ng-show="currenttrip.comment"><td colspan="2">{{ currenttrip.comment }}</td></tr>
-        <tr><td>Distance:</td><td>{{ currenttrip.distance | mtokm }}</td>
-        <tr><td>Båd</td><td>{{currenttrip.boat }}</td></tr>
-        <tr><td>Ud</td><td>{{currenttrip.outtime }}</td></tr>
-        <tr ng-show="currenttrip.intime"><td>Ind</td><td>{{ currenttrip.intime }}</td></tr>
-        <tr ng-show="currenttrip.expectedin && !currenttrip.intime"><td>Forventet ind</td><td>{{ currenttrip.expectedin }}</td></tr>
-        <tr class="genericheader"><th>Roer</th><th>Medlemsnummer</th></tr>
-        <tr ng-repeat="tripmember in tripmembers">
-          <td >{{tripmember.name}}</td><td class="rnum">{{tripmember.id}}</td>
-        </tr>
+      <tr class="tripcomment" ng-show="currenttrip.comment"><td colspan="2">{{ currenttrip.comment }}</td></tr>
+      <tr><td>Distance:</td><td>{{ currenttrip.distance | mtokm }}</td>
+      <tr><td>Båd</td><td>{{currenttrip.boat }}</td></tr>
+      <tr><td>Ud</td><td>{{currenttrip.outtime|date: "d-MMM-yyyy HH:mm" }}</td></tr>
+      <tr ng-show="currenttrip.intime"><td>Ind</td><td>{{ currenttrip.intime|date: "d-MMM-yyyy HH:mm" }}</td></tr>
+      <tr ng-show="currenttrip.expectedin && !currenttrip.intime"><td>Forventet ind</td><td>{{ currenttrip.expectedin|date: "d-MMM-yyyy HH:mm" }}</td></tr>
+      <tr class="genericheader"><th>Roer</th><th>Medlemsnummer</th></tr>
+      <tr ng-repeat="tripmember in tripmembers">
+        <td >{{tripmember.name}}</td><td class="rnum">{{tripmember.id}}</td>
+      </tr>
         <tr>
           <td><button class="big" ng-show="tripmembers.length>0 " ng-click="start_correct()">meld rettelser</button></td>
         </tr>        
@@ -220,19 +223,34 @@
             <tr>
 	      <td><label for="correction_starttime">Ud</label></td>	  
 	      <td>
-	        <datetimepicker popup="d MMM yyyy" position="up" close-text="vælg" clear-text="rens"
-                                current-text="i dag" date-format="d-MMM-yyyy"
-                                show-spinners="false"
-                                date-options="dateOptions"
-                                show-meridian="false"
-                                ng-model="correction.outtime" required />
+                <div class="toppopup">
+	          <datetimepicker
+                     popup="d MMM yyyy"
+                     position="up"
+                     close-text="vælg" clear-text="rens"
+                     current-text="i dag" date-format="d-MMM-yyyy"
+                     show-spinners="false"
+                     date-options="dateOptions"
+                     show-meridian="false"
+                     ng-model="correction.outtime" required />
+                </div>
 	      </td>
             </tr>
 
             <tr>
 	      <td><label for="correction_endtime">Ind</label></td>              
 	      <td>
-	        <datetimepicker close-text="vælg" clear-text="rens" current-text="i dag" date-format="d-MMM-yyyy" show-spinners="false" date-options="dateOptions" show-meridian="false" ng-model="correction.intime"/ required>
+	        <datetimepicker
+                   class="toppopup"
+                   close-text="vælg"
+                   clear-text="rens"
+                   current-text="i dag"
+                   date-format="d-MMM-yyyy"
+                   show-spinners="false"
+                   date-options="dateOptions"
+                   show-meridian="false"
+                   ng-model="correction.intime"/
+                   required>
 	      </td>
             </tr>
 	    

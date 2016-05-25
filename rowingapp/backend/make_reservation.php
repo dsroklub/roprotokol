@@ -5,17 +5,16 @@ include("inc/verify_user.php");
 $error=null;
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
+
+// error_log($data);
 $data=json_decode($data);
-
-
-error_log($data);
 error_log("new reservation ".json_encode($data));
 
 $start_date=isset($data->start_date)?$data->start_date:"1917-03-28";
 
 $end_date=isset($data->end_date)?$data->end_date:null;
 
-$dow=$data->dayofweek;
+$dow=isset($data->dayofweek)?$data->dayofweek:null;
 if (!$dow) {
     $dow=0;
 }

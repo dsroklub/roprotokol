@@ -455,6 +455,7 @@ li.selected,button.selected {
     background: #50E663;
 }
 
+
 .boatlist tr td {
     padding: 2pt 4pt 2pt 6pt;
     user-select:none;
@@ -548,6 +549,14 @@ li.selected,button.selected {
     margin-top: 1em;
 }
 
+.reservations {
+    display: inline-block;
+    float:left;
+    clear:left;
+    max-width: 30em;
+    margin-top: 1em;    
+}
+
 .damageslist {
     display: inline-block;
     float:left;
@@ -592,6 +601,7 @@ li.selected,button.selected {
 
 .rightsmessage {
     max-width: 20em;
+    background: yellow;
 }
 
 .error {
@@ -602,7 +612,16 @@ li.selected,button.selected {
     color: red;
 }
 
-.oauth,.farvand {
+
+.checkoutmessage {
+    color: black;
+    background: #07FF00;
+    font-size: 20pt;
+    max-width: 30em;        
+    border-radius: 8px;
+}
+
+.farvand {
     float:left;
     margin-left: 1em;
     margin-top: 1em;
@@ -735,7 +754,7 @@ select  {
     background: #f00;
 }
 
-.uib-datepicker-popup {
+.toppopup .uib-datepicker-popup {
     top :0px!important;
 }
 
@@ -874,4 +893,27 @@ datetimepicker.ng-empty ng-form div input {
 
 datetimepicker.trip-search-field ng-form div input {
     background: white;
+}
+
+.destinationlist {
+    background: yellow;
+    width: 30em;
+    position:fixed;
+    border: 2px solid blue;
+}
+
+.topsel {
+    xbackground: green;
+    background:#BFFFBF;
+    border-radius: 0.8em;
+    color: black !important;
+    border: 1px solid yellow;
+}
+
+.topsel a {
+    color: black !important;
+}
+
+.topsel i {
+    color: black;
 }

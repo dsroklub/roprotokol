@@ -321,10 +321,10 @@
           <tr> <th>Rettighed</th><th></th> </tr>	
         </thead>
         <tbody>
-	  <tr ng-repeat="(rt,dt) in currentrower.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-            <td>{{rt |righttodk}}</td>
+	  <tr ng-repeat="rr in currentrower.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+            <td>{{rr.right |righttodk}}</td>
             <td>
-              <button class="big" ng-click="remove_rower_right(rt,currentrower)">inddrag rettighed</button>
+              <button class="big" ng-click="remove_rower_right(rr.right,currentrower,$index)">inddrag rettighed</button>
             </td>
           </tr>
         </tbody>
@@ -565,3 +565,5 @@
     <li><a href="http://roprotokol.danskestudentersroklub.dk/public/reservationdays.php">Ugeskema for bådreservationer som CVS, ekstern offentlig adgang</a></li>
   </ul>
 </div>
+
+
