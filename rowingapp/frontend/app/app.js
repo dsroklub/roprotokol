@@ -83,10 +83,3 @@ var app = angular.module('myApp', [
   }])
 ;
 
-function MainCtrl($scope, $location, $route) {
-  $scope.activePath = null;
-  $scope.$on('$routeChangeSuccess', function(){
-    $scope.activePath = $location.path();
-    console.log( $location.path() );
-  });
-}

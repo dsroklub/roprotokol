@@ -455,6 +455,7 @@ li.selected,button.selected {
     background: #50E663;
 }
 
+
 .boatlist tr td {
     padding: 2pt 4pt 2pt 6pt;
     user-select:none;
@@ -899,4 +900,20 @@ datetimepicker.trip-search-field ng-form div input {
     width: 30em;
     position:fixed;
     border: 2px solid blue;
+}
+
+.topsel {
+    xbackground: green;
+    background:#BFFFBF;
+    border-radius: 0.8em;
+    color: black !important;
+    border: 1px solid yellow;
+}
+
+.topsel a {
+    color: black !important;
+}
+
+.topsel i {
+    color: black;
 }
