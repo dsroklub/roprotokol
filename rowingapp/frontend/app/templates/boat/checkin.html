@@ -57,7 +57,7 @@
           <span ng-show="{{boat.damage==1}}">Let skadet</span>
 	</td>        
         <td ng-click="checkin.update_destination_for=boat">
-          &#9998;
+       <i class="fa fa-pencil"></i>
           {{boat.destination}}
         </td>
 	<td ng-class="{datealert: critical_time(boat.expected_in)}">{{boat.expected_in| txttotime | date :"HH:mm d. MMM"}}</td>
