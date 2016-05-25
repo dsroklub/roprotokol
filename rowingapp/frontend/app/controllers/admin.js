@@ -226,10 +226,10 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('add_rower_right',data,$scope.config,$scope.errorhandler);
               $scope.currentrower.rights.push({'right':right.member_right,arg:null});
             }
-            $scope.remove_rower_right = function(right,rower) {             
+            $scope.remove_rower_right = function(right,rower,ix) {
               var data={'right':right,'rower':rower}
               var exeres=DatabaseService.updateDB('remove_rower_right',data,$scope.config,$scope.errorhandler);
-              delete $scope.currentrower.rights[right];
+              $scope.currentrower.rights.splice(ix,1);                                  
             }
             
             $scope.remove_boattype_requirement = function(rt,ix) {
