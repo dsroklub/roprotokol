@@ -11,11 +11,27 @@ app.controller(
        // Load Category Overview
        $scope.boatcategories = DatabaseService.getBoatTypes();
        // Load selected boats based on boat category
+       $scope.reservations = DatabaseService.getDB('get_reservations');
+
        $scope.critical_time = function (tx) {
          var t=tx.split(/[- :]/);
          var et=new Date(t[0], t[1]-1, t[2], t[3]||0, t[4]||0, t[5]||0);
          return(et< new Date);
        };    
+
+       // FIXME also in admin, antiduplicate
+       $scope.getTriptypeWithID=DatabaseService.getTriptypeWithID;
+       $scope.weekdays=[
+         {id:0,day:"-"},
+         {id:1,day:"mandag"},
+         {id:2,day:"tirsdag"},
+         {id:3,day:"onsdag"},
+         {id:4,day:"torsdag"},
+         {id:5,day:"fredag"},
+         {id:6,day:"lørdag"},
+         {id:7,day:"søndag"}
+       ];
+
 
        $scope.allboats = DatabaseService.getBoats();
        $scope.levels =DatabaseService.getDB('boatlevels');
@@ -33,13 +49,15 @@ app.controller(
              $scope.checkout.destination=DatabaseService.getDestinationWithName(status.reuse.destination);
              $scope.checkout.distance=$scope.checkout.destination.distance;
              $scope.checkout.boat=DatabaseService.getBoatWithId(status.reuse.boat_id);
+	     $scope.checkout.comments=status.reuse.comment;
+	     $scope.checkout.starttime=status.reuse.outtime;
+	     $scope.checkout.expectedtime=status.reuse.expectedintime;
              $scope.selectedBoatCategory=DatabaseService.getBoatTypeWithName($scope.checkout.boat.category);
              $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
              $scope.checkout.rowers=[];
              angular.forEach(status.reuse.rowers,function(name,id,kv) {
                $scope.checkout.rowers.push(DatabaseService.getRower(id));
-             }
-                            );
+             });
              $scope.updateExpectedTime();
 	     // FIXME update checkout fields
 	   }
@@ -83,7 +101,8 @@ app.controller(
          'triptype': null,
          'rowers': ["","","","",""],
          'client_name':DatabaseService.client_name(),
-         'distance':0
+         'distance':0,
+         'comments':''
        };
        $scope.checkouttime_clean=$scope.checkout.starttime;
 
@@ -144,6 +163,57 @@ app.controller(
            }
       }   
        },this);
+
+       // Check reservation
+       // WIP, works for daytrips
+       angular.forEach($scope.reservations, function(rv) {
+         var otime=$scope.checkout.starttime;
+         var etime=$scope.checkout.expectedtime;
+         if ($scope.checkout.triptype && $scope.checkout.boat && $scope.checkout.boat.id==rv.boat_id && etime) {
+           if (rv.dayofweek>0) {
+             if (etime.getDay()==(rv.dayofweek)) {
+               // var etime="18:13:12.241Z"
+               var st=angular.copy(etime);
+               var et=angular.copy(etime);
+               st.setHours(rv.start_time.split(":")[0]);
+               st.setMinutes(rv.start_time.split(":")[1]);
+               st.setSeconds(0);
+               
+               et.setHours(rv.end_time.split(":")[0]);
+               et.setMinutes(rv.end_time.split(":")[1]);
+               et.setSeconds(0);
+
+               if (!(
+                 rv.triptype_id==$scope.checkout.triptype.id ||
+                   (etime < st && otime < st) ||
+                   (etime > et && otime > et)
+               )
+                  ) {
+                 norights.push(" Båden er reserveret til "+ rv.triptype + " :"+rv.purpose+
+                               " fra "+rv.start_time+" til "+rv.end_time);
+               }             
+             }
+           } else {
+             var st=rv.start_date + "T"+ rv.start_time;
+             var et=rv.end_date + "T"+ rv.end_time;
+             if (!(
+               rv.triptype_id==$scope.checkout.triptype.id ||
+                 (etime < st && otime < st)||
+                 (etime > et && otime > et)
+             )
+                )
+             {
+               norights.push(" Båden er reserveret til "+ rv.triptype + " :"+rv.purpose+
+                             " fra " +st+" til "+et);
+             }
+           }
+         }
+       },this);
+       
+       if ($scope.checkout.boat && $scope.checkout.boat.damage > 2) {
+	   norights.push(" Båden er svært skadet og må derfor ikke komme på vandet !!!");
+       }
+
        $scope.rightsmessage=norights.join(",");
        return norights.length<1;
      }
@@ -168,7 +238,7 @@ app.controller(
        $scope.destinations = DatabaseService.getDestinations(boat.location);
        $scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat.id);
        if ( (!oldboat && boat.location!=DatabaseService.defaultLocation)  || (oldboat &&  oldboat.location!=boat.location)) {
-	 // Distance have changed, and we do not know if user overrode and accouted for location
+	 // Distance have changed, and we do not know if user overrode and accounted for location
 	 if ($scope.checkout.destination && $scope.checkout.destination.name)
            $scope.checkout.destination=DatabaseService.nameSearch($scope.destinations,$scope.checkout.destination.name);
        }

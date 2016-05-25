@@ -59,3 +59,5 @@ SET Member.JoinDate=tblMembersToRoprotokol.JoinDate,Member.RemoveDate=tblMembers
 
 UPDATE TripType SET id=17 WHERE id=0;
 ALTER TABLE TripType MODIFY COLUMN id INT NOT NULL AUTO_INCREMENT;
+
+DROP TABLE Reservation;

@@ -1,9 +1,7 @@
 'use strict';
 
-app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route',
-                             function ($scope,   DatabaseService, NgTableParams, $filter,$route) {
-
-
+app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm','$log',
+                             function ($scope, DatabaseService, NgTableParams, $filter,$route,$confirm,$log) {
 
           var rower_diff = function(current,correction) {
             var diffs={'from':{},'to':{}};
@@ -36,13 +34,37 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             }
             return res;
           }
-                               
+
+     $scope.dateOptions = {
+       showWeeks: false,
+       formatDay:"d",
+       formatYear: 'yyyy',
+       formatMonth: 'MMM',
+       title:"foo"
+     };
+
+           $scope.weekdays=[
+            {id:0,day:"-"},
+            {id:1,day:"mandag"},
+            {id:2,day:"tirsdag"},
+            {id:3,day:"onsdag"},
+            {id:4,day:"torsdag"},
+            {id:5,day:"fredag"},
+            {id:6,day:"lørdag"},
+            {id:7,day:"søndag"}
+          ];
+
+          $scope.reservations=[];
+          $scope.reservation={};
           DatabaseService.init().then(function () {
             $scope.currentrower=null;
             $scope.do="events";
             $scope.DB=DatabaseService.getDB;
-            $scope.clientname=DatabaseService.client_name();
+            $scope.triptypes=DatabaseService.getDB('triptypes');
+            $scope.reservations = DatabaseService.getDB('get_reservations');
+            $scope.clientname = DatabaseService.client_name();
             $scope.allboats = DatabaseService.getBoats();
+            $scope.iboats=DatabaseService.getDB('boats');
             $scope.locations = DatabaseService.getDB('locations');
             $scope.events = DatabaseService.getDB('get_events');
             $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
@@ -54,6 +76,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.placementlevels=[0,1,2];
             $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
             $scope.ziperrors=[];
+            $scope.getTriptypeWithID=DatabaseService.getTriptypeWithID;
             // var mainplan=[[],[],[],[],[]];
             // var num_aisles=5;
             // var num_rows=3;
@@ -88,7 +111,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.boatcategories = DatabaseService.getBoatTypes();
 
             $scope.errorhandler = function(error) {
-              console.log(error);
+              $log.error(error);
               $route.reload();
               alert("du skal logge ind");
             }
@@ -99,11 +122,13 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
 
             $scope.boattype_update = function(bt) {
               DatabaseService.updateDB('boattype_update',bt,$scope.config,$scope.errorhandler)
-              .then(function(){bt.changed = false});
+                .then(function(){
+                  bt.changed = false
+                });
             }
 
             $scope.create_boattype = function(bt) {
-              console.log("net boattype");
+              $log.info("new boattype");
               var exeres=DatabaseService.updateDB('create_boattype',bt,$scope.config,$scope.errorhandler);
               $scope.DB('boattypes').push(bt);
             }
@@ -113,9 +138,9 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             }
 
             $scope.create_triptype = function(tt) {
-              console.log("net triptype");
+              $log.info("new triptype");
               var exeres=DatabaseService.updateDB('create_triptype',tt,$scope.config,$scope.errorhandler);
-              $scope.DB('triptypes').push(tt);
+              $scope.triptypes.push(tt);
             }
 
             $scope.update_level = function(boat) {
@@ -138,8 +163,8 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               var exeres=DatabaseService.updateDB('usage_update_description',usage,$scope.config,$scope.errorhandler);
             }
             $scope.create_usage = function(usage) {
-              console.log('create new usage '+usage);
-              var exeres=DatabaseService.updateDB_async('usage_create',usage,$scope.config).then(
+              $log.info('create new usage '+usage);
+              var exeres=DatabaseService.updateDB('usage_create',usage,$scope.config,$scope.errorhandler).then(
                 function(newusage) {
                   if (newusage.status=="ok") {
                     $scope.usages.push(newusage.newusage);
@@ -159,6 +184,12 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
 
             $scope.set_cat_for_boat = function(boat) {
               var exeres=DatabaseService.updateDB('set_cat_for_boat',boat,$scope.config,$scope.errorhandler);
+            }
+            $scope.set_name_for_boat = function(boat) {
+              $confirm({text: 'Vil du omdøbe båden til'+boat.name+'?'})
+                .then(function() {
+                  var exeres=DatabaseService.updateDB('set_name_for_boat',boat,$scope.config,$scope.errorhandler);
+                });
             }
             $scope.set_loc_for_boat = function(boat) {
               var exeres=DatabaseService.updateDB('set_loc_for_boat',boat,$scope.config,$scope.errorhandler);
@@ -274,6 +305,40 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
                     return (allreqs && !allreqs[rtt.member_right]);
                   }
             }
+            
+            $scope.make_reservation = function (reservation){
+              var r=angular.copy(reservation);
+              r.start_time=$filter('date')(reservation.start_time,"HH:mm");
+              
+              //r.start_time=reservation.start_time.getHours()+":"+reservation.start_time.getMinutes();
+              r.end_time=reservation.end_time.getHours()+":"+reservation.end_time.getMinutes();
+              if (r.end_date) {
+                r.end_date=reservation.end_date.toISOString().split('T')[0];
+              }
+              if (r.start_date) {
+                r.start_date=reservation.start_date.toISOString().split('T')[0];
+              }
+              
+              var exeres=DatabaseService.updateDB('make_reservation',r,$scope.config,$scope.errorhandler).then(
+                function(newreservation) {
+                  if (newreservation.status=="ok") {
+                    $log.info("reservation made");
+                    $scope.reservations.push(r);                    
+                  }                  
+                }
+              )            }
+
+
+            $scope.cancel_reservation = function (ix){
+              var r=angular.copy($scope.reservations[ix]);
+              var exeres=DatabaseService.updateDB('cancel_reservation',r,$scope.config,$scope.errorhandler).then(
+                function(res) {
+                  if (res.status=="ok") {
+                    $log.info("reservation canceled");
+                    $scope.reservations.splice(ix,1);                                  
+                  }                  
+                }
+              )            }
             
             $scope.dotriprights = function (rr,tt) {
               if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling

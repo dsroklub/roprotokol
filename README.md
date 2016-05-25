@@ -11,20 +11,20 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
 # Installation
 
-    apt-get mdbtools
-    apt-get install npm python-mysqldb memcached php5-memcached mysql-server
+    apt-get install mdbtools
+    apt-get install npm python-mysqldb memcached php-memcached mysql-server
     apt-get install php5-mysqlnd nodejs nodejs-legacy
     # php5-mysqlnd is needed to make PHP know the difference between numbers and strings
     # Remember to restart your web server.
 
     sudo npm install -g bower karma
 
-    mkdir rowingapp/frontend/app/bower_components
-
     # for debug scripts
     apt-get install php5-cli
 
     cd rowingapp/frontend; npm install
+
+Set <code>group_concat_max_len = 50000</code> e.g. in /etc/mysql/my.cnf
 
 Create database:
 
@@ -35,15 +35,10 @@ Create database:
 
 Import schema:
 
-Set <code>group_concat_max_len = 50000</code> e.g. in /etc/mysql/my.cnf
 
     mysql -u roprotokol -p'roprotokol' roprotokol < db_setup/mkdb.sql
 
 Copy config.ini.template to config.ini and adjust
-
-Write the database access to the file secret.sh
-E.g.:
-    echo 'DBCMD="mysql -u roprotokol --password=roprotokol roprotokol"' >  secret.sh
 
 
 Test Webserver:

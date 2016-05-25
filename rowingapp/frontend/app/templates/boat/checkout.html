@@ -94,20 +94,22 @@
                 <label for="checkout_destination">Destination</label>
               </td>
               <td>
-                <ng-form name="destinationForm">
-                  <ui-select class="checkout_destination"
-			     ng-model="checkout.destination"
-			     on-select="updateCheckout($item)">
-		    <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
-		    <ui-select-choices repeat="destination in destinations | filter: $select.search">
-                      <span ng-bind-html="destination.name | highlight: $select.search"></span>
-                      (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km ,
-		      <small ng-bind-html="destination.duration | totime"></small>t)
-		    </ui-select-choices>
-                  </ui-select>
-                  <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="checkout.distance" required ></input>km
-
-                </ng-form>
+                <ui-select
+                   class="checkout_destination"
+		   ng-model="checkout.destination"
+		   on-select="updateCheckout($item)"
+                   ng-class="{uiselected: !checkout.destination}"
+                   >
+		  <ui-select-match placeholder="Vælg Destination">
+                    {{$select.selected.name||"vælg destination"}}
+                  </ui-select-match>
+		  <ui-select-choices repeat="destination in destinations | filter: $select.search">
+                    <span ng-bind-html="destination.name | highlight: $select.search"></span>
+                    (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km ,
+		    <small ng-bind-html="destination.duration | totime"></small>t)
+		  </ui-select-choices>
+                </ui-select>
+                <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="checkout.distance" required ></input>km
               </td>
             </tr>
             <tr>
@@ -146,10 +148,10 @@
 	    </tr>
 	    <tr>
               <td>
-                <label for="checkout_triptype">Tur type</label>
+                <label for="checkout_triptype">Turtype</label>
               </td>
               <td>
-                <select ng-selected="localtrip" id="checkout_triptype" type="text" ng-model="checkout.triptype"
+                <select name="triptypechooser" id="checkout_triptype" ng-model="checkout.triptype"
                         ng-options="item as item.name for item in triptypes|filter: {active:1} : true" ng-change="updateExpectedTime(checkout.destination)" required>
                 </select>
               </td>    
@@ -169,7 +171,7 @@
                    < FIXME fixit button id="reportdamage_button" class="yellow" ng-click="reportdamage(checkout)"><i class="fa fa-exclamation-triangle"></i> Meld skade</button>
 </td>    
 </tr -->
-            <TR><td>
+            <tr><td>
                 <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?"
                         confirm-ok="Udskriv båd"
                         confirm-cancel="fortryd"
@@ -192,6 +194,40 @@
       {{checkout.boat.location}}, port {{checkout.boat.placement_aisle}}, {{checkout.boat.placement_row|rowtodk}},  {{checkout.boat.placement_side|sidetodk}}, {{checkout.boat.placement_level|leveltodk}}
     </div>
 
+    <div ng-if="checkout.boat && (reservations | filter : {boat_id : checkout.boat.id}:true).length>0">
+      <table class="reservationlist" >
+        <caption>Resevationer af {{checkout.boat.name}}</caption>
+        <thead>
+          <tr>
+            <th>ugedag</th>
+            <th>start</th>
+            <th>(dato)</th>
+            <th>slut</th>
+            <th>(dato)</th>
+            <th>turtype</th>
+            <th>formål</th>
+            <!--th>bemærkninger</th-->
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations | filter : {boat_id : checkout.boat.id}:true">
+            <td>{{weekdays[rv.dayofweek].day}}</td>
+            <td>{{rv.start_time}}</td>
+            <td>
+              <div ng-show="rv.dayofweek==0">{{rv.start_date}}
+              </div>
+            </td>
+            <td>{{rv.end_time}}</td>          
+            <td>
+              <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div></td>
+            <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>        
+            <td>{{rv.purpose}}</td>
+            </td>
+          </tr>
+        </tbody>
+      </table>    
+    </div>
+
 
     <div ng-show="boatdamages" class="damageslist">
       <h2>Skader på {{checkout.boat.name}}</h2>
@@ -203,6 +239,5 @@
       </ul>   
     </div>
   </div>
-
   <!--img class="farvand" ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" -->
 </div>

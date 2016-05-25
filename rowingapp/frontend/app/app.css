@@ -1,5 +1,3 @@
-/*// @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);*/
-
 /* Generic */
 html, body {
     margin: 0;
@@ -28,6 +26,19 @@ ul {
     padding: 0;
     margin: 0;
 }
+
+.tools ul {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 2em;
+    color: blue;
+}
+
+.tools a {
+    color: red;
+    font-weight: bold;
+}
+
 pre.ng-binding {
     /* display: none; */
 }
@@ -46,8 +57,8 @@ button {
 }
 
 button:hover {
-/*    color: #23AEE2;*/
-/*    border: 1px solid #23AEE2;*/
+    /*    color: #23AEE2;*/
+    /*    border: 1px solid #23AEE2;*/
 }
 button i {
     margin-right: 5pt;
@@ -112,8 +123,8 @@ input.big {
 
 
 button#createtrip_button[disabled] {
-  color: gray;
-  border: 1px solid blue;
+    color: gray;
+    border: 1px solid blue;
 }
 
 /* Custom */
@@ -163,7 +174,7 @@ button#createtrip_button[disabled] {
 }
 
 .prompt {
-  display:inline-block;
+    display:inline-block;
 }
 button.statcat, button.adminbut {
     background: #EEC88E;
@@ -242,7 +253,7 @@ button.statcat, button.adminbut {
 }
 
 .genericmenu {
-	     width: auto;
+    width: auto;
 }
 
 .boattypesmenu {
@@ -313,7 +324,7 @@ table caption {
     border-color: #ff0000;
     border-radius: 5px 5px 5px 5px;
     width:auto;
-//    display: inline-block;
+    //    display: inline-block;
     padding: 5px;
     right : 0px;
     margin-top: 3em;
@@ -461,9 +472,10 @@ li.selected,button.selected {
 .boatlist tr:hover {
     background: #6ad7ce;
 }
+
 .boatlist tr td {
     cursor: pointer;
-/*    cursor: url('btc.png'),pointer; */
+    /*    cursor: url('btc.png'),pointer; */
 }
 .statlist td {
     padding: 6pt 10pt 6pt 10pt;
@@ -507,7 +519,7 @@ li.selected,button.selected {
     margin-right: 2pt;
     margin-left: 0pt;
 }
-    
+
 .damageslist h2 {
     background: #f0ce4e;
     padding: 10pt;
@@ -521,6 +533,21 @@ li.selected,button.selected {
     background: white;
     padding: 10pt;
 }
+.reservationlist th {
+    background: #f0ce4e;
+    padding: 10pt;
+}
+
+.reservationlist td {
+    padding: 1em;
+}
+
+.reservationlist caption {
+    background: #961E1E;
+    padding: 10pt;
+    margin-top: 1em;
+}
+
 .damageslist {
     display: inline-block;
     float:left;
@@ -568,11 +595,11 @@ li.selected,button.selected {
 }
 
 .error {
-  color: red;
+    color: red;
 }
 
 .message {
-  color: red;
+    color: red;
 }
 
 .oauth,.farvand {
@@ -603,7 +630,7 @@ div.report {
 }
 
 div.guestpenguin {
-  margin: 0em 1em 2em 0em !important;
+    margin: 0em 1em 2em 0em !important;
 }
 
 
@@ -614,9 +641,9 @@ div.guestpenguin {
 .right_select {
     border-radius: 5px;
     height: 2em;
-    min-width : 10em;
+    min-width : 15em;
     display: inline-block;
-        
+    
 }
 
 input.adminpw {
@@ -660,7 +687,7 @@ input.adminpw {
 
 
 .boatcrew table td{
-  padding: 0.7em;
+    padding: 0.7em;
 }
 
 .numin  {
@@ -670,7 +697,7 @@ input.adminpw {
 }
 
 input[type=number]::-webkit-inner-spin-button {  
-   opacity: 1;
+    opacity: 1;
 }
 
 .boatcombinations tr th {
@@ -697,8 +724,8 @@ select  {
 }
 
 .toppane {
-	width: 100%;
-	clear:both;
+    width: 100%;
+    clear:both;
 }
 .alert {
     color: #f00;
@@ -729,8 +756,9 @@ select  {
 
 
 button[disabled], html input[disabled] {
-  cursor: default;
-  background: #808080 !important;
+    cursor: default;
+    background: #808080 !important;
+    pointer-events: none;
 }
 
 .rowerdiff {
@@ -754,33 +782,38 @@ button[disabled], html input[disabled] {
 }
 
 .trip-search-field {
-	display: inline;
-	min-height: 34px;
-	padding: 6px;
+    display: inline;
+    min-height: 34px;
+    padding: 6px;
 }
 
 tr.tripcomment {
-	border: 2px solid #23aee2;
-	border-top: none;
+    border: 2px solid #23aee2;
+    border-top: none;
 }
 tr.tripcomment td {
-	padding: 3px;
+    padding: 3px;
 }
 
 input.tripcomment {
-	width: 12em;
+    width: 12em;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.uib-time input {
+    width: 2em;
+}
+
+.uib-timepicker tr td {
+    padding : 0px;
 }
 
 
-.widget-clock .time {
-  font-size: 2.0em;
-  margin: 0;
-}
-
-.hours {
-    margin-left: 4em;
-    font-size: 1.0em;
-    color:yellow
+.form-control {
+    padding: 0px;
 }
 
 .tbody {
@@ -791,21 +824,54 @@ input.tripcomment {
     background : #DFD;
 }
 
-
-.ng-invalid {
-    background: #F88;
+select.ng-invalid, input.ng-invalid {
+    background: #FCC;
 }
 
-    background: #F88;
+datetimepicker.ng-empty ng-form div input {
+    background: #FCC;
 }
 
-.ng-pristine {
+
+.checkout_destination div span.btn {
+    background: #FCC;
+}
+
+.checkout_destination.ng-dirty div span.btn {
     background: white;
 }
+
 .ng-pristine {
     background: white;
 }
 .error {
     color: red;
     background:white;
+}
+.widget-clock .time {
+    font-size: 2.0em;
+    margin: 0;
+    color: yellow;
+}
+
+.hours {
+    margin-left: 4em;
+    font-size: 1.0em;
+}
+
+.uib-datepicker tr td {
+    background: #DAD3D3;
+    padding: 0px;
+}
+
+.uib-datepicker button {
+    margin: 0px;
+    padding: 0px;
+}
+.uib-daypicker button {
+    margin: 0px;
+}
+
+datetimepicker.trip-search-field ng-form div input {
+    background: white;
 }

@@ -5,7 +5,9 @@
     <meta charset="utf-8">
   </head>
   <body>      
-    
+<?php
+    include("../rowingapp/backend/inc/backheader.php");
+?>
     <table>
       <caption>Inringger instruktion</caption>
       <tr>

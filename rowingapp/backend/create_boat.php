@@ -1,5 +1,5 @@
 <?php
-include("inc/common.php")
+include("inc/common.php");
 include("inc/verify_user.php");
 
 $error=null;

@@ -6,7 +6,7 @@ $s="SELECT id,Name as name ,Seatcount as seatcount, Category as category, Descri
            GROUP_CONCAT(required_right,':§§:',requirement SEPARATOR '££') AS rights
     FROM BoatType
     LEFT JOIN  BoatRights ON BoatType.id=boat_type
-    GROUP BY BoatType.Name
+    GROUP BY BoatType.Name,BoatType.id
     ORDER by Name
     ";
 //echo $s;

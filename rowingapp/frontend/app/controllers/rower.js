@@ -194,7 +194,7 @@ app.controller(
              $scope.mo.fy=d.data[0].year;
              for (var y=$scope.mo.fy;y<=d.data[d.data.length-1].year;y++) {
                $scope.mo.data.push([]);
-               $scope.mo.series.push("sæson "+y);
+               $scope.mo.series.push(""+y);
                for (var wn=0;wn<53;wn++) {
                  $scope.mo.data[y-$scope.mo.fy][wn]=0;
                }             

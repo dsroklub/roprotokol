@@ -1,12 +1,13 @@
 'use strict';
-angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q,$log, AccessToken) {
+angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q,$log) {
   var valid={};
   var db={};
   var rowerstatistics={};
   var boatstatistics={};
   var databasesource=dbmode;
   var tx=null;
-
+  var debug=3;
+  
   db.boatlevels={
     1:'Let',
     2:'Mellem',
@@ -24,7 +25,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
 
   var cachedepend={
-    'boat':['boats','boatdamages','availableboats','boatreservations','boat_status','boat_usages','boat_status','get_events'],
+    'reservation':['reservation','boat'],
+    'boat':['boats','boatdamages','availableboats','reservations','boat_status','boat_usages','boat_status','get_events'],
     'trip':['rowers','rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
     'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
     'destination':['destinations']
@@ -69,11 +71,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var boatmaintypes = ['kayak','any','rowboat'];
     $log.debug("DB fetch "+Date());
     var headers = {};
-    // var accessToken = AccessToken.get();
     var promises=[];
-    //if (accessToken) {
-    //  headers['Authorization'] = 'Bearer ' + accessToken.access_token;
-    //}
 
     if(!valid['boats']) {
       //Build indexes and lists for use by API
@@ -118,6 +116,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     } 
 
     this.getData('destinations',promises);
+    this.getData('get_reservations',promises);
     this.getData('get_events',promises);
     this.getData('boattypes',promises);
     this.getData('errortrips',promises);
@@ -207,10 +206,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   
   this.defaultLocation = 'DSR';
   this.invalidate_dependencies=function(tp) {
-    $log.debug("  dirty: "+tp);
+//    $log.debug("  dirty: "+tp);
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
-      $log.debug("    invalidate: "+subtp);
+//      $log.debug("    invalidate: "+subtp);
       valid[subtp]=false;	    
     }
   };
@@ -227,7 +226,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       $log.debug("got dbstatus" + JSON.stringify(ds));
       for (var tp in ds) {
 	if (datastatus[tp]!=ds[tp]) {
-          $log.debug("  inval"+tp);
+//          $log.debug("  inval "+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
@@ -258,9 +257,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
   this.getBoatTypeWithName = function (name) {
     for (var i=0;i<db['boattypes'].length;i++) {
-      $log.debug(" F"+db['boattypes'][i].name);
       if (db['boattypes'][i].name==name) {
-	$log.debug("found "+db['boattypes'][i].name);
 	return (db['boattypes'][i]);
       }
     }
@@ -306,7 +303,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   }
 
   this.nameSearch = function (list,name) {
-    for (var i=0;i<list.length;i++) {
+    for (var i=0;list && (i<list.length);i++) {
       if (list[i].name==name) return list[i];
     }
     return null;
@@ -405,18 +402,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       return [];
     }    
   };
-  
-  this.createRowerByName = function(rowereq) {
-    // TODO: implement
-    var first;
-    var last;
-    return {
-        "id": "K1",
-      "first": first,
-      "lastt": last
-      };
-  };
-  
+    
   this.closeForm = function(form,data,datakind) {
     var formClosed=$q.defer();
     var res=undefined;

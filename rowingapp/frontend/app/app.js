@@ -12,9 +12,9 @@ var app = angular.module('myApp', [
   'myApp.range',
   'myApp.database',
   'myApp.utilities',
-  'oauth',
   'angular-confirm',
   'chart.js',
+  'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
   'ds.clock'
 ])

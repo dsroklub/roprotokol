@@ -13,7 +13,6 @@ CREATE TABLE Boat (
   boat_usage int(11),
   level int(11),
   Location varchar(100),
-  Placement varchar(100),
   placement_aisle INT, -- doors in DSR, Containers from left in Nordhavn
   placement_row INT, -- 1 is toward port, 2 is torwards Strandvænget
   placement_level INT, -- 0=ground, 1 .. shelves
@@ -200,20 +199,23 @@ CREATE TABLE MemberRights (
   PRIMARY KEY (member_id,MemberRight,Acquired,argument)
 );
 
-DROP TABLE IF EXISTS Reservation;
-CREATE TABLE Reservation (
-  id int(11) NOT NULL,
-  Boat int(11),
-  start_time datetime,
-  end_time datetime,
-  Member int(11),
-  Description varchar(1000),
-  CancelledBy int(11),
+DROP TABLE IF EXISTS reservation;
+CREATE TABLE reservation (
+  boat INT,
+  start_time time,
+  end_time time,
+  start_date date,
+  end_date date,
+  member INT,
+  dayofweek INT,
+  description varchar(1000),
+  triptype INT,
+  CancelledBy INT,
   Purpose varchar(100),
   Created datetime,
   Updated datetime,
   Initials varchar(10),
-  PRIMARY KEY (id)
+  PRIMARY KEY (boat,start_time,start_date,dayofweek)
 );
 
 DROP TABLE IF EXISTS Trip;
@@ -260,7 +262,7 @@ CREATE TABLE TripRights (
 
 DROP TABLE IF EXISTS TripType;
 CREATE TABLE TripType (
-  id int(11) NOT NULL AUTO_INCREMENT,,
+  id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100),
   Description varchar(1000),
   Created datetime,
