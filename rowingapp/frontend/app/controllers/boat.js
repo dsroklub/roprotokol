@@ -295,10 +295,12 @@ app.controller(
   
      $scope.updateExpectedTime = function () {
        if ($scope.checkout.starttime && $scope.checkout.destination) {
-         if($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && $scope.checkout.destination.duration_instruction) {
-           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + $scope.checkout.destination.duration_instruction * 3600 * 1000)
+         var duration=($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && $scope.checkout.destination.duration_instruction)?$scope.checkout.destination.duration_instruction:$scope.checkout.destination.duration;
+
+         if (duration>0) {
+           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + duration * 3600 * 1000);
          } else {
-           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + $scope.checkout.destination.duration * 3600 * 1000);
+           $scope.checkout.expectedtime = null;
          }
        }
      }
