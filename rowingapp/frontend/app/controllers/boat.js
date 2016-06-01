@@ -110,7 +110,7 @@ app.controller(
 
      var has_right = function(right,arg,rightlist) {
        for (var ri=0; ri<rightlist.length; ri++) {
-         if (rightlist[ri].right==right && (!arg || arg==rightlist[ri].arg)) {
+         if (rightlist[ri].member_right==right && (!arg || !rightlist[ri].arg || arg==rightlist[ri].arg)) {
            return true;
          }
        }
@@ -125,20 +125,26 @@ app.controller(
        var boatRequirements=($scope.selectedBoatCategory)?$scope.selectedBoatCategory.rights:[];
        var reqs=DatabaseService.mergeArray(tripRequirements,boatRequirements);
        var norights=[];
+       var subright=null;
+
+       if ($scope.selectedBoatCategory) {
+         subright=$scope.selectedBoatCategory.rights_subtype;
+       }
+       
        angular.forEach(reqs, function(subject,rq) {
            // console.log("check right "+rq);
 	 if (rq=="findIndex") {
 	       // ignore
 	 } else if (subject='cox') {
                if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
-                 if (!(has_right(rq,null,$scope.checkout.rowers[0].rights))) {
+                 if (!(has_right(rq,subright,$scope.checkout.rowers[0].rights))) {
                    norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));
                  }
                }
 	 } else if (subject='all') {
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-               if (!(has_right(rq,null,$scope.checkout.rowers[ri].rights))) {
+               if (!(has_right(rq,subright,$scope.checkout.rowers[ri].rights))) {
 		 norights.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
                }
              }
@@ -147,7 +153,7 @@ app.controller(
            var ok=false;
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-               if (!(has_right(rq,null,$scope.checkout.rowers[ri].rights))) {
+               if (!(has_right(rq,subright,$scope.checkout.rowers[ri].rights))) {
 		 ok=true;
                }
              }
@@ -159,7 +165,7 @@ app.controller(
            var ok=true;
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-               if (!(has_right(rq,null,$scope.checkout.rowers[ri].rights))) {
+               if (!(has_right(rq,subright,$scope.checkout.rowers[ri].rights))) {
 		 ok=false;
                }
              }

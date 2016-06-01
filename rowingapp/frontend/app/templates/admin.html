@@ -15,14 +15,15 @@
       <caption>Bådtyper</caption>
       <thead>
         <tr>
-	  <th>Bådtype</th><th>Antal sæder</th><th>Robåd/kajak</th><th>&nbsp</th><th>Rettighedskrav</th>
+	  <th>Bådtype</th><th>Antal sæder</th><th>Robåd/kajak</th><th>rettighedsundertype</th><th>&nbsp</th><th>Rettighedskrav</th>
         </tr>	
       </thead>
       <tbody>
         <tr ng-repeat="bt in boatcategories">
 	  <td >{{bt.name}}</td>
 	  <td ><input type="number" class="seatcount" size="5" maxlength="5" autocomplete="off" ng-model="bt.seatcount" ng-change="bt.changed=true"></td>
-	  <td ><select  ng-change="bt.changed=true" ng-model="bt.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
+	  <td ><select ng-change="bt.changed=true" ng-model="bt.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
+	  <td ><select ng-change="bt.changed=true" ng-model="bt.rights_subtype" ng-options="bk.name as bk.description for bk in rights_subtypes"></select></td>
 	  <td><button ng-show="bt.changed" ng-click="boattype_update(bt)" class="action">Gem</button></td>
 	  <td><button class="action" ng-click="doboatrights(bt.rights,bt)">{{bt.rights|rightreqs}}</button></td>
 	</tr>
@@ -185,14 +186,14 @@
     <tbody>
       <tr ng-repeat="(rt,subject) in requiredboatrights">
 	<td>{{rt|righttodk}}</td>	  
-	<td> <select ng-model="subject" ng-options="rt  as rt|subjecttodk for rt in rightsubjects">{{subject}}</select></td>
+	<td> <select ng-model="subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{subject}}</select></td>
         <td>
           <button class="action" ng-click="remove_boattype_requirement(rt,$index)">Fjern krav</button>
         </td>
       </tr>
       <tr>
         <td>
-          <select ng-model="boattype.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)">
+          <select ng-model="boattype.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)|unique:'member_right'">
           </select>
         </td>
 	<td>
@@ -252,7 +253,7 @@
         </tr>
         <tr>
           <td>
-            <select  ng-model="trip.newright.right" ng-options="mrt.member_right as mrt.member_right | righttodk for mrt in memberrighttypes| filter: noreq(requiredtriprights)"></select>
+            <select  ng-model="trip.newright.right" ng-options="mrt.member_right as mrt.member_right | righttodk for mrt in memberrighttypes| filter: noreq(requiredtriprights)|unique:'member_right'"></select>
           </td>
 	  <td>
 	    <select ng-model="trip.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{subject}}</select>
@@ -322,9 +323,9 @@
         </thead>
         <tbody>
 	  <tr ng-repeat="rr in currentrower.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-            <td>{{rr.right |righttodk}}</td>
+            <td>{{rr |argrighttodk}}</td>
             <td>
-              <button class="big" ng-click="remove_rower_right(rr.right,currentrower,$index)">inddrag rettighed</button>
+              <button class="big" ng-click="remove_rower_right(rr,currentrower,$index)">inddrag rettighed</button>
             </td>
           </tr>
         </tbody>
@@ -332,8 +333,8 @@
     </div>
     <div class="addright" ng-if="currentrower.id">
       <ui-select class="right_select" name="rower.addnewright" ng-model="rower.newright" on-select="add_rower_right(rower.newright,currentrower)">
-        <ui-select-match class="newright" placeholder="tildel rettighed til {{currentrower.name}}" >Tildel ny rettighed til {{currentrower.name}}</ui-select-match>        
-        <ui-select-choices class="newright" position="down" repeat="rtt in DB('memberrighttypes')| filter:noright()" >{{rtt.member_right|righttodk}}</ui-select-choices>
+        <ui-select-match class="newright" placeholder="tildel rettighed til {{currentrower.name}}" >Tildel ny rettighed til {{currentrower.name}}</ui-select-match>
+        <ui-select-choices class="newright" position="down" repeat="rtt in DB('memberrighttypes')| filter:noright()" >{{rtt|argrighttodk}}</ui-select-choices>
       </ui-select>
     </div>
   </div>
@@ -565,5 +566,4 @@
     <li><a href="http://roprotokol.danskestudentersroklub.dk/public/reservationdays.php">Ugeskema for bådreservationer som CVS, ekstern offentlig adgang</a></li>
   </ul>
 </div>
-
 

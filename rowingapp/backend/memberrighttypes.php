@@ -3,7 +3,7 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$s="SELECT member_right,description From  MemberRightType ORDER by description";
+$s="SELECT member_right,arg,description From  MemberRightType ORDER by description,arg";
 
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 

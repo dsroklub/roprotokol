@@ -33,6 +33,12 @@ CREATE TABLE BoatCategory (
   UNIQUE KEY Navn (`Name`)
 );
 
+DROP TABLE IF EXISTS rights_subtype;
+CREATE TABLE rights_subtype (
+  name VARCHAR(100) KEY,
+  Description VARCHAR(1000)
+);
+
 DROP TABLE IF EXISTS BoatConfiguration;
 CREATE TABLE BoatConfiguration (
   BådID int(11),
@@ -186,8 +192,9 @@ CREATE TABLE Member (
 DROP TABLE IF EXISTS MemberRightType;
 CREATE TABLE MemberRightType (
   member_right varchar(50) NOT NULL,
-  description varchar(200),
-  PRIMARY KEY (member_right)
+  arg varchar(200),
+   description varchar(200),
+  PRIMARY KEY (member_right,arg)
 );
 
 DROP TABLE IF EXISTS MemberRights;

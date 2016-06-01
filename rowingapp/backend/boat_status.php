@@ -48,8 +48,9 @@ $s="SELECT Boat.id,
     ";
 
 
-
-// echo $s;
+if ($sqldebug) {
+ echo $s;
+}
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';
  $first=1;

@@ -12,10 +12,10 @@ $rodb->begin_transaction();
 error_log('delete rower right:  '.json_encode($data));
 
 error_log('id='.$data->rower->id);
-error_log('right'.$data->right);
+error_log('right'.$data->right->member_right." -".$data->right->arg);
 
-if ($stmt = $rodb->prepare("DELETE FROM MemberRights WHERE MemberRight=? AND member_id IN (SELECT id FROM Member WHERE MemberID=?)")) {
-    $stmt->bind_param('si', $data->right,$data->rower->id);
+if ($stmt = $rodb->prepare("DELETE FROM MemberRights WHERE MemberRight=? AND (argument IS NULL OR argument=?) AND member_id IN (SELECT id FROM Member WHERE MemberID=?)")) {
+    $stmt->bind_param('sss', $data->right->member_right,$data->right->arg,$data->rower->id);
     $stmt->execute();
 } else {
     error_log('OOOP'.$rodb->error);
