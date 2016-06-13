@@ -25,7 +25,7 @@ if (isset($_GET["boattype"])) {
       Boat.id = Trip.BoatID AND     
       BoatType.id = Boat.BoatType AND
       (((Year(OutTime))=?) " . $boatclause .")".
-    " GROUP BY Member.MemberID 
+    " GROUP BY Member.MemberID,wrench,firstname,lastname 
     ORDER BY distance desc";
 
 

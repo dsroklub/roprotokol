@@ -89,6 +89,7 @@ CREATE TABLE BoatType (
   Created datetime,
   Updated datetime,
   Initials varchar(10),
+  rights_subtype CHAR(20),
   PRIMARY KEY (id),
   KEY gruppenavn (`Name`)
 );
