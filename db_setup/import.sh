@@ -24,7 +24,6 @@ fi
 
 DBCMD="mysql -f -u roprotokol $DB"
 
-
 if [ ! -z $password ]
 then
     DBCMD="mysql -f -u roprotokol -p$password $DB"

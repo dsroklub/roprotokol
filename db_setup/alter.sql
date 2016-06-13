@@ -19,3 +19,5 @@ INSERT INTO rights_subtype VALUES ('kayak','kajakker');
 INSERT INTO rights_subtype VALUES ('outrigger','outrigger,sculler');
 
 ALTER TABLE BoatType ADD COLUMN rights_subtype CHAR(20);
+
+ALTER TABLE Boat  DROP COLUMN Placement;
