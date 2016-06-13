@@ -3,6 +3,7 @@ CREATE TABLE Boat (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100),
   BoatType int(11),
+  rights_subtype CHAR(20),
   brand varchar(30),
   modelid int(11),
   Description varchar(1000),
@@ -194,7 +195,7 @@ DROP TABLE IF EXISTS MemberRightType;
 CREATE TABLE MemberRightType (
   member_right varchar(50) NOT NULL,
   arg varchar(200),
-   description varchar(200),
+  description varchar(200),
   PRIMARY KEY (member_right,arg)
 );
 

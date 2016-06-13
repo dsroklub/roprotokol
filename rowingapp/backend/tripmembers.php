@@ -12,10 +12,10 @@ if (isset($_GET["trip"])) {
 $sql="SELECT Seat as seat,MemberID as id, CONCAT(FirstName,' ',LastName) as name 
 FROM Trip,TripMember,Member 
 WHERE TripID=Trip.id AND Member.id=member_id AND Trip.id=? 
-GROUP BY member_id,seat 
+GROUP BY member_id,seat,OutTime 
 ORDER BY OutTime";
 
-//echo $sql;
+if ($sqldebug) echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
     $stmt->bind_param("i", $trip);
      $stmt->execute();
