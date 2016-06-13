@@ -9,7 +9,11 @@ if (isset($_GET["trip"])) {
     exit(1);
 }
 
-$sql="SELECT Seat as seat,MemberID as id, CONCAT(FirstName,' ',LastName) as name FROM Trip,TripMember,Member WHERE TripID=Trip.id AND Member.id=member_id AND Trip.id=? GROUP BY member_id ORDER BY OutTime";
+$sql="SELECT Seat as seat,MemberID as id, CONCAT(FirstName,' ',LastName) as name 
+FROM Trip,TripMember,Member 
+WHERE TripID=Trip.id AND Member.id=member_id AND Trip.id=? 
+GROUP BY member_id,seat 
+ORDER BY OutTime";
 
 //echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
