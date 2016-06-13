@@ -3,6 +3,7 @@ show variables like 'char%';
 
 ALTER TABLE MemberRightType DROP PRIMARY KEY;
 ALTER TABLE MemberRightType ADD COLUMN arg CHAR(20);
+ALTER TABLE TripType ADD COLUMN   tripstat_name VARCHAR(20);
 
 DELETE FROM MemberRightType WHERE member_right="instructor";
 INSERT INTO  MemberRightType (member_right,arg,description) VALUES ("instructor","row","instruktør inrigger");
