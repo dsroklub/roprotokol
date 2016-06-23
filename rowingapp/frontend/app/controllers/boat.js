@@ -49,9 +49,9 @@ app.controller(
              $scope.checkout.destination=DatabaseService.getDestinationWithName(status.reuse.destination);
              $scope.checkout.distance=$scope.checkout.destination.distance;
              $scope.checkout.boat=DatabaseService.getBoatWithId(status.reuse.boat_id);
-	     $scope.checkout.comments=status.reuse.comment;
-	     $scope.checkout.starttime=status.reuse.outtime;
-	     $scope.checkout.expectedtime=status.reuse.expectedintime;
+	         $scope.checkout.comments=status.reuse.comment;
+	         $scope.checkout.starttime=status.reuse.outtime;
+	         $scope.checkout.expectedtime=status.reuse.expectedintime;
              $scope.selectedBoatCategory=DatabaseService.getBoatTypeWithName($scope.checkout.boat.category);
              $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
              $scope.checkout.rowers=[];
