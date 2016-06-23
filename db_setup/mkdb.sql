@@ -432,3 +432,10 @@ CREATE TABLE volunteerwork (
   Season int(11),
   worktype varchar(100)
 );
+
+DROP TABLE IF EXISTS Configuration;
+CREATE TABLE Configuration (
+  id varchar(50) NOT NULL PRIMARY KEY,
+  value varchar(400) DEFAULT NULL
+);
+INSERT INTO Configuration (id, value) VALUES ('db_version', '1');
