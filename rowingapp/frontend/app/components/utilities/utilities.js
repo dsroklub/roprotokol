@@ -155,6 +155,17 @@ angular.module('myApp.utilities.righttodk', []).filter('righttodk', function () 
   };
 });
 
+angular.module('myApp.utilities.argrighttodk', []).filter('argrighttodk', function () {
+  return function (sb) {
+    var r=right2dk[sb.member_right];
+    var rr=r?r:sb;
+    if (sb.arg) {
+      rr=rr+" ("+sb.arg+")";
+    }
+    return rr;
+  };
+});
+
 angular.module('myApp.utilities.sidetodk', []).filter('sidetodk', function () {
   return function (sd) {
     var r=side2dk[sd];
@@ -270,6 +281,7 @@ angular.module('myApp.utilities', [
   'myApp.utilities.rightreqs',
   'myApp.utilities.subjecttodk',
   'myApp.utilities.righttodk',
+  'myApp.utilities.argrighttodk',
   'myApp.utilities.dk_tags',
   'myApp.utilities.damagedegreedk',
   'myApp.utilities.txttotime',

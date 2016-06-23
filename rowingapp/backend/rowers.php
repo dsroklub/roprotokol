@@ -16,7 +16,7 @@ echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
 	  if ($first) $first=0; else echo ',';	  
-      $row['rights']=multifield_array($row['rights'],"right","arg");
+      $row['rights']=multifield_array($row['rights'],"member_right","arg");
 	  echo json_encode($row,JSON_PRETTY_PRINT);
 }
 echo ']';

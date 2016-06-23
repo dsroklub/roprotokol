@@ -14,9 +14,12 @@ app.controller(
        $scope.reservations = DatabaseService.getDB('get_reservations');
        $scope.checkin={update_destination_for:null};
        $scope.critical_time = function (tx) {
-         var t=tx.split(/[- :]/);
-         var et=new Date(t[0], t[1]-1, t[2], t[3]||0, t[4]||0, t[5]||0);
-         return(et< new Date);
+         if (tx) {
+           var t=tx.split(/[- :]/);
+           var et=new Date(t[0], t[1]-1, t[2], t[3]||0, t[4]||0, t[5]||0);
+           return(et< new Date);
+         }
+         return false;
        };    
 
        // FIXME also in admin, antiduplicate
@@ -114,7 +117,7 @@ app.controller(
 
      var has_right = function(right,arg,rightlist) {
        for (var ri=0; ri<rightlist.length; ri++) {
-         if (rightlist[ri].right==right && (!arg || arg==rightlist[ri].arg)) {
+         if (rightlist[ri].member_right==right && (!arg || !rightlist[ri].arg || arg==rightlist[ri].arg)) {
            return true;
          }
        }
@@ -129,20 +132,26 @@ app.controller(
        var boatRequirements=($scope.selectedBoatCategory)?$scope.selectedBoatCategory.rights:[];
        var reqs=DatabaseService.mergeArray(tripRequirements,boatRequirements);
        var norights=[];
+       var subright=null;
+
+       if ($scope.selectedBoatCategory) {
+         subright=$scope.selectedBoatCategory.rights_subtype;
+       }
+       
        angular.forEach(reqs, function(subject,rq) {
            // console.log("check right "+rq);
 	 if (rq=="findIndex") {
 	       // ignore
 	 } else if (subject='cox') {
                if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
-                 if (!(has_right(rq,null,$scope.checkout.rowers[0].rights))) {
+                 if (!(has_right(rq,subright,$scope.checkout.rowers[0].rights))) {
                    norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));
                  }
                }
 	 } else if (subject='all') {
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-               if (!(has_right(rq,null,$scope.checkout.rowers[ri].rights))) {
+               if (!(has_right(rq,subright,$scope.checkout.rowers[ri].rights))) {
 		 norights.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
                }
              }
@@ -151,7 +160,7 @@ app.controller(
            var ok=false;
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-               if (!(has_right(rq,null,$scope.checkout.rowers[ri].rights))) {
+               if (!(has_right(rq,subright,$scope.checkout.rowers[ri].rights))) {
 		 ok=true;
                }
              }
@@ -163,7 +172,7 @@ app.controller(
            var ok=true;
            for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
              if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-               if (!(has_right(rq,null,$scope.checkout.rowers[ri].rights))) {
+               if (!(has_right(rq,subright,$scope.checkout.rowers[ri].rights))) {
 		 ok=false;
                }
              }
@@ -303,10 +312,12 @@ app.controller(
   
      $scope.updateExpectedTime = function () {
        if ($scope.checkout.starttime && $scope.checkout.destination) {
-         if($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && $scope.checkout.destination.duration_instruction) {
-           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + $scope.checkout.destination.duration_instruction * 3600 * 1000)
+         var duration=($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && $scope.checkout.destination.duration_instruction)?$scope.checkout.destination.duration_instruction:$scope.checkout.destination.duration;
+
+         if (duration>0) {
+           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + duration * 3600 * 1000);
          } else {
-           $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + $scope.checkout.destination.duration * 3600 * 1000);
+           $scope.checkout.expectedtime = null;
          }
        }
      }

@@ -3,6 +3,7 @@ CREATE TABLE Boat (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100),
   BoatType int(11),
+  rights_subtype CHAR(20),
   brand varchar(30),
   modelid int(11),
   Description varchar(1000),
@@ -31,6 +32,12 @@ CREATE TABLE BoatCategory (
   Initials varchar(10),
   PRIMARY KEY (id),
   UNIQUE KEY Navn (`Name`)
+);
+
+DROP TABLE IF EXISTS rights_subtype;
+CREATE TABLE rights_subtype (
+  name VARCHAR(100) KEY,
+  Description VARCHAR(1000)
 );
 
 DROP TABLE IF EXISTS BoatConfiguration;
@@ -83,6 +90,7 @@ CREATE TABLE BoatType (
   Created datetime,
   Updated datetime,
   Initials varchar(10),
+  rights_subtype CHAR(20),
   PRIMARY KEY (id),
   KEY gruppenavn (`Name`)
 );
@@ -186,8 +194,9 @@ CREATE TABLE Member (
 DROP TABLE IF EXISTS MemberRightType;
 CREATE TABLE MemberRightType (
   member_right varchar(50) NOT NULL,
+  arg varchar(200),
   description varchar(200),
-  PRIMARY KEY (member_right)
+  PRIMARY KEY (member_right,arg)
 );
 
 DROP TABLE IF EXISTS MemberRights;
@@ -264,6 +273,7 @@ DROP TABLE IF EXISTS TripType;
 CREATE TABLE TripType (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100),
+  tripstat_name VARCHAR(20),
   Description varchar(1000),
   Created datetime,
   Updated datetime,

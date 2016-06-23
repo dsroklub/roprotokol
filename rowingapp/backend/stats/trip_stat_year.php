@@ -6,7 +6,7 @@ $s="SELECT YEAR(Trip.OutTime) as year,TripType.tripstat_name as name,CAST(Sum(Me
     FROM Trip,TripType,Boat,BoatType
     WHERE Trip.TripTypeID=TripType.id   AND Trip.BoatID=Boat.id AND Category=2 AND Boat.BoatType=BoatType.id 
     AND Trip.OutTime IS NOT NULL
-    GROUP BY TripType.name, year
+    GROUP BY TripType.name, year,TripType.tripstat_name
     ORDER BY year,TripType.tripstat_name";
 
 if ($sqldebug) {

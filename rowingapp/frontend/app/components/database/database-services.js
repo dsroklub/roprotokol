@@ -126,6 +126,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     this.getData('memberrighttypes',promises);
     this.getData('boat_brand',promises);
     this.getData('boat_usages',promises);    
+    this.getData('rights_subtype',promises);    
 
     if(!valid['rowers']) {
       var rq=$q.defer();

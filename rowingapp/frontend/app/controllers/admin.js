@@ -69,6 +69,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.events = DatabaseService.getDB('get_events');
             $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
             $scope.boatkayakcategories = DatabaseService.getDB('boatkayakcategory');
+            $scope.rights_subtypes = DatabaseService.getDB('rights_subtype');
             var errortrips = DatabaseService.getDB('errortrips');
             $scope.levels=DatabaseService.getDB('boatlevels');
             $scope.brands=DatabaseService.getDB('boat_brand');
@@ -224,7 +225,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.add_rower_right = function(right,rower) {
               var data={'right':right,'rower':rower}
               var exeres=DatabaseService.updateDB('add_rower_right',data,$scope.config,$scope.errorhandler);
-              $scope.currentrower.rights.push({'right':right.member_right,arg:null});
+              $scope.currentrower.rights.push(right);
             }
             $scope.remove_rower_right = function(right,rower,ix) {
               var data={'right':right,'rower':rower}
@@ -286,7 +287,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             }
 
             $scope.doboatrights = function (rr,bt) {
-              if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
+              if (rr&rr.length==0) {
                 $scope.requiredboatrights={};
               } else {
                 $scope.requiredboatrights=rr;

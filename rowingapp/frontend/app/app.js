@@ -16,6 +16,7 @@ var app = angular.module('myApp', [
   'chart.js',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
+  'angular.filter',
   'ds.clock'
 ])
 

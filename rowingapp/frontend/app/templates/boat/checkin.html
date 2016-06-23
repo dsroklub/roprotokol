@@ -22,7 +22,7 @@
 </script>
 <div ng-if="checkin.update_destination_for" class="destinationlist">
   <table >
-    <caption>Opdater destination<img ng-click="checkin.update_destination_for=null"  width="40px" src="/frontend/app/media/popclose.svg" ></caption>
+    <caption>Opdater destination<img ng-click="checkin.update_destination_for=null"  width="40px" src="media/popclose.svg" ></caption>
     <tr><th>destination</th><th>distance</th></tr>
     <tr ng-repeat="destination in destinations" ng-click="update_checkin_destiation(destination)">
       <td>{{destination.name}}</td>
@@ -57,7 +57,7 @@
           <span ng-show="{{boat.damage==1}}">Let skadet</span>
 	</td>        
         <td ng-click="checkin.update_destination_for=boat">
-          &#9998;
+       <i class="fa fa-pencil"></i>
           {{boat.destination}}
         </td>
 	<td ng-class="{datealert: critical_time(boat.expected_in)}">{{boat.expected_in| txttotime | date :"HH:mm d. MMM"}}</td>

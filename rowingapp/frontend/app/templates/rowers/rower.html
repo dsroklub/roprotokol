@@ -70,7 +70,7 @@
         </thead>
         <tbody>
           <tr ng-if="currentrower" ng-repeat="rr in currentrower.rights">
-             <td>{{rr.right|righttodk}}</td>
+             <td>{{rr.member_right|righttodk}}</td>
              <td>{{rr.arg}}</td>
           </tr>      
         </tbody> 
@@ -163,7 +163,7 @@
       <form name="correctionForm" novalidate noautocomplete>
         <table>
           <caption>Rettelser til turen til {{currenttrip.destination}} {{correction.outtime |date: "d-MMM-yyyy"}}
-	    <img ng-click="correction=null"  width="40px" src="/frontend/app/media/popclose.svg" >
+	    <img ng-click="correction=null"  width="40px" src="media/popclose.svg" >
 
 	  </caption>
           <tbody>	  

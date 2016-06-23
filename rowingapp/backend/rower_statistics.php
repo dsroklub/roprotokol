@@ -16,6 +16,8 @@ if (isset($_GET["boattype"])) {
         exit(0);
     }
 }
+
+
 // echo "boats:". $boatclause."\n<br>";
     $s="SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance ,Member.MemberID as id, MemberRight as wrench, Member.FirstName as firstname, Member.LastName as lastname 
     FROM BoatType,Trip,TripMember,Boat,Member LEFT JOIN MemberRights ON Member.id=member_id and MemberRight='wrench'
@@ -25,11 +27,11 @@ if (isset($_GET["boattype"])) {
       Boat.id = Trip.BoatID AND     
       BoatType.id = Boat.BoatType AND
       (((Year(OutTime))=?) " . $boatclause .")".
-    " GROUP BY Member.MemberID 
+    " GROUP BY Member.MemberID,wrench,firstname,lastname 
     ORDER BY distance desc";
 
 
-// echo $s;
+if ($sqldebug) echo $s;
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("s",$season);
      $stmt->execute(); 

@@ -184,6 +184,7 @@
           
         </table>
       </form>    
+      <button class="alert minor" ng-hide="checkout.expectedtime">husk at angive forventet ankomst</button>
       <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name || !checkout.rowers[0]">husk at vælge båd</button>
       <button class="alert minor" ng-hide="checkout.triptype || !checkout.destination.name || !checkout.rowers[0]">husk turtype</button>
       <button class="alert minor" ng-hide="checkout.destination || !checkout.triptype || !checkout.rowers[0]">vælg destination</button>
