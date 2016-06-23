@@ -191,7 +191,7 @@ app.controller(
              $scope.mo.labels[wn]="uge "+wn;
            }
            if (d.data.length>0) {
-             $scope.mo.fy=d.data[0].year;
+             $scope.mo.fy=Math.max(d.data[0].year,2000); // Sanity to avoid year zero for null value
              for (var y=$scope.mo.fy;y<=d.data[d.data.length-1].year;y++) {
                $scope.mo.data.push([]);
                $scope.mo.series.push(""+y);
@@ -200,11 +200,12 @@ app.controller(
                }             
              }
              angular.forEach(d.data, function(w) {
-               $scope.mo.data[w.year-$scope.mo.fy][w.week]=w.distance/1000.0;
+               if (w.year) {
+                 $scope.mo.data[w.year-$scope.mo.fy][w.week]=w.distance/1000.0;
+               }
              },this);
            }
          });
-//         console.log("got data");
        }
      }
    }

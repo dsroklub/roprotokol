@@ -177,7 +177,7 @@
                         confirm-cancel="fortryd"
                         id="createtrip_button"
                         class="big"
-                        ng-if="checkout.distance >0 && checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')"
+                        ng-if="checkout.distance >0 && checkout.starttime &&checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')"
                         ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
 </td></tr>
 	  </tbody>
