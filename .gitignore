@@ -5,7 +5,6 @@
 *~
 secret.*
 .project
-db.php
 config.ini
 rowingapp/frontend/node_modules/
 rowingapp/frontend/app/bower_components
