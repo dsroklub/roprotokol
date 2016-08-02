@@ -115,9 +115,12 @@ app.controller(
         }
      });
 
-     var has_right = function(right,arg,rightlist) {
+     var has_right = function(required_right,arg,rightlist) {
        for (var ri=0; ri<rightlist.length; ri++) {
-         if (rightlist[ri].member_right==right && (!arg || !rightlist[ri].arg || arg==rightlist[ri].arg)) {
+         // DSR Hack here
+         if ( (rightlist[ri].member_right==required_right ||
+               (required_right=="svava" && rightlist[ri].member_right=="sculler"))
+             && (!arg || !rightlist[ri].arg || arg==rightlist[ri].arg)) {
            return true;
          }
        }
