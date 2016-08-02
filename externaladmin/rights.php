@@ -1,6 +1,7 @@
 <?php
 set_include_path(get_include_path().':..');
 include("inc/common.php");
+header('Content-type: text/plain; charset=utf-8');
 header('Content-type: text/csv');
 header('Content-Disposition: filename="member_rights.csv"');
 
