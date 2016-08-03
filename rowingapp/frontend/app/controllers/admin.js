@@ -134,8 +134,11 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               $scope.DB('boattypes').push(bt);
             }
             $scope.create_boat_brand = function(bb) {
-              var exeres=DatabaseService.updateDB('create_boat_brand',bb,$scope.config,$scope.errorhandler);
-              $scope.DB('boat_brand').push(bb);
+              var exeres=DatabaseService.updateDB('create_boat_brand',bb,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  $scope.DB('boat_brand').push(bb);
+                }
+              });              
             }
 
             $scope.create_triptype = function(tt) {
@@ -207,13 +210,21 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             $scope.set_side_for_boat = function(boat) {
               var exeres=DatabaseService.updateDB('set_side_for_boat',boat,$scope.config,$scope.errorhandler);
             }
+
             $scope.retire_boat = function(boat,ix) {
-              var exeres=DatabaseService.updateDB('retire_boat',boat,$scope.config,$scope.errorhandler);
-              $scope.allboats.splice(ix,1);              
+              var exeres=DatabaseService.updateDB('retire_boat',boat,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  $scope.allboats.splice(ix,1);              
+                }
+              });                            
             }
+            
             $scope.create_boat = function(boat) {
-              var exeres=DatabaseService.updateDB('create_boat',boat,$scope.config,$scope.errorhandler);
-              $scope.allboats.push(boat);
+              var exeres=DatabaseService.updateDB('create_boat',boat,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  $scope.allboats.push(boat);
+                }
+              });                            
             }
 
            $scope.set_client_name =function(name) {
@@ -224,48 +235,73 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
 
             $scope.add_rower_right = function(right,rower) {
               var data={'right':right,'rower':rower}
-              var exeres=DatabaseService.updateDB('add_rower_right',data,$scope.config,$scope.errorhandler);
-              $scope.currentrower.rights.push(right);
+              var exeres=DatabaseService.updateDB('add_rower_right',data,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  $scope.currentrower.rights.push(right);
+                }
+              });                            
             }
+            
             $scope.remove_rower_right = function(right,rower,ix) {
               var data={'right':right,'rower':rower}
-              var exeres=DatabaseService.updateDB('remove_rower_right',data,$scope.config,$scope.errorhandler);
-              $scope.currentrower.rights.splice(ix,1);                                  
+              var exeres=DatabaseService.updateDB('remove_rower_right',data,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  $scope.currentrower.rights.splice(ix,1);                                  
+                }
+              });              
             }
             
             $scope.remove_boattype_requirement = function(rt,ix) {
               var data={boattype:$scope.currentboattype,'right':rt};
-              var exeres=DatabaseService.updateDB('remove_boattype_right',data,$scope.config,$scope.errorhandler);
-              delete $scope.requiredboatrights[rt];
-
+              var exeres=DatabaseService.updateDB('remove_boattype_right',data,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  delete $scope.requiredboatrights[rt];
+                }
+              });              
             }
 
             $scope.add_boattype_requirement = function(data,existing_rights) {
               data.boattype=$scope.currentboattype;
-              var exeres=DatabaseService.updateDB('add_boattype_req',data,$scope.config,$scope.errorhandler);
-              existing_rights[data.right]=data.subject;
+              var exeres=DatabaseService.updateDB('add_boattype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  existing_rights[data.right]=data.subject;
+                }
+              });
             }
 
             $scope.remove_triptype_requirement = function(rt,ix) {
               var data={triptype:$scope.currenttriptype,'right':rt};
-              var exeres=DatabaseService.updateDB('remove_triptype_req',data,$scope.config,$scope.errorhandler);
-              delete $scope.requiredtriprights[rt];
-
+              var exeres=DatabaseService.updateDB('remove_triptype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  delete $scope.requiredtriprights[rt];
+                }
+              });                            
             }
+            
             $scope.add_triptype_requirement = function(data) {
               data.triptype=$scope.currenttriptype;
               $scope.requiredtriprights[data.right]=data.subject;
-              var exeres=DatabaseService.updateDB('add_triptype_req',data,$scope.config,$scope.errorhandler);
-              $scope.trip.newright.right=null;
+              var exeres=DatabaseService.updateDB('add_triptype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  $scope.trip.newright.right=null;
+                }
+              });              
             }
 
             $scope.approve_correction = function(data,ix) {
-              var exeres=DatabaseService.updateDB('approve_correction',data,$scope.config,$scope.errorhandler);
-              $scope.ziperrors.splice(ix,1);                            
+              var exeres=DatabaseService.updateDB('approve_correction',data,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  $scope.ziperrors.splice(ix,1);                            
+                }
+              });              
             }
+            
             $scope.reject_correction = function(data,ix) {
-              var exeres=DatabaseService.updateDB('reject_correction',data,$scope.config,$scope.errorhandler);
-              $scope.ziperrors.splice(ix,1);              
+              var exeres=DatabaseService.updateDB('reject_correction',data,$scope.config,$scope.errorhandler).then(function(status) {
+                if (status.status=="ok") {
+                  $scope.ziperrors.splice(ix,1);              
+                }
+              });              
             }
             
             $scope.boatcat2dk=DatabaseService.boatcat2dk;
