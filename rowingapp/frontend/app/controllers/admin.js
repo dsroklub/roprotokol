@@ -313,7 +313,12 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
               if (fromrower && torower) {
             	if (fromrower.id != torower.id) {
             		DatabaseService.updateDB('convert_rower',{"from":fromrower,"to":torower},$scope.config,$scope.errorhandler)
-            		               .then(function(){ alert("Konverteringen lykkedes")});
+            	    .then(function(status){
+                      if (status.status=="ok") {
+                        $scope.converttorower=null;
+                        alert("Konverteringen lykkedes");
+                      }
+                    });
             	} else {
             		alert("roerne skal være forskellige");
             	}	
