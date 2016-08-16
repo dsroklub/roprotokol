@@ -21,7 +21,6 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
       error_log($error);
   }
 }
-# error_log("udskriv ".$newtrip->boat->name);
 
 if (!$error) {
         error_log('now new trip'. json_encode($newtrip));
@@ -57,8 +56,6 @@ if (!$error) {
         $error="trim member DB error".mysqli_error($rodb);
     }
 }
-
-
 
 if (isset($newtrip->event)) {
     if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
