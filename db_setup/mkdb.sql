@@ -439,3 +439,5 @@ CREATE TABLE Configuration (
   value varchar(400) DEFAULT NULL
 );
 INSERT INTO Configuration (id, value) VALUES ('db_version', '1');
+
+CREATE INDEX tripmembermemberix ON TripMember(member_id);
