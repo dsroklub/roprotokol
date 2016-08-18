@@ -441,3 +441,13 @@ CREATE TABLE Configuration (
 INSERT INTO Configuration (id, value) VALUES ('db_version', '1');
 
 CREATE INDEX tripmembermemberix ON TripMember(member_id);
+
+CREATE INDEX damageresponsible ON Damage(ResponsibleMember);
+
+CREATE INDEX damagerepairer ON Damage(RepairerMember);
+
+CREATE INDEX reservationmember ON reservation(member);
+
+CREATE INDEX rightsmember ON MemberRights(member_id);
+
+CREATE INDEX membername ON Member(FirstName,LastName);
