@@ -1,28 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var right2dkm = {
-  'rowright':'have roret',
-  'cox':'være styrmand',
-  'coxtheory':'have styrmandsteori',
-  'competition':'være kaproer',
-  '8':'have otterret',
-  '8cox':'have otter styrmandsret',
-  'instructor':'være instruktør',
-  'skærgård':'have skærgårdsret',
-  'longdistancetheory':'have langdistanceteori',
-  'longdistance':'være langtursstyrmand',
-  'kajak':'have kajakret A',
-  'svava':'have svavaret',
-  'kajak_b':'have kajak-ret B',
-  'swim400':'kunne svømme 400m',
-  'motorboat':'have motorbådsret',
-  'sculler':'have scullerret',
-  'langturøresund':'have øresund langtursret',
-  'outrigger_instructor':'være outriggerinstruktør',
-  'wrench':'have rød svensknøgle',
-  'kanin':'være kanin'
-};
+var right2dkm;
 
 var side2dk = {
   'left':'venstre',
@@ -32,34 +11,30 @@ var side2dk = {
 
 
 
-var right2dk = {
-  'kanin':'kanin',
-  'rowright':'roret',
-  'cox':'styrmandsret',
-  'coxtheory':'styrmandsteori',
-  'competition':'kaproer',
-  '8':'otterret',
-  '8cox':'otter styrmandsret',
-  'instructor':'instruktørret',
-  'skærgård':'skærgårdsret',
-  'longdistancetheory':'langdistanceteori',
-  'longdistance':'langtursstyrmandsret',
-  'kajak':'kajakret A',
-  'svava':'svavaret',
-  'kajak_b':'kajakret B',
-  'swim400':'svømme 400m',
-  'motorboat':'motorbådsret',
-  'sculler':'scullerret',
-  'langturøresund':'øresund langtursret',
-  'outrigger_instructor':'outriggerinstruktørret',
-  'wrench':'rød svensknøgle'
-};
+var right2dk;
 
 var subject2dk = {
   'all':'alle',
   'cox':'styrmanden',
   'none':'ingen',
   'any':'mindst een'
+}
+
+
+var make_rights = function(db_service){
+    if (db_service && ! (right2dkm && right2dk)) {
+        var rights = db_service.getDB('memberrighttypes');
+        if (rights && rights.length) {
+            right2dk = {};
+            right2dkm = {};
+
+            for (var i = 0; i < rights.length; i++) {
+                var r = rights[i];
+                right2dk[r.member_right] = r.showname;
+                right2dkm[r.member_right] = r.predicate;
+            }
+        }
+    }
 }
 
 angular.module('myApp.utilities.urldecode', []).filter('urldecode', function () {
@@ -90,7 +65,8 @@ angular.module('myApp.utilities.mtokm', []).filter('mtokm', function () {
   };
 });
 
-angular.module('myApp.utilities.rightreqs', []).filter('rightreqs', function () {
+angular.module('myApp.utilities.rightreqs', []).filter('rightreqs', ['DatabaseService', function (db_service) {
+  make_rights(db_service);
   var ss={'cox':'styrmanden','all':'alle','any':'mindst en','forbidden':'forbudt'};
   return function (rights) {
     var res="";
@@ -106,7 +82,7 @@ angular.module('myApp.utilities.rightreqs', []).filter('rightreqs', function () 
     },this);
     return res==""?"ingen krav":res;
   };
-});
+}]);
 
 angular.module('myApp.utilities.subjecttodk', []).filter('subjecttodk', function () {
   return function (sb) {
@@ -148,14 +124,18 @@ angular.module('myApp.utilities.dk_tags', []).filter('dk_tags', function () {
   };
 });
 
-angular.module('myApp.utilities.righttodk', []).filter('righttodk', function () {
+angular.module('myApp.utilities.righttodk', []).filter('righttodk', ['DatabaseService', function (db_service) {
+  make_rights(db_service);
+
   return function (sb) {
     var r=right2dk[sb];
     return (r?r:sb);
   };
-});
+}]);
 
-angular.module('myApp.utilities.argrighttodk', []).filter('argrighttodk', function () {
+angular.module('myApp.utilities.argrighttodk', []).filter('argrighttodk', ['DatabaseService', function (db_service) {
+  make_rights(db_service);
+
   return function (sb) {
     var r=right2dk[sb.member_right];
     var rr=r?r:sb;
@@ -164,7 +144,7 @@ angular.module('myApp.utilities.argrighttodk', []).filter('argrighttodk', functi
     }
     return rr;
   };
-});
+}]);
 
 angular.module('myApp.utilities.sidetodk', []).filter('sidetodk', function () {
   return function (sd) {
