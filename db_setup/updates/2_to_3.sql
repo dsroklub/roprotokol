@@ -1,0 +1,23 @@
+ALTER TABLE MemberRightType ADD COLUMN showname VARCHAR(255), ADD COLUMN predicate VARCHAR(255), ADD COLUMN active int NOT NULL DEFAULT 1;
+
+UPDATE MemberRightType SET showname = 'roret', predicate = 'have roret' WHERE member_right = 'rowright';
+UPDATE MemberRightType SET showname = 'styrmandsret', predicate = 'være styrmand' WHERE member_right = 'cox';
+UPDATE MemberRightType SET showname = 'styrmandsteori', predicate = 'have styrmandsteori' WHERE member_right = 'coxtheory';
+UPDATE MemberRightType SET showname = 'kaproer', predicate = 'være kaproer' WHERE member_right = 'competition';
+UPDATE MemberRightType SET showname = 'otterret', predicate = 'have otterret' WHERE member_right = '8';
+UPDATE MemberRightType SET showname = 'otter-styrmandsret', predicate = 'være otter-styrmand' WHERE member_right = '8cox';
+UPDATE MemberRightType SET showname = 'instruktørret', predicate = 'være instruktør' WHERE member_right = 'instructor';
+UPDATE MemberRightType SET showname = 'skærgårdsret', predicate = 'have skærgårdsret', active = 0 WHERE member_right = 'skærgård';
+UPDATE MemberRightType SET showname = 'langtursteori', predicate = 'have langtursteori' WHERE member_right = 'longdistancetheory';
+UPDATE MemberRightType SET showname = 'langtursstyrmandsret', predicate = 'være langtursstyrmand' WHERE member_right = 'longdistance';
+UPDATE MemberRightType SET showname = 'kajakret A', predicate = 'have kajakret A' WHERE member_right = 'kajak';
+UPDATE MemberRightType SET showname = 'svavaret', predicate = 'have svavaret' WHERE member_right = 'svava';
+UPDATE MemberRightType SET showname = 'kajakret B', predicate = 'have kajak-ret B' WHERE member_right = 'kajak_b';
+UPDATE MemberRightType SET showname = 'svømme 400m', predicate = 'kunne svømme 400m' WHERE member_right = 'swim400';
+UPDATE MemberRightType SET showname = 'motorbådsret', predicate = 'have motorbådsret' WHERE member_right = 'motorboat';
+UPDATE MemberRightType SET showname = 'scullerret', predicate = 'have scullerret' WHERE member_right = 'sculler';
+UPDATE MemberRightType SET showname = 'Øresund langtursret', predicate = 'have øresund langtursret', active = 0 WHERE member_right = 'langturøresund';
+UPDATE MemberRightType SET showname = 'outriggerinstruktørret', predicate = 'være outriggerinstruktør' WHERE member_right = 'outrigger_instructor';
+UPDATE MemberRightType SET showname = 'rød svensknøgle', predicate = 'have rød svensknøgle' WHERE member_right = 'wrench';
+UPDATE MemberRightType SET showname = 'kanin', predicate = 'være kanin' WHERE member_right = 'kanin';
+UPDATE MemberRightType SET showname = 'surfski', predicate = 'have surfski-ret' WHERE member_right = 'surfski';

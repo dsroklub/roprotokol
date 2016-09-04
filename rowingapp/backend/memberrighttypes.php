@@ -3,7 +3,7 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$s="SELECT member_right,arg,description From  MemberRightType ORDER by description,arg";
+$s="SELECT member_right,arg,description,showname,predicate From  MemberRightType ORDER by description,arg";
 
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
@@ -11,10 +11,10 @@ if ($stmt = $rodb->prepare($s)) {
      $first=1;
      echo '[';
      while ($row = $result->fetch_assoc()) {
-         if ($first) $first=0; else echo ',';	  
+         if ($first) $first=0; else echo ',';
          echo json_encode($row);
      }
      echo ']';
 }
 $rodb->close();
-?> 
+?>

@@ -66,13 +66,15 @@
           <tr>
             <th>Rettighed</th>
             <th>Detaljer</th>
+            <th>Dato</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-if="currentrower" ng-repeat="rr in currentrower.rights">
              <td>{{rr.member_right|righttodk}}</td>
              <td>{{rr.arg}}</td>
-          </tr>      
+             <td>{{rr.acquired | txttotime | date:'d/M yyyy' }}</td>
+          </tr>
         </tbody> 
       </table>
     </div>
