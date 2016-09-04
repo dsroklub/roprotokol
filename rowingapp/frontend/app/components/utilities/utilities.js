@@ -21,6 +21,7 @@ var right2dkm = {
   'langturøresund':'have øresund langtursret',
   'outrigger_instructor':'være outriggerinstruktør',
   'wrench':'have rød svensknøgle',
+  'surfski':'have surfskiret',
   'kanin':'være kanin'
 };
 
@@ -52,6 +53,7 @@ var right2dk = {
   'sculler':'scullerret',
   'langturøresund':'øresund langtursret',
   'outrigger_instructor':'outriggerinstruktørret',
+  'surfski':'surfski ret',
   'wrench':'rød svensknøgle'
 };
 
