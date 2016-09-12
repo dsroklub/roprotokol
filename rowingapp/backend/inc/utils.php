@@ -17,20 +17,8 @@ function multifield($fld) {
   return $res;
 }
 
-// Please call using
-//   multifield_array($input, ['field1', 'field2'...]);
-//
-// Deprecated uses:
-//    multifield_array($input, 'field1', 'field2')
-function multifield_array($fld,$keys,   $deprecated_valname) {
+function multifield_array($fld,$keys) {
   // Handle deprecated call arguments
-    if (isset($deprecated_valname)) {
-      if (! is_array($keys)) {
-        $keys = [$keys, $deprecated_valname];
-      } else {
-          die("Unsuitable arguments for multifield_array");
-      }
-  }
   $args = count($keys);
 
   $res=array();

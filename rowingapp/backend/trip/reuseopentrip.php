@@ -38,7 +38,7 @@ if ($stmt = $rodb->prepare("$s")) {
   $result= $stmt->get_result();
   if ($result) {
   	if ($row = $result->fetch_assoc()) {
-      $row['rowers']=multifield_array($row['rowers'],"member_id","name");
+      $row['rowers']=multifield_array($row['rowers'],["member_id","name"]);
       $res['reuse']=$row;
     } else {
     	$error = 'No such trip found';
