@@ -11,7 +11,6 @@ $rodb->begin_transaction();
 error_log("boattype update ".json_encode($boattype));
 
 if ($stmt = $rodb->prepare("UPDATE BoatType SET SeatCount = ?, Description = ?, Category = ?, rights_subtype=?, Name = ?, Updated = NOW() WHERE id=?")) { 
-    error_log("now exe upd");
     $stmt->bind_param('isissi', $boattype->seatcount, $boattype->description, $boattype->category, $boattype->rights_subtype,$boattype->name, $boattype->id);
     $stmt->execute() ||  error_log("update boattype exe  error:".$rodb->error);
 } else {

@@ -19,6 +19,7 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
       $error="already on water";
 #      $message='create trip failed, already on water: '. json_encode($newtrip,true);
       error_log($error);
+      error_log($data);
   }
 }
 

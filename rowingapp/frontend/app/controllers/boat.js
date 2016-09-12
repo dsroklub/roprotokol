@@ -53,8 +53,8 @@ app.controller(
              $scope.checkout.distance=$scope.checkout.destination.distance;
              $scope.checkout.boat=DatabaseService.getBoatWithId(status.reuse.boat_id);
              $scope.checkout.comments=status.reuse.comment;
-             $scope.checkout.starttime=status.reuse.outtime;
-             $scope.checkout.expectedtime=status.reuse.expectedintime;
+             $scope.checkout.starttime=new Date(status.reuse.outtime);
+             $scope.checkout.expectedtime=new Date(status.reuse.expectedintime);
              $scope.selectedBoatCategory=DatabaseService.getBoatTypeWithName($scope.checkout.boat.category);
              $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
              $scope.checkout.rowers=[];
@@ -76,6 +76,7 @@ app.controller(
          rowers= $routeParams.rowers.split(",");
        }
        $scope.checkoutmessage="";
+       $scope.checkouterrormessage="";
        $scope.rigthsmessage="rrr";
        $scope.timeopen={
          'start':false,
@@ -483,7 +484,7 @@ app.controller(
            $scope.checkout.boat=null;
            // TODO: clear
 	 } else if (status.status =='error' && status.error=="already on water") {
-           $scope.checkoutmessage = $scope.checkout.boat.name + " er allerede udskrevet, vælg en anden båd";
+           $scope.checkouterrormessage = $scope.checkout.boat.name + " er allerede udskrevet, vælg en anden båd";
 	 } else {
            $scope.checkoutmessage="Fejl: "+JSON.stringify(newtrip);
            // TODO: give error that we could not save the trip
@@ -510,7 +511,7 @@ app.controller(
                $scope.checkout.boat=DatabaseService.getBoatWithId($scope.checkout.boat.id);
                if ($scope.checkout.boat.trip) {
 		 console.log("selected boat was taken");
-		 $scope.checkoutmessage="For sent: "+$scope.checkout.boat.name+" blev taget";
+		 $scope.checkouterrormessage="For sent: "+$scope.checkout.boat.name+" blev taget";
 		 $scope.checkout.boat.trip=null;
 		 $scope.checkout.boat=null;
                }

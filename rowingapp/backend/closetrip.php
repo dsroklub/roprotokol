@@ -26,7 +26,6 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM Trip WHERE id=? AND InTime IS NULL")
 } 
 
 if (!$error) {
-    error_log("close trip ID". $closedtrip->boat->trip);
     if ($stmt = $rodb->prepare(
         "UPDATE Trip SET InTime = NOW(),Meter=?, Destination=?,Comment=? WHERE id=?;"
     )) { 

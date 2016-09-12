@@ -12,7 +12,6 @@ $rodb->begin_transaction();
 error_log("boat update brand ".json_encode($boat));
 
 if ($stmt = $rodb->prepare("UPDATE Boat SET brand=? WHERE id=?")) { 
-    error_log("now exe upd");
     $stmt->bind_param('si', $boat->brand,$boat->id);
     $stmt->execute() ||  error_log("update brand exe  error:".$rodb->error);
 } else {

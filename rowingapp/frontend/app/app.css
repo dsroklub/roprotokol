@@ -620,6 +620,13 @@ li.selected,button.selected {
     max-width: 30em;        
     border-radius: 8px;
 }
+.checkouterrormessage {
+    color: black;
+    background: #FF8888;
+    font-size: 22pt;
+    max-width: 30em;        
+    border-radius: 8px;
+}
 
 .farvand {
     float:left;

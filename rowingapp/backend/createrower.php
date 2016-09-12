@@ -6,8 +6,6 @@ $data = file_get_contents("php://input");
 $rower=json_decode($data);
 $message="rower  ".json_encode($rower);
 $error=null;
-error_log('createrower '.json_encode($rower));
-
 $rodb->begin_transaction();
 $prefix="k";
 if ($rower->type == "guest") {
@@ -23,7 +21,6 @@ if ($stmt = $rodb->prepare($findcurrent)) {
     $result= $stmt->get_result();
     if ($maxk=$result->fetch_assoc()) {
         $kx=intval($maxk["tid"])+1;
-        error_log("found tmp rower mx".$kx);
         $maxid=sprintf('%04d', $kx);
     } else {
         error_log("no tmp rower found, is this the first?");
@@ -35,11 +32,8 @@ if ($stmt = $rodb->prepare($findcurrent)) {
 
 $newid=$prefix.$maxid;
 
-error_log("new id:".$newid);
-
 if ($stmt = $rodb->prepare("INSERT INTO Member (MemberID,FirstName, LastName, Created) VALUES (?,?,?,NOW())" )) { 
     $stmt->bind_param('sss', $newid,$rower->firstName,$rower->lastName);
-    error_log("INSERT");
     $stmt->execute() |  error_log($rodb->error);
 } else {
     error_log("ERROR in INSERT ".$rodb->error);

@@ -54,7 +54,6 @@ $sql=
 if ($sqldebug) echo $sql."\n\n";
 
 if ($stmt = $rodb->prepare($sql)) {
-    error_log("now exe");
      $stmt->execute() or die("Error in etrips query: " . mysqli_error($rodb));
      $result= $stmt->get_result() or die("Error in etrips query: " . mysqli_error($rodb));
 } else {
