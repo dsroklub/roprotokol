@@ -24,12 +24,12 @@ function multifield($fld) {
 //    multifield_array($input, 'field1', 'field2')
 function multifield_array($fld,$keys,   $deprecated_valname) {
   // Handle deprecated call arguments
-  if ($deprecated_valname) {
-    if (! is_array($keys)) {
-       $keys = [$keys, $deprecated_valname];
-    } else {
-       die("Unsuitable arguments for multifield_array");
-    }
+    if (isset($deprecated_valname)) {
+      if (! is_array($keys)) {
+        $keys = [$keys, $deprecated_valname];
+      } else {
+          die("Unsuitable arguments for multifield_array");
+      }
   }
   $args = count($keys);
 
