@@ -19,7 +19,12 @@ $s="SELECT BoatType.id AS boattypeid, BoatType.name as boattype,Count('q') as am
   " NOT EXISTS (SELECT 'x' FROM Damage WHERE Damage.Boat=Boat.id and Degree>2 AND REPAIRED IS NULL) AND ".
   " Boat.Name NOT LIKE '%Lånt%' AND" .
   " Boat.Name NOT LIKE '%privat%' AND" .
-  " NOT EXISTS (SELECT 'x' FROM Reservation WHERE Boat.BoatType=BoatType.id AND Reservation.Boat=Boat.id AND Reservation.Begin<=Now() AND Reservation.End>=Now()) GROUP BY BoatType";
+  " NOT EXISTS (SELECT 'x' FROM reservation WHERE Boat.BoatType=BoatType.id AND reservation.dayofweek>0 && reservation.Boat=Boat.id AND reservation.start_time<=Now() AND reservation.end_time>=Now()) GROUP BY BoatType";
+
+if ($sqldebug) {
+ echo $s;
+ echo "\n";
+}
 
 # echo $s."<br>";
 if ($stmt = $rodb->prepare($s)) {
@@ -33,6 +38,8 @@ if ($stmt = $rodb->prepare($s)) {
        echo '"'.$row["boattype"].'":'. json_encode($row,JSON_PRETTY_PRINT);
      }
      echo '}';
+} else  {
+    error_log("available boats prepare failed: " .$rodb->error);
 }
 $rodb->close();
 ?> 
