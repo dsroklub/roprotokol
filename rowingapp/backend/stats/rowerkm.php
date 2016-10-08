@@ -1,7 +1,7 @@
 <?php
 set_include_path(get_include_path().':..');
 include("inc/common.php");
-include("inc/backheader.php");
+
 
 $rowers = [];
 $rower_list = [];
@@ -9,18 +9,26 @@ $categories = [];
 $category_list = [];
 $field_list = ['medlemsNr', 'email', 'navn'];
 
+$force_email = $_GET["force_email"];
+
+
 $s = 'SELECT id, Name from BoatCategory ORDER BY Name';
 $result=$rodb->query($s) or die("Error in query 1: " . mysqli_error($rodb));;
 while ($row = $result->fetch_assoc()) {
   array_push($field_list, $row['Name'] . '_km', $row['Name'] . '_km_uden_instruktion');
 }
 
-$s="SELECT m.id, m.MemberID as medlemsNr, '' as email, CONCAT(m.FirstName, ' ', m.LastName) as navn
+$email_clause = "IF(m.ShowEmail, m.Email, NULL) as email";
+if ($force_email) {
+  $email_clause = "m.Email as email";
+}
+
+$s="SELECT m.id, m.MemberID as medlemsNr, " . $email_clause . ", CONCAT(m.FirstName, ' ', m.LastName) as navn
     FROM Member m
     WHERE m.id IN (SELECT DISTINCT tm.member_id
                    FROM Trip t
                    JOIN TripMember tm ON (t.id = tm.TripID)
-		   WHERE YEAR(OutTime) = YEAR(NOW())
+                   WHERE YEAR(OutTime) = YEAR(NOW())
                   )
     ORDER BY m.FirstName, m.LastName";
 
