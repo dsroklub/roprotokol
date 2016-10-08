@@ -25,7 +25,8 @@ if ($force_email) {
 
 $s="SELECT m.id, m.MemberID as medlemsNr, " . $email_clause . ", CONCAT(m.FirstName, ' ', m.LastName) as navn
     FROM Member m
-    WHERE m.id IN (SELECT DISTINCT tm.member_id
+    WHERE m.RemoveDate IS NULL
+      AND m.id IN (SELECT DISTINCT tm.member_id
                    FROM Trip t
                    JOIN TripMember tm ON (t.id = tm.TripID)
                    WHERE YEAR(OutTime) = YEAR(NOW())
