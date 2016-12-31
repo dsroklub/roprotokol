@@ -70,7 +70,9 @@ SET m.FirstName = tm.FirstName,
     m.Email = tm.E_mail,
     m.ShowEmail = tm.OnAddressList,
     m.JoinDate = tm.JoinDate,
-    m.RemoveDate = tm.RemoveDate
+    m.RemoveDate = tm.RemoveDate,
+    m.Birthday = tm.Birthdate,
+    m.Gender = CASE tm.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
 ";
 
     error_log("SQL :\n".$s."\n");
@@ -85,14 +87,16 @@ SET m.FirstName = tm.FirstName,
     echo "<br>Indsætter eventuelle nye medlemmer i roprotokollen<br>";
 
     $s="
-INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail )
+INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, Gender )
   SELECT DISTINCTROW tMem.MemberID,
                      tMem.LastName,
                      tMem.FirstName,
                      tMem.JoinDate,
                      tMem.RemoveDate,
                      tMem.E_mail,
-                     tMem.OnAddressList
+                     tMem.OnAddressList,
+		     tMem.Birthdate,
+		     CASE tMem.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
   FROM tblMembersToRoprotokol tMem
   WHERE (((tMem.RemoveDate) IS NULL) AND MemberID NOT IN (SELECT MemberID From Member))
   ORDER BY tMem.MemberID;
