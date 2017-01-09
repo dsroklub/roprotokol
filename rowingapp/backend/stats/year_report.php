@@ -137,7 +137,8 @@ $dropout_categories = [
   'after_q3' => ['11-01', 0],
   'after_q4' => ['01-01', 1],
   'after_y2' => ['01-01', 2],
-  'after_y3' => ['01-01', 3]
+  'after_y3' => ['01-01', 3],
+  'after_y4' => ['01-01', 4]
 ];
  
 $table = 'new_members_dropout';
@@ -243,7 +244,11 @@ for ($y = $from_year; $y <= $to_year; $y++) {
       if ($r) {
         $res[$table][$y][$step] = [];
 	$last = [ 'total' => 0, 'dropped_out' => 0 ];
+        $max_after_20 = 10;
         while (($row = $r->fetch_assoc())) {
+          if ($row['trips'] > 20) {
+	    $max_after_20 = $row['trips'];
+          }
           if (! isset($res[$table][$y][$step][$row['trips']])) {
             // Cumulate
 	    $res[$table][$y][$step][$row['trips']] = [ 'total' => $last['total'], 'dropped_out' => $last['dropped_out'] ];
@@ -257,6 +262,13 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                                                                            / $res[$table][$y][$step][$row['trips']]['total'], 0) ;
 	  $last['total'] = $res[$table][$y][$step][$row['trips']]['total'];
 	  $last['dropped_out'] = $res[$table][$y][$step][$row['trips']]['dropped_out'];
+        }
+
+        // Fill holes - e.g. if no one have rowed 10 trips, use numbers from 11
+        for ($i = $max_after_20; $i > 1; $i--) {
+          if (!isset($res[$table][$y][$step][$i])) {
+            $res[$table][$y][$step][$i] = $res[$table][$y][$step][$i + 1];
+          }
         }
       } else {
         make_error();
@@ -458,12 +470,13 @@ $to_cut = get_cut($to_year);
 $from_cut = get_cut($to_year - 1);
 
 $step = 'list';
-$s = "SELECT TripMember.member_id as member_no,
-             TripMember.MemberName as name,
+$s = "SELECT Member.MemberID as member_no,
+             IFNULL(TripMember.MemberName, CONCAT(Member.FirstName, ' ', Member.LastName)) as name,
              COUNT(TripMember.member_id) as trips
       FROM Trip
-      JOIN TripMember ON (TripMember.TripID = Trip.id)
+      INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
       INNER JOIN Boat ON (Boat.id = Trip.BoatID)
+      LEFT OUTER JOIN Member ON (Member.id = TripMember.member_id)
       WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
         AND TripMember.Seat=1
         AND Trip.TripTypeID IN (5)
@@ -532,7 +545,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                    AND Trip.TripTypeID NOT IN (5)
                    AND BoatType.Category=2
                  GROUP BY TripTypeID, member_id
-                 HAVING COUNT(1) > 2
+                 HAVING COUNT(1) >= 2
                 ) AS t
           INNER JOIN TripType on (t.TripTypeID = TripType.id)
           INNER JOIN Member ON (Member.id = t.member_id)
@@ -668,12 +681,13 @@ $s = "SELECT Boat.Name AS boat,
       GROUP BY Boat.Name, Boat.id, BoatType.Name, triptype";
 $r = $rodb->query($s);
 if ($r) {
+  $res[$table]['total'] = ['trips' => 0, 'distance' => 0];
   while ($row = $r->fetch_assoc()) {
     if (! isset($res[$table]['triptypes'][ $row['triptype']])) {
-      $res[$table]['types'][ $row['triptype']] = [ 'distance' => 0, 'trips'=> 0, 'boattypes' => [] ];
+      $res[$table]['triptypes'][ $row['triptype']] = [ 'distance' => 0, 'trips'=> 0, 'boattypes' => [] ];
     } 
     if (! isset($res[$table]['boattypes'][ $row['boattype']])) {
-      $res[$table]['types'][ $row['boattype']] = [ 'distance' => 0, 'trips' => 0, 'triptypes' => [] ];
+      $res[$table]['boattypes'][ $row['boattype']] = [ 'distance' => 0, 'trips' => 0, 'boats' => [], 'triptypes' => [] ];
     } 
     if (! isset($res[$table]['boats'][ $row['boat']])) {
       $res[$table]['boats'][ $row['boat']] = [ 'distance' => 0, 'trips' => 0, 'triptypes' => [] ];
@@ -704,11 +718,23 @@ if ($r) {
     }
 
     $res[$table]['boats'][ $row['boat']]['distance'] += $row['distance'];
+    $res[$table]['boats'][ $row['boat']]['boattype'] = $row['boattype'];
     $res[$table]['boats'][ $row['boat']]['trips'] += $row['trips'];
     $res[$table]['boats'][ $row['boat']]['triptypes'][$row['triptype']]['distance'] += $row['distance'];
     $res[$table]['boats'][ $row['boat']]['triptypes'][$row['triptype']]['trips'] += $row['trips'];
 
+    $res[$table]['total']['distance'] += $row['distance'];
+    $res[$table]['total']['trips'] += $row['trips'];
+
+    $res[$table]['boattypes'][ $row['boattype']]['boats'][ $row['boat']]  = 1;
   }
+ 
+  foreach ($res[$table]['boattypes'] as $bt => $row) {
+    $res[$table]['boattypes'][$bt]['boats'] = $res[$table]['boattypes'][$bt]['boats'] = array_keys( $res[$table]['boattypes'][$bt]['boats'] );
+    sort($res[$table]['boattypes'][$bt]['boats']);
+    $res[$table]['boattypes'][$bt]['boatcount'] = count($res[$table]['boattypes'][$bt]['boats']);
+  }
+
 } else {
   make_error();
   goto end;
@@ -722,10 +748,10 @@ $table = 'boats';
 $to_cut = get_cut($to_year);
 $from_cut = get_cut($to_year - 1);
 $step = 'unused';
-$res[$table][$step] = [];
+$res[$table][$step] = [ 'types' => [], 'boats' => []];
 
-$s = "SELECT b.Name AS Boat,
-             BoatType.Name AS BoatType
+$s = "SELECT b.Name AS boat,
+             BoatType.Name AS boattype
        FROM BoatType
        INNER JOIN Boat b ON (BoatType.id = b.BoatType)
        WHERE b.Decommissioned IS NULL
@@ -741,7 +767,12 @@ $s = "SELECT b.Name AS Boat,
 $r = $rodb->query($s);
 if ($r) {
   while ($row = $r->fetch_assoc()) {
-    $res[$table][$step][] = $row;
+    if (! isset($res[$table][$step]['types'][$row['boattype']]) ) {
+      $res[$table][$step]['types'][$row['boattype']] = ['count' => 0, 'boats' => []];
+    }
+    $res[$table][$step]['boats'][] = $row;
+    $res[$table][$step]['types'][$row['boattype']]['count']++;
+    $res[$table][$step]['types'][$row['boattype']]['boats'][] = $row['boat'];
   }
 } else {
   make_error();

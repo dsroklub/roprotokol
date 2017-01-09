@@ -42,6 +42,7 @@
   <script src="controllers/boat.js"></script>
   <script src="controllers/today.js"></script>
   <script src="controllers/admin.js"></script>
+  <script src="controllers/year_report.js"></script>
   <script src="controllers/stats.js"></script>
   <script src="controllers/rower.js"></script>
   <script src="controllers/menu.js"></script>
@@ -70,7 +71,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
 
-  <div class="menuholder" >
+  <div class="menuholder" ng-if="! hide_top_menu">
     <ul class="menu" ng-controller="menuCtrl">
       <li class="logo">
         <img src="assets/dsrlogo.svg">  

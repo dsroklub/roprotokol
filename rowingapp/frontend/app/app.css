@@ -924,3 +924,101 @@ datetimepicker.trip-search-field ng-form div input {
 .topsel i {
     color: black;
 }
+
+
+#year_report,
+#year_report div,
+#year_report h1,
+#year_report h2,
+#year_report h3,
+#year_report h4,
+#year_report p,
+#year_report table
+ {
+  background: #fff;
+  color: #000;
+  font-family: Garamond, sans-serif;
+}
+
+.report-front-page h1,
+.report-front-page img,
+.report-front-page i,
+.report-front-page h2 {
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 3em;
+}
+
+#year_report table,
+#year_report td,
+#year_report th {
+  border: solid 2px #003;
+}
+
+#year_report tr.header {
+  color: #fff;
+  background: #003;
+}
+
+#year_report th {
+  font-weight: normal;
+  vertical-align:bottom;
+}
+#year_report th.supercat {
+  border-left-color: #fff;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  text-align: center;
+}
+#year_report td,
+#year_report th {
+  padding: 0.1em;
+  padding-left: 1em;
+  padding-right: 0.5em;
+  text-align: right;
+}
+
+#year_report td.left,
+#year_report th.left {
+  text-align: left;
+}
+
+#year_report td.center,
+#year_report th.center {
+  text-align: center;
+}
+
+#year_report td.vertical,
+#year_report th.vertical {
+  transform: rotate(270deg);
+  height: 20em;
+}
+
+#year_report td.top,
+#year_report th.top {
+  vertical-align: top;
+}
+
+#year_report th.slanted {
+  height: 12em;
+  white-space: nowrap;
+}
+
+#year_report tr.header > th.slanted > div {
+  transform: translate(3em,-1.4em) rotate(315deg);
+  width: 4em;
+  background: #003;
+}
+
+#year_report tr.header > th.slanted > div > span {
+  border-bottom: 2px solid #fff;
+  background: #003;
+  padding: 0.7em 0em;
+}
+
+#year_report tr.header > th.slanted > div > span {
+  background: #003;
+  color: #fff;
+  white-space: nowrap;
+  overflow: visible;
+}

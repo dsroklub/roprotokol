@@ -67,6 +67,14 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   }
 
+  this.simpleGet = function (service, args) {
+    var conf = {};
+    if (args) {
+      conf['params'] = args;
+    }
+    return $http.get(toURL(service+'.php',conf));
+  }
+
   this.fetch = function () {
     var boatmaintypes = ['kayak','any','rowboat'];
     $log.debug("DB fetch "+Date());
