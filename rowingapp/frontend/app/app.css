@@ -940,18 +940,44 @@ datetimepicker.trip-search-field ng-form div input {
   font-family: Garamond, sans-serif;
 }
 
-.report-front-page h1,
-.report-front-page img,
-.report-front-page i,
-.report-front-page h2 {
+#year_report {
+  padding-left: 3cm;
+  padding-right: 2cm;
+}
+
+#year_report h3 {
+  padding-top: 4em;
+  padding-bottom: 3em;
+}
+
+#year_report h3,
+#year_report h4,
+#year_report h5 {
+  color: #003;
+  padding-bottom: 0.5em;
+}
+
+#year_report h4,
+#year_report h5 {
+  margin-top: 3em;
+}
+
+#year_report h5 {
+  font-weight: bold;
+}
+.report-front-page > h1,
+.report-front-page > img,
+.report-front-page > i,
+.report-front-page > h2 {
    margin-left: auto;
    margin-right: auto;
-   margin-top: 3em;
+   margin-top: 4em;
+   display: block;
+   text-align: center;
 }
 
 #year_report table,
-#year_report td,
-#year_report th {
+#year_report td {
   border: solid 2px #003;
 }
 
@@ -965,11 +991,19 @@ datetimepicker.trip-search-field ng-form div input {
   vertical-align:bottom;
 }
 #year_report th.supercat {
-  border-left-color: #fff;
-  border-right-color: #fff;
-  border-bottom-color: #fff;
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #fff;
   text-align: center;
 }
+
+#year_report th.subcat-left {
+  border-left: 1px solid #fff;
+}
+
+#year_report > table.repeated > datacell {
+  width: 3em;
+}
+
 #year_report td,
 #year_report th {
   padding: 0.1em;
@@ -1022,3 +1056,72 @@ datetimepicker.trip-search-field ng-form div input {
   white-space: nowrap;
   overflow: visible;
 }
+
+
+
+@media print {
+  .report-front-page {
+    page-break-after: always;
+  }
+
+  #year_report > h3 {
+    page-break-before: always;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  #year_report > h5 {
+    page-break-after: avoid;
+  }
+
+  #year_report > table > tr.header,
+  #year_report > table > tr.header > th {
+    color: #003;
+    background: #fff;
+    font-weight: bold;
+    border: 3px solid #003;
+  }
+
+
+	#year_report th {
+	  font-weight: bold;
+      border: 3px solid #003;
+
+}
+	#year_report th.supercat {
+	  border: 3px solid #003;
+	}
+	
+	#year_report th.subcat-left {
+	  border-left: 3px solid #003;
+	}
+	
+
+    #year_report tr.header > th.slanted,
+    #year_report tr.header > th.around-slanted {
+      border: none;
+    }
+
+	#year_report tr.header > th.slanted > div {
+	  background: #fff;
+	}
+	
+	#year_report tr.header > th.slanted > div > span {
+	  border-bottom: 2px solid #003;
+	  background: #fff;
+	}
+	
+	#year_report tr.header > th.slanted > div > span {
+	  background: #fff;
+	  color: #003;
+	}
+
+}
+
+@media screen {
+  #year_report > h3 {
+    margin-top: 4em;
+    border-top: 2px dashed #003;
+    padding-top: 3em;
+  }
+

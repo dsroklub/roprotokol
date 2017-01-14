@@ -669,7 +669,7 @@ $res[$table] = [ 'boattypes' => [], 'triptypes' => [], 'boats' => []];
 
 $s = "SELECT Boat.Name AS boat,
              BoatType.Name AS boattype,
-             FORMAT(Sum(ROUND(Meter/100)/10),1) AS distance,
+             Sum(Meter)/1000 AS distance,
              COUNT(Trip.id) AS trips,
              TripType.Name AS triptype
       FROM BoatType
@@ -679,6 +679,8 @@ $s = "SELECT Boat.Name AS boat,
       WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
         AND DATE(Trip.OutTime) < '"  . $to_cut . "'
       GROUP BY Boat.Name, Boat.id, BoatType.Name, triptype";
+
+$messages[] = $s;
 $r = $rodb->query($s);
 if ($r) {
   $res[$table]['total'] = ['trips' => 0, 'distance' => 0];

@@ -25,7 +25,8 @@
     "angular-ui-bootstrap": "ui.bootstrap#~1.3.2",
     "angular-ui-clock": "~0.5.1",
     "angular-chart.js": "~0.10.x",
-    "angular-filter": "~0.5.8"
+    "angular-filter": "~0.5.8",
+    "levenshtein": "^1.0.5"
   },
   "resolutions": {
     "Chart.js": "~1.1.1",

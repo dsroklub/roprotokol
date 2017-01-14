@@ -5,7 +5,7 @@
 <div class="report-front-page">
 <h1>Rosæsonen {{stats.parameters.to_year}}</h1>
 
-<img src="assets/dsrlogo.svg" height="300px" />
+<img src="assets/dsrlogo.svg" height="400px" />
 
 <h2>Danske Studenters Roklub</h2>
 
@@ -16,7 +16,24 @@
 <p>Denne rapport er automatisk genereret ud fra udtræk fra roprotokollen.</p>
 <p>Dette betyder, at alle tal er beregnet på samme måde - også dem fra tidligere år.
 Dog er der naturligvis forskel på, hvilke turtyper og både, der har været til rådighed de enkelte år.<p>
-<p>Man skal være opmærksom på, at rapporten ikke er mere præcis end datagrundlaget: I det omfang roprotokollen er udfyldt forkert, vil rapporten afspejle dette. Desuden er alle rostatistikker fra før 2016 baseret på data, der er konverteret fra den gamle roprotokol. Der kan være opstået systematiske fejl i den forbindelse, omend vi ikke er bekendt med nogen.</p>
+<p>Man skal være opmærksom på, at rapporten ikke er mere præcis end datagrundlaget: I det omfang
+roprotokollen er udfyldt forkert, vil rapporten afspejle dette. Desuden er alle rostatistikker fra
+før 2016 baseret på data, der er konverteret fra den gamle roprotokol. Der kan være opstået
+systematiske fejl i den forbindelse, omend vi ikke er bekendt med nogen.</p>
+
+<p>En anden fejlkilde er, at nye medlemmer typisk får registreret deres første ture på deres
+kanin-nummer frem for deres medlemsnummer. Kanin-nummeret er <b>ikke</b> koblet til medlemsoplysninger
+såsom køn, ind- og udmeldelsesdato og så videre. Desuden bliver ture roet på henholdsvis kanin-nummeret
+og medlemsnummeret opfattet som ture roet af forskellige personer. Med andre ord: Hvis en kanin ror
+3 instruktionsture på kaninnummeret og 5 instruktionsture på medlemsnummeret, vil det i statistikken
+tælle som to personer, som hver har roet i gennemsnit 4 instruktionsture. For den ene person har vi
+ingen oplysninger om evt. frafald, og for den anden vil evt. frafald blive medtalt i frafald efter 5 ture,
+selvom personen i virkeligheden har roet 8 ture.</p>
+
+<p>For at imødegå dette (og af andre årsager), er der i roprotokollen mulighed for at konvertere roere,
+så alle ture, rettigheder osv. for et (kanin)nummer overføres til et andet nummer. Dette sker dog
+ikke i alle tilfælde. Rapportens præcision afhænger således også af, hvor mange kanin-numre, der er
+blevet konverteret til de korrekte medlemsnumre i roprotokollen.</p>
 
 
 <h3>2. Klubbens medlemmer</h3>
@@ -64,10 +81,10 @@ samtidig. Det faktiske medlemstal per en given dato vil derfor være noget laver
     <th colspan="3" class="supercat">Alder</th>
   </tr>
   <tr class="header">
-    <th>Samlet</th>
+    <th class="subcat-left">Samlet</th>
     <th>Kvinder</th>
     <th>Mænd</th>
-    <th>Samlet</th>
+    <th class="subcat-left">Samlet</th>
     <th>Kvinder</th>
     <th>Mænd</th>
   </tr>
@@ -134,6 +151,10 @@ overlevet 2½ år, bliver de som regel mindst et år mere.</p>
 
 <h4>3.1 Antal roede kilometer</h4>
 
+<p>De kilometer, der er opgjort her, er bådkilometer. Det vil sige, at fem personer, der ror 10 km,
+tæller som 10 km og ikke 50.</p>
+<p>Sæsoner regnes i forhold til kalenderåret, så vinterroning er også med.</p>
+
 <h5>Tabel 4 - Samlet aktivitetsniveau</h5>
 <table>
   <tr class="header">
@@ -149,14 +170,9 @@ overlevet 2½ år, bliver de som regel mindst et år mere.</p>
     <td>{{stats.rowed_kilometers[y].total | number : 0}}</td>
   </tr>
 </table>
-<p>De kilometer, der er opgjort her, er bådkilometer. Det vil sige, at fem personer, der ror 10 km,
-tæller som 10 km og ikke 50.</p>
-<p>Sæsoner regnes i forhold til kalenderåret, så vinterroning er også med.</p>
 
 
-
-<h5>Tabel 5 - Bådture og personture, robåd og kajak</h5>
-<p>Her kan man se fordelingen af ture efter hvilken turtype, folk har valgt, da de skrev båden ud i
+<p>Herunder kan man se fordelingen af ture efter hvilken turtype, folk har valgt, da de skrev båden ud i
 roprotokollen.</p>
 
 <p>Enkelte ture skrives forkert ud – f.x. er der i 2015 skrevet en enkelt tur ud som "Tur & Teknik" til
@@ -167,7 +183,7 @@ man selv arrangerer.</p>
 <p>Det anbefales, at der fremover oprettes separate turtyper i roprotokollen til alle organiserede
 tilbud - selvom det naturligvis ikke vil hjælpe på oversigten for de tidligere år</p>
 
-
+<h5>Tabel 5 - Bådture og personture, robåd og kajak</h5>
 <table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
   <tr class="header">
     <th class="left">{{y}}</th>
@@ -175,11 +191,11 @@ tilbud - selvom det naturligvis ikke vil hjælpe på oversigten for de tidligere
     <th colspan="3" class="supercat">Kajakker</th>
   </tr>
   <tr class="header">
-    <th class="left">Turtype</th>
-    <th>Bådture</th>
+    <th class="left" style="min-width: 15em">Turtype</th>
+    <th class="subcat-left">Bådture</th>
     <th>Personture</th>
     <th>Personer pr. båd</th>
-    <th>Bådture</th>
+    <th class="subcat-left">Bådture</th>
     <th>Personture</th>
     <th>Personer pr. båd</th>
   </tr>
@@ -198,9 +214,9 @@ tilbud - selvom det naturligvis ikke vil hjælpe på oversigten for de tidligere
 
 <h4>3.2 Aktivitetsniveau fordelt på turtyper</h4>
 <h5>Tabel 6 - Aktivitetsniveau fordelt på turtyper (robåde)</h5>
-<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
+<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3" class="repeated">
   <tr class="header">
-    <th class="left">{{y}}</th>
+    <th class="left" style="min-width: 15em">{{y}}</th>
     <th>Kilometer</th>
     <th>Bådture</th>
     <th>Km pr. tur</th>
@@ -374,9 +390,9 @@ af {{example_year}},og ved udgangen af {{ 1 + example_year }} var
 i alt {{stats.rabbit_activity[example_year].Inriggerkaproning.after_2.percentage}}% af dem faldet fra.</p>
 
 <h5>Tabel 10 - Kaniners aktivitet efter roret</h5>
-<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
+<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3" class="repeated">
   <tr class="header">
-    <th class="left">{{y}}</th>
+    <th class="left"style="min-width: 15em">{{y}}</th>
     <th>Individer</th>
     <th>Bådture</th>
     <th>Ture pr. person</th>
@@ -397,7 +413,7 @@ i alt {{stats.rabbit_activity[example_year].Inriggerkaproning.after_2.percentage
 
 <h3>6.Frafald blandt alle medlemmer</h3>
 <h4>6.1 Efter aktivitet</h4>
-pHvis vi ser på alle medlemmer – både kaniner og tidligere medlemmer – kan vi se,
+<p>Hvis vi ser på alle medlemmer – både kaniner og tidligere medlemmer – kan vi se,
 hvilke tilbud, der generelt er med til at fastholde medlemmer.</p>
 
 <p>I nedenstående oversigt er regnet med alle medlemmer, der har haft mindst 3 ture
@@ -417,7 +433,7 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
 <h5>Tabel 11 - Frafald blandt alle medlemmer efter aktivitet - robåde</h5>
 <table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:5">
   <tr class="header">
-    <th class="left">{{y}}</th>
+    <th class="left" style="min-width: 15em">{{y}}</th>
     <th>Individer</th>
     <th>Bådture</th>
     <th>Ture pr. person</th>
@@ -443,9 +459,9 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
 <h5>Tabel 12 - Bådtyper efter turtype og samlet kilometertal</h5>
 <table>
   <tr class="header">
-    <th class="left">Bådtype</th>
+    <th class="left around-slanted">Bådtype</th>
     <th class="left slanted" ng-repeat="tt in triptypes"><div><span>{{tt}}</span></div></th>
-    <th><b>I alt</b></th>
+    <th class="around-slanted"><b>I alt</b></th>
   </tr>
   <tr ng-repeat="bt in boattypes | orderBy:'+'">
     <td>{{bt}}</td>
@@ -463,9 +479,9 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
 <h5>Tabel 13 - Både efter turtype og samlet kilometertal</h5>
 <table>
   <tr class="header">
-    <th class="left">Båd</th>
+    <th class="left around-slanted">Båd</th>
     <th class="left slanted" ng-repeat="tt in triptypes"><div><span>{{tt}}</span></div></th>
-    <th><b>I alt</b></th>
+    <th class="around-slanted"><b>I alt</b></th>
   </tr>
   <tr ng-repeat="(name,boat) in stats.boats.boats">
     <td>{{name}}</td>
@@ -481,9 +497,9 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
 <h5>Tabel 14 - Både efter turtype og antal ture</h5>
 <table>
   <tr class="header">
-    <th class="left">Båd</th>
+    <th class="left around-slanted">Båd</th>
     <th class="left slanted" ng-repeat="tt in triptypes"><div><span>{{tt}}</span></div></th>
-    <th><b>I alt</b></th>
+    <th class="around-slanted"><b>I alt</b></th>
   </tr>
   <tr ng-repeat="(name,boat) in stats.boats.boats">
     <td>{{name}}</td>
