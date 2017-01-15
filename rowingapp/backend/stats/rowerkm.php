@@ -27,13 +27,14 @@ if ($force_email) {
 
 $s="SELECT m.id, m.MemberID as medlemsNr, " . $email_clause . ", CONCAT(m.FirstName, ' ', m.LastName) as navn
     FROM Member m
-    WHERE m.RemoveDate IS NULL
-      AND m.id IN (SELECT DISTINCT tm.member_id
+    WHERE m.id IN (SELECT DISTINCT tm.member_id
                    FROM Trip t
                    JOIN TripMember tm ON (t.id = tm.TripID)
-                   WHERE YEAR(OutTime) = " . $year . "
-                  )
+                   WHERE YEAR(OutTime) = " . $year . ")
+                     " . ( $only_members ? " AND m.RemoveDate IS NULL " : "") . "
     ORDER BY m.FirstName, m.LastName";
+
+error_log($s);
 
 $result=$rodb->query($s) or die("Error in query 2: " . mysqli_error($rodb));;
 while ($row = $result->fetch_assoc()) {
