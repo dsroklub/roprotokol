@@ -542,7 +542,7 @@
          >
 
 
-  <h2>Denne terminal håndterer både for disse lokationer</h2>
+<!--  <h2>Denne terminal håndterer både for disse lokationer</h2> -->
 
 
   
@@ -569,7 +569,7 @@
     <li><a href="#/year_report/" target="_new">Årsrapport</a></li>
     <li><a href="#/convert_candidates/">Find kaniner, der måske skal konverteres</a></li>
     <li><a href="/backend/stats/racerkaniner.php">Statistik for årets racerkaniner som CSV</a></li>
-    <li><a href="/backend/stats/rowerkm.php">Kilometerstatistik for roere i år som CSV</a></li>
+    <li><a href="/backend/stats/rowerkm.php?force_email={{rowerkm_force_email?1:0}}&year={{rowerkm_year}}">Kilometerstatistik for roere  som CSV</a> (år <input type="text" ng-model="rowerkm_year" size="4"/>, <input type="checkbox" ng-model="rowerkm_force_email"/> inkluder fortrolig email)</li>
     <li><a href="/backend/stats/boatrowerkm.php">Årets 10 mest aktive roere i hver båd som CSV</a></li>
     <li><a href="/backend/stats/maxmates.php">Årets 10 roere med flest rokammerater som CSV</a></li>
     <li><a href="/backend/stats/longdistancecoxes.php">Langdistancestyrmænd som CSV</a></li>

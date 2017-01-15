@@ -9,8 +9,10 @@ $categories = [];
 $category_list = [];
 $field_list = ['medlemsNr', 'email', 'navn'];
 
-$force_email = $_GET["force_email"];
-
+$force_email = isset($_GET["force_email"]) ? $_GET["force_email"] : null;
+$now = getdate();
+$year = isset($_GET["year"]) ? (int) $_GET["year"] : $now['year'];
+$only_members = !!(isset($_GET["only_members"]) && $_GET["only_members"]);
 
 $s = 'SELECT id, Name from BoatCategory ORDER BY Name';
 $result=$rodb->query($s) or die("Error in query 1: " . mysqli_error($rodb));;
@@ -29,7 +31,7 @@ $s="SELECT m.id, m.MemberID as medlemsNr, " . $email_clause . ", CONCAT(m.FirstN
       AND m.id IN (SELECT DISTINCT tm.member_id
                    FROM Trip t
                    JOIN TripMember tm ON (t.id = tm.TripID)
-                   WHERE YEAR(OutTime) = YEAR(NOW())
+                   WHERE YEAR(OutTime) = " . $year . "
                   )
     ORDER BY m.FirstName, m.LastName";
 
@@ -46,7 +48,7 @@ $s = "SELECT tm.member_id as member, bc.Name as category, ROUND(SUM(t.Meter)/100
       JOIN Boat b ON (b.id = t.BoatID)
       JOIN BoatType bt ON (b.BoatType = bt.id)
       JOIN BoatCategory bc ON (bt.Category = bc.id)
-      WHERE YEAR(t.OutTime)=YEAR(NOW())
+      WHERE YEAR(t.OutTime)= " . $year . "
       GROUP BY tm.member_id, bc.id";
 
 $result=$rodb->query($s) or die("Error in query 3: " . mysqli_error($rodb));;
@@ -61,7 +63,7 @@ $s = "SELECT tm.member_id as member, bc.Name as category, ROUND(SUM(t.Meter)/100
       JOIN Boat b ON (b.id = t.BoatID)
       JOIN BoatType bt ON (b.BoatType = bt.id)
       JOIN BoatCategory bc ON (bt.Category = bc.id)
-      WHERE YEAR(t.OutTime)=YEAR(NOW())
+      WHERE YEAR(t.OutTime)=" . $year . "
       AND t.TripTypeID NOT IN (SELECT id
                                FROM TripType
                                WHERE Name LIKE '%instruktion%')

@@ -18,6 +18,8 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             return diffs;
           }
 
+          $scope.rowerkm_force_email = false;
+          $scope.rowerkm_year = new Date().getFullYear();
           var correction_diff = function(current,correction) {
 	    var res={'diff':{}};
             if (!correction.DeleteTrip) {
