@@ -13,11 +13,23 @@ $force_email = isset($_GET["force_email"]) ? $_GET["force_email"] : null;
 $now = getdate();
 $year = isset($_GET["year"]) ? (int) $_GET["year"] : $now['year'];
 $only_members = !!(isset($_GET["only_members"]) && $_GET["only_members"]);
+$include_trips = !!(isset($_GET["include_trips"]) && $_GET["include_trips"]);
+$separate_instruction = !!(isset($_GET["separate_instruction"]) && $_GET["separate_instruction"]);
 
 $s = 'SELECT id, Name from BoatCategory ORDER BY Name';
 $result=$rodb->query($s) or die("Error in query 1: " . mysqli_error($rodb));;
+
 while ($row = $result->fetch_assoc()) {
-  array_push($field_list, $row['Name'] . '_km', $row['Name'] . '_km_uden_instruktion');
+  array_push($field_list, $row['Name'] . '_km');
+  if ($include_trips) {
+    array_push($field_list, $row['Name'] . '_ture');
+  }
+  if ($separate_instruction) {
+    array_push($field_list, $row['Name'] . '_km_uden_instruktion');
+    if ($include_trips) {
+      array_push($field_list, $row['Name'] . '_ture_uden_instruktion');
+    }
+  }
 }
 
 $email_clause = "IF(m.ShowEmail, m.Email, NULL) as email";
@@ -34,8 +46,6 @@ $s="SELECT m.id, m.MemberID as medlemsNr, " . $email_clause . ", CONCAT(m.FirstN
                      " . ( $only_members ? " AND m.RemoveDate IS NULL " : "") . "
     ORDER BY m.FirstName, m.LastName";
 
-error_log($s);
-
 $result=$rodb->query($s) or die("Error in query 2: " . mysqli_error($rodb));;
 while ($row = $result->fetch_assoc()) {
   $rowers[$row['id']] = $row;
@@ -43,7 +53,7 @@ while ($row = $result->fetch_assoc()) {
 }
 
 
-$s = "SELECT tm.member_id as member, bc.Name as category, ROUND(SUM(t.Meter)/1000) as km
+$s = "SELECT tm.member_id as member, bc.Name as category, ROUND(SUM(t.Meter)/1000) as km, COUNT(DISTINCT t.id) as trips
       FROM TripMember tm
       JOIN Trip t ON (t.id = tm.TripID)
       JOIN Boat b ON (b.id = t.BoatID)
@@ -54,28 +64,30 @@ $s = "SELECT tm.member_id as member, bc.Name as category, ROUND(SUM(t.Meter)/100
 
 $result=$rodb->query($s) or die("Error in query 3: " . mysqli_error($rodb));;
 while ($row = $result->fetch_assoc()) {
-   $FieldName = $row['category'] . '_km';
-   $rowers[$row['member']][$FieldName] = $row['km'];
+   $rowers[$row['member']][ $row['category'] . '_km'] = $row['km'];
+   $rowers[$row['member']][ $row['category'] . '_ture'] = $row['trips'];
 }
 
-$s = "SELECT tm.member_id as member, bc.Name as category, ROUND(SUM(t.Meter)/1000) as km
-      FROM TripMember tm
-      JOIN Trip t ON (t.id = tm.TripID)
-      JOIN Boat b ON (b.id = t.BoatID)
-      JOIN BoatType bt ON (b.BoatType = bt.id)
-      JOIN BoatCategory bc ON (bt.Category = bc.id)
-      WHERE YEAR(t.OutTime)=" . $year . "
-      AND t.TripTypeID NOT IN (SELECT id
-                               FROM TripType
-                               WHERE Name LIKE '%instruktion%')
-      GROUP BY tm.member_id, bc.id";
 
-$result=$rodb->query($s) or die("Error in query 4: " . mysqli_error($rodb));;
-while ($row = $result->fetch_assoc()) {
-   $FieldName = $row['category'] . '_km_uden_instruktion';
-   $rowers[$row['member']][$FieldName] = $row['km'];
+if ($separate_instruction) {
+  $s = "SELECT tm.member_id as member, bc.Name as category, ROUND(SUM(t.Meter)/1000) as km, COUNT(DISTINCT t.id) as trips
+        FROM TripMember tm
+        JOIN Trip t ON (t.id = tm.TripID)
+        JOIN Boat b ON (b.id = t.BoatID)
+        JOIN BoatType bt ON (b.BoatType = bt.id)
+        JOIN BoatCategory bc ON (bt.Category = bc.id)
+        WHERE YEAR(t.OutTime)=" . $year . "
+        AND t.TripTypeID NOT IN (SELECT id
+                                 FROM TripType
+                                 WHERE Name LIKE '%instruktion%')
+        GROUP BY tm.member_id, bc.id";
+
+  $result=$rodb->query($s) or die("Error in query 4: " . mysqli_error($rodb));;
+  while ($row = $result->fetch_assoc()) {
+   $rowers[$row['member']][ $row['category'] . '_km_uden_instruktion'] = $row['km'];
+   $rowers[$row['member']][ $row['category'] . '_ture_uden_instruktion'] = $row['trips'];
+  }
 }
-
 
 
 header('Content-type: text/csv;charset=utf-8');

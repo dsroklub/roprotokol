@@ -19,6 +19,8 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
           }
 
           $scope.rowerkm_force_email = false;
+          $scope.rowerkm_include_trips = true;
+          $scope.rowerkm_separate_instruction = false;
           $scope.rowerkm_only_members = false;
           $scope.rowerkm_year = new Date().getFullYear();
           var correction_diff = function(current,correction) {
