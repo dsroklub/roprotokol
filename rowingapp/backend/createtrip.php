@@ -66,7 +66,6 @@ if (isset($newtrip->event)) {
     }     
 }
 
-
 if ($error) {
     error_log('DB error ' . $error);
     $res['message']=$message.'\n'.$error;
@@ -74,7 +73,7 @@ if ($error) {
     $res['error']=$error;
     $rodb->rollback();
 } else {
-$rodb->commit();
+    $rodb->commit();
 }
 
 $res['message']=$message;

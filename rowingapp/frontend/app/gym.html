@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html lang="en" ng-app="gymApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="gymApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="gymApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="gymApp" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>DSR Roprotokol</title>
+  <title>DSR Gymansik</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png"  href="media/ico.png" />
@@ -15,13 +15,10 @@
   <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.min.css">
   <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css">
   <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
-  <!--link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"-->
   <link rel="stylesheet" href="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
-  <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
   <link rel="stylesheet" href="bower_components/angular-ui-clock/dist/angular-clock.css">
   <link rel="stylesheet" href="app.css"/>
   <!--base href="/frontend/app"-->
-
   <script src="bower_components/angular/angular.js"></script>
   <script src="components/angular-locale_da-dk.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
@@ -32,17 +29,11 @@
   <script src="bower_components/ngDialog/js/ngDialog.min.js"></script>
   <script src="bower_components/ng-table/dist/ng-table.js"></script>
   <script src="bower_components/angular-confirm-modal/angular-confirm.min.js"></script>
+
   <script src="bower_components/moment/moment.js"></script>
   <script src="bower_components/moment/locale/da.js"></script>
   <script src="bower_components/angular-momentjs/angular-momentjs.js"></script>
   <script src="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
-  <script src="app.js"></script>
-  <script src="controllers/boat.js"></script>
-  <script src="controllers/today.js"></script>
-  <script src="controllers/admin.js"></script>
-  <script src="controllers/stats.js"></script>
-  <script src="controllers/rower.js"></script>
-  <script src="controllers/menu.js"></script>
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
@@ -51,12 +42,14 @@
   <script src="components/database/database.js"></script>
   <script>var dbmode='real';
   </script>
+  <script src="gym.js"></script>
+  <script src="controllers/team/team.js"></script>
+  <script src="controllers/team/menu.js"></script>
   <script src="components/database/database-services.js"></script>
   <script src="components/database/database-directives.js"></script>
-  <script src="bower_components/Chart.js/Chart.js"></script>
-  <script type='text/javascript' src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
   <script src="bower_components/angular-ui-clock/dist/angular-clock.js"></script>
   <script src="bower_components/angular-filter/dist/angular-filter.js"></script>
+
 </head>
 <body>
 
@@ -73,13 +66,7 @@
       <li class="logo">
         <img src="assets/dsrlogo.svg">  
       </li>
-      <li ng-class="{topsel: activePath=='/ud/'}"><a href="#/ud"><i class="fa fa-anchor fa-rotate-180"></i>Udskriv</a></li>
-      <li ng-class="{topsel:activePath=='/ind/'}"><a href="#/ind"><i class="fa fa-anchor"></i>Indskriv</a></li>
-      <li ng-class="{topsel:activePath=='/today/'}"><a href="#/today"><i class="fa fa-newspaper-o"></i>Rovagt</a></li>
-      <li ng-class="{topsel:activePath=='/statoverview/'}"><a href="#/statoverview"><i class="fa fa-area-chart"></i>Statistik</a></li>
-      <li ng-class="{topsel:activePath=='/rowers/'}"><a href="#/rowers"><i class="fa fa-flag-checkered"></i> Ture</a></li>
-      <li ng-class="{topsel:activePath=='/damages/'}"><a href="#/damages"><i class="fa fa-exclamation-triangle"></i> Skader</a></li>
-      <li ng-class="{topsel:activePath=='/admin/'}"><a href="#/admin"><i class="fa fa-wrench"></i> Admin</a></li>
+      <li ng-class="{topsel: activePath=='/ud/'}"><a href="#/ud"><i class="fa fa-futbol"></i>Registrer</a></li>
       <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
       </li>
     </ul>

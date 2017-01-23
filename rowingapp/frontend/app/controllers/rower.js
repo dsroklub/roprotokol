@@ -58,7 +58,6 @@ app.controller(
      };
      
      $scope.updateBoatTrips = function(item) {
-       console.log("upd boat trips");
        $scope.correction=null;
        $scope.currenttrip=null;
        $scope.currentboat=item;
@@ -81,8 +80,6 @@ app.controller(
      }
      
      $scope.updateRowerTrips = function(item) {
-       console.log("update rower trips");
-       console.log(item);
        $scope.correction=null;
        $scope.currenttrip=null;
        $scope.currentrower=item;

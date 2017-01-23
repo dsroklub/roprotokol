@@ -29,7 +29,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     'boat':['boats','boatdamages','availableboats','reservations','boat_status','boat_usages','boat_status','get_events'],
     'trip':['rowers','rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
     'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
-    'destination':['destinations']
+    'destination':['destinations'],
+    'team':['team']
   };
   
   var datastatus={
@@ -56,6 +57,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   }
 
   this.getData = function (dataid,promises) {
+    $log.debug(" getData" + dataid);
     if(!valid[dataid] || !db[dataid]) {
       var dq=$q.defer();
       promises.push(dq.promise);
@@ -126,7 +128,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     this.getData('memberrighttypes',promises);
     this.getData('boat_brand',promises);
     this.getData('boat_usages',promises);    
-    this.getData('rights_subtype',promises);    
+    this.getData('rights_subtype',promises);
+    this.getData('team/team',promises);    
 
     if(!valid['rowers']) {
       var rq=$q.defer();
@@ -227,7 +230,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       $log.debug("got dbstatus" + JSON.stringify(ds));
       for (var tp in ds) {
 	if (datastatus[tp]!=ds[tp]) {
-//          $log.debug("  inval "+tp);
+          $log.debug("  inval "+tp); // NEL
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
@@ -295,7 +298,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   };
   
-
   this.lookup = function (resource,key,value) {
     for (var i=0;i<db[resource].length;i++) {
       if (db[resource][i][key]==value) return db[resource][i];
@@ -374,6 +376,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.getDateTrips = function (tripdate,onSuccess) {
     this.getDataNow('datetrips','tripdate='+tripdate,onSuccess);
   }
+  this.getTeams = function (onSuccess) {
+    this.getDataNow('team/team',null,onSuccess);
+  }
   this.getTripMembers = function (tripid,onSuccess) {
     this.getDataNow('tripmembers','trip='+tripid,onSuccess);
   }  
@@ -437,10 +442,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
      var at=ar.then(function (res) {
        $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
        if (!res||res.status=="notauthorized") {
-         console.log("auth error "+op+JSON.stringify(data));
+         $log.error("auth error "+op+JSON.stringify(data));
          if (eh) {
-           eh(res)}
-         ;
+           eh(res);
+         }         
        }
        return res;
      }                                    
@@ -448,6 +453,20 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return at;
   }
 
+
+  this.attendTeam = function(data) {
+    var attendance=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/team/register.php', data).success(function(sdata,status,headers,config) {
+      attendance.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      attendance.resolve(false);
+    });
+    datastatus['gym']=null;
+    return attendance;
+  }
+  
+  
   this.createTrip = function(data) {
     var tripCreated=$q.defer();
     var res=undefined;
@@ -502,7 +521,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.toIsoDate= function (d) {
       return (d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate());
   };
-
 
   
   /// The rest is just for testing

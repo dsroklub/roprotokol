@@ -1,0 +1,24 @@
+<script type="text/ng-template" id="gymTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<ng-form name="gymParticipant">
+  <h2>Registerer deltager på gymnastikhold</h2>
+  
+  <ul>
+    <li ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}" > {{tm.name}} ({{tm.description}})  </li>
+  </ul>
+
+  <label for="gym.deltager">Deltager på gymnastikhold</label>
+  <input placeholder="gymnastikdeltager" autocomplete="off" id="anmelder" name="participant" type="text" ng-model="attendee" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="gymTemplate.html" required />
+  <br>
+
+  <button ng-click="attend()">Registrer</button>
+</ng-form>
+
+<br>
+<pre>ct={{currentteam}}</pre>
+<!--pre>newdamage= {{newdamage | json}}</pre-->
