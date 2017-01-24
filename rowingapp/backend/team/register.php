@@ -11,7 +11,7 @@ error_log($reg->member->id);
 
 $res=array ("status" => "ok");
 
-if ($stmt = $rodb->prepare("INSERT INTO team_participation (team, member_id, start_time) SELECT ?,id,NOW() FROM Member WHERE MemberID=?")) {
+if ($stmt = $rodb->prepare("INSERT INTO team_participation (team, member_id, start_time, classdate) SELECT ?,id,NOW(),CURDATE() FROM Member WHERE MemberID=?")) {
     $stmt->bind_param('ss',
     $reg->team->name,
     $reg->member->id

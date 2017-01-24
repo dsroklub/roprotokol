@@ -6,6 +6,14 @@
 </script>
 
 <ng-form name="gymParticipant">
+
+  <div>
+    <h2>tilmeldte</h2>    
+    <ul>
+      <li ng-repeat="tp in attendance" ng-if="tp.team==currentteam.name"> {{tp.membername}} ({{tp.memberid}})  </li>
+    </ul>    
+  </div>
+
   <h2>Registerer deltager på gymnastikhold</h2>
   
   <ul>
@@ -13,12 +21,12 @@
   </ul>
 
   <label for="gym.deltager">Deltager på gymnastikhold</label>
-  <input placeholder="gymnastikdeltager" autocomplete="off" id="anmelder" name="participant" type="text" ng-model="attendee" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="gymTemplate.html" required />
+  <input placeholder="gymnastikdeltager" autocomplete="off" id="gemmember" name="participant" type="text" ng-model="attendee" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="gymTemplate.html" required />
   <br>
 
   <button ng-click="attend()">Registrer</button>
 </ng-form>
 
 <br>
-<pre>ct={{currentteam}}</pre>
+<pre>atn={{attendance}}  a={{attendee}}</pre>
 <!--pre>newdamage= {{newdamage | json}}</pre-->

@@ -87,7 +87,7 @@ app.controller(
        $scope.currentboat=null;
 
        $scope.mates=DatabaseService.getDataNow('stats/rower','rower='+$scope.currentrower.id+"&q=mates", function (res) {
-         $scope.mates=res.data;         
+         $scope.mates=res.data;
        }
                                               );
        

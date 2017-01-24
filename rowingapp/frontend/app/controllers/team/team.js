@@ -4,11 +4,15 @@ gymApp.controller(
   'teamCtrl',
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log',
    function ($scope, $routeParams, DatabaseService, $filter, ngDialog, $log) {
-     DatabaseService.init().then(function () {
+     $scope.attendance = [];
+     DatabaseService.init({"team":true,"member":true}).then(function () {
        $scope.teams = DatabaseService.getDB('team/team');
-       $log.debug("ad  "+$scope.teams);
      });
-
+     
+     DatabaseService.getDataNow("team/attendance", null, function (res) {
+       $scope.attendance=res.data;         
+     }
+                               );
      $scope.getRowerByName = function (val) {
        return DatabaseService.getRowersByNameOrId(val, undefined);
      };
@@ -17,16 +21,17 @@ gymApp.controller(
        $scope.currentteam=tm;
      }
        
-     $scope.attend = function() {       
-       var now = new Date();
-       $scope.checkout = {
-         'member' : $scope.attendee,
-         'team' : $scope.currentteam,
-         'destination': {'distance':999},
-         'starttime': now,
-         'comments':''
+     $scope.attend = function() {
+       if ($scope.currentteam) {
+         $scope.checkout = {
+           'member' : $scope.attendee,
+           'team' : $scope.currentteam,
+           'destination': {'distance':999},
+           'comments':''
+         }
+         $scope.attendance.push( {'team': $scope.currentteam.name, membername:$scope.attendee.name, memberid:$scope.attendee.id});
+         DatabaseService.attendTeam($scope.checkout);
        }
-       DatabaseService.attendTeam($scope.checkout);
      }
    }
   ]

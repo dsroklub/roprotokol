@@ -9,7 +9,8 @@ CREATE TABLE team_participation (
   team varchar(30),
   member_id       int(11),
   start_time         datetime,
-  PRIMARY KEY (team,member_id,start_time -- FIXME date)
+  classdate           date,
+  PRIMARY KEY (team,member_id,start_time) -- FIXME date
 );
 
 
