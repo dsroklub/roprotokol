@@ -1,7 +1,10 @@
 DROP TABLE IF EXISTS team;
 CREATE TABLE team (
   name varchar(30),
-  description varchar(200)
+  description varchar(200),
+  dayofweek     varchar(20),
+  timeofday   char(5),
+  teacher     varchar(200)
 );
 
 DROP TABLE IF EXISTS team_participation;

@@ -470,7 +470,30 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     datastatus['gym']=null;
     return attendance;
   }
-  
+
+  this.addTeam = function(data) {
+    var adt=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/team/addteam.php', data).success(function(sdata,status,headers,config) {
+      adt.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      adt.resolve(false);
+    });
+    datastatus['gym']=null;
+    return adt;
+  }
+
+  this.deleteTeam = function(data) {
+    var dt=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/team/deleteteam.php', data).success(function(sdata,status,headers,config) {
+      dt.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      dt.resolve(false);
+    });
+    datastatus['gym']=null;
+    return dt;
+  }
   
   this.createTrip = function(data) {
     var tripCreated=$q.defer();

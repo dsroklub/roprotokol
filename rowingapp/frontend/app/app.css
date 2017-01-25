@@ -160,6 +160,12 @@ button#createtrip_button[disabled] {
 .menu li:hover a {
     color: #d4d4c8;
 }
+.quarter {
+    color: green;
+    font-size: 16pt;
+    margin-right: 4pt;
+}
+
 .menu li i {
     font-size: 12pt;
     margin-right: 4pt;

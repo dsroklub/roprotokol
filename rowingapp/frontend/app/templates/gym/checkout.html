@@ -17,11 +17,12 @@
   <h2>Registerer deltager på gymnastikhold</h2>
   
   <ul>
-    <li ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}" > {{tm.name}} ({{tm.description}})  </li>
+    <li ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}" >
+      {{tm.name}} ({{tm.description}}): {{tm.dayofweek}} {{tm.timeofday}} : {{tm.teacher}}  </li>
   </ul>
 
   <label for="gym.deltager">Deltager på gymnastikhold</label>
-  <input placeholder="gymnastikdeltager" autocomplete="off" id="gemmember" name="participant" type="text" ng-model="attendee" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="gymTemplate.html" required />
+  <input placeholder="gymnastikdeltager" autocomplete="off" id="gymmember" name="participant" type="text" ng-model="attendee" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="gymTemplate.html" required />
   <br>
 
   <button ng-click="attend()">Registrer</button>

@@ -2,7 +2,10 @@
 
 set_include_path(get_include_path().':..');
 include("inc/common.php");
-$s="SELECT name,description FROM team";
+$s='SELECT name,description,dayofweek,teacher,timeofday 
+    FROM team
+    ORDER BY dayofweek,timeofday,name,teacher
+';
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 
 echo '[';
