@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS team;
+
 CREATE TABLE team (
   name varchar(30),
   description varchar(200),
@@ -29,7 +30,7 @@ CREATE TABLE team_participation (
   member_id       int(11),
   start_time         datetime,
   classdate           date,
-  PRIMARY KEY (team,member_id,start_time) -- FIXME date
+  PRIMARY KEY (team, member_id, classdate)
 );
 
 

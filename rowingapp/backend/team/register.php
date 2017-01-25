@@ -18,6 +18,7 @@ if ($stmt = $rodb->prepare("INSERT INTO team_participation (team, member_id, sta
     );
     if (!$stmt->execute()) {
         error_log("OOOP ".$rodb->error);
+        $res['status']=$rodb->error;
     }
     error_log("did exe");
     invalidate("gym");

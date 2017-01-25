@@ -8,6 +8,7 @@ html, body {
     background: #F1F2F7;
     font-weight: 400;
 }
+
 button {
     border-radius: 5px;
 }
@@ -929,4 +930,11 @@ datetimepicker.trip-search-field ng-form div input {
 
 .topsel i {
     color: black;
+}
+
+.listbox {
+    background-color: #88aeee;
+    display:inline-block;
+    border-radius: 0.4em;
+    padding: 4px;
 }

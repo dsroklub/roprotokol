@@ -50,8 +50,15 @@ gymApp.controller(
            'destination': {'distance':999},
            'comments':''
          }
-         $scope.attendance.push( {'team': $scope.currentteam.name, membername:$scope.attendee.name, memberid:$scope.attendee.id});
-         DatabaseService.attendTeam($scope.checkout);
+         DatabaseService.attendTeam($scope.checkout).promise.then(
+           function(st) {
+             if (st.status=="ok") {
+               $scope.attendance.push( {'team': $scope.currentteam.name, membername:$scope.attendee.name, memberid:$scope.attendee.id});
+             } else if (st.status.search("Duplicate entry")) {
+               $scope.message="Allerede tilmeldt";
+             }
+           }
+         )
        }
      }
    }
