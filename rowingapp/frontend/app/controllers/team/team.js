@@ -53,7 +53,11 @@ gymApp.controller(
          DatabaseService.attendTeam($scope.checkout).promise.then(
            function(st) {
              if (st.status=="ok") {
-               $scope.attendance.push( {'team': $scope.currentteam.name, membername:$scope.attendee.name, memberid:$scope.attendee.id});
+               $scope.attendance.splice(0,0, {'team': $scope.currentteam.name, membername:$scope.attendee.name,
+                                        memberid:$scope.attendee.id,
+                                        dayofweek:$scope.currentteam.dayofweek,
+                                        timeofday:$scope.currentteam.timeofday
+                                       });
              } else if (st.status.search("Duplicate entry")) {
                $scope.message="Allerede tilmeldt";
              }

@@ -67,4 +67,3 @@ CREATE TABLE course_requirement_passes (
        member_id    INTEGER
 );
 
-insert into teams values ('gotved','Gotved Gymnastic');

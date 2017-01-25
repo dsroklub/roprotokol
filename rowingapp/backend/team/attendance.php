@@ -3,7 +3,7 @@
 set_include_path(get_include_path().':..');
 include("inc/common.php");
 $s=
- 'SELECT team.name AS team, team.description,CONCAT(FirstName," ",LastName) AS membername, Member.MemberID as memberid 
+ 'SELECT team.name AS team, dayofweek,timeofday,team.description,CONCAT(FirstName," ",LastName) AS membername, Member.MemberID as memberid 
   FROM team, team_participation, Member 
   WHERE team_participation.team=team.name AND Member.id=team_participation.member_id AND classdate=CURDATE()';
 

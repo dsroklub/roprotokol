@@ -7,12 +7,6 @@
 
 <ng-form name="gymParticipant">
 
-  <div>
-    <h2>tilmeldte</h2>    
-    <ul class="listbox">
-      <li ng-repeat="tp in attendance" ng-if="tp.team==currentteam.name"> {{tp.membername}} ({{tp.memberid}})  </li>
-    </ul>    
-  </div>
 
   <h2>Registerer deltager på gymnastikhold</h2>
   
@@ -29,6 +23,15 @@
   <br>
 
   <button class="klar" ng-click="attend()">Registrer</button>
+
+  <div>
+    <h2>tilmeldte til {{currentteam.name}} {{currentteam.dayofweek}} {{currentteam.timeofday}}</h2>    
+    <ul class="listbox">
+      <li ng-repeat="tp in attendance" ng-if="tp.team==currentteam.name && tp.dayofweek==currentteam.dayofweek && tp.timeofday==currentteam.timeofday">
+        {{tp.membername}} ({{tp.memberid}})  </li>
+    </ul>    
+  </div>
+
 </ng-form>
 <br>
-
+<!--pre>{{currentteam}}</pre-->
