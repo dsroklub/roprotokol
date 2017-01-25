@@ -11,13 +11,14 @@ $reg=json_decode($data);
 
 $res=array ("status" => "ok");
 
-if ($stmt = $rodb->prepare("INSERT INTO team (name, description, dayofweek, timeofday, teacher) VALUES(?,?,?,?,?)")) {
+if ($stmt = $rodb->prepare("INSERT INTO team (name, description, dayofweek, timeofday, teacher,teamkey) VALUES(?,?,?,?,?,?)")) {
     $stmt->bind_param('sssss',
     $reg->name,
     $reg->description,
     $reg->dayofweek,
     $reg->timeofday,
     $reg->teacher
+    $reg->teamkey,
     );
     if (!$stmt->execute()) {
         error_log("OOOP ".$rodb->error);
