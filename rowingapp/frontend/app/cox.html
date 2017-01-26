@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="gymApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="gymApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="gymApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="gymApp" class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>      <html lang="en" ng-app="coxApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="coxApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="coxApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="coxApp" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>DSR Gymnastik</title>
+  <title>DSR styrmandsinstruktion</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png"  href="media/ico.png" />
@@ -29,6 +29,7 @@
   <script src="bower_components/ngDialog/js/ngDialog.min.js"></script>
   <script src="bower_components/ng-table/dist/ng-table.js"></script>
   <script src="bower_components/angular-confirm-modal/angular-confirm.min.js"></script>
+  <script src="bower_components/checklist-model/checklist-model.js"></script>
 
   <script src="bower_components/moment/moment.js"></script>
   <script src="bower_components/moment/locale/da.js"></script>
@@ -42,9 +43,9 @@
   <script src="components/database/database.js"></script>
   <script>var dbmode='real';
   </script>
-  <script src="gym.js"></script>
-  <script src="controllers/team/team.js"></script>
-  <script src="controllers/team/menu.js"></script>
+  <script src="cox.js"></script>
+  <script src="controllers/cox/cox.js"></script>
+  <script src="controllers/cox/menu.js"></script>
   <script src="components/database/database-services.js"></script>
   <script src="components/database/database-directives.js"></script>
   <script src="bower_components/angular-ui-clock/dist/angular-clock.js"></script>
@@ -66,7 +67,7 @@
       <li class="logo">
         <img src="assets/dsrlogo.svg">  
       </li>
-      <li ng-class="{topsel: activePath=='/registrer/'}"><a href="#/registrer"><i class="fa fa-heartbeat"></i>Registrer</a></li>
+      <li ng-class="{topsel: activePath=='/signup/'}"><a href="#/signup"><i class="fa fa-heartbeat"></i>Registrer</a></li>
       <li ng-class="{topsel: activePath=='/admin/'}"><a href="#/admin"><i class="fa fa-bank"></i>Admin</a></li>
 
       <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>

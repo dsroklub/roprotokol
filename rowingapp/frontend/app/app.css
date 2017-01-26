@@ -938,3 +938,8 @@ datetimepicker.trip-search-field ng-form div input {
     border-radius: 0.4em;
     padding: 4px;
 }
+
+textarea.signuptext {
+    width:40%;
+    vertical-align: top;
+}

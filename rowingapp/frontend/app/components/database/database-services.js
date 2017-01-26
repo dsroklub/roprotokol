@@ -57,7 +57,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   }
 
   this.getData = function (dataid,promises) {
-    $log.debug(" getData" + dataid);
+  //  $log.debug(" getData: " + dataid);
     if(!valid[dataid] || !db[dataid]) {
       var dq=$q.defer();
       promises.push(dq.promise);
