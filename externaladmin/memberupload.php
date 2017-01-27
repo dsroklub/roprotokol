@@ -75,6 +75,22 @@ ORDER BY tMem.MemberID;
         echo " FEJL i upload ".$rodb->error;
 
     }
+
+
+
+    if ($stmt = $rodb->prepare('
+UPDATE Member,tblMembersToRoprotokol
+SET
+Member.KommuneKode=tblMembersToRoprotokol.KommuneKode,
+Member.CprNo=tblMembersToRoprotokol.CprNo
+    WHERE CAST(tblMembersToRoprotokol.MemberID AS CHAR) =Member.MemberID;
+')){ 
+        $stmt->execute() || die($rodb->error);
+    }  else {
+        error_log("SQL kommunecpr error: ".$rodb->error);
+        echo " FEJL i kommune/cpr upload ".$rodb->error;
+    }
+    
     if ($stmt = $rodb->prepare("DELETE FROM tblMembersToRoprotokol")) { 
         $stmt->execute() || die($rodb->error);
     }  else {

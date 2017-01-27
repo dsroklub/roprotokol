@@ -187,6 +187,8 @@ CREATE TABLE Member (
   Initials char(10),
   JoinDate DateTime,
   RemoveDate DateTime,
+  KommuneKode INTEGER,
+  CprNo Boolean,
   PRIMARY KEY (id),
   KEY medlemnrix (MemberID)
 );
@@ -438,6 +440,7 @@ CREATE TABLE Configuration (
   id varchar(50) NOT NULL PRIMARY KEY,
   value varchar(400) DEFAULT NULL
 );
+
 INSERT INTO Configuration (id, value) VALUES ('db_version', '1');
 
 CREATE INDEX tripmembermemberix ON TripMember(member_id);

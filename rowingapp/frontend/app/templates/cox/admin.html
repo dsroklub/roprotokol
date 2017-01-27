@@ -23,7 +23,7 @@
 
 
     <input placeholder="instruktør" autocomplete="off" id="coxinstructor" name="coxinstructor" type="text" ng-model="newteam.instructor"
-           typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue) | filter: coxinstructor(rower)"
+           typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue) | filter: coxinstructor(rower)"
                 typeahead-template-url="memberTemplate.html" required />
     <br>
 
