@@ -57,7 +57,8 @@ coxApp.controller(
        $log.debug("add team");
        DatabaseService.add_cox_team($scope.newteam).promise.then(
          function(st) {
-           $scope.newteam.instructor=$scope.newteam.instructor.name;
+           $scope.newteam.instructor_name=$scope.newteam.instructor.name;
+           $scope.newteam.instructor=$scope.newteam.instructor.id;
            $scope.teams.push($scope.newteam);
          }
        );
