@@ -6,8 +6,6 @@
 </script>
 
 <ng-form name="coxAspirant">
-
-
   <h2>Opskrivning på styrmandshold</h2>
   
   <div>
@@ -18,13 +16,13 @@
   </div>
 
   Jeg vil have have
-  <select name="intensitychooser" id="signupintensity" ng-model="signup.intensity"
+  <select name="intensitychooser" id="signupintensity" ng-model="signup.preferredIntensity"
           ng-options="intensity for intensity in intensities" required>
   </select>
 intensitet.
   <br>
   Jeg foretrækker instruktion til 
-  <select name="intensitychooser" id="signupintensity" ng-model="signup.season"
+  <select name="intensitychooser" id="signupintensity" ng-model="signup.preferredTime"
           ng-options="season for season in seasons" required>
   </select>
 
@@ -48,7 +46,7 @@ Og desuden:
 
 <br>
   
-  <button class="klar" ng-click="signup()">Registrer</button>
+  <button class="klar" ng-click="dosignup()">Registrer</button>
 
 
 </ng-form>

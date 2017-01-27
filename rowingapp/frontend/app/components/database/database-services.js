@@ -471,6 +471,19 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return attendance;
   }
 
+
+  this.cox_signup = function(data) {
+    var su=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/cox/signup.php', data).success(function(sdata,status,headers,config) {
+      su.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      su.resolve(false);
+    });
+    datastatus['cox']=null;
+    return su;
+  }
+  
   this.addTeam = function(data) {
     var adt=$q.defer();
     var res=undefined;
@@ -483,6 +496,18 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return adt;
   }
 
+    this.add_cox_team = function(data) {
+      var adt=$q.defer();
+      var res=undefined;
+      $http.post('../../backend/cox/addteam.php', data).success(function(sdata,status,headers,config) {
+        adt.resolve(sdata);
+      }).error(function(sdata,status,headers,config) {
+        adt.resolve(false);
+      });
+      datastatus['cox']=null;
+      return adt;
+    }
+  
   this.deleteTeam = function(data) {
     var dt=$q.defer();
     var res=undefined;
@@ -494,6 +519,18 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     datastatus['gym']=null;
     return dt;
   }
+
+  this.deleteCoxTeam = function(data) {
+    var dt=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/cox/deleteteam.php', data).success(function(sdata,status,headers,config) {
+      dt.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      dt.resolve(false);
+    });
+    datastatus['cox']=null;
+    return dt;
+    }
   
   this.createTrip = function(data) {
     var tripCreated=$q.defer();

@@ -2,7 +2,7 @@
 set_include_path(get_include_path().':..');
 include("inc/common.php");
 
-error_log("add new team ");
+error_log("delete team ");
 
 $data = file_get_contents("php://input");
 error_log($data);
@@ -19,8 +19,8 @@ if ($stmt = $rodb->prepare("DELETE FROM team WHERE name=? AND dayofweek=? AND ti
     );
     if (!$stmt->execute()) {
         error_log("OOOP ".$rodb->error);
+        $res["status"]=$rodb->error;
     }
-    error_log("did exe");
     invalidate("gym");
     $rodb->close();
 } else {

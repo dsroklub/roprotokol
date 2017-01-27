@@ -1,4 +1,42 @@
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
 
+<h2>Eksisterende hold</h2>
+ 
+  <ul>
+    <li ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}" >
+      {{tm.name}} {{tm.description}}:  {{tm.instructor_name}} ({{tm.instructor}})
+      <strong  ng-click="deleteTeam(tm)">SLET HOLD</strong>
+    </li>
+  </ul>
+
+  <h2>Tilføj nyt hold</h2>
+  
+  <ng-form name="newTeam">
+
+    <input placeholder="holdnavn" autocomplete="off" "teamname" name="teamname" type="text" ng-model="newteam.name" required />
+    <input placeholder="hold beskrivelse" autocomplete="off" "teamdesc" name="teamdesc" type="text" ng-model="newteam.description" />
+
+
+    <input placeholder="instruktør" autocomplete="off" id="coxinstructor" name="coxinstructor" type="text" ng-model="newteam.instructor"
+           typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue) | filter: coxinstructor(rower)"
+                typeahead-template-url="memberTemplate.html" required />
+    <br>
+
+  <button ng-click="addTeam()">opret styrmandshold</button>
+</ng-form>
+
+
+<pre>
+{{newteam}}
+</pre>
+
+<pre>
 	Afmærkning af medlemmets deltagelse på et hold (gerne et holdnummer, der går igen i næste modul)
 	Mulighed for at ”trække et medlem tilbage” på listen fra et hold
 	Mulighed for at sortere og/eller finde via de seks første feltoplysninger
+</pre>
