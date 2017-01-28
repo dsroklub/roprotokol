@@ -118,8 +118,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
           bdq.resolve(true);
         });
       } 
-
-
     }
     
     this.getData('destinations',promises);
@@ -229,6 +227,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
 
   this.sync=function(subscriptions) {
     var dbservice=this;
+    if (!subscriptions) {
+      subscriptions={};
+    }
     var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).success(function(ds, status, headers, config) {
       var doreload=false;

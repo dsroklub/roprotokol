@@ -9,8 +9,6 @@ var side2dk = {
   'center':'midtfor'
 }
 
-
-
 var right2dk;
 
 var subject2dk = {

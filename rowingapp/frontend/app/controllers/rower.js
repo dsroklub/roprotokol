@@ -1,8 +1,8 @@
 'use strict';
 app.controller(
   'RowerCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', 'ngTableParams', '$filter','$log',
-   function ($scope, $routeParams, DatabaseService, $interval, ngDialog, ngTableParams, $filter,$log) {
+  ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', '$filter','$log',
+   function ($scope, $routeParams, DatabaseService, $interval, ngDialog,  $filter,$log) {
      $scope.rowertrips=[];
      $scope.datetrips=[];
      $scope.tripmembers=[];
@@ -22,7 +22,7 @@ app.controller(
        title:"foo"
      };
 
-     DatabaseService.init().then(function () {
+     DatabaseService.init({"boat":true,"member":true, trip:true}).then(function () {
        $scope.boatcategories = DatabaseService.getBoatTypes();
        $scope.triptypes = DatabaseService.getTripTypes();
        $scope.destinations = DatabaseService.getDestinations('DSR');                                     

@@ -56,7 +56,7 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
 
           $scope.reservations=[];
           $scope.reservation={};
-          DatabaseService.init().then(function () {
+                               DatabaseService.init({"boat":true,"member":true, "trip":true,"reservation":true}).then(function () {
             $scope.currentrower=null;
             $scope.do="events";
             $scope.DB=DatabaseService.getDB;
@@ -306,8 +306,6 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
             
             $scope.boatcat2dk=DatabaseService.boatcat2dk;
             $scope.rightsubjects=['cox','all','any','none'];
-
-
             
             $scope.rowerconvert = function (fromrower,torower) {
               if (fromrower && torower) {
