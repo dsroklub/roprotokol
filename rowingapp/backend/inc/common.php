@@ -5,7 +5,9 @@ ini_set('display_errors', 'Off');
 error_reporting(E_ALL);
 
 $skiplogin=false;
-    
+
+
+
 if(!isset($_SESSION)){
   session_start();
 }
@@ -25,6 +27,10 @@ if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
 }
 
+function mysdate($jsdate) {
+    $r=preg_replace("/\.\d\d\dZ/","",$jsdate);
+    return($r);
+}
 
 function invalidate($tp) {
     $mem  = new Memcached();

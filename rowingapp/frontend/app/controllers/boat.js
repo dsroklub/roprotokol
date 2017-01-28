@@ -7,7 +7,7 @@ app.controller(
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog',
    function ($scope, $routeParams, DatabaseService, $filter, ngDialog) {
      $scope.allboatdamages=[];
-     DatabaseService.init({"boat":true,"member":true, "trip":true, "reservation":true}).then(function () {
+     DatabaseService.init({"stats":false,"boat":true,"member":true, "trip":true, "reservation":true}).then(function () {
        // Load Category Overview
        $scope.boatcategories = DatabaseService.getBoatTypes();
        // Load selected boats based on boat category

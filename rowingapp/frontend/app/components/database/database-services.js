@@ -30,6 +30,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     'trip':['rowers','rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
     'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
     'destination':['destinations'],
+    'stats':[],
+    
     'team':['team']
   };
   
@@ -233,9 +235,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).success(function(ds, status, headers, config) {
       var doreload=false;
-      $log.debug("got dbstatus" + JSON.stringify(ds));
+      $log.debug("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
-	if (datastatus[tp]!=ds[tp] && (!subscriptions || subscriptions[tp])) {
+	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
           $log.debug("  inval "+tp); // NEL
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
