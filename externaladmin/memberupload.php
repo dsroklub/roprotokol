@@ -111,6 +111,22 @@ INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, S
         echo " FEJL i indsættelse: ".$rodb->error;
         $updateOk = 0;
     }
+
+
+
+    if ($stmt = $rodb->prepare('
+UPDATE Member,tblMembersToRoprotokol
+SET
+Member.KommuneKode=tblMembersToRoprotokol.KommuneKode,
+Member.CprNo=tblMembersToRoprotokol.CprNo
+    WHERE CAST(tblMembersToRoprotokol.MemberID AS CHAR) =Member.MemberID;
+')){ 
+        $stmt->execute() || die($rodb->error);
+    }  else {
+        error_log("SQL kommunecpr error: ".$rodb->error);
+        echo " FEJL i kommune/cpr upload ".$rodb->error;
+    }
+    
     if ($stmt = $rodb->prepare("DELETE FROM tblMembersToRoprotokol")) { 
         $stmt->execute() || die($rodb->error);
     }  else {

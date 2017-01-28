@@ -26,6 +26,7 @@
     "angular-ui-clock": "~0.5.1",
     "angular-chart.js": "~0.10.x",
     "angular-filter": "~0.5.8",
+    "checklist-model": "angular-checklist-model#~0.10.0"
     "levenshtein": "^1.0.5"
   },
   "resolutions": {

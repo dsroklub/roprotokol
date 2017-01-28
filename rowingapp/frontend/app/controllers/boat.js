@@ -7,7 +7,7 @@ app.controller(
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog',
    function ($scope, $routeParams, DatabaseService, $filter, ngDialog) {
      $scope.allboatdamages=[];
-     DatabaseService.init().then(function () {
+     DatabaseService.init({"stats":false,"boat":true,"member":true, "trip":true, "reservation":true}).then(function () {
        // Load Category Overview
        $scope.boatcategories = DatabaseService.getBoatTypes();
        // Load selected boats based on boat category
@@ -111,9 +111,9 @@ app.controller(
        };
        $scope.checkouttime_clean=$scope.checkout.starttime;
 
-        if ($scope.cico==2) {
-          $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
-        }
+       if ($scope.cico==2) {
+         $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
+       }
      });
 
      var has_right = function(required_right,arg,rightlist) {

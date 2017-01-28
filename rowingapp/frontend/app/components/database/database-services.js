@@ -29,7 +29,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     'boat':['boats','boatdamages','availableboats','reservations','boat_status','boat_usages','boat_status','get_events'],
     'trip':['rowers','rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
     'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
-    'destination':['destinations']
+    'destination':['destinations'],
+    'stats':[],
+    
+    'team':['team']
   };
   
   var datastatus={
@@ -56,6 +59,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   }
 
   this.getData = function (dataid,promises) {
+  //  $log.debug(" getData: " + dataid);
     if(!valid[dataid] || !db[dataid]) {
       var dq=$q.defer();
       promises.push(dq.promise);
@@ -67,6 +71,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   }
 
+
   this.simpleGet = function (service, args) {
     var conf = {};
     if (args) {
@@ -75,54 +80,56 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return $http.get(toURL(service+'.php',conf));
   }
 
-  this.fetch = function () {
+  this.fetch = function (subscriptions) {
     var boatmaintypes = ['kayak','any','rowboat'];
     $log.debug("DB fetch "+Date());
     var headers = {};
     var promises=[];
-
-    if(!valid['boats']) {
-      //Build indexes and lists for use by API
-      $log.debug("  boats not valid");
-      var bq=$q.defer();
-      promises.push(bq.promise);
-      $http.get(toURL('boat_status.php'), { headers: headers } ).then(function(response) {
-        db['boats'] = {};
-	db['boatsA'] =[];
-        angular.forEach(response.data, function(boat, index) {
-          this[boat.id] = boat;
-	  db['boatsA'].push(boat);
-        }, db['boats']);
-        db['boatcategories'] = {};
-        angular.forEach(response.data, function(boat, index) {
-          var category = boat.category;
-          if(this[category] === undefined) {
-            this[category] = [];
-          }
-          this[category].push(boat);
-        }, db['boatcategories']);
-	valid['boats']=true;
-	bq.resolve(true);
-      });
-    } 
     
-    if (!valid['boatdamages']) {
-      var bdq=$q.defer();
-      promises.push(bdq.promise);
-      $http.get(toURL('boatdamages.php')).then(function(response) {
-        db['boatdamages'] = {};
-	db['boatdamages_flat'] = response.data;
-        angular.forEach(db['boatdamages_flat'], function(boatdamage, index) {
-           if(this[boatdamage.boat_id] === undefined) {
-            this[boatdamage.boat_id] = [];
-          }
-          this[boatdamage.boat_id].push(boatdamage);
-        }, db['boatdamages']);
-	valid['boatdamages']=true;
-        bdq.resolve(true);
-      });
-    } 
-
+    if (subscriptions.boat) {      
+      if(!valid['boats']) {
+        //Build indexes and lists for use by API
+        $log.debug("  boats not valid");
+        var bq=$q.defer();
+        promises.push(bq.promise);
+        $http.get(toURL('boat_status.php'), { headers: headers } ).then(function(response) {
+          db['boats'] = {};
+	  db['boatsA'] =[];
+          angular.forEach(response.data, function(boat, index) {
+            this[boat.id] = boat;
+	    db['boatsA'].push(boat);
+        }, db['boats']);
+          db['boatcategories'] = {};
+          angular.forEach(response.data, function(boat, index) {
+            var category = boat.category;
+            if(this[category] === undefined) {
+              this[category] = [];
+            }
+            this[category].push(boat);
+          }, db['boatcategories']);
+	  valid['boats']=true;
+	  bq.resolve(true);
+        });
+      } 
+    
+      if (!valid['boatdamages']) {
+        var bdq=$q.defer();
+        promises.push(bdq.promise);
+        $http.get(toURL('boatdamages.php')).then(function(response) {
+          db['boatdamages'] = {};
+	  db['boatdamages_flat'] = response.data;
+          angular.forEach(db['boatdamages_flat'], function(boatdamage, index) {
+            if(this[boatdamage.boat_id] === undefined) {
+              this[boatdamage.boat_id] = [];
+            }
+            this[boatdamage.boat_id].push(boatdamage);
+          }, db['boatdamages']);
+	  valid['boatdamages']=true;
+          bdq.resolve(true);
+        });
+      } 
+    }
+    
     this.getData('destinations',promises);
     this.getData('get_reservations',promises);
     this.getData('get_events',promises);
@@ -134,7 +141,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     this.getData('memberrighttypes',promises);
     this.getData('boat_brand',promises);
     this.getData('boat_usages',promises);    
-    this.getData('rights_subtype',promises);    
+    this.getData('rights_subtype',promises);
+    this.getData('team/team',promises);    
 
     if(!valid['rowers']) {
       var rq=$q.defer();
@@ -153,60 +161,62 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var currentyear=true;
     var thisYear=new Date().getFullYear();
     var firstYear=2010;
-    
-    for (var y=thisYear; y>=firstYear; y--) {
-      if (!rowerstatistics[y]) {
-        rowerstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
-      }
-      if (!boatstatistics[y]) {
-        boatstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
-      }
-      for (var bi=0; bi<boatmaintypes.length; bi++) {
-        var boattype= boatmaintypes[bi];        
 
-        if ( (y==thisYear && !valid['rowerstatistics'+boattype]) || !rowerstatistics[y][boattype]  || rowerstatistics[y][boattype].length<1) {
-          rowerstatistics[y][boattype]=[];
-	  (function (bt) {
-            var year=y;
-	    var sq=$q.defer();
-	    promises.push(sq.promise);
-            var farg="?season="+year;
-	    if (bt != "any") {
-	      farg+='&boattype='+bt;
-	    }      
-	    $http.get(toURL('rower_statistics.php'+farg)).then(function(response) {
-              angular.forEach(response.data, function(stat, index) {
-                //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
-                this.push(stat);
-              }, rowerstatistics[year][bt]);
-	      valid['rowerstatistics'+boattype]=true;	  
-	      sq.resolve(true);
-	    });
-	  })(boattype);
+    if (subscriptions.trip) {
+      for (var y=thisYear; y>=firstYear; y--) {
+        if (!rowerstatistics[y]) {
+          rowerstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
         }
-        
-        if((y==thisYear && !valid['boatstatistics'+boattype])  || !boatstatistics[y][boattype] ||  boatstatistics[y][boattype].length<1) {
-          boatstatistics[y][boattype]=[];
-	  (function (bt) {
-            var year=y;
-	    var sq=$q.defer();
-	    promises.push(sq.promise);
-            var farg="?season="+year;
-	    if (bt != "any") {
-	      farg+='&boattype='+bt;
-	  }      
-	    $http.get(toURL('boat_statistics.php'+farg)).then(function(response) {
-              angular.forEach(response.data, function(stat, index) {
-                this.push(stat);
-              }, boatstatistics[year][bt]);
-	      valid['boatstatistics'+boattype]=true;	  
-	      sq.resolve(true);
-	    });
-	  })(boattype);
+        if (!boatstatistics[y]) {
+          boatstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
         }
+        for (var bi=0; bi<boatmaintypes.length; bi++) {
+          var boattype= boatmaintypes[bi];        
+          
+          if ( (y==thisYear && !valid['rowerstatistics'+boattype]) || !rowerstatistics[y][boattype]  || rowerstatistics[y][boattype].length<1) {
+            rowerstatistics[y][boattype]=[];
+	    (function (bt) {
+              var year=y;
+	      var sq=$q.defer();
+	      promises.push(sq.promise);
+              var farg="?season="+year;
+	      if (bt != "any") {
+	        farg+='&boattype='+bt;
+	      }      
+	      $http.get(toURL('rower_statistics.php'+farg)).then(function(response) {
+                angular.forEach(response.data, function(stat, index) {
+                  //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
+                  this.push(stat);
+                }, rowerstatistics[year][bt]);
+	        valid['rowerstatistics'+boattype]=true;	  
+	        sq.resolve(true);
+	      });
+	    })(boattype);
+          }
+          
+          if((y==thisYear && !valid['boatstatistics'+boattype])  || !boatstatistics[y][boattype] ||  boatstatistics[y][boattype].length<1) {
+            boatstatistics[y][boattype]=[];
+	    (function (bt) {
+              var year=y;
+	      var sq=$q.defer();
+	      promises.push(sq.promise);
+              var farg="?season="+year;
+	      if (bt != "any") {
+	        farg+='&boattype='+bt;
+	      }      
+	      $http.get(toURL('boat_statistics.php'+farg)).then(function(response) {
+                angular.forEach(response.data, function(stat, index) {
+                  this.push(stat);
+                }, boatstatistics[year][bt]);
+	        valid['boatstatistics'+boattype]=true;	  
+	        sq.resolve(true);
+	      });
+	    })(boattype);
+          }
+        }
+        currentyear=false;
       }
-      currentyear=false;
-    }    
+    }
     var qll=$q.all(promises);
     tx=qll;
     return qll;
@@ -215,27 +225,28 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   
   this.defaultLocation = 'DSR';
   this.invalidate_dependencies=function(tp) {
-//    $log.debug("  dirty: "+tp);
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
-//      $log.debug("    invalidate: "+subtp);
       valid[subtp]=false;	    
     }
   };
 
-  this.init = function() {
-    return this.sync();
+  this.init = function(subscriptions) {
+    return this.sync(subscriptions);
   }
 
-  this.sync=function() {
+  this.sync=function(subscriptions) {
     var dbservice=this;
+    if (!subscriptions) {
+      subscriptions={};
+    }
     var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).success(function(ds, status, headers, config) {
       var doreload=false;
-      $log.debug("got dbstatus" + JSON.stringify(ds));
+      $log.debug("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
-	if (datastatus[tp]!=ds[tp]) {
-//          $log.debug("  inval "+tp);
+	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
+          $log.debug("  inval "+tp); // NEL
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
@@ -243,7 +254,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       }
       if (doreload) {
 	$log.debug(" do reload " + JSON.stringify(valid));
-	dbservice.fetch().then(function() {
+	dbservice.fetch(subscriptions).then(function() {
 	  sq.resolve("sync done");
 	});
       } else {
@@ -303,7 +314,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   };
   
-
   this.lookup = function (resource,key,value) {
     for (var i=0;i<db[resource].length;i++) {
       if (db[resource][i][key]==value) return db[resource][i];
@@ -382,6 +392,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.getDateTrips = function (tripdate,onSuccess) {
     this.getDataNow('datetrips','tripdate='+tripdate,onSuccess);
   }
+  this.getTeams = function (onSuccess) {
+    this.getDataNow('team/team',null,onSuccess);
+  }
   this.getTripMembers = function (tripid,onSuccess) {
     this.getDataNow('tripmembers','trip='+tripid,onSuccess);
   }  
@@ -445,10 +458,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
      var at=ar.then(function (res) {
        $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
        if (!res||res.status=="notauthorized") {
-         console.log("auth error "+op+JSON.stringify(data));
+         $log.error("auth error "+op+JSON.stringify(data));
          if (eh) {
-           eh(res)}
-         ;
+           eh(res);
+         }         
        }
        return res;
      }                                    
@@ -456,6 +469,80 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return at;
   }
 
+
+  this.attendTeam = function(data) {
+    var attendance=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/team/register.php', data).success(function(sdata,status,headers,config) {
+      attendance.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      attendance.resolve(false);
+    });
+    datastatus['gym']=null;
+    return attendance;
+  }
+
+
+  this.cox_signup = function(data) {
+    var su=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/cox/signup.php', data).success(function(sdata,status,headers,config) {
+      su.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      su.resolve(false);
+    });
+    datastatus['cox']=null;
+    return su;
+  }
+  
+  this.addTeam = function(data) {
+    var adt=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/team/addteam.php', data).success(function(sdata,status,headers,config) {
+      adt.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      adt.resolve(false);
+    });
+    datastatus['gym']=null;
+    return adt;
+  }
+
+    this.add_cox_team = function(data) {
+      var adt=$q.defer();
+      var res=undefined;
+      $http.post('../../backend/cox/addteam.php', data).success(function(sdata,status,headers,config) {
+        adt.resolve(sdata);
+      }).error(function(sdata,status,headers,config) {
+        adt.resolve(false);
+      });
+      datastatus['cox']=null;
+      return adt;
+    }
+  
+  this.deleteTeam = function(data) {
+    var dt=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/team/deleteteam.php', data).success(function(sdata,status,headers,config) {
+      dt.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      dt.resolve(false);
+    });
+    datastatus['gym']=null;
+    return dt;
+  }
+
+  this.deleteCoxTeam = function(data) {
+    var dt=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/cox/deleteteam.php', data).success(function(sdata,status,headers,config) {
+      dt.resolve(sdata);
+    }).error(function(sdata,status,headers,config) {
+      dt.resolve(false);
+    });
+    datastatus['cox']=null;
+    return dt;
+    }
+  
   this.createTrip = function(data) {
     var tripCreated=$q.defer();
     var res=undefined;
@@ -510,7 +597,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.toIsoDate= function (d) {
       return (d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate());
   };
-
 
   
   /// The rest is just for testing

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller(
+coxApp.controller(
   'menuCtrl',  ['$scope', '$location', '$route',
                 function ($scope,   $location,$route ) {
                   $scope.activePath = null;

@@ -13,8 +13,8 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
     apt-get install mdbtools
     apt-get install npm python-mysqldb memcached php-memcached mysql-server
-    apt-get install php5-mysqlnd nodejs nodejs-legacy
-    # php5-mysqlnd is needed to make PHP know the difference between numbers and strings
+    apt-get install php-mysql nodejs nodejs-legacy
+    #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
     # Remember to restart your web server.
 
     sudo npm install -g bower karma

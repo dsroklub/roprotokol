@@ -8,6 +8,7 @@ html, body {
     background: #F1F2F7;
     font-weight: 400;
 }
+
 button {
     border-radius: 5px;
 }
@@ -160,6 +161,12 @@ button#createtrip_button[disabled] {
 .menu li:hover a {
     color: #d4d4c8;
 }
+.quarter {
+    color: green;
+    font-size: 16pt;
+    margin-right: 4pt;
+}
+
 .menu li i {
     font-size: 12pt;
     margin-right: 4pt;
@@ -925,6 +932,17 @@ datetimepicker.trip-search-field ng-form div input {
     color: black;
 }
 
+.listbox {
+    background-color: #88aeee;
+    display:inline-block;
+    border-radius: 0.4em;
+    padding: 4px;
+}
+
+textarea.signuptext {
+    width:40%;
+    vertical-align: top;
+}
 
 #year_report,
 #year_report div,

@@ -24,6 +24,9 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
 }
 
 if (!$error) {
+    $starttime=mysdate($newtrip->starttime);
+    $expectedtime=mysdate($newtrip->expectedtime);
+    
         error_log('now new trip'. json_encode($newtrip));
     if ($stmt = $rodb->prepare("INSERT INTO Trip(Season,BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment) VALUES(?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?)")) {
         $info="client: ".$newtrip->client_name;
@@ -32,8 +35,8 @@ if (!$error) {
         $newtrip->boat->id ,
         $newtrip->destination->name,
         $newtrip->triptype->id,
-        $newtrip->starttime,
-        $newtrip->expectedtime,
+        $starttime,
+        $expectedtime,
         $newtrip->distance,
         $info,
         $newtrip->comments);
@@ -66,15 +69,14 @@ if (isset($newtrip->event)) {
     }     
 }
 
-
 if ($error) {
-    error_log('DB error ' . $error);
+    error_log('Create Trip DB error ' . $error);
     $res['message']=$message.'\n'.$error;
     $res['status']='error';
     $res['error']=$error;
     $rodb->rollback();
 } else {
-$rodb->commit();
+    $rodb->commit();
 }
 
 $res['message']=$message;

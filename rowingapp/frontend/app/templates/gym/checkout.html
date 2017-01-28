@@ -1,0 +1,37 @@
+<script type="text/ng-template" id="gymTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<ng-form name="gymParticipant">
+
+
+  <h2>DEMO, DEMO, Registerer deltager på gymnastikhold</h2>
+  
+  <ul class="listbox">
+    <li  ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}" >
+      {{tm.name}} {{teamkey}}({{tm.description}}): {{tm.dayofweek}} {{tm.timeofday}} : {{tm.teacher}}
+    </li>
+  </ul>
+
+  <div>
+  <label for="gym.deltager">Deltager på gymnastikhold</label>
+  <input placeholder="gymnastikdeltager" autocomplete="off" id="gymmember" name="participant" type="text" ng-model="attendee" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="gymTemplate.html" required />
+  </div>
+  <br>
+
+  <button class="klar" ng-click="attend()">Registrer</button>
+
+  <div>
+    <h2>tilmeldte til {{currentteam.name}} {{currentteam.dayofweek}} {{currentteam.timeofday}}</h2>    
+    <ul class="listbox">
+      <li ng-repeat="tp in attendance" ng-if="tp.team==currentteam.name && tp.dayofweek==currentteam.dayofweek && tp.timeofday==currentteam.timeofday">
+        {{tp.membername}} ({{tp.memberid}})  </li>
+    </ul>    
+  </div>
+
+</ng-form>
+<br>
+<!--pre>{{currentteam}}</pre-->
