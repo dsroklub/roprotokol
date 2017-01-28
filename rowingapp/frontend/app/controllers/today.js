@@ -65,7 +65,7 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
     $scope.boatcoms=bcms;
   };
   
-  DatabaseService.init().then(function () {
+  DatabaseService.init({}).then(function () {
   }
 			       );
   DatabaseService.getTodaysTrips(function (res) {
