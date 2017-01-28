@@ -51,6 +51,14 @@ var app = angular.module('myApp', [
 	  templateUrl: 'templates/admin.html',
 	  controller: 'AdminCtrl'
 	});
+	$routeProvider.when('/year_report/', {
+	  templateUrl: 'templates/year_report.html',
+	  controller: 'YearReportCtrl'
+	});
+	$routeProvider.when('/convert_candidates/', {
+	  templateUrl: 'templates/convert_candidates.html',
+	  controller: 'ConvertCandidatesCtrl'
+	});
 	$routeProvider.when('/ud/', {
 	  templateUrl: 'templates/boat/checkout.html',
 	  controller: 'BoatCtrl'

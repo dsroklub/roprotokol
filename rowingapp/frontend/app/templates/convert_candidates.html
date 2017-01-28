@@ -1,0 +1,53 @@
+<div ng-if="statusMsg" class="statusClass">
+   {{ statusMsg }}
+</div>
+<div ng-if="status == 'ok'">
+  <div class="blok leftblock">
+    <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password">
+    <table class="boatlist" >
+      <caption>Kaniner, der sandsynligvis kan konverteres</caption>
+      <thead>
+        <tr>
+           <th>Kanin-nr</th>
+           <th>Kanin-navn</th>
+           <th>Første tur</th>
+           <th>Medlem</th>
+           <th>Indmeldt</th>
+        </tr>
+      </thead>
+      <tbody>
+         <tr ng-repeat="c in candidates">
+           <td>{{c.rabbit_number}}</td>
+           <td>{{c.rabbit_name}}</td>
+           <td title="Sidste tur {{c.rabbit_last_trip}}">{{c.rabbit_first_trip}}</td>
+           <td title="Første tur {{c.member_first_trip}}">{{c.member_number}} {{c.member_name}}</td>
+           <td>{{c.member_join_date}}</td>
+           <td><button class="action" ng-click="convert_candidate($index)">Konverter</button></td>
+         </tr>
+      </tbody>
+     </table>
+
+     <br/>
+     <br/>
+
+    <table class="boatlist" >
+      <caption>Andre kaniner</caption>
+      <thead>
+        <tr>
+           <th>Kanin-nr</th>
+           <th>Kanin-navn</th>
+           <th>Første tur</th>
+           <th>Sidste tur</th>
+        </tr>
+      </thead>
+      <tbody>
+         <tr ng-repeat="c in rabbits">
+           <td>{{c.rabbit_number}}</td>
+           <td>{{c.name}}</td>
+           <td>{{c.first_trip}}</td>
+           <td>{{c.last_trip}}</td>
+         </tr>
+      </tbody>
+     </table>
+   </div>
+</div>

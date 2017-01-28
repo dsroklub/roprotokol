@@ -71,8 +71,16 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     }
   }
 
-  this.fetch = function (subscriptions) {
 
+  this.simpleGet = function (service, args) {
+    var conf = {};
+    if (args) {
+      conf['params'] = args;
+    }
+    return $http.get(toURL(service+'.php',conf));
+  }
+
+  this.fetch = function (subscriptions) {
     var boatmaintypes = ['kayak','any','rowboat'];
     $log.debug("DB fetch "+Date());
     var headers = {};

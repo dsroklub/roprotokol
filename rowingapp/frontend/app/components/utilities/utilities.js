@@ -186,6 +186,38 @@ angular.module('myApp.utilities.txttotime', []).filter('txttotime', function () 
   };
 });
 
+angular.module('myApp.utilities.ifNull', []).filter('ifNull', function () {
+  return function( val, defaultVal, suffix) {
+    if (val === null) return defaultVal;
+    if (suffix != null) {
+      val += suffix;
+    }
+    return val;
+  };
+});
+
+angular.module('myApp.utilities.subArray', []).filter('subArray', function () {
+  return function( arr, start, len) {
+    if (! arr.splice ) {
+      console.log("subArray input cannot be spliced", arr);
+      return null;
+    }
+    if (start == null) {
+      start = 0;
+    }
+    return arr.splice(start, len);
+  };
+});
+
+
+angular.module('myApp.utilities.keys', []).filter('keys', function () {
+  return function( obj) {
+    return Object.keys(obj);
+  };
+});
+
+
+
 angular.module('myApp.utilities.onlynumber', []).directive('onlynumber', function () {
   return {
     restrict: 'EA',
@@ -264,4 +296,6 @@ angular.module('myApp.utilities', [
   'myApp.utilities.damagedegreedk',
   'myApp.utilities.txttotime',
   'myApp.utilities.totime',
+  'myApp.utilities.ifNull',
+  'myApp.utilities.subArray',
 ]).value('version', '0.1');

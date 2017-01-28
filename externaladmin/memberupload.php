@@ -21,7 +21,7 @@ echo ("uploader: " .$fileType." file: ".$target_file);
 error_log("uploading type: " .$fileType." file: ". $_FILES["fileToUpload"]["size"]);
 
 if ($_FILES["fileToUpload"]["size"] > 7000000) {
-    echo "<br>File er for stor";
+    echo "<br>Filen er for stor";
     $uploadOk = 0;
 }
 if ($_FILES["fileToUpload"]["size"] < 100000) {
@@ -35,8 +35,9 @@ if($fileType != "mdb" && $fileType != "accdb") {
 }
 
 
-if ($uploadOk == 02) {
+if (!$uploadOk) {
     echo "Filen kunne ikke uploades";
+    exit(0);
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "<br> filen ". basename( $_FILES["fileToUpload"]["name"]). " blev uploaded.";
@@ -45,35 +46,68 @@ if ($uploadOk == 02) {
         exit(0);
     }
 
+    $updateOk = 1;
+
     $extract="mdb-export -D '%F %T' -I mysql ". $target_file ." tblMembersToRoprotokol > uploads/tblMembers.sql";
 #    echo "<br> extract <pre>".$extract."</pre><br>";
     echo "<br> pakker medlemsdata ud</pre><br>";
     system($extract) && die (" member tbl extract failed");
-    echo "<br> Importerer til databasen</pre><br>";   
+    echo "<br> Importerer til databasen<br>";
     $pw="";
     if ($config["dbpassword"]) {
         $pw=" -p --password=".$config["dbpassword"]." ";
     }
-    $sl="mysql -f -u ".$config["dbuser"] ." ".$pw . $config["database"]."  < uploads/tblMembers.sql > /tmp/mlog 2>&1";
+    $sl="mysql -f --default-character-set=utf8 -u ".$config["dbuser"] ." ".$pw . $config["database"]." < uploads/tblMembers.sql > /tmp/mlog 2>&1";
     error_log("load members:".$sl);
     system($sl) && die (" member sql inport");;
 
-    echo "<br>Opdaterer roprotokollen</pre><br>";   
+    echo "<br>Opdaterer roprotokollen<br>";
 
     $s="
-INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate )
-SELECT DISTINCTROW tMem.MemberID, tMem.LastName, tMem.FirstName,JoinDate,RemoveDate
-FROM tblMembersToRoprotokol tMem
-WHERE (((tMem.RemoveDate) Is Null) AND MemberID NOT IN (SELECT MemberID From Member))
-ORDER BY tMem.MemberID;
+UPDATE Member m JOIN tblMembersToRoprotokol tm ON (m.MemberID = tm.MemberID)
+SET m.FirstName = tm.FirstName,
+    m.LastName = tm.LastName,
+    m.Email = tm.E_mail,
+    m.ShowEmail = tm.OnAddressList,
+    m.JoinDate = tm.JoinDate,
+    m.RemoveDate = tm.RemoveDate,
+    m.Birthday = tm.Birthdate,
+    m.Gender = CASE tm.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
+";
+
+    error_log("SQL :\n".$s."\n");
+    if ($stmt = $rodb->prepare($s)) {
+        $stmt->execute() || die($rodb->error);
+    } else {
+        error_log("SQL stmt error: ".$rodb->error);
+        echo " FEJL i opdatering: ".$rodb->error;
+        $updateOk = 0;
+    }
+
+    echo "<br>Indsætter eventuelle nye medlemmer i roprotokollen<br>";
+
+    $s="
+INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, Gender )
+  SELECT DISTINCTROW tMem.MemberID,
+                     tMem.LastName,
+                     tMem.FirstName,
+                     tMem.JoinDate,
+                     tMem.RemoveDate,
+                     tMem.E_mail,
+                     tMem.OnAddressList,
+		     tMem.Birthdate,
+		     CASE tMem.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
+  FROM tblMembersToRoprotokol tMem
+  WHERE (((tMem.RemoveDate) IS NULL) AND MemberID NOT IN (SELECT MemberID From Member))
+  ORDER BY tMem.MemberID;
 ";
     error_log("SQL :\n".$s."\n");
     if ($stmt = $rodb->prepare($s)) { 
         $stmt->execute() || die($rodb->error);
     }  else {
         error_log("SQL stmt error: ".$rodb->error);
-        echo " FEJL i upload ".$rodb->error;
-
+        echo " FEJL i indsættelse: ".$rodb->error;
+        $updateOk = 0;
     }
 
 
@@ -95,10 +129,15 @@ Member.CprNo=tblMembersToRoprotokol.CprNo
         $stmt->execute() || die($rodb->error);
     }  else {
         error_log("SQL stmt error: ".$rodb->error);
-        echo " FEJL i tbl upload ".$rodb->error;
+        echo " FEJL i oprydning: ".$rodb->error;
+        $updateOk = 0;
     }
     invalidate('member');
-    echo "\n<h2>Medlemmer blev importeret</h2>\n";
+    if ($updateOk) {
+       echo "\n<h2>Medlemmer blev importeret</h2>\n";
+    } else {
+       echo "\n<h1>Der var fejl i opdateringen!!!</h1>\n<h2>Medlemmer blev <u>ikke</u> opdateret korrekt!</h2>\n";
+    }
 }
 
 ?>
