@@ -9,7 +9,6 @@ CREATE TABLE Boat (
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   MotionPlus varchar(100),
   boat_usage int(11),
   level int(11),
@@ -29,7 +28,6 @@ CREATE TABLE BoatCategory (
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   PRIMARY KEY (id),
   UNIQUE KEY Navn (`Name`)
 );
@@ -68,8 +66,7 @@ CREATE TABLE BoatConfiguration (
   NyIndvendiglængde float,
   OprettetDato datetime,
   RedigeretDato datetime,
-  Kommentar varchar(1000),
-  Initialer varchar(10)
+  Kommentar varchar(1000)
 );
 
 DROP TABLE IF EXISTS BoatRights;
@@ -89,7 +86,6 @@ CREATE TABLE BoatType (
   Category int(11),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   rights_subtype CHAR(20),
   PRIMARY KEY (id),
   KEY gruppenavn (`Name`)
@@ -108,7 +104,6 @@ CREATE TABLE Damage (
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   PRIMARY KEY (id)
 );
 
@@ -121,7 +116,6 @@ CREATE TABLE Destination (
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   ExpectedDurationNormal float,
   ExpectedDurationInstruction float,
   PRIMARY KEY (`Name`,Location)
@@ -184,8 +178,7 @@ CREATE TABLE Member (
   Created datetime,
   Updated datetime,
   log varchar(2000),
-  Initials char(10),
-  JoinDate DateTime,
+   JoinDate DateTime,
   RemoveDate DateTime,
   KommuneKode INTEGER,
   CprNo Boolean,
@@ -225,8 +218,7 @@ CREATE TABLE reservation (
   Purpose varchar(100),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
-  PRIMARY KEY (boat,start_time,start_date,dayofweek)
+   PRIMARY KEY (boat,start_time,start_date,dayofweek)
 );
 
 DROP TABLE IF EXISTS Trip;
@@ -242,7 +234,6 @@ CREATE TABLE Trip (
   Comment varchar(1000),
   CreatedDate date,
   EditDate date,
-  Initials varchar(10),
   tripstat_name CHAR(20),
   DESTID int(11),
   info varchar(20),
@@ -259,7 +250,6 @@ CREATE TABLE TripMember (
   MemberName varchar(100),
   CreatedDate date,
   EditDate date,
-  Initials varchar(10),
   PRIMARY KEY (TripID,Seat)
 );
 
@@ -279,7 +269,6 @@ CREATE TABLE TripType (
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   Active int(11),
   PRIMARY KEY (id),
   UNIQUE KEY Navn (`Name`)

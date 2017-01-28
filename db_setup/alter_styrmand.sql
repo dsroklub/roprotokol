@@ -8,13 +8,11 @@ CREATE TABLE instruction_team (
   FOREIGN KEY (instructor) REFERENCES Member(id)
 );
 
-
 CREATE TABLE instruction_team_participation (
   team varchar(30),
   member_id       INTEGER,
   in_time         datetime
 );
-
 
 DROP TABLE IF EXISTS team_requests;
 CREATE TABLE team_requests (

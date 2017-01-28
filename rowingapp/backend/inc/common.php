@@ -6,8 +6,6 @@ error_reporting(E_ALL);
 
 $skiplogin=false;
 
-
-
 if(!isset($_SESSION)){
   session_start();
 }
