@@ -12,18 +12,18 @@ $reg=json_decode($data);
 $res=array ("status" => "ok");
 
 if ($stmt = $rodb->prepare("INSERT INTO team (name, description, dayofweek, timeofday, teacher,teamkey) VALUES(?,?,?,?,?,?)")) {
-    $stmt->bind_param('sssss',
+    $stmt->bind_param('ssssss',
     $reg->name,
     $reg->description,
     $reg->dayofweek,
     $reg->timeofday,
-    $reg->teacher
-    $reg->teamkey,
+    $reg->teacher,
+    $reg->teamkey
     );
     if (!$stmt->execute()) {
+        $res["status"]=$rodb->error;
         error_log("OOOP ".$rodb->error);
     }
-    error_log("did exe");
     invalidate("gym");
     $rodb->close();
 } else {
