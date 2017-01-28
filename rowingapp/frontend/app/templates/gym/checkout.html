@@ -7,14 +7,14 @@
 
 <ng-form name="gymParticipant">
 
-
   <h2>DEMO, DEMO, Registerer deltager på gymnastikhold</h2>
-  
-  <ul class="listbox">
-    <li  ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}" >
-      {{tm.name}} {{teamkey}}({{tm.description}}): {{tm.dayofweek}} {{tm.timeofday}} : {{tm.teacher}}
-    </li>
-  </ul>
+    <table class="listbox">
+      <tr>
+        <th>Hold</th> </th> <th>Holdtidspnkt</th>  <th>Underviser</tr><tr>
+       <tr  ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}" >
+      <td>{{tm.name}} {{teamkey}}  {{tm.description}} </td> <td>{{tm.dayofweek}} {{tm.timeofday}} </td> <td>  {{tm.teacher}} <td>
+    </tr>
+  </table>
 
   <div>
   <label for="gym.deltager">Deltager på gymnastikhold</label>
@@ -26,10 +26,10 @@
 
   <div>
     <h2>tilmeldte til {{currentteam.name}} {{currentteam.dayofweek}} {{currentteam.timeofday}}</h2>    
-    <ul class="listbox">
-      <li ng-repeat="tp in attendance" ng-if="tp.team==currentteam.name && tp.dayofweek==currentteam.dayofweek && tp.timeofday==currentteam.timeofday">
-        {{tp.membername}} ({{tp.memberid}})  </li>
-    </ul>    
+<ul>
+  <li class="listbox" ng-repeat="tp in attendance" ng-if="tp.team==currentteam.name && tp.dayofweek==currentteam.dayofweek && tp.timeofday==currentteam.timeofday">
+    {{tp.membername}} ({{tp.memberid}})  </li>
+</li >    
   </div>
 
 </ng-form>

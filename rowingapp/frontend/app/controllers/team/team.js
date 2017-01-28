@@ -54,6 +54,7 @@ gymApp.controller(
            'destination': {'distance':999},
            'comments':''
          }
+
          DatabaseService.attendTeam($scope.checkout).promise.then(
            function(st) {
              if (st.status=="ok") {

@@ -933,15 +933,22 @@ datetimepicker.trip-search-field ng-form div input {
 }
 
 .listbox {
-    background-color: #88aeee;
+    background-color: #ddddff;
     display:inline-block;
     border-radius: 0.4em;
-    padding: 4px;
+    padding: 1em;
+}
+
+.listbox th {
+    padding-left: 1em;
+    padding-right: 1em;
+    align:center;
 }
 
 textarea.signuptext {
     width:40%;
     vertical-align: top;
+    align:center;
 }
 
 #year_report,

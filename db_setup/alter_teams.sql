@@ -30,6 +30,8 @@ CREATE TABLE team_participation (
   member_id       int(11),
   start_time         datetime,
   classdate           date,
+  dayofweek     varchar(20),
+  timeofday   char(5),
   PRIMARY KEY (team, member_id, classdate)
 );
 
