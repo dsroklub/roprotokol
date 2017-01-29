@@ -9,7 +9,7 @@
   <title>DSR Gymnastik</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png"  href="media/ico.png" />
+  <link rel="icon" type="image/png"  href="media/gymico.png" />
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.min.css">
   <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.min.css">
@@ -57,18 +57,13 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
   
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-
-  <div class="menuholder" >
+  <div class="menuholder">
     <ul class="menu" ng-controller="menuCtrl">
       <li class="logo">
         <img src="assets/dsrlogo.svg">  
       </li>
       <li ng-class="{topsel: activePath=='/registrer/'}"><a href="#/registrer"><i class="fa fa-heartbeat"></i>Registrer</a></li>
       <li ng-class="{topsel: activePath=='/admin/'}"><a href="#/admin"><i class="fa fa-bank"></i>Admin</a></li>
-
       <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
       </li>
     </ul>

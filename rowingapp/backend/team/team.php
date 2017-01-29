@@ -7,8 +7,7 @@ $s='SELECT team.name,description,dayofweek,teacher,timeofday, weekday(NOW())+1=n
     WHERE weekday.name=team.dayofweek
     ORDER BY no,timeofday,team.name,teacher
 ';
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
-
+$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
@@ -16,5 +15,4 @@ echo '[';
 	  echo json_encode($row);
 }
 echo ']';
-
 ?> 

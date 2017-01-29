@@ -7,8 +7,8 @@
  
   <ul>
     <li ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}" >
-      {{tm.name}} {{tm.teamkey}} ({{tm.description}}): {{tm.dayofweek}} {{tm.timeofday}} : {{tm.teacher}}
-      <strong  ng-click="deleteTeam(tm)">SLET HOLD</strong>
+      {{tm.name}} {{tm.teamkey}} {{tm.description}}: {{tm.dayofweek}} {{tm.timeofday}} : {{tm.teacher}}
+       <i class="fa fa-trash" ng-click="deleteTeam(tm)"  confirm="slet hold {{tm.name}}"></i>
     </li>
   </ul>
 
@@ -19,7 +19,8 @@
     <input placeholder="holdnavn" autocomplete="off" "teamname" name="teamname" type="text" ng-model="newteam.name" required />
     <input placeholder="hold beskrivelse" autocomplete="off" "teamdesc" name="teamdesc" type="text" ng-model="newteam.description" />
     <select ng-model="newteam.dayofweek" ng-options="dow for dow in weekdays"></select>
-    <input placeholder="holdtid tt:mm" autocomplete="off" "teamtime" name="teamtime" type="text" ng-model="newteam.timeofday" ng-pattern="todpattern" />
+    <input placeholder="holdtid tt:mm" autocomplete="off"
+           "teamtime" name="teamtime" type="text" ng-model="newteam.timeofday" ng-pattern="todpattern" />
     <input placeholder="underviser" autocomplete="off" "teacher" name="teamteacher" type="text" ng-model="newteam.teacher" required />
     <input placeholder="holdkode" autocomplete="off" "teamkey" name="tkey" type="text" ng-model="newteam.key" />
     <br>

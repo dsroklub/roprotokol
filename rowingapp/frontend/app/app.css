@@ -32,7 +32,8 @@ ul {
     list-style-type: none;
     padding: 0;
     margin-left: 2em;
-    color: blue;
+    color: blue    max-width: 29%;
+    position :fixed;
 }
 
 .tools a {
@@ -335,7 +336,7 @@ table caption {
     padding: 5px;
     right : 0px;
     margin-top: 3em;
-    top:0px;
+    top: 0px;
     max-width: 32%;
     position :fixed;
 }
@@ -356,6 +357,7 @@ table caption {
 .listmenu,.boattypesmenu ul {
     background: white;
 }
+
 .boattypesmenu ul li {
     cursor: pointer;
     background: #C6EFFF;
@@ -397,7 +399,6 @@ li.selected,button.selected {
     margin-bottom: 2em;
 
 }
-
 
 .boatlist thead th {
     background: #3ECBBF;
@@ -675,8 +676,7 @@ div.guestpenguin {
     border-radius: 5px;
     height: 2em;
     min-width : 15em;
-    display: inline-block;
-    
+    display: inline-block;    
 }
 
 input.adminpw {
@@ -717,7 +717,6 @@ input.adminpw {
     max-width:25%;
     margin-bottom:2%;
 }
-
 
 .boatcrew table td{
     padding: 0.7em;
@@ -769,7 +768,7 @@ select  {
 }
 
 .toppopup .uib-datepicker-popup {
-    top :0px!important;
+    top: 0px!important;
 }
 
 .debug {
@@ -786,7 +785,6 @@ select  {
 .changedtripdata {
     max-width:30em;
 }
-
 
 button[disabled], html input[disabled] {
     cursor: default;
@@ -1015,6 +1013,7 @@ textarea.signuptext {
   font-weight: normal;
   vertical-align:bottom;
 }
+
 #year_report th.supercat {
   border-bottom: 1px solid #fff;
   border-left: 1px solid #fff;
@@ -1149,4 +1148,4 @@ textarea.signuptext {
     border-top: 2px dashed #003;
     padding-top: 3em;
   }
-
+}
