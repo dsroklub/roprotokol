@@ -2,9 +2,10 @@
 
 set_include_path(get_include_path().':..');
 include("inc/common.php");
-$s='SELECT name,description,dayofweek,teacher,timeofday 
-    FROM team
-    ORDER BY dayofweek,timeofday,name,teacher
+$s='SELECT team.name,description,dayofweek,teacher,timeofday, weekday(NOW())+1=no AS today 
+    FROM team,weekday
+    WHERE weekday.name=team.dayofweek
+    ORDER BY no,timeofday,team.name,teacher
 ';
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 

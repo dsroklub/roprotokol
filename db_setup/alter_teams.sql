@@ -30,8 +30,27 @@ CREATE TABLE team_participation (
   member_id       int(11),
   start_time         datetime,
   classdate           date,
+  dayofweek     varchar(20),
+  timeofday   char(5),
   PRIMARY KEY (team, member_id, classdate)
 );
 
 
+DROP TABLE IF EXISTS weekday;
+CREATE TABLE weekday (
+  name varchar(10),
+  no   INTEGER,
+  language CHAR(2)
+  );
+  
+  
+
+INSERT INTO weekday (name,no,language) VALUES 
+  ("Mandag","1","da"),
+  ("Tirsdag","2","da"),
+  ("Onsdag","3","da"),
+  ("Torsdag","4","da"),
+  ("Fredag","5","da"),
+  ("Lørdag","6","da"),
+  ("Søndag","7","da");
 

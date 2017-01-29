@@ -1,13 +1,14 @@
 <?php
 include("inc/common.php");
 
-$season=date('Y');
 $res=array ("status" => "ok");
 
 $data = file_get_contents("php://input");
 $newtrip=json_decode($data);
 $message="createtrip  ".json_encode($newtrip);
 $error=null;
+
+error_log($data);
 
 $rodb->begin_transaction();
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) { 
@@ -28,10 +29,9 @@ if (!$error) {
     $expectedtime=mysdate($newtrip->expectedtime);
     
         error_log('now new trip'. json_encode($newtrip));
-    if ($stmt = $rodb->prepare("INSERT INTO Trip(Season,BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment) VALUES(?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?)")) {
+    if ($stmt = $rodb->prepare("INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment) VALUES(?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?)")) {
         $info="client: ".$newtrip->client_name;
-        $stmt->bind_param('iisississ',
-        $season,
+        $stmt->bind_param('isississ',
         $newtrip->boat->id ,
         $newtrip->destination->name,
         $newtrip->triptype->id,
@@ -44,14 +44,18 @@ if (!$error) {
             $error=mysqli_error($rodb);
             $message=$message."\n"."create trip insert error";
         }
-    } 
+    } else {
+        $error="trim member DB error".mysqli_error($rodb);
+        error_log($error);
+    }
     
-    if ($stmt = $rodb->prepare("INSERT INTO TripMember(TripID,Season,Seat,member_id,MemberName,CreatedDate,EditDate) ".
-    "SELECT LAST_INSERT_ID(),?,?,Member.id,?,NOW(),NOW() FROM Member Where MemberID=?"
+    
+    if ($stmt = $rodb->prepare("INSERT INTO TripMember(TripID,Seat,member_id,MemberName,CreatedDate,EditDate) ".
+    "SELECT LAST_INSERT_ID(),?,Member.id,?,NOW(),NOW() FROM Member Where MemberID=?"
     )) {
         $seat=1;
         foreach ($newtrip->rowers as $rower) {
-            $stmt->bind_param('iiss',$season,$seat,$rower->name,$rower->id);
+            $stmt->bind_param('iss',$seat,$rower->name,$rower->id);
             $stmt->execute();
             $seat+=1;
         }

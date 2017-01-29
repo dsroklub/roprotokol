@@ -35,7 +35,6 @@ app.controller(
          {id:7,day:"søndag"}
        ];
 
-
        $scope.allboats = DatabaseService.getBoats();
        $scope.levels =DatabaseService.getDB('boatlevels');
        $scope.brands =DatabaseService.getDB('boat_brand');      // Checkout code
@@ -64,7 +63,7 @@ app.controller(
                             );
              $scope.updateExpectedTime();
 	     // FIXME update checkout fields
-	   }
+	   }           
 	 });
 
        }

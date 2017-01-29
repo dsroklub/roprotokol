@@ -21,7 +21,9 @@ gymApp.controller(
      };
 
      $scope.setTeam = function (tm) {
-       $scope.currentteam=tm;
+       if (tm.today>0) {
+         $scope.currentteam=tm;
+       }
      }
        
      $scope.addTeam = function() {
@@ -54,10 +56,10 @@ gymApp.controller(
            function(st) {
              if (st.status=="ok") {
                $scope.attendance.splice(0,0, {'team': $scope.currentteam.name, membername:$scope.attendee.name,
-                                        memberid:$scope.attendee.id,
-                                        dayofweek:$scope.currentteam.dayofweek,
-                                        timeofday:$scope.currentteam.timeofday
-                                       });
+                                              memberid:$scope.attendee.id,
+                                              dayofweek:$scope.currentteam.dayofweek,
+                                              timeofday:$scope.currentteam.timeofday
+                                             });
              } else if (st.status.search("Duplicate entry")) {
                $scope.message="Allerede tilmeldt";
              }
