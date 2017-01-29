@@ -7,7 +7,7 @@ gymApp.controller(
      $scope.attendance = [];
      $scope.quarters = [1,2,3,4];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
-     $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
+     $scope.weekdays=["Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag","Søndag"];
      DatabaseService.init({"team":true,"member":true}).then(function () {
        $scope.teams = DatabaseService.getDB('team/team');
      });
