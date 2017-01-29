@@ -1082,8 +1082,6 @@ textarea.signuptext {
   overflow: visible;
 }
 
-
-
 @media print {
   .report-front-page {
     page-break-after: always;
@@ -1107,12 +1105,10 @@ textarea.signuptext {
     border: 3px solid #003;
   }
 
-
-	#year_report th {
-	  font-weight: bold;
+  #year_report th {
+      font-weight: bold;
       border: 3px solid #003;
-
-}
+  }
 	#year_report th.supercat {
 	  border: 3px solid #003;
 	}

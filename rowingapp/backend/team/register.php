@@ -11,9 +11,7 @@ error_log($reg->member->id);
 $res=array ("status" => "ok");
 
 if ($stmt = $rodb->prepare("
-INSERT INTO team_participation 
-   (team, dayofweek,timeofday,member_id, start_time, classdate) 
-   SELECT ?,?,?,id,NOW(),CURDATE() FROM Member WHERE MemberID=?")) {
+INSERT INTO team_participation (team, dayofweek,timeofday,member_id, start_time, classdate) SELECT ?,?,?,id,NOW(),CURDATE() FROM Member WHERE MemberID=?")) {
     $stmt->bind_param('ssss',
     $reg->team->name,
     $reg->team->dayofweek,

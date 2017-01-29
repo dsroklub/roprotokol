@@ -30,7 +30,9 @@ gymApp.controller(
        $log.debug("add team");
        DatabaseService.addTeam($scope.newteam).promise.then(
          function(st) {
-           $scope.teams.push($scope.newteam)
+           if (st.status=="ok") {
+             $scope.teams.push($scope.newteam);
+           }
          }
        );
      }
@@ -39,7 +41,9 @@ gymApp.controller(
        $log.debug("delete team");
        DatabaseService.deleteTeam(tm).promise.then(
          function(st) {
-           $scope.teams.splice($scope.teams.indexOf(tm),1);
+           if (st.status=="ok") {
+             $scope.teams.splice($scope.teams.indexOf(tm),1);
+           }
          }
        );
      }
@@ -52,6 +56,7 @@ gymApp.controller(
            'destination': {'distance':999},
            'comments':''
          }
+
          DatabaseService.attendTeam($scope.checkout).promise.then(
            function(st) {
              if (st.status=="ok") {

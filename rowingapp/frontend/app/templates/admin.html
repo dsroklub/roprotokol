@@ -542,14 +542,14 @@
          >
 
 
-  <h2>Denne terminal håndterer både for disse lokationer</h2>
+<!--  <h2>Denne terminal håndterer både for disse lokationer</h2> -->
 
 
   
   <h2>andre sider</h2>
 
 <p>  Her er sider til oversigter og eksport af data.</p>
-  
+
 <p> CSV filerne burde man kunne åbne og så gemme som regneark.</p>
 <p>
   Reservationer og statistik for instruktion er offentlig tilgængeligt, så man ikke behøver at gå ned i klubben for at hente dem.
@@ -566,8 +566,16 @@
         <li>grøn: turen afsluttet</li>        
       </ul>
     </li>
-    
+    <li><a href="#/year_report/" target="_new">Årsrapport</a></li>
+    <li><a href="#/convert_candidates/">Find kaniner, der måske skal konverteres</a></li>
     <li><a href="/backend/stats/racerkaniner.php">Statistik for årets racerkaniner som CSV</a></li>
+    <li><a href="/backend/stats/rowerkm.php?include_trips={{rowerkm_include_trips?1:0}}&separate_instruction={{rowerkm_separate_instruction?1:0}}&force_email={{rowerkm_force_email?1:0}}&only_members={{rowerkm_only_members?1:0}}&year={{rowerkm_year}}">Kilometerstatistik for roere  som CSV</a>
+        (år <input type="text" ng-model="rowerkm_year" size="4"/>,
+         <input type="checkbox" ng-model="rowerkm_include_trips"/> ture,
+         <input type="checkbox" ng-model="rowerkm_separate_instruction"/> med/uden instruktion,
+         <input type="checkbox" ng-model="rowerkm_only_members"/> kun nuværende medlemmer,
+         <input type="checkbox" ng-model="rowerkm_force_email"/> inkluder fortrolig email)</li>
+    <li><a href="/backend/stats/boatrowerkm.php">Årets 10 mest aktive roere i hver båd som CSV</a></li>
     <li><a href="/backend/stats/maxmates.php">Årets 10 roere med flest rokammerater som CSV</a></li>
     <li><a href="/backend/stats/longdistancecoxes.php">Langdistancestyrmænd som CSV</a></li>
     <li><a href="http://roprotokol.danskestudentersroklub.dk/public/instruction_stat.php?returnlink=history">Antal instruktører, kaniner og både brugt til instruktion (eksternt link, offentlig adgang)</a></li>

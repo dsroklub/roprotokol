@@ -12,7 +12,6 @@ $s=
         AND classdate=CURDATE() 
         AND weekday.name=team.dayofweek
         ORDER BY weekday.no';
-
 if (!$result=$rodb->query($s)) {
     error_log(mysqli_error($rodb));
     die("Error in stat query: " . mysqli_error($rodb));
