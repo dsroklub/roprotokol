@@ -10,6 +10,7 @@ CREATE TABLE team (
   PRIMARY KEY (name,dayofweek,timeofday)
 );
 
+DELETE FROM team;
 INSERT INTO team (teamkey,dayofweek,timeofday,name,teacher) VALUES
 ("14","Mandag",  "16:30","Yoga","Petra Mrvikova"),
 ("15","Mandag",  "18:00","Yoga","Petra Mrvikova"),

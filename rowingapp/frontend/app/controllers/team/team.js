@@ -8,15 +8,18 @@ gymApp.controller(
      $scope.quarters = [1,2,3,4];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
      $scope.weekdays=["Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag","Søndag"];
+     $scope.currentdate=new Date();
 
      DatabaseService.init({"team":true,"member":true}).then(function () {
        $scope.teams = DatabaseService.getDB('team/team');       
-       $scope.currendate=new Date();
+       $scope.currentdate=new Date();
      });
 
-     DatabaseService.isSameDay= function() {
-       d=new Date();
-       return (d.getDate()==currentdate.getDate() && d.getMonth()==currentdate.getMonth() && d.getYear()==currentdate.getYear());       
+     $scope.isSameDay= function() {
+       var d=new Date();
+       return (d.getDate()==$scope.currentdate.getDate() &&
+               d.getMonth()==$scope.currentdate.getMonth() &&
+               d.getYear()==$scope.currentdate.getYear());       
      }
      
      DatabaseService.getDataNow("team/attendance", null, function (res) {
@@ -34,8 +37,9 @@ gymApp.controller(
      }
 
      $scope.setTeam = function (tm) {       
-       if (!isSameDay) {
+       if (!$scope.isSameDay()) {
          DatabaseService.init({"team":true,"member":true}).then(function () {
+           $scope.currentdate=new Date();
            $scope.setCurrentTeam(tm);
          });
        } else {
