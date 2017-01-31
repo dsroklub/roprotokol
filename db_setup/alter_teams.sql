@@ -17,7 +17,7 @@ INSERT INTO team (teamkey,dayofweek,timeofday,name,teacher) VALUES
 ("23","Tirsdag", "17:00","Core og cirkel","Jannik N"),
 ("24","Tirsdag", "18:30","Core og cirkel","Jannik N"),
 ("33","Onsdag",  "17:00","Gotved","Jeanette"),
-("21","Tirsdag", "17:00","Morgengymnastik","Asbjørn"),
+("21","Tirsdag", "07:00","Morgengymnastik","Asbjørn"),
 ("42","Torsdag", "17:00","Core og cirkel","Mathilde"),
 ("43","Torsdag", "18:30","Core og cirkel","Mathilde"),
 ("45","Torsdag", "20:00","KS","Petter"),
@@ -44,8 +44,6 @@ CREATE TABLE weekday (
   language CHAR(2)
   );
   
-  
-
 INSERT INTO weekday (name,no,language) VALUES 
   ("Mandag","1","da"),
   ("Tirsdag","2","da"),

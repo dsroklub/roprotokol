@@ -34,7 +34,11 @@ var gymApp = angular.module('gymApp', [
 	  templateUrl: 'templates/gym/admin.html',
 	  controller: 'teamCtrl'
 	});
-	$routeProvider.when('/', {redirectTo: '/ud'});
+	$routeProvider.when('/om/', {
+	  templateUrl: 'templates/gym/om.html',
+	  controller: 'teamCtrl'
+	});
+	$routeProvider.when('/', {redirectTo: '/registrer'});
 	$routeProvider.otherwise({
 	  templateUrl: 'templates/notimplementet.html',
 	});
