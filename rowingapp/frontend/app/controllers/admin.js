@@ -60,8 +60,8 @@ app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$fil
           ];
 
           $scope.reservations=[];
-          $scope.reservation={};
-                               DatabaseService.init({"boat":true,"member":true, "trip":true,"reservation":true}).then(function () {
+            $scope.reservation={};
+            DatabaseService.init({"boat":true,"member":true, "trip":true,"reservation":true}).then(function () {
             $scope.currentrower=null;
             $scope.do="events";
             $scope.DB=DatabaseService.getDB;

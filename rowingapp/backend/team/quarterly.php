@@ -12,7 +12,8 @@ header('Content-type: text/csv');
 header("Pragma: no-cache");
 
 $s=
- 'SELECT team.name AS team, team.dayofweek,team.timeofday,classdate,team.description,CONCAT(FirstName," ",LastName) AS membername, Member.MemberID,KommuneKode,CprNo
+ 'SELECT team.name AS team, team.dayofweek,team.timeofday,classdate,team.description,
+    CONCAT(FirstName," ",LastName) AS membername, Member.MemberID,KommuneKode,CprNo
   FROM team, team_participation, Member 
   WHERE team_participation.team=team.name AND Member.id=team_participation.member_id AND QUARTER(classdate)=? 
         AND team_participation.dayofweek=team.dayofweek

@@ -7,10 +7,20 @@ gymApp.controller(
      $scope.attendance = [];
      $scope.quarters = [1,2,3,4];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
-     $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
+     $scope.weekdays=["Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag","Søndag"];
+     $scope.currentdate=new Date();
+
      DatabaseService.init({"team":true,"member":true}).then(function () {
-       $scope.teams = DatabaseService.getDB('team/team');
+       $scope.teams = DatabaseService.getDB('team/team');       
+       $scope.currentdate=new Date();
      });
+
+     $scope.isSameDay= function() {
+       var d=new Date();
+       return (d.getDate()==$scope.currentdate.getDate() &&
+               d.getMonth()==$scope.currentdate.getMonth() &&
+               d.getYear()==$scope.currentdate.getYear());       
+     }
      
      DatabaseService.getDataNow("team/attendance", null, function (res) {
        $scope.attendance=res.data;         
@@ -20,8 +30,21 @@ gymApp.controller(
        return DatabaseService.getRowersByNameOrId(val, undefined);
      };
 
-     $scope.setTeam = function (tm) {
-       $scope.currentteam=tm;
+     $scope.setCurrentTeam = function (tm) {
+       if (tm.today>0) {
+         $scope.currentteam=tm;
+       }
+     }
+
+     $scope.setTeam = function (tm) {       
+       if (!$scope.isSameDay()) {
+         DatabaseService.init({"team":true,"member":true}).then(function () {
+           $scope.currentdate=new Date();
+           $scope.setCurrentTeam(tm);
+         });
+       } else {
+         $scope.setCurrentTeam(tm);
+       }
      }
        
      $scope.addTeam = function() {
@@ -59,10 +82,10 @@ gymApp.controller(
            function(st) {
              if (st.status=="ok") {
                $scope.attendance.splice(0,0, {'team': $scope.currentteam.name, membername:$scope.attendee.name,
-                                        memberid:$scope.attendee.id,
-                                        dayofweek:$scope.currentteam.dayofweek,
-                                        timeofday:$scope.currentteam.timeofday
-                                       });
+                                              memberid:$scope.attendee.id,
+                                              dayofweek:$scope.currentteam.dayofweek,
+                                              timeofday:$scope.currentteam.timeofday
+                                             });
              } else if (st.status.search("Duplicate entry")) {
                $scope.message="Allerede tilmeldt";
              }

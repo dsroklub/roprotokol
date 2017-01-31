@@ -7,7 +7,7 @@ app.controller(
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog',
    function ($scope, $routeParams, DatabaseService, $filter, ngDialog) {
      $scope.allboatdamages=[];
-     DatabaseService.init({"stats":false,"boat":true,"member":true, "trip":true, "reservation":true}).then(function () {
+     DatabaseService.init({"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
        // Load Category Overview
        $scope.boatcategories = DatabaseService.getBoatTypes();
        // Load selected boats based on boat category
@@ -34,7 +34,6 @@ app.controller(
          {id:6,day:"lørdag"},
          {id:7,day:"søndag"}
        ];
-
 
        $scope.allboats = DatabaseService.getBoats();
        $scope.levels =DatabaseService.getDB('boatlevels');
@@ -64,9 +63,8 @@ app.controller(
                             );
              $scope.updateExpectedTime();
 	     // FIXME update checkout fields
-	   }
+	   }           
 	 });
-
        }
        var boat_id = $routeParams.boat_id;
        var destination = $routeParams.destination;
@@ -83,7 +81,9 @@ app.controller(
          'expected':false,
          'end':false
        };
-       $scope.selectedboat = DatabaseService.getBoatWithId(boat_id);
+       if (boat_id) {
+         $scope.selectedboat = DatabaseService.getBoatWithId(boat_id);
+       }
        $scope.allboatdamages = DatabaseService.getDamages();
        $scope.triptypes = DatabaseService.getTripTypes();
        $scope.destinations = DatabaseService.getDestinations(DatabaseService.defaultLocation);

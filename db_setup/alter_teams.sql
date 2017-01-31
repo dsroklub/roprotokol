@@ -10,6 +10,7 @@ CREATE TABLE team (
   PRIMARY KEY (name,dayofweek,timeofday)
 );
 
+DELETE FROM team;
 INSERT INTO team (teamkey,dayofweek,timeofday,name,teacher) VALUES
 ("14","Mandag",  "16:30","Yoga","Petra Mrvikova"),
 ("15","Mandag",  "18:00","Yoga","Petra Mrvikova"),
@@ -36,4 +37,21 @@ CREATE TABLE team_participation (
 );
 
 
+DROP TABLE IF EXISTS weekday;
+CREATE TABLE weekday (
+  name varchar(10),
+  no   INTEGER,
+  language CHAR(2)
+  );
+  
+  
+
+INSERT INTO weekday (name,no,language) VALUES 
+  ("Mandag","1","da"),
+  ("Tirsdag","2","da"),
+  ("Onsdag","3","da"),
+  ("Torsdag","4","da"),
+  ("Fredag","5","da"),
+  ("Lørdag","6","da"),
+  ("Søndag","7","da");
 

@@ -9,8 +9,7 @@ if (isset($_GET["member"])) {
     echo "please set member";
     exit(1);
 }
-# FIXME replace Trip.Season with outdate comparison
-  
+
 $sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, TripType.name as triptype, "
     ."Trip.Destination as destination, DATE_FORMAT(Trip.CreatedDate,'%Y-%m-%dT%T') as created, Meter as distance, "
     ."DATE_FORMAT(InTime,'%Y-%m-%dT%T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%dT%T') as outtime, "

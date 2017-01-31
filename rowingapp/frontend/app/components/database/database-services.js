@@ -27,11 +27,11 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   var cachedepend={
     'reservation':['reservation','boat'],
     'boat':['boats','boatdamages','availableboats','reservations','boat_status','boat_usages','boat_status','get_events'],
-    'trip':['rowers','rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
+    'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
     'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
     'destination':['destinations'],
-    'stats':[],
-    
+    'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat'],
+    'archivestats':[],    
     'team':['team']
   };
   
@@ -162,7 +162,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var thisYear=new Date().getFullYear();
     var firstYear=2010;
 
-    if (subscriptions.trip) {
+    if (subscriptions.stats){
       for (var y=thisYear; y>=firstYear; y--) {
         if (!rowerstatistics[y]) {
           rowerstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
@@ -172,8 +172,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
         }
         for (var bi=0; bi<boatmaintypes.length; bi++) {
           var boattype= boatmaintypes[bi];        
-          
-          if ( (y==thisYear && !valid['rowerstatistics'+boattype]) || !rowerstatistics[y][boattype]  || rowerstatistics[y][boattype].length<1) {
+         
+          if ( (y==thisYear && !valid['rowerstatistics'+boattype]) ||
+               !rowerstatistics[y][boattype]  ||
+               rowerstatistics[y][boattype].length<1) {
             rowerstatistics[y][boattype]=[];
 	    (function (bt) {
               var year=y;

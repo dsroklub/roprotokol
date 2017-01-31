@@ -8,7 +8,6 @@ $reg=json_decode($data);
 error_log($reg->team->name);
 error_log($reg->member->id);
 
-
 $res=array ("status" => "ok");
 
 if ($stmt = $rodb->prepare("
