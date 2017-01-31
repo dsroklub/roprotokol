@@ -1,1 +1,2 @@
-mdb-schema -T tblMembers uploads/Members_test_20160127.accdb > tblMembers.schema
+mdb-schema -T tblMembers uploads/MembersToRoprotokol.accdb > tblMembers.schema
+
