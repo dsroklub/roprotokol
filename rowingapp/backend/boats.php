@@ -8,7 +8,6 @@ $s="SELECT Boat.id,
            Boat.Description as description,
            BoatType.Name as category,
            BoatCategory.Name as boattype,
-           Boat.Placement as placement,
            Boat.Location as location,
            Boat.brand,
            Boat.level
