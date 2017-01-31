@@ -12,20 +12,20 @@ header('Content-type: text/csv');
 header("Pragma: no-cache");
 
 $s=
- 'SELECT team.name AS team, team.dayofweek,team.timeofday,classdate,team.description,
+ 'SELECT team.name AS team, team_participation.dayofweek,team_participation.timeofday,classdate,team.description,
     CONCAT(FirstName," ",LastName) AS membername, Member.MemberID,KommuneKode,CprNo
-  FROM team, team_participation, Member 
-  WHERE team_participation.team=team.name AND Member.id=team_participation.member_id AND QUARTER(classdate)=? 
+  FROM Member, team_participation
+  LEFT JOIN team on team_participation.team=team.name 
         AND team_participation.dayofweek=team.dayofweek
         AND team_participation.timeofday=team.timeofday
+  WHERE  Member.id=team_participation.member_id AND QUARTER(classdate)=? 
         AND (YEAR(classdate)=YEAR(NOW()) OR YEAR(classdate)=YEAR(NOW())-1)
   ';
 
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("i", $quarter);
     $stmt->execute();
-     $result= $stmt->get_result() or die("Error in quarterly query: " . mysqli_error($rodb));
-     
+     $result= $stmt->get_result() or die("Error in quarterly query: " . mysqli_error($rodb));     
      $out = fopen('php://output', 'w');
      echo "Hold, ugedag, holdstarttid,holddato, holdbeskrivelse, Medlem, Medlemsnr,KommuneKode,CprNo\n";
 
@@ -33,5 +33,7 @@ if ($stmt = $rodb->prepare($s)) {
          fputcsv($out, $row);
      }
      fclose($out);
+} else {
+    error_log(mysqli_error($rodb));
 }
 ?> 
