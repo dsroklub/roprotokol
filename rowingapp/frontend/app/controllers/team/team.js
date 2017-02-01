@@ -4,6 +4,7 @@ gymApp.controller(
   'teamCtrl',
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log',
    function ($scope, $routeParams, DatabaseService, $filter, ngDialog, $log) {
+     $scope.newteam={dayofweek:"Mandag"};
      $scope.attendance = [];
      $scope.quarters = [1,2,3,4];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";

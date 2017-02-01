@@ -1087,3 +1087,15 @@ textarea.signuptext {
     padding-top: 3em;
   }
 }
+
+.holdkode {
+    width:5em;
+}
+
+.timeshort {
+    width:6em;
+}
+
+.submit {
+    background:#aaFFaa;
+}
