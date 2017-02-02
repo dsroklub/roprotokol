@@ -29,7 +29,7 @@ if (!$error) {
     $expectedtime=mysdate($newtrip->expectedtime);
     
         error_log('now new trip'. json_encode($newtrip));
-    if ($stmt = $rodb->prepare("INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment) VALUES(?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?)")) {
+    if ($stmt = $rodb->prepare("INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment) VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?)")) {
         $info="client: ".$newtrip->client_name;
         $stmt->bind_param('isississ',
         $newtrip->boat->id ,
@@ -42,10 +42,10 @@ if (!$error) {
         $newtrip->comments);
         if (!$stmt->execute()) {
             $error=mysqli_error($rodb);
-            $message=$message."\n"."create trip insert error";
+            $message=$message."\n"."create trip insert error: ".mysqli_error($rodb);
         }
     } else {
-        $error="trim member DB error".mysqli_error($rodb);
+        $error="trip Insert DB STMT  error: ".mysqli_error($rodb);
         error_log($error);
     }
     
@@ -61,7 +61,7 @@ if (!$error) {
         }
     } else {
         error_log("OOOPs2".$rodb->error);
-        $error="trim member DB error".mysqli_error($rodb);
+        $error="trip ;ember DB error".mysqli_error($rodb);
     }
 }
 
