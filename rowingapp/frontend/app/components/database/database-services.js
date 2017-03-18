@@ -63,7 +63,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     if(!valid[dataid] || !db[dataid]) {
       var dq=$q.defer();
       promises.push(dq.promise);
-      $http.get(toURL(dataid+'.php')).then(function(response) {
+      $http.get(toURL(dataid+'.php')).then(function onSuccess (response) {
         db[dataid] = response.data;
 	valid[dataid]=true;
         dq.resolve(dataid);
@@ -92,7 +92,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
         $log.debug("  boats not valid");
         var bq=$q.defer();
         promises.push(bq.promise);
-        $http.get(toURL('boat_status.php'), { headers: headers } ).then(function(response) {
+        $http.get(toURL('boat_status.php'), { headers: headers } ).then(function (response) {
           db['boats'] = {};
 	  db['boatsA'] =[];
           angular.forEach(response.data, function(boat, index) {
@@ -115,7 +115,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       if (!valid['boatdamages']) {
         var bdq=$q.defer();
         promises.push(bdq.promise);
-        $http.get(toURL('boatdamages.php')).then(function(response) {
+        $http.get(toURL('boatdamages.php')).then(function onSuccess(response) {
           db['boatdamages'] = {};
 	  db['boatdamages_flat'] = response.data;
           angular.forEach(db['boatdamages_flat'], function(boatdamage, index) {
@@ -243,7 +243,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
       subscriptions={};
     }
     var sq=$q.defer();
-    $http.post('../../backend/datastatus.php', null).success(function(ds, status, headers, config) {
+    $http.post('../../backend/datastatus.php', null).then (function(response) {
+      var ds=response.data;
       var doreload=false;
       $log.debug("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
@@ -430,9 +431,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.closeForm = function(form,data,datakind) {
     var formClosed=$q.defer();
     var res=undefined;
-    $http.post('../../backend/'+form+'.php', data).success(function(sdata,status,headers,config) {
-      formClosed.resolve(sdata);
-    }).error(function(sdata,status,headers,config) {
+    $http.post('../../backend/'+form+'.php', data).then(function onSuccess (r) {
+      formClosed.resolve(r.data);
+    }, function onError (r) {
       formClosed.resolve(false);
     });
     datastatus[datakind]=null;
@@ -442,10 +443,10 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.updateDB_async = function(op,data,config) {
     var qup=$q.defer();
     var res=undefined;
-    $http.post('../../backend/'+op+".php", data,config).success(function(sdata,status,headers,config) {
-      qup.resolve(sdata);
-    }).error(function(sdata,status,headers,config) {
-      $log.error(status);
+    $http.post('../../backend/'+op+".php", data,config).then(function(r) {
+      qup.resolve(r.data)
+    },function(r) {
+      $log.error(r.status);
       qup.resolve(false);
     });
     datastatus['trip']=null;
@@ -475,9 +476,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.attendTeam = function(data) {
     var attendance=$q.defer();
     var res=undefined;
-    $http.post('../../backend/team/register.php', data).success(function(sdata,status,headers,config) {
-      attendance.resolve(sdata);
-    }).error(function(sdata,status,headers,config) {
+    $http.post('../../backend/team/register.php', data).then(function(r) {
+      attendance.resolve(r.data);
+    },function(sdata,status,headers,config) {
       attendance.resolve(false);
     });
     datastatus['gym']=null;
@@ -488,9 +489,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.cox_signup = function(data) {
     var su=$q.defer();
     var res=undefined;
-    $http.post('../../backend/cox/signup.php', data).success(function(sdata,status,headers,config) {
-      su.resolve(sdata);
-    }).error(function(sdata,status,headers,config) {
+    $http.post('../../backend/cox/signup.php', data).then(function(r) {
+      su.resolve(r.data);
+    },function(r) {
       su.resolve(false);
     });
     datastatus['cox']=null;
@@ -500,9 +501,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.addTeam = function(data) {
     var adt=$q.defer();
     var res=undefined;
-    $http.post('../../backend/team/addteam.php', data).success(function(sdata,status,headers,config) {
-      adt.resolve(sdata);
-    }).error(function(sdata,status,headers,config) {
+    $http.post('../../backend/team/addteam.php', data).then(function(r) {
+      adt.resolve(r.data);
+    },function(r) {
       adt.resolve(false);
     });
     datastatus['gym']=null;
@@ -512,9 +513,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     this.add_cox_team = function(data) {
       var adt=$q.defer();
       var res=undefined;
-      $http.post('../../backend/cox/addteam.php', data).success(function(sdata,status,headers,config) {
-        adt.resolve(sdata);
-      }).error(function(sdata,status,headers,config) {
+      $http.post('../../backend/cox/addteam.php', data).then(function(r) {
+        adt.resolve(r.data);
+      },function(r) {
         adt.resolve(false);
       });
       datastatus['cox']=null;
@@ -524,9 +525,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.deleteTeam = function(data) {
     var dt=$q.defer();
     var res=undefined;
-    $http.post('../../backend/team/deleteteam.php', data).success(function(sdata,status,headers,config) {
-      dt.resolve(sdata);
-    }).error(function(sdata,status,headers,config) {
+    $http.post('../../backend/team/deleteteam.php', data).then(function(r) {
+      dt.resolve(r.data);
+    },function(r) {
       dt.resolve(false);
     });
     datastatus['gym']=null;
@@ -536,9 +537,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.deleteCoxTeam = function(data) {
     var dt=$q.defer();
     var res=undefined;
-    $http.post('../../backend/cox/deleteteam.php', data).success(function(sdata,status,headers,config) {
-      dt.resolve(sdata);
-    }).error(function(sdata,status,headers,config) {
+    $http.post('../../backend/cox/deleteteam.php', data).then(function(r) {
+      dt.resolve(r.data);
+    },function(r) {
       dt.resolve(false);
     });
     datastatus['cox']=null;
@@ -548,9 +549,9 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.createTrip = function(data) {
     var tripCreated=$q.defer();
     var res=undefined;
-    $http.post('../../backend/createtrip.php', data).success(function(sdata,status,headers,config) {
-      tripCreated.resolve(sdata);
-    }).error(function(sdata,status,headers,config) {
+    $http.post('../../backend/createtrip.php', data).then(function(r) {
+      tripCreated.resolve(r.data);
+    },function(r) {
       tripCreated.resolve(false);
     });
     datastatus['trip']=null;
@@ -558,8 +559,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
 
   this.newDamage = function(data) {
-    $http.post('../../backend/newdamage.php', data).success(function(data, status, headers, config) {
-    }).error(function(data, status, headers, config) {
+    $http.post('../../backend/newdamage.php', data).then(function(r) {
+    },function(r) {
       alert("det mislykkedes at tilføje ny skade "+status+" "+data);
     });
     valid['boat']=false;
@@ -567,8 +568,8 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   };
 
   this.fixDamage = function(data) {
-    $http.post('../../backend/fixdamage.php', data).success(function(data, status, headers, config) {
-    }).error(function(data, status, headers, config) {
+    $http.post('../../backend/fixdamage.php', data).then(function(r) {
+    },function(r) {
       alert("det mislykkedes at klarmelde skade "+status+" "+data);
     });
     valid['boat']=false;
