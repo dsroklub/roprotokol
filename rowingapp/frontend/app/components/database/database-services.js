@@ -497,6 +497,20 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     datastatus['cox']=null;
     return su;
   }
+
+  this.cox_request = function(data) {
+    var su=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/cox/request_team.php', data).then(function(r) {
+      su.resolve(r.data);
+    },function(r) {
+      su.resolve(false);
+      $log.debug("COX REQUEST err "+Date());
+    });
+    datastatus['cox']=null;
+    return su;
+  }
+
   
   this.addTeam = function(data) {
     var adt=$q.defer();
@@ -510,17 +524,28 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return adt;
   }
 
-    this.add_cox_team = function(data) {
-      var adt=$q.defer();
-      var res=undefined;
-      $http.post('../../backend/cox/addteam.php', data).then(function(r) {
-        adt.resolve(r.data);
-      },function(r) {
-        adt.resolve(false);
-      });
-      datastatus['cox']=null;
-      return adt;
-    }
+  this.set_cox_team = function(data) {
+    var adt=$q.defer();
+    $http.post('../../backend/cox/set_team.php', data).then(function(r) {
+      adt.resolve(r.data);
+    },function(r) {
+      adt.resolve(false);
+    });
+    datastatus['cox']=null;
+    return adt;
+  }
+
+  this.add_cox_team = function(data) {
+    var adt=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/cox/add_team.php', data).then(function(r) {
+      adt.resolve(r.data);
+    },function(r) {
+      adt.resolve(false);
+    });
+    datastatus['cox']=null;
+    return adt;
+  }
   
   this.deleteTeam = function(data) {
     var dt=$q.defer();

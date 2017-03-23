@@ -16,24 +16,61 @@
 
   <h2>Tilføj nyt hold</h2>
   
-  <ng-form name="newTeam">
-
+  <ng-form name="newTeam">    
     <input placeholder="holdnavn" autocomplete="off" "teamname" name="teamname" type="text" ng-model="newteam.name" required />
-    <input placeholder="hold beskrivelse" autocomplete="off" "teamdesc" name="teamdesc" type="text" ng-model="newteam.description" />
-
-
+    <input placeholder="hold beskrivelse" autocomplete="off" "teamdesc" name="teamdesc" type="text" ng-model="newteam.description" />        
     <input placeholder="instruktør" autocomplete="off" id="coxinstructor" name="coxinstructor" type="text" ng-model="newteam.instructor"
            typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue) | filter: coxinstructor(rower)"
                 typeahead-template-url="memberTemplate.html" required />
     <br>
+    <button class="green" ng-click="addTeam()">opret styrmandshold</button>
+  </ng-form>
 
-  <button ng-click="addTeam()">opret styrmandshold</button>
-</ng-form>
+
+  <h2>Styrmandsaspiranter</h2>
+
+  <div>
+    <ng-form name="teamMembers">    
+      <table>
+        <thead>
+          <th><button class="header" ng-click="sortAspirantBy('name')">Name</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('team')">Hold</button></th>
+          <th>Telefon</th>
+          <th>Email</th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrækker</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter</button></th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="aspirant in aspirants">
+          <td>{{aspirant.name}}</td>
+          <td>
+            <select name="teamchooser" id="teamselect" ng-model="aspirant.team"
+                    ng-options="team.name as team.name for team in teams| orderBy: 'team'" ng-change="updateTeamForAspirant(aspirant,team)" required>
+            </select>
+          </td>
+          <td>{{aspirant.phone}}</td>
+          <td>{{aspirant.email}}</td>
+          <td>{{aspirant.preferred_time}}</td>
+          <td>{{aspirant.activities}}</td>
+          <td>
+      </tbody>
+    </table>
+  </ng-form>
+</div>
+  
+<h2>Godkendelser</h2>
 
 
+  <pre>
+ASP{{aspirants}}
+</pre>
+<br>
 <pre>
 {{newteam}}
 </pre>
+
+
+
 
 <pre>
 	Afmærkning af medlemmets deltagelse på et hold (gerne et holdnummer, der går igen i næste modul)

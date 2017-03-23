@@ -1,0 +1,1016 @@
+/* Generic */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10pt;
+    color: #555;
+    background: #F1F2F7;
+    font-weight: 400;
+}
+
+button {
+    border-radius: 5px;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    width: auto;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tools ul {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 2em;
+    color: blue    max-width: 29%;
+    position :fixed;
+}
+
+.tools a {
+    color: red;
+    font-weight: bold;
+}
+
+pre.ng-binding {
+    /* display: none; */
+}
+*:focus {
+    outline: 0;
+}
+
+button {
+    -webkit-appearance: none;
+    background: none;
+    border-radius: 5px;
+    border: 0;
+    padding: 4pt 10pt;
+    margin-top: 5pt;
+    border: 1px solid #ccc;
+}
+
+button:hover {
+    /*    color: #23AEE2;*/
+    /*    border: 1px solid #23AEE2;*/
+}
+button i {
+    margin-right: 5pt;
+}
+button.red {   
+    border: 1px solid #FF6C60;
+    color: #FF6C60;
+}
+button.green {   
+    border: 1px solid #3ECBBF;
+    background: #028000;
+    color: #FFFFFF;
+}
+button.header {   
+    border: 1px solid #000000;
+    color: #FFFFFF;
+    background: #75c1be;
+}
+button.klar {   
+    border: 1px solid #3ECBBF;
+    color: #000000;
+    background:#F1FFEF;
+    padding: 1pt 3pt;
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+}
+
+
+button.yellow {
+    color: #f0ce4e;
+    border: 1px solid #f0ce4e;
+}
+
+td.usage {
+    max-width:14pt;
+}
+
+td.boatname {
+    max-width:6em;
+}
+
+button.big,button.action,input.big {
+    background: #D6FFB6; !important;
+    border: 2px solid #000000;
+    color: #000000;
+    margin-top:0px;
+}
+
+button.minor {
+    color: #000000;
+    font-size: 8pt;
+    background: #FFFAC5; !important;
+    border: 1px solid #000000;
+    padding 4px;
+    margin-left: 4px;
+    margin-top:0px;
+}
+
+
+button.action {
+    color: #000000;
+    padding: 0pt 8pt;
+}
+
+input.big {
+    color: #000000;
+}
+
+
+button#createtrip_button[disabled] {
+    color: gray;
+    border: 1px solid blue;
+}
+
+/* Custom */
+.menuholder {
+    margin: 0;
+}
+.menu li.logo {
+    padding: 0;
+    padding-top: 3pt;
+    padding-left: 4pt;
+}
+.logo img {
+    height: 30pt;
+}
+.menu {
+    list-style: none;
+    background: #0088C0;
+    padding: 0 10pt;
+    margin: 0;
+    width: 70%
+}
+.menu li {
+    display: inline-block;
+    padding: 4pt 4pt;
+    margin: 0;
+    cursor: pointer;
+    vertical-align: top;
+}
+.menu li a {
+    color: white;
+    text-decoration: none;
+}
+.menu li:hover a {
+    color: #d4d4c8;
+}
+.quarter {
+    color: green;
+    font-size: 16pt;
+    margin-right: 4pt;
+}
+
+.menu li i {
+    font-size: 12pt;
+    margin-right: 4pt;
+}
+.menu li:hover i {
+    color: #ede511;
+}
+
+.main {
+    margin: 0;   
+    padding: 4pt 6pt;
+}
+
+.prompt {
+    display:inline-block;
+}
+button.statcat, button.adminbut {
+    background: #EEC88E;
+    margin: 3pt;
+}
+
+
+.boatlist,
+.statlist,
+.coxlist,
+.rower,
+.boatcategories,
+.genericcategories,
+.stats,
+.baselayout,
+.setboats {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 3pt;
+    margin-left: 3pt;
+}
+
+.boatlist {
+    float:left;
+    min-width:9em;
+}
+
+.adminrower,.adminconvertrower {
+    float:left;
+    width: 100%;
+}
+
+.checkout_destination {
+    min-width : 200px;
+}
+
+.checkout-form {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 1pt;
+    margin-left: 1pt;
+    float:left;
+    border: 4px solid red;
+    border-style: solid;
+    border-color: red;
+    border-radius: 1.5em;
+    padding: 1em;
+}
+
+
+.boatdamages {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10pt;
+    display: inline-block;
+    padding: 8px;
+}
+
+.genericmenu h2 {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-radius: 5px 5px 0 0;
+}
+.genericmenu ul {
+    background: white;
+}
+.genericmenu ul li {
+    cursor: pointer;
+}
+
+.genericmenu ul li:hover {
+    background: #57C8F2;
+}
+
+.genericmenu {
+    width: auto;
+}
+
+.boattypesmenu {
+    margin-left=1%;
+    margin-right=1%;
+    float:left;
+}
+
+.boatstat {
+    float:left;
+}
+.rowerstat {
+    float:left;
+    margin-bottom: 2em;
+}
+
+.triptypeview {
+    float:left;
+}
+
+.tripview {
+    float:right;
+    right:0px;
+    margin-top: 0.5em;
+    bottom:0px;
+    top:0px;
+    max-width: 29%;
+    position :fixed;
+}
+
+.listmenu,.boattypesmenu caption{
+    background: #23aee2;
+    padding: 10pt;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+
+.listmenu,.boattypesmenu table caption {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+
+table caption {
+    background: #23aee2;
+    color: white;
+    font-size: 12pt;
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+}
+
+.correction {
+    border-style: solid;
+    border-color: #ff0000;
+    border-radius: 5px 5px 5px 5px;
+    display:inline-block;
+}
+
+.rightbox {
+    float:right;
+    border-style: solid;
+    border-color: #ff0000;
+    border-radius: 5px 5px 5px 5px;
+    width:auto;
+    //    display: inline-block;
+    padding: 5px;
+    right : 0px;
+    margin-top: 3em;
+    top: 0px;
+    max-width: 32%;
+    position :fixed;
+}
+
+.blok, .destinations {
+    display: inline-block;
+    float: left;
+}
+.rowchart {
+    display: inline-block;
+    width : 100%;
+}
+
+.newboattype {
+    margin-top: 2em;
+}
+
+.listmenu,.boattypesmenu ul {
+    background: white;
+}
+
+li.selected,button.selected {
+    background: #50E663 !important;
+}
+
+
+.coxlist {
+    background: #50E663 !important;
+    border-radius: 5px;
+    overflow: visible;
+    float:left;
+    margin-bottom: 2em;
+}
+
+.coxlist thead th {
+    background: #3ECBBF;
+    color: white;
+    padding: 9pt 10pt 9pt 10pt;
+    font-weight: 400;
+    border-right: 1px solid white;
+    user-select:none;
+    -webkit-user-select:none;
+}
+
+.coxlist thead th,
+.coxlist tbody tr.genericheader th {
+    background: #3ECBBF;
+    color: white;
+    padding: 9pt 10pt 9pt 10pt;
+    font-weight: 400;
+    border-right: 1px solid white;
+    user-select:none;
+    -webkit-user-select:none;
+}
+
+.statlist,.coxlist thead th {
+    background: #3ECBBF;
+    color: white;
+    padding: 9pt 10pt 9pt 10pt;
+    font-weight: 400;
+    border-right: 1px solid white;
+    user-select:none;
+    -webkit-user-select:none;
+}
+
+.boatlist thead th:first-child {
+    border-radius: 5px 0 0 0;
+}
+
+
+.boatlist thead th:last-child {
+    border-radius: 0 5px 0 0 0;
+    background: #3ECBBF;
+}
+
+.boatlist thead th:last-child {
+    border-radius: 0 5px 0 0 !important;
+}
+
+.coxlist td {
+    padding: 0 0 0 0;
+    border-right: 1px solid #F1F2F7;
+    border-bottom: 1px solid #F1F2F7;
+}
+
+.rnum {
+    text-align: right!important;
+    padding-right: 6px;
+}
+
+.selected td {
+    padding: 0 0 0 0;
+    border-right: 1px solid #F1F2F7;
+    border-bottom: 1px solid #F1F2F7;
+    background: #50E663;
+}
+
+
+.boatlist tr td {
+    padding: 2pt 4pt 2pt 6pt;
+    user-select:none;
+    -webkit-user-select:none;
+}
+
+.boatlist tr td.colinput {
+    text-align:center;
+}
+
+.deletion  {
+    background: #F5B8B8;
+}
+
+.boatlist tr:hover {
+    background: #6ad7ce;
+}
+
+.boatlist tr td {
+    cursor: pointer;
+    /*    cursor: url('btc.png'),pointer; */
+}
+.statlist,.coxlist td {
+    padding: 6pt 10pt 6pt 10pt;
+    border-right: 1px solid #F1F2F7;
+    border-bottom: 1px solid #F1F2F7;
+}
+
+.checkout-form h2 {
+    background: #3ECBBF;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 1.5em 1.5em 0 0;
+}
+.checkout-form form {
+    padding: 1pt;
+    background: white;
+}
+.checkout-form label {
+    font-weight: 400;
+    color: #555;
+}
+.checkout-form td > input,
+.checkout-form select,
+.checkout-form textarea {
+    border-radius: 1.5empx;
+    border: 1px solid #ccc;
+    padding: 3pt;
+    margin-bottom: 0pt;
+}
+.checkout-form .dropdown {
+    margin-bottom: 10pt;
+}
+.checkout-form td > input,
+.checkout-form select,
+.checkout-form .quickdate,
+.checkout-form .dropdown,
+.checkout-form textarea {
+    margin-right: 2pt;
+    margin-left: 0pt;
+}
+
+.damageslist h2 {
+    background: #f0ce4e;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+
+.oddstat {
+    background: #FFAA88;
+}
+
+.stattypesmenu h2 {
+    background: #23aee2;
+    padding: 10pt;
+    color: white;
+    font-size: 10pt;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+    border-radius: 5px 5px 0 0;
+}
+.stattypesmenu ul li {
+    padding: 5pt 10pt;
+    cursor: pointer;
+}
+
+.rightsmessage {
+    max-width: 20em;
+    background: yellow;
+}
+
+.error {
+    color: red;
+}
+
+.message {
+    color: red;
+}
+
+
+.checkoutmessage {
+    color: black;
+    background: #07FF00;
+    font-size: 20pt;
+    max-width: 30em;        
+    border-radius: 8px;
+}
+.checkouterrormessage {
+    color: black;
+    background: #FF8888;
+    font-size: 22pt;
+    max-width: 30em;        
+    border-radius: 8px;
+}
+
+.farvand {
+    float:left;
+    margin-left: 1em;
+    margin-top: 1em;
+}
+
+.turoversigt,.boattrips {
+    display:inline-block;
+    vertiacal-align:top;
+    cursor: pointer;
+}
+
+.seasonschart {
+    display:inline-block;
+    float:left;
+    width:70%;
+}
+
+textarea.damagetext {
+    width:40%;
+    vertical-align: top;
+}
+
+div.report {
+    margin-top: 1.5em;
+}
+
+div.guestpenguin {
+    margin: 0em 1em 2em 0em !important;
+}
+
+
+.numin  {
+    max-width: 3em;
+    text-align: right!important;
+    
+}
+
+input[type=number]::-webkit-inner-spin-button {  
+    opacity: 1;
+}
+
+
+select  {
+    border-radius: 1.5empx;
+    border: 1px solid #ccc;
+    padding: 3pt;
+    margin-bottom: 0pt;
+    background-color: #FFB992;
+    border-radius: 5px;
+}
+
+.leftpane {
+    float:left;
+    width:70%;
+}
+
+.toppane {
+    width: 100%;
+    clear:both;
+}
+.alert {
+    color: #f00;
+}
+
+.datealert {
+    background: #f00;
+}
+
+.toppopup .uib-datepicker-popup {
+    top: 0px!important;
+}
+
+.debug {
+    width:100%;
+}
+
+.checkinactions {
+    display: flex;
+}
+
+.currenttripdata {
+    max-width:500px;
+}
+.changedtripdata {
+    max-width:30em;
+}
+
+button[disabled], html input[disabled] {
+    cursor: default;
+    background: #808080 !important;
+    pointer-events: none;
+}
+
+.rowerdiff {
+    margin-left: 3em;
+}
+
+.aisle {
+    max-width: 5em;
+}
+
+.seatcount {
+    max-width: 5em;	
+}
+
+.ok,.degree {
+    text-align:center;
+}
+
+.crewcount {
+    background: #E3FFE8;
+}
+
+.trip-search-field {
+    display: inline;
+    min-height: 34px;
+    padding: 6px;
+}
+
+tr.tripcomment {
+    border: 2px solid #23aee2;
+    border-top: none;
+}
+tr.tripcomment td {
+    padding: 3px;
+}
+
+input.tripcomment {
+    width: 12em;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.uib-time input {
+    width: 2em;
+}
+
+.uib-timepicker tr td {
+    padding : 0px;
+}
+
+
+.form-control {
+    padding: 0px;
+}
+
+.tbody {
+    background : #FFD;
+}
+
+.chart-bar {
+    background : #DFD;
+}
+
+select.ng-invalid, input.ng-invalid {
+    background: #FCC;
+}
+
+datetimepicker.ng-empty ng-form div input {
+    background: #FCC;
+}
+
+
+.checkout_destination div span.btn {
+    background: #FCC;
+}
+
+.checkout_destination.ng-dirty div span.btn {
+    background: white;
+}
+
+.ng-pristine {
+    background: white;
+}
+.error {
+    color: red;
+    background:white;
+}
+.widget-clock .time {
+    font-size: 2.0em;
+    margin: 0;
+    color: yellow;
+}
+
+.hours {
+    margin-left: 4em;
+    font-size: 1.0em;
+}
+
+.uib-datepicker tr td {
+    background: #DAD3D3;
+    padding: 0px;
+}
+
+.uib-datepicker button {
+    margin: 0px;
+    padding: 0px;
+}
+.uib-daypicker button {
+    margin: 0px;
+}
+
+datetimepicker.trip-search-field ng-form div input {
+    background: white;
+}
+
+.destinationlist {
+    background: yellow;
+    width: 30em;
+    position:fixed;
+    border: 2px solid blue;
+}
+
+.topsel {
+    xbackground: green;
+    background:#BFFFBF;
+    border-radius: 0.8em;
+    color: black !important;
+    border: 1px solid yellow;
+}
+
+.topsel a {
+    color: black !important;
+}
+
+.topsel i {
+    color: black;
+}
+
+.listbox {
+    background-color: #ddddff;
+    display:inline-block;
+    border-radius: 0.4em;
+    padding: 1em;
+}
+
+.listbox th {
+    padding-left: 1em;
+    padding-right: 1em;
+    align:center;
+}
+
+textarea.signuptext {
+    width:40%;
+    vertical-align: top;
+    align:center;
+}
+
+#year_report,
+#year_report div,
+#year_report h1,
+#year_report h2,
+#year_report h3,
+#year_report h4,
+#year_report p,
+#year_report table
+ {
+  background: #fff;
+  color: #000;
+  font-family: Garamond, sans-serif;
+}
+
+#year_report {
+  padding-left: 3cm;
+  padding-right: 2cm;
+}
+
+#year_report h3 {
+  padding-top: 4em;
+  padding-bottom: 3em;
+}
+
+#year_report h3,
+#year_report h4,
+#year_report h5 {
+  color: #003;
+  padding-bottom: 0.5em;
+}
+
+#year_report h4,
+#year_report h5 {
+  margin-top: 3em;
+}
+
+#year_report h5 {
+  font-weight: bold;
+}
+.report-front-page > h1,
+.report-front-page > img,
+.report-front-page > i,
+.report-front-page > h2 {
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 4em;
+   display: block;
+   text-align: center;
+}
+
+#year_report table,
+#year_report td {
+  border: solid 2px #003;
+}
+
+#year_report tr.header {
+  color: #fff;
+  background: #003;
+}
+
+#year_report th {
+  font-weight: normal;
+  vertical-align:bottom;
+}
+
+#year_report th.supercat {
+  border-bottom: 1px solid #fff;
+  border-left: 1px solid #fff;
+  text-align: center;
+}
+
+#year_report th.subcat-left {
+  border-left: 1px solid #fff;
+}
+
+#year_report > table.repeated > datacell {
+  width: 3em;
+}
+
+#year_report td,
+#year_report th {
+  padding: 0.1em;
+  padding-left: 1em;
+  padding-right: 0.5em;
+  text-align: right;
+}
+
+#year_report td.left,
+#year_report th.left {
+  text-align: left;
+}
+
+#year_report td.center,
+#year_report th.center {
+  text-align: center;
+}
+
+#year_report td.vertical,
+#year_report th.vertical {
+  transform: rotate(270deg);
+  height: 20em;
+}
+
+#year_report td.top,
+#year_report th.top {
+  vertical-align: top;
+}
+
+#year_report th.slanted {
+  height: 12em;
+  white-space: nowrap;
+}
+
+#year_report tr.header > th.slanted > div {
+  transform: translate(3em,-1.4em) rotate(315deg);
+  width: 4em;
+  background: #003;
+}
+
+#year_report tr.header > th.slanted > div > span {
+  border-bottom: 2px solid #fff;
+  background: #003;
+  padding: 0.7em 0em;
+}
+
+#year_report tr.header > th.slanted > div > span {
+  background: #003;
+  color: #fff;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+@media print {
+  .report-front-page {
+    page-break-after: always;
+  }
+
+  #year_report > h3 {
+    page-break-before: always;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  #year_report > h5 {
+    page-break-after: avoid;
+  }
+
+  #year_report > table > tr.header,
+  #year_report > table > tr.header > th {
+    color: #003;
+    background: #fff;
+    font-weight: bold;
+    border: 3px solid #003;
+  }
+
+  #year_report th {
+      font-weight: bold;
+      border: 3px solid #003;
+  }
+	#year_report th.supercat {
+	  border: 3px solid #003;
+	}
+	
+	#year_report th.subcat-left {
+	  border-left: 3px solid #003;
+	}
+	
+
+    #year_report tr.header > th.slanted,
+    #year_report tr.header > th.around-slanted {
+      border: none;
+    }
+
+	#year_report tr.header > th.slanted > div {
+	  background: #fff;
+	}
+	
+	#year_report tr.header > th.slanted > div > span {
+	  border-bottom: 2px solid #003;
+	  background: #fff;
+	}
+	
+	#year_report tr.header > th.slanted > div > span {
+	  background: #fff;
+	  color: #003;
+	}
+
+}
+
+.nottoday {
+	  background: #bbbbaa;    
+}
+
+@media screen {
+  #year_report > h3 {
+    margin-top: 4em;
+    border-top: 2px dashed #003;
+    padding-top: 3em;
+  }
+}

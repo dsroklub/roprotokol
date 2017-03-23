@@ -4,6 +4,12 @@ UPDATE Member
 Set LastName=Replace(LastName,"  "," ");
 
 UPDATE Member
+Set LastName=TRIM(LastName);
+
+UPDATE Member
+Set FirstName=TRIM(FirstName);
+
+UPDATE Member
 Set FirstName=Replace(FirstName,"  "," ");
 
 

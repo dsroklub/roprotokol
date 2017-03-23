@@ -5,6 +5,7 @@
   </a>
 </script>
 
+<div>
 <ng-form name="coxAspirant">
   <h2>Opskrivning på styrmandshold</h2>
   
@@ -43,13 +44,39 @@ Og desuden:
     <textarea placeholder="fri tekst, fx hvem du gerne vil på hold med"
               class="signuptext" autocomplete="off" id="signupcmt" name="cmt" type="text" ng-model="signup.comment" required>
     </textarea>
-
 <br>
-  
   <button class="klar" ng-click="dosignup()">Registrer</button>
-
-
 </ng-form>
+</div>
+
+
+<div>
+  <h2>Styrmandsaspiranter</h2>
+
+      <ng-form name="teamMembers">    
+      <table class="coxlist genericlist">
+        <thead>
+          <th><button class="header" ng-click="sortAspirantBy('name')">Name</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske</button></th>
+          <th>Telefon</th>
+          <th>Email</th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrækker</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter</button></th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="aspirant in aspirants">
+          <td>{{aspirant.name}}</td>
+          <td>{{aspirant.wish}}</td>
+          <td>{{aspirant.phone}}</td>
+          <td>{{aspirant.email}}</td>
+          <td>{{aspirant.preferred_time}}</td>
+          <td>{{aspirant.activities}}</td>
+          <td>
+      </tbody>
+    </table>
+  </ng-form>
+
+</div>
 <br>
 <!--pre>{{currentteam}}</pre-->
 <pre>asp: {{signup.aspirant}}</pre>

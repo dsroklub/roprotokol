@@ -40,5 +40,11 @@ function invalidate($tp) {
 
 }
 
+function dbErr(&$db,&$res,$err="") {
+    $res["status"]=$db->error;
+    error_log("Database error ".$db->error);
+    http_response_code(500);
+}
+
 
 ?>
