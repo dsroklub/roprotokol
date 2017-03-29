@@ -23,7 +23,7 @@
 intensitet.
   <br>
   Jeg foretrækker instruktion til 
-  <select name="intensitychooser" id="signupintensity" ng-model="signup.preferredTime"
+  <select name="intensitychooser" id="signupintensity" ng-model="signup.preferred_time"
           ng-options="season for season in seasons" required>
   </select>
 
@@ -38,6 +38,9 @@ intensitet.
   <br>
   Mit telefonnummer er:
   <input autocomplete="off" ng-model="signup.phone" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required ></input>
+
+  Min email er:
+  <input autocomplete="off" ng-model="signup.email" maxlength="255" class="ui-select-bootstrap" type="text" name="input" required ></input>
 
     <br>
 Og desuden:
@@ -79,4 +82,4 @@ Og desuden:
 <br>
 <!--pre>{{currentteam}}</pre-->
 <pre>asp: {{signup.aspirant}}</pre>
-<pre>sup: {{signup}}</pre>
+<pre>sup: {{signup|json}}</pre>

@@ -86,6 +86,9 @@ coxApp.controller(
        DatabaseService.cox_request($scope.signup).promise.then(
          function(st) {
            $log.debug("did sign up");
+           $scope.signup.name=$scope.signup.aspirant.name;
+           $scope.signup.activities=$scope.signup.act.join();
+           $scope.aspirants.push($scope.signup);
          }
        );
      }
