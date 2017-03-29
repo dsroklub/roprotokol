@@ -42,7 +42,7 @@
           <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter</button></th>
       </thead>
       <tbody>
-        <tr ng-repeat="aspirant in aspirants">
+        <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
           <td>{{aspirant.name}}</td>
           <td>
             <select name="teamchooser" id="teamselect" ng-model="aspirant.team"
