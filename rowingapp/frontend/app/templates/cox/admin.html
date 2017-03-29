@@ -37,7 +37,8 @@
           <th><button class="header" ng-click="sortAspirantBy('team')">Hold</button></th>
           <th>Telefon</th>
           <th>Email</th>
-          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrækker</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretr. tid</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_intensity')">Foretr int</button></th>
           <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter</button></th>
       </thead>
       <tbody>
@@ -51,6 +52,7 @@
           <td>{{aspirant.phone}}</td>
           <td>{{aspirant.email}}</td>
           <td>{{aspirant.preferred_time}}</td>
+          <td>{{aspirant.preferred_intensity}}</td>
           <td>{{aspirant.activities}}</td>
           <td>
       </tbody>

@@ -4,7 +4,7 @@ $res=array ("status" => "ok");
 
 set_include_path(get_include_path().':..');
 include("inc/common.php");
-$s='SELECT Member.MemberId as member_id, wish, team_requests.phone,team_requests.email,team,CONCAT(Member.FirstName," ",Member.LastName) as name, preferred_time, activities,comment
+$s='SELECT Member.MemberId as member_id, wish, team_requests.phone,team_requests.email,team,CONCAT(Member.FirstName," ",Member.LastName) as name, preferred_time, preferred_intensity,activities,comment
     FROM team_requests, Member where Member.id=team_requests.member_id
     ORDER BY team
 ';

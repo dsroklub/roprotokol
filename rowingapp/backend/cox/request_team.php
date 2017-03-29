@@ -11,12 +11,14 @@ error_log("act= $activities");
 
 $res=array ("status" => "ok");
 
-if ($stmt = $rodb->prepare("INSERT INTO team_requests (date_enter, preferred_time, preferred_intensity, comment, activities, member_id) SELECT NOW(),?,?,?,?,Member.id FROM Member Where MemberID=?")) {
-    $stmt->bind_param('sssss',
-    $reg->preferredTime,
-    $reg->preferredIntensity,
+if ($stmt = $rodb->prepare("INSERT INTO team_requests (date_enter, preferred_time, preferred_intensity, comment, activities, phone,email,member_id) SELECT NOW(),?,?,?,?,?,?,Member.id FROM Member Where MemberID=?")) {
+    $stmt->bind_param('sssssss',
+    $reg->preferred_time,
+    $reg->preferred_intensity,
     $reg->comment,
     $activities,    
+    $reg->phone,
+    $reg->email,
     $reg->aspirant->id
     );
     if (!$stmt->execute()) {
