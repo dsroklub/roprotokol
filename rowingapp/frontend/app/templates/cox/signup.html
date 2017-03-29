@@ -64,14 +64,13 @@ Og desuden:
           <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter</button></th>
       </thead>
       <tbody>
-        <tr ng-repeat="aspirant in aspirants">
+        <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
           <td>{{aspirant.name}}</td>
           <td>{{aspirant.wish}}</td>
           <td>{{aspirant.phone}}</td>
           <td>{{aspirant.email}}</td>
           <td>{{aspirant.preferred_time}}</td>
           <td>{{aspirant.activities}}</td>
-          <td>
       </tbody>
     </table>
   </ng-form>
