@@ -17,6 +17,9 @@ coxApp.controller(
        DatabaseService.getDataNow('cox/team',null,function (res) {
          $scope.teams=res.data;
        });
+       DatabaseService.getDataNow('cox/requirements',null,function (res) {
+         $scope.requirements=res.data;
+       });
        DatabaseService.getDataNow('cox/aspirants',null,function (res) {
          $scope.aspirants=res.data;
        }

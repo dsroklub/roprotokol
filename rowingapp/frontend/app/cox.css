@@ -94,12 +94,12 @@ button.yellow {
     border: 1px solid #f0ce4e;
 }
 
-td.usage {
-    max-width:14pt;
+th {
+    padding: 0.5em;
 }
 
-td.boatname {
-    max-width:6em;
+td.usage {
+    max-width:14pt;
 }
 
 button.big,button.action,input.big {
@@ -214,37 +214,6 @@ button.statcat, button.adminbut {
 .boatlist {
     float:left;
     min-width:9em;
-}
-
-.adminrower,.adminconvertrower {
-    float:left;
-    width: 100%;
-}
-
-.checkout_destination {
-    min-width : 200px;
-}
-
-.checkout-form {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 1pt;
-    margin-left: 1pt;
-    float:left;
-    border: 4px solid red;
-    border-style: solid;
-    border-color: red;
-    border-radius: 1.5em;
-    padding: 1em;
-}
-
-
-.boatdamages {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 10pt;
-    display: inline-block;
-    padding: 8px;
 }
 
 .genericmenu h2 {
@@ -440,17 +409,6 @@ li.selected,button.selected {
     background: #50E663;
 }
 
-
-.boatlist tr td {
-    padding: 2pt 4pt 2pt 6pt;
-    user-select:none;
-    -webkit-user-select:none;
-}
-
-.boatlist tr td.colinput {
-    text-align:center;
-}
-
 .deletion  {
     background: #F5B8B8;
 }
@@ -459,10 +417,6 @@ li.selected,button.selected {
     background: #6ad7ce;
 }
 
-.boatlist tr td {
-    cursor: pointer;
-    /*    cursor: url('btc.png'),pointer; */
-}
 .statlist,.coxlist td {
     padding: 6pt 10pt 6pt 10pt;
     border-right: 1px solid #F1F2F7;
@@ -486,57 +440,9 @@ li.selected,button.selected {
     font-weight: 400;
     color: #555;
 }
-.checkout-form td > input,
-.checkout-form select,
-.checkout-form textarea {
-    border-radius: 1.5empx;
-    border: 1px solid #ccc;
-    padding: 3pt;
-    margin-bottom: 0pt;
-}
-.checkout-form .dropdown {
-    margin-bottom: 10pt;
-}
-.checkout-form td > input,
-.checkout-form select,
-.checkout-form .quickdate,
-.checkout-form .dropdown,
-.checkout-form textarea {
-    margin-right: 2pt;
-    margin-left: 0pt;
-}
-
-.damageslist h2 {
-    background: #f0ce4e;
-    padding: 10pt;
-    color: white;
-    font-size: 10pt;
-    font-weight: 400;
-    border-bottom: 1px solid white;
-    border-radius: 5px 5px 0 0;
-}
 
 .oddstat {
     background: #FFAA88;
-}
-
-.stattypesmenu h2 {
-    background: #23aee2;
-    padding: 10pt;
-    color: white;
-    font-size: 10pt;
-    font-weight: 400;
-    border-bottom: 1px solid white;
-    border-radius: 5px 5px 0 0;
-}
-.stattypesmenu ul li {
-    padding: 5pt 10pt;
-    cursor: pointer;
-}
-
-.rightsmessage {
-    max-width: 20em;
-    background: yellow;
 }
 
 .error {
@@ -548,43 +454,6 @@ li.selected,button.selected {
 }
 
 
-.checkoutmessage {
-    color: black;
-    background: #07FF00;
-    font-size: 20pt;
-    max-width: 30em;        
-    border-radius: 8px;
-}
-.checkouterrormessage {
-    color: black;
-    background: #FF8888;
-    font-size: 22pt;
-    max-width: 30em;        
-    border-radius: 8px;
-}
-
-.farvand {
-    float:left;
-    margin-left: 1em;
-    margin-top: 1em;
-}
-
-.turoversigt,.boattrips {
-    display:inline-block;
-    vertiacal-align:top;
-    cursor: pointer;
-}
-
-.seasonschart {
-    display:inline-block;
-    float:left;
-    width:70%;
-}
-
-textarea.damagetext {
-    width:40%;
-    vertical-align: top;
-}
 
 div.report {
     margin-top: 1.5em;
@@ -686,13 +555,6 @@ button[disabled], html input[disabled] {
 tr.tripcomment {
     border: 2px solid #23aee2;
     border-top: none;
-}
-tr.tripcomment td {
-    padding: 3px;
-}
-
-input.tripcomment {
-    width: 12em;
 }
 
 textarea {
@@ -862,145 +724,6 @@ textarea.signuptext {
    margin-top: 4em;
    display: block;
    text-align: center;
-}
-
-#year_report table,
-#year_report td {
-  border: solid 2px #003;
-}
-
-#year_report tr.header {
-  color: #fff;
-  background: #003;
-}
-
-#year_report th {
-  font-weight: normal;
-  vertical-align:bottom;
-}
-
-#year_report th.supercat {
-  border-bottom: 1px solid #fff;
-  border-left: 1px solid #fff;
-  text-align: center;
-}
-
-#year_report th.subcat-left {
-  border-left: 1px solid #fff;
-}
-
-#year_report > table.repeated > datacell {
-  width: 3em;
-}
-
-#year_report td,
-#year_report th {
-  padding: 0.1em;
-  padding-left: 1em;
-  padding-right: 0.5em;
-  text-align: right;
-}
-
-#year_report td.left,
-#year_report th.left {
-  text-align: left;
-}
-
-#year_report td.center,
-#year_report th.center {
-  text-align: center;
-}
-
-#year_report td.vertical,
-#year_report th.vertical {
-  transform: rotate(270deg);
-  height: 20em;
-}
-
-#year_report td.top,
-#year_report th.top {
-  vertical-align: top;
-}
-
-#year_report th.slanted {
-  height: 12em;
-  white-space: nowrap;
-}
-
-#year_report tr.header > th.slanted > div {
-  transform: translate(3em,-1.4em) rotate(315deg);
-  width: 4em;
-  background: #003;
-}
-
-#year_report tr.header > th.slanted > div > span {
-  border-bottom: 2px solid #fff;
-  background: #003;
-  padding: 0.7em 0em;
-}
-
-#year_report tr.header > th.slanted > div > span {
-  background: #003;
-  color: #fff;
-  white-space: nowrap;
-  overflow: visible;
-}
-
-@media print {
-  .report-front-page {
-    page-break-after: always;
-  }
-
-  #year_report > h3 {
-    page-break-before: always;
-    margin-top: 0;
-    padding-top: 0;
-  }
-
-  #year_report > h5 {
-    page-break-after: avoid;
-  }
-
-  #year_report > table > tr.header,
-  #year_report > table > tr.header > th {
-    color: #003;
-    background: #fff;
-    font-weight: bold;
-    border: 3px solid #003;
-  }
-
-  #year_report th {
-      font-weight: bold;
-      border: 3px solid #003;
-  }
-	#year_report th.supercat {
-	  border: 3px solid #003;
-	}
-	
-	#year_report th.subcat-left {
-	  border-left: 3px solid #003;
-	}
-	
-
-    #year_report tr.header > th.slanted,
-    #year_report tr.header > th.around-slanted {
-      border: none;
-    }
-
-	#year_report tr.header > th.slanted > div {
-	  background: #fff;
-	}
-	
-	#year_report tr.header > th.slanted > div > span {
-	  border-bottom: 2px solid #003;
-	  background: #fff;
-	}
-	
-	#year_report tr.header > th.slanted > div > span {
-	  background: #fff;
-	  color: #003;
-	}
-
 }
 
 .nottoday {

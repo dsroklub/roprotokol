@@ -41,8 +41,15 @@ DROP TABLE IF EXISTS course_requirement;
 CREATE TABLE course_requirement (
        name varchar(200),
        description varchar(2000),
-       expiry    INTEGER -- months, NULL for non expiery
+       expiry    INTEGER, -- months, NULL for non expiery
+       dispensation BOOL
 );
+
+
+INSERT INTO course_requirement VALUES ("landgang","Landgang på åben kyst",12,false);
+INSERT INTO course_requirement VALUES ("tillægning","Tillægning ved ponton",12,false);
+INSERT INTO course_requirement VALUES ("entring","entringsøvelse",12,true);
+INSERT INTO course_requirement VALUES ("kanal","Kanaltur i Københavns havn",12,true);
 
 DROP TABLE IF EXISTS course_requirement_pass;
 CREATE TABLE course_requirement_pass (

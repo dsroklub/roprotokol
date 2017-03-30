@@ -35,6 +35,10 @@ var coxApp = angular.module('coxApp', [
 	  templateUrl: 'templates/cox/admin.html',
 	  controller: 'coxCtrl'
 	});
+	$routeProvider.when('/requirements/', {
+	  templateUrl: 'templates/cox/requirements.html',
+	  controller: 'coxCtrl'
+	});
 	$routeProvider.when('/', {redirectTo: '/ud'});
 	$routeProvider.otherwise({
 	  templateUrl: 'templates/notimplementet.html',

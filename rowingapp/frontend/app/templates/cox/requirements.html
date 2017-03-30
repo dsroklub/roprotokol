@@ -1,0 +1,38 @@
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<h2>Krav</h2>
+ 
+<table>
+  <tr>
+    <th>Navn</th>
+    <th>Krav</th>
+    <th>Udløber/måneder</th>
+    <th>Kan dispensereres<br> for udløb</th>
+  </tr>
+  <tr ng-repeat="rq in requirements">
+    <td>{{rq.name}}</td>
+    <td>{{rq.description}}</td>
+    <td class="rnum"> {{rq.expiry}}</td>
+    <td>{{rq.dispensation}}</td>
+  </tr>
+</table>
+</div>
+  
+<h2>Godkendelser</h2>
+
+
+<pre>Rq:{{requirements|json}}</pre>
+
+
+
+
+<pre>
+	Afmærkning af medlemmets deltagelse på et hold (gerne et holdnummer, der går igen i næste modul)
+	Mulighed for at ”trække et medlem tilbage” på listen fra et hold
+	Mulighed for at sortere og/eller finde via de seks første feltoplysninger
+</pre>

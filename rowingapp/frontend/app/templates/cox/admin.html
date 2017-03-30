@@ -40,6 +40,7 @@
           <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretr. tid</button></th>
           <th><button class="header" ng-click="sortAspirantBy('preferred_intensity')">Foretr int</button></th>
           <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter</button></th>
+          <th>Godkendelser</th>
       </thead>
       <tbody>
         <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
@@ -55,6 +56,11 @@
           <td>{{aspirant.preferred_intensity}}</td>
           <td>{{aspirant.activities}}</td>
           <td>
+            <ul>
+              <li ng-repeat="rq in requirements">{{rq.name}}</li>
+              </ul>
+              
+          </td>
       </tbody>
     </table>
   </ng-form>
@@ -67,9 +73,8 @@
 ASP{{aspirants}}
 </pre>
 <br>
-<pre>
-{{newteam}}
-</pre>
+<pre>{{newteam|json}}</pre>
+<pre>Rq:{{requirements|json}}</pre>
 
 
 
