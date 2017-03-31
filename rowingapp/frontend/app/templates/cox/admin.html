@@ -46,7 +46,7 @@
         <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
           <td>{{aspirant.name}}</td>
           <td>
-            <select name="teamchooser" id="teamselect" ng-model="aspirant.team"
+            <select name="teamchooser" class="teamchoose" id="teamselect" ng-model="aspirant.team"
                     ng-options="team.name as team.name for team in teams| orderBy: 'team'" ng-change="updateTeamForAspirant(aspirant,team)" required>
             </select>
           </td>
@@ -56,10 +56,7 @@
           <td>{{aspirant.preferred_intensity}}</td>
           <td>{{aspirant.activities}}</td>
           <td>
-            <ul>
-              <li ng-repeat="rq in requirements">{{rq.name}}</li>
-              </ul>
-              
+              <button confirm="Vil du ændre kryds?" class="coxrq" ng-repeat="rq in aspirant.passes" ng-class="{'passed':rq.passed}"   ng-click="togglePass(aspirant,rq)" >{{rq.pass}}</button>
           </td>
       </tbody>
     </table>

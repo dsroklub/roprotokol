@@ -47,6 +47,25 @@ coxApp.controller(
 
      }
 
+
+     $scope.togglePass = function(aspirant,rq) {
+       $log.debug("toggle pass"+aspirant+" :"+rq);
+       if (rq.passed) {
+         rq.passed=null;
+         DatabaseService.add_cox_pass({aspirant:aspirant.member_id, requirement:rq.pass,pass:false}).promise.then(
+           function(st) {
+             $log.debug("pass revoked");
+           }
+         );
+       } else {
+         DatabaseService.add_cox_pass({aspirant:aspirant.member_id,requirement:rq.pass,pass:true}).promise.then(
+         function(st) {
+           $log.debug("pass updated");
+         }
+         );
+         rq.passed=new Date().toISOString().split('T')[0];
+       }
+     }
      
      $scope.notCox = function() {
        return function(rower) {

@@ -11,15 +11,28 @@ error_log("act= $activities");
 
 $res=array ("status" => "ok");
 
-if ($stmt = $rodb->prepare("INSERT INTO team_requests (date_enter, preferred_time, preferred_intensity, comment, activities, phone,email,member_id) SELECT NOW(),?,?,?,?,?,?,Member.id FROM Member Where MemberID=?")) {
-    $stmt->bind_param('sssssss',
+if ($stmt = $rodb->prepare(
+    "INSERT INTO team_requests (date_enter, preferred_time, preferred_intensity, comment, activities, phone,email,member_id) 
+        SELECT NOW(),?,?,?,?,?,?,Member.id 
+        FROM Member 
+        WHERE MemberID=? 
+        ON DUPLICATE KEY UPDATE date_enter=NOW(), preferred_time=?, preferred_intensity=?, comment=?, activities=?, phone=?,email=? ")
+) {
+    $stmt->bind_param('sssssssssssss',
     $reg->preferred_time,
     $reg->preferred_intensity,
     $reg->comment,
     $activities,    
     $reg->phone,
     $reg->email,
-    $reg->aspirant->id
+    $reg->aspirant->id,
+
+    $reg->preferred_time,
+    $reg->preferred_intensity,
+    $reg->comment,
+    $activities,    
+    $reg->phone,
+    $reg->email
     );
     if (!$stmt->execute()) {
         error_log("OOOP ".$rodb->error);

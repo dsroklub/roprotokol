@@ -196,25 +196,12 @@ button.statcat, button.adminbut {
 }
 
 
-.boatlist,
 .statlist,
 .coxlist,
 .rower,
-.boatcategories,
 .genericcategories,
 .stats,
 .baselayout,
-.setboats {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 3pt;
-    margin-left: 3pt;
-}
-
-.boatlist {
-    float:left;
-    min-width:9em;
-}
 
 .genericmenu h2 {
     background: #23aee2;
@@ -239,35 +226,13 @@ button.statcat, button.adminbut {
     width: auto;
 }
 
-.boattypesmenu {
-    margin-left=1%;
-    margin-right=1%;
-    float:left;
-}
-
-.boatstat {
-    float:left;
-}
 .rowerstat {
     float:left;
     margin-bottom: 2em;
 }
 
-.triptypeview {
-    float:left;
-}
 
-.tripview {
-    float:right;
-    right:0px;
-    margin-top: 0.5em;
-    bottom:0px;
-    top:0px;
-    max-width: 29%;
-    position :fixed;
-}
-
-.listmenu,.boattypesmenu caption{
+.listmenu caption{
     background: #23aee2;
     padding: 10pt;
     font-size: 10pt;
@@ -276,7 +241,7 @@ button.statcat, button.adminbut {
     border-radius: 5px 5px 0 0;
 }
 
-.listmenu,.boattypesmenu table caption {
+.listmenu table caption {
     background: #23aee2;
     padding: 10pt;
     color: white;
@@ -406,6 +371,21 @@ li.selected,button.selected {
     padding: 2px;
 }
 
+.coxrq {
+    background: #efff00;
+    padding: 0.4em;
+    margin-top: 0px;
+}
+
+
+.passed {
+    background: #00ff00;
+}
+
+.teamchoose {
+    background: #00ffaa;
+}
+
 .selected td {
     padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
@@ -515,13 +495,6 @@ select  {
 
 .checkinactions {
     display: flex;
-}
-
-.currenttripdata {
-    max-width:500px;
-}
-.changedtripdata {
-    max-width:30em;
 }
 
 button[disabled], html input[disabled] {
@@ -680,64 +653,8 @@ textarea.signuptext {
     align:center;
 }
 
-#year_report,
-#year_report div,
-#year_report h1,
-#year_report h2,
-#year_report h3,
-#year_report h4,
-#year_report p,
-#year_report table
- {
-  background: #fff;
-  color: #000;
-  font-family: Garamond, sans-serif;
-}
-
-#year_report {
-  padding-left: 3cm;
-  padding-right: 2cm;
-}
-
-#year_report h3 {
-  padding-top: 4em;
-  padding-bottom: 3em;
-}
-
-#year_report h3,
-#year_report h4,
-#year_report h5 {
-  color: #003;
-  padding-bottom: 0.5em;
-}
-
-#year_report h4,
-#year_report h5 {
-  margin-top: 3em;
-}
-
-#year_report h5 {
-  font-weight: bold;
-}
-.report-front-page > h1,
-.report-front-page > img,
-.report-front-page > i,
-.report-front-page > h2 {
-   margin-left: auto;
-   margin-right: auto;
-   margin-top: 4em;
-   display: block;
-   text-align: center;
-}
 
 .nottoday {
 	  background: #bbbbaa;    
 }
 
-@media screen {
-  #year_report > h3 {
-    margin-top: 4em;
-    border-top: 2px dashed #003;
-    padding-top: 3em;
-  }
-}
