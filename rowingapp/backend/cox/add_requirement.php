@@ -2,22 +2,29 @@
 set_include_path(get_include_path().':..');
 include("inc/common.php");
 
-error_log("add new team ");
-
 $data = file_get_contents("php://input");
 error_log($data);
 $reg=json_decode($data);
 
-
 $res=array ("status" => "ok");
 
-if ($stmt = $rodb->prepare("INSERT INTO instruction_team (name, description, instructor) SELECT ?,?,Member.id FROM Member Where MemberID=?")) {
-    $stmt->bind_param('sss',
+
+
+$disp=0;
+if (!empty($reg->dispensation) and $reg->dispensation) {
+    $disp=1;
+}
+
+error_log("disp $disp");
+
+if ($stmt = $rodb->prepare("INSERT INTO course_requirement  (name, description, expiry,dispensation) VALUES (?,?,?,?)")) {
+    $stmt->bind_param('ssii',
     $reg->name,
     $reg->description,
-    $reg->instructor->id
+    $reg->expiry,
+    $disp
     );
-    if (!$stmt->execute()) {
+    if (! $stmt->execute()) {
         dbErr(@$rodb,@$res);
     }
     invalidate("cox");

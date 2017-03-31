@@ -4,6 +4,7 @@
 <!--[if IE 8]>         <html lang="en" ng-app="coxApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="coxApp" class="no-js"> <!--<![endif]-->
 <head>
+  <base href="/frontend/app/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>DSR styrmandsinstruktion</title>
@@ -18,7 +19,6 @@
   <link rel="stylesheet" href="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
   <link rel="stylesheet" href="bower_components/angular-ui-clock/dist/angular-clock.css">
   <link rel="stylesheet" href="cox.css"/>
-  <!--base href="/frontend/app"-->
   <script src="bower_components/angular/angular.js"></script>
   <script src="components/angular-locale_da-dk.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
@@ -67,9 +67,9 @@
       <li class="logo">
         <img src="assets/dsrlogo.svg">  
       </li>
-      <li ng-class="{topsel: activePath=='/signup/'}"><a href="#!/signup"><i class="fa fa-heartbeat"></i>Registrer</a></li>
-      <li ng-class="{topsel: activePath=='/admin/'}"><a href="#!/admin"><i class="fa fa-bank"></i>Admin</a></li>
-      <li ng-class="{topsel: activePath=='/requirements/'}"><a href="#!/requirements"><i class="fa fa-check-squre"></i>Godkendelser</a></li>
+      <li ng-class="{topsel: activePath=='/signup/'}"><a href="signup"><i class="fa fa-heartbeat"></i>Registrer</a></li>
+      <li ng-class="{topsel: activePath=='/admin/'}"><a href="admin"><i class="fa fa-bank"></i>Admin</a></li>
+      <li ng-class="{topsel: activePath=='/requirements'}"><a href="requirements"><i class="fa fa-check-square"></i>Godkendelser</a></li>
 
       <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
       </li>

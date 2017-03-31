@@ -401,6 +401,10 @@ li.selected,button.selected {
     text-align: right!important;
     padding-right: 6px;
 }
+.togg {
+    text-align: center;
+    padding: 2px;
+}
 
 .selected td {
     padding: 0 0 0 0;

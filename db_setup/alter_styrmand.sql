@@ -53,6 +53,6 @@ INSERT INTO course_requirement VALUES ("kanal","Kanaltur i Københavns havn",12,
 
 DROP TABLE IF EXISTS course_requirement_pass;
 CREATE TABLE course_requirement_pass (
-       requirement  varchar(30),
+       requirement  varchar(300),
        member_id    INTEGER
 );

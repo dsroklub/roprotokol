@@ -25,27 +25,36 @@ var coxApp = angular.module('coxApp', [
   $locationProvider.html5Mode(true).hashPrefix('#');
 })
 */
+
+//.config(function($locationProvider) {
+//  $locationProvider.html5Mode(true).hashPrefix('#');
+//  $locationProvider.html5Mode(true);
+//})
 .config([
-      '$routeProvider', function($routeProvider) {
-	$routeProvider.when('/signup/', {
-	  templateUrl: 'templates/cox/signup.html',
-	  controller: 'coxCtrl'
+  '$locationProvider', function($locationProvider) {
+    $locationProvider.html5Mode(true);
+  }])
+
+.config([
+  '$routeProvider', function($routeProvider) {
+    $routeProvider.when('/signup/', {
+      templateUrl: 'templates/cox/signup.html',
+      controller: 'coxCtrl'
+    });
+    $routeProvider.when('/admin/', {
+      templateUrl: 'templates/cox/admin.html',
+      controller: 'coxCtrl'
 	});
-	$routeProvider.when('/admin/', {
-	  templateUrl: 'templates/cox/admin.html',
-	  controller: 'coxCtrl'
-	});
-	$routeProvider.when('/requirements/', {
-	  templateUrl: 'templates/cox/requirements.html',
-	  controller: 'coxCtrl'
-	});
-	$routeProvider.when('/', {redirectTo: '/ud'});
-	$routeProvider.otherwise({
-	  templateUrl: 'templates/notimplementet.html',
-	});
-      }])
+    $routeProvider.when('/requirements/', {
+      templateUrl: 'templates/cox/requirements.html',
+      controller: 'coxCtrl'
+    });
+    $routeProvider.when('/', {redirectTo: '/signup'});
+    $routeProvider.otherwise({
+      templateUrl: 'templates/notimplementet.html',
+    });
+  }])
     .config(['uiSelectConfig', function(uiSelectConfig) {
       uiSelectConfig.theme = 'bootstrap';
-    }])
-;
+    }]);
 

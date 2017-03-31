@@ -524,6 +524,18 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return adt;
   }
 
+    this.add_cox_requirement = function(data) {
+    var adt=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/cox/add_requirement.php', data).then(function(r) {
+      adt.resolve(r.data);
+    },function(r) {
+      adt.resolve(false);
+    });
+    datastatus['cox']=null;
+    return adt;
+    }
+  
   this.set_cox_team = function(data) {
     var adt=$q.defer();
     $http.post('../../backend/cox/set_team.php', data).then(function(r) {

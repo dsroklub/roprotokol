@@ -36,7 +36,18 @@ coxApp.controller(
      $scope.setTeam = function (tm) {
        $scope.currentteam=tm;
      }
-       
+
+     $scope.addRequirement = function (r) {
+       DatabaseService.add_cox_requirement(r).promise.then(
+         function(st) {
+           $scope.requirements.push(angular.copy(r));
+           $log.debug("s req");
+         }
+       )
+
+     }
+
+     
      $scope.notCox = function() {
        return function(rower) {
          for (var ri in rower.rights) {
