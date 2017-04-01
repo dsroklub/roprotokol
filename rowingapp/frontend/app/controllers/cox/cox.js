@@ -121,11 +121,17 @@ coxApp.controller(
            $log.debug("did sign up");
            $scope.signup.name=$scope.signup.aspirant.name;
            $scope.signup.activities=$scope.signup.act.join();
+
+           for (var ai; ai< $scope.aspirants.length; ai++) {
+             if ($scope.aspirants[ai].member_id=$scope.signup.aspirant.member_id) {
+               $scope.aspirants=$scope.aspirants.splice(ai,1);               
+             }
+           }
            $scope.aspirants.push($scope.signup);
-         }
+           }
        );
      }
-
+     
      $scope.deleteTeam = function(tm) {
        $log.debug("delete team");
        DatabaseService.deleteCoxTeam(tm).promise.then(

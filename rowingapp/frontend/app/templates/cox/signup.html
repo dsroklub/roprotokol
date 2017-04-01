@@ -8,7 +8,7 @@
 <div>
 <ng-form name="coxAspirant">
   <h2>Opskrivning på styrmandshold</h2>
-  
+  (Hvis du vil ændre noget, så bare udfyld det igen)
   <div>
   <label for="cox.deltager">Jeg er</label>
   <input placeholder="styrmandsaspirant" autocomplete="off" id="coxaspirant" name="coxaspirant" type="text" ng-model="signup.aspirant"
@@ -30,11 +30,14 @@ intensitet.
   <br>
   Jeg træner på:
   <ul>
-    <li ng-repeat="activity in activities">
+    <li class="acts" ng-repeat="activity in activities">
       <input type="checkbox" checklist-model="signup.act" checklist-value="activity"> {{activity}}
     </li>
   <ul>
-  
+    <br>
+    Ønske:
+    <input autocomplete="off" ng-model="signup.wish" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required ></input>
+
   <br>
   Mit telefonnummer er:
   <input autocomplete="off" ng-model="signup.phone" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required ></input>
@@ -63,7 +66,7 @@ Og desuden:
           <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske</button></th>
           <th>Telefon</th>
           <th>Email</th>
-          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrækker</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Sæsonprioritet</button></th>
           <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter</button></th>
       </thead>
       <tbody>
@@ -80,6 +83,3 @@ Og desuden:
 
 </div>
 <br>
-<!--pre>{{currentteam}}</pre-->
-<pre>asp: {{signup.aspirant}}</pre>
-<pre>sup: {{signup|json}}</pre>
