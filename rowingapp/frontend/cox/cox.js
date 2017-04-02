@@ -38,15 +38,15 @@ var coxApp = angular.module('coxApp', [
 .config([
   '$routeProvider', function($routeProvider) {
     $routeProvider.when('/signup/', {
-      templateUrl: 'templates/cox/signup.html',
+      templateUrl: 'templates/signup.html',
       controller: 'coxCtrl'
     });
     $routeProvider.when('/admin/', {
-      templateUrl: 'templates/cox/admin.html',
+      templateUrl: 'templates/admin.html',
       controller: 'coxCtrl'
 	});
     $routeProvider.when('/requirements/', {
-      templateUrl: 'templates/cox/requirements.html',
+      templateUrl: 'templates/requirements.html',
       controller: 'coxCtrl'
     });
     $routeProvider.when('/', {redirectTo: '/signup'});
