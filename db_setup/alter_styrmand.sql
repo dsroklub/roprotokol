@@ -60,3 +60,13 @@ CREATE TABLE course_requirement_pass (
 );
 
 INSERT INTO course_requirement_pass VALUE ('landgang',6784,'2017-03-31');
+
+CREATE TABLE authentication (
+  member_id             INTEGER NOT NULL PRIMARY KEY,
+  password              VARCHAR(255) NOT NULL,
+  role                  VARCHAR(255),
+  FOREIGN KEY (member_id) REFERENCES Member(id)
+);
+
+
+INSERT INTO authentication(6270,"hest","coxaspirant");
