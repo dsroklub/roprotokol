@@ -10,7 +10,7 @@ var coxApp = angular.module('coxApp', [
   'ngTable',
   'myApp.version',
   'myApp.range',
-  'myApp.database',
+  'coxApp.database',
   'myApp.utilities',
   'angular-confirm',
   'ui.bootstrap',
