@@ -6,6 +6,9 @@ set_include_path(get_include_path().':/');
 include("../../inc/common.php");
 include("utils.php");
 
+
+error_log("RSS " . print_r($_SERVER['PHP_AUTH_USER'],true));
+
 $s="SELECT Member.MemberId as member_id, wish, team_requests.phone,team_requests.email,team,
     CONCAT(Member.FirstName,' ', Member.LastName) as name, preferred_time, preferred_intensity,
     activities, comment,
