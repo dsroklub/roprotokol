@@ -1,5 +1,4 @@
 <?php
-set_include_path('.:..:/backend');
 #error_log($_SERVER['DOCUMENT_ROOT'].'/../config.ini');
 $config = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/../config.ini');
 $rodb=new mysqli("localhost",$config["dbuser"],$config["dbpassword"],$config["database"]);

@@ -14,21 +14,18 @@ coxApp.controller(
      $scope.signup={act:[]};
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
      DatabaseService.init({"cox":true,"member":true}).then(function () {
-       DatabaseService.getDataNow('cox/team',null,function (res) {
+       DatabaseService.getDataNow('cox/aspirants/team',null,function (res) {
          $scope.teams=res.data;
        });
-       DatabaseService.getDataNow('cox/requirements',null,function (res) {
+       DatabaseService.getDataNow('cox/aspirants/requirements',null,function (res) {
          $scope.requirements=res.data;
        });
-       DatabaseService.getDataNow('cox/aspirants',null,function (res) {
+       DatabaseService.getDataNow('cox/aspirants/aspirants',null,function (res) {
          $scope.aspirants=res.data;
        }
                                  );
      });
-     DatabaseService.getDataNow("team/attendance", null, function (res) {
-       $scope.attendance=res.data;         
-     }
-                               );
+
      $scope.getRowerByName = function (val) {
        return DatabaseService.getRowersByNameOrId(val, undefined);
      };

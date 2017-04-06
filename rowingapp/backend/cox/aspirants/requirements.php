@@ -1,6 +1,6 @@
 <?php
 
-set_include_path(get_include_path().':..');
+set_include_path(get_include_path().':../..');
 include("inc/common.php");
 $s='SELECT name,description,expiry,dispensation
     FROM course_requirement

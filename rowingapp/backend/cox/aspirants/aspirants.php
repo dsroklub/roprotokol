@@ -2,9 +2,9 @@
 
 $res=array ("status" => "ok");
 
-set_include_path(get_include_path().':..');
-include("inc/common.php");
-include("inc/utils.php");
+set_include_path(get_include_path().':/');
+include("../../inc/common.php");
+include("utils.php");
 
 $s="SELECT Member.MemberId as member_id, wish, team_requests.phone,team_requests.email,team,
     CONCAT(Member.FirstName,' ', Member.LastName) as name, preferred_time, preferred_intensity,

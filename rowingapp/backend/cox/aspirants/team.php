@@ -1,7 +1,6 @@
 <?php
 
-set_include_path(get_include_path().':..');
-include("inc/common.php");
+include("../../inc/common.php");
 $s='SELECT instruction_team.name,description,instructor
     FROM instruction_team
     ORDER BY name

@@ -489,7 +489,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.cox_signup = function(data) {
     var su=$q.defer();
     var res=undefined;
-    $http.post('../../backend/cox/signup.php', data).then(function(r) {
+    $http.post('../../backend/cox/aspirants/signup.php', data).then(function(r) {
       su.resolve(r.data);
     },function(r) {
       su.resolve(false);
@@ -501,7 +501,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   this.cox_request = function(data) {
     var su=$q.defer();
     var res=undefined;
-    $http.post('../../backend/cox/request_team.php', data).then(function(r) {
+    $http.post('../../backend/cox/aspirants/request_team.php', data).then(function(r) {
       su.resolve(r.data);
     },function(r) {
       su.resolve(false);
@@ -647,10 +647,16 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return(clientname?clientname:"noname");
   }
 
-  this.toIsoDate= function (d) {
+  this.toIsoDate = function (d) {
       return (d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate());
   };
 
+  this.getpw = function(data) {
+    $http.post('../../../public/getpw.php', data).then(function(r) {
+    },function(r) {
+      alert("det mislykkedes at sende nyt password");
+    });
+  }
   
   /// The rest is just for testing
   this.test = function(src) {

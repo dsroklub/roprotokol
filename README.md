@@ -11,16 +11,20 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
 # Installation
 
-    apt-get install mdbtools
-    apt-get install npm python-mysqldb memcached php-memcached mysql-server
-    apt-get install php-mysql nodejs nodejs-legacy
-    #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
+    apt-get install npm python-mysqldb memcached php-memcached mysql-server libapache2-mod-php
+    apt-get install php-mysql nodejs nodejs-legacy libaprutil1-dbd-mysql
+
+#  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
     # Remember to restart your web server.
+
+   a2enmod dbd 
+   a2enmod authn_dbd
+   a2enmod php7.0 
 
     sudo npm install -g bower karma
 
     # for debug scripts
-    apt-get install php5-cli
+    apt-get install php-cli
 
     cd rowingapp/frontend; npm install
 

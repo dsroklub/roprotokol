@@ -17,6 +17,8 @@ var coxApp = angular.module('coxApp', [
   'ui.bootstrap.datetimepicker',
   'angular.filter',
   'checklist-model',
+  'coxApp.database',
+
   'ds.clock'
 ])
 
@@ -44,6 +46,10 @@ var coxApp = angular.module('coxApp', [
     $routeProvider.when('/admin/', {
       templateUrl: 'templates/admin.html',
       controller: 'coxCtrl'
+	});
+    $routeProvider.when('/login/', {
+      templateUrl: 'templates/login.html',
+      controller: 'noRight'
 	});
     $routeProvider.when('/requirements/', {
       templateUrl: 'templates/requirements.html',
