@@ -12,8 +12,10 @@ coxApp.controller(
      $scope.seasons = ['forår','sommer','efterår'];
      $scope.activities = ['INKA','POP','Gymnastik',"Coastal"];
      $scope.signup={act:[]};
+
+     
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-     DatabaseService.init({"cox":true,"member":true}).then(function () {
+     DatabaseService.init({"cox":true,"member":true,"user":true}).then(function () {
        DatabaseService.getDataNow('cox/aspirants/team',null,function (res) {
          $scope.teams=res.data;
        });
@@ -25,6 +27,13 @@ coxApp.controller(
        }
                                  );
      });
+
+//     $scope.user=DatabaseService.getDataNow("dummy");
+     $scope.webrower=DatabaseService.getDataNow("cox/aspirants/current_user",null,
+                                                function (res) {
+                                                  $scope.webrower=res.data;
+                                                }
+                                               );
 
      $scope.getRowerByName = function (val) {
        return DatabaseService.getRowersByNameOrId(val, undefined);
@@ -113,14 +122,14 @@ coxApp.controller(
      
      $scope.dosignup = function() {
        $log.debug("sign up team");
+       $scope.signup.aspirant=$scope.webrower;
        DatabaseService.cox_request($scope.signup).promise.then(
          function(st) {
            $log.debug("did sign up");
            $scope.signup.name=$scope.signup.aspirant.name;
            $scope.signup.activities=$scope.signup.act.join();
-
            for (var ai; ai< $scope.aspirants.length; ai++) {
-             if ($scope.aspirants[ai].member_id=$scope.signup.aspirant.member_id) {
+             if ($scope.aspirants[ai].member_id=$webrower.member_id) {
                $scope.aspirants=$scope.aspirants.splice(ai,1);               
              }
            }

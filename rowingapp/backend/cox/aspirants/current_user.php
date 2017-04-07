@@ -32,13 +32,8 @@ if ($stmt = $rodb->prepare($s)) {
 error_log("CU2");
 
 if ($result) {
-    echo '[';
-    $first=1;
-    while ($row = $result->fetch_assoc()) {
-        if ($first) $first=0; else echo ',';	  
-        echo json_encode($row);
-    }
-    echo ']';
+    $row = $result->fetch_assoc();
+    echo json_encode($row);
 } else {
     dbErr($rodb,$res);
     echo json_encode($res);

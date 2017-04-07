@@ -6,5 +6,15 @@ this.getpw = function(data) {
     },function(r) {
       alert("det mislykkedes at sende nyt password");
     });
+}
+
+
+  this.logout = function() {
+    $http.get('../../../backend/cox/aspirants/logout.php').then(function(r) {
+      alert("logget ud");
+    },function(r) {
+      alert("logget ud problem");
+    });
   }
+  
 });

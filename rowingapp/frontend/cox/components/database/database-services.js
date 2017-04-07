@@ -8,9 +8,7 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
   var tx=null;
   var debug=3;
   
-
-
-
+  
   var cachedepend={
     'member':['rowers'],
   };
@@ -50,8 +48,7 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
       });
     }
   }
-
-
+  
   this.simpleGet = function (service, args) {
     var conf = {};
     if (args) {
@@ -61,55 +58,11 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
   }
 
   this.fetch = function (subscriptions) {
-    var boatmaintypes = ['kayak','any','rowboat'];
     $log.debug("DB fetch "+Date());
     var headers = {};
     var promises=[];
     
-    if (subscriptions.boat) {      
-      if(!valid['boats']) {
-        //Build indexes and lists for use by API
-        $log.debug("  boats not valid");
-        var bq=$q.defer();
-        promises.push(bq.promise);
-        $http.get(toURL('boat_status.php'), { headers: headers } ).then(function (response) {
-          db['boats'] = {};
-	  db['boatsA'] =[];
-          angular.forEach(response.data, function(boat, index) {
-            this[boat.id] = boat;
-	    db['boatsA'].push(boat);
-        }, db['boats']);
-          db['boatcategories'] = {};
-          angular.forEach(response.data, function(boat, index) {
-            var category = boat.category;
-            if(this[category] === undefined) {
-              this[category] = [];
-            }
-            this[category].push(boat);
-          }, db['boatcategories']);
-	  valid['boats']=true;
-	  bq.resolve(true);
-        });
-      } 
-    
-      if (!valid['boatdamages']) {
-        var bdq=$q.defer();
-        promises.push(bdq.promise);
-        $http.get(toURL('boatdamages.php')).then(function onSuccess(response) {
-          db['boatdamages'] = {};
-	  db['boatdamages_flat'] = response.data;
-          angular.forEach(db['boatdamages_flat'], function(boatdamage, index) {
-            if(this[boatdamage.boat_id] === undefined) {
-              this[boatdamage.boat_id] = [];
-            }
-            this[boatdamage.boat_id].push(boatdamage);
-          }, db['boatdamages']);
-	  valid['boatdamages']=true;
-          bdq.resolve(true);
-        });
-      } 
-    }
-    
+
     this.getData('memberrighttypes',promises);
 
     if(!valid['rowers']) {
@@ -125,9 +78,9 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
         rq.resolve(true);
       });
     }
+
+//    this.getData('aspirants/cox/current_user',promises);
     
-
-
     var qll=$q.all(promises);
     tx=qll;
     return qll;
@@ -225,18 +178,6 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
     }    
   };
     
-  this.closeForm = function(form,data,datakind) {
-    var formClosed=$q.defer();
-    var res=undefined;
-    $http.post('../../backend/'+form+'.php', data).then(function onSuccess (r) {
-      formClosed.resolve(r.data);
-    }, function onError (r) {
-      formClosed.resolve(false);
-    });
-    datastatus[datakind]=null;
-    return formClosed;
-  };
-
   this.updateDB_async = function(op,data,config) {
     var qup=$q.defer();
     var res=undefined;

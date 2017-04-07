@@ -7,14 +7,8 @@
 
 <div>
 <ng-form name="coxAspirant">
-  <h2>Opskrivning på styrmandshold</h2>
+  <h2>Opskrivning på styrmandshold af {{webrower.name}} ({{webrower.member_id}})</h2>
   (Hvis du vil ændre noget, så bare udfyld det igen)
-  <div>
-  <label for="cox.deltager">Jeg er</label>
-  <input placeholder="styrmandsaspirant" autocomplete="off" id="coxaspirant" name="coxaspirant" type="text" ng-model="signup.aspirant"
-         typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue) | filter: notCox(rower)"
-         typeahead-template-url="memberTemplate.html" required />
-  </div>
 
   Jeg vil have have
   <select name="intensitychooser" id="signupintensity" ng-model="signup.preferred_intensity"
@@ -35,7 +29,7 @@ intensitet.
     </li>
   <ul>
     <br>
-    Ønske:
+    Ønske (fx holdnavn du har aftalt med andre aspiranter):
     <input autocomplete="off" ng-model="signup.wish" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required ></input>
 
   <br>
@@ -83,3 +77,4 @@ Og desuden:
 
 </div>
 <br>
+User: {{webrower|json}}

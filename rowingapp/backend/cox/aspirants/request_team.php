@@ -25,7 +25,7 @@ if ($stmt = $rodb->prepare(
     $reg->phone,
     $reg->email,
     $reg->wish,
-    $reg->aspirant->id,
+    $reg->aspirant->member_id,
 
     $reg->preferred_time,
     $reg->preferred_intensity,

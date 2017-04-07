@@ -13,8 +13,12 @@
       <label for="cox.deltager">Mit medlemsnummer er</label>
       <input autocomplete="off" id="coxaspirant" name="coxaspirant" type="text" ng-model="login.aspirant"  required />
     </div>
-    
+
     <br>
     <button class="login" ng-click="getpw()">Send mit password</button>
-  </ng-form>
+
+    <br>
+    <button ng-click="logout()">log ud</button>
+    {{loginstatus}}
+     </ng-form>
 </div>
