@@ -70,4 +70,14 @@ CREATE TABLE authentication (
 );
 
 
+
+CREATE TABLE cox_log (
+  timestm             DATETIME,
+  member_id           VARCHAR(10),
+  action              VARCHAR(255),                      
+ entry               VARCHAR(20000) NOT NULL
+ );
+  
+
+
 INSERT INTO authentication(6270,"hest","coxaspirant");
