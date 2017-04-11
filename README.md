@@ -11,9 +11,8 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
 # Installation
 
-    apt-get install mdbtools
-    apt-get install npm python-mysqldb memcached php-memcached mysql-server
-    apt-get install php-mysql nodejs nodejs-legacy
+    apt-get install npm python-mysqldb memcached php-memcached php-mysql nodejs nodejs-legacy mysql-server
+    # or mariadb
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
     # Remember to restart your web server.
 
