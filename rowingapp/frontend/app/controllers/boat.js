@@ -41,8 +41,7 @@ app.controller(
        $scope.checkout_open=[];
        $scope.norower=[];
        $scope.reuse=$routeParams.reuse;
-       console.log('reuse '+$scope.reuse);
-
+       
        if ($scope.reuse) {
 	 var reusetrip=DatabaseService.closeForm('trip/reuseopentrip',{'reusetrip':$scope.reuse},'trip');
 	 reusetrip.promise.then(function(status) {

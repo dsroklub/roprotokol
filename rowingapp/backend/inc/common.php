@@ -4,9 +4,12 @@ ini_set('default_charset', 'utf-8');
 ini_set('display_errors', 'Off');
 error_reporting(E_ALL);
 
+define( 'ROOT_DIR', dirname(__FILE__) );
+set_include_path('.:..:'.ROOT_DIR);
+
+
+
 $skiplogin=false;
-
-
 
 if(!isset($_SESSION)){
   session_start();

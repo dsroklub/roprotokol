@@ -86,7 +86,7 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     var headers = {};
     var promises=[];
     
-    if (subscriptions.boat) {      
+    if (subscriptions.boat) {
       if(!valid['boats']) {
         //Build indexes and lists for use by API
         $log.debug("  boats not valid");
@@ -486,32 +486,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
   }
 
 
-  this.cox_signup = function(data) {
-    var su=$q.defer();
-    var res=undefined;
-    $http.post('../../backend/cox/signup.php', data).then(function(r) {
-      su.resolve(r.data);
-    },function(r) {
-      su.resolve(false);
-    });
-    datastatus['cox']=null;
-    return su;
-  }
-
-  this.cox_request = function(data) {
-    var su=$q.defer();
-    var res=undefined;
-    $http.post('../../backend/cox/request_team.php', data).then(function(r) {
-      su.resolve(r.data);
-    },function(r) {
-      su.resolve(false);
-      $log.debug("COX REQUEST err "+Date());
-    });
-    datastatus['cox']=null;
-    return su;
-  }
-
-  
   this.addTeam = function(data) {
     var adt=$q.defer();
     var res=undefined;
@@ -524,28 +498,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return adt;
   }
 
-  this.set_cox_team = function(data) {
-    var adt=$q.defer();
-    $http.post('../../backend/cox/set_team.php', data).then(function(r) {
-      adt.resolve(r.data);
-    },function(r) {
-      adt.resolve(false);
-    });
-    datastatus['cox']=null;
-    return adt;
-  }
-
-  this.add_cox_team = function(data) {
-    var adt=$q.defer();
-    var res=undefined;
-    $http.post('../../backend/cox/add_team.php', data).then(function(r) {
-      adt.resolve(r.data);
-    },function(r) {
-      adt.resolve(false);
-    });
-    datastatus['cox']=null;
-    return adt;
-  }
   
   this.deleteTeam = function(data) {
     var dt=$q.defer();
@@ -558,18 +510,6 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     datastatus['gym']=null;
     return dt;
   }
-
-  this.deleteCoxTeam = function(data) {
-    var dt=$q.defer();
-    var res=undefined;
-    $http.post('../../backend/cox/deleteteam.php', data).then(function(r) {
-      dt.resolve(r.data);
-    },function(r) {
-      dt.resolve(false);
-    });
-    datastatus['cox']=null;
-    return dt;
-    }
   
   this.createTrip = function(data) {
     var tripCreated=$q.defer();
@@ -622,10 +562,16 @@ angular.module('myApp.database.database-services', []).service('DatabaseService'
     return(clientname?clientname:"noname");
   }
 
-  this.toIsoDate= function (d) {
+  this.toIsoDate = function (d) {
       return (d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate());
   };
 
+  this.getpw = function(data) {
+    $http.post('../../../public/getpw.php', data).then(function(r) {
+    },function(r) {
+      alert("det mislykkedes at sende nyt password");
+    });
+  }
   
   /// The rest is just for testing
   this.test = function(src) {

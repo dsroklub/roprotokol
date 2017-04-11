@@ -41,11 +41,43 @@ DROP TABLE IF EXISTS course_requirement;
 CREATE TABLE course_requirement (
        name varchar(200),
        description varchar(2000),
-       expiry    INTEGER -- months, NULL for non expiery
+       expiry    INTEGER, -- months, NULL for non expiery
+       dispensation BOOL
 );
+
+
+INSERT INTO course_requirement VALUES ("landgang","Landgang på åben kyst",12,false);
+INSERT INTO course_requirement VALUES ("tillægning","Tillægning ved ponton",12,false);
+INSERT INTO course_requirement VALUES ("entring","entringsøvelse",12,true);
+INSERT INTO course_requirement VALUES ("kanal","Kanaltur i Københavns havn",12,true);
 
 DROP TABLE IF EXISTS course_requirement_pass;
 CREATE TABLE course_requirement_pass (
-       requirement  varchar(30),
-       member_id    INTEGER
+       requirement  varchar(300),
+       member_id    INTEGER,
+       passed       DATE,
+       PRIMARY KEY (member_id,requirement)
 );
+
+INSERT INTO course_requirement_pass VALUE ('landgang',6784,'2017-03-31');
+
+CREATE TABLE authentication (
+  member_id             INTEGER NOT NULL PRIMARY KEY,
+  password              VARCHAR(255) NOT NULL,
+  newpassword           VARCHAR(255),
+  role                  VARCHAR(255),
+  FOREIGN KEY (member_id) REFERENCES Member(id)
+);
+
+
+
+CREATE TABLE cox_log (
+  timestamp             DATETIME,
+  member_id           VARCHAR(10),
+  action              VARCHAR(255),                      
+ entry               VARCHAR(20000) NOT NULL
+ );
+  
+
+
+INSERT INTO authentication(6270,"hest","coxaspirant");

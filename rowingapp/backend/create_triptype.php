@@ -9,7 +9,6 @@ $data=json_decode($data);
 
 $location = $data->location;
 $rodb->begin_transaction();
-error_log("new bt ".json_encode($data));
 
 if ($stmt = $rodb->prepare("INSERT INTO TripType (Name,Description,Created,Active,tripstat_name)".
 " VALUES (?,?,NOW(),1,?)")) { 

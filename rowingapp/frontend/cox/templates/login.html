@@ -1,0 +1,24 @@
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<div>
+  <ng-form name="coxAspirantLogin">
+    <h2>Hvis du ikke har fået et password</h2>
+    og ikke allerede er styrmand
+    <div>
+      <label for="cox.deltager">Mit medlemsnummer er</label>
+      <input autocomplete="off" id="coxaspirant" name="coxaspirant" type="text" ng-model="login.aspirant"  required />
+    </div>
+
+    <br>
+    <button class="login" ng-click="getpw()">Send mit password</button>
+
+    <br>
+    <button ng-click="logout()">log ud</button>
+    {{loginstatus}}
+     </ng-form>
+</div>

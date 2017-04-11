@@ -37,43 +37,33 @@
           <th><button class="header" ng-click="sortAspirantBy('team')">Hold</button></th>
           <th>Telefon</th>
           <th>Email</th>
-          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrækker</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrukken<br> tid</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_intensity')">Foretrukken<br>intensitet</button></th>
           <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter</button></th>
+          <th>Godkendelser</th>
       </thead>
       <tbody>
-        <tr ng-repeat="aspirant in aspirants">
+        <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
           <td>{{aspirant.name}}</td>
           <td>
-            <select name="teamchooser" id="teamselect" ng-model="aspirant.team"
+            <select name="teamchooser" class="teamchoose" id="teamselect" ng-model="aspirant.team"
                     ng-options="team.name as team.name for team in teams| orderBy: 'team'" ng-change="updateTeamForAspirant(aspirant,team)" required>
             </select>
           </td>
           <td>{{aspirant.phone}}</td>
           <td>{{aspirant.email}}</td>
+          <td>{{aspirant.wish}}</td>
           <td>{{aspirant.preferred_time}}</td>
+          <td>{{aspirant.preferred_intensity}}</td>
           <td>{{aspirant.activities}}</td>
           <td>
+              <button confirm="Vil du ændre kryds?" class="coxrq" ng-repeat="rq in aspirant.passes" ng-class="{'passed':rq.passed}"   ng-click="togglePass(aspirant,rq)" >{{rq.pass}}</button>
+          </td>
       </tbody>
     </table>
   </ng-form>
 </div>
   
-<h2>Godkendelser</h2>
 
 
-  <pre>
-ASP{{aspirants}}
-</pre>
-<br>
-<pre>
-{{newteam}}
-</pre>
-
-
-
-
-<pre>
-	Afmærkning af medlemmets deltagelse på et hold (gerne et holdnummer, der går igen i næste modul)
-	Mulighed for at ”trække et medlem tilbage” på listen fra et hold
-	Mulighed for at sortere og/eller finde via de seks første feltoplysninger
-</pre>

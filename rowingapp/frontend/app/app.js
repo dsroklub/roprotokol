@@ -25,7 +25,13 @@ var app = angular.module('myApp', [
   $locationProvider.html5Mode(true).hashPrefix('#');
 })
 */
+
 .config([
+  '$locationProvider', function($locationProvider) {
+    $locationProvider.html5Mode(true);
+  }])
+
+    .config([
       '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/boat/checkout/:boat_id', {
 	  templateUrl: 'templates/boat/checkout.html',

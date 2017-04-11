@@ -12,20 +12,29 @@ coxApp.controller(
      $scope.seasons = ['forår','sommer','efterår'];
      $scope.activities = ['INKA','POP','Gymnastik',"Coastal"];
      $scope.signup={act:[]};
+
+     
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-     DatabaseService.init({"cox":true,"member":true}).then(function () {
-       DatabaseService.getDataNow('cox/team',null,function (res) {
+     DatabaseService.init({"cox":true,"member":true,"user":true}).then(function () {
+       DatabaseService.getDataNow('cox/aspirants/team',null,function (res) {
          $scope.teams=res.data;
        });
-       DatabaseService.getDataNow('cox/aspirants',null,function (res) {
+       DatabaseService.getDataNow('cox/aspirants/requirements',null,function (res) {
+         $scope.requirements=res.data;
+       });
+       DatabaseService.getDataNow('cox/aspirants/aspirants',null,function (res) {
          $scope.aspirants=res.data;
        }
                                  );
      });
-     DatabaseService.getDataNow("team/attendance", null, function (res) {
-       $scope.attendance=res.data;         
-     }
-                               );
+
+//     $scope.user=DatabaseService.getDataNow("dummy");
+     $scope.webrower=DatabaseService.getDataNow("cox/aspirants/current_user",null,
+                                                function (res) {
+                                                  $scope.webrower=res.data;
+                                                }
+                                               );
+
      $scope.getRowerByName = function (val) {
        return DatabaseService.getRowersByNameOrId(val, undefined);
      };
@@ -33,7 +42,37 @@ coxApp.controller(
      $scope.setTeam = function (tm) {
        $scope.currentteam=tm;
      }
-       
+
+     $scope.addRequirement = function (r) {
+       DatabaseService.add_cox_requirement(r).promise.then(
+         function(st) {
+           $scope.requirements.push(angular.copy(r));
+           $log.debug("s req");
+         }
+       )
+
+     }
+
+
+     $scope.togglePass = function(aspirant,rq) {
+       $log.debug("toggle pass"+aspirant+" :"+rq);
+       if (rq.passed) {
+         rq.passed=null;
+         DatabaseService.add_cox_pass({aspirant:aspirant.member_id, requirement:rq.pass,pass:false}).promise.then(
+           function(st) {
+             $log.debug("pass revoked");
+           }
+         );
+       } else {
+         DatabaseService.add_cox_pass({aspirant:aspirant.member_id,requirement:rq.pass,pass:true}).promise.then(
+         function(st) {
+           $log.debug("pass updated");
+         }
+         );
+         rq.passed=new Date().toISOString().split('T')[0];
+       }
+     }
+     
      $scope.notCox = function() {
        return function(rower) {
          for (var ri in rower.rights) {
@@ -83,13 +122,22 @@ coxApp.controller(
      
      $scope.dosignup = function() {
        $log.debug("sign up team");
+       $scope.signup.aspirant=$scope.webrower;
        DatabaseService.cox_request($scope.signup).promise.then(
          function(st) {
            $log.debug("did sign up");
-         }
+           $scope.signup.name=$scope.signup.aspirant.name;
+           $scope.signup.activities=$scope.signup.act.join();
+           for (var ai; ai< $scope.aspirants.length; ai++) {
+             if ($scope.aspirants[ai].member_id=$webrower.member_id) {
+               $scope.aspirants=$scope.aspirants.splice(ai,1);               
+             }
+           }
+           $scope.aspirants.push($scope.signup);
+           }
        );
      }
-
+     
      $scope.deleteTeam = function(tm) {
        $log.debug("delete team");
        DatabaseService.deleteCoxTeam(tm).promise.then(

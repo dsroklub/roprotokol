@@ -1,0 +1,43 @@
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<h2>Krav</h2>
+ 
+<table>
+  <tr>
+    <th>Navn</th>
+    <th>Krav</th>
+    <th>Udløber/måneder</th>
+    <th>Kan dispensereres<br> for udløb</th>
+  </tr>
+  <tr ng-repeat="rq in requirements" ng-class-odd="'oddstat'">
+    <td>{{rq.name}}</td>
+    <td>{{rq.description}}</td>
+    <td class="rnum"> {{rq.expiry}}</td>
+    <td class="togg"><div ng-show="rq.dispensation">X</div></td>
+  </tr>
+  <form>
+  <tr class="inputrow">
+    <td>
+      <input  autocomplete="off" maxlength="20" ng-model="requirement.name" type="text" </input>
+              </td>
+    <td>
+      <input  maxlength="200" ng-model="requirement.description" type="text" </input>
+    </td>
+    <td class="rnum">
+      <input  min="1" max="48" step="1" ng-model="requirement.expiry" type="number"</input>
+    </td>
+    <td class="togg">
+      <input  ng-model="requirement.dispensation" type="checkbox"</input>
+    </td>
+    <td>
+      <button class="green" ng-click="addRequirement(requirement)">Tilføj krav</button>
+    </td>
+  </tr>
+  </form>
+</table>
+</div>  

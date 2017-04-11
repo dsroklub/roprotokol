@@ -7,37 +7,37 @@
 
 <div>
 <ng-form name="coxAspirant">
-  <h2>Opskrivning på styrmandshold</h2>
-  
-  <div>
-  <label for="cox.deltager">Jeg er</label>
-  <input placeholder="styrmandsaspirant" autocomplete="off" id="coxaspirant" name="coxaspirant" type="text" ng-model="signup.aspirant"
-         typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue) | filter: notCox(rower)"
-         typeahead-template-url="memberTemplate.html" required />
-  </div>
+  <h2>Opskrivning på styrmandshold af {{webrower.name}} ({{webrower.member_id}})</h2>
+  (Hvis du vil ændre noget, så bare udfyld det igen)
 
   Jeg vil have have
-  <select name="intensitychooser" id="signupintensity" ng-model="signup.preferredIntensity"
+  <select name="intensitychooser" id="signupintensity" ng-model="signup.preferred_intensity"
           ng-options="intensity for intensity in intensities" required>
   </select>
 intensitet.
   <br>
   Jeg foretrækker instruktion til 
-  <select name="intensitychooser" id="signupintensity" ng-model="signup.preferredTime"
+  <select name="intensitychooser" id="signupintensity" ng-model="signup.preferred_time"
           ng-options="season for season in seasons" required>
   </select>
 
   <br>
   Jeg træner på:
   <ul>
-    <li ng-repeat="activity in activities">
+    <li class="acts" ng-repeat="activity in activities">
       <input type="checkbox" checklist-model="signup.act" checklist-value="activity"> {{activity}}
     </li>
   <ul>
-  
+    <br>
+    Ønske (fx holdnavn du har aftalt med andre aspiranter):
+    <input autocomplete="off" ng-model="signup.wish" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required ></input>
+
   <br>
   Mit telefonnummer er:
   <input autocomplete="off" ng-model="signup.phone" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required ></input>
+
+  Min email er:
+  <input autocomplete="off" ng-model="signup.email" maxlength="255" class="ui-select-bootstrap" type="text" name="input" required ></input>
 
     <br>
 Og desuden:
@@ -60,24 +60,21 @@ Og desuden:
           <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske</button></th>
           <th>Telefon</th>
           <th>Email</th>
-          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrækker</button></th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Sæsonprioritet</button></th>
           <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter</button></th>
       </thead>
       <tbody>
-        <tr ng-repeat="aspirant in aspirants">
+        <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
           <td>{{aspirant.name}}</td>
           <td>{{aspirant.wish}}</td>
           <td>{{aspirant.phone}}</td>
           <td>{{aspirant.email}}</td>
           <td>{{aspirant.preferred_time}}</td>
           <td>{{aspirant.activities}}</td>
-          <td>
       </tbody>
     </table>
   </ng-form>
 
 </div>
 <br>
-<!--pre>{{currentteam}}</pre-->
-<pre>asp: {{signup.aspirant}}</pre>
-<pre>sup: {{signup}}</pre>
+User: {{webrower|json}}

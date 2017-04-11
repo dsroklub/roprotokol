@@ -454,3 +454,27 @@ CREATE INDEX reservationmember ON reservation(member);
 CREATE INDEX rightsmember ON MemberRights(member_id);
 
 CREATE INDEX membername ON Member(FirstName,LastName);
+
+
+
+
+CREATE TABLE access (
+  member int;
+  email_sent int NOT NULL DEFAULT 0,
+  password varchar(255) _danish_ci NOT NULL,
+  is_admin int NOT NULL DEFAULT 0,
+  capability VARCHAR(255) NOT NULL default "member"
+  PRIMARY KEY member,capability
+)
+
+
+CREATE TABLE settings (
+  name varchar(255) COLLATE utf8_unicode_ci PRIMARY KEY NOT NULL,
+  description text COLLATE utf8_unicode_ci NOT NULL,
+  content text COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'text'
+) ;
+
+
+INSERT INTO settings (`name`, description, content, `type`) VALUES ('cox_forgot_mail','Tekst, der sendes ved glemt password','Kære %navn%\r\n\r\nDu har bedt om at få en ny kode til styrmandsinstruktion.\r\n\r\nDin nye kode er: %kode%\r\n\r\n','text'),('cox_welcome_mail','Invitations-mail','Kære %navn%\r\n\r\nDu kan nu melde dig på styrmandsinstruktion.\r\n\r\nGå ind på denne side:\r\n\r\n  https://styrmandsinstruktion.danskestudentersroklub.dk/\r\n\r\nHer kan du logge ind med dit medlemsnummer og en kode.\r\n\r\nDin personlige kode er: %kode%\r\n\r\n\r\n\r\nTilmeldingen er en ønskeliste.\r\n\r\n\r\nMed venlig hilsen,\r\n\r\nStyrmandsinstruktion','text'),('cox_welcome_page','Startsiden med login-knap.','Her kan du tilmelde dig styrmandsinstruktion.\r\n\r\n\r\nFor at logge ind, skal du bruge et særligt password, som du har fået tilsendt pr. mail.','text');
+

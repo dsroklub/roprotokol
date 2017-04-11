@@ -1,0 +1,6 @@
+fjerne krav/krydser
+
+adgangskontrol for styrmandsinstruktorer
+
+log for tildeling af rettigheder.
+

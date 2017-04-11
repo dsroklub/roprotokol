@@ -8,7 +8,7 @@ $data = file_get_contents("php://input");
 $data=json_decode($data);
 
 $rodb->begin_transaction();
-error_log('approve correction:  '.json_encode($data));
+//error_log('approve correction:  '.json_encode($data));
 
 if ($data->correction->DeleteTrip) {
     error_log('Delete Trip: '.$data->trip);

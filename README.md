@@ -11,15 +11,21 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
 # Installation
 
-    apt-get install npm python-mysqldb memcached php-memcached php-mysql nodejs nodejs-legacy mysql-server
+    apt-get install npm python-mysqldb memcached php-memcached php-mysql libapache2-mod-php nodejs nodejs-legacy mysql-server
     # or mariadb
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
+    apt-get install  libaprutil1-dbd-mysql
+
     # Remember to restart your web server.
+
+   a2enmod dbd 
+   a2enmod authn_dbd
+   a2enmod php7.0 
 
     sudo npm install -g bower karma
 
     # for debug scripts
-    apt-get install php5-cli
+    apt-get install php-cli
 
     cd rowingapp/frontend; npm install
 
