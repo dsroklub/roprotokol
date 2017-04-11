@@ -72,7 +72,7 @@ CREATE TABLE authentication (
 
 
 CREATE TABLE cox_log (
-  timestm             DATETIME,
+  timestamp             DATETIME,
   member_id           VARCHAR(10),
   action              VARCHAR(255),                      
  entry               VARCHAR(20000) NOT NULL
