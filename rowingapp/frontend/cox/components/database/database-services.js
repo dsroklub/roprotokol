@@ -63,12 +63,12 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
     var promises=[];
     
 
-    this.getData('memberrighttypes',promises);
+    this.getData('cox/memberrighttypes',promises);
 
     if(!valid['rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);
-      $http.get(toURL('rowers.php')).then(function(response) {
+      $http.get(toURL('cox/rowers.php')).then(function(response) {
         db['rowers'] = [];
         angular.forEach(response.data, function(rower, index) {
           rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
@@ -104,7 +104,7 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
       subscriptions={};
     }
     var sq=$q.defer();
-    $http.post('../../backend/datastatus.php', null).then (function(response) {
+    $http.post('../../backend/cox/datastatus.php', null).then (function(response) {
       var ds=response.data;
       var doreload=false;
       $log.debug("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));

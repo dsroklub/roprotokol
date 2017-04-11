@@ -1,6 +1,5 @@
 <?php
-set_include_path(get_include_path().':..');
-include("inc/common.php");
+include("../../rowing/backend/inc/common.php");
 
 error_log("delete team ");
 

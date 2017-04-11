@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('myApp', [
+var app = angular.module('rowApp', [
   'ngRoute',
   'ngSanitize',
   'ui.bootstrap',
@@ -8,10 +8,10 @@ var app = angular.module('myApp', [
   'angular-momentjs',
   'ngDialog',
   'ngTable',
-  'myApp.version',
-  'myApp.range',
-  'myApp.database',
-  'myApp.utilities',
+  'rowApp.version',
+  'rowApp.range',
+  'rowApp.database',
+  'rowApp.utilities',
   'angular-confirm',
   'chart.js',
   'ui.bootstrap',

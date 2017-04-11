@@ -8,10 +8,10 @@ var gymApp = angular.module('gymApp', [
   'angular-momentjs',
   'ngDialog',
   'ngTable',
-  'myApp.version',
-  'myApp.range',
-  'myApp.database',
-  'myApp.utilities',
+  'rowApp.version',
+  'rowApp.range',
+  'rowApp.database',
+  'rowApp.utilities',
   'angular-confirm',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
@@ -24,6 +24,10 @@ var gymApp = angular.module('gymApp', [
   $locationProvider.html5Mode(true).hashPrefix('#');
 })
 */
+.config([
+  '$locationProvider', function($locationProvider) {
+    $locationProvider.html5Mode(true);
+  }])
 .config([
       '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/registrer/', {

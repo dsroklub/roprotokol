@@ -2,8 +2,7 @@
 
 $res=array ("status" => "ok");
 
-set_include_path(get_include_path().':/');
-include("../../inc/common.php");
+include("../../../rowing/backend/inc/common.php");
 include("utils.php");
 
 

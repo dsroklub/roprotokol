@@ -35,19 +35,19 @@ var make_rights = function(db_service){
     }
 }
 
-angular.module('myApp.utilities.urldecode', []).filter('urldecode', function () {
+angular.module('rowApp.utilities.urldecode', []).filter('urldecode', function () {
   return function (text) {
     return window.decodeURIComponent(text);
   };
 });
 
-angular.module('myApp.utilities.urlencode', []).filter('urlencode', function () {
+angular.module('rowApp.utilities.urlencode', []).filter('urlencode', function () {
   return function (text) {
     return window.encodeURIComponent(text);
   };
 });
 
-angular.module('myApp.utilities.nodsr', []).filter('nodsr', function () {
+angular.module('rowApp.utilities.nodsr', []).filter('nodsr', function () {
   return function (text) {
     if (text === "DSR") {
       return "";
@@ -57,13 +57,13 @@ angular.module('myApp.utilities.nodsr', []).filter('nodsr', function () {
   };
 });
 
-angular.module('myApp.utilities.mtokm', []).filter('mtokm', function () {
+angular.module('rowApp.utilities.mtokm', []).filter('mtokm', function () {
   return function (meters) {
     return (meters / 1000).toFixed(1);
   };
 });
 
-angular.module('myApp.utilities.rightreqs', []).filter('rightreqs', ['DatabaseService', function (db_service) {
+angular.module('rowApp.utilities.rightreqs', []).filter('rightreqs', ['DatabaseService', function (db_service) {
   make_rights(db_service);
   var ss={'cox':'styrmanden','all':'alle','any':'mindst en','forbidden':'forbudt'};
   return function (rights) {
@@ -82,7 +82,7 @@ angular.module('myApp.utilities.rightreqs', []).filter('rightreqs', ['DatabaseSe
   };
 }]);
 
-angular.module('myApp.utilities.subjecttodk', []).filter('subjecttodk', function () {
+angular.module('rowApp.utilities.subjecttodk', []).filter('subjecttodk', function () {
   return function (sb) {
     var r=subject2dk[sb];
     return r?r:sb;
@@ -108,21 +108,21 @@ var dktags={
 }
 
 
-angular.module('myApp.utilities.damagedegreedk', []).filter('damagedegreedk', function () {
+angular.module('rowApp.utilities.damagedegreedk', []).filter('damagedegreedk', function () {
   return function (dd) {
     var r=damage_degrees[dd];
     return r?r:dd;
   };
 });
 
-angular.module('myApp.utilities.dk_tags', []).filter('dk_tags', function () {
+angular.module('rowApp.utilities.dk_tags', []).filter('dk_tags', function () {
   return function (tag) {
     var r=dktags[tag];
     return r?r:tag;
   };
 });
 
-angular.module('myApp.utilities.righttodk', []).filter('righttodk', ['DatabaseService', function (db_service) {
+angular.module('rowApp.utilities.righttodk', []).filter('righttodk', ['DatabaseService', function (db_service) {
   make_rights(db_service);
 
   return function (sb) {
@@ -131,7 +131,7 @@ angular.module('myApp.utilities.righttodk', []).filter('righttodk', ['DatabaseSe
   };
 }]);
 
-angular.module('myApp.utilities.argrighttodk', []).filter('argrighttodk', ['DatabaseService', function (db_service) {
+angular.module('rowApp.utilities.argrighttodk', []).filter('argrighttodk', ['DatabaseService', function (db_service) {
   make_rights(db_service);
 
   return function (sb) {
@@ -144,20 +144,20 @@ angular.module('myApp.utilities.argrighttodk', []).filter('argrighttodk', ['Data
   };
 }]);
 
-angular.module('myApp.utilities.sidetodk', []).filter('sidetodk', function () {
+angular.module('rowApp.utilities.sidetodk', []).filter('sidetodk', function () {
   return function (sd) {
     var r=side2dk[sd];
     return (r?r:sd);
   };
 });
 
-angular.module('myApp.utilities.leveltodk', []).filter('leveltodk', function () {
+angular.module('rowApp.utilities.leveltodk', []).filter('leveltodk', function () {
   return function (lvl) {
     return (lvl?"hylde "+lvl:"gulv");
   };
 });
 
-angular.module('myApp.utilities.rowtodk', []).filter('rowtodk', function () {
+angular.module('rowApp.utilities.rowtodk', []).filter('rowtodk', function () {
   return function (rw) {
     if (!rw) return("");
     if (rw==1) return ("mod porten");
@@ -167,7 +167,7 @@ angular.module('myApp.utilities.rowtodk', []).filter('rowtodk', function () {
 });
 
 
-angular.module('myApp.utilities.totime', []).filter('totime', function () {
+angular.module('rowApp.utilities.totime', []).filter('totime', function () {
   return function(hours) {
     var hrs = Math.floor(hours);
     var min = Math.round(hours % 1 * 60);
@@ -177,7 +177,7 @@ angular.module('myApp.utilities.totime', []).filter('totime', function () {
 });
 
 
-angular.module('myApp.utilities.txttotime', []).filter('txttotime', function () {
+angular.module('rowApp.utilities.txttotime', []).filter('txttotime', function () {
   return function(txt) {
     if (!txt) return null;
     var t=txt.split(/[- :]/);
@@ -186,7 +186,7 @@ angular.module('myApp.utilities.txttotime', []).filter('txttotime', function () 
   };
 });
 
-angular.module('myApp.utilities.ifNull', []).filter('ifNull', function () {
+angular.module('rowApp.utilities.ifNull', []).filter('ifNull', function () {
   return function( val, defaultVal, suffix) {
     if (val === null) return defaultVal;
     if (suffix != null) {
@@ -196,7 +196,7 @@ angular.module('myApp.utilities.ifNull', []).filter('ifNull', function () {
   };
 });
 
-angular.module('myApp.utilities.subArray', []).filter('subArray', function () {
+angular.module('rowApp.utilities.subArray', []).filter('subArray', function () {
   return function( arr, start, len) {
     if (! arr.splice ) {
       console.log("subArray input cannot be spliced", arr);
@@ -210,7 +210,7 @@ angular.module('myApp.utilities.subArray', []).filter('subArray', function () {
 });
 
 
-angular.module('myApp.utilities.keys', []).filter('keys', function () {
+angular.module('rowApp.utilities.keys', []).filter('keys', function () {
   return function( obj) {
     return Object.keys(obj);
   };
@@ -218,7 +218,7 @@ angular.module('myApp.utilities.keys', []).filter('keys', function () {
 
 
 
-angular.module('myApp.utilities.onlynumber', []).directive('onlynumber', function () {
+angular.module('rowApp.utilities.onlynumber', []).directive('onlynumber', function () {
   return {
     restrict: 'EA',
     require: 'ngModel',
@@ -248,7 +248,7 @@ angular.module('myApp.utilities.onlynumber', []).directive('onlynumber', functio
 }
                                                           )
 
-angular.module('myApp.utilities.transformkm', []).directive('transformkm', function () {
+angular.module('rowApp.utilities.transformkm', []).directive('transformkm', function () {
   return { 
     restrict: 'A',
     require: 'ngModel',
@@ -278,24 +278,24 @@ angular.module('myApp.utilities.transformkm', []).directive('transformkm', funct
 });
 
 
-angular.module('myApp.utilities', [
-  'myApp.utilities.onlynumber',
-  'myApp.utilities.urldecode',
-  'myApp.utilities.urlencode',
-  'myApp.utilities.nodsr',
-  'myApp.utilities.sidetodk',
-  'myApp.utilities.leveltodk',
-  'myApp.utilities.rowtodk',
-  'myApp.utilities.transformkm',
-  'myApp.utilities.mtokm',
-  'myApp.utilities.rightreqs',
-  'myApp.utilities.subjecttodk',
-  'myApp.utilities.righttodk',
-  'myApp.utilities.argrighttodk',
-  'myApp.utilities.dk_tags',
-  'myApp.utilities.damagedegreedk',
-  'myApp.utilities.txttotime',
-  'myApp.utilities.totime',
-  'myApp.utilities.ifNull',
-  'myApp.utilities.subArray',
-]).value('version', '0.1');
+angular.module('rowApp.utilities', [
+  'rowApp.utilities.onlynumber',
+  'rowApp.utilities.urldecode',
+  'rowApp.utilities.urlencode',
+  'rowApp.utilities.nodsr',
+  'rowApp.utilities.sidetodk',
+  'rowApp.utilities.leveltodk',
+  'rowApp.utilities.rowtodk',
+  'rowApp.utilities.transformkm',
+  'rowApp.utilities.mtokm',
+  'rowApp.utilities.rightreqs',
+  'rowApp.utilities.subjecttodk',
+  'rowApp.utilities.righttodk',
+  'rowApp.utilities.argrighttodk',
+  'rowApp.utilities.dk_tags',
+  'rowApp.utilities.damagedegreedk',
+  'rowApp.utilities.txttotime',
+  'rowApp.utilities.totime',
+  'rowApp.utilities.ifNull',
+  'rowApp.utilities.subArray',
+]).value('version', '0.2');

@@ -2,7 +2,8 @@
 
 $res=array ("status" => "ok");
 
-include("../inc/common.php");
+include("../../../rowing/backend/inc/common.php");
+
 $s='SELECT Member.MemberId as member_id, requeirement,CONCAT(Member.FirstName," ",Member.LastName) as name
     FROM course_requirement_pass, Member where Member.id=course_requirement_pass.member_id
     ORDER BY team

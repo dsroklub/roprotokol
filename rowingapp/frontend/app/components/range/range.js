@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.range', []).filter('range', function() {
+angular.module('rowApp.range', []).filter('range', function() {
   return function (input, start, end) {
         start = parseInt(start);
         end = parseInt(end);

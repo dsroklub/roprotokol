@@ -1,5 +1,5 @@
 <?php
-include("../../inc/common.php");
+include("../../../rowing/backend/inc/common.php");
 
 $data = file_get_contents("php://input");
 

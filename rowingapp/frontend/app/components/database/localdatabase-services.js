@@ -1,5 +1,5 @@
 'use strict';
-angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q) {
+angular.module('rowApp.database.database-services', []).service('DatabaseService', function($http, $q) {
   var boats;
   var boatcategories;
   var boatdamages;

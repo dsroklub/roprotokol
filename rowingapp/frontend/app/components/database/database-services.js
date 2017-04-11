@@ -1,5 +1,5 @@
 'use strict';
-angular.module('myApp.database.database-services', []).service('DatabaseService', function($http, $q,$log) {
+angular.module('rowApp.database.database-services', []).service('DatabaseService', function($http, $q,$log) {
   var valid={};
   var db={};
   var rowerstatistics={};

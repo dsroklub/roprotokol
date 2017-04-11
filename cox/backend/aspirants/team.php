@@ -1,6 +1,6 @@
 <?php
 
-include("../../inc/common.php");
+include("../../../rowing/backend/inc/common.php");
 $s='SELECT instruction_team.name,description,instructor
     FROM instruction_team
     ORDER BY name

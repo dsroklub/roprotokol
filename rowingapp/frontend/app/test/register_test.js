@@ -1,8 +1,8 @@
 'use strict';
 
-describe('myApp.register module', function() {
+describe('rowApp.register module', function() {
 
-  beforeEach(module('myApp.register'));
+  beforeEach(module('rowApp.register'));
 
   describe('register controller', function(){
 
