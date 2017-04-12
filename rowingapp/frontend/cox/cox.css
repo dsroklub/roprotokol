@@ -22,10 +22,12 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
     width: auto;
 }
-ul {
+ul.teams {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    display: inline-block;
+    background: #dfcfb2 !important;
 }
 
 .tools ul {
@@ -130,11 +132,6 @@ input.big {
     color: #000000;
 }
 
-
-button#createtrip_button[disabled] {
-    color: gray;
-    border: 1px solid blue;
-}
 
 /* Custom */
 .menuholder {
@@ -267,33 +264,6 @@ table caption {
     display:inline-block;
 }
 
-.rightbox {
-    float:right;
-    border-style: solid;
-    border-color: #ff0000;
-    border-radius: 5px 5px 5px 5px;
-    width:auto;
-    //    display: inline-block;
-    padding: 5px;
-    right : 0px;
-    margin-top: 3em;
-    top: 0px;
-    max-width: 32%;
-    position :fixed;
-}
-
-.blok, .destinations {
-    display: inline-block;
-    float: left;
-}
-.rowchart {
-    display: inline-block;
-    width : 100%;
-}
-
-.newboattype {
-    margin-top: 2em;
-}
 
 .listmenu,.boattypesmenu ul {
     background: white;
@@ -508,27 +478,10 @@ button[disabled], html input[disabled] {
     margin-left: 3em;
 }
 
-.aisle {
-    max-width: 5em;
-}
-
-.seatcount {
-    max-width: 5em;	
-}
-
 .ok,.degree {
     text-align:center;
 }
 
-.crewcount {
-    background: #E3FFE8;
-}
-
-.trip-search-field {
-    display: inline;
-    min-height: 34px;
-    padding: 6px;
-}
 
 textarea {
     resize: vertical;
