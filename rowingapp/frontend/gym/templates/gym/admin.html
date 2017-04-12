@@ -18,14 +18,14 @@
 
     <input placeholder="holdnavn" autocomplete="off" "teamname" name="teamname" type="text" ng-model="newteam.name" required />
     <input placeholder="hold beskrivelse" autocomplete="off" "teamdesc" name="teamdesc" type="text" ng-model="newteam.description" />
-    <select ng-model="newteam.dayofweek" ng-options="dow for dow in weekdays"></select>
-    <input placeholder="holdtid tt:mm" autocomplete="off"
-           "teamtime" name="teamtime" type="text" ng-model="newteam.timeofday" ng-pattern="todpattern" />
+    <select ng-model="newteam.dayofweek" ng-options="dow for dow in weekdays" required ></select>
+    <input placeholder="holdtid tt:mm" autocomplete="off" class="timeshort"
+           "teamtime" name="teamtime" type="text" ng-model="newteam.timeofday" ng-pattern="todpattern" required />
     <input placeholder="underviser" autocomplete="off" "teacher" name="teamteacher" type="text" ng-model="newteam.teacher" required />
-    <input placeholder="holdkode" autocomplete="off" "teamkey" name="tkey" type="text" ng-model="newteam.key" />
+    <input placeholder="holdkode" autocomplete="off" "teamkey" name="tkey" type="text" ng-model="newteam.key" class="holdkode" />
     <br>
 
-  <button ng-click="addTeam()">opret gymnestikhold</button>
+  <button ng-click="addTeam()" ng-disabled="newTeam.$invalid" class="submit">opret gymnastikhold</button>
 </ng-form>
 
 <br>
