@@ -73,8 +73,9 @@ button.green {
     border: 1px solid #3ECBBF;
     background: #028000;
     color: #FFFFFF;
+    font-size: 16pt;
 }
-button.header {   
+button.header, tr.header {   
     border: 1px solid #000000;
     color: #FFFFFF;
     background: #75c1be;
@@ -529,11 +530,6 @@ button[disabled], html input[disabled] {
     padding: 6px;
 }
 
-tr.tripcomment {
-    border: 2px solid #23aee2;
-    border-top: none;
-}
-
 textarea {
     resize: vertical;
 }
@@ -565,15 +561,6 @@ select.ng-invalid, input.ng-invalid {
 
 datetimepicker.ng-empty ng-form div input {
     background: #FCC;
-}
-
-
-.checkout_destination div span.btn {
-    background: #FCC;
-}
-
-.checkout_destination.ng-dirty div span.btn {
-    background: white;
 }
 
 .ng-pristine {

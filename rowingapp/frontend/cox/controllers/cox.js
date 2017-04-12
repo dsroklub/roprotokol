@@ -32,6 +32,14 @@ coxApp.controller(
      $scope.webrower=DatabaseService.getDataNow("cox/aspirants/current_user",null,
                                                 function (res) {
                                                   $scope.webrower=res.data;
+                                                  $scope.signup.phone=$scope.webrower.phone;
+                                                  $scope.signup.wish=$scope.webrower.wish;
+                                                  $scope.signup.act=$scope.webrower.activities.split(",");
+                                                  
+                                                  $scope.signup.comment=$scope.webrower.comment;
+                                                  $scope.signup.preferred_intensity=$scope.webrower.preferred_intensity;
+                                                  $scope.signup.preferred_time=$scope.webrower.preferred_time;
+                                                  $scope.signup.email=$scope.webrower.member_email?$scope.webrower.member_email:$scope.webrower.request_email;
                                                 }
                                                );
 
