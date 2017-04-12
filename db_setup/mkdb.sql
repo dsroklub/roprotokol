@@ -457,24 +457,79 @@ CREATE INDEX membername ON Member(FirstName,LastName);
 
 
 
-
-CREATE TABLE access (
-  member int;
-  email_sent int NOT NULL DEFAULT 0,
-  password varchar(255) _danish_ci NOT NULL,
-  is_admin int NOT NULL DEFAULT 0,
-  capability VARCHAR(255) NOT NULL default "member"
-  PRIMARY KEY member,capability
-)
+-- Styrmandinstruktion
+CREATE TABLE instruction_team (
+  name            VARCHAR(30) PRIMARY KEY, 
+  description      VARCHAR(2000),
+  instructor      INTEGER,
+  FOREIGN KEY (instructor) REFERENCES Member(id)
+);
 
 
-CREATE TABLE settings (
-  name varchar(255) COLLATE utf8_unicode_ci PRIMARY KEY NOT NULL,
-  description text COLLATE utf8_unicode_ci NOT NULL,
-  content text COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'text'
-) ;
+CREATE TABLE instruction_team_member (
+  team varchar(30),
+  member_id       INTEGER
+);
+
+CREATE TABLE instruction_team_participation (
+  team varchar(30),
+  member_id       INTEGER
+);
+
+DROP TABLE IF EXISTS team_requests;
+CREATE TABLE team_requests (
+  date_enter            date,
+  member_id             INTEGER PRIMARY KEY,
+  preferred_time        VARCHAR(30), -- e.g, season, week, weekday,
+  team                  varchar(300),
+  wish                  varchar(300),
+  activities            varchar(3000),
+  preferred_intensity   varchar(300),
+  comment               varchar(5000),
+  phone                 varchar(40),
+  email                 varchar(500),    
+  FOREIGN KEY (member_id) REFERENCES Member(id)
+
+);
+
+DROP TABLE IF EXISTS course_requirement;
+CREATE TABLE course_requirement (
+       name varchar(200),
+       description varchar(2000),
+       expiry    INTEGER, -- months, NULL for non expiery
+       dispensation BOOL
+);
 
 
-INSERT INTO settings (`name`, description, content, `type`) VALUES ('cox_forgot_mail','Tekst, der sendes ved glemt password','Kære %navn%\r\n\r\nDu har bedt om at få en ny kode til styrmandsinstruktion.\r\n\r\nDin nye kode er: %kode%\r\n\r\n','text'),('cox_welcome_mail','Invitations-mail','Kære %navn%\r\n\r\nDu kan nu melde dig på styrmandsinstruktion.\r\n\r\nGå ind på denne side:\r\n\r\n  https://styrmandsinstruktion.danskestudentersroklub.dk/\r\n\r\nHer kan du logge ind med dit medlemsnummer og en kode.\r\n\r\nDin personlige kode er: %kode%\r\n\r\n\r\n\r\nTilmeldingen er en ønskeliste.\r\n\r\n\r\nMed venlig hilsen,\r\n\r\nStyrmandsinstruktion','text'),('cox_welcome_page','Startsiden med login-knap.','Her kan du tilmelde dig styrmandsinstruktion.\r\n\r\n\r\nFor at logge ind, skal du bruge et særligt password, som du har fået tilsendt pr. mail.','text');
+INSERT INTO course_requirement VALUES ("landgang","Landgang på åben kyst",12,false);
+INSERT INTO course_requirement VALUES ("tillægning","Tillægning ved ponton",12,false);
+INSERT INTO course_requirement VALUES ("entring","entringsøvelse",12,true);
+INSERT INTO course_requirement VALUES ("kanal","Kanaltur i Københavns havn",12,true);
 
+DROP TABLE IF EXISTS course_requirement_pass;
+CREATE TABLE course_requirement_pass (
+       requirement  varchar(300),
+       member_id    INTEGER,
+       passed       DATE,
+       PRIMARY KEY (member_id,requirement)
+);
+
+-- INSERT INTO course_requirement_pass VALUE ('landgang',6784,'2017-03-31');
+
+CREATE TABLE authentication (
+  member_id             INTEGER NOT NULL PRIMARY KEY,
+  password              VARCHAR(255) NOT NULL,
+  newpassword           VARCHAR(255),
+  role                  VARCHAR(255),
+  FOREIGN KEY (member_id) REFERENCES Member(id)
+);
+
+CREATE TABLE cox_log (
+  timestamp             DATETIME,
+  member_id           VARCHAR(10),
+  action              VARCHAR(255),                      
+ entry               VARCHAR(20000) NOT NULL
+ );
+  
+
+--INSERT INTO authentication(6270,"hest","coxaspirant");

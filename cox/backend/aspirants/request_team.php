@@ -14,7 +14,7 @@ if ($stmt = $rodb->prepare(
     "INSERT INTO team_requests (date_enter, preferred_time, preferred_intensity, comment, activities, phone,email,wish,member_id) 
         SELECT NOW(),?,?,?,?,?,?,?,Member.id 
         FROM Member 
-        WHERE MemberID=? 
+        WHERE MemberId=? 
         ON DUPLICATE KEY UPDATE date_enter=NOW(), preferred_time=?, preferred_intensity=?, comment=?, activities=?, phone=?,email=?,wish=? ")
 ) {
     $stmt->bind_param('sssssssssssssss',
@@ -32,8 +32,8 @@ if ($stmt = $rodb->prepare(
     $reg->comment,
     $activities,    
     $reg->phone,
-    $reg->wish,
-    $reg->email
+    $reg->email,
+    $reg->wish
     );
     if (!$stmt->execute()) {
         error_log("OOOP ".$rodb->error);

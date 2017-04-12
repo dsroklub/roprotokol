@@ -31,14 +31,14 @@ intensitet.
   <ul>
     <br>
     Ønske (fx holdnavn du har aftalt med andre aspiranter):
-    <input autocomplete="off" ng-model="signup.wish" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required ></input>
+    <input autocomplete="off" ng-model="signup.wish" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required >
 
   <br>
   Mit telefonnummer er:
-  <input autocomplete="off" ng-model="signup.phone" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required ></input>
+  <input autocomplete="off" ng-model="signup.phone" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required >
 
   Min email er:
-  <input autocomplete="off" ng-model="signup.email" maxlength="255" class="ui-select-bootstrap" type="text" name="input" required ></input>
+  <input autocomplete="off" ng-model="signup.email" maxlength="255" class="ui-select-bootstrap" type="text" name="input" required >
 
     <br>
 Og desuden:
@@ -59,6 +59,7 @@ Og desuden:
         <thead>
           <th><button class="header" ng-click="sortAspirantBy('name')">Navn <i class="fa fa-sort"></i></button></th>
           <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske  <i class="fa fa-sort"> </i> </button></th>
+          <th>Hold</th>
           <th>Telefon</th>
           <th>Email</th>
           <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Sæsonprioritet  <i class="fa fa-sort"> </i></button></th>
@@ -68,6 +69,7 @@ Og desuden:
         <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
           <td>{{aspirant.name}}</td>
           <td>{{aspirant.wish}}</td>
+          <td>{{aspirant.team}}</td>
           <td>{{aspirant.phone}}</td>
           <td>{{aspirant.email}}</td>
           <td>{{aspirant.preferred_time}}</td>

@@ -136,9 +136,10 @@ coxApp.controller(
            $log.debug("did sign up");
            $scope.signup.name=$scope.signup.aspirant.name;
            $scope.signup.activities=$scope.signup.act.join();
-           for (var ai; ai< $scope.aspirants.length; ai++) {
-             if ($scope.aspirants[ai].member_id=$webrower.member_id) {
-               $scope.aspirants=$scope.aspirants.splice(ai,1);               
+           for (var ai=0; ai< $scope.aspirants.length; ai++) {
+             if ($scope.aspirants[ai].member_id=$scope.webrower.member_id) {
+               $scope.aspirants.splice(ai,1);
+               break;
              }
            }
            $scope.aspirants.push($scope.signup);

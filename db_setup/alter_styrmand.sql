@@ -1,6 +1,3 @@
-DROP TABLE IF EXISTS instruction_team_participation;
-
-DROP TABLE IF EXISTS instruction_team;
 CREATE TABLE instruction_team (
   name            VARCHAR(30) PRIMARY KEY, 
   description      VARCHAR(2000),
