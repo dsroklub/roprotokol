@@ -8,8 +8,8 @@ $s="SELECT Trip.id, TripType.Name AS triptype, Boat.Name AS boat, Trip.Destinati
      GROUP_CONCAT(Member.MemberID,':§§:', Concat(Member.FirstName,' ',Member.LastName) ORDER BY Seat SEPARATOR '££') AS rowers 
    FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  
    WHERE Boat.id=Trip.BoatID AND Trip.id=TripMember.TripID AND Trip.InTime IS NOT NULL AND TripType.id = Trip.TripTypeID  AND Trip.InTime  >= CURDATE() 
-   GROUP BY id 
-   ORDER BY Trip.id DESC, TripMember.Seat";
+   GROUP BY Trip.id 
+   ORDER BY Trip.id DESC";
 
 if ($sqldebug) {
   echo $s;
@@ -27,6 +27,9 @@ if ($stmt = $rodb->prepare($s)) {
        echo json_encode($row,JSON_PRETTY_PRINT);
      }
      echo ']';
+} else {
+        $error="createtrip Member DB error: " . $rodb->error;
+        error_log("OOOPS 2 $error");
 }
 $rodb->close();
 ?> 

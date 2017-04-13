@@ -1,9 +1,8 @@
 <?php
-  require_once("Mail.php");
+require_once("Mail.php");
 function send_email( $subject, $body, $user) {
       $smtp = Mail::factory('sendmail',
           array ());
-
       $res = false;
       if (isset($user['Email']) && trim($user['Email'])) {
           $email = trim($user['Email']);
@@ -21,9 +20,7 @@ function send_email( $subject, $body, $user) {
                                );
 
           $mail_headers['To'] = $email;
-
           $mail_content = $body;
-
           $mail_status = $smtp->send($email, $mail_headers, $mail_content);
           if (PEAR::isError($mail_status)) {
    	      $res = "Kunne ikke sende mail til $email: " . $mail_status->getMessage();

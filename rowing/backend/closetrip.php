@@ -13,15 +13,16 @@ if (isset($closedtrip->boat->corrected_distance)) {
 }
 
 $rodb->begin_transaction();
+$tripId=$closedtrip->boat->trip;
 
 if ($stmt = $rodb->prepare("SELECT 'x' FROM Trip WHERE id=? AND InTime IS NULL")) { 
-  $stmt->bind_param('i', $closedtrip->boat->trip);
+  $stmt->bind_param('i', $tripId);
   $stmt->execute();
   $result= $stmt->get_result();
   if (!$result->fetch_assoc()) {
       $error='notonwater';
-      $message='trip already closed: '. json_encode($closedtrip,true);
-      error_log($error);
+      $message="trip $tripId already closed or not on water: ". json_encode($closedtrip,JSON_PRETTY_PRINT);
+      error_log($message);
   }
 } 
 

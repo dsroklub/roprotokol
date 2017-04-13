@@ -8,7 +8,7 @@ $newtrip=json_decode($data);
 $message="createtrip  ".json_encode($newtrip);
 $error=null;
 
-error_log($data);
+// error_log($data);
 
 $rodb->begin_transaction();
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) { 
@@ -28,8 +28,10 @@ if (!$error) {
     $starttime=mysdate($newtrip->starttime);
     $expectedtime=mysdate($newtrip->expectedtime);
     
-        error_log('now new trip'. json_encode($newtrip));
-    if ($stmt = $rodb->prepare("INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment) VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?)")) {
+    // error_log('now new trip'. json_encode($newtrip));
+    if ($stmt = $rodb->prepare(
+        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment) 
+                VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?)")) {
         $info="client: ".$newtrip->client_name;
         $stmt->bind_param('isississ',
         $newtrip->boat->id ,
@@ -50,18 +52,21 @@ if (!$error) {
     }
     
     
-    if ($stmt = $rodb->prepare("INSERT INTO TripMember(TripID,Seat,member_id,MemberName,CreatedDate,EditDate) ".
-    "SELECT LAST_INSERT_ID(),?,Member.id,?,NOW(),NOW() FROM Member Where MemberID=?"
+    if ($stmt = $rodb->prepare(
+        "INSERT INTO TripMember(TripID,Seat,member_id,CreatedDate,EditDate) 
+         SELECT LAST_INSERT_ID(),?,Member.id,NOW(),NOW() 
+           FROM Member 
+           WHERE MemberId=?"
     )) {
         $seat=1;
         foreach ($newtrip->rowers as $rower) {
-            $stmt->bind_param('iss',$seat,$rower->name,$rower->id);
+            $stmt->bind_param('is',$seat,$rower->id);
             $stmt->execute();
             $seat+=1;
         }
     } else {
-        error_log("OOOPs2".$rodb->error);
-        $error="trip ;ember DB error".mysqli_error($rodb);
+        error_log("OOOPS 2 :".$rodb->error);
+        $error="createtrip Member DB error: ".mysqli_error($rodb);
     }
 }
 
