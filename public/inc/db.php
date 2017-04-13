@@ -14,7 +14,7 @@ function sql_connect() {
   $link = new mysqli("localhost", $config["loginuser"], $config["loginpw"], $config["database"]);
 
   if ($link->connect_errno) {
-    printf("Could not connect to database: %s\n", $mysqli->connect_error);
+    printf("Could not connect to database: %s\n", $link->connect_error);
     exit();
   }
   $link->set_charset('utf8');
