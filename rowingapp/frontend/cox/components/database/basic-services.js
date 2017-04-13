@@ -3,6 +3,7 @@ angular.module('coxApp.database.basic-services', []).service('BasicService', fun
 
 this.getpw = function(data) {
     $http.post('../../../public/getpw.php', data).then(function(r) {
+      alert("password er sendt");
     },function(r) {
       alert("det mislykkedes at sende nyt password");
     });

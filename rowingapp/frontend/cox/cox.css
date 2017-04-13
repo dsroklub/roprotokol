@@ -70,8 +70,10 @@ button i {
 button.red {   
     border: 1px solid #FF6C60;
     color: #FF6C60;
+    background: #171717;
+    font-size: 16pt;
 }
-button.green {   
+button.green, button.login {   
     border: 1px solid #3ECBBF;
     background: #028000;
     color: #FFFFFF;
