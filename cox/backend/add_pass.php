@@ -29,7 +29,7 @@ if ($stmt = $rodb->prepare($q)) {
 }
 
 
-$lq="INSERT INTO cox_log (timestamp, member_id,action,entry) SELECT NOW(),?,?,CONCAT(?,' for ',id) From Member Where MemberId=?";
+$lq="INSERT INTO cox_log (timestamp, member_id,action,entry) SELECT NOW(),?,?,CONCAT(?,' for ',?,' id=',id) From Member Where MemberId=?";
 
 $action=$reg->pass?"pass":"fail";
 if ($stmt = $rodb->prepare($lq)) {
@@ -37,6 +37,7 @@ if ($stmt = $rodb->prepare($lq)) {
     $cuser,
     $action,
     $reg->requirement,
+    $reg->aspirant,
     $reg->aspirant
     );
     if (! $stmt->execute()) {
