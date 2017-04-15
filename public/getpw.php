@@ -1,5 +1,5 @@
 <?php
-$res=array ("status" => "ok");
+$r=array ("status" => "ok");
 $json = file_get_contents("php://input");
 $data=json_decode($json);
 
@@ -14,7 +14,7 @@ if ($res) {
     $person = $res->fetch_assoc();
     if ($person) {
         $pw=null;
-        if ($stmt = $link->prepare("SELECT newpassword FROM authentication WHERE member_id=?")) {
+        if ($stmt = $link->prepare("SELECT newpassword FROM authentication,Member WHERE member_id=Member.id AND Member.MemberId=?")) {
             $stmt->bind_param('i', $memberId);
             $stmt->execute();
             $result= $stmt->get_result();
@@ -41,7 +41,7 @@ if ($res) {
                 error_log("Prepare Error:". $link->error);
             }
         }
-        $body = "Kode til styrmandsinstruktion\n Din kode er: $pw\n";
+        $body = "Kode til styrmandsinstruktion for $memberId \n Din kode er: $pw\n";
         $mail_error = send_email("Kode til styrmandsinstruktion", $body, $person, $pw);
         if ($mail_error) {
             echo "<p class=\"error\">Fejl: Kunne ikke afsende mail til styrmandsinstruktion: $mail_error</p>\n";
@@ -49,10 +49,12 @@ if ($res) {
             $sent = true;
         }
     } else {
-        echo "<p class=\"error\">Vi kunne ikke finde dig i systemet</p>";
-        echo "<p>Enten har du tastet dit medlemsnummer forkert eller også er du allerede styrmand</p>";
+        $r["status"]="not member";
+        $r["message"]="Enten har du tastet dit medlemsnummer forkert eller også er du allerede styrmand";
     }
     $res->close();
+} else {
+    $r["status"]="member login db error";
 }
-
+echo json_encode($r);
 ?> 

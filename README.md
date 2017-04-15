@@ -18,7 +18,7 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
     # Remember to restart your web server.
 
-   a2enmod dbd 
+   a2enmod dbd  rewrite
    a2enmod authn_dbd
    a2enmod php7.0 
 

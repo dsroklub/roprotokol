@@ -5,3 +5,5 @@ dbuser=roprotokol
 location=DSR
 adminpassword=dsr
 
+loginuser=apacheauth
+loginpw=XXXX

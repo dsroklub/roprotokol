@@ -77,4 +77,4 @@ CREATE TABLE cox_log (
   
 
 
-INSERT INTO authentication(6270,"hest","coxaspirant");
+INSERT INTO authentication VALUES (NOW(),6270,"hest","coxaspirant");
