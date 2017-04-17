@@ -7,8 +7,6 @@ error_reporting(E_ALL);
 define( 'ROOT_DIR', dirname(__FILE__) );
 set_include_path('.:..:'.ROOT_DIR);
 
-
-
 $skiplogin=false;
 
 if(!isset($_SESSION)){
@@ -49,5 +47,18 @@ function dbErr(&$db, &$res, $err="") {
     http_response_code(500);
 }
 
-
-?>
+function dbfetch($db,$table, $columns=['*'], $orderby=null) {
+    $s='SELECT '. implode(',',$columns) . '  FROM ' . $table;
+        if ($orderby) {
+        $s .= " ORDER BY $orderby";
+    }
+    $result=$db->query($s) or die("Error in stat query: " . mysqli_error($db));
+    echo '[';
+    $first=1;
+    while ($row = $result->fetch_assoc()) {
+        if ($first) $first=0; else echo ',';	  
+        echo json_encode($row,	JSON_PRETTY_PRINT);
+    }
+    echo ']';
+}
+?>     

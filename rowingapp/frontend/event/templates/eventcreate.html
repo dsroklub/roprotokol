@@ -1,0 +1,105 @@
+<script type="text/ng-template" id="inviteeTemplate.html">
+  <a>
+  <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+  {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<div>
+<ng-form name="neweventform">
+  <h2>Opret en ny begivenhed</h2>
+
+  <br>
+  <table>
+    <tr><th>begivenhed</th><td> <select name="category" id="cat" ng-model="newevent.category" ng-options="cat.name for cat in eventcategories" required> </select></td></tr>
+
+    <tr><th>Navn på begivenhed</th><td> <input type="text" id="owner_in" ng-model="newevent.name" required></td></tr>
+    <tr><th>Turen starter</th><td> <input type="text" id="owner_in" ng-model="newevent.location" required></td></tr>
+    
+    <tr><th>Jeg skal selv med</th><td> <input type="checkbox" id="owner_in" ng-model="newevent.owner_in" ng-true-value="1" ng-false-value="0" ></td></tr>
+    <tr><th>Inviter forum </th><td>
+        <select name="forum" id="forum" ng-model="newevent.forum" ng-options="forum.name for forum in fora"> </select>
+      </td>
+    </tr>
+    <tr><th>Inviter medlemmer</th><td>
+        <input
+           placeholder="inviter roer" autocomplete="off"
+           id="invitee" name="invitee" type="text"
+           ng-model="newevent.invitee"
+           typeahead-min-length="3"
+           ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }"
+           uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+           typeahead-template-url="inviteeTemplate.html"
+           typeahead-on-select="addInvitee()"
+           />
+      </td>
+    </tr>
+    <tr><th></th><td>
+        <ol >
+          <li ng-repeat="invitee in newevent.invitees">{{invitee.name}}</li>
+        </ol>
+      </td>
+    </tr>
+
+    <tr><th>Max deltagere</th><td>
+	<input type="number" class="number" size="5" maxlength="5" autocomplete="off" ng-model="newevent.max_participants"></td>
+    </tr>
+    <tr><th>Evt hvad slags både</th><td>
+        <select name="boatcategory" id="boatcat" ng-model="newevent.boat_category" ng-options="boatcat.Name for boatcat in boatcategories"></select>
+    </td></tr>
+    <tr><th>Start:</th>
+      <td>
+        <datetimepicker
+           date-format="dd-MMM-yyyy"
+           show-spinners="false"
+           current-text="i dag"
+           close-text="Vælg"
+           clear-text="nulstil"
+           date-options="dateOptions"
+           show-meridian="false"
+           data-ng-model="newevent.starttime"
+           />
+      </td>
+    </tr>
+    <tr><th>evt slut:</th>
+      <td>
+      <datetimepicker
+         date-format="dd-MMM-yyyy"
+         show-spinners="false"
+         current-text="i dag"
+         close-text="Vælg"
+         clear-text="nulstil"
+         date-options="dateOptions"
+         show-meridian="false"
+         data-ng-model="newevent.endtime"
+         />
+    </td>
+    </tr>
+
+    <tr><th>Beskrivelse</th>
+      <td> <textarea placeholder="beskriv turen/arrangementet" id="event_comment" type="text" ng-model="newevent.comment"></textarea>
+      </td>
+    </tr>
+
+    
+    <tr>
+      <th>evt. forventet distance</th>
+      <td>
+        <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="checkout.distance"></input>km
+      </td>
+    </tr>
+    
+</table>
+  <button class="green" ng-show="neweventform.$valid && newevent.starttime" ng-click="eventcreate()">Opret begivenhed</button>
+  <button class="red" ng-hide="neweventform.$valid">Udfyld navn</button>
+  <button class="red" ng-hide="newevent.starttime">Udfyld starttid</button>
+</ng-form>
+</div>
+
+<pre>
+  ne=  {{xnewevent|json}}
+  fora=  {{fora|json}}
+
+</pre>
+
+
