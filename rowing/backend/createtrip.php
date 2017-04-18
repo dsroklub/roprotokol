@@ -2,7 +2,6 @@
 include("inc/common.php");
 
 $res=array ("status" => "ok");
-
 $data = file_get_contents("php://input");
 $newtrip=json_decode($data);
 $message="createtrip  ".json_encode($newtrip);

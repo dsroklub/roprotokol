@@ -32,7 +32,7 @@ var eventApp = angular.module('eventApp', [
       controller: 'eventCtrl'
     });
     $routeProvider.when('/forumsubscribe/', {
-      templateUrl: 'templates/forumsubscribe.html',
+      templateUrl: 'templates/forum.html',
       controller: 'eventCtrl'
 	});
     $routeProvider.when('/eventcreate/', {

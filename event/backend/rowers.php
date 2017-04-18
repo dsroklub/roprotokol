@@ -4,7 +4,8 @@ include("utils.php");
 header('Content-type: application/json');
 
 $s="SELECT Member.MemberID AS id,CONCAT(FirstName,' ',LastName) AS name, GROUP_CONCAT(MemberRight,':§§:',argument, ':§§:',Acquired SEPARATOR '££') AS rights    FROM Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  
-    WHERE Member.MemberID!='0' GROUP BY Member.id";
+    WHERE Member.MemberID!='0' 
+    GROUP BY Member.id";
 
 
 if ($sqldebug) {

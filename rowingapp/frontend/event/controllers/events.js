@@ -10,11 +10,14 @@ eventApp.controller(
      $scope.dateOptions = {
        showWeeks: false
      };
-     $scope.newevent={invitees:[]};
-     $scope.newevent.location="DSR";
-     $scope.newevent.max_participants="";
-     $scope.newevent.owner_in=1;
 
+     $scope.init = function(){
+       $scope.newevent={invitees:[]};
+       $scope.newevent.location="DSR";
+       $scope.newevent.max_participants="";
+       $scope.newevent.owner_in=1;
+     }
+     $scope.init();
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
      DatabaseService.init({"event":true,"member":true,"user":true}).then(function () {
 
@@ -33,7 +36,14 @@ eventApp.controller(
      });
      
      $scope.eventcreate = function(arg) {
-       alert('submit');
+       var sr=DatabaseService.createSubmit("event_create",$scope.newevent);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $scope.init();
+         } else {
+           alert(status.error);
+         }
+       });
      }
      $scope.getRowerByName = function (val) {
        // Generate list of ids that we already have added

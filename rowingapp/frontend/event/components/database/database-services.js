@@ -211,6 +211,18 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   }
 
 
+  this.createSubmit = function(entity,data) {
+    var entityCreated=$q.defer();
+    var res=undefined;
+    $http.post('../../backend/event/'+entity+'.php', data).then(function(r) {
+      entityCreated.resolve(r.data);
+    },function(r) {
+      entityCreated.resolve(false);
+    });
+    datastatus['trip']=null;
+    return entityCreated;
+  };
+  
   this.client_name =function () {
     var clientname="terminal";
     if (localStorage) {
