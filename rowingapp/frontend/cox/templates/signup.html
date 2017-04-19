@@ -28,9 +28,10 @@ intensitet.
     <li class="acts" ng-repeat="activity in activities">
       <input type="checkbox" checklist-model="signup.act" checklist-value="activity"> {{activity}}
     </li>
-  <ul>
+  </ul>
+
     <br>
-    Ønske (fx holdnavn du har aftalt med andre aspiranter):
+    Ønske (fx holdnavn aftalt med andre aspiranter):
     <input autocomplete="off" ng-model="signup.wish" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required >
 
   <br>
@@ -57,13 +58,13 @@ Og desuden:
       <ng-form name="teamMembers">    
       <table class="coxlist genericlist">
         <thead>
-          <th><button class="header" ng-click="sortAspirantBy('name')">Navn <i class="fa fa-sort"></i></button></th>
-          <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske  <i class="fa fa-sort"> </i> </button></th>
+          <th><button class="header" ng-click="sortAspirantBy('name')">Navn <i class="fa fa-sort-alpha-asc"></i></button></th>
+          <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske  <i class="fa fa-sort-alpha-asc"> </i> </button></th>
           <th>Hold</th>
           <th>Telefon</th>
           <th>Email</th>
-          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Sæsonprioritet  <i class="fa fa-sort"> </i></button></th>
-          <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter  <i class="fa fa-sort"> </i></button></th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Sæsonprioritet  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter  <i class="fa fa-sort-alpha-asc"> </i></button></th>
       </thead>
       <tbody>
         <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
@@ -77,5 +78,4 @@ Og desuden:
       </tbody>
     </table>
   </ng-form>
-
 </div>

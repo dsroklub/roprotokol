@@ -19,7 +19,6 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 0;
     width: auto;
 }
 ul.teams {
@@ -84,6 +83,11 @@ button.header, tr.header {
     color: #FFFFFF;
     background: #75c1be;
 }
+
+th.header {
+    vertical-align: bottom;
+}
+
 button.klar {   
     border: 1px solid #3ECBBF;
     color: #000000;
@@ -202,11 +206,10 @@ button.statcat, button.adminbut {
 .genericcategories,
 .stats,
 .baselayout,
-
 .genericmenu h2 {
     background: #23aee2;
     padding: 10pt;
-    color: white;
+    color: black;
     font-size: 10pt;
     font-weight: 400;
     border-radius: 5px 5px 0 0;
@@ -230,7 +233,6 @@ button.statcat, button.adminbut {
     float:left;
     margin-bottom: 2em;
 }
-
 
 .listmenu caption{
     background: #23aee2;
@@ -277,24 +279,12 @@ li.selected,button.selected {
 
 
 .coxlist {
-    background: #50E663 !important;
+    background: #e8d3cc;
     border-radius: 5px;
     overflow: visible;
-    float:left;
     margin-bottom: 2em;
 }
 
-.coxlist thead th {
-    background: #3ECBBF;
-    color: white;
-    padding: 9pt 10pt 9pt 10pt;
-    font-weight: 400;
-    border-right: 1px solid white;
-    user-select:none;
-    -webkit-user-select:none;
-}
-
-.coxlist thead th,
 .coxlist tbody tr.genericheader th {
     background: #3ECBBF;
     color: white;
@@ -329,8 +319,8 @@ li.selected,button.selected {
     border-radius: 0 5px 0 0 !important;
 }
 
-.coxlist td {
-    padding: 0 0 0 0;
+.coxlist td. .coxlist th {
+    padding: 0.2em;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
 }
@@ -346,10 +336,10 @@ li.selected,button.selected {
 
 .coxrq {
     background: #efff00;
+    color: black;
     padding: 0.4em;
     margin-top: 0px;
 }
-
 
 .passed {
     background: #00ff00;
@@ -359,7 +349,7 @@ li.selected,button.selected {
     background: #00ffaa;
 }
 
-.selected td {
+.selected th, .selected td{
     padding: 0 0 0 0;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
@@ -374,7 +364,7 @@ li.selected,button.selected {
     background: #6ad7ce;
 }
 
-.statlist,.coxlist td {
+.statlist,.coxlist td, .coxlist th {
     padding: 6pt 10pt 6pt 10pt;
     border-right: 1px solid #F1F2F7;
     border-bottom: 1px solid #F1F2F7;
@@ -595,7 +585,6 @@ textarea.signuptext {
     align:center;
 }
 
-
 .nottoday {
 	  background: #bbbbaa;    
 }
@@ -603,3 +592,5 @@ textarea.signuptext {
 .acts {
     display: inline;
 }
+
+
