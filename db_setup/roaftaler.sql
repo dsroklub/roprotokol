@@ -74,6 +74,6 @@ CREATE TABLE forum_subscription (
   member     INTEGER,
   forum      VARCHAR(255),
   role       VARCHAR(255), -- waiting, cox, any, leader, admin
-  FOREIGN KEY (forum) REFERENCES interest(name),
+  FOREIGN KEY (forum) REFERENCES forum(name),
   FOREIGN KEY (member) REFERENCES Member(id)
 );

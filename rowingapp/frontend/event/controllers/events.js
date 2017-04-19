@@ -28,6 +28,7 @@ eventApp.controller(
 
        $scope.boatcategories=DatabaseService.getDB('event/boat_category');
        $scope.fora=DatabaseService.getDB('event/fora');
+       $scope.userfora=DatabaseService.getDB('event/userfora');
        $scope.eventcategories=DatabaseService.getDB('event/event_category');
        $scope.newevent.category=$scope.eventcategories[0];
        $scope.newevent.starttime=null;
@@ -35,6 +36,18 @@ eventApp.controller(
          //new Date($scope.newevent.starttime.getTime()+3600000);
      });
      
+     $scope.subscribe = function(forum) {
+       $scope.subscription.role="user";
+       var sr=DatabaseService.createSubmit("forum_subscribe",$scope.subscription);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $scope.subscription.forum=null;
+         } else {
+           alert(status.error);
+         }
+       });       
+     }
+
      $scope.eventcreate = function(arg) {
        var sr=DatabaseService.createSubmit("event_create",$scope.newevent);
        sr.promise.then(function(status) {

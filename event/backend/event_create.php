@@ -10,7 +10,7 @@ error_log(print_r($newevent,true));
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
-$cuser="7854"; // FIXME
+// $cuser="7854"; // FIXME
 
 if ($stmt = $rodb->prepare(
         "INSERT INTO event(owner, boat_category, start_time, end_time, distance, max_participants, location, name, category, comment)

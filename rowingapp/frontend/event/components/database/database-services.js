@@ -64,6 +64,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     this.getData('event/event_category',promises);
     this.getData('event/boat_category',promises);
     this.getData('event/fora',promises);
+    this.getData('event/userfora',promises);
     if(!valid['rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);

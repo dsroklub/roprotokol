@@ -1,9 +1,25 @@
 <table>
 
-<tr><th>Forumforum </th><td>
+<tr><th>Forum </th><td>
 <select name="forum" id="forum" ng-model="subscription.forum" ng-options="forum.name for forum in fora"> </select>
      </td>
-     </tr>
+
+<td> <button class="green" ng-click="subscribe(forum)">Abonner</button></td>
+
+</tr>
+</table>
+
+
+<h2>Mine abonnementer</h2>
+
+<ul>
+  <li ng-repeat="userforum in userfora">{{userforum.name}}</l>
+</ul>
 
 
 </table>
+
+
+<pre>
+UF  {{userfora}}
+  </pre>

@@ -3,12 +3,12 @@
 $res=array ("status" => "ok");
 
 set_include_path(get_include_path().':/');
-include("../../../rowing/backend/inc/common.php");
+include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
 
 $cuser=$_SERVER['PHP_AUTH_USER'];
-error_log("CU $cuser");
+error_log("CU=$cuser");
 
 $s="SELECT Member.MemberId as member_id, wish, team_requests.phone,team_requests.email,team,
     CONCAT(Member.FirstName,' ', Member.LastName) as name, preferred_time, preferred_intensity,
