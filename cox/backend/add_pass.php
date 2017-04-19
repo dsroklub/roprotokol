@@ -33,7 +33,7 @@ $lq="INSERT INTO cox_log (timestamp, member_id,action,entry) SELECT NOW(),?,?,CO
 
 $action=$reg->pass?"pass":"fail";
 if ($stmt = $rodb->prepare($lq)) {
-    $stmt->bind_param('ssss',
+    $stmt->bind_param('sssss',
     $cuser,
     $action,
     $reg->requirement,

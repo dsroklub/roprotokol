@@ -41,7 +41,7 @@ if ($res) {
                 error_log("Prepare Error:". $link->error);
             }
         }
-        $body = "Kode til styrmandsinstruktion for $memberId \n Din kode er: $pw\n";
+        $body = "Kode til styrmandsinstruktion for $memberId \n Din kode er: $pw\nDit brugernavn er dit medlemsnummer";
         $mail_error = send_email("Kode til styrmandsinstruktion", $body, $person, $pw);
         if ($mail_error) {
             echo "<p class=\"error\">Fejl: Kunne ikke afsende mail til styrmandsinstruktion: $mail_error</p>\n";

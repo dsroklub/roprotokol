@@ -5,18 +5,28 @@
   </a>
 </script>
 
-Kun Styrmandsinstruktører kan rette her.
+Her kan styrmandsinstruktører give krydser og sætte hold.
 
 <h2>Eksisterende hold</h2>
- <div>
-  <ul class="teams">
-    <li ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}"  class="team">
-      {{tm.name}} {{tm.description}}:  {{tm.instructor_name}} ({{tm.instructor}})
-      <strong  ng-click="deleteTeam(tm)" confirm="Vil du slette holdet {{tm.name}}?"> <i class="fa fa-trash"></i></strong>
-    </li>
-  </ul>
-</div>
-  <h2>Tilføj nyt hold</h2>
+
+<table class="coxlist">
+  <thead>
+  <tr>
+    <th>Navn</th> <th>beskrivelse</th>  <th>Instruktør</th><th>størrelse</th> <th>nedlæg hold</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}"  class="team" ng-class-odd="'oddstat'">
+    <th>{{tm.name}}</th>
+    <td>{{tm.description}}</td>
+    <td>{{tm.instructor_name}} ({{tm.instructor}})</td>
+    <td class="numin">{{tm.occupancy}}</td>
+    <td><strong  ng-click="deleteTeam(tm)" confirm="Vil du slette holdet {{tm.name}}?"> <i class="fa fa-trash"></i></strong></td>
+  </tr>
+  </tbody>
+</table>  
+
+<h2>Tilføj nyt hold</h2>
   
   <ng-form name="newTeam">    
     <input placeholder="holdnavn" autocomplete="off" "teamname" name="teamname" type="text" ng-model="newteam.name" required />
@@ -24,26 +34,29 @@ Kun Styrmandsinstruktører kan rette her.
     <input placeholder="instruktør" autocomplete="off" id="coxinstructor" name="coxinstructor" type="text" ng-model="newteam.instructor"
            typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue) | filter: coxinstructor(rower)"
                 typeahead-template-url="memberTemplate.html" required />
-    <br>
     <button class="green" ng-click="addTeam()">opret styrmandshold</button>
   </ng-form>
 
 
   <h2>Styrmandsaspiranter</h2>
 
+  Sæt en aspirant på et hold ved at vælge holdet for i drop-down menuen under kolonnen "Hold" for aspiranten.<br>
+  Giv en aspirant et kryds ved at trykke på en af de gule godkendelser ud for aspiranten.<br>
+  Sorter aspiranter, fx efter "ønske", når du vil sætte hold
+  
   <div>
     <ng-form name="teamMembers">    
-      <table>
+      <table class="coxlist">
         <thead>
-          <th><button class="header" ng-click="sortAspirantBy('name')">Navn  <i class="fa fa-sort"> </i></button></th>
-          <th><button class="header" ng-click="sortAspirantBy('team')">Hold  <i class="fa fa-sort"> </i></button></th>
-          <th>Telefon</th>
-          <th>Email</th>
-          <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske  <i class="fa fa-sort">  </i></button></th>
-          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrukken<br> tid  <i class="fa fa-sort"> </i></button></th>
-          <th><button class="header" ng-click="sortAspirantBy('preferred_intensity')">Foretrukken<br>intensitet  <i class="fa fa-sort"> </i></button></th>
-          <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter  <i class="fa fa-sort"> </i></button></th>
-          <th>Godkendelser</th>
+          <th class="header"><button class="header" ng-click="sortAspirantBy('name')">Navn  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th class="header"><button class="header" ng-click="sortAspirantBy('team')">Hold  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th class="header">Telefon</th>
+          <th class="header">Email</th>
+          <th class="header"><button class="header" ng-click="sortAspirantBy('wish')">Ønske  <i class="fa fa-sort-alpha-asc">  </i></button></th>
+          <th class="header"><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrukken<br> tid  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th class="header"><button class="header" ng-click="sortAspirantBy('preferred_intensity')">Foretrukken<br>intensitet  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th class="header"><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th class="header">Godkendelser (klik for at ændre)</th>
       </thead>
       <tbody>
         <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">

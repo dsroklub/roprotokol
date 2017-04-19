@@ -57,6 +57,7 @@ coxApp.controller(
          function(st) {
            $scope.requirements.push(angular.copy(r));
            $log.debug("s req");
+           $scope.requirement=null;
          }
        )
      }
@@ -120,7 +121,7 @@ coxApp.controller(
        $log.debug("add team");
        DatabaseService.add_cox_team($scope.newteam).promise.then(
          function(st) {
-           var nt={"instructor_name": $scope.newteam.instructor.name, "instructor":$scope.newteam.instructor.id, "name":$scope.newteam.name};
+           var nt={"instructor_name": $scope.newteam.instructor.name, "instructor":$scope.newteam.instructor.id, "name":$scope.newteam.name, "occupancy":0, "description":$scope.newteam.description};
            $scope.teams.push(nt);
          }
        );
@@ -129,13 +130,18 @@ coxApp.controller(
      $scope.dosignup = function() {
        $log.debug("sign up team");
        $scope.signup.aspirant=$scope.webrower;
+
+       if ($scope.signup.act.length>0 && !$scope.signup.act[0]) {
+         $scope.signup.act.splice(0,1);  // WHY is this necessary
+       }
+       
        DatabaseService.cox_request($scope.signup).promise.then(
          function(st) {
            $log.debug("did sign up");
            $scope.signup.name=$scope.signup.aspirant.name;
            $scope.signup.activities=$scope.signup.act.join();
            for (var ai=0; ai< $scope.aspirants.length; ai++) {
-             if ($scope.aspirants[ai].member_id=$scope.webrower.member_id) {
+             if ($scope.aspirants[ai].member_id==$scope.webrower.member_id) {
                $scope.aspirants.splice(ai,1);
                break;
              }
