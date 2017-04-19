@@ -420,11 +420,8 @@ datetimepicker.trip-search-field ng-form div input {
     background: white;
 }
 
-.destinationlist {
-    background: yellow;
-    width: 30em;
-    position:fixed;
-    border: 2px solid blue;
+.subscription {
+    font-weight: bold;
 }
 
 .topsel {

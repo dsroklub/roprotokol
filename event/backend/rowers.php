@@ -7,7 +7,6 @@ $s="SELECT Member.MemberID AS id,CONCAT(FirstName,' ',LastName) AS name, GROUP_C
     WHERE Member.MemberID!='0' 
     GROUP BY Member.id";
 
-
 if ($sqldebug) {
     echo $s."<br>\n";
 }

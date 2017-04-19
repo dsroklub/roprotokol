@@ -4,9 +4,11 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-$s="SELECT forum.name, forum.description FROM forum, forum_subscription, Member 
-    WHERE Member.id=forum_subscription.member AND Member.MemberId=?";
+$s="SELECT forum.name, forum.description,forum_subscription.role
+    FROM (Member JOIN forum) LEFT JOIN forum_subscription ON forum_subscription.forum=forum.name AND forum_subscription.member=Member.id
+    WHERE Member.MemberId=?";
 
+//echo "$s\n";
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("s", $cuser);
     $stmt->execute();

@@ -73,7 +73,8 @@ INSERT INTO forum VALUE('kaproning','for kaproere');
 CREATE TABLE forum_subscription (
   member     INTEGER,
   forum      VARCHAR(255),
-  role       VARCHAR(255), -- waiting, cox, any, leader, admin
+  role       VARCHAR(255) NOT NULL, -- waiting, cox, any, leader, admin
   FOREIGN KEY (forum) REFERENCES forum(name),
-  FOREIGN KEY (member) REFERENCES Member(id)
+  FOREIGN KEY (member) REFERENCES Member(id),
+  PRIMARY KEY(member,forum)
 );

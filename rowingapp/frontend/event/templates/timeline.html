@@ -1,1 +1,32 @@
-TBA
+<pre>
+
+  FILTER: forum
+  Distance
+  category
+  jeg deltager: radiobutton
+</pre>
+
+<table class="coxlist">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>start</th>
+      <th>distance</th>
+      <th>Jeg vil med</th>
+   </tr> 
+  </thead>
+  <tbody>
+    <tr ng-repeat="ev in events" ng-click="setEvents(ev)"  ng-class="{selected: currentevent == ev}"  class="event" ng-class-odd="'oddstat'">
+      <td>{{ev.name}}</td>
+      <td>{{ev.start_time | txttotime | date:"d. MMM yyyy"}}</td>
+      <td>{{ev.distance}}</td>
+      <td>xx</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<pre>
+ evs {{events}}
+  </pre>
