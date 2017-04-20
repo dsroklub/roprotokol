@@ -50,7 +50,11 @@ var eventApp = angular.module('eventApp', [
     $routeProvider.when('/timeline/', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
-	});
+    });
+    $routeProvider.when('/timeline', {
+      templateUrl: 'templates/timeline.html',
+      controller: 'eventCtrl'
+    });
     $routeProvider.when('/login/', {
       templateUrl: 'templates/login.html',
       controller: 'noRight'

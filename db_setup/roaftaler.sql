@@ -31,7 +31,7 @@ CREATE TABLE event (
 );
 
 CREATE TABLE event_role (
-  name       VARCHAR(255),
+  name       VARCHAR(255) PRIMARY KEY,
   can_post   BOOLEAN,
   is_leader  BOOLEAN,
   is_cox     BOOLEAN  
@@ -49,7 +49,8 @@ CREATE TABLE event_member (
   enter_time DATETIME  DEFAULT NOW(),
   role       VARCHAR(255), -- waiting, cox, any, leader, admin
   FOREIGN KEY (member) REFERENCES Member(id),
-  FOREIGN KEY (event) REFERENCES event(id)
+  FOREIGN KEY (event) REFERENCES event(id),
+  PRIMARY KEY (member,event)
 );
 
 CREATE TABLE event_invitees (

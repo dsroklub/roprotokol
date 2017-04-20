@@ -64,6 +64,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     this.getData('event/memberrighttypes',promises);
     this.getData('event/event_category',promises);
     this.getData('event/boat_category',promises);
+    this.getData('event/current_user',promises);
     this.getData('event/fora',promises);
     //    this.getData('event/events',promises);
     this.getData('event/events_participants',promises);

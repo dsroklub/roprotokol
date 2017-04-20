@@ -9,6 +9,8 @@ eventApp.controller(
      $scope.signup={act:[]};
      $scope.messages=[];
      $scope.subscription={};
+     $scope.eventarg=$routeParams.event;
+
      $scope.dateOptions = {
        showWeeks: false
      };
@@ -22,12 +24,6 @@ eventApp.controller(
      $scope.init();
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
      DatabaseService.init({"event":true,"member":true,"user":true}).then(function () {
-
-       // DatabaseService.getDataNow('cox/aspirants/aspirants',null,function (res) {
-       //   $scope.aspirants=res.data;
-       // }
-       //                           );
-
        $scope.boatcategories=DatabaseService.getDB('event/boat_category');
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
@@ -36,6 +32,17 @@ eventApp.controller(
        $scope.newevent.category=$scope.eventcategories[0];
        $scope.newevent.starttime=null;
        $scope.newevent.endtime=null;
+       $scope.current_user=DatabaseService.getDB('event/current_user');
+
+       if ($scope.eventarg) {
+         for (var i=0; i<$scope.events.length; i++){
+         if ($scope.events[i].id==$scope.eventarg) {
+           $scope.currentevent=$scope.events[i];
+         }
+       }
+       }
+
+       
          //new Date($scope.newevent.starttime.getTime()+3600000);
      });
      
@@ -73,6 +80,49 @@ eventApp.controller(
        });
      }
 
+     $scope.is_event_member = function() {
+       if (!$scope.currentevent) {
+         return false;
+       }
+       for (var i=0; i<$scope.currentevent.participants.length; i++){
+         if ($scope.currentevent.participants[i] && $scope.currentevent.participants[i].member_id==$scope.current_user.member_id ) {
+           return true;
+         }
+       }       
+       return false;
+     }
+
+     $scope.eventjoin = function(arg) {
+       var sr=DatabaseService.createSubmit("event_join",$scope.currentevent);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $scope.currentevent.participants.push($scope.current_user);
+//           FIXME Do something
+         } else {
+           alert(status.error);
+         }
+       })
+     }
+
+     $scope.eventleave = function() {
+       $log.debug("leave");
+       var sr=DatabaseService.createSubmit("event_leave",$scope.currentevent);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           for (var i=0; i<$scope.currentevent.participants.length; i++) {
+             if ($scope.currentevent.participants[i].member_id==$scope.current_user.member_id ) {
+               $scope.currentevent.participants.splice(i,1);
+               break;
+             }
+           }
+         } else {
+           alert(status.error);
+         }
+       })
+     }
+
+
+     
      $scope.messagesend = function(arg) {
        alert("message send not implemented");
      }
