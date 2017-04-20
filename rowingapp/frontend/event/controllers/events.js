@@ -10,6 +10,7 @@ eventApp.controller(
      $scope.messages=[];
      $scope.subscription={};
      $scope.eventarg=$routeParams.event;
+     $scope.rParams=$routeParams;
 
      $scope.dateOptions = {
        showWeeks: false
@@ -35,9 +36,11 @@ eventApp.controller(
        $scope.current_user=DatabaseService.getDB('event/current_user');
 
        if ($scope.eventarg) {
-         for (var i=0; i<$scope.events.length; i++){
-         if ($scope.events[i].id==$scope.eventarg) {
+         $log.debug("look for event "+$scope.eventarg);
+               for (var i=0; i<$scope.events.length; i++){
+         if ($scope.events[i].event_id==$scope.eventarg) {
            $scope.currentevent=$scope.events[i];
+           $log.debug("found currentevent");
          }
        }
        }
@@ -68,7 +71,9 @@ eventApp.controller(
          }
        });
      }
-     
+
+
+     // EVENT CREATION
      $scope.eventcreate = function(arg) {
        var sr=DatabaseService.createSubmit("event_create",$scope.newevent);
        sr.promise.then(function(status) {
@@ -80,6 +85,17 @@ eventApp.controller(
        });
      }
 
+     $scope.eventmessage = function() {
+       $scope.newevent.comment = $scope.current_user.name + " inviterer dig til " + ($scope.newevent.name?$scope.newevent.name:"?");
+       if ($scope.newevent.starttime)  {$scope.newevent.comment +="\ndet starter "+ $filter('date')($scope.newevent.starttime,"d MMM yyyy kl. HH:mm");}
+       if ($scope.newevent.endtime) {$scope.newevent.comment += "\nog slutter " + $filter('date')($scope.newevent.endtime,"d MMM yyyy kl. HH:mm");}
+       if ($scope.newevent.distance) {$scope.newevent.comment += "\nturen forventes at være på ca " +$scope.newevent.distance +" km";}
+       if ($scope.newevent.location) {$scope.newevent.comment += "\nVi starter i " +$scope.newevent.location;}
+       if ($scope.newevent.max_participants) {$scope.newevent.comment += "\nder er plads til " +$scope.newevent.max_participants +" roere";}
+       if ($scope.newevent.boat_category) {$scope.newevent.comment += "\nvi ror i " +$scope.newevent.boat_category; }
+     }
+
+     
      $scope.is_event_member = function() {
        if (!$scope.currentevent) {
          return false;

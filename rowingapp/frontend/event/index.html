@@ -43,6 +43,7 @@
   <script src="../app/components/range/range.js"></script>
   <script src="../app/components/utilities/utilities.js"></script>
   <script src="components/database/database.js"></script>
+  <script src="components/database/database-services.js"></script>
   <script>var dbmode='real';
   </script>
   <script src="components/database/basic-services.js"></script>
@@ -50,7 +51,6 @@
   <script src="controllers/events.js"></script>
   <script src="controllers/noright.js"></script>
   <script src="controllers/menu.js"></script>
-  <script src="components/database/database-services.js"></script>
   <script src="components/utilities/utilities.js"></script>
   <script src="../app/components/database/database-directives.js"></script>
   <script src="../app/bower_components/angular-ui-clock/dist/angular-clock.js"></script>
@@ -71,13 +71,13 @@
       <li class="logo">
         <img src="../app/assets/dsrlogo.svg">  
       </li>
-      <li ng-class="{topsel: activePath=='/login/'}"><a href="login"><i class="fa fa-user"></i>Login</a></li>
-      <li ng-class="{topsel: activePath=='/timeline/'}"><a href="timeline"><i class="fa fa-calendar"></i>Rokalender</a></li>
+      <li ng-class="{topsel: activePath=='/login/'}"><a href="login/"><i class="fa fa-user"></i>Login</a></li>
+      <li ng-class="{topsel: activePath=='/timeline/'}"><a href="timeline/"><i class="fa fa-calendar"></i>Rokalender</a></li>
       <!--li ng-class="{topsel: activePath=='/eventsubscribe/'}"><a href="eventsubscribe"><i class="fa fa-plus-square"></i>Tilmelding til<br>begivenhed</a></li-->
-      <li ng-class="{topsel: activePath=='/forumsubscribe/'}"><a href="forumsubscribe"><i class="fa fa-user-plus"></i>Tilmelding til<br>forum</a></li>
-      <li ng-class="{topsel: activePath=='/eventcreate/'}"><a href="eventcreate"><i class="fa fa-calendar-plus-o"></i>Opret hold og<br>begivenheder</a></li>
-      <li ng-class="{topsel: activePath=='/message/'}"><a href="message"><i class="fa fa-comment"></i>Beskeder</a></li>
-      <li ng-class="{topsel: activePath=='/admin/'}"><a href="admin"><i class="fa fa-bank"></i>Admin</a></li>
+      <li ng-class="{topsel: activePath=='/forumsubscribe/'}"><a href="forumsubscribe/"><i class="fa fa-user-plus"></i>Tilmelding til<br>forum</a></li>
+      <li ng-class="{topsel: activePath=='/eventcreate/'}"><a href="eventcreate/"><i class="fa fa-calendar-plus-o"></i>Opret hold og<br>begivenheder</a></li>
+      <li ng-class="{topsel: activePath=='/message/'}"><a href="message/"><i class="fa fa-comment"></i>Beskeder</a></li>
+      <li ng-class="{topsel: activePath=='/admin/'}"><a href="admin/"><i class="fa fa-bank"></i>Admin</a></li>
 
       <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
       </li>

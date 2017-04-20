@@ -360,6 +360,11 @@ textarea {
            width: 35em;
 }
 
+.event_comment {
+           width: 35em;
+           height: 8em;
+}
+
 .uib-time input {
     width: 2em;
 }

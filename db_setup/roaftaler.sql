@@ -61,10 +61,13 @@ CREATE TABLE event_invitees (
   FOREIGN KEY (member) REFERENCES Member(id),
   FOREIGN KEY (event) REFERENCES event(id)
 );
-   
+
+
 CREATE TABLE forum (
   name   VARCHAR(255) PRIMARY KEY NOT NULL,
-  description VARCHAR(255)
+  description VARCHAR(255),
+  owner     INTEGER,
+  FOREIGN KEY (owner) REFERENCES Member(id)
 );
 
 INSERT INTO forum VALUE('roaftaler','generelle roaftaler');

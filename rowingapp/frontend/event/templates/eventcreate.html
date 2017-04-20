@@ -76,8 +76,8 @@
     </td>
     </tr>
 
-    <tr><th>Beskrivelse</th>
-      <td> <textarea placeholder="beskriv turen/arrangementet" id="event_comment" type="text" ng-model="newevent.comment"></textarea>
+    <tr><th>Beskrivelse <button ng-click="eventmessage()">Generer</button></th>
+      <td> <textarea placeholder="beskriv turen/arrangementet" class="event_comment" type="text" ng-model="newevent.comment"></textarea>
       </td>
     </tr>
 
@@ -97,7 +97,8 @@
 </div>
 
 <pre>
-  ne=  {{xnewevent|json}}
+  ne=  {{newevent|json}}
+  cu=  {{current_user|json}}
   fora=  {{fora|json}}
 
 </pre>

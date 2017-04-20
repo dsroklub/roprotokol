@@ -6,8 +6,11 @@ endtime>starttime
 
 
 Sæt rettigheder for admin, fx bestyrelsen. Men skal først oprettes i roprotokollen
-
-
 Lav template til invitation
+Godkende foratilmelding
 
 
+
+
+EMAIL url
+http://aftaler/frontend/event/#!timeline?event=6

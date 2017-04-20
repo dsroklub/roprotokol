@@ -28,7 +28,7 @@ var eventApp = angular.module('eventApp', [
 .config([
   '$routeProvider', function($routeProvider) {
     $routeProvider.when('/eventsubscribe/', {
-      templateUrl: 'templates/eventsubscribe.html',
+      templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
     });
     $routeProvider.when('/forumsubscribe/', {
@@ -47,11 +47,15 @@ var eventApp = angular.module('eventApp', [
       templateUrl: 'templates/admin.html',
       controller: 'eventCtrl'
 	});
+    $routeProvider.when('/!#timeline/:event', {
+      templateUrl: 'templates/timeline.html',
+      controller: 'eventCtrl'
+    });
     $routeProvider.when('/timeline/', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
     });
-    $routeProvider.when('/timeline', {
+    $routeProvider.when('/showevent/:event', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
     });
@@ -62,6 +66,7 @@ var eventApp = angular.module('eventApp', [
     $routeProvider.when('/', {redirectTo: '/login'});
     $routeProvider.otherwise({
       templateUrl: 'templates/notimplementet.html',
+      controller: 'eventCtrl'
     });
   }])
     .config(['uiSelectConfig', function(uiSelectConfig) {
