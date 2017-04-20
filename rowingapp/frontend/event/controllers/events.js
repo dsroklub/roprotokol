@@ -29,7 +29,7 @@ eventApp.controller(
 
        $scope.boatcategories=DatabaseService.getDB('event/boat_category');
        $scope.fora=DatabaseService.getDB('event/fora');
-       $scope.events=DatabaseService.getDB('event/events');
+       $scope.events=DatabaseService.getDB('event/events_participants');
        $scope.userfora=DatabaseService.getDB('event/userfora');
        $scope.eventcategories=DatabaseService.getDB('event/event_category');
        $scope.newevent.category=$scope.eventcategories[0];
@@ -76,7 +76,11 @@ eventApp.controller(
        return DatabaseService.getRowersByNameOrId(val);
      }
 
-     $scope.addInvitee = function () {
+     $scope.setCurrentEvent = function (ev) {
+       $scope.currentevent=ev;
+
+     }
+       $scope.addInvitee = function () {
        $scope.newevent.invitees.push($scope.newevent.invitee);
        $scope.newevent.invitee=null
      }

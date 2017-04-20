@@ -198,7 +198,6 @@ button.statcat, button.adminbut {
 
 
 .statlist,
-.coxlist,
 .rower,
 .genericcategories,
 .baselayout,
@@ -466,4 +465,22 @@ textarea.signuptext {
 
 .acts {
     display: inline;
+}
+
+.eventdetails {
+    display:inline-block;
+    vertical-align:top;
+    cursor: pointer;
+    margin-left: 2em;
+    padding:0.4em;
+    border-radius: 0.8em;
+    border: 2px solid #23aee2;
+}
+
+.leftlist {
+    display:inline-block;
+}
+
+tr td {
+    padding: 0.2em;
 }

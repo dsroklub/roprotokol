@@ -2,5 +2,5 @@
 
 
 function send_to_forum($forum,$message,$title) {
-    print ("not implemented");
+    error_log("forum send mail not implemented");
 }

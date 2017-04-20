@@ -1,5 +1,6 @@
 <?php
 include("../../rowing/backend/inc/common.php");
+include("inc/forummail.php");
 
 
 $res=array ("status" => "ok");
@@ -21,13 +22,15 @@ if ($stmt = $rodb->prepare(
          ")) {
 
     $triptype="NULL";
+    $stime=date('Y-m-d H:i:s', strtotime($newevent->starttime));
+    $etime=empty($newevent->endtime)?null:date('Y-m-d H:i:s', strtotime($newevent->endtime));
     $stmt->bind_param(
         'sssiisssss',
         $newevent->boat_category->id,
-        $newevent->starttime,
-        $newevent->endtime,
-        $newevent->distance,
+        $stime,
+        $etime,
 //      $triptype, TRIPTYPE not implemented
+        $newevent->distance,
         $newevent->max_participants,
         $newevent->location,
         $newevent->name,
@@ -37,11 +40,15 @@ if ($stmt = $rodb->prepare(
 
     error_log("NOW EXE");
     if (!$stmt->execute()) {
-        $error=" event exe ".mysqli_error($rodb);
+        $error=" event exe error ".mysqli_error($rodb);
         error_log($error);
         $message=$message."\n"."create event insert error: ".mysqli_error($rodb);
     } 
 }
+
+
+$rd=$rodb->query("SELECT LAST_INSERT_ID() FROM DUAL")->fetch_assoc() or die("Error in query: " . mysqli_error($db));
+error_log(" last:" . print_r($rd,true));
 
 if (empty($error) and $newevent->owner_in) {
     if ($ostmt = $rodb->prepare("INSERT INTO event_member(member,event,enter_time,role)
@@ -62,27 +69,26 @@ if (empty($error) and $newevent->owner_in) {
 
 // members
 
-
-if ($istmt = $rodb->prepare("INSERT INTO event_invitees(member,event)
-         SELECT Member.id, LAST_INSERT_ID() From Member WHERE MemberId=?")) {
-
-    foreach ($newevent->invitees as $invitee) {
-        error_log("INVI".print_r($invitee,true));
-        $istmt->bind_param('s',$invitee->id) ||  $error=mysqli_error($rodb);        
-        if ($istmt->execute()) {
-            error_log("OK, inserted inviteee");
-        } else {
-            $error="event invitee Insert DB STMT  error: ". $rodb->error;
-            error_log($error);
-            $message="$message \n $error";
-        }
+if (empty($error)) {
+    if ($istmt = $rodb->prepare("INSERT INTO event_invitees(member,event,role)
+         SELECT Member.id, LAST_INSERT_ID(),'member' From Member WHERE MemberId=?")) {
+        
+        foreach ($newevent->invitees as $invitee) {
+            error_log("INVI".print_r($invitee,true));
+            $istmt->bind_param('s',$invitee->id) ||  $error=mysqli_error($rodb);        
+            if ($istmt->execute()) {
+                error_log("OK, inserted inviteee");
+            } else {
+                $error="event invitee Insert DB STMT  error: ". $rodb->error;
+                error_log($error);
+                $message="$message \n $error";
+            }
+        }    
+    } else {
+        $error="event invitee Insert error: ".mysqli_error($rodb);
     }
-
-    
-} else {
-    $error="event invitee Insert error: ".mysqli_error($rodb);
 }
-
+    
 if (!empty($newevent->forum)) {
     $message=$newevent->comment;
     $title="Invitation til $newevent->name";

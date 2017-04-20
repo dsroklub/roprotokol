@@ -5,28 +5,69 @@
   category
   jeg deltager: radiobutton
 </pre>
-
-<table class="coxlist">
+<div  class="leftlist">
+<table class="baselayout" >
   <thead>
     <tr>
       <th>Name</th>
       <th>start</th>
       <th>distance</th>
-      <th>Jeg vil med</th>
    </tr> 
   </thead>
   <tbody>
-    <tr ng-repeat="ev in events" ng-click="setEvents(ev)"  ng-class="{selected: currentevent == ev}"  class="event" ng-class-odd="'oddstat'">
+    <tr ng-repeat="ev in events" ng-click="setCurrentEvent(ev)"  ng-class="{selected: currentevent == ev}"  class="event" ng-class-odd="'oddstat'">
       <td>{{ev.name}}</td>
-      <td>{{ev.start_time | txttotime | date:"d. MMM yyyy"}}</td>
+      <td>{{ev.start_time | date:"d. MMM yyyy"}}</td>
       <td>{{ev.distance}}</td>
-      <td>xx</td>
     </tr>
   </tbody>
 </table>
+</div>
 
 
+<div ng-show="currentevent" class="eventdetails">
+  <h2> 
+</h2>
+
+
+    <table>
+    <caption> Begivenhed {{currentevent.name}} </caption>
+    <tbody class="tbody">
+      <tr><th>starter</th><td>{{currentevent.start_time|date :"d-MMM-yyyy HH:mm"}}</td></tr>
+      <tr ng-if="currentevent.end_time"><th>slutter</th><td>{{currentevent.end_time|date :"d-MMM-yyyy HH:mm"}}</td></tr>
+
+      <tr ng-if="currentevent.max_participants"><th>max deltagere</th><td>{{currentevent.max_participants}}</td></tr>
+      <tr ng-if="currentevent.boat_category"><th>Vi ror i</th><td>{{currentevent.boat_category}}</td></tr>
+      <tr ng-if="currentevent.comment"><th>Beskrivelse</th><td>{{currentevent.comment}}</td></tr>
+
+      
+      <tr><th>hvor:</th><td>{{currentevent.location}}</td></tr>
+      <tr ng-show="currentevent.distance"><th>distance</th><td>{{currentevent.distance|mtokm}}</td></tr>
+
+    </tbody>         
+  </table>
+
+  <button class="green" xng-hide="" ng-click="eventjoin()">Jeg vil med. Tilmeld mig</button>
+
+
+  
+  <table>
+    <caption>
+      Deltagere
+    </caption>
+    <thead>
+      <tr><th>Navn</th><th>rolle</th></tr>
+    </thead>
+    <tbody class="tbody">
+      <tr ng-repeat="em in currentevent.participants">
+        <td>{{em.name}}</td>
+        <td>{{em.role}}</td>
+      </tr>      
+    </tbody>         
+  </table>
+
+</div>
 
 <pre>
- evs {{events}}
+ evs {{currentevent}}
   </pre>
