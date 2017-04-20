@@ -4,7 +4,7 @@ include("inc/utils.php");
 
 
 $s="SELECT Trip.id, TripType.Name AS triptype, Boat.Name AS boat, Trip.Destination as destination, 
-     Trip.InTime as intime,Trip.OutTime as outtime, Trip.ExpectedIn as expectedintime,
+     DATE_FORMAT(Trip.InTime,'%Y-%m-%dT%T') as intime,DATE_FORMAT(Trip.OutTime,'%Y-%m-%dT%T') as outtime, DATE_FORMAT(Trip.ExpectedIn,'%Y-%m-%dT%T') as expectedintime,
      GROUP_CONCAT(Member.MemberID,':§§:', Concat(Member.FirstName,' ',Member.LastName) ORDER BY Seat SEPARATOR '££') AS rowers 
    FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  
    WHERE Boat.id=Trip.BoatID AND Trip.id=TripMember.TripID AND Trip.InTime IS NOT NULL AND TripType.id = Trip.TripTypeID  AND Trip.InTime  >= CURDATE() 

@@ -3,7 +3,7 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$s="SELECT Boat.id as boatid, Boat.Name AS boat, OutTime as outtime, ExpectedIn as expectedintime, Trip.Destination as destination, Trip.id, TripType.Name AS triptype,GROUP_CONCAT(Member.MemberID,':§§:', 
+$s="SELECT Boat.id as boatid, Boat.Name AS boat, DATE_FORMAT(OutTime,'%Y-%m-%dT%T') as outtime, DATE_FORMAT(ExpectedIn,'%Y-%m-%dT%T') as expectedintime, Trip.Destination as destination, Trip.id, TripType.Name AS triptype,GROUP_CONCAT(Member.MemberID,':§§:', 
    CONCAT(Member.FirstName,' ',Member.LastName) ORDER BY Seat SEPARATOR '££' ) AS rowers 
    FROM TripMember LEFT JOIN Member ON Member.id = TripMember.member_id, TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID 
    WHERE Trip.id=TripMember.TripID AND Trip.InTime Is Null GROUP BY Trip.id ORDER BY ExpectedIn";

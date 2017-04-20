@@ -14,8 +14,8 @@ $sql=
               Error_Trip.Destination as destination,
               Error_Trip.CreatedDate as created,
               Distance as distance,
-              TimeIn as intime,
-              TimeOut as outtime,
+              DATE_FORMAT(TimeIn,'%Y-%m-%dT%T') as intime,
+              DATE_FORMAT(TimeOut,'%Y-%m-%dT%T') as outtime,
               GROUP_CONCAT(CONCAT(Member.FirstName,' ',Member.LastName),':§§:',Member.MemberID ORDER BY Seat SEPARATOR '££' ) as rowers
        FROM Error_Trip
             LEFT JOIN Error_TripMember on Error_Trip.id=Error_TripMember.ErrorTripID
