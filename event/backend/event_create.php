@@ -1,6 +1,7 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 include("inc/forummail.php");
+require_once("/usr/share/php/Mail.php");
 
 
 $res=array ("status" => "ok");
@@ -47,8 +48,9 @@ if ($stmt = $rodb->prepare(
 }
 
 
-$rd=$rodb->query("SELECT LAST_INSERT_ID() FROM DUAL")->fetch_assoc() or die("Error in query: " . mysqli_error($db));
-error_log(" last:" . print_r($rd,true));
+$rd=$rodb->query("SELECT LAST_INSERT_ID() as event_id FROM DUAL")->fetch_assoc() or die("Error in query: " . mysqli_error($db));
+$event_id=$rd["event_id"];
+error_log(" event_id: $event_id");
 
 if (empty($error) and $newevent->owner_in) {
     if ($ostmt = $rodb->prepare("INSERT INTO event_member(member,event,enter_time,role)
@@ -69,12 +71,15 @@ if (empty($error) and $newevent->owner_in) {
 
 // members
 
+$toMemberIds=array();
+
 if (empty($error)) {
     if ($istmt = $rodb->prepare("INSERT INTO event_invitees(member,event,role)
          SELECT Member.id, LAST_INSERT_ID(),'member' From Member WHERE MemberId=?")) {
         
         foreach ($newevent->invitees as $invitee) {
             error_log("INVI".print_r($invitee,true));
+            $toMemberIds[]=$invitee->id;
             $istmt->bind_param('s',$invitee->id) ||  $error=mysqli_error($rodb);        
             if ($istmt->execute()) {
                 error_log("OK, inserted inviteee");
@@ -94,6 +99,54 @@ if (!empty($newevent->forum)) {
     $title="Invitation til $newevent->name";
     send_to_forum($newevent->forum,$message,$title);
 }
+
+
+// Now email
+
+$body="Invitation til http://aftaler/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
+
+$mail_headers = array(
+    'From'                      => "Roaftaler i Danske Studenters Roklub <elgaard@agol.dk>",
+    'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
+    'Content-Transfer-Encoding' => "8bit",
+    'Content-Type'              => 'text/plain; charset="utf8"',
+    'Date'                      => date('r'),
+    'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
+    'MIME-Version'              => "1.0",
+    'X-Mailer'                  => "PHP-Custom",
+    'Subject'                   => "Invitation til $newevent->name"
+);
+
+$toEmails=array();
+$qMarks = str_repeat('?,', count($toMemberIds) - 1) . '?';
+$stmt = $rodb->prepare("SELECT email FROM Member WHERE MemberId IN ($qMarks) AND email IS NOT NULL") or die("Error in location query: " . mysqli_error($rodb));
+
+
+$mi=array();
+foreach($toMemberIds as $key => $mr) {
+    $mi[$key] = &$toMemberIds[$key];
+}
+
+array_unshift($mi, str_repeat('s', count($toMemberIds)));
+error_log("Mi: ".print_r($mi,true));
+call_user_func_array(array($stmt, 'bind_param'), $mi); 
+$stmt->execute() or die("Error in location query: " . mysqli_error($rodb));
+$result= $stmt->get_result() or die("Error in location query: " . mysqli_error($rodb));
+while ($rower = $result->fetch_assoc()) {
+    error_log(print_r($rower,true));
+    $toEmails[] = $rower['email'];
+}
+
+error_log("Sen INVI $body\n".print_r($toEmails,true) );
+$smtp = Mail::factory('sendmail', array ());
+
+$mail_status = $smtp->send($toEmails, $mail_headers, $body);
+
+if (PEAR::isError($mail_status)) {
+    $res["status"]="error";
+    $res["message"] = "Kunne ikke sende invitationer til $toEmails: " . $mail_status->getMessage();
+}
+
 
 if ($error) {
     error_log($error);

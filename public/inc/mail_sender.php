@@ -1,8 +1,7 @@
 <?php
 require_once("Mail.php");
 function send_email( $subject, $body, $user) {
-      $smtp = Mail::factory('sendmail',
-          array ());
+      $smtp = Mail::factory('sendmail', array ());
       $res = false;
       if (isset($user['Email']) && trim($user['Email'])) {
           $email = trim($user['Email']);
