@@ -71,6 +71,20 @@ eventApp.controller(
          }
        });
      }
+
+     $scope.forumcreate = function(arg) {
+       var sr=DatabaseService.createSubmit("forum_create",$scope.newforum);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $log.debug("forum created");
+           $scope.fora.push($scope.newforum);
+           $scope.newforum={};
+         } else {
+           alert(status.error);
+         }
+       });
+          }
+     
      $scope.getRowerByName = function (val) {
        // Generate list of ids that we already have added
        return DatabaseService.getRowersByNameOrId(val);

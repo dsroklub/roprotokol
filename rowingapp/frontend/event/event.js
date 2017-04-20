@@ -43,6 +43,10 @@ var eventApp = angular.module('eventApp', [
       templateUrl: 'templates/message.html',
       controller: 'eventCtrl'
 	});
+    $routeProvider.when('/admin/', {
+      templateUrl: 'templates/admin.html',
+      controller: 'eventCtrl'
+	});
     $routeProvider.when('/timeline/', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'

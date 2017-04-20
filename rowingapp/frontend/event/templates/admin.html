@@ -1,0 +1,18 @@
+
+<h2>Opret nyt forum</h2>
+
+<ng-form name="newforumform">
+
+<input type="text" class="forum" size="20" maxlength="20" autocomplete="off" ng-model="newforum.name" required></td><br>
+<input type="text" class="forum" size="80" maxlength="255" autocomplete="off" ng-model="newforum.description"></td><br>
+<button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret begivenhed</button>
+
+</ng-form>
+
+
+<h2>Eksisterende fora mm</h2>
+<ul>
+    <li name="forum" id="forum"  ng-repeat="forum in fora"> 
+      {{forum.name}}
+  </li>
+</ul>
