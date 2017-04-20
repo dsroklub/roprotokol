@@ -7,6 +7,7 @@ eventApp.controller(
      $scope.teams=[];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
      $scope.signup={act:[]};
+     $scope.messages=[];
      $scope.subscription={};
      $scope.dateOptions = {
        showWeeks: false
@@ -72,6 +73,10 @@ eventApp.controller(
        });
      }
 
+     $scope.messagesend = function(arg) {
+       alert("message send not implemented");
+     }
+     
      $scope.forumcreate = function(arg) {
        var sr=DatabaseService.createSubmit("forum_create",$scope.newforum);
        sr.promise.then(function(status) {

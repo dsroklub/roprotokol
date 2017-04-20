@@ -78,3 +78,15 @@ CREATE TABLE forum_subscription (
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,forum)
 );
+
+-- HERE
+CREATE TABLE forum_messages (
+  member_from  INTEGER,
+  member_to    INTEGER,
+  timestamp    DATETIME,
+  forum      VARCHAR(255),
+  message    VARCHAR(10000),
+  FOREIGN KEY (forum) REFERENCES forum(name),
+  FOREIGN KEY (member_from) REFERENCES Member(id),
+  FOREIGN KEY (member_to) REFERENCES Member(id)
+);

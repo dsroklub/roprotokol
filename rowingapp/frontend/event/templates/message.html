@@ -1,5 +1,30 @@
-<pre>
-  Her kan man sende beskeder til forumer.
+<h2>Send en besked</h2>
+<ng-form name="messageform">
+<select class="forumselect" name="forum" id="forum" ng-model="newevent.forum" ng-options="forum.name for forum in fora" required> </select>
+<td> <textarea placeholder="beskriv turen/arrangementet" id="event_comment" type="text" ng-model="newevent.comment" required></textarea>
+<button class="green forumselect" ng-disabled="!messageform.$valid" ng-click="messagesend()">Send besked</button>
+</ng-form>
 
-Og se sine egne beskeder
-</pre>
+
+<h2>Mine Beskeder</h2>
+
+<table>
+    <thead>
+    <tr>
+      <th>Fra</th>
+      <th>Forum</th>
+      <th>Tid</th>
+      <th>Besked</th>
+   </tr> 
+    </thead>
+    <tr ng-repeat="message in messages"  class="message" ng-class-odd="'oddstat'">
+      <td>{{message.from}}</td>
+      <td>{{message.forum}}</td>
+      <td>{{messate.timestamp | date:"d. MMM yyyy"}}</td>
+      <td>{{message.message}}</td>
+      <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
+    </tr>
+
+      <tbody>
+  </tbody>
+</table>

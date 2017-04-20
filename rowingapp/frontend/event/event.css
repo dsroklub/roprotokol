@@ -482,5 +482,10 @@ textarea.signuptext {
 }
 
 tr td {
-    padding: 0.2em;
+        padding: 0.2em;
+}
+
+.forumselect {
+               vertical-align: text-bottom;
+               font-size: xx-large;
 }
