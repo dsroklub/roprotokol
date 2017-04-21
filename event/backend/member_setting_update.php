@@ -28,6 +28,10 @@ if ($stmt = $rodb->prepare(
     if (!empty($settings['show_status'])) {
         $show_status=$settings['show_status'];
     }
+    $show_activities=0;
+    if (!empty($settings['show_activities'])) {
+        $show_status=$settings['show_activities'];
+    }
     $stmt->bind_param(
         'sss',
         $is_public,

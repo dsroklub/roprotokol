@@ -11,15 +11,16 @@
 <h2>Mine Beskeder</h2>
 
 <table>
-    <thead>
+  <thead>
     <tr>
       <th>Emne</th>
       <th>Fra</th>
       <th>Forum</th>
       <th>Tid</th>
       <th>Besked</th>
-   </tr> 
+    </tr> 
     </thead>
+  <tbody>
     <tr ng-repeat="message in messages"  class="message" ng-class-odd="'oddstat'">
       <td>{{message.subject}}</td>
       <td>{{message.from}}</td>
@@ -28,10 +29,5 @@
       <td>{{message.body}}</td>
       <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
     </tr>
-
-      <tbody>
   </tbody>
 </table>
-<pre>
-  {{messages}}
-</pre>
