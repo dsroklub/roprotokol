@@ -1,0 +1,22 @@
+
+<h2> <a href="{{public_path}}?member={{current_user.member_id}}"> Offentlig side for {{current_user.name}}({{current_user.member_id}})</a></h2>
+
+<ng-form name="publicsetting">
+
+  <table>
+    
+   <tr><th>Offentlig profil</th><td> <input type="checkbox" id="public" ng-model="member_setting.is_public" ng-true-value="1" ng-false-value="0" ></td></tr>
+   <tr><th>Vis min rostatus</th><td> <input type="checkbox" id="status" ng-model="member_setting.show_status" ng-true-value="1" ng-false-value="0" ></td></tr>
+
+<tr><td>
+   <button class="green"  ng-click="member_setting_update()">Opdater</button>
+<!--   ng-disabled="!publicsettings.$valid"-->
+</td>
+ </tr>
+</table>
+</ng-form>
+
+<pre>
+MS  {{public_path}}
+  </pre>
+  

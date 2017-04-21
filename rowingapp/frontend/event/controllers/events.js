@@ -2,12 +2,13 @@
 
 eventApp.controller(
   'eventCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy,$log) {
+  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$location',
+   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy, $log, $location) {
      $scope.teams=[];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
      $scope.signup={act:[]};
      $scope.messages=[];
+     $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
      $scope.subscription={};
      $scope.eventarg=$routeParams.event;
      $scope.rParams=$routeParams;
@@ -28,6 +29,7 @@ eventApp.controller(
        $scope.events=DatabaseService.getDB('event/events_participants');
        $scope.userfora=DatabaseService.getDB('event/userfora');
        $scope.messages=DatabaseService.getDB('event/messages');
+       $scope.member_setting=DatabaseService.getDB('event/member_setting');
        $scope.eventcategories=DatabaseService.getDB('event/event_category');
        $scope.newevent.category=$scope.eventcategories[0];
        $scope.newevent.starttime=null;
@@ -43,9 +45,6 @@ eventApp.controller(
          }
        }
        }
-
-       
-         //new Date($scope.newevent.starttime.getTime()+3600000);
      });
      
      $scope.subscribe = function() {
@@ -163,8 +162,20 @@ eventApp.controller(
            alert(status.error);
          }
        });
+     }               
+
+     $scope.member_setting_update = function() {
+       var sr=DatabaseService.createSubmit("member_setting_update",$scope.member_setting);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $log.debug("settings updated");
+         } else {
+           alert(status.error);
+         }
+       });
           }
      
+
      $scope.getRowerByName = function (val) {
        // Generate list of ids that we already have added
        return DatabaseService.getRowersByNameOrId(val);
