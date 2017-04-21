@@ -114,3 +114,13 @@ CREATE TABLE member_message (
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,message)
  );
+
+
+-- HERE drop TABLE member_setting;
+CREATE TABLE member_setting (
+ member  INTEGER,
+  is_public BOOLEAN,
+  show_status BOOLEAN,
+  FOREIGN KEY (member) REFERENCES Member(id),
+  PRIMARY KEY(member)
+ );
