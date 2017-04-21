@@ -8,7 +8,7 @@ eventApp.controller(
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
      $scope.signup={act:[]};
      $scope.messages=[];
-     $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user";
+     $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
      $scope.subscription={};
      $scope.eventarg=$routeParams.event;
      $scope.rParams=$routeParams;
