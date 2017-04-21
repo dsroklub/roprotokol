@@ -5,7 +5,7 @@ ini_set('display_errors', 'Off');
 error_reporting(E_ALL);
 
 define( 'ROOT_DIR', dirname(__FILE__) );
-set_include_path('.:..:'.ROOT_DIR);
+set_include_path(get_include_path() . PATH_SEPARATOR  . ROOT_DIR);
 
 $skiplogin=false;
 
@@ -43,7 +43,7 @@ function invalidate($tp) {
 
 function dbErr(&$db, &$res, $err="") {
     $res["status"]=$db->error;
-    error_log("Database error " . $db->error);
+    error_log("Database error $db->error $err");
     http_response_code(500);
 }
 

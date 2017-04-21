@@ -221,8 +221,10 @@ button.statcat, button.adminbut {
 }
 
 .genericmenu {
-    width: auto;
-}
+               width: auto;
+               }
+
+
 .listmenu caption{
     background: #23aee2;
     padding: 10pt;
@@ -381,7 +383,7 @@ textarea {
 .tbody {
     background : #FFD;
 }
-select.ng-invalid, input.ng-invalid {
+select.ng-invalid, input.ng-invalid, textarea.ng-invalid {
     background: #FCC;
 }
 
@@ -463,15 +465,12 @@ textarea.signuptext {
     align:center;
 }
 
-
 .nottoday {
 	  background: #bbbbaa;    
 }
-
 .acts {
     display: inline;
 }
-
 .eventdetails {
     display:inline-block;
     vertical-align:top;
@@ -483,14 +482,19 @@ textarea.signuptext {
 }
 
 .leftlist {
-    display:inline-block;
+  display:inline-block;
 }
 
 tr td {
-        padding: 0.2em;
+  padding: 0.2em;
 }
 
 .forumselect {
-               vertical-align: text-bottom;
-               font-size: xx-large;
+  vertical-align: text-bottom;
+  font-size: x-large;
 }
+#messagesubject {
+  vertical-align: text-bottom;
+  font-size: x-large;
+  width: 20em;                  
+ } 

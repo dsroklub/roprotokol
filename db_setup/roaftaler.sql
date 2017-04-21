@@ -83,14 +83,34 @@ CREATE TABLE forum_subscription (
   PRIMARY KEY(member,forum)
 );
 
--- HERE
-CREATE TABLE forum_messages (
+-- HERE drop table forum_message;
+
+CREATE TABLE forum_message (
   member_from  INTEGER,
-  member_to    INTEGER,
-  timestamp    DATETIME,
+  created    DATETIME,
   forum      VARCHAR(255),
+  subject    VARCHAR(1000),
   message    VARCHAR(10000),
   FOREIGN KEY (forum) REFERENCES forum(name),
-  FOREIGN KEY (member_from) REFERENCES Member(id),
-  FOREIGN KEY (member_to) REFERENCES Member(id)
+  FOREIGN KEY (member_from) REFERENCES Member(id)
 );
+
+CREATE TABLE event_message (
+  id         INTEGER  NOT NULL AUTO_INCREMENT,
+  member_from  INTEGER,
+  created    DATETIME,
+  event      INTEGER,
+  subject    VARCHAR(1000),
+  message    VARCHAR(10000),
+  FOREIGN KEY (member_from) REFERENCES Member(id),
+  FOREIGN KEY (event)       REFERENCES event(id),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE member_message (
+ member  INTEGER,
+ message INTEGER,
+  FOREIGN KEY (message) REFERENCES event_message(id),
+  FOREIGN KEY (member) REFERENCES Member(id),
+  PRIMARY KEY(member,message)
+ );

@@ -11,11 +11,9 @@ eventApp.controller(
      $scope.subscription={};
      $scope.eventarg=$routeParams.event;
      $scope.rParams=$routeParams;
-
      $scope.dateOptions = {
        showWeeks: false
      };
-
      $scope.init = function(){
        $scope.newevent={invitees:[]};
        $scope.newevent.location="DSR";
@@ -29,6 +27,7 @@ eventApp.controller(
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
        $scope.userfora=DatabaseService.getDB('event/userfora');
+       $scope.messages=DatabaseService.getDB('event/messages');
        $scope.eventcategories=DatabaseService.getDB('event/event_category');
        $scope.newevent.category=$scope.eventcategories[0];
        $scope.newevent.starttime=null;
@@ -137,11 +136,20 @@ eventApp.controller(
          }
        })
      }
-
-
      
-     $scope.messagesend = function(arg) {
-       alert("message send not implemented");
+     $scope.messagesend = function() {
+       var sr=DatabaseService.createSubmit("send_forum_message",$scope.message);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $log.debug("forum created");
+           $scope.message.from="Mig";
+           $scope.message.created=new Date().toISOString();
+           $scope.messages.push($scope.message);
+           $scope.message={};
+         } else {
+           alert(status.error);
+         }
+       });
      }
      
      $scope.forumcreate = function(arg) {

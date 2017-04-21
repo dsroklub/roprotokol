@@ -1,14 +1,12 @@
 <?php
 include("../../rowing/backend/inc/common.php");
-include("inc/forummail.php");
-require_once("/usr/share/php/Mail.php");
+require_once("Mail.php");
 
 
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $newevent=json_decode($data);
 $message='';
-error_log(print_r($newevent,true));
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
@@ -39,7 +37,6 @@ if ($stmt = $rodb->prepare(
         $newevent->comment,
         $cuser) ||  die("create event BIND errro ".mysqli_error($rodb));
 
-    error_log("NOW EXE");
     if (!$stmt->execute()) {
         $error=" event exe error ".mysqli_error($rodb);
         error_log($error);
@@ -50,14 +47,13 @@ if ($stmt = $rodb->prepare(
 
 $rd=$rodb->query("SELECT LAST_INSERT_ID() as event_id FROM DUAL")->fetch_assoc() or die("Error in query: " . mysqli_error($db));
 $event_id=$rd["event_id"];
-error_log(" event_id: $event_id");
+//error_log(" event_id: $event_id");
 
 if (empty($error) and $newevent->owner_in) {
     if ($ostmt = $rodb->prepare("INSERT INTO event_member(member,event,enter_time,role)
          SELECT Member.id, LAST_INSERT_ID() ,NOW(),'owner' FROM Member WHERE MemberId=?")) {
         $ostmt->bind_param('s',$cuser) ||  $error=mysqli_error($rodb);        
         if ($ostmt->execute()) {
-            error_log("INSERTED member");
         } else {
             $error="event Insert DB STMT  error: ".mysqli_error($rodb);
             $message=$message."\n"."create event owner insert error: ".mysqli_error($rodb);
@@ -78,14 +74,11 @@ if (empty($error)) {
          SELECT Member.id, LAST_INSERT_ID(),'member' From Member WHERE MemberId=?")) {
         
         foreach ($newevent->invitees as $invitee) {
-            error_log("INVI".print_r($invitee,true));
             $toMemberIds[]=$invitee->id;
             $istmt->bind_param('s',$invitee->id) ||  $error=mysqli_error($rodb);        
             if ($istmt->execute()) {
-                error_log("OK, inserted inviteee");
             } else {
                 $error="event invitee Insert DB STMT  error: ". $rodb->error;
-                error_log($error);
                 $message="$message \n $error";
             }
         }    
@@ -94,16 +87,73 @@ if (empty($error)) {
     }
 }
     
-if (!empty($newevent->forum)) {
-    $message=$newevent->comment;
-    $title="Invitation til $newevent->name";
-    send_to_forum($newevent->forum,$message,$title);
+// Now Store message
+$subject="Invitation til $newevent->name";
+$body="Invitation til http://aftaler/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
+
+if ($stmt = $rodb->prepare(
+        "INSERT INTO event_message(member_from, event, created, subject, message)
+         SELECT mf.id, ?,NOW(),?,?
+         FROM Member mf
+         WHERE 
+           mf.MemberId=?")) {
+    $stmt->bind_param(
+        'ssss',
+        $event_id,
+        $subject,
+        $body,
+        $cuser) ||  die("create forum message BIND errro ".mysqli_error($rodb));
+
+    if (!$stmt->execute()) {
+        $error=" message forum error ".mysqli_error($rodb);
+        error_log($error);
+        $message=$message."\n"."forum message DB error: ".mysqli_error($rodb);
+    } 
 }
 
+if (!empty($newevent->forum)) {
+    if ($stmt = $rodb->prepare(
+        "INSERT INTO member_message(member, message)
+         SELECT Member.id,LAST_INSERT_ID()
+         FROM Member, forum_subscription
+         WHERE Member.id=forum_subscription.member AND forum_subscription.forum=?")) {
+        $stmt->bind_param(
+            's',
+            $newevent->forum->name) ||  die("create forum message BIND errro ".mysqli_error($rodb));        
+        if (!$stmt->execute()) {
+            $error=" message forum membererror ".mysqli_error($rodb);
+            error_log($error);
+            $message=$message."\n"."forum message member DB error: ".mysqli_error($rodb);
+        } 
+    }
+}
+
+$qMarks = str_repeat('?,', count($toMemberIds) - 1) . '?';
+$mi=array();
+$ml=array();
+foreach($toMemberIds as $key => $mr) {
+    $ml[$key] = &$toMemberIds[$key];
+    $mi[$key] = &$toMemberIds[$key];
+}
+array_unshift($mi, str_repeat('s', count($toMemberIds)));
+array_unshift($ml, str_repeat('s', count($toMemberIds)));
+$qMarks = str_repeat('?,', count($toMemberIds) - 1) . '?';
+
+if ($stmt=$rodb->prepare(
+    "INSERT INTO member_message(member, message)
+         SELECT Member.id, LAST_INSERT_ID()
+         FROM Member
+         WHERE
+              MemberId IN ($qMarks) AND Member.id NOT IN 
+               (SELECT member from member_message m2 WHERE m2.message=LAST_INSERT_ID())")) {
+    call_user_func_array( array($stmt, 'bind_param'), $ml); 
+    $stmt->execute() or die("Error in mm INSERT query: " . mysqli_error($rodb));
+} else {
+    $error="Error in mm prepare query: $rodb->error";
+    error_log($error);
+}
 
 // Now email
-
-$body="Invitation til http://aftaler/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
 
 $mail_headers = array(
     'From'                      => "Roaftaler i Danske Studenters Roklub <elgaard@agol.dk>",
@@ -114,21 +164,14 @@ $mail_headers = array(
     'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
     'MIME-Version'              => "1.0",
     'X-Mailer'                  => "PHP-Custom",
-    'Subject'                   => "Invitation til $newevent->name"
+    'Subject'                   => $subject
 );
 
 $toEmails=array();
-$qMarks = str_repeat('?,', count($toMemberIds) - 1) . '?';
-$stmt = $rodb->prepare("SELECT email FROM Member WHERE MemberId IN ($qMarks) AND email IS NOT NULL") or die("Error in location query: " . mysqli_error($rodb));
+$stmt=$rodb->prepare("SELECT email FROM Member 
+                      WHERE MemberId IN ($qMarks) AND email IS NOT NULL") or die("Error in location query: ". mysqli_error($rodb));
 
 
-$mi=array();
-foreach($toMemberIds as $key => $mr) {
-    $mi[$key] = &$toMemberIds[$key];
-}
-
-array_unshift($mi, str_repeat('s', count($toMemberIds)));
-error_log("Mi: ".print_r($mi,true));
 call_user_func_array(array($stmt, 'bind_param'), $mi); 
 $stmt->execute() or die("Error in location query: " . mysqli_error($rodb));
 $result= $stmt->get_result() or die("Error in location query: " . mysqli_error($rodb));
@@ -137,7 +180,6 @@ while ($rower = $result->fetch_assoc()) {
     $toEmails[] = $rower['email'];
 }
 
-error_log("Sen INVI $body\n".print_r($toEmails,true) );
 $smtp = Mail::factory('sendmail', array ());
 
 $mail_status = $smtp->send($toEmails, $mail_headers, $body);
@@ -155,5 +197,6 @@ if ($error) {
     $res['error']=$error;
 }
 invalidate("event");
+invalidate("message");
 echo json_encode($res);
 ?> 

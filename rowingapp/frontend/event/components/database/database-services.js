@@ -63,6 +63,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     
     this.getData('event/memberrighttypes',promises);
     this.getData('event/event_category',promises);
+    this.getData('event/messages',promises);
     this.getData('event/boat_category',promises);
     this.getData('event/current_user',promises);
     this.getData('event/fora',promises);
@@ -223,7 +224,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     $http.post('../../backend/event/'+entity+'.php', data).then(function(r) {
       entityCreated.resolve(r.data);
     },function(r) {
-      entityCreated.resolve(false);
+      entityCreated.resolve({"error":entity+"  fejl"});
     });
     datastatus['trip']=null;
     return entityCreated;
