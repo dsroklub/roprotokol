@@ -1,13 +1,6 @@
-<script type="text/ng-template" id="memberTemplate.html">
-  <a>
-    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
-    {{match.model.name}} <i>({{match.model.id}})</i>
-  </a>
-</script>
-
 <div>
-  <ng-form name="coxAspirantLogin">
-    <h2>Hvis du ikke har fået et password</h2>
+  <ng-form name="evetnLogin">
+    <h2>Hvis Du ikke har fået et password</h2>
     
     <div>
       <label for="event.deltager">Mit medlemsnummer er</label>
@@ -16,9 +9,13 @@
 
     <br>
     <button class="login" ng-click="getpw()" class="green">Send mit password</button>
-
-    <br>
+</div>
+<br>
+<div >
     <button ng-click="logout()" class="red">log ud</button>
     {{loginstatus}}
      </ng-form>
 </div>
+<pre>
+CU:  {{currentuser|json}}
+</pre>
