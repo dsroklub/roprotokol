@@ -141,7 +141,7 @@ eventApp.controller(
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
            $log.debug("forum created");
-           $scope.message.from="Mig";
+           $scope.message.source="Mig";
            $scope.message.created=new Date().toISOString();
            $scope.messages.push($scope.message);
            $scope.message={};
@@ -185,7 +185,12 @@ eventApp.controller(
        $scope.currentevent=ev;
 
      }
-       $scope.addInvitee = function () {
+     $scope.setCurrentMessage = function (message) {
+       $scope.currentmessage=message;
+
+     }
+
+     $scope.addInvitee = function () {
        $scope.newevent.invitees.push($scope.newevent.invitee);
        $scope.newevent.invitee=null
      }
