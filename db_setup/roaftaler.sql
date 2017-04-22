@@ -46,7 +46,7 @@ CREATE TABLE event_boat_type (
 CREATE TABLE event_member (
   member     INTEGER,
   event      INTEGER,
-  enter_time DATETIME  DEFAULT NOW(),
+  enter_time DATETIME, -- default NOW(),
   role       VARCHAR(255), -- waiting, cox, any, leader, admin
   FOREIGN KEY (member) REFERENCES Member(id),
   FOREIGN KEY (event) REFERENCES event(id),
@@ -71,8 +71,8 @@ CREATE TABLE forum (
   FOREIGN KEY (owner) REFERENCES Member(id)
 );
 
-INSERT INTO forum VALUE('roaftaler','generelle roaftaler');
-INSERT INTO forum VALUE('kaproning','for kaproere');
+-- INSERT INTO forum VALUE('roaftaler','generelle roaftaler');
+-- INSERT INTO forum VALUE('kaproning','for kaproere');
 
 
 CREATE TABLE forum_subscription (
