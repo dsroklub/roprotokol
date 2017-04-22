@@ -22,6 +22,7 @@ SELECT CONCAT(mf.FirstName,' ',mf.LastName) as name, event_message.created, even
     member_message.member=Member.id AND
     mf.id=member_from AND
     Member.MemberId=?
+ORDER BY created DESC
 ";
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("ss", $cuser,$cuser);
