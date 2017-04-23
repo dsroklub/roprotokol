@@ -12,7 +12,7 @@
 
 <div>
 
-  <div class="rightcontainer">
+  <!--div class="rightcontainer">
     <div class="selectedmessage" ng-show="currentmessage">
       <h2>{{message.subject}}</h2>
       Fra: <strong>{{currentmessage.source}}</strong><br>
@@ -23,10 +23,10 @@
           {{currentmessage.body |limitTo}}
         </pre>
     </div>
-  </div>
+  </div-->
   
   <div class="messagelist">
-    <table class="baselayout">
+    <table class="baselayout" width="100%">
       <thead>
         <tr>
           <th>Emne</th>
@@ -37,13 +37,16 @@
         </tr> 
       </thead>
       <tbody>
-        <tr ng-repeat="message in messages"  ng-class="{selected: currentmessage == message}" ng-click="setCurrentMessage(message)" class="message" ng-class-odd="'oddstat'">
+        <tr ng-repeat-start="message in messages"  ng-class="{selected: currentmessage == message}" ng-click="setCurrentMessage(message)" class="message" ng-class-odd="'oddstat'">
           <td>{{message.subject}}</td>
           <td>{{message.source}}</td>
           <td>{{message.forum.name}}</td>
           <td>{{message.created |date:"d. MMM yyyy"}}</td>
           <td>{{message.body |limitTo :20}}...</td>
           <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
+        </tr>
+        <tr ng-repeat-end ng-if="currentmessage == message">
+          <td class="popempty"></td><td class="popdown" colspan="4"> <pre  ng-bind=message.body></pre> </td>
         </tr>
       </tbody>
     </table>
