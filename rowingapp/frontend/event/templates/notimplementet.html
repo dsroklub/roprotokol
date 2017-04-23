@@ -5,8 +5,12 @@
 </head>
 
 <body>
-<h1>Begivenheder og fora</h1>
+  <h1 ng-show="current_user">Velkommen {{current_user.name}} ({{current_user.member_id}})</h1>
+  <h2 ng-hide="current_user">Du er ikke logget ind, brug "Login" menuen, hvis du ikke har et password</h>
 
-V&aelig;lg noget fra menuen
+  <br>
+  <h2>V&aelig;lg noget fra menuen</h2>
+
 <hr>
-</body> </html>
+</body>
+</html>

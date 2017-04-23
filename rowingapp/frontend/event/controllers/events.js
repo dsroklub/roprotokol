@@ -9,6 +9,7 @@ eventApp.controller(
      $scope.signup={act:[]};
      $scope.messages=[];
      $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
+     $scope.member_path=$location.protocol()+"://"+$location.host()+"/backend/event/";
      $scope.subscription={};
      $scope.eventarg=$routeParams.event;
      $scope.rParams=$routeParams;
