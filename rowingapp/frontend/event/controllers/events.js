@@ -24,7 +24,7 @@ eventApp.controller(
      }
      $scope.init();
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-     DatabaseService.init({"event":true,"member":true,"user":true}).then(function () {
+     DatabaseService.init({"message":true,"event":true,"member":true,"user":true}).then(function () {
        $scope.boatcategories=DatabaseService.getDB('event/boat_category');
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
@@ -92,7 +92,7 @@ eventApp.controller(
        if ($scope.newevent.distance) {$scope.newevent.comment += "\nturen forventes at være på ca " +$scope.newevent.distance +" km";}
        if ($scope.newevent.location) {$scope.newevent.comment += "\nVi starter i " +$scope.newevent.location;}
        if ($scope.newevent.max_participants) {$scope.newevent.comment += "\nder er plads til " +$scope.newevent.max_participants +" roere";}
-       if ($scope.newevent.boat_category) {$scope.newevent.comment += "\nvi ror i " +$scope.newevent.boat_category.name; }
+       if ($scope.newevent.boat_category) {$scope.newevent.comment += "\nvi ror i " +$scope.newevent.boat_category.Name; }
      }
 
      

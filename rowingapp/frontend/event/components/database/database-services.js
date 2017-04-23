@@ -8,7 +8,8 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     
   var cachedepend={
     'member':['rowers'],
-    'event':['event/events','event/event_category','event/userfora','event/events_participants']
+    'event':['event/events','event/event_category','event/userfora','event/events_participants'],
+    'message':['event/messages']
   };
   
   var datastatus={
