@@ -11,4 +11,5 @@ rowingapp/frontend/app/bower_components
 TAGS
 pw.php
 uploads
-
+vendor
+*.lock

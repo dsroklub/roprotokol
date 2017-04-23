@@ -128,67 +128,68 @@ if (!empty($newevent->forum)) {
     }
 }
 
-$qMarks = str_repeat('?,', count($toMemberIds) - 1) . '?';
-$mi=array();
-$ml=array();
-foreach($toMemberIds as $key => $mr) {
-    $ml[$key] = &$toMemberIds[$key];
-    $mi[$key] = &$toMemberIds[$key];
-}
-array_unshift($mi, str_repeat('s', count($toMemberIds)));
-array_unshift($ml, str_repeat('s', count($toMemberIds)));
-$qMarks = str_repeat('?,', count($toMemberIds) - 1) . '?';
-
-if ($stmt=$rodb->prepare(
-    "INSERT INTO member_message(member, message)
+if (count($toMemberIds)>0) {
+    $qMarks = str_repeat('?,', count($toMemberIds) - 1) . '?';
+    $mi=array();
+    $ml=array();
+    foreach($toMemberIds as $key => $mr) {
+        $ml[$key] = &$toMemberIds[$key];
+        $mi[$key] = &$toMemberIds[$key];
+    }
+    array_unshift($mi, str_repeat('s', count($toMemberIds)));
+    array_unshift($ml, str_repeat('s', count($toMemberIds)));
+    $qMarks = str_repeat('?,', count($toMemberIds) - 1) . '?';
+    
+     if ($stmt=$rodb->prepare(
+        "INSERT INTO member_message(member, message)
          SELECT Member.id, LAST_INSERT_ID()
          FROM Member
          WHERE
               MemberId IN ($qMarks) AND Member.id NOT IN 
                (SELECT member from member_message m2 WHERE m2.message=LAST_INSERT_ID())")) {
-    call_user_func_array( array($stmt, 'bind_param'), $ml); 
-    $stmt->execute() or die("Error in mm INSERT query: " . mysqli_error($rodb));
-} else {
-    $error="Error in mm prepare query: $rodb->error";
-    error_log($error);
-}
+        call_user_func_array( array($stmt, 'bind_param'), $ml); 
+        $stmt->execute() or die("Error in mm INSERT query: " . mysqli_error($rodb));
+    } else {
+        $error="Error in mm prepare query: $rodb->error";
+        error_log($error);
+    }
 
 // Now email
 
-$mail_headers = array(
-    'From'                      => "Roaftaler i Danske Studenters Roklub <elgaard@agol.dk>",
-    'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
-    'Content-Transfer-Encoding' => "8bit",
-    'Content-Type'              => 'text/plain; charset="utf8"',
-    'Date'                      => date('r'),
-    'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
-    'MIME-Version'              => "1.0",
-    'X-Mailer'                  => "PHP-Custom",
-    'Subject'                   => $subject
-);
+     $mail_headers = array(
+         'From'                      => "Roaftaler i Danske Studenters Roklub <elgaard@agol.dk>",
+         'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
+         'Content-Transfer-Encoding' => "8bit",
+         'Content-Type'              => 'text/plain; charset="utf8"',
+         'Date'                      => date('r'),
+         'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
+         'MIME-Version'              => "1.0",
+         'X-Mailer'                  => "PHP-Custom",
+         'Subject'                   => $subject
+     );
 
-$toEmails=array();
-$stmt=$rodb->prepare("SELECT email FROM Member 
+     $toEmails=array();
+     $stmt=$rodb->prepare("SELECT email FROM Member 
                       WHERE MemberId IN ($qMarks) AND email IS NOT NULL") or die("Error in location query: ". mysqli_error($rodb));
+     
 
+     call_user_func_array(array($stmt, 'bind_param'), $mi); 
+     $stmt->execute() or die("Error in location query: " . mysqli_error($rodb));
+     $result= $stmt->get_result() or die("Error in location query: " . mysqli_error($rodb));
+     while ($rower = $result->fetch_assoc()) {
+         error_log(print_r($rower,true));
+         $toEmails[] = $rower['email'];
+     }
+     
+     $smtp = Mail::factory('sendmail', array ());
+     
+     $mail_status = $smtp->send($toEmails, $mail_headers, $body);
 
-call_user_func_array(array($stmt, 'bind_param'), $mi); 
-$stmt->execute() or die("Error in location query: " . mysqli_error($rodb));
-$result= $stmt->get_result() or die("Error in location query: " . mysqli_error($rodb));
-while ($rower = $result->fetch_assoc()) {
-    error_log(print_r($rower,true));
-    $toEmails[] = $rower['email'];
+     if (PEAR::isError($mail_status)) {
+         $res["status"]="error";
+         $res["message"] = "Kunne ikke sende invitationer til $toEmails: " . $mail_status->getMessage();
+     }
 }
-
-$smtp = Mail::factory('sendmail', array ());
-
-$mail_status = $smtp->send($toEmails, $mail_headers, $body);
-
-if (PEAR::isError($mail_status)) {
-    $res["status"]="error";
-    $res["message"] = "Kunne ikke sende invitationer til $toEmails: " . $mail_status->getMessage();
-}
-
 
 if ($error) {
     error_log($error);
