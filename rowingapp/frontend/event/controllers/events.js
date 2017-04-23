@@ -9,7 +9,6 @@ eventApp.controller(
      $scope.signup={act:[]};
      $scope.messages=[];
      $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
-     $scope.member_path=$location.protocol()+"://"+$location.host()+"/backend/event/";
      $scope.subscription={};
      $scope.eventarg=$routeParams.event;
      $scope.rParams=$routeParams;
@@ -36,6 +35,7 @@ eventApp.controller(
        $scope.newevent.starttime=null;
        $scope.newevent.endtime=null;
        $scope.current_user=DatabaseService.getDB('event/current_user');
+       $scope.member_path=$location.protocol()+"://"+ $scope.current_user.member_id +":DITPASSWORD@"+$location.host()+"/backend/event/";
 
        if ($scope.eventarg) {
          $log.debug("look for event "+$scope.eventarg);
