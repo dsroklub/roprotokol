@@ -47,6 +47,7 @@ $sql=
      WHERE Boat.id=Trip.BoatID
        AND Error_Trip.Trip=Trip.id
        AND TripType.id=Trip.TripTypeID
+       AND Fixed=0
      GROUP BY Trip.id,TripType.Name
     ) ORDER BY Trip,id" ;
 

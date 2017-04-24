@@ -19,11 +19,23 @@ if ($correction->deleterequest) {
     }
 } else {
     error_log(" times: ".$correction->outtime." , ". $correction->intime);
-    if ($stmt = $rodb->prepare("INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter,Fixed) VALUES(?,?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,0)")) {
-        $stmt->bind_param('isisissis', $correction->id,$correction->reason,$correction->boat->id, $correction->destination->name, $correction->triptype->id, $correction->outtime, $correction->intime,$correction->distance,$correction->reporter);
+    if ($stmt = $rodb->prepare(
+        "INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter,Fixed) 
+                VALUES(?,?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,0)")) {
+        $stmt->bind_param('isisissis',
+        $correction->id,
+        $correction->reason,
+        $correction->boat->id,
+        $correction->destination->name,
+        $correction->triptype->id,
+        mysdate($correction->outtime),
+        mysdate($correction->intime),
+        $correction->distance,
+        $correction->reporter
+        );
         error_log('now EXE '. json_encode($correction));
         if (!$stmt->execute()) {
-            $error=mysqli_error("new correction exe".$rodb);
+            $error="new correction exe ERROR: ".$rodb->error;
             $message=$message."\n"."create trip correction insert error";
         }
     } else {
@@ -32,7 +44,7 @@ if ($correction->deleterequest) {
     }    
     error_log("\n\nnow all rowers ".json_encode($correction->rowers));
     
-    if ($stmt = $rodb->prepare("INSERT INTO Error_TripMember(ErrorTripID,Seat,member_id,MemberName) ".
+    if (empty($error)  and $stmt = $rodb->prepare("INSERT INTO Error_TripMember(ErrorTripID,Seat,member_id,MemberName) ".
     "SELECT LAST_INSERT_ID(),?,Member.id,? FROM Member Where MemberID=?"
     )) {
         $seat=1;

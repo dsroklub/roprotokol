@@ -7,7 +7,7 @@ $newtrip=json_decode($data);
 $message="createtrip  ".json_encode($newtrip);
 $error=null;
 
-// error_log($data);
+error_log($data);
 
 $rodb->begin_transaction();
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) { 
@@ -57,6 +57,7 @@ if (!$error) {
            FROM Member 
            WHERE MemberId=?"
     )) {
+        // error_log("Create trip insert tripmembers");
         $seat=1;
         foreach ($newtrip->rowers as $rower) {
             $stmt->bind_param('is',$seat,$rower->id);
@@ -74,6 +75,8 @@ if (isset($newtrip->event)) {
         $ev=$newtrip->triptype->name ." til ". $newtrip->destination->name." i ".$newtrip->boat->name .": ". $newtrip->event;
         $stmt->bind_param('s', $ev);
         $stmt->execute();
+    } else {
+        error_log("create trip: log failed");
     }     
 }
 
