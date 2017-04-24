@@ -67,6 +67,7 @@ CREATE TABLE forum (
   name   VARCHAR(255) PRIMARY KEY NOT NULL,
   description VARCHAR(255),
   owner     INTEGER,
+  is_open      BOOLEAN DEFAULT TRUE,
   FOREIGN KEY (owner) REFERENCES Member(id)
 );
 
@@ -78,7 +79,7 @@ CREATE TABLE forum_subscription (
   member     INTEGER,
   forum      VARCHAR(255),
   role       VARCHAR(255) NOT NULL, -- waiting, cox, any, leader, admin
-  FOREIGN KEY (forum) REFERENCES forum(name),
+  FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE,
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,forum)
 );
@@ -91,7 +92,7 @@ CREATE TABLE forum_message (
   forum      VARCHAR(255),
   subject    VARCHAR(1000),
   message    VARCHAR(10000),
-  FOREIGN KEY (forum) REFERENCES forum(name),
+  FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE,
   FOREIGN KEY (member_from) REFERENCES Member(id)
 );
 
@@ -119,8 +120,9 @@ CREATE TABLE member_message (
 -- HERE drop TABLE member_setting;
 CREATE TABLE member_setting (
  member  INTEGER,
-  is_public BOOLEAN,
-  show_status BOOLEAN,
+  is_public BOOLEAN NOT NULL DEFAULT FALSE,
+  show_status BOOLEAN NOT NULL DEFAULT FALSE,
+  show_activities BOOLEAN NOT NULL DEFAULT FALSE,
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member)
  );

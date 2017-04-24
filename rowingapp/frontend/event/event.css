@@ -197,9 +197,6 @@ button.statcat, button.adminbut {
 }
 
 
-.statlist,
-.rower,
-.genericcategories,
 .baselayout,
 .genericmenu h2 {
     background: #23aee2;
@@ -300,7 +297,7 @@ li.selected,button.selected {
 }
 
 .message {
-    color: red;
+    color: black;
 }
 
 .numin  {
@@ -498,3 +495,21 @@ tr td {
   font-size: x-large;
   width: 20em;                  
  } 
+
+.messagelist {
+    float:left;
+}
+.rightcontainer {
+    display:inline-block;
+}
+
+.selectedmessage {
+    float:left;
+    margin-left: 1em;
+    border-radius: 5px;
+    display:inline-block;
+    border: 2px solid #ccc;
+    background: #c6efd7;
+    vertical-align: top;
+}
+ 

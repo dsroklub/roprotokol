@@ -3,10 +3,9 @@
   <tr>
     <th>Forum </th><td>
     <select name="forum" id="forum" ng-model="subscription.forum" ng-options="forum.name for forum in userfora | filter: {role:null}"> </select>
-     </td>
-    <td> <button class="green" ng-click="subscribe()">Abonner</button></td>
-
-</tr>
+    </td>
+    <td> <button class="green" ng-click="subscribe()">Abonner</button></td>    
+  </tr>
 </table>
 
 
@@ -16,8 +15,4 @@
   <li class="subscription" ng-repeat="userforum in userfora| filter: {role:''}">{{userforum.name}}
     <i ng-click="unsubscribe(userforum)" confirm="Vil du stoppe abbonnementet på {{userforum.name}}?" class="fa fa-trash"></i></li>
 </ul>
-
 </table>
-<pre>
-  {{userfora|json}}
-</pre>

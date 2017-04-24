@@ -10,28 +10,43 @@
 
 <h2>Mine Beskeder</h2>
 
-<table>
-    <thead>
-    <tr>
-      <th>Emne</th>
-      <th>Fra</th>
-      <th>Forum</th>
-      <th>Tid</th>
-      <th>Besked</th>
-   </tr> 
-    </thead>
-    <tr ng-repeat="message in messages"  class="message" ng-class-odd="'oddstat'">
-      <td>{{message.subject}}</td>
-      <td>{{message.from}}</td>
-      <td>{{message.forum.name}}</td>
-      <td>{{message.created |date:"d. MMM yyyy"}}</td>
-      <td>{{message.body}}</td>
-      <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
-    </tr>
+<div>
 
+  <div class="rightcontainer">
+    <div class="selectedmessage" ng-show="currentmessage">
+      <h2>{{message.subject}}</h2>
+      Fra: <strong>{{currentmessage.source}}</strong><br>
+      Forum: {{currentmessage.forum.name}}<br>
+      Sendt {{currentmessage.created |date:"d. MMM yyyy"}}<br>
+      <hline>
+        <pre>
+          {{currentmessage.body |limitTo}}
+        </pre>
+    </div>
+  </div>
+  
+  <div class="messagelist">
+    <table class="baselayout">
+      <thead>
+        <tr>
+          <th>Emne</th>
+          <th>Fra</th>
+          <th>Forum</th>
+          <th>Tid</th>
+          <th>Besked</th>
+        </tr> 
+      </thead>
       <tbody>
-  </tbody>
-</table>
-<pre>
-  {{messages}}
-</pre>
+        <tr ng-repeat="message in messages"  ng-class="{selected: currentmessage == message}" ng-click="setCurrentMessage(message)" class="message" ng-class-odd="'oddstat'">
+          <td>{{message.subject}}</td>
+          <td>{{message.source}}</td>
+          <td>{{message.forum.name}}</td>
+          <td>{{message.created |date:"d. MMM yyyy"}}</td>
+          <td>{{message.body |limitTo :20}}...</td>
+          <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  
