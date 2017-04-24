@@ -1,9 +1,9 @@
 <h2>Send en besked</h2>
 <ng-form name="messageform">
-  <select class="forumselect" name="forum" id="forum" ng-model="message.forum" ng-options="forum.name for forum in fora" required> </select>
-  <input type="text" placeholder="emne" id="messagesubject" ng-model="message.subject" required>
+  <select class="forumselect" name="forum" id="forum" ng-model="message.forum" ng-options="forum.name for forum in fora" required> </select><br>
+  <input class="forumselect" type="text" placeholder="emne" id="messagesubject" ng-model="message.subject" required>
   <br>
-<textarea placeholder="besked" id="message_body" type="text" ng-model="message.body" required></textarea>
+<textarea class="forumselct" placeholder="besked" id="message_body" type="text" ng-model="message.body" required></textarea>
 <button class="green forumselect" ng-disabled="!messageform.$valid" ng-click="messagesend()">Send besked</button>
 </ng-form>
 
@@ -12,19 +12,6 @@
 
 <div>
 
-  <!--div class="rightcontainer">
-    <div class="selectedmessage" ng-show="currentmessage">
-      <h2>{{message.subject}}</h2>
-      Fra: <strong>{{currentmessage.source}}</strong><br>
-      Forum: {{currentmessage.forum.name}}<br>
-      Sendt {{currentmessage.created |date:"d. MMM yyyy"}}<br>
-      <hline>
-        <pre>
-          {{currentmessage.body |limitTo}}
-        </pre>
-    </div>
-  </div-->
-  
   <div class="messagelist">
     <table class="baselayout" width="100%">
       <thead>
