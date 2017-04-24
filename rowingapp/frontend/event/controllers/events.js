@@ -2,8 +2,9 @@
 
 eventApp.controller(
   'eventCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$location',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy, $log, $location) {
+  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll',
+   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll) {
+     $anchorScroll.yOffset = 50;
      $scope.teams=[];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
      $scope.signup={act:[]};
@@ -184,6 +185,11 @@ eventApp.controller(
 
      $scope.setCurrentEvent = function (ev) {
        $scope.currentevent=ev;
+       $location.hash('currenteventbox');
+       $anchorScroll();
+//       var cb=document.getElementById('currenteventbox');
+  //     cb.focus();
+       
 
      }
      $scope.setCurrentMessage = function (message) {

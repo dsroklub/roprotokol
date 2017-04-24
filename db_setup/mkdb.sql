@@ -163,6 +163,8 @@ CREATE TABLE Error_TripMember (
 DROP TABLE IF EXISTS Locations;
 CREATE TABLE Locations (
   `name` varchar(30) NOT NULL,
+  lat                DOUBLE,
+  lon                DOUBLE,
   description varchar(100),
   PRIMARY KEY (`name`)
 );
