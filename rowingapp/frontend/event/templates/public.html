@@ -1,7 +1,10 @@
 
 <h2> <a href="{{public_path}}?member={{current_user.member_id}}"> Indstillinger for {{current_user.name}}({{current_user.member_id}})</a></h2>
 
-Din personlige iCal kalender er <a href="{{member_path}}member.ical">{{member_path}}member.ical</a>
+Din personlige iCal kalender er <a href="/backend/event/member.ical">{{member_path}}member.ical</a><br>
+
+<a href="/backend/event/mine_roture.csv">Alle dine roture til download her</a>
+
 
 <ng-form name="publicsetting">
   <table>
