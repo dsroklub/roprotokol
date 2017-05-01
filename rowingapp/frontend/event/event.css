@@ -200,6 +200,7 @@ button.statcat, button.adminbut {
 }
 
 
+
 .baselayout,
 .genericmenu h2 {
     background: #23aee2;
@@ -209,6 +210,13 @@ button.statcat, button.adminbut {
     font-weight: 400;
     border-radius: 5px 5px 0 0;
 }
+
+.baselayout thead tr th {
+   border-radius: 5px 5px 0 0;                    
+   padding: 10pt;
+   background: #eb098a;                       
+}
+
 .genericmenu ul {
     background: white;
 }
@@ -221,8 +229,8 @@ button.statcat, button.adminbut {
 }
 
 .genericmenu {
-               width: auto;
-               }
+   width: auto;
+}
 
 
 .listmenu caption{
@@ -522,6 +530,12 @@ tr td {
   background: white;
   background: #50E663;
 }
+
+
+.generate {
+  background: #43d4eb;
+}
+
 
 .selectedmessage {
     float:left;
