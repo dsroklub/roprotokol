@@ -209,13 +209,24 @@ button.statcat, button.adminbut {
     font-size: 10pt;
     font-weight: 400;
     border-radius: 5px 5px 0 0;
+    cursor: pointer;
 }
 
 .baselayout thead tr th {
-   border-radius: 5px 5px 0 0;                    
    padding: 10pt;
-   background: #eb098a;                       
+   background: #eb098a;
+   cursor: default;                          
 }
+
+.baselayout thead th:first-child {
+    border-radius: 5px 0 0 0;
+}
+
+
+.baselayout thead th:last-child {
+    border-radius: 0 5px 0 0;
+}
+
 
 .genericmenu ul {
     background: white;
