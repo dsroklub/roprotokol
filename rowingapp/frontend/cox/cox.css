@@ -156,7 +156,7 @@ input.big {
     background: #0088C0;
     padding: 0 10pt;
     margin: 0;
-    width: 70%
+    width: 100%
 }
 .menu li {
     display: inline-block;
@@ -580,7 +580,7 @@ datetimepicker.trip-search-field ng-form div input {
 }
 
 textarea.signuptext {
-    width:40%;
+    width:80%;
     vertical-align: top;
     align:center;
 }

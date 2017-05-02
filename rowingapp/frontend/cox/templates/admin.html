@@ -23,7 +23,7 @@ Her kan styrmandsinstruktører give krydser og sætte hold.
     <td class="numin">{{tm.occupancy}}</td>
     <td><strong  ng-click="deleteTeam(tm)" confirm="Vil du slette holdet {{tm.name}}?"> <i class="fa fa-trash"></i></strong></td>
   </tr>
-w  </tbody>
+  </tbody>
 </table>  
 
 <h2>Tilføj nyt hold</h2>
@@ -50,13 +50,13 @@ w  </tbody>
         <thead>
           <th class="header"><button class="header" ng-click="sortAspirantBy('name')">Navn  <i class="fa fa-sort-alpha-asc"> </i></button></th>
           <th class="header"><button class="header" ng-click="sortAspirantBy('team')">Hold  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th class="header">Godkendelser (klik for at ændre)</th>
           <th class="header">Telefon</th>
           <th class="header">Email</th>
           <th class="header"><button class="header" ng-click="sortAspirantBy('wish')">Ønske  <i class="fa fa-sort-alpha-asc">  </i></button></th>
           <th class="header"><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrukken<br> tid  <i class="fa fa-sort-alpha-asc"> </i></button></th>
           <th class="header"><button class="header" ng-click="sortAspirantBy('preferred_intensity')">Foretrukken<br>intensitet  <i class="fa fa-sort-alpha-asc"> </i></button></th>
           <th class="header"><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter  <i class="fa fa-sort-alpha-asc"> </i></button></th>
-          <th class="header">Godkendelser (klik for at ændre)</th>
       </thead>
       <tbody>
         <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
@@ -66,15 +66,15 @@ w  </tbody>
                     ng-options="team.name as team.name for team in teams| orderBy: 'team'" ng-change="updateTeamForAspirant(aspirant,team)" required>
             </select>
           </td>
+          <td>
+              <button confirm="Vil du ændre kryds?" class="coxrq" ng-repeat="rq in aspirant.passes" ng-class="{'passed':rq.passed}"   ng-click="togglePass(aspirant,rq)" >{{rq.pass}}</button>
+          </td>
           <td>{{aspirant.phone}}</td>
           <td>{{aspirant.email}}</td>
           <td>{{aspirant.wish}}</td>
           <td>{{aspirant.preferred_time}}</td>
           <td>{{aspirant.preferred_intensity}}</td>
           <td>{{aspirant.activities}}</td>
-          <td>
-              <button confirm="Vil du ændre kryds?" class="coxrq" ng-repeat="rq in aspirant.passes" ng-class="{'passed':rq.passed}"   ng-click="togglePass(aspirant,rq)" >{{rq.pass}}</button>
-          </td>
       </tbody>
     </table>
   </ng-form>
