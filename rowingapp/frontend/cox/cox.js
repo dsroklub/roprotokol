@@ -39,6 +39,10 @@ var coxApp = angular.module('coxApp', [
       templateUrl: 'templates/login.html',
       controller: 'noRight'
 	});
+    $routeProvider.when('/log/', {
+      templateUrl: 'templates/log.html',
+      controller: 'logCtrl'
+	});
     $routeProvider.when('/requirements/', {
       templateUrl: 'templates/requirements.html',
       controller: 'coxCtrl'

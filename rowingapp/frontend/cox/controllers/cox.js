@@ -143,11 +143,12 @@ coxApp.controller(
            for (var ai=0; ai< $scope.aspirants.length; ai++) {
              if ($scope.aspirants[ai].member_id==$scope.webrower.member_id) {
                $scope.aspirants.splice(ai,1);
+               $log.debug("remove dublet aspirant "+$scope.webrower.member_id);
                break;
              }
            }
            $scope.aspirants.push($scope.signup);
-           }
+         }
        );
      }
      

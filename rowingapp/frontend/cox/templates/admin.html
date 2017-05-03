@@ -54,8 +54,8 @@ Her kan styrmandsinstruktører give krydser og sætte hold.
           <th class="header">Telefon</th>
           <th class="header">Email</th>
           <th class="header"><button class="header" ng-click="sortAspirantBy('wish')">Ønske  <i class="fa fa-sort-alpha-asc">  </i></button></th>
-          <th class="header"><button class="header" ng-click="sortAspirantBy('preferred_time')">Foretrukken<br> tid  <i class="fa fa-sort-alpha-asc"> </i></button></th>
-          <th class="header"><button class="header" ng-click="sortAspirantBy('preferred_intensity')">Foretrukken<br>intensitet  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th class="header"><button class="header" ng-click="sortAspirantBy('preferred_time')">sæson<br> tid  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th class="header"><button class="header" ng-click="sortAspirantBy('preferred_intensity')">intensitet  <i class="fa fa-sort-alpha-asc"> </i></button></th>
           <th class="header"><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter  <i class="fa fa-sort-alpha-asc"> </i></button></th>
       </thead>
       <tbody>
@@ -74,7 +74,7 @@ Her kan styrmandsinstruktører give krydser og sætte hold.
           <td>{{aspirant.wish}}</td>
           <td>{{aspirant.preferred_time}}</td>
           <td>{{aspirant.preferred_intensity}}</td>
-          <td>{{aspirant.activities}}</td>
+          <td class="activitylist">{{aspirant.activities}}</td>
       </tbody>
     </table>
   </ng-form>

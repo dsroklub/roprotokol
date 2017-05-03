@@ -1,0 +1,17 @@
+<h2>Log</h2>
+
+<table class="coxlist">
+  <thead>
+  <tr>
+    <th>Instruktør</th> <th>Tid</th>  <th>Handling</th><th>gjort</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="entry in coxlog" class="coxlog" ng-class-odd="'oddstat'">
+    <th>{{entry.instructor_name}} ({{entry.instructor}})</th>
+    <td>{{entry.timestamp}}</td>
+    <td>{{entry.action}}</td>
+    <td>{{entry.entry}}</td>
+  </tr>
+  </tbody>
+</table>  

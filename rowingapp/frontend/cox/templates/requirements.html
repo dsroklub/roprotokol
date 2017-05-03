@@ -13,7 +13,7 @@ Her kan styrmandsinstruktører oprette krav (krydser) som så vil optræde under
   <tr class="header">
     <th>Navn</th>
     <th>Krav</th>
-    <th>Udløber/måneder</th>
+    <th>Udløber/<br>måneder</th>
     <th>Kan dispensereres<br> for udløb</th>
   </tr>
   <tr ng-repeat="rq in requirements" ng-class-odd="'oddstat'">
@@ -25,18 +25,16 @@ Her kan styrmandsinstruktører oprette krav (krydser) som så vil optræde under
   <form>
   <tr class="inputrow">
     <td>
-      <input  autocomplete="off" maxlength="20" ng-model="requirement.name" type="text" </input>
+      <input class="reqname"  autocomplete="off" maxlength="25" ng-model="requirement.name" type="text" </input>
               </td>
     <td>
-      <input  maxlength="200" ng-model="requirement.description" type="text" </input>
+      <input class="reqname" maxlength="200" ng-model="requirement.description" type="text" </input>
     </td>
     <td class="rnum">
       <input  min="1" max="48" step="1" ng-model="requirement.expiry" type="number"</input>
     </td>
     <td class="togg">
       <input  ng-model="requirement.dispensation" type="checkbox"</input>
-    </td>
-    <td>
       <button class="green" ng-click="addRequirement(requirement)">Tilføj krav</button>
     </td>
   </tr>

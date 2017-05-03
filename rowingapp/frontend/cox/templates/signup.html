@@ -32,12 +32,12 @@ intensitet.
 
     <br>
     Ønske (fx holdnavn aftalt med andre aspiranter):
-    <input autocomplete="off" ng-model="signup.wish" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required >
+    <input autocomplete="off" ng-model="signup.wish" maxlength="50" class="ui-select-bootstrap" type="text" name="input" required >
 
   <br>
   Mit telefonnummer er:
   <input autocomplete="off" ng-model="signup.phone" maxlength="15" class="ui-select-bootstrap" type="text" name="input" required >
-
+<br>
   Min email er:
   <input autocomplete="off" ng-model="signup.email" maxlength="255" class="ui-select-bootstrap" type="text" name="input" required >
 
@@ -59,11 +59,11 @@ Og desuden:
       <table class="coxlist genericlist">
         <thead>
           <th><button class="header" ng-click="sortAspirantBy('name')">Navn <i class="fa fa-sort-alpha-asc"></i></button></th>
-          <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske  <i class="fa fa-sort-alpha-asc"> </i> </button></th>
+          <th><button class="header" ng-click="sortAspirantBy('wish')">Ønske<i class="fa fa-sort-alpha-asc"> </i> </button></th>
           <th>Hold</th>
           <th>Telefon</th>
           <th>Email</th>
-          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Sæsonprioritet  <i class="fa fa-sort-alpha-asc"> </i></button></th>
+          <th><button class="header" ng-click="sortAspirantBy('preferred_time')">Sæson<i class="fa fa-sort-alpha-asc"> </i></button></th>
           <th><button class="header" ng-click="sortAspirantBy('activities')">Aktiviteter  <i class="fa fa-sort-alpha-asc"> </i></button></th>
       </thead>
       <tbody>
@@ -74,7 +74,7 @@ Og desuden:
           <td>{{aspirant.phone}}</td>
           <td>{{aspirant.email}}</td>
           <td>{{aspirant.preferred_time}}</td>
-          <td>{{aspirant.activities}}</td>
+          <td class="activitylist">{{aspirant.activities}}</td>
       </tbody>
     </table>
   </ng-form>

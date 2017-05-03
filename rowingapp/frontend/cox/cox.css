@@ -593,4 +593,10 @@ textarea.signuptext {
     display: inline;
 }
 
+.reqname {
+           max-width: 8em;
+}
 
+.activitylist {
+   word-break: break-all;
+} 
