@@ -600,3 +600,11 @@ textarea.signuptext {
 .activitylist {
    word-break: break-all;
 } 
+
+.modal-dialog {
+    max-width: 100%;
+}
+
+.modal-dialog  {
+    width: 20em;
+}
