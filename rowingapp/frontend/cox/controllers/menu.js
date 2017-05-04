@@ -7,7 +7,7 @@ coxApp.controller(
                   $scope.$on('$routeChangeSuccess', function(){
                     $scope.activePath = $location.path();
                     // $scope.activePath = "cox.html";
-                    console.log( $location.path() );
+                    // console.log( $location.path() );
                   });
                 }
                ]

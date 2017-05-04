@@ -2,8 +2,8 @@
 
 coxApp.controller(
   'coxCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy,$log) {
+  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$timeout',
+   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy,log, $timeout) {
      $scope.aspirants = null;
      $scope.sortAspirants = 'team';
      $scope.teams=[];
@@ -12,10 +12,16 @@ coxApp.controller(
      $scope.seasons = ['forår','sommer','efterår'];
      $scope.activities = ['INKA','POP','Gymnastik',"Coastal"];
      $scope.signup={act:[]};
-
+     $scope.dbready=false;
+     $scope.dbgrace=true;
+  
+     $timeout(function() { $scope.dbgrace = false;}, 2000);
      
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
+     console.log("do db XXX");
      DatabaseService.init({"cox":true,"member":true,"user":true}).then(function () {
+       console.log("DB init done");
+       $scope.dbready=true;
        DatabaseService.getDataNow('cox/aspirants/team',null,function (res) {
          $scope.teams=res.data;
        });
