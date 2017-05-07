@@ -22,24 +22,22 @@ if ($result) {
     } else {
         $endtime=new \DateTime($row['end_time']);
     }
-    $summary=$row['owner'] . ": " .  $row['comment'];
+    $description=$row['owner'] . ": " .  $row['comment'];
     if (!empty($row['boat_category'])) {
-        $summary .= "Der ros i " . $row['boat_category'];
+        $description .= "\nDer ros i " . $row['boat_category'];
     }
     $vEvent
         ->setDtStart(new \DateTime($row['start_time']))
         ->setDtEnd($endtime)
         ->setNoTime(false)
-        ->setSummary($summary);
+        ->setDescription($description);
     if (!empty($row['lat']) and !empty($row['lon'])) {
         $llgeo=$row['lat'].';'.$row['lon'];
-        error_log("GEO $llgeo");
         $l=$row['location'];
-        error_log("llg $l");
+        $vEvent->setSummary("DSR roaftale");
+        $vEvent->setSequence(2);
         $vEvent->setLocation($l, 'til roning klar', $llgeo);
-        //$vEvent->setLocation(,, );
-    }
-    
+    }    
     $vCalendar->addComponent($vEvent);    
 }
 header('Content-Type: text/calendar; charset=utf-8');
