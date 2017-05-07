@@ -43,6 +43,3 @@ function multifield_array($fld,$keys) {
   }
   return $res;
 }
-
-
-?>

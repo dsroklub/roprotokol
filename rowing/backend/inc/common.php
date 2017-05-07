@@ -62,4 +62,3 @@ function dbfetch($db,$table, $columns=['*'], $orderby=null) {
     echo ']';
 }
 $error=null;
-?>     

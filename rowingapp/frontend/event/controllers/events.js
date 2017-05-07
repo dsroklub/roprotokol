@@ -37,6 +37,7 @@ eventApp.controller(
        $scope.newevent.endtime=null;
        $scope.current_user=DatabaseService.getDB('event/current_user');
        $scope.member_path=$location.protocol()+"://"+ $scope.current_user.member_id +":DITPASSWORD@"+$location.host()+"/backend/event/";
+       $scope.site_path=$location.protocol()+"://"+ $scope.current_user.member_id +":DITPASSWORD@"+$location.host();
 
        if ($scope.eventarg) {
          $log.debug("look for event "+$scope.eventarg);
