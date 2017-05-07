@@ -14,6 +14,7 @@ if ($result) {
   error_log("memberical");
   while ($row = $result->fetch_assoc()) {
     $vEvent = new \Eluceo\iCal\Component\Event();
+    $vEvent->setCategories(['DSR']);
     $endtime=$row['end_time'];
     if (empty($endtime)) {
         $endtime=new \DateTime($row['start_time']);
@@ -30,11 +31,14 @@ if ($result) {
         ->setDtEnd($endtime)
         ->setNoTime(false)
         ->setSummary($summary);
-    /* if (!empty($row['lat']) and !empty($row['lon'])) { */
-    /*     $llgeo=$row['lat'].';'.$row['lon']; */
-    /*     error_log("llg $llgeo"); */
-    /*     $vEvent->setLocation($row['location'],'til roning klar', $llgeo); */
-    /* } */
+    if (!empty($row['lat']) and !empty($row['lon'])) {
+        $llgeo=$row['lat'].';'.$row['lon'];
+        error_log("GEO $llgeo");
+        $l=$row['location'];
+        error_log("llg $l");
+        $vEvent->setLocation($l, 'til roning klar', $llgeo);
+        //$vEvent->setLocation(,, );
+    }
     
     $vCalendar->addComponent($vEvent);    
 }
