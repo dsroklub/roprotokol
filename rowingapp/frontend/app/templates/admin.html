@@ -278,8 +278,8 @@
         <tr ng-repeat="ds in DB('destinations').DSR" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	  <td >{{ds.name}}</td>
 	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.1" ng-model="ds.duration"></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.1" ng-model="ds.duration_instruction"></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0.1" step="0.1" ng-model="ds.duration"></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0.1" step="0.1" ng-model="ds.duration_instruction"></td>
         </tr>
       </tbody>
     </table>

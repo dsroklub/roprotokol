@@ -237,7 +237,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     return this.sync(subscriptions);
   }
 
-  this.sync=function(subscriptions) {
+  this.sync = function(subscriptions) {
     var dbservice=this;
     if (!subscriptions) {
       subscriptions={};
@@ -268,10 +268,13 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   }
   
   this.reload=function (tps) {
+    var subs={};
     for (var ti=0; ti<tps.length; ti++) {
-      this.invalidate_dependencies(tps[ti]);
+      var tag=tps[ti];
+      this.invalidate_dependencies(tag);
+      subs[tag]=true;
     }
-    this.init();
+    this.sync(subs);
   }
 
   this.getBoatTypes = function () {

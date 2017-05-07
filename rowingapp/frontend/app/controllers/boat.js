@@ -314,7 +314,9 @@ app.controller(
   
      $scope.updateExpectedTime = function () {
        if ($scope.checkout.starttime && $scope.checkout.destination) {
-         var duration=($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && $scope.checkout.destination.duration_instruction)?$scope.checkout.destination.duration_instruction:$scope.checkout.destination.duration;
+         var duration=($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && $scope.checkout.destination.duration_instruction)?
+             $scope.checkout.destination.duration_instruction:
+             $scope.checkout.destination.duration;
 
          if (duration>0) {
            $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + duration * 3600 * 1000);
@@ -499,7 +501,7 @@ app.controller(
          $scope.checkouttime_clean=$scope.checkout.starttime;
          $scope.updateExpectedTime();
        }
-       var ds=DatabaseService.sync(['boat'])
+       var ds=DatabaseService.reload(['boat'])
        console.log(" boatsync ds="+ds);
        if (ds) {
 	 ds.then(function(what) {
