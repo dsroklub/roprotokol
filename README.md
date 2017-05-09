@@ -50,7 +50,7 @@ Test Webserver:
 Run
 <code>
    cd rowingapp/
-   php5 -S localhost:8080
+   php -S localhost:8080
 </code>
 
 
