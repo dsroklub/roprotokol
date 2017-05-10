@@ -63,12 +63,19 @@ Her kan styrmandsinstruktører give krydser og sætte hold.
         <tr ng-repeat="aspirant in aspirants" ng-class-odd="'oddstat'">
           <td>{{aspirant.name}}</td>
           <td>
-            <select name="teamchooser" class="teamchoose" id="teamselect" ng-model="aspirant.team"
-                    ng-options="team.name as team.name for team in teams| orderBy: 'team'" ng-change="updateTeamForAspirant(aspirant,team)" required>
+            <select name="teamchooser" class="teamchoose" id="teamselect"
+                    ng-model="aspirant.team"
+                    ng-options="team.name as team.name for team in teams| orderBy: 'team'"
+                    ng-change="updateTeamForAspirant(aspirant,team)" required>
             </select>
           </td>
           <td>
-              <button confirm="Vil du ændre kryds?" class="coxrq" ng-repeat="rq in aspirant.passes" ng-class="{'passed':rq.passed}"   ng-click="togglePass(aspirant,rq)" >{{rq.pass}}</button>
+            <button confirm="Vil du {{xconfirm(rq.passed)}} {{aspirant.name}}?"
+                    class="coxrq"
+                    ng-repeat="rq in aspirant.passes"
+                    ng-class="{'passed':rq.passed}"
+                    ng-click="togglePass(aspirant,rq)" >{{rq.pass}}
+            </button>
           </td>
           <td>{{aspirant.phone}}</td>
           <td>{{aspirant.email}}</td>

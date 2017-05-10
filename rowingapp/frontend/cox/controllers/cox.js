@@ -14,7 +14,11 @@ coxApp.controller(
      $scope.signup={act:[]};
      $scope.dbready=false;
      $scope.dbgrace=true;
-  
+
+     $scope.xconfirm = function (x) {
+       return (x?"tage kryds fra":"tildele kryds til");
+     }
+     
      $timeout(function() { $scope.dbgrace = false;}, 2000);
      
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];

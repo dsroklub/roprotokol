@@ -5,10 +5,12 @@
     {{match.model.name}} <i>({{match.model.id}})</i>
   </a>
 </script>
-
 <div>
-<ng-form name="coxAspirant">
+
   <h2>Opskrivning på styrmandshold af {{webrower.name}} ({{webrower.member_id}})</h2>
+  <h1 ng-show="webrower.member_right">Du er allerede styrmand</h1>
+
+  <ng-form name="coxAspirant" ng-hide="webrower.member_right">
   (Hvis du vil ændre noget, så bare udfyld det igen)
   <br>
     Jeg vil have
@@ -80,3 +82,6 @@ Og desuden:
     </table>
   </ng-form>
 </div>
+<pre>
+  {{webrower|json}}
+</pre>

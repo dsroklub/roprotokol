@@ -1,5 +1,7 @@
 'use strict';
 
+var rv=2;
+
 var coxApp = angular.module('coxApp', [
   'ngRoute',
   'ngSanitize',
@@ -28,30 +30,33 @@ var coxApp = angular.module('coxApp', [
 .config([
   '$routeProvider', function($routeProvider) {
     $routeProvider.when('/signup/', {
-      templateUrl: 'templates/signup.html',
+      templateUrl: 'templates/signup.html?v='+rv,
       controller: 'coxCtrl'
     });
     $routeProvider.when('/admin/', {
-      templateUrl: 'templates/admin.html',
+      templateUrl: 'templates/admin.html?v='+rv,
       controller: 'coxCtrl'
 	});
     $routeProvider.when('/login/', {
-      templateUrl: 'templates/login.html',
+      templateUrl: 'templates/login.html?v='+rv,
       controller: 'noRight'
 	});
     $routeProvider.when('/log/', {
-      templateUrl: 'templates/log.html',
+      templateUrl: 'templates/log.html?v='+rv,
       controller: 'logCtrl'
 	});
     $routeProvider.when('/requirements/', {
-      templateUrl: 'templates/requirements.html',
+      templateUrl: 'templates/requirements.html?v='+rv,
       controller: 'coxCtrl'
     });
     $routeProvider.when('/', {redirectTo: '/signup'});
     $routeProvider.otherwise({
-      templateUrl: 'templates/notimplementet.html',
+      templateUrl: 'templates/notimplementet.html?v='+rv,
     });
   }])
+    .config(['$qProvider', function ($qProvider) {
+      $qProvider.errorOnUnhandledRejections(false);
+    }])
     .config(['uiSelectConfig', function(uiSelectConfig) {
       uiSelectConfig.theme = 'bootstrap';
     }]);

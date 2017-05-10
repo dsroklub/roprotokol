@@ -29,7 +29,10 @@ if ($stmt = $rodb->prepare($q)) {
 }
 
 
-$lq="INSERT INTO cox_log (timestamp, member_id,action,entry) SELECT NOW(),?,?,CONCAT(?,' for ',?,' id=',id) From Member Where MemberId=?";
+$lq="INSERT INTO cox_log (timestamp, member_id,action,entry) 
+     SELECT NOW(),?,?,CONCAT(?,' for ', ma.FirstName,' ',ma.LastName ,' (',ma.MemberId,')') 
+     From Member, Member ma 
+     WHERE Member.MemberId=? AND ma.MemberId=?";
 
 $action=$reg->pass?"pass":"fail";
 if ($stmt = $rodb->prepare($lq)) {
