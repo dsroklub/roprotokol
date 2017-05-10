@@ -1,7 +1,7 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("../rowing/backend/inc/common.php");
 include("utils.php");
-require_once '../../phplib/vendor/autoload.php';
+require_once '../phplib/vendor/autoload.php';
 $secret=$config['secret'];
 $token=$_GET['token'];
 $user=$_GET['user'];
