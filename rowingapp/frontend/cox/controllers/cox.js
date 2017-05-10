@@ -3,7 +3,7 @@
 coxApp.controller(
   'coxCtrl',
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$timeout',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy,log, $timeout) {
+   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy,$log, $timeout) {
      $scope.aspirants = null;
      $scope.sortAspirants = 'team';
      $scope.teams=[];
@@ -14,13 +14,16 @@ coxApp.controller(
      $scope.signup={act:[]};
      $scope.dbready=false;
      $scope.dbgrace=true;
-  
+
+     $scope.xconfirm = function (x) {
+       return (x?"tage kryds fra":"tildele kryds til");
+     }
+     
      $timeout(function() { $scope.dbgrace = false;}, 2000);
      
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-     console.log("do db XXX");
      DatabaseService.init({"cox":true,"member":true,"user":true}).then(function () {
-       console.log("DB init done");
+//       console.log("DB init done");
        $scope.dbready=true;
        DatabaseService.getDataNow('cox/aspirants/team',null,function (res) {
          $scope.teams=res.data;
@@ -39,7 +42,9 @@ coxApp.controller(
                                                     $scope.webrower=res.data;
                                                     $scope.signup.phone=$scope.webrower.phone;
                                                     $scope.signup.wish=$scope.webrower.wish;
-                                                    $scope.signup.act=$scope.webrower.activities.split(",");
+                                                    if ($scope.signup.act=$scope.webrower.activities) {
+                                                      $scope.signup.act=$scope.webrower.activities.split(",");
+                                                    }
                                                     
                                                     $scope.signup.comment=$scope.webrower.comment;
                                                     $scope.signup.preferred_intensity=$scope.webrower.preferred_intensity;

@@ -16,6 +16,7 @@ $s="SELECT Member.MemberId as member_id, wish, team_requests.phone,team_requests
          LEFT JOIN Member on Member.id=team_requests.member_id
          JOIN course_requirement 
          LEFT JOIN course_requirement_pass ON course_requirement.name=course_requirement_pass.requirement AND course_requirement_pass.member_id=Member.id
+   WHERE NOT EXISTS (SELECT 'x' FROM MemberRights WHERE MemberRight='cox' AND Member.id=MemberRights.member_id)
    GROUP By team_requests.member_id
    ORDER By Member.MemberId,passes
 ";

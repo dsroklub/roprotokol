@@ -1,5 +1,6 @@
 'use strict';
 
+var rv=13;
 var eventApp = angular.module('eventApp', [
   'ngRoute',
   'ngSanitize',
@@ -17,8 +18,7 @@ var eventApp = angular.module('eventApp', [
   'ui.bootstrap.datetimepicker',
   'angular.filter',
   'checklist-model',
-  'eventApp.database',
-  'ds.clock'
+  'eventApp.database'
 ])
 .config([
   '$locationProvider', function($locationProvider) {

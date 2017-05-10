@@ -1,4 +1,5 @@
 'use strict';
+// Niels Elgaard Larsen, v2
 
 eventApp.controller(
   'eventCtrl',
@@ -40,8 +41,8 @@ eventApp.controller(
        $scope.newevent.starttime=null;
        $scope.newevent.endtime=null;
        $scope.current_user=DatabaseService.getDB('event/current_user');
-       $scope.member_path=$location.protocol()+"://"+ $scope.current_user.member_id +":DITPASSWORD@"+$location.host()+"/backend/event/";
-       $scope.site_path=$location.protocol()+"://"+ $scope.current_user.member_id +":DITPASSWORD@"+$location.host();
+       $scope.member_path=$location.protocol()+"://"+ $location.host()+"/backend/event/";
+       $scope.site_path=$location.protocol()+"://"+ $location.host();
        $scope.dbready=true;
 
        if ($scope.eventarg) {

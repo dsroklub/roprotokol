@@ -9,13 +9,17 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
     error_log("CU=$cuser");
     
-    $s="SELECT Member.MemberId as member_id, CONCAT(Member.FirstName,' ', Member.LastName) as name, Member.Email as member_email 
-    FROM Member 
-    Where Member.MemberId=?
+    $s="SELECT 
+       sha1(CONCAT(authentication.password,?)) as token,
+       Member.MemberId as member_id, CONCAT(Member.FirstName,' ', Member.LastName) as name, Member.Email as member_email 
+    FROM Member,authentication 
+    WHERE Member.MemberId=? AND authentication.member_id=Member.id
   ";
 
     if ($stmt = $rodb->prepare($s)) {
-        $stmt->bind_param('s',$cuser);
+        $stmt->bind_param('ss',
+            $config['secret'],
+            $cuser);
         if (!$stmt->execute()) {
             error_log("OOOP ".$rodb->error);
             http_response_code(500);
