@@ -2,8 +2,8 @@
 
 eventApp.controller(
   'eventCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll) {
+  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout',
+   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout) {
      $anchorScroll.yOffset = 50;
      $scope.teams=[];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
@@ -23,6 +23,10 @@ eventApp.controller(
        $scope.newevent.owner_in=1;
      }
      $scope.init();
+     $scope.dbready=false;
+     $scope.dbgrace=true;
+     $timeout(function() { $scope.dbgrace = false;}, 2000);
+
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
      DatabaseService.init({"message":true,"event":true,"member":true,"user":true}).then(function () {
        $scope.boatcategories=DatabaseService.getDB('event/boat_category');
@@ -38,6 +42,7 @@ eventApp.controller(
        $scope.current_user=DatabaseService.getDB('event/current_user');
        $scope.member_path=$location.protocol()+"://"+ $scope.current_user.member_id +":DITPASSWORD@"+$location.host()+"/backend/event/";
        $scope.site_path=$location.protocol()+"://"+ $scope.current_user.member_id +":DITPASSWORD@"+$location.host();
+       $scope.dbready=true;
 
        if ($scope.eventarg) {
          $log.debug("look for event "+$scope.eventarg);

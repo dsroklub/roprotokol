@@ -5,7 +5,7 @@
 
 <input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off" ng-model="newforum.name" required></td><br>
 <input type="text" class="maxwidth" placeholder="beskrivelse af forum" class="forum" autocomplete="off" ng-model="newforum.description"></td><br>
-<button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret begivenhed</button>
+<button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
 
 </ng-form>
 
@@ -16,3 +16,44 @@
       {{forum.name}}
   </li>
 </ul>
+
+<h2>Læg en fil op</h2>
+
+<form name="upform">
+  <fieldset>
+    <legend>Tilføj en fil til forum</legend>
+    <select name="uploadforum" id="uploadforum" 
+            ng-options="forum as forum.name for forum in fora" ng-model="uploadforum" required>  
+    </select>
+    <br>
+    Navn på fil: <input type="text" name="fileName" ng-model="filename" size="39" required="">
+    <br>
+    Fil: <input type="file" ngf-select="" ng-model="forumfile" name="forumfile" ngf-accept="'*/*'">
+    <i ng-show="upform.forumfile.$error.required">* kræves</i>
+    <br>
+    <button ng-disabled="!upform.$valid" ng-click="uploadFile(forumfile)">Indsend fil</button>
+    <span class="progress" ng-show="forumfile.progress >= 0">
+      <div style="width:{{forumfile.progress}}%" ng-bind="picFile.progress + '%'" class="ng-binding"></div>
+    </span>
+    <span ng-show="forumfile.result">Så er den på plads</span>
+    
+    <datetimepicker               
+       uib-tooltip="Udløbsdato"
+       popup="d MMM yyyy"
+       current-text="i dag"
+       close-text="vælg"
+       clear-text="rens"
+       date-format="yyyy-MM-dd"
+       hidden-time="true"
+       show-spinners="false"
+       date-options="dateOptions"
+       show-meridian="false"
+       ng-model="fileexpire.start_date"
+       />
+  </fieldset>
+</form>
+
+<pre>
+  ff {{forumfile|json}}
+  uff {{upform.forumfile|json}}
+</pre>

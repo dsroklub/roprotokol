@@ -84,7 +84,7 @@ CREATE TABLE forum_subscription (
   PRIMARY KEY(member,forum)
 );
 
--- HERE drop table forum_message;
+-- drop table forum_message;
 
 CREATE TABLE forum_message (
   member_from  INTEGER,
@@ -117,7 +117,7 @@ CREATE TABLE member_message (
  );
 
 
--- HERE drop TABLE member_setting;
+-- drop TABLE member_setting;
 CREATE TABLE member_setting (
  member  INTEGER,
   is_public BOOLEAN NOT NULL DEFAULT FALSE,
@@ -126,3 +126,15 @@ CREATE TABLE member_setting (
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member)
  );
+
+CREATE TABLE forum_file (
+  member_from  INTEGER,
+  created      DATETIME,
+  forum        VARCHAR(255),
+  filename     VARCHAR(1000),
+  mime_type    VARCHAR(255),
+  file         MEDIUMBLOB,
+  expire       DATETIME,
+  FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE,
+  FOREIGN KEY (member_from) REFERENCES Member(id)
+);

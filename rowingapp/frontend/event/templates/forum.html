@@ -1,5 +1,5 @@
+<h1 class="error" ng-hide="dbready || dbgrace">Henter data<br>vær tålmodig</h1>
 <table>
-
   <tr>
     <th>Forum </th><td>
     <select name="forum" id="forum" ng-model="subscription.forum" ng-options="forum.name for forum in userfora | filter: {role:null}"> </select>
