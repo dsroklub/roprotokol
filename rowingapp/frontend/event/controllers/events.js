@@ -3,8 +3,8 @@
 
 eventApp.controller(
   'eventCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout) {
+  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
+   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
      $anchorScroll.yOffset = 50;
      $scope.teams=[];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
@@ -173,6 +173,25 @@ eventApp.controller(
        });
      }               
 
+     $scope.uploadFile = function(file) {
+       file.upload = UploadBase.upload({
+         url: '/backend/event/file_upload.php',
+         data: {"expire":$scope.forumfile.expire,forum:$scope.forumfile.forum.name, filename:$scope.forumfile.filename ,"file": file},
+       });
+       
+       file.upload.then(function (response) {
+         $timeout(function () {
+           file.result = response.data;
+         });
+       }, function (response) {
+         if (response.status > 0)
+           $scope.errorMsg = response.status + ': ' + response.data;
+       }, function (evt) {
+         // Math.min is to fix IE which reports 200% sometimes
+         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+       });
+     }
+       
      $scope.member_setting_update = function() {
        var sr=DatabaseService.createSubmit("member_setting_update",$scope.member_setting);
        sr.promise.then(function(status) {

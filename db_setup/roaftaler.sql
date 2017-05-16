@@ -127,6 +127,7 @@ CREATE TABLE member_setting (
   PRIMARY KEY(member)
  );
 
+-- DROP TABLE forum_file;
 CREATE TABLE forum_file (
   member_from  INTEGER,
   created      DATETIME,

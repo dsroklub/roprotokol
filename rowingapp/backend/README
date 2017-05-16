@@ -1,3 +1,0 @@
-common backend for roprotokol
-
-The actual backend is mapped in here using Apache alias directives to handle access restrictions

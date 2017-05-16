@@ -18,7 +18,8 @@ var eventApp = angular.module('eventApp', [
   'ui.bootstrap.datetimepicker',
   'angular.filter',
   'checklist-model',
-  'eventApp.database'
+  'eventApp.database',
+  'ngFileUpload'
 ])
 .config([
   '$locationProvider', function($locationProvider) {

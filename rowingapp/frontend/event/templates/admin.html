@@ -23,17 +23,17 @@
   <fieldset>
     <legend>Tilføj en fil til forum</legend>
     <select name="uploadforum" id="uploadforum" 
-            ng-options="forum as forum.name for forum in fora" ng-model="uploadforum" required>  
+            ng-options="forum as forum.name for forum in fora" ng-model="forumfile.forum" required>  
     </select>
     <br>
-    Navn på fil: <input type="text" name="fileName" ng-model="filename" size="39" required="">
+    Navn på fil: <input type="text" name="fileName" ng-model="forumfile.filename" size="39" required="">
     <br>
-    Fil: <input type="file" ngf-select="" ng-model="forumfile" name="forumfile" ngf-accept="'*/*'">
+    Fil: <input type="file" ngf-select="" ng-model="forumfile.file" name="forumfile" ngf-accept="'*/*'">
     <i ng-show="upform.forumfile.$error.required">* kræves</i>
     <br>
     <button ng-disabled="!upform.$valid" ng-click="uploadFile(forumfile)">Indsend fil</button>
     <span class="progress" ng-show="forumfile.progress >= 0">
-      <div style="width:{{forumfile.progress}}%" ng-bind="picFile.progress + '%'" class="ng-binding"></div>
+      <div style="width:{{forumfile.progress}}%" ng-bind="forumfile.progress + '%'" class="ng-binding"></div>
     </span>
     <span ng-show="forumfile.result">Så er den på plads</span>
     
@@ -48,12 +48,12 @@
        show-spinners="false"
        date-options="dateOptions"
        show-meridian="false"
-       ng-model="fileexpire.start_date"
+       ng-model="forumfile.expire"
        />
   </fieldset>
 </form>
 
 <pre>
-  ff {{forumfile|json}}
+  forumfile {{forumfile|json}}
   uff {{upform.forumfile|json}}
 </pre>
