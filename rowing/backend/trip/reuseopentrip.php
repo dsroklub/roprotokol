@@ -22,7 +22,7 @@ $s="SELECT Trip.id,
            Trip.InTime as intime,
            DATE_FORMAT(CONVERT_TZ(Trip.OutTime,    'SYSTEM', '+0:00'), '%Y-%m-%dT%T.000Z') as outtime,
            DATE_FORMAT(CONVERT_TZ(Trip.ExpectedIn, 'SYSTEM', '+0:00'), '%Y-%m-%dT%T.000Z') as expectedintime,
-           GROUP_CONCAT(Member.MemberID,':§§:', MemberName SEPARATOR '££') AS rowers,
+           GROUP_CONCAT(Member.MemberID,':§§:', CONCAT(Member.FirstName,' ',Member.LastName) SEPARATOR '££') AS rowers,
            MAX(Trip.Comment) as comment
    FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  
    WHERE Boat.id=Trip.BoatID
@@ -30,7 +30,8 @@ $s="SELECT Trip.id,
      AND Trip.InTime IS NULL
      AND TripType.id=Trip.TripTypeID
      AND TripMember.TripID=Trip.id
-   ORDER BY TripMember.Seat ";
+   GROUP BY Trip.id,TripType.id,Boat.id
+   ORDER BY Trip.id ";
 
 if ($stmt = $rodb->prepare("$s")) { 
   $stmt->bind_param('i', $reuse->reusetrip);

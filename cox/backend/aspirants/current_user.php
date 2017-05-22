@@ -10,12 +10,13 @@ include("utils.php");
 $cuser=$_SERVER['PHP_AUTH_USER'];
 error_log("CU $cuser");
 
-$s="SELECT Member.MemberId as member_id, wish, team_requests.phone,team_requests.email,team,
+$s="SELECT MemberRight as member_right,Member.MemberId as member_id, wish, team_requests.phone,team_requests.email,team,
     CONCAT(Member.FirstName,' ', Member.LastName) as name, preferred_time, preferred_intensity,
     activities, comment, Member.Email as member_email, team_requests.email as request_email, team_requests.phone as phone,
     team_requests.wish,team_requests.preferred_intensity,team_requests.comment,team_requests.activities,team_requests.preferred_time
     FROM Member LEFT JOIN team_requests 
           on Member.id=team_requests.member_id
+          LEFT JOIN MemberRights ON MemberRights.member_id=Member.id AND MemberRight='cox'
     Where Member.MemberId=?
 ";
 
