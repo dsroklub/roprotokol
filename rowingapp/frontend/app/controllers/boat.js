@@ -217,11 +217,11 @@ app.controller(
              }
            } else {
              // kalendereservering
-             var st=rv.start_date + "T"+ rv.start_time;
-             var et=rv.end_date + "T"+ rv.end_time;
+             var st=new Date(rv.start_date + "T"+ rv.start_time);
+             var et=new Date(rv.end_date + "T"+ rv.end_time);
              if (!(
                rv.triptype_id==$scope.checkout.triptype.id ||
-                 (etime < st && otime < st)||
+                 (etime < st && otime < st) ||
                  (etime > et && otime > et)
              )
                 )
