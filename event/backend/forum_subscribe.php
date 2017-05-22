@@ -19,10 +19,14 @@ if ($stmt = $rodb->prepare(
            MemberId=?
          ")) {
 
+    $role="member";
+    if (!empty($subscription->role)) {
+        $role=$subscription->role;
+    }
     $stmt->bind_param(
         'sss',
         $subscription->forum->name,
-        $subscription->role,
+        $role,
         $cuser) ||  die("create event BIND errro ".mysqli_error($rodb));
 
     if (!$stmt->execute()) {
