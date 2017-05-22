@@ -157,6 +157,24 @@ angular.module('rowApp.utilities.leveltodk', []).filter('leveltodk', function ()
   };
 });
 
+angular.module('rowApp.utilities.year2tool', []).filter('year2tool', function () {
+  var years = {
+    2016: 'wrench',
+    2017: 'hammer',
+    2018: 'saw',
+    2019: 'screwdriver',
+    2020: 'knibtang',
+  };
+  console.log(years);
+  return function( str ) {
+    if (str && years[str]) {
+      return years[str];
+    }
+    return 'wrench';
+  };
+});
+
+
 angular.module('rowApp.utilities.rowtodk', []).filter('rowtodk', function () {
   return function (rw) {
     if (!rw) return("");
@@ -216,6 +234,17 @@ angular.module('rowApp.utilities.keys', []).filter('keys', function () {
   };
 });
 
+angular.module('rowApp.utilities.split', []).filter('split', function () {
+  return function( str, separator) {
+    if (!str) {
+      return [];
+    }
+    if (!separator) {
+      separator = ',';
+    }
+    return str.split(separator);
+  };
+});
 
 
 angular.module('rowApp.utilities.onlynumber', []).directive('onlynumber', function () {
@@ -298,4 +327,6 @@ angular.module('rowApp.utilities', [
   'rowApp.utilities.totime',
   'rowApp.utilities.ifNull',
   'rowApp.utilities.subArray',
+  'rowApp.utilities.year2tool',
+  'rowApp.utilities.split',
 ]).value('version', '0.2');

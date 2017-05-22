@@ -670,12 +670,13 @@ div.guestpenguin {
 
 .newright {
     background: #9BDDEF;
+    width: 35em;
 }
 
 .right_select {
     border-radius: 5px;
     height: 2em;
-    min-width : 15em;
+    min-width : 35em;
     display: inline-block;    
 }
 
@@ -1136,6 +1137,12 @@ textarea.signuptext {
 	  color: #003;
 	}
 
+}
+
+img.wrench {
+  heigth: 25px;
+  width: 25px;
+  padding-left: 5px;
 }
 
 .nottoday {
