@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="35.433071"
+   height="35.433071"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="saw.svg"
+   inkscape:export-filename="/home/jel/git/roprotokol/rowingapp/frontend/app/assets/tools/wrench.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="11.2"
+     inkscape:cx="20.507257"
+     inkscape:cy="28.948054"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     units="mm"
+     inkscape:window-width="1479"
+     inkscape:window-height="1006"
+     inkscape:window-x="355"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="tool"
+     style="display:inline">
+    <g
+       id="g4212"
+       transform="matrix(0.59009321,-0.8006623,0.77405469,0.61037727,-6.8872234,21.755409)">
+      <path
+         inkscape:connector-curvature="0"
+         id="rect3416"
+         d="m 11.71875,22.46875 c -0.4432,0 -0.78125,0.334278 -0.78125,0.75 l 0,13.28125 c 0,0.415722 0.33805,0.75 0.78125,0.75 l 0.875,0 0,-0.75 c 0,-0.415722 0.3693,-0.75 0.8125,-0.75 l 7.1875,0 c 0.4432,0 0.8125,0.334278 0.8125,0.75 l 0,0.75 0.71875,0 c 0.4432,0 0.78125,-0.334278 0.78125,-0.75 l 0,-13.28125 c 0,-0.415722 -0.33805,-0.75 -0.78125,-0.75 l -10.40625,0 z M 13.40625,28 l 7.1875,0 c 0.4432,0 0.8125,0.334278 0.8125,0.75 l 0,4.53125 c 0,0.415722 -0.3693,0.75 -0.8125,0.75 l -7.1875,0 c -0.4432,0 -0.8125,-0.334278 -0.8125,-0.75 l 0,-4.53125 c 0,-0.415722 0.3693,-0.75 0.8125,-0.75 z"
+         style="fill:#ff0000;stroke:none" />
+      <path
+         id="rect3424"
+         d="m 20.53125,-5.625 -2.0625,1.03125 1.21875,2.1875 0.03125,0.03125 -0.0625,0.03125 -2.375,1.1875 1.21875,2.1875 0,0.03125 -0.03125,0.03125 -2.375,1.15625 1.1875,2.21875 0.03125,0.03125 -0.03125,0.03125 -2.375,1.15625 1.1875,2.21875 0.03125,0.03125 -0.0625,0.03125 -2.375,1.1875 1.21875,2.1875 0.03125,0.03125 -0.0625,0.03125 -2.375,1.15625 1.21875,2.21875 0,0.03125 L 13.6875,14.84375 11.3125,16 12.5,18.21875 12.53125,18.25 12.5,18.28125 10.125,19.4375 11.21875,21.5 l 10.84375,0 c 0.486468,0 0.875,-0.334278 0.875,-0.75 l 0,-25.625 c 0,-0.4157216 -0.388532,-0.75 -0.875,-0.75 l -1.53125,0 z"
+         style="fill:#ff0000;stroke:none"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>
