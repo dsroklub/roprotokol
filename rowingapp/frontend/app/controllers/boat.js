@@ -459,9 +459,10 @@ app.controller(
     
        var newtrip=DatabaseService.createTrip(data);
        newtrip.promise.then(function(status) {
-	 data.boat.trip=-1;
+	 data.boat.trip=null;
 	 DatabaseService.reload(['trip']);
 	 if (status.status =='ok') {
+           data.boat.trip=status.tripid;
            $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+":";
            if ($scope.checkout.boat.placement_aisle) {
              $scope.checkoutmessage+=("Dør "+$scope.checkout.boat.placement_aisle);

@@ -49,7 +49,14 @@ if (!$error) {
         $error="trip Insert DB STMT  error: ".mysqli_error($rodb);
         error_log($error);
     }
-    
+
+    if ($stmt = $rodb->prepare("SELECT LAST_INSERT_ID() as tripid FROM DUAL")) {
+     $stmt->execute();
+     $result= $stmt->get_result() or die("Error trip id query: " . mysqli_error($rodb));
+      $res['tripid']= $result->fetch_assoc()['tripid'];
+    } else {
+        error_log($rodb->error);
+    }    
     
     if ($stmt = $rodb->prepare(
         "INSERT INTO TripMember(TripID,Seat,member_id,CreatedDate,EditDate) 
