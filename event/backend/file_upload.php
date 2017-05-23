@@ -13,6 +13,9 @@ $file=$_POST["file"];
 
 $file=$_FILES['file'];
 
+$finfo = new finfo(FILEINFO_MIME_TYPE);
+
+
 $ofilename=$file['name']['file'];
 $tmpfilename=$file['tmp_name']['file'];
 $otype=$file['type']['file'];
@@ -26,6 +29,9 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
 $fp      = fopen($tmpfilename, 'r');
 $content = fread($fp, filesize($tmpfilename));
+
+
+$mimeType=$finfo->buffer($content);
 fclose($fp);
 if ($stmt = $rodb->prepare(
         "INSERT INTO forum_file(member_from,created,forum,filename,mime_type,file,expire)
@@ -40,7 +46,7 @@ if ($stmt = $rodb->prepare(
         'ssssss',
         $forum,
         $filename,
-        $mimetype,
+        $mimeType,
         $content,
         $expire,
         $cuser) ||  die("forum file BIND errro ".mysqli_error($rodb));

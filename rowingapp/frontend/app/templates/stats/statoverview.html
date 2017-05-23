@@ -29,7 +29,7 @@
 	    <tr ng-repeat="stat in $data track by $index" ng-class-odd="'oddstat'" > 
 	      <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
 	      <td class="rnum" data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}">{{stat.id}}</td>
-	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}"><i ng-show="stat.wrench" class="fa fa-wrench"></i><a href="/frontend/app#!rowers?rower={{stat.id}}"> {{stat.firstname}} {{stat.lastname}}</a></td>
+	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}"><a href="/frontend/app#!rowers?rower={{stat.id}}"> {{stat.firstname}} {{stat.lastname}}</a><img ng-repeat="year in stat.wrenches | split:','" class="wrench" title="Mangler vintervedligehold {{year}}" alt="Mangler vintervedligehold {{year}}" ng-src="/frontend/app/assets/tools/{{year | year2tool}}.svg" /></td>
 	      <td data-title="'Distance'" sortable="'distance'" class="rnum">{{stat.distance|mtokm}}</td>
 	    </tr>
 	  </tbody>
