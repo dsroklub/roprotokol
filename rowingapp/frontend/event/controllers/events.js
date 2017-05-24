@@ -209,6 +209,10 @@ eventApp.controller(
        return DatabaseService.getRowersByNameOrId(val);
      }
 
+     $scope.setCurrentForum = function (forum) {
+       $scope.current_forum=forum;
+     }
+     
      $scope.setCurrentEvent = function (ev) {
        $scope.currentevent=ev;
        $location.hash('currenteventbox');

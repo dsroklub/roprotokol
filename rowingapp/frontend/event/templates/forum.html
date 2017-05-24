@@ -12,7 +12,13 @@
 <h2>Mine abonnementer</h2>
 
 <ul>
-  <li class="subscription" ng-repeat="userforum in userfora| filter: {role:''}">{{userforum.name}}
+  <li class="subscription" ng-repeat="userforum in userfora| filter: {role:''}" ng-click="setCurrentForum(userforum)">{{userforum.name}}
     <i ng-click="unsubscribe(userforum)" confirm="Vil du stoppe abbonnementet på {{userforum.name}}?" class="fa fa-trash"></i></li>
 </ul>
 </table>
+
+<h2>{{current_forum.name}} filer</h2>
+
+<pre>
+  {{current_forum|json}}
+</pre>
