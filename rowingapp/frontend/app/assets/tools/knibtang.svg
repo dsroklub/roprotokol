@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="35.433071"
+   height="35.433071"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="knibtang.svg"
+   inkscape:export-filename="/home/jel/git/roprotokol/rowingapp/frontend/app/assets/tools/knibtang.png"
+   inkscape:export-xdpi="75.169098"
+   inkscape:export-ydpi="75.169098"
+   enable-background="new">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       id="filter4580">
+      <feBlend
+         inkscape:collect="always"
+         mode="darken"
+         in2="BackgroundImage"
+         id="feBlend4582" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="15.839192"
+     inkscape:cx="9.8723269"
+     inkscape:cy="18.764546"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     units="mm"
+     inkscape:window-width="1479"
+     inkscape:window-height="1006"
+     inkscape:window-x="355"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="tool"
+     style="display:inline;filter:url(#filter4580)">
+    <g
+       id="g4564"
+       transform="matrix(0.64957896,-0.64954096,0.64954096,0.64957896,-4.865784,17.843283)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4528"
+         d="m 16.845019,-5.6465742 c -3.965199,0.2978701 -7.0624999,2.7785579 -7.0624999,5.76887662 0,3.18967338 3.5339039,5.76887658 7.8749999,5.76887658 4.341096,0 7.84375,-2.5792032 7.84375,-5.76887658 0,-2.98254362 -3.053131,-5.46049282 -7,-5.76887662 l 0.96875,1.5709888 c 1.937223,0.5354621 3.3125,1.9144557 3.3125,3.52828612 0,2.08334518 -2.2896,3.78582518 -5.125,3.78582518 -2.8354,0 -5.15625,-1.70248 -5.15625,-3.78582518 0,-1.61383042 1.398075,-2.99282402 3.34375,-3.52828612 l 1,-1.5709888 z"
+         style="fill:#ff0000;stroke:none" />
+      <g
+         style="fill:#ff0000"
+         transform="matrix(1,0,0,1.0457244,0.06313453,-4.2527241)"
+         id="g4548">
+        <path
+           style="fill:#ff0000;stroke:none"
+           d="m 17.440755,8.78125 c -4.05699,0 -7.420421,2.61766 -8.0000003,6 l 2.5937503,0 c 0.872437,-1.848671 2.966596,-3.15625 5.40625,-3.15625 2.439654,0 4.511248,1.307579 5.375,3.15625 l 2.59375,0 c -0.57488,-3.38234 -3.91176,-6 -7.96875,-6 z"
+           id="path4534"
+           inkscape:connector-curvature="0" />
+        <g
+           style="fill:#ff0000"
+           id="g4544">
+          <rect
+             style="fill:#ff0000;stroke:none"
+             id="rect4532"
+             width="3.9774756"
+             height="25.506351"
+             x="22.033951"
+             y="13.651657"
+             rx="2.076375"
+             ry="1.4558724" />
+          <rect
+             ry="1.4558724"
+             rx="2.076375"
+             y="13.651657"
+             x="8.8388329"
+             height="25.506351"
+             width="3.9774756"
+             id="rect4542"
+             style="fill:#ff0000;stroke:none" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="35.433071"
+   height="35.433071"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="hammer.svg"
+   inkscape:export-filename="/home/jel/git/roprotokol/rowingapp/frontend/app/assets/tools/hammer.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="15.839192"
+     inkscape:cx="26.530113"
+     inkscape:cy="11.64135"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     units="mm"
+     inkscape:window-width="1479"
+     inkscape:window-height="1006"
+     inkscape:window-x="355"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="tool"
+     style="display:inline">
+    <g
+       id="g3261"
+       transform="matrix(0.73758935,-0.67524955,0.67524955,0.73758935,-7.0032285,18.318893)">
+      <path
+         id="rect3237"
+         d="m 17.5,10 0,6.0625 -0.0625,0 -1.625,5.25 0,16.25 7.21875,0 0,-16.25 -1.34375,-5 0,-6.3125 -4.1875,0 z"
+         style="fill:#ff0000;stroke:none"
+         inkscape:connector-curvature="0" />
+      <path
+         sodipodi:nodetypes="ssccssssssssccsssscsssssccccs"
+         inkscape:connector-curvature="0"
+         id="rect3245"
+         d="m 17.34375,-0.65625 c -0.1108,0 -0.1875,0.0767 -0.1875,0.1875 l 0,1.25 -2.5,0 0,-1.125 c 0,-0.16620001 -0.1463,-0.28125 -0.3125,-0.28125 l -4.03125,0 C 10.1463,-0.625 10,-0.50995001 10,-0.34375 L 10,5.5 c 0,0.1662 0.1463,0.28125 0.3125,0.28125 l 4.03125,0 c 0.1662,0 0.3125,-0.11505 0.3125,-0.28125 l 0,-1.0625 2.5,0 0,3.90625 c 0,0.1108 0.0767,0.1875 0.1875,0.1875 l 4.6875,0 c 0.1108,0 0.1875,-0.0767 0.1875,-0.1875 l 0,-3.25 c 0.07665,-0.4369865 0.659467,-1.1241465 2.5,-1.34375 1.634752,-0.1950507 3.277409,1.0077211 3.9375,1.40625 0.876414,0.529134 1.761172,0.8647798 2.25,0.28125 0.243255,-0.2903819 0.477996,-0.9046637 0,-1.6875 -0.400261,-0.6555258 -2.058035,-1.9776785 -4.46875,-3.40625 -1.467156,-0.86942581 -2.536068,-1.02148933 -3.25,-1 l -0.0625,0 -1.09375,0 -1.59375,0 z"
+         style="fill:#ff0000;stroke:none" />
+    </g>
+  </g>
+</svg>
