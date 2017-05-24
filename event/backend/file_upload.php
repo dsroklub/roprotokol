@@ -27,13 +27,14 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-$fp      = fopen($tmpfilename, 'r');
-$content = fread($fp, filesize($tmpfilename));
+$fp  = fopen($tmpfilename, 'r');
+if ($fp) {
+    $content = fread($fp, filesize($tmpfilename));
 
 
-$mimeType=$finfo->buffer($content);
-fclose($fp);
-if ($stmt = $rodb->prepare(
+    $mimeType=$finfo->buffer($content);
+    fclose($fp);
+    if ($stmt = $rodb->prepare(
         "INSERT INTO forum_file(member_from,created,forum,filename,mime_type,file,expire)
          SELECT Member.id, NOW(), ?, ?,?,?, CONVERT_TZ(?,'+00:00','SYSTEM')
          FROM Member
@@ -41,25 +42,28 @@ if ($stmt = $rodb->prepare(
            MemberId=?
          ")) {
 
-    $triptype="NULL";
-    $stmt->bind_param(
-        'ssssss',
-        $forum,
-        $filename,
-        $mimeType,
-        $content,
-        $expire,
-        $cuser) ||  die("forum file BIND errro ".mysqli_error($rodb));
-
-    if (!$stmt->execute()) {
-        $error=" event forumfileexe error ".mysqli_error($rodb);
-        error_log($error);
-        $message=$message."\n"."forumfile upload error: ".mysqli_error($rodb);
+        $triptype="NULL";
+        $stmt->bind_param(
+            'ssssss',
+            $forum,
+            $filename,
+            $mimeType,
+            $content,
+            $expire,
+            $cuser) ||  die("forum file BIND errro ".mysqli_error($rodb));
+        
+        if (!$stmt->execute()) {
+            $error=" event forumfileexe error ".mysqli_error($rodb);
+            error_log($error);
+            $message=$message."\n"."forumfile upload error: ".mysqli_error($rodb);
+        } else {
+            error_log($rodb->error);
+        } 
     } else {
-        error_log($rodb->error);
-    } 
+        $error="file upload insert error: $rodb->error";
+    }
 } else {
-    error_log($rodb->error);
+    $error="could not open tmpfile $tmpfilename";
 }
 
 if ($error) {

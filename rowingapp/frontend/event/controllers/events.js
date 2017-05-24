@@ -31,6 +31,7 @@ eventApp.controller(
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
      DatabaseService.init({"message":true,"event":true,"member":true,"user":true}).then(function () {
        $scope.boatcategories=DatabaseService.getDB('event/boat_category');
+       $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
        $scope.userfora=DatabaseService.getDB('event/userfora');
@@ -192,6 +193,12 @@ eventApp.controller(
        });
      }
        
+     $scope.file_selected = function() {
+       if (! $scope.forumfile.filename) {
+         $scope.forumfile.filename = $scope.forumfile.file.name;
+       }
+     }
+
      $scope.member_setting_update = function() {
        var sr=DatabaseService.createSubmit("member_setting_update",$scope.member_setting);
        sr.promise.then(function(status) {

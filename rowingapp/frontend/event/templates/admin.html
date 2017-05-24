@@ -22,22 +22,21 @@
 <form name="upform">
   <fieldset>
     <legend>Tilføj en fil til forum</legend>
+    Fil: <input type="file" ngf-validate="{size: {max: '5MB', min: '10B'}}"
+                ngf-max-files="5" ng-change="file_selected()"
+                ngf-select="" ng-model="forumfile.file" name="forumfile" ngf-accept="'*/*'">
+    <i ng-show="upform.forumfile.$error.required">* kræves</i>
+    <br>
+    <h1 ng-show="upform.$error.maxSize">Filen er for stor</h1>
+<br>
     <select name="uploadforum" id="uploadforum" 
             ng-options="forum as forum.name for forum in fora" ng-model="forumfile.forum" required>  
     </select>
     <br>
     Navn på fil: <input type="text" name="fileName" ng-model="forumfile.filename" size="39" required="">
     <br>
-    Fil: <input type="file" ngf-select="" ng-model="forumfile.file" name="forumfile" ngf-accept="'*/*'">
-    <i ng-show="upform.forumfile.$error.required">* kræves</i>
-    <br>
-    <button ng-disabled="!upform.$valid" ng-click="uploadFile(forumfile)">Indsend fil</button>
-    <span class="progress" ng-show="forumfile.progress >= 0">
-      <div style="width:{{forumfile.progress}}%" ng-bind="forumfile.progress + '%'" class="ng-binding"></div>
-    </span>
-    <span ng-show="forumfile.result">Så er den på plads</span>
     
-    <datetimepicker               
+   udløber: <datetimepicker               
        uib-tooltip="Udløbsdato"
        popup="d MMM yyyy"
        current-text="i dag"
@@ -49,11 +48,11 @@
        date-options="dateOptions"
        show-meridian="false"
        ng-model="forumfile.expire"
-       />
+       ></datetimepicker>
+    <button ng-disabled="!upform.$valid" ng-click="uploadFile(forumfile)">Indsend fil</button>
+    <span class="progress" ng-show="forumfile.progress >= 0">
+      <div style="width:{{forumfile.progress}}%" ng-bind="forumfile.progress + '%'" class="ng-binding"></div>
+    </span>
+    <span ng-show="forumfile.result">Så er den på plads</span>
   </fieldset>
 </form>
-
-<pre>
-  forumfile {{forumfile|json}}
-  uff {{upform.forumfile|json}}
-</pre>

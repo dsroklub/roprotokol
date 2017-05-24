@@ -17,8 +17,24 @@
 </ul>
 </table>
 
-<h2>{{current_forum.name}} filer</h2>
+<h2>{{current_forum.name}} filer:</h2>
 
-<pre>
-  {{current_forum|json}}
-</pre>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fil</th>
+    </tr>
+  </thead>
+  <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.name">
+    <td>
+      <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}" target="_self" >{{file.filename}}</a>
+    </td>
+    <td> <a href="https://agol.dk">agol</a>  </td>
+  </tr>
+</table>
+
+
+<!--pre>
+  {{forum_files|json}}
+</pre-->

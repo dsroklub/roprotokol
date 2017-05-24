@@ -634,6 +634,18 @@ CREATE TABLE forum_message (
   FOREIGN KEY (member_from) REFERENCES Member(id)
 );
 
+CREATE TABLE forum_file (
+  member_from     INTEGER,
+  created         DATETIME,
+  forum           VARCHAR(255) NOT NULL,
+  filename        VARCHAR(1000) NOT NULL,
+  mime_type       VARCHAR(255) NOT NULL,
+  file            MEDIUMBLOB,
+  expire          DATETIME,
+  PRIMARY KEY (forum,filename),
+  CONSTRAINT forum_file_fk FOREIGN KEY (member_from) REFERENCES Member (id)
+);
+
 CREATE TABLE event_message (
   id         INTEGER  NOT NULL AUTO_INCREMENT,
   member_from  INTEGER,

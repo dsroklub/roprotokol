@@ -17,7 +17,8 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     'trip':null,
     'member':null,
     'event':null,
-    'destination':null
+    'destination':null,
+    'file':null
   };
 
   function toURL(service){
@@ -63,6 +64,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     var promises=[];
     
     this.getData('event/memberrighttypes',promises);
+    this.getData('event/forum_files_list',promises);
     this.getData('event/event_category',promises);
     this.getData('event/messages',promises);
     this.getData('event/member_setting',promises);
