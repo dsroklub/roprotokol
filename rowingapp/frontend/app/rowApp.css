@@ -1037,6 +1037,10 @@ textarea.signuptext {
   text-align: right;
 }
 
+.datetime {
+  text-align: right;
+}
+
 #year_report td.left,
 #year_report th.left {
   text-align: left;
