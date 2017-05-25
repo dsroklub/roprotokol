@@ -89,7 +89,7 @@
           <td>{{trip.boat}}</td>
           <td>{{trip.triptype}}</td>
           <td>{{trip.destination}}</td>
-          <td>{{trip.created}}</td>
+          <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
           <td class="rnum" >{{trip.distance|mtokm}}</td>
         </tr>
         </tbody>
