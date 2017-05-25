@@ -73,6 +73,7 @@ if ($error) {
     $res['error']=$error;
 }
 invalidate("event");
+invalidate("file");
 invalidate("message");
 echo json_encode($res);
 ?> 

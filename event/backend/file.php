@@ -16,7 +16,8 @@ if ($stmt = $rodb->prepare($s)) {
         error_log("RES $forum, $filename:  ". print_r($file,true));
         header("Content-length: ".strlen($file['file']));
         header("Content-type: ".$file['mt']);
-        header("Content-Disposition: attachement; filename=\"".$file["filename"]."\"");
+//        header("Content-Disposition: attachement; filename=\"".$file["filename"]."\"");
+        header("Content-Disposition: inline; filename=\"".$file["filename"]."\"");
         echo $file['file'];
     } else {
         error_log("File not fould $filename");

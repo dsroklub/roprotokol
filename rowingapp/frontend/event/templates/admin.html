@@ -4,7 +4,7 @@
 <ng-form name="newforumform">
 
 <input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off" ng-model="newforum.name" required></td><br>
-<input type="text" class="maxwidth" placeholder="beskrivelse af forum" class="forum" autocomplete="off" ng-model="newforum.description"></td><br>
+<input type="text" class="description" placeholder="beskrivelse af forum" class="forum" autocomplete="off" ng-model="newforum.description"></td><br>
 <button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
 
 </ng-form>
@@ -29,7 +29,7 @@
     <br>
     <h1 ng-show="upform.$error.maxSize">Filen er for stor</h1>
 <br>
-    <select name="uploadforum" id="uploadforum" 
+    forum: <select name="uploadforum" id="uploadforum" 
             ng-options="forum as forum.name for forum in fora" ng-model="forumfile.forum" required>  
     </select>
     <br>
@@ -49,7 +49,7 @@
        show-meridian="false"
        ng-model="forumfile.expire"
        ></datetimepicker>
-    <button ng-disabled="!upform.$valid" ng-click="uploadFile(forumfile)">Indsend fil</button>
+    <button ng-disabled="!upform.$valid" ng-click="uploadFile(forumfile)" class="submit">Indsend fil</button>
     <span class="progress" ng-show="forumfile.progress >= 0">
       <div style="width:{{forumfile.progress}}%" ng-bind="forumfile.progress + '%'" class="ng-binding"></div>
     </span>

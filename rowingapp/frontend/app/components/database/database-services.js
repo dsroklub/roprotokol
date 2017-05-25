@@ -1,5 +1,5 @@
 'use strict';
-angular.module('rowApp.database.database-services', []).service('DatabaseService', function($http, $q,$log) {
+angular.module('rowApp.database.database-services', []).service('DatabaseService', function($http, $q,$log,$templateCache) {
   var valid={};
   var db={};
   var rowerstatistics={};
@@ -234,6 +234,11 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   };
 
   this.init = function(subscriptions) {
+
+//    var cache = $cacheFactory.get('$http');
+//    cache.removeAll();
+    // $templateCache.removeAll();
+     
     return this.sync(subscriptions);
   }
 

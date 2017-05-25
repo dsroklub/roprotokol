@@ -21,6 +21,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     width: auto;
+    background: #eaeaa3;
 }
 ul.teams {
     list-style-type: none;
@@ -73,7 +74,7 @@ button.red {
     background: #171717;
     font-size: 16pt;
 }
-button.green, button.login {   
+button.submit, button.green, button.login {   
     border: 1px solid #3ECBBF;
     background: #028000;
     color: #FFFFFF;
@@ -106,6 +107,12 @@ th {
 td.usage {
     max-width:14pt;
 }
+
+input {
+    max-width:50em;
+    background: ghostwhite;
+}
+
 
 button.big,button.action,input.big {
     background: #D6FFB6; !important;
@@ -157,6 +164,12 @@ input.big {
 .maxwidth {
     width: 100%
 }
+
+.description {
+    width: 50em;
+    background: ghostwhite;
+}
+
 .menu li {
     display: inline-block;
     padding: 4pt 4pt;
