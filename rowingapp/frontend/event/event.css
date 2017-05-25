@@ -113,6 +113,10 @@ input {
     background: ghostwhite;
 }
 
+fieldset {
+    background: ghostwhite;
+}
+
 
 button.big,button.action,input.big {
     background: #D6FFB6; !important;

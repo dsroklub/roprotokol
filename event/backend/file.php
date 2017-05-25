@@ -2,8 +2,24 @@
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
-$forum=$_REQUEST['forum'];
-$filename=$_REQUEST['file'];
+
+
+
+function sanestring($s) {
+   $allowedchars=".:;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890_-#";
+    $r="";
+    for ($i=0; $i<100 && $i < strlen($s) ;$i++) {
+        $c=$s[$i];
+        if (strpos($allowedchars,$c)>=1){
+            $r.=$c;
+        }        
+    }
+    return $r;
+} 
+
+$forum=sanestring($_REQUEST['forum']);
+$filename==sanestring($_REQUEST['file']);
+
 
 $s="SELECT mime_type as mt,filename,file FROM forum_file WHERE forum=? AND filename=?";
 
