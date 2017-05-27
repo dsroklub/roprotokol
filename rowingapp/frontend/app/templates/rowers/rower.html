@@ -41,7 +41,7 @@
              typeahead-min-length="1"
              uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)"
              typeahead-template-url="boatTemplate.html"
-             class="trip-search-field" />
+             class="trip-search-field">
       
       <datetimepicker
              date-format="d-MMM-yyyy"
@@ -55,7 +55,8 @@
              show-meridian="false"
              data-ng-model="tripdate"
              class="trip-search-field"
-         />
+         >
+      </datetimepicker>
     </ng-form>
   </div>
     <div ng-show="currentrower">
@@ -232,7 +233,8 @@
                      show-spinners="false"
                      date-options="dateOptions"
                      show-meridian="false"
-                     ng-model="correction.outtime" required />
+                     ng-model="correction.outtime" required>
+                  </datetimepicker>                                  
                 </div>
 	      </td>
             </tr>
@@ -251,6 +253,7 @@
                    show-meridian="false"
                    ng-model="correction.intime"/
                    required>
+                </datetimepicker>                
 	      </td>
             </tr>
 	    

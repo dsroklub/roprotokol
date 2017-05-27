@@ -463,7 +463,8 @@
                  date-options="dateOptions"
                  show-meridian="false"
                  ng-model="reservation.start_date"
-                 />
+                 >
+                <datetimepicker>
               </fieldset>
           </td>
 	  <td>
@@ -477,7 +478,7 @@
             
           <td>
             <fieldset ng-disabled="reservation.dayofweek>0">
-	      <datetimepicker
+	      <datetimepicker>
                  uib-tooltip="slutdato hvis det ikke er en fast ugedag"
                  ng-disabled="reservation.dayofweek>0"
                  popup="d MMM yyyy"
@@ -490,7 +491,8 @@
                  date-options="dateOptions"
                  show-meridian="false"
                  ng-model="reservation.end_date"
-                 />
+                 >
+                <datetimepicker>
               </fieldset>
           </td>          
 	  <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"
