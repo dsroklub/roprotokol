@@ -173,6 +173,9 @@ input.big {
     width: 50em;
     background: ghostwhite;
 }
+.tripdescription {
+    background: ghostwhite;
+}
 
 .menu li {
     display: inline-block;
@@ -515,6 +518,8 @@ textarea.signuptext {
     padding:0.4em;
     border-radius: 0.8em;
     border: 2px solid #23aee2;
+    max-width: 30em;
+    white-space:pre-wrap;
 }
 
 .leftlist {

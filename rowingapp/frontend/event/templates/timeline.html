@@ -35,10 +35,9 @@
       <tr ng-if="currentevent.end_time"><th>slutter</th><td>{{currentevent.end_time|date :"d-MMM-yyyy HH:mm"}}</td></tr>
       <tr ng-if="currentevent.max_participants"><th>max deltagere</th><td>{{currentevent.max_participants}}</td></tr>
       <tr ng-if="currentevent.boat_category"><th>Vi ror i</th><td>{{currentevent.boat_category}}</td></tr>
-      <tr ng-if="currentevent.comment"><th>Beskrivelse</th><td>{{currentevent.comment}}</td></tr>
-            
+      <tr class="tripdescription" ng-if="currentevent.comment"><th>Beskrivelse</th><td>{{currentevent.comment}}</td></tr>            
       <tr><th>hvor:</th><td>{{currentevent.location}}</td></tr>
-      <tr ng-show="currentevent.distance"><th>distance</th><td>{{currentevent.distance|mtokm}}</td></tr>
+      <tr ng-show="currentevent.distance"><th>distance</th><td>{{currentevent.distance|mtokm}} km</td></tr>
     </tbody>         
   </table>
 
@@ -61,11 +60,9 @@
     <tbody class="tbody">
       <tr ng-repeat="em in currentevent.participants">
         <td>{{em.name}}</td>
-        <td>{{em.role}}
-          <button ng-show='currentevent.owner==current_user.member_id && em.role=="supplicant"'
-                  ng-click="include_member(em)">
-            medtag
-          </button>
+        <td>{{em.role}}</td>
+        <td ng-show='currentevent.owner==current_user.member_id && em.role=="supplicant"'>
+          <button class="submit"  ng-click="include_member(em)"> medtag</button>
         </td>
       </tr>      
     </tbody>         

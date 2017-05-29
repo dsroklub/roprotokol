@@ -44,8 +44,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       var dq=$q.defer();
       promises.push(dq.promise);
       $http.get(toURL(dataid+'.php')).then(function onSuccess (response) {
-        console.log("getDataR "+dataid );
-        console.log(response.data);
         db[dataid] = response.data;
 	valid[dataid]=true;
         dq.resolve(dataid);

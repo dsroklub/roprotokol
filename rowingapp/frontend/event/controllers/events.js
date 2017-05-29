@@ -35,7 +35,6 @@ eventApp.controller(
        $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
-       console.log($scope.events);
        $scope.userfora=DatabaseService.getDB('event/userfora');
        $scope.messages=DatabaseService.getDB('event/messages');
        $scope.member_setting=DatabaseService.getDB('event/member_setting');
@@ -239,8 +238,7 @@ eventApp.controller(
      
      $scope.setCurrentEvent = function (ev) {
        $scope.currentevent=ev;
-       $location.hash('currenteventbox');
-       $anchorScroll();
+       $anchorScroll('currenteventbox');
 //       var cb=document.getElementById('currenteventbox');
   //     cb.focus();
        
