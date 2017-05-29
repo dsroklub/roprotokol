@@ -6,8 +6,8 @@ $data = file_get_contents("php://input");
 error_log("file data=".$data);
 //error_log("POST=". print_r($_POST,true));
 
-$forum=$_POST["forum"];
-$filename=$_POST["filename"];
+$forum=sanestring($_POST["forum"]);
+$filename=sanestring($_POST["filename"]);
 $expire=explode(".",$_POST["expire"])[0];
 $file=$_POST["file"];
 
