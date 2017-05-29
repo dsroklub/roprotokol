@@ -3,10 +3,12 @@
 
 <ng-form name="newforumform">
 
-<input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off" ng-model="newforum.name" required></td><br>
-<input type="text" class="description" placeholder="beskrivelse af forum" class="forum" autocomplete="off" ng-model="newforum.description"></td><br>
-<button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
-
+  <input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off"
+         ng-model="newforum.name" required><br>
+  <input type="text" class="description" placeholder="beskrivelse af forum" class="forum" autocomplete="off"
+         ng-model="newforum.description"><br>
+  <!--input type="checkbox" ng-model="newforum.open" value="true"><br-->
+  <button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
 </ng-form>
 
 

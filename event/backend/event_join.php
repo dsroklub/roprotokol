@@ -13,20 +13,21 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
 if ($stmt = $rodb->prepare(
         "INSERT INTO event_member(member,event,enter_time,role)
-         SELECT Member.id, ?,NOW(),?
-         FROM Member
+         SELECT Member.id, event.id,NOW(),IF(event.open>0,?,'supplicant')
+         FROM Member,event
          WHERE 
+           event.id=? AND
            MemberId=?
          ")) {
 
     $role="member";
-    if (!empty($subscription->role)) {
-        $role=$subscription->role;
+    if (!empty($subscription->new_role)) {
+        $role=$subscription->new_role;
     }
     $stmt->bind_param(
         'sss',
-        $subscription->event_id,
         $role,
+        $subscription->event_id,
         $cuser) ||  die("create event BIND errro ".mysqli_error($rodb));
 
     if (!$stmt->execute()) {

@@ -11,12 +11,28 @@
 
   <br>
   <table>
-    <tr><th>begivenhed</th><td> <select name="category" id="cat" ng-model="newevent.category" ng-options="cat.name for cat in eventcategories" required> </select></td></tr>
+    <tr>
+      <th>begivenhed</th>
+      <td>
+        <select name="category" id="cat" ng-model="newevent.category" ng-options="cat.name for cat in eventcategories" required>
+        </select>
+      </td>
+    </tr>
 
     <tr><th>Navn</th><td> <input type="text" id="owner_in" ng-model="newevent.name" required></td></tr>
     <tr><th>Turen starter</th><td> <input type="text" id="owner_in" ng-model="newevent.location" required></td></tr>
     
-    <tr><th>Skal selv med</th><td> <input type="checkbox" id="owner_in" ng-model="newevent.owner_in" ng-true-value="1" ng-false-value="0" ></td></tr>
+    <tr>
+      <th>Skal selv med</th>
+      <td> <input type="checkbox" id="owner_in" ng-model="newevent.owner_in" ng-true-value="1" ng-false-value="0" ></td>
+    </tr>
+    <tr>
+      <th>Fri tilmelding</th>
+      <td> <input type="checkbox" id="owner_in" ng-model="newevent.open" ng-true-value="1" ng-false-value="0" >
+        Ellers skal du godkende hver tilmelding
+      </td>
+    </tr>
+    
     <tr><th>Inviter forum </th><td>
         <select name="forum" id="forum" ng-model="newevent.forum" ng-options="forum.name for forum in fora"> </select>
       </td>
@@ -46,7 +62,8 @@
     </tr>
     
     <tr><th>(bådetype)</th><td>
-        <select name="boatcategory" id="boatcat" ng-model="newevent.boat_category" ng-options="boatcat.Name for boatcat in boatcategories"></select>
+        <select name="boatcategory" id="boatcat" ng-model="newevent.boat_category" ng-options="boatcat.Name for boatcat in boatcategories">
+        </select>
     </td></tr>
     <tr><th>Start:</th>
       <td>
@@ -59,7 +76,8 @@
            date-options="dateOptions"
           show-meridian="false"
            data-ng-model="newevent.starttime"
-           />
+           >
+        </datetimepicker>
       </td>
     </tr>
     <tr><th>(evt slut)</th>
@@ -73,12 +91,15 @@
          date-options="dateOptions"
          show-meridian="false"
          data-ng-model="newevent.endtime"
-         />
+         >
+        </datetimepicker>
     </td>
     </tr>
 
     <tr><th>Beskrivelse<br><button class="generate" ng-click="eventmessage()">Generer</button></th>
-      <td> <textarea placeholder="beskriv turen/arrangementet" class="event_comment" type="text" ng-model="newevent.comment"></textarea>
+      <td>
+        <textarea placeholder="beskriv turen/arrangementet" class="event_comment" type="text" ng-model="newevent.comment">
+        </textarea>
       </td>
     </tr>
 
@@ -86,7 +107,9 @@
     <tr>
       <th>(ca distance)</th>
       <td>
-        <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="newevent.distance"></input>km
+        <input autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="text" onlynumber
+               name="input" transformkm ng-model="newevent.distance">
+        km
       </td>
     </tr>
     

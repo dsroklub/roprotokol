@@ -13,8 +13,8 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 // $cuser="7854"; // FIXME
 
 if ($stmt = $rodb->prepare(
-        "INSERT INTO event(owner, boat_category, start_time, end_time, distance, max_participants, location, name, category, comment)
-         SELECT Member.id, ?,CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,? 
+        "INSERT INTO event(owner, boat_category, start_time, end_time, distance, max_participants, location, name, category, comment,open)
+         SELECT Member.id, ?,CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,?,? 
          FROM Member
          WHERE 
            MemberId=?
@@ -24,7 +24,7 @@ if ($stmt = $rodb->prepare(
     $stime=date('Y-m-d H:i:s', strtotime($newevent->starttime));
     $etime=empty($newevent->endtime)?null:date('Y-m-d H:i:s', strtotime($newevent->endtime));
     $stmt->bind_param(
-        'sssiisssss',
+        'sssiissssis',
         $newevent->boat_category->id,
         $stime,
         $etime,
@@ -35,6 +35,7 @@ if ($stmt = $rodb->prepare(
         $newevent->name,
         $newevent->category->name,
         $newevent->comment,
+        $newevent->open,
         $cuser) ||  die("create event BIND errro ".mysqli_error($rodb));
 
     if (!$stmt->execute()) {

@@ -22,6 +22,7 @@ eventApp.controller(
        $scope.newevent.location="DSR";
        $scope.newevent.max_participants="";
        $scope.newevent.owner_in=1;
+       $scope.newevent.open=1;
      }
      $scope.init();
      $scope.dbready=false;
@@ -34,6 +35,7 @@ eventApp.controller(
        $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
+       console.log($scope.events);
        $scope.userfora=DatabaseService.getDB('event/userfora');
        $scope.messages=DatabaseService.getDB('event/messages');
        $scope.member_setting=DatabaseService.getDB('event/member_setting');
@@ -48,12 +50,12 @@ eventApp.controller(
 
        if ($scope.eventarg) {
          $log.debug("look for event "+$scope.eventarg);
-               for (var i=0; i<$scope.events.length; i++){
-         if ($scope.events[i].event_id==$scope.eventarg) {
-           $scope.currentevent=$scope.events[i];
-           $log.debug("found currentevent");
+         for (var i=0; i<$scope.events.length; i++){
+           if ($scope.events[i].event_id==$scope.eventarg) {
+             $scope.currentevent=$scope.events[i];
+             $log.debug("found currentevent");
+           }
          }
-       }
        }
      });
      
@@ -93,6 +95,19 @@ eventApp.controller(
        });
      }
 
+     $scope.include_member = function(eventmember) {
+       eventmember.event=$scope.currentevent.event_id;
+       eventmember.new_role="member";
+       var sr=DatabaseService.createSubmit("set_event_member_role",eventmember);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           eventmember.role="member";
+         } else {
+           alert(status.error);
+         }
+       })
+     }
+
      $scope.eventmessage = function() {
        $scope.newevent.comment = $scope.current_user.name + " inviterer dig til " + ($scope.newevent.name?$scope.newevent.name:"?");
        if ($scope.newevent.category)  {$scope.newevent.comment +="\ndet er en "+ $scope.newevent.category.name;}
@@ -117,12 +132,14 @@ eventApp.controller(
        return false;
      }
 
-     $scope.eventjoin = function(arg) {
+     $scope.eventjoin = function(role) {
+       $scope.currentevent.new_role=role;
        var sr=DatabaseService.createSubmit("event_join",$scope.currentevent);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           $scope.currentevent.participants.push($scope.current_user);
-//           FIXME Do something
+           var p=angular.copy($scope.current_user);
+           p.role=$scope.currentevent.new_role;
+           $scope.currentevent.participants.push(p);
          } else {
            alert(status.error);
          }

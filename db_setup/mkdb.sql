@@ -557,6 +557,7 @@ CREATE TABLE event (
   end_time               DATETIME,
   distance               INTEGER, -- Planned distance
   trip_type              INTEGER,
+  open                   BOOLEAN default true,
   last_email             DATETIME,
   max_participants       INTEGER,
   location               VARCHAR(255),
