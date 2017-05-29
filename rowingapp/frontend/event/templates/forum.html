@@ -2,7 +2,9 @@
 <table>
   <tr>
     <th>Forum </th><td>
-    <select name="forum" id="forum" ng-model="subscription.forum" ng-options="forum.name for forum in userfora | filter: {role:null}"> </select>
+      <select name="forum" id="forum" ng-model="subscription.forum"
+              ng-options="forum.name for forum in userfora | filter: {role:null}">
+      </select>
     </td>
     <td> <button class="green" ng-click="subscribe()">Abonner</button></td>    
   </tr>
@@ -11,14 +13,20 @@
 
 <h2>Mine abonnementer</h2>
 
-<table>
+<table class="subscriptions">
   
-  <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''}" ng-click="setCurrentForum(userforum)" class="event" ng-class-odd="'oddstat'">
-    <td>
+  <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''}" ng-click="setCurrentForum(userforum)" class="event"
+      ng-class-odd="'oddstat'" ng-class-even="'even'"
+      ng-class="{selected: current_forum == userforum}"
+      >
+    <td  uib-tooltip="vis filer for {{userforum.name}}"
+>
       {{userforum.name}} 
     </td>
     <td>
-      <i ng-click="unsubscribe(userforum)" confirm="Vil du stoppe abbonnementet på {{userforum.name}}?" class="fa fa-trash"></i>
+      <i uib-tooltip="opsig abonnement"
+         ng-click="unsubscribe(userforum)" confirm="Vil du stoppe abbonnementet på {{userforum.name}}?" class="fa fa-trash">
+      </i>
     </td>
   </tr>
 </table>
@@ -32,7 +40,7 @@
       <th>Fil</th>
     </tr>
   </thead>
-  <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.name" class="event" ng-class-odd="'oddstat'">
+  <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.name" class="event" ng-class-odd="'oddstat'" ng-class-even="'even'">
     <td>
       <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}" >{{file.filename}}</a>
     </td>

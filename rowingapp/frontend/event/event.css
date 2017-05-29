@@ -175,6 +175,7 @@ input.big {
 }
 .tripdescription {
     background: ghostwhite;
+    white-space:pre-wrap;
 }
 
 .menu li {
@@ -329,6 +330,10 @@ li.selected,button.selected {
 .checkout-form label {
     font-weight: 400;
     color: #555;
+}
+
+.even {
+    background: yellow;
 }
 
 .oddstat {
@@ -519,7 +524,6 @@ textarea.signuptext {
     border-radius: 0.8em;
     border: 2px solid #23aee2;
     max-width: 30em;
-    white-space:pre-wrap;
 }
 
 .leftlist {
@@ -580,3 +584,6 @@ tr td {
     vertical-align: top;
 }
  
+.subscriptions {
+    cursor: pointer;    
+}
