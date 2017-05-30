@@ -242,11 +242,14 @@ eventApp.controller(
 //       var cb=document.getElementById('currenteventbox');
   //     cb.focus();
        
-
      }
+     
      $scope.setCurrentMessage = function (message) {
        $scope.currentmessage=message;
+     }
 
+     $scope.messagedelete = function (message) {
+       alert("FIXME message delete not implemented");
      }
 
      $scope.addInvitee = function () {

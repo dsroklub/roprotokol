@@ -1,17 +1,27 @@
 
-<h2> <a href="{{public_path}}?member={{current_user.member_id}}"> Indstillinger for {{current_user.name}}({{current_user.member_id}})</a></h2>
+<h2> <a href="{{public_path}}?member={{current_user.member_id}}"> Indstillinger for {{current_user.name}} ({{current_user.member_id}})</a></h2>
+
+<h3>Din offentlige side</h3>
+
+Din offentlige DSR side, som kan ses af alle er:
+<br>
+<a href="{{site_path}}/public/user.php?member={{current_user.member_id}}">
+  {{site_path}}/public/user.php?member={{current_user.member_id}}
+</a>
+
 
 <h3>
   Din helt personlige iCal kalender er <a href="{{site_path}}/cal/{{current_user.member_id}}/{{current_user.token}}/roaftaler.ics">
     {{site_path}}/cal/{{current_user.member_id}}/{{current_user.token}}/roaftaler.ics
 </a><br>
-  Brug fx ICSdroid til Android telefoner.
-                                                                                                          
 </h3>
+  Brug fx ICSdroid til Android telefoner, tilføj til Google calendar ...
+                                                                                                          
 
-<a href="/backend/event/mine_roture.csv">Alle dine roture til download her</a>
+<h3><a href="/backend/event/mine_roture.csv">Alle dine roture til download her</a></h3>
 
 
+<h2>Vælg hvad andre kan se på din offentlige side:</h2>
 <ng-form name="publicsetting">
   <table>
     
