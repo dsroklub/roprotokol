@@ -30,7 +30,7 @@ if ($stmt = $rodb->prepare($s)) {
     $result= $stmt->get_result();
     if ($result) {
         $vCalendar = new \Eluceo\iCal\Component\Calendar('aftaler.danskestudentersroklub.dk');
-        $vCalendar->setName("DSR Roaftaler");
+        $vCalendar->setName("DSR-Roaftaler");
         $vCalendar->setDescription("Roaftaler i Danske Studenters Roklub");
         error_log("memberical");
         while ($row = $result->fetch_assoc()) {
