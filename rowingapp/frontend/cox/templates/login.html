@@ -16,7 +16,15 @@
 
     <br>
     <button class="login" ng-click="getpw()" class="green">Send mit password</button>
+  </ng-form>
+  
+    <h2>Skift password</h2>
+    <ng-form name="newpw">
 
+    <input data-ng-model='login.pw' type="password" name='password' placeholder='password'>
+    
+    <button class="login" ng-click="setpw()" class="green">Skift password</button>
+        
     <br>
     <button ng-click="logout()" class="red">log ud</button>
     {{loginstatus}}
