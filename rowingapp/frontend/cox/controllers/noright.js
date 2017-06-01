@@ -18,6 +18,12 @@ coxApp.controller(
        }
      }
 
+     $scope.setpw = function() {
+       if ($scope.login && $scope.login.pw) {
+         BasicService.setpw($scope.login);
+       }
+     }
+
      
    }
   ]
