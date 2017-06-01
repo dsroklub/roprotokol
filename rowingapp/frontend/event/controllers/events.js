@@ -234,6 +234,7 @@ eventApp.controller(
 
      $scope.setCurrentForum = function (forum) {
        $scope.current_forum=forum;
+       $scope.forummembers=DatabaseService.getDB('event/forum_members');
      }
      
      $scope.setCurrentEvent = function (ev) {

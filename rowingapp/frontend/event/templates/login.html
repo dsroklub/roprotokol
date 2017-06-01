@@ -1,18 +1,25 @@
-<div>
-  <ng-form name="evetnLogin">
-    <h2>Hvis Du ikke har fået et password</h2>
-    
-    <div>
-      <label for="event.deltager">Mit medlemsnummer er</label>
-      <input autocomplete="off" id="member" name="member" type="text" ng-model="login.member"  required />
-    </div>
+<ng-form name="evetnLogin">
+  <h2>Hvis Du ikke har fået et password</h2>
+  
+  <div>
+    <label for="event.deltager">Mit medlemsnummer er</label>
+    <input autocomplete="off" id="member" name="member" type="text" ng-model="login.member"  required />
+  </div>
+  
+  <br>
+  <button class="login" ng-click="getpw()" class="green">Send mit password</button>
+</ng-form>
+  
+<h2>Skift password, mindst 8 tegn</h2>
+<ng-form name="newpw">
+  
+  <input data-ng-model='login.pw' pattern=".{8}.*" type="password" name='password' placeholder='password'>
+  gentag: <input data-ng-model='login.pw2' type="password" name='password2' placeholder='password'>    
+  <button ng-show="login.pw==login.pw2" class="login" ng-click="setpw()" class="green">Skift password</button>   
+</ng-form>
 
-    <br>
-    <button class="login" ng-click="getpw()" class="green">Send mit password</button>
-</div>
-<br>
+
 <div >
-    <button ng-click="logout()" class="red">log ud</button>
-    {{loginstatus}}
-     </ng-form>
+  <button ng-click="logout()" class="red">log ud</button>
+  {{loginstatus}}
 </div>

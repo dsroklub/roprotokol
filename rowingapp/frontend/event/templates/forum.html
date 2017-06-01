@@ -31,6 +31,24 @@
   </tr>
 </table>
 
+
+<h2>{{current_forum.name}} medlemmer:</h2>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Medlem</th>
+    </tr>
+  </thead>
+  <tr ng-repeat="forummember in forummembers"  class="forummember" ng-class-odd="'oddstat'" ng-class-even="'even'">
+    <td>
+      >{{forummember.name}}</a>
+    </td>
+  </tr>
+</table>
+
+
 <h2>{{current_forum.name}} filer:</h2>
 
 
@@ -42,7 +60,8 @@
   </thead>
   <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.name" class="event" ng-class-odd="'oddstat'" ng-class-even="'even'">
     <td>
-      <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}" >{{file.filename}}</a>
+      <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}"
+      >{{file.filename}}</a>
     </td>
   </tr>
 </table>

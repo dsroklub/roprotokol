@@ -13,13 +13,18 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 // $cuser="7854"; // FIXME
 
-if ($stmt = $rodb->prepare("INSERT INTO forum (name,description) VALUE (?,?)")) {
+if ($stmt = $rodb->prepare(
+    "INSERT INTO forum (name,description,is_open,owner) 
+   SELECT ?,?,?,Member.id FROM Member WHERE Member.MemberId=?")) {
 
     $triptype="NULL";
+    $isopen=$newforum->open?1:0;
     $stmt->bind_param(
-        'ss',
+        'ssis',
         $newforum->name,
-        $newforum->description
+        $newforum->description,
+        $isopen,
+        $cuser
     ) ||  die("create forum BIND errro ".mysqli_error($rodb));
 
     if (!$stmt->execute()) {
