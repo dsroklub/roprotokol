@@ -4,9 +4,11 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-$s="SELECT forum.name, forum.description,forum_subscription.role
-    FROM (Member JOIN forum) LEFT JOIN forum_subscription ON forum_subscription.forum=forum.name AND forum_subscription.member=Member.id
-    WHERE Member.MemberId=?";
+$s="SELECT forum.name, owner.MemberId as owner, forum.description, forum_subscription.role
+    FROM Member, forum_subscription, forum LEFT JOIN Member owner ON owner.id=forum.owner
+    WHERE forum.name=forum_subscription.forum AND
+      forum_subscription.member=Member.id AND
+     Member.MemberId=?";
 
 //echo "$s\n";
 if ($stmt = $rodb->prepare($s)) {
@@ -20,4 +22,7 @@ if ($stmt = $rodb->prepare($s)) {
          echo json_encode($row,	JSON_PRETTY_PRINT);
      }
      echo ']';
+} else {
+    dbErr($rodb,$res);
+    echo json_encode($res,JSON_PRETTY_PRINT);
 }

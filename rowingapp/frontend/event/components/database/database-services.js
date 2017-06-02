@@ -56,7 +56,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     if (args) {
       conf['params'] = args;
     }
-    return $http.get(toURL(service+'.php',conf));
+    return $http.get(toURL(service+'.php'),conf);
   }
 
   this.fetch = function (subscriptions) {

@@ -1,3 +1,10 @@
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
 <h1 class="error" ng-hide="dbready || dbgrace">Henter data<br>vær tålmodig</h1>
 <table>
   <tr>
@@ -19,8 +26,7 @@
       ng-class-odd="'oddstat'" ng-class-even="'even'"
       ng-class="{selected: current_forum == userforum}"
       >
-    <td  uib-tooltip="vis filer for {{userforum.name}}"
->
+    <td  uib-tooltip="vis filer for {{userforum.name}}">
       {{userforum.name}} 
     </td>
     <td>
@@ -33,7 +39,15 @@
 
 
 <h2>{{current_forum.name}} medlemmer:</h2>
-
+<div ng-show="current_forum.owner==current_user.member_id">
+  <h3>Tilføj rorere til dit forum</h3>
+  <input placeholder="tilføj medlem" autocomplete="off" id="newforummember" name="newforummember" type="text"
+         ng-model="newforummember.member"
+         typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+         typeahead-template-url="memberTemplate.html" required />
+  
+  <i ng-show="newforummember.member" ng-click="forum_add_member()" class="fa fa-plus"></i>
+</div>
 
 <table>
   <thead>
@@ -43,7 +57,7 @@
   </thead>
   <tr ng-repeat="forummember in forummembers"  class="forummember" ng-class-odd="'oddstat'" ng-class-even="'even'">
     <td>
-      >{{forummember.name}}</a>
+      {{forummember.name}}</a>
     </td>
   </tr>
 </table>
@@ -60,13 +74,13 @@
   </thead>
   <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.name" class="event" ng-class-odd="'oddstat'" ng-class-even="'even'">
     <td>
-      <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}"
-      >{{file.filename}}</a>
+      <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}">
+      {{file.filename}}</a>
     </td>
   </tr>
 </table>
 
 
 <!--pre>
-  {{forum_files|json}}
+  {{forummembers|json}}
 </pre-->

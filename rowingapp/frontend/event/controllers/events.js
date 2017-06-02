@@ -81,6 +81,19 @@ eventApp.controller(
        });
      }
 
+     $scope.forum_add_member = function(arg) {
+       $scope.newforummember.role="member";
+       $scope.newforummember.forum=$scope.current_forum;
+       var sr=DatabaseService.createSubmit("forum_subscribe_by_owner",$scope.newforummember);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $scope.forummembers.push($scope.newforummember.member);
+         } else {
+           alert(status.error);
+         }
+       }
+                      );
+     }
 
      // EVENT CREATION
      $scope.eventcreate = function(arg) {
@@ -234,7 +247,11 @@ eventApp.controller(
 
      $scope.setCurrentForum = function (forum) {
        $scope.current_forum=forum;
-       $scope.forummembers=DatabaseService.getDB('event/forum_members');
+       DatabaseService.simpleGet('event/forum_members',{"forum":forum.name}).then(function (d) {
+        console.log(d);
+        $scope.forummembers=d.data;
+       }
+                                                                                                     );
      }
      
      $scope.setCurrentEvent = function (ev) {
