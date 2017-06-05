@@ -95,6 +95,19 @@ eventApp.controller(
                       );
      }
 
+     $scope.event_add_member = function(arg) {
+       $scope.neweventmember.role="member";
+       $scope.neweventmember.event=$scope.currentevent;
+       var sr=DatabaseService.createSubmit("event_subscribe_by_owner",$scope.neweventmember);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $scope.currentevent.participants.push($scope.neweventmember.member);
+         } else {
+           alert(status.error);
+         }
+       }
+                      );
+     }
      // EVENT CREATION
      $scope.eventcreate = function(arg) {
        var sr=DatabaseService.createSubmit("event_create",$scope.newevent);

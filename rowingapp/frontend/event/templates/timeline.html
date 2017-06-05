@@ -1,3 +1,10 @@
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
 <h1 class="error" ng-hide="dbready || dbgrace">Henter data<br>vær tålmodig</h1>
 <div  class="leftlist">
 <table class="baselayout" >
@@ -49,7 +56,16 @@
   </button>
   <button class="green" ng-show="is_event_member()" ng-click="eventleave()">
     Frameld mig
-  </button>  
+  </button><br>
+  <div ng-show="currentevent.owner==current_user.member_id">
+  <h3>Tilføj rorere til din begivenhed</h3>
+  <input placeholder="tilføj medlem" autocomplete="off" id="neweventmember" name="neweventmember.member" type="text"
+         ng-model="neweventmember.member"
+         typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+         typeahead-template-url="memberTemplate.html" required />
+  
+  <i ng-show="neweventmember.member" ng-click="event_add_member()" class="fa fa-plus"></i>
+</div>
   <table>
     <caption>
       Deltagere
@@ -68,3 +84,7 @@
     </tbody>         
   </table>
 </div>
+
+<pre>
+  CE: {{currentevent|json}}
+</pre>
