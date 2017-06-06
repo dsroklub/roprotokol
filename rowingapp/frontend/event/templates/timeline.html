@@ -25,7 +25,7 @@
       <td ng-show="ev.open">åben</td>
       <td ng-hide="ev.open">lukket</td>
       <td ng-if="ev.owner==current_user.member_id && !ev.open">
-        <pre><i class="fa fa-user"></i></pre>
+        <pre><i uib-tooltip="du styrer denne begivenhed" class="fa fa-user"></i></pre>
       </td>
     </tr>
   </tbody>
@@ -84,7 +84,3 @@
     </tbody>         
   </table>
 </div>
-
-<pre>
-  CE: {{currentevent|json}}
-</pre>
