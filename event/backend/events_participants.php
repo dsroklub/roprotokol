@@ -3,7 +3,9 @@ include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
 $s="
-SELECT event.id as event_id,event.open,owner_member.MemberId AS owner, event.name, BoatCategory.Name as boat_category, 
+SELECT event.id as event_id,event.open,owner_member.MemberId AS owner, 
+  CONCAT(owner_member.FirstName,' ',owner_member.LastName) as owner_name,
+  event.name, BoatCategory.Name as boat_category, 
   DATE_FORMAT(start_time,'%Y-%m-%dT%T') as start_time,DATE_FORMAT(end_time,'%Y-%m-%dT%T') as end_time, distance, 
   TripType.Name as trip_type, max_participants, location, comment,
   GROUP_CONCAT(CONCAT(em.FirstName,' ',em.LastName),':§§:',em.MemberId,':§§:', mc.iscox, ':§§:', event_member.role, ':§§:',DATE_FORMAT(event_member.enter_time,'%Y-%m-%dT%T') SEPARATOR '££') AS participants

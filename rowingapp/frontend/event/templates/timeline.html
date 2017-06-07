@@ -24,7 +24,7 @@
       <td>{{ev.distance|mtokm}} km</td>
       <td ng-show="ev.open">åben</td>
       <td ng-hide="ev.open">lukket</td>
-      <td ng-if="ev.owner==current_user.member_id && !ev.open">
+      <td ng-if="ev.owner==current_user.member_id">
         <pre><i uib-tooltip="du styrer denne begivenhed" class="fa fa-user"></i></pre>
       </td>
     </tr>
@@ -42,8 +42,9 @@
       <tr ng-if="currentevent.end_time"><th>slutter</th><td>{{currentevent.end_time|date :"d-MMM-yyyy HH:mm"}}</td></tr>
       <tr ng-if="currentevent.max_participants"><th>max deltagere</th><td>{{currentevent.max_participants}}</td></tr>
       <tr ng-if="currentevent.boat_category"><th>Vi ror i</th><td>{{currentevent.boat_category}}</td></tr>
-      <tr class="tripdescription" ng-if="currentevent.comment"><th>Beskrivelse</th><td>{{currentevent.comment}}</td></tr>            
-      <tr><th>hvor:</th><td>{{currentevent.location}}</td></tr>
+      <tr class="tripdescription" ng-if="currentevent.comment"><th>Beskrivelse</th><td>{{currentevent.comment}}</td></tr>
+      <tr class="owner" ng-hide="currentevent.open"><th>Ejer</th><td>{{currentevent.owner_name}}</td></tr>            
+      <tr><th>Hvor:</th><td>{{currentevent.location}}</td></tr>
       <tr ng-show="currentevent.distance"><th>distance</th><td>{{currentevent.distance|mtokm}} km</td></tr>
     </tbody>         
   </table>
