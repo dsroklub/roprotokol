@@ -70,6 +70,7 @@ eventApp.controller(
        });       
      }
 
+
      $scope.unsubscribe = function(forum) {
        var sr=DatabaseService.createSubmit("forum_unsubscribe",forum);
        sr.promise.then(function(status) {
