@@ -639,7 +639,7 @@ CREATE TABLE forum_file (
   member_from     INTEGER,
   created         DATETIME,
   forum           VARCHAR(255) NOT NULL,
-  filename        VARCHAR(1000) NOT NULL,
+  filename        VARCHAR(255) NOT NULL,
   mime_type       VARCHAR(255) NOT NULL,
   file            MEDIUMBLOB,
   expire          DATETIME,

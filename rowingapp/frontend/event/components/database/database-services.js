@@ -115,7 +115,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       subscriptions={};
     }
     var sq=$q.defer();
-    $log.debug("get Datastatus");
+    // $log.debug("get Datastatus");
     $http.post('../../backend/event/datastatus.php', null).then (function(response) {
       var ds=response.data;
       var doreload=false;
@@ -211,7 +211,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     $log.debug(' do '+op);
     var ar=this.updateDB_async(op,data,config);
      var at=ar.then(function (res) {
-       $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
+       // $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
        if (!res||res.status=="notauthorized") {
          $log.error("auth error "+op+JSON.stringify(data));
          if (eh) {

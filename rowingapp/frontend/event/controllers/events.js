@@ -236,11 +236,19 @@ eventApp.controller(
      }
        
      $scope.file_selected = function() {
-       if (! $scope.forumfile.filename) {
-         $scope.forumfile.filename = $scope.forumfile.file.name;
+       if ($scope.forumfile.file) {
+         var allowedchars=".:;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890_-#";
+         var fns=$scope.forumfile.file.name.replace(" ","_");
+         var fn="";
+         for (var fi=0;fi<fns.length && fi<100;fi++) {
+             if (allowedchars.indexOf(fns.charAt(fi))>=0) {
+               fn+=fns.charAt(fi);
+             }
+         }         
+         $scope.forumfile.filename = fn;
        }
      }
-
+     
      $scope.member_setting_update = function() {
        var sr=DatabaseService.createSubmit("member_setting_update",$scope.member_setting);
        sr.promise.then(function(status) {
