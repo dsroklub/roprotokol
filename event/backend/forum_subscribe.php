@@ -6,34 +6,34 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $subscription=json_decode($data);
 $message='';
-error_log(print_r($subscription,true));
+error_log("\n FORUM SUBS".print_r($subscription,true));
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
 if ($stmt = $rodb->prepare(
         "INSERT INTO forum_subscription(member,forum,role)
-         SELECT Member.id, ?,?
-         FROM Member
+         SELECT Member.id ,forum.name, IF(forum.is_open>0,'member','supplicant')
+         FROM Member, forum
          WHERE 
+           forum.name=? AND
            MemberId=?
          ")) {
 
-    $role="member";
     if (!empty($subscription->role)) {
         $role=$subscription->role;
     }
     $stmt->bind_param(
-        'sss',
-        $subscription->forum->name,
-        $role,
+        'ss',
+        $subscription->forum->forum,
         $cuser) ||  die("create event BIND errro ".mysqli_error($rodb));
 
     if (!$stmt->execute()) {
-        $error=" event exe ".mysqli_error($rodb);
-        error_log($error);
-        $message=$message."\n"."create event insert error: ".mysqli_error($rodb);
+        $error=" forum sub exe ".mysqli_error($rodb);
+        $message=$message."\n"."forum sub insert error: ".mysqli_error($rodb);
     } 
+} else {
+    $error=" forum sub prep ".mysqli_error($rodb);
 }
 
 

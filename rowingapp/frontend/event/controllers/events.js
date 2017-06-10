@@ -59,18 +59,31 @@ eventApp.controller(
      });
      
      $scope.subscribe = function() {
-       $scope.subscription.forum.role="user";
        var sr=DatabaseService.createSubmit("forum_subscribe",$scope.subscription);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-//           $scope.subscription.forum.role="user";
+           var role=$scope.subscription.forum.is_open?"member":"supplicant"; // must match sql statement, cheaper than having PHP make extra DB call
+           $scope.subscription.forum.role=role;
+           $scope.subscription.forum.member=$scope.current_user.member_id;
+           $scope.userfora.push($scope.subscription.forum);
          } else {
            alert(status.error);
          }
        });       
      }
 
+     $scope.accept_forum_supplicant = function() {
+       var sr=DatabaseService.createSubmit("forum_accept_supplicant",$scope.subscription);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $scope.subscription.forum.role="member";
+         } else {
+           alert(status.error);
+         }
+       });       
+     }
 
+     
      $scope.unsubscribe = function(forum) {
        var sr=DatabaseService.createSubmit("forum_unsubscribe",forum);
        sr.promise.then(function(status) {
@@ -88,7 +101,9 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("forum_subscribe_by_owner",$scope.newforummember);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           $scope.forummembers.push($scope.newforummember.member);
+           $scope.newforummember.member_id=$scope.current_user.member_id;
+           $scope.newforummember.name=$scope.current_user.name;
+           $scope.forummembers.push($scope.newforummember);
          } else {
            alert(status.error);
          }
@@ -220,7 +235,7 @@ eventApp.controller(
      $scope.uploadFile = function(file) {
        file.upload = UploadBase.upload({
          url: '/backend/event/file_upload.php',
-         data: {"expire":$scope.forumfile.expire,forum:$scope.forumfile.forum.name, filename:$scope.forumfile.filename ,"file": file},
+         data: {"expire":$scope.forumfile.expire,forum:$scope.forumfile.forum.forum, filename:$scope.forumfile.filename ,"file": file},
        });
        
        file.upload.then(function (response) {
@@ -269,7 +284,7 @@ eventApp.controller(
 
      $scope.setCurrentForum = function (forum) {
        $scope.current_forum=forum;
-       DatabaseService.simpleGet('event/forum_members',{"forum":forum.name}).then(function (d) {
+       DatabaseService.simpleGet('event/forum_members',{"forum":forum.forum}).then(function (d) {
         console.log(d);
         $scope.forummembers=d.data;
        }

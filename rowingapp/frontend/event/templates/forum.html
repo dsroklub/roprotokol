@@ -10,12 +10,12 @@
   <tr>
     <th>Forum </th><td>
       <select name="forum" id="forum" ng-model="subscription.forum"
-              ng-options="forum.name for forum in fora ">
+              ng-options="forum.forum for forum in fora | filter: {role:null}">
       </select>
       {{subscription.forum.open}}
     </td>
     <td ng-show="subscription.forum.is_open"> <button class="green" ng-click="subscribe()">Abonner</button></td>    
-    <td ng-hide="subscription.forum.is_open"> <button class="green" ng-click="subscribe()">Anmod on deltagelse</button></td>    
+    <td ng-hide="subscription.forum.is_open"> <button ng-show="subscription.forum" class="green" ng-click="subscribe()">Anmod on deltagelse</button></td>
   </tr>
 </table>
 
@@ -24,23 +24,26 @@
 
 <table class="subscriptions">
   
-  <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''}" ng-click="setCurrentForum(userforum)" class="event"
+  <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''}"  class="event"
       ng-class-odd="'oddstat'" ng-class-even="'even'"
       ng-class="{selected: current_forum == userforum}"
       >
-    <td  uib-tooltip="vis filer for {{userforum.name}}">
-      {{userforum.name}} 
+    <td ng-click="setCurrentForum(userforum)" uib-tooltip="vis filer for {{userforum.forum}}">
+      {{userforum.forum}}
+    </td>
+    <td>
+      <i ng-show="userforum.role=='supplicant'" uib-tooltip="afventer godkendelse" class="fa fa-bell"></i>
     </td>
     <td>
       <i uib-tooltip="opsig abonnement"
-         ng-click="unsubscribe(userforum)" confirm="Vil du stoppe abbonnementet på {{userforum.name}}?" class="fa fa-trash">
+         ng-click="unsubscribe(userforum)" confirm="Vil du stoppe abbonnementet på {{userforum.forum}}?" class="fa fa-trash">
       </i>
     </td>
   </tr>
 </table>
 
 
-<h2>{{current_forum.name}} medlemmer:</h2>
+<h2>{{current_forum.forum}} medlemmer:</h2>
 <div ng-show="current_forum.owner==current_user.member_id">
   <h3>Tilføj rorere til dit forum</h3>
   <input placeholder="tilføj medlem" autocomplete="off" id="newforummember" name="newforummember" type="text"
@@ -59,13 +62,21 @@
   </thead>
   <tr ng-repeat="forummember in forummembers"  class="forummember" ng-class-odd="'oddstat'" ng-class-even="'even'">
     <td>
-      {{forummember.name}}</a>
+      {{forummember.name}}
     </td>
+
+    <td ng-show="current_forum.owner==current_user.member_id">
+      <i ng-click="accept_forum_supplicant(userforum)" ng-show="userforum.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
+      <i ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus"></i>
+
+
+    </td>
+    
   </tr>
 </table>
 
 
-<h2>{{current_forum.name}} filer:</h2>
+<h2>{{current_forum.forum}} filer:</h2>
 
 
 <table>
@@ -74,7 +85,7 @@
       <th>Fil</th>
     </tr>
   </thead>
-  <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.name" class="event" ng-class-odd="'oddstat'" ng-class-even="'even'">
+  <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.forum" class="event" ng-class-odd="'oddstat'" ng-class-even="'even'">
     <td>
       <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}">
       {{file.filename}}</a>
@@ -83,8 +94,8 @@
 </table>
 
 
-<!--pre>
+<pre>
   fora {{fora|json}}
   userfora {{userfora|json}}
-  subsfora {{subscription.forum|json}}
-</pre-->
+  fm {{forummembers|json}}
+</pre>

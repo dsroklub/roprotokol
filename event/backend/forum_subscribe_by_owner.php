@@ -7,7 +7,7 @@ $data = file_get_contents("php://input");
 $subscription=json_decode($data);
 $message='';
 error_log("member: ".$subscription->member->id);
-error_log("forum:". $subscription->forum->name);
+error_log("forum:". $subscription->forum->forum);
 error_log("role:". $subscription->role);
 
 if (isset($_SERVER['PHP_AUTH_USER'])) {
@@ -31,11 +31,11 @@ if ($stmt = $rodb->prepare(
     }
     $stmt->bind_param(
         'sssss',
-        $subscription->forum->name,
+        $subscription->forum->forum,
         $role,
         $subscription->member->id,        
         $cuser,
-        $subscription->forum->name
+        $subscription->forum->forum
         
     ) ||  die("forum member by owner BIND errro ".mysqli_error($rodb));
 

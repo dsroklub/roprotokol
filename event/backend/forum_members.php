@@ -6,11 +6,12 @@ $forum=sanestring($_REQUEST['forum']);
 
 error_log("forum $forum");
 $s="
-SELECT Member.MemberId as member_id, CONCAT(Member.FirstName,' ',Member.LastName) as name, role
-   FROM Member, forum_subscription
+SELECT forum_subscription.forum, forum.owner,Member.MemberId as member_id, CONCAT(Member.FirstName,' ',Member.LastName) as name, role
+   FROM Member, forum_subscription,forum
    WHERE 
-   forum_subscription.member=Member.id AND 
-   forum_subscription.forum=?
+     forum_subscription.forum=forum.name AND
+     forum_subscription.member=Member.id AND 
+     forum_subscription.forum=?
    ORDER BY name
 ";
 if ($stmt = $rodb->prepare($s)) {

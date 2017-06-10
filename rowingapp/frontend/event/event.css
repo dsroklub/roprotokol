@@ -590,3 +590,7 @@ tr td {
 .subscriptions {
     cursor: pointer;    
 }
+
+.remove{
+         color: red;
+         }
