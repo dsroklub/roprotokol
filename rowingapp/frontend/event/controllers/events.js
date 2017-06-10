@@ -64,7 +64,7 @@ eventApp.controller(
 	 if (status.status =='ok') {
            var role=$scope.subscription.forum.is_open?"member":"supplicant"; // must match sql statement, cheaper than having PHP make extra DB call
            $scope.subscription.forum.role=role;
-           $scope.subscription.forum.member=$scope.current_user.member_id;
+           $scope.subscription.forum.member_id=$scope.current_user.member_id;
            $scope.userfora.push($scope.subscription.forum);
          } else {
            alert(status.error);

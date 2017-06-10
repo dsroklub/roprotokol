@@ -32,7 +32,8 @@ if ($cuser==$subscription->member_id) {
     if ($stmt = $rodb->prepare(
         "DELETE FROM forum_subscription
          WHERE forum=? AND 
-           (member IN (SELECT Member.id FROM Member WHERE MemberId=?) AND forum.owner IN (SELECT Member.id FROM Member WHERE MemberId=?))"
+           (forum_subscription.member IN (SELECT Member.id FROM Member WHERE MemberId=?) AND 
+             EXISTS (SELECT 'x' FROM forum, Member owner WHERE owner.id=forum.owner AND owner.MemberId=?))"
       )
      ) {
         $stmt->bind_param(

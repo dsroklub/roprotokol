@@ -60,7 +60,7 @@
       <th>Medlem</th>
     </tr>
   </thead>
-  <tr ng-repeat="forummember in forummembers"  class="forummember" ng-class-odd="'oddstat'" ng-class-even="'even'">
+  <tr ng-repeat="forummember in forummembers | filter: {role:''}"  class="forummember" ng-class-odd="'oddstat'" ng-class-even="'even'">
     <td>
       {{forummember.name}}
     </td>
