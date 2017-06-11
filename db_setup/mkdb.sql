@@ -573,10 +573,16 @@ CREATE TABLE event (
 
 CREATE TABLE event_role (
   name       VARCHAR(255) PRIMARY KEY,
+  description VARCHAR(5000),
   can_post   BOOLEAN,
   is_leader  BOOLEAN,
   is_cox     BOOLEAN  
 );
+
+INSERT INTO event_role VALUE ('member','deltager',1,0,0);
+INSERT INTO event_role VALUE ('owner','ejer',1,1,0);
+INSERT INTO event_role VALUE ('wait','venteliste',0,0,0);
+INSERT INTO event_role VALUE ('supplicant','ansøger',0,0,0);
 
 CREATE TABLE event_boat_type (
   event      INTEGER,

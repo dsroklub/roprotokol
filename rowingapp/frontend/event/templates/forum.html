@@ -32,7 +32,7 @@
       {{userforum.forum}}
     </td>
     <td>
-      <i ng-show="userforum.role=='supplicant'" uib-tooltip="afventer godkendelse" class="fa fa-bell"></i>
+      <i ng-show="userforum.role=='supplicant'" uib-tooltip="afventer godkendelse" class="fa fa-hand-paper-o"></i>
     </td>
     <td>
       <i uib-tooltip="opsig abonnement"
@@ -45,7 +45,8 @@
 
 <h2>{{current_forum.forum}} medlemmer:</h2>
 <div ng-show="current_forum.owner==current_user.member_id">
-  <h3>Tilføj rorere til dit forum</h3>
+  <h3>Tilføj rorere til dit forum: wait
+    {{current_forum.forum}}</h3>
   <input placeholder="tilføj medlem" autocomplete="off" id="newforummember" name="newforummember" type="text"
          ng-model="newforummember.member"
          typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
@@ -67,10 +68,8 @@
 
     <td ng-show="current_forum.owner==current_user.member_id">
       <i ng-click="accept_forum_supplicant(userforum)" ng-show="userforum.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
-      <i ng-hode="forummember.member_id==current_user.member_id" ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus"></i>
-      <!--TO HERE FIXME -->
 
-
+      <i ng-hide="forummember.member_id==current_user.member_id" ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus"></i> 
     </td>
     
   </tr>
@@ -95,9 +94,9 @@
 </table>
 
 
-<pre>
+<!--pre>
   fora {{fora|json}}
   userfora {{userfora|json}}
   fm {{forummembers|json}}
   nfm {{newforummember|json}}
-</pre>
+</pre-->

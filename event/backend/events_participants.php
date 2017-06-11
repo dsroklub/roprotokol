@@ -8,17 +8,17 @@ SELECT event.id as event_id,event.open,owner_member.MemberId AS owner,
   event.name, BoatCategory.Name as boat_category, 
   DATE_FORMAT(start_time,'%Y-%m-%dT%T') as start_time,DATE_FORMAT(end_time,'%Y-%m-%dT%T') as end_time, distance, 
   TripType.Name as trip_type, max_participants, location, comment,
-  GROUP_CONCAT(CONCAT(em.FirstName,' ',em.LastName),':§§:',em.MemberId,':§§:', mc.iscox, ':§§:', event_member.role, ':§§:',DATE_FORMAT(event_member.enter_time,'%Y-%m-%dT%T') SEPARATOR '££') AS participants
+  GROUP_CONCAT(CONCAT(em.FirstName,' ',em.LastName),':§§:',em.MemberId,':§§:', IFNULL(mc.iscox,0), ':§§:', event_member.role, ':§§:',DATE_FORMAT(event_member.enter_time,'%Y-%m-%dT%T') SEPARATOR '££') AS participants
   FROM 
     Member owner_member, 
      Member em ,
           event 
           LEFT JOIN BoatCategory on BoatCategory.id=event.boat_category LEFT JOIN TripType ON TripType.id=event.trip_type 
           LEFT JOIN event_member ON event_member.event=event.id 
-             LEFT JOIN  (SELECT member_id, 1 as iscox from MemberRights  WHERE MemberRight='cox') as mc ON mc.member_id=event_member.member
-   WHERE owner_member.id=event.owner AND start_time >= NOW()
-AND  em.id=event_member.member
-  GROUP BY owner,start_time,event_id
+             LEFT JOIN (SELECT member_id, 1 as iscox from MemberRights WHERE MemberRight='cox') as mc ON mc.member_id=event_member.member
+   WHERE owner_member.id=event.owner AND event.start_time >= NOW()
+      AND  em.id=event_member.member
+      GROUP BY owner,start_time,event_id
 ";
 
 $result=$rodb->query($s);

@@ -39,6 +39,7 @@ eventApp.controller(
        $scope.messages=DatabaseService.getDB('event/messages');
        $scope.member_setting=DatabaseService.getDB('event/member_setting');
        $scope.eventcategories=DatabaseService.getDB('event/event_category');
+       $scope.eventroles=DatabaseService.getDB('event/roles');
        $scope.newevent.category=$scope.eventcategories[0];
        $scope.newevent.starttime=null;
        $scope.newevent.endtime=null;
@@ -103,9 +104,13 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("forum_subscribe_by_owner",$scope.newforummember);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           $scope.newforummember.member.member_id=$scope.newforummember.member.id;
-           $scope.newforummember.member.role=$scope.newforummember.role;
-           $scope.forummembers.push($scope.newforummember.member);
+           $scope.forummembers.push({
+             "member_id":$scope.newforummember.member.id,
+             "role":$scope.newforummember.role,
+             "forum":$scope.newforummember.forum.forum,
+             "name":$scope.newforummember.member.name
+           }
+                                   );
          } else {
            alert(status.error);
          }
@@ -114,12 +119,28 @@ eventApp.controller(
      }
 
      $scope.event_add_member = function(arg) {
-       $scope.neweventmember.role="member";
+       if (!$scope.neweventmember) {
+         $scope.neweventmember.role="member";
+       }
        $scope.neweventmember.event=$scope.currentevent;
        var sr=DatabaseService.createSubmit("event_subscribe_by_owner",$scope.neweventmember);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           $scope.currentevent.participants.push($scope.neweventmember.member);
+           var is_cox=0;
+           for (var i=0;i< $scope.neweventmember.member.rights.length;i++ ) {
+             if ($scope.neweventmember.member.rights[i].menber_rigth="cox") {
+               is_cox=1;
+               break;
+             }
+           }           
+           $scope.currentevent.participants.push(
+             {
+               "name":$scope.neweventmember.member.name,
+               "member_id":$scope.neweventmember.member.id,
+               "role":$scope.neweventmember.role,
+               "enter_time":new Date().toISOString(),
+               "is_cox":is_cox
+             });
          } else {
            alert(status.error);
          }
@@ -187,6 +208,31 @@ eventApp.controller(
            alert(status.error);
          }
        })
+     }
+
+     $scope.event_remove_participant = function(em) {
+       em.event_id=$scope.currentevent.event_id;
+       var sr=DatabaseService.createSubmit("event_remove_participant",em);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           var ix=$scope.currentevent.participants.indexOf(em);
+           $scope.currentevent.participants.splice(ix,1)
+         } else {
+           alert(status.error);
+         }
+       });       
+     }
+
+     $scope.accept_event_participant = function(em) {
+       em.event_id=$scope.currentevent.event_id;
+       var sr=DatabaseService.createSubmit("event_accept_participant",em);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           em.role="member";
+         } else {
+           alert(status.error);
+         }
+       });       
      }
 
      $scope.eventleave = function() {

@@ -59,14 +59,19 @@
     Frameld mig
   </button><br>
   <div ng-show="currentevent.owner==current_user.member_id">
-  <h3>Tilføj rorere til din begivenhed</h3>
+
+    <h3>Tilføj rorere til din begivenhed</h3>
   <input placeholder="tilføj medlem" autocomplete="off" id="neweventmember" name="neweventmember.member" type="text"
          ng-model="neweventmember.member"
          typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
          typeahead-template-url="memberTemplate.html" required />
   
+  <select name="role" id="role" ng-model="neweventmember.role"
+          ng-options="role.name as role.description for role in eventroles">
+  </select>
+
   <i ng-show="neweventmember.member" ng-click="event_add_member()" class="fa fa-plus"></i>
-</div>
+  </div>
   <table>
     <caption>
       Deltagere
@@ -81,7 +86,18 @@
         <td ng-show='currentevent.owner==current_user.member_id && em.role=="supplicant"'>
           <button class="submit"  ng-click="include_member(em)"> medtag</button>
         </td>
+        <td>
+          <i ng-click="accept_event_participant(em)" ng-show="em.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
+          <i ng-click="accept_event_participant(em)" ng-show="em.role=='wait'" uib-tooltip="optag roer fra ventelisten" class="fa fa-plus"></i>
+
+          <i ng-hide="em.member_id==current_user.member_id" ng-click="event_remove_participant(em)"
+             uib-tooltip="fjern roer fra begivenhed" class="remove fa fa-minus"></i
+        </td>
       </tr>      
     </tbody>         
   </table>
 </div>
+<pre>
+  cep {{currentevent.participants|json}}
+  cenm {{newmember|json}}
+  </pre>
