@@ -88,6 +88,8 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("forum_unsubscribe",forum);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
+           var ix=$scope.userfora.indexOf(forum);
+           $scope.userfora.splice(ix,1);
            forum.role=null;
          } else {
            alert(status.error);
@@ -101,9 +103,9 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("forum_subscribe_by_owner",$scope.newforummember);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           $scope.newforummember.member_id=$scope.current_user.member_id;
-           $scope.newforummember.name=$scope.current_user.name;
-           $scope.forummembers.push($scope.newforummember);
+           $scope.newforummember.member.member_id=$scope.newforummember.member.id;
+           $scope.newforummember.member.role=$scope.newforummember.role;
+           $scope.forummembers.push($scope.newforummember.member);
          } else {
            alert(status.error);
          }

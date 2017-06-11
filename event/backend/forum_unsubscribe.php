@@ -29,6 +29,7 @@ if ($cuser==$subscription->member_id) {
     }
     
 } else {
+    error_log("DEL by owner");
     if ($stmt = $rodb->prepare(
         "DELETE FROM forum_subscription
          WHERE forum=? AND 
@@ -39,7 +40,7 @@ if ($cuser==$subscription->member_id) {
         $stmt->bind_param(
             'sss',
             $subscription->forum,
-            $subscription->member,
+            $subscription->member_id,
             $cuser) ||  die("forum unsubscribe BIND errro ".mysqli_error($rodb));
     }    
 }
