@@ -551,7 +551,8 @@ INSERT INTO event_category VALUE('fest','vilde fester i DSR',10);
 --    DROP TABLE event;
 CREATE TABLE event (
   id                     INTEGER  NOT NULL AUTO_INCREMENT,
-  owner                  INTEGER,  
+  owner                  INTEGER,
+  auto_administer        BOOLEAN default false,
   boat_category          INTEGER,
   start_time             DATETIME,
   end_time               DATETIME,

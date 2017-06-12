@@ -118,6 +118,17 @@ eventApp.controller(
                       );
      }
 
+     $scope.event_add_member = function (rights) {
+       var is_cox=0;
+       for (var i=0;i< rights.length;i++ ) {
+         if (rights[i].menber_rigth="cox") {
+           is_cox=1;
+           break;
+         }
+       }
+       return is_cox;
+     }
+     
      $scope.event_add_member = function(arg) {
        if (!$scope.neweventmember) {
          $scope.neweventmember.role="member";
@@ -126,13 +137,8 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("event_subscribe_by_owner",$scope.neweventmember);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           var is_cox=0;
-           for (var i=0;i< $scope.neweventmember.member.rights.length;i++ ) {
-             if ($scope.neweventmember.member.rights[i].menber_rigth="cox") {
-               is_cox=1;
-               break;
-             }
-           }           
+           var is_cox=$scope.is_cox($scope.neweventmember.member.rights);
+           
            $scope.currentevent.participants.push(
              {
                "name":$scope.neweventmember.member.name,
@@ -202,7 +208,8 @@ eventApp.controller(
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
            var p=angular.copy($scope.current_user);
-           p.role=$scope.currentevent.new_role;
+           p.role=status.role;
+           p.is_cox=$scope.current_user.is_cox!="0";
            $scope.currentevent.participants.push(p);
          } else {
            alert(status.error);
