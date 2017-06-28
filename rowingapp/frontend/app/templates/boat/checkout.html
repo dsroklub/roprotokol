@@ -159,7 +159,19 @@
                 </select>
               </td>    
 	    </tr>	
-	    <tr>
+
+	    <tr ng-if='checkout.triptype.name=="Styrmandsinstruktion"'>
+              <td>
+                <label for="checkout_triptype">Hold</label>
+              </td>
+              <td>
+                <select name="trip_team" id="checkout_trip_team" ng-model="checkout.trip_team" ng-options="coxteam.name for coxteam in coxteams" required>
+                </select>
+              </td>    
+	    </tr>	
+
+
+            <tr>
               <td>
                 <label for="checkout_comments">Bemærkninger</label>
               </td>

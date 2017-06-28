@@ -22,12 +22,9 @@ coxApp.controller(
      $timeout(function() { $scope.dbgrace = false;}, 2000);
      
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
+     console.log("DB now init");
      DatabaseService.init({"cox":true,"member":true,"user":true}).then(function () {
-//       console.log("DB init done");
        $scope.dbready=true;
-       DatabaseService.getDataNow('cox/aspirants/team',null,function (res) {
-         $scope.teams=res.data;
-       });
        DatabaseService.getDataNow('cox/aspirants/requirements',null,function (res) {
          $scope.requirements=res.data;
        });

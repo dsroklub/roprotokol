@@ -128,7 +128,6 @@ CREATE TABLE Destination (
 );
 
 DROP TABLE IF EXISTS Error_Trip;
-
 CREATE TABLE Error_Trip (
   id int(11) NOT NULL AUTO_INCREMENT,
   DeleteTrip int(11),
@@ -248,6 +247,7 @@ CREATE TABLE Trip (
   tripstat_name CHAR(20),
   DESTID int(11),
   info varchar(20),
+  team varchar(200),
   PRIMARY KEY (id),
   KEY tripfk (BoatID),
   KEY tripout (OutTime)

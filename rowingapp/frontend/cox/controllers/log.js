@@ -13,6 +13,10 @@ coxApp.controller(
      $timeout(function() { $scope.dbgrace = false;}, 2000);
 
      DatabaseService.init({"cox":true,"member":true,"user":true}).then(function () {
+       DatabaseService.getDataNow('cox/aspirants/team',null,function (res) {
+         $scope.teams=res.data;
+       });
+
        DatabaseService.getDataNow('cox/cox_log',null,function (res) {
          $scope.dbready=true;
          $scope.coxlog=res.data;
@@ -22,7 +26,15 @@ coxApp.controller(
                                                     $scope.webrower=res.data;
                                                   }
                                                  );       
-     });     
+     });
+
+     $scope.set_team = function(teamName) {
+       DatabaseService.getDataNow('cox/aspirants/team_activity',"team="+encodeURIComponent(teamName),function (res) {
+         $scope.teamtrips = res.data;
+       });
+     }
+
+     
    }
   ]
 );

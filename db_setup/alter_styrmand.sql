@@ -81,3 +81,5 @@ INSERT INTO authentication VALUES (NOW(),6270,"hest","coxaspirant");
 
 
 INSERT INTO `team_requests` VALUES ('2017-04-14',6267,'forår',NULL,'hest','','høj',NULL,'12345','dsrasprirant@mailinator.com');
+
+ALTER TABLE Trip ADD COLUMN team VARCHAR(200);
