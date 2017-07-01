@@ -21,7 +21,11 @@ a {
 h1, h2, h3, h4, h5, h6 {
     width: auto;
     background: #eaeaa3;
+    display:table;
+    border-radius: 5px;
+    padding: 2px;
 }
+
 ul.teams {
     list-style-type: none;
     padding: 0;
@@ -159,7 +163,7 @@ input.big {
 }
 .menu {
     list-style: none;
-    background: #0088C0;
+    background: #879b15;
     padding: 0 10pt;
     margin: 0;
     width: 100%

@@ -159,11 +159,24 @@ eventApp.controller(
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
            $scope.init();
+         } else if (status.status =='warning') {
+           alert("Advarsel: "+status.message);
+           $scope.init();
          } else {
-           alert(status.error);
+           alert("Fejl: "+status.message);
          }
        });
      }
+
+     $scope.set_event_status = function(event) {
+       var sr=DatabaseService.createSubmit("set_event_status",event);
+       sr.promise.then(function(status) {
+	 if (status.status !='ok') {
+           alert(status.error);
+         }
+       })
+     }
+     
 
      $scope.include_member = function(eventmember) {
        eventmember.event=$scope.currentevent.event_id;

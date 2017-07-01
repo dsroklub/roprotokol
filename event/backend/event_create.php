@@ -182,12 +182,11 @@ if (count($toMemberIds)>0) {
          $toEmails[] = $rower['email'];
      }
      
-     $smtp = Mail::factory('sendmail', array ());
-     
+     $smtp = Mail::factory('sendmail', array ());     
      $mail_status = $smtp->send($toEmails, $mail_headers, $body);
 
      if (PEAR::isError($mail_status)) {
-         $res["status"]="error";
+         $res["status"]="warning";
          $res["message"] = "Kunne ikke sende invitationer til $toEmails: " . $mail_status->getMessage();
      }
 }

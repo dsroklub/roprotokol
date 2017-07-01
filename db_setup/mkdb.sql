@@ -562,6 +562,7 @@ CREATE TABLE event (
   last_email             DATETIME,
   max_participants       INTEGER,
   location               VARCHAR(255),
+  status                 VARCHAR(255) DEFAULT "on",
   name                   VARCHAR(255),
   category               VARCHAR(255),
   preferred_intensity    VARCHAR(300),
@@ -580,10 +581,10 @@ CREATE TABLE event_role (
   is_cox     BOOLEAN  
 );
 
-INSERT INTO event_role VALUE ('member','deltager',1,0,0);
-INSERT INTO event_role VALUE ('owner','ejer',1,1,0);
-INSERT INTO event_role VALUE ('wait','venteliste',0,0,0);
-INSERT INTO event_role VALUE ('supplicant','ansøger',0,0,0);
+INSERT INTO event_role (name, description,can_post,is_leader,is_cox) VALUE ('member','deltager',1,0,0);
+INSERT INTO event_role (name, description,can_post,is_leader,is_cox) VALUE ('owner','ejer',1,1,0);
+INSERT INTO event_role (name, description,can_post,is_leader,is_cox) VALUE ('wait','venteliste',0,0,0);
+INSERT INTO event_role (name, description,can_post,is_leader,is_cox) VALUE ('supplicant','ansøger',0,0,0);
 
 CREATE TABLE event_boat_type (
   event      INTEGER,
@@ -616,7 +617,7 @@ CREATE TABLE forum (
   description VARCHAR(255),
   owner     INTEGER,
   is_open      BOOLEAN DEFAULT TRUE,
-  FOREIGN KEY (owner) REFERENCES Member(id)
+  FOREIGN KEY (owner) REFERENCES Member(id) NOT NULL
 );
 
 -- INSERT INTO forum VALUE('roaftaler','generelle roaftaler');

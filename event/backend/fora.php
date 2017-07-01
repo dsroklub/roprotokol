@@ -4,10 +4,14 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-$s="SELECT forum.name as forum,forum.description, Member.MemberId as owner,is_open, forum_subscription.role
-    FROM Member, forum JOIN Member m LEFT JOIN forum_subscription ON (forum.name=forum_subscription.forum AND forum_subscription.member=m.id)
-    WHERE Member.id=forum.owner and m.MemberId=?" ;
+$s="SELECT forum.name as forum,forum.description, owner.MemberId as owner, is_open, forum_subscription.role
+    FROM Member owner, forum JOIN Member m LEFT JOIN forum_subscription ON (forum.name=forum_subscription.forum AND forum_subscription.member=m.id)
+    WHERE owner.id=forum.owner and m.MemberId=?" ;
 
+
+if ($sqldebug) {
+    echo $s;
+}
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("s", $cuser);
     $stmt->execute();
