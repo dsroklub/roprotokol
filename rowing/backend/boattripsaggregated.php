@@ -5,7 +5,7 @@ header('Content-type: application/json');
 if (isset($_GET["boat"])) {
     $boat=$_GET["boat"];
 } else {
-    echo "please set if for boat";
+    echo "please set id for boat";
     exit(1);
 }
 

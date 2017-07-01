@@ -37,6 +37,7 @@ app.controller(
 
        $scope.allboats = DatabaseService.getBoats();
        $scope.levels =DatabaseService.getDB('boatlevels');
+       $scope.coxteams =DatabaseService.getDB('coxteams');
        $scope.brands =DatabaseService.getDB('boat_brand');      // Checkout code
        $scope.checkout_open=[];
        $scope.norower=[];
@@ -247,6 +248,7 @@ app.controller(
 
      $scope.do_boat_category = function(cat) {
        $scope.selectedBoatCategory=cat;
+       $scope.checkoutmessage=null;
        $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
        for (var i = $scope.checkout.rowers.length; i < cat.seatcount; i++) {
 	 $scope.checkout.rowers.push("");
@@ -257,6 +259,7 @@ app.controller(
      
      $scope.checkoutBoat = function(boat) {
        var oldboat=$scope.checkout.boat;
+       $scope.checkoutmessage=null;
        $scope.checkout.boat=boat;
        $scope.destinations = DatabaseService.getDestinations(boat.location);
        $scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat.id);
@@ -441,6 +444,8 @@ app.controller(
            data.boat.trip=undefined;
            $scope.checkinmessage= status.boat+" er nu skrevet ind";
            $scope.checkin.boat=null;
+           $scope.checkout.trip_team=null;
+           
          } else if (status.status =='error' && status.error=="notonwater") {
            $scope.checkinmessage= status.boat+" var allerede skrevet ind";
            console.log("not on water")

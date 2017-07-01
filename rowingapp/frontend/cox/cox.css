@@ -37,6 +37,10 @@ ul.teams {
     position :fixed;
 }
 
+
+.comment {
+    max-width: 30em;
+}
 .tools a {
     color: red;
     font-weight: bold;

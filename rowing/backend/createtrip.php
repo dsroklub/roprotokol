@@ -23,16 +23,20 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
   }
 }
 
+$teamName=null;
+
+if (!empty($newtrip->trip_team)) {
+    $teamName=$newtrip->trip_team->name;
+}
 if (!$error) {
     $starttime=mysdate($newtrip->starttime);
-    $expectedtime=mysdate($newtrip->expectedtime);
-    
+    $expectedtime=mysdate($newtrip->expectedtime);    
     // error_log('now new trip'. json_encode($newtrip));
     if ($stmt = $rodb->prepare(
-        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment) 
-                VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?)")) {
+        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team) 
+                VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?)")) {
         $info="client: ".$newtrip->client_name;
-        $stmt->bind_param('isississ',
+        $stmt->bind_param('isississs',
         $newtrip->boat->id ,
         $newtrip->destination->name,
         $newtrip->triptype->id,
@@ -40,7 +44,9 @@ if (!$error) {
         $expectedtime,
         $newtrip->distance,
         $info,
-        $newtrip->comments);
+        $newtrip->comments,
+        $teamName
+        );
         if (!$stmt->execute()) {
             $error=mysqli_error($rodb);
             $message=$message."\n"."create trip insert error: ".mysqli_error($rodb);

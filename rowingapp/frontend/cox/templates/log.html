@@ -1,4 +1,33 @@
 <h1 class="error" ng-hide="dbready || dbgrace">Henter data<br>vær tålmodig</h1>
+
+<h2>Holdaktivitet for
+  <select name="teamactivitychooser" class="teamchoose" id="teamactivityselect"
+          ng-model="teamactivity.team"
+          ng-options="team.name as team.name for team in teams| orderBy: 'team'"
+          ng-change="set_team(teamactivity.team)"
+          >
+  </select>:
+</h2>
+
+<table class="activitylist" ng-show="teamactivity.team">
+  <thead>
+  <tr>
+    <th>Aktivitet</th> <th>Instruktør</th><th>Tid</th> <th>Båd</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="teamtrip in teamtrips" class="teamtrip" ng-class-odd="'oddstat'">
+    <th class="comment">{{teamtrip.comment}}</th>
+    <th>{{teamtrip.instructor}}</th>
+    <th>{{teamtrip.outtime}}</th>
+    <th>{{teamtrip.boat}}</th>
+  </tr>
+  </tbody>
+</table>  
+
+
+
+
 <h2>Log</h2>
 
 <table class="coxlist">
@@ -16,3 +45,7 @@
   </tr>
   </tbody>
 </table>  
+
+<pre>
+  {{teams}}
+  </pre>
