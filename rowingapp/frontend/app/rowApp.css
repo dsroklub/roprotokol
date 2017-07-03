@@ -1160,3 +1160,9 @@ img.wrench {
     padding-top: 3em;
   }
 }
+
+.ui-select-bootstrap .ui-select-choices {
+    position: absolute;
+    top: -10em !important;
+    max-height: 800px;
+}
