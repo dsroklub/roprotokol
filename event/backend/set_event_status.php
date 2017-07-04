@@ -1,6 +1,7 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 require_once("inc/user.php");
+include("messagelib.php");
 
 
 $res=array ("status" => "ok");
@@ -14,14 +15,12 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 
 if (check_event_owner($event->event_id)) {
-
     if ($stmt = $rodb->prepare(
         "UPDATE event
          SET status=?
          WHERE id=?"
     )
-    ) {
-        
+    ) {        
         $stmt->bind_param(
             'ss',
             $event->status,
@@ -29,7 +28,8 @@ if (check_event_owner($event->event_id)) {
         ) ||  die("set event stauts BIND errro ".mysqli_error($rodb));
         
         if ($stmt->execute()) {
-            error_log("set evt status set OK");
+            error_log("set evt status set OK " .print_r($event,true));
+            $res=post_event_message($event->event_id, $event->name . " " .$event->status,  "ny status for begivenhed $event->name");
         } else {
             $error=" evt status set exe ".mysqli_error($rodb);
             $message=$message."\n"."role update error: ".mysqli_error($rodb);

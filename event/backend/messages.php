@@ -33,12 +33,12 @@ if ($stmt = $rodb->prepare($s)) {
         $first=1;
         while ($row = $result->fetch_assoc()) {
             if ($first) $first=0; else echo ',';	  
-            echo json_encode($row);
+            echo json_encode($row,JSON_PRETTY_PRINT);
         }
         echo ']';
     } else {
         dbErr($rodb,$res,"messages");
-        echo json_encode($res);
+        echo json_encode($res,JSON_PRETTY_PRINT);
     }
 } else {
     dbErr($rodb,$res,"messages query");
