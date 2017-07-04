@@ -12,7 +12,6 @@
 <h2>Mine Beskeder</h2>
 
 <div>
-
   <div class="messagelist">
     <table class="baselayout" width="100%">
       <thead>
@@ -25,7 +24,8 @@
         </tr> 
       </thead>
       <tbody>
-        <tr ng-repeat-start="message in messages"  ng-class="{selected: currentmessage == message}" ng-click="setCurrentMessage(message)" class="message" ng-class-odd="'oddstat'">
+        <tr ng-repeat-start="message in messages"  ng-class="{selected: currentmessage == message}"
+            ng-click="setCurrentMessage(message)" class="message" ng-class-odd="'oddstat'">
           <td>{{message.subject}}</td>
           <td>{{message.source}}</td>
           <td>{{message.forum.forum}}</td>

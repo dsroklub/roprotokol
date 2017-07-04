@@ -40,4 +40,3 @@ if ($error) {
 }
 invalidate("forum");
 echo json_encode($res);
-?> 

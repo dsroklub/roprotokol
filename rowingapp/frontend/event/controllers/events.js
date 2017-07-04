@@ -372,7 +372,16 @@ eventApp.controller(
      }
 
      $scope.messagedelete = function (message) {
-       alert("FIXME message delete not implemented");
+       var sr=DatabaseService.createSubmit("message_unlink",message);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           var ix=$scope.messages.indexOf(message);
+           $scope.messages.splice(ix,1);
+         } else {
+           alert(status.error);
+         }
+       });
+       console.log(message);
      }
 
      $scope.addInvitee = function () {
