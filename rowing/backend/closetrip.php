@@ -7,8 +7,9 @@ $message="";
 $data = file_get_contents("php://input");
 $closedtrip=json_decode($data);
 
+error_log("CTT ".print_r($closedtrip,true));
 $distance = $closedtrip->boat->meter;
-if (isset($closedtrip->boat->corrected_distance)) {
+if (!empty($closedtrip->boat->corrected_distance)) {
     $distance=$closedtrip->boat->corrected_distance;
 }
 
