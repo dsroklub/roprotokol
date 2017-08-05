@@ -7,7 +7,7 @@ $newtrip=json_decode($data);
 $message="createtrip  ".json_encode($newtrip);
 $error=null;
 
-error_log($data);
+error_log(" Create trip $data");
 
 $rodb->begin_transaction();
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) { 
