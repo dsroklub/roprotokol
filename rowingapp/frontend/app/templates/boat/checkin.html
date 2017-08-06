@@ -2,7 +2,7 @@
 
 <div class="boatselection">
   <label for="select_boat">Båd</label>
-  <input autocomplete="off" typeahead-editable="false" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
+  <input autocomplete="off" typeahead-editable="false" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required></input>
 </div>
 
 
@@ -64,7 +64,8 @@
         
 	<td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
 	<td class="colinput">
-	  <input  autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm name="kminput"></input>
+	  <input  autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm
+                  name="kminput"></input>
 	</td>
 
 	<td class="colinput">
@@ -73,15 +74,20 @@
 	<td class="colinput">
           <div class="checkinactions">
 	    <button uib-tooltip="indskriv turen" ng-click="closetrip(boat,$index,item.km)" class="big"
+                    ng-disabled="boat.corrected_distance===0"
                     confirm-if="date_diff(boat.outtime)<10"
                     confirm="Er du sikker på, at du vil indskrive denne tur. Den er meget kort ({{date_diff(boat.outtime)}} minutter). Slet turen, hvis båden ikke har været på vandet"
                     confirm-ok="Ja, indskriv turen"
                     confirm-cancel="Nej, jeg fortryder"
-                    >
+                    ></input>
               Indskriv
             </button>
 	    <button uib-tooltip="slet turen hvis båden ikke kom på vandet" ng-click="deleteopentrip(boat,$index)" class="minor">Slet</button>
-	    <a href="/frontend/app#!ud?reuse={{boat.trip}}"><button uib-tooltip="genbrug turoplysinger fx til at skriv en anden båd ud med samme roere og destination" ng-click="reusetrip(boat,$index)" class="minor"><i class="fa fa-recycle"></i>Slet+Genbrug</button></a>
+	    <a href="/frontend/app#!ud?reuse={{boat.trip}}">
+              <button uib-tooltip="genbrug turoplysinger fx til at skriv en anden båd ud med samme roere og destination" ng-click="reusetrip(boat,$index)" class="minor">
+                <i class="fa fa-recycle"></i>Slet+Genbrug
+              </button>
+            </a>
           </div>
 	</td>	  
         </tr>

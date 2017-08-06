@@ -269,8 +269,6 @@ angular.module('rowApp.utilities.onlynumber', []).directive('onlynumber', functi
       
       scope.$watch(attrs.ngModel, function(newValue, oldValue) {
         checknumber();
-
-                              
       });
     }
   };
@@ -284,6 +282,9 @@ angular.module('rowApp.utilities.transformkm', []).directive('transformkm', func
     link: function(scope, element, attrs, ngModel) {
       if (ngModel) { // Don't do anything unless we have a model
         ngModel.$parsers.push(function (val) {
+          if (val=="") {
+            return "";
+          }
           if (val !== undefined) {
             var fval=val;
             if (typeof fval == 'string') {
