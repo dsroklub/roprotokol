@@ -5,7 +5,7 @@
   </a>
 </script>
 
-<ng-form name="gymParticipant">
+<form ng-submit="attend()" name="gymParticipant">
 
   <h2>Registerer deltager på gymnastikhold</h2>
   <table class="listbox">
@@ -26,6 +26,7 @@
   </div>
   <br>
 
+  <input type="submit"  style="display:none">
   <button class="klar" ng-click="attend()">Registrer</button>
 
   <div>
@@ -37,5 +38,5 @@
       </li>
     </ul>    
   </div>
-</ng-form>
+</form>
 <!--pre>{{currentteam}}</pre-->

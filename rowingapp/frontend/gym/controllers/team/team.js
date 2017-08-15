@@ -87,6 +87,7 @@ gymApp.controller(
                                               dayofweek:$scope.currentteam.dayofweek,
                                               timeofday:$scope.currentteam.timeofday
                                              });
+               $scope.attendee=null;
              } else if (st.status.search("Duplicate entry")) {
                $scope.message="Allerede tilmeldt";
              }
