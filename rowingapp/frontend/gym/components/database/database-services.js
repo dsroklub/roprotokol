@@ -182,16 +182,26 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
   }
 
   this.getRowersByNameOrId = function(nameorid, preselectedids) {
-    var val = nameorid.toLowerCase();
+    var val = nameorid.trim().toLowerCase();
+    if (val.length<3 && isNaN(val)) {
+       return [];
+    }
     var rowers=db['rowers'];
-    if (rowers) {
-      var result = rowers.filter(function(element) {
-        return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
-      });
-      return result;
-    } else {
+    if (!rowers) {
       return [];
-    }    
+    }
+
+    if (isNaN(val)) {
+        var result = rowers.filter(function(element) {
+          return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
+        });
+      return result;    
+    } else {
+      var result = rowers.filter(function(element) {
+          return (preselectedids === undefined || !(element.id in preselectedids)) && element.id==val;
+        });
+      return result;    
+    }
   };
     
   this.closeForm = function(form,data,datakind) {

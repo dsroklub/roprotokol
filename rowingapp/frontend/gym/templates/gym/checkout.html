@@ -21,7 +21,7 @@
     <label for="gym.deltager">Deltager på gymnastikhold</label>
     <input placeholder="gymnastikdeltager" autocomplete="off"
            id="gymmember" name="participant" type="text"
-           ng-model="attendee" typeahead-min-length="3"
+           ng-model="attendee"
            uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="gymTemplate.html" required />
   </div>
   <br>
@@ -30,13 +30,13 @@
   <button class="klar" ng-click="attend()">Registrer</button>
 
   <div>
-    <h2>tilmeldte til {{currentteam.name}} {{currentteam.dayofweek}} {{currentteam.timeofday}}</h2>    
+    <h2>{{(attendance | filter:{'team':currentteam.name, 'timeofday':currentteam.timeofday } ).length}} tilmeldte til {{currentteam.name}} {{currentteam.dayofweek}} {{currentteam.timeofday}} </h2>
     <ul class="listbox">
-      <li  ng-repeat="tp in attendance"
+      <li ng-repeat="tp in attendance"
           ng-if="tp.team==currentteam.name && tp.dayofweek==currentteam.dayofweek && tp.timeofday==currentteam.timeofday">
         {{tp.membername}} ({{tp.memberid}})
       </li>
     </ul>    
   </div>
 </form>
-<!--pre>{{currentteam}}</pre-->
+<!pre>{{currentteam}}</pre>
