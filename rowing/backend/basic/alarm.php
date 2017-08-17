@@ -1,5 +1,5 @@
 <?php
-$config = parse_ini_file('../../../config.ini');
+$config = parse_ini_file('/data/roprotokol/config.ini');
 $rodb=new mysqli("localhost",$config["dbuser"],$config["dbpassword"],$config["database"]);
 
 $s="SELECT Trip.Destination as destination, Trip.id as trip FROM Trip  WHERE Trip.InTime IS NULL AND Trip.ExpectedIn <= NOW() ";
