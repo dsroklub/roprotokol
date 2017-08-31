@@ -16,4 +16,5 @@ echo '[';
 }
 echo ']';
 $rodb->close();
+invalidate("boat");
 ?> 

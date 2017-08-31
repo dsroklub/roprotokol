@@ -495,8 +495,8 @@
               </fieldset>
           </td>          
 	  <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"
-                       uib-tooltip="turtypen"
-                       ></select></td>
+                       uib-tooltip="turtypen" required>
+             </select></td>
           <td><input type="text" ng-model="reservation.purpose" required
                      uib-tooltip="Reservationsformål. Fx træning, navn på langtur, vedligehold"
                      ></td>
