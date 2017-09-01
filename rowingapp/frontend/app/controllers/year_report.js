@@ -5,6 +5,7 @@ app.controller('YearReportCtrl', ['$scope', '$rootScope', 'DatabaseService', 'Ng
 
   $scope.statusMsg = 'Henter data...';
   $scope.statusClass = 'ok';
+  $scope.now = new Date();
 
   DatabaseService.init().then(function () {
     DatabaseService.simpleGet('stats/year_report').then( function(response) {
@@ -16,6 +17,7 @@ app.controller('YearReportCtrl', ['$scope', '$rootScope', 'DatabaseService', 'Ng
         $scope.intervals = Object.keys(response.data.rower_activity[ response.data.years[ response.data.years.length -1 ] ].intervals);
         $scope.triptypes = Object.keys(response.data.boats.triptypes);
         $scope.boattypes = Object.keys(response.data.boats.boattypes);
+        $scope.year_done = $scope.now.getFullYear() > response.data.parameters.to_year;
       } else {
         $scope.statusMsg = 'Kunne ikke hente data: ' + response.data.error;
         $scope.statusClass = 'error';
@@ -27,6 +29,6 @@ app.controller('YearReportCtrl', ['$scope', '$rootScope', 'DatabaseService', 'Ng
     })
   });
 
-  $scope.now = new Date();
+
 
 }]);
