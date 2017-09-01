@@ -4,9 +4,18 @@
 
 app.controller(
   'BoatCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog) {
+  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log',
+   function ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log) {
      $scope.allboatdamages=[];
+
+     $scope.isName = function(n) {
+       $log.debug("isName: " + n);
+       if (n.length>3 && isNaN(n)) {
+         return true;
+       }
+       return false;
+     };
+     
      DatabaseService.init({"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
        // Load Category Overview
        $scope.boatcategories = DatabaseService.getBoatTypes();

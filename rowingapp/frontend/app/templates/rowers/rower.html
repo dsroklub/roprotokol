@@ -23,7 +23,6 @@
              ng-model="rower"
              name="name"
              type="text"
-             typeahead-min-length="3"
              typeahead-on-select="updateRowerTrips($item)"
              ng-model="currentrower"
              uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
@@ -197,7 +196,11 @@
 	      </td>
 	      <td>
 	        <ng-form name="rowerFieldForm">
-	          <input  autocomplete="off" id="correction_rower{{$index}}"  name="name" type="text" ng-model="correction.rowers[$index]" typeahead-min-length="3" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" uibTypeahead-template-url="taTemplate.html" required >
+	          <input  autocomplete="off" id="correction_rower{{$index}}"  name="name"
+                          type="text"
+                          ng-model="correction.rowers[$index]"
+                          uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+                          uibTypeahead-template-url="taTemplate.html" required >
 		  <span ng-if="isObjectAndHasId(correction.rowers[$index])">
 	          </span>
 	          <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>	  

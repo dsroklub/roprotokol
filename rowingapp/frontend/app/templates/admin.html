@@ -313,7 +313,11 @@
   <div class="adminrower">
     <h2 class="prompt">Roer:</h2>
     <form name="rowerFieldForm">
-      <input autocomplete="off" id="findrower" ng-model="currentrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="taTemplate.html" required />
+      <input autocomplete="off" id="findrower"
+             ng-model="currentrower" name="name" type="text"
+             typeahead-on-select="alert($item)"
+             uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+             typeahead-template-url="taTemplate.html" required />
     </form>
     <div>
       <table class="boatlist" ng-show="currentrower.id">
@@ -340,7 +344,10 @@
   </div>
   <div class="adminconvertrower" ng-show="currentrower.id">
     <button  class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer {{currentrower.name}} til denne</button>
-    <input autocomplete="off" id="findrower" name="name" type="text" typeahead-min-length="3" typeahead-on-select="alert($item)" ng-model="converttorower" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="taTemplate.html" required />
+    <input autocomplete="off" id="findrower" name="name" type="text"
+           typeahead-on-select="alert($item)" ng-model="converttorower"
+           uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+           typeahead-template-url="taTemplate.html" required />
   </div>
 </div>
 

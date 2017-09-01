@@ -345,7 +345,11 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     if(location !== undefined) {
       loc=location;
     }
-      return db['destinations'][loc];
+    var destinations=db['destinations'];
+    if (!destinations) {
+      return [];
+    }
+    return db['destinations'][loc];
   };
 
 
@@ -424,17 +428,27 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     return rs[0];
   }
 
-  this.getRowersByNameOrId = function(nameorid, preselectedids) {
-    var val = nameorid.toLowerCase();
+    this.getRowersByNameOrId = function(nameorid, preselectedids) {
+    var val = nameorid.trim().toLowerCase();
+    if (val.length<3 && isNaN(val)) {
+       return [];
+    }
     var rowers=db['rowers'];
-    if (rowers) {
-      var result = rowers.filter(function(element) {
-        return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
-      });
-      return result;
-    } else {
+    if (!rowers) {
       return [];
-    }    
+    }
+
+    if (isNaN(val)) {
+        var result = rowers.filter(function(element) {
+          return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
+        });
+      return result;    
+    } else {
+      var result = rowers.filter(function(element) {
+          return (preselectedids === undefined || !(element.id in preselectedids)) && element.id==val;
+        });
+      return result;    
+    }
   };
     
   this.closeForm = function(form,data,datakind) {
