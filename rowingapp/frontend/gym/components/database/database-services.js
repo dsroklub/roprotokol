@@ -181,7 +181,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     return rs[0];
   }
 
-  this.getRowersByNameOrId = function(nameorid, preselectedids) {
+  this.getRowersByNameOrId = function(nameorid, attendance,team) {
     var val = nameorid.trim().toLowerCase();
     if (val.length<3 && isNaN(val)) {
        return [];
@@ -191,17 +191,24 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
       return [];
     }
 
+    var result;
     if (isNaN(val)) {
-        var result = rowers.filter(function(element) {
-          return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
-        });
-      return result;    
+      result = rowers.filter(function(element) {
+        return (element['search'].indexOf(val) > -1);
+      });
     } else {
-      var result = rowers.filter(function(element) {
-          return (preselectedids === undefined || !(element.id in preselectedids)) && element.id==val;
-        });
-      return result;    
+      result = rowers.filter(function(element) {
+        return (element.id==val);
+      });
     }
+    return result.filter(function(rower) {        
+      for (var i=0;i<attendance.length;i++) {
+        if (attendance[i].memberid==rower.id && attendance[i].timeofday==team.timeofday && attendance[i].team==team.name) {
+          return false;
+        }
+      }
+      return true;
+    })    
   };
     
   this.closeForm = function(form,data,datakind) {

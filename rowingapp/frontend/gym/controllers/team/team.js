@@ -23,12 +23,14 @@ gymApp.controller(
                d.getYear()==$scope.currentdate.getYear());       
      }
      
-     DatabaseService.getDataNow("team/attendance", null, function (res) {
-       $scope.attendance=res.data;         
-     }
+     DatabaseService.getDataNow("team/attendance", null,
+                                function (res) {
+                                  $scope.attendance=res.data;         
+                                }
                                );
+     
      $scope.getRowerByName = function (val) {
-       return DatabaseService.getRowersByNameOrId(val, undefined);
+       return DatabaseService.getRowersByNameOrId(val, $scope.attendance,$scope.currentteam);
      };
 
      $scope.setCurrentTeam = function (tm) {
@@ -53,6 +55,7 @@ gymApp.controller(
        DatabaseService.addTeam($scope.newteam).promise.then(
          function(st) {
            if (st.status=="ok") {
+             $scope.newteam['today']=($scope.newteam['dayofweek']==$scope.weekdays[new Date().getDay()-1]);
              $scope.teams.push($scope.newteam);
            }
          }
