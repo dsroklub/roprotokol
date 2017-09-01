@@ -9,7 +9,9 @@ app.controller(
      $scope.allboatdamages=[];
 
      $scope.isName = function(n) {
-       $log.debug("isName: " + n);
+       if (!n) {
+         return false;
+       }
        if (n.length>3 && isNaN(n)) {
          return true;
        }
@@ -302,7 +304,6 @@ app.controller(
      };
 
      $scope.getRowerByName = function (val) {
-       // Generate list of ids that we already have added
        return DatabaseService.getRowersByNameOrId(val);
      }
      
@@ -388,8 +389,7 @@ app.controller(
        $scope.timeopen[tm]=!$scope.timeopen[tm];
      }
 
-     $scope.validRowers = function () {
-       
+     $scope.validRowers = function () {       
        if (!$scope.checkout.rowers || $scope.checkout.rowers.length<0) {
 	 return false;
        }
@@ -550,6 +550,11 @@ app.controller(
        var rw=$scope.checkout.rowers[ix];
        if (typeof(rw)==="string" && rw.length<6 && rw.length>1 && rw.substring(2,6).toUpperCase()==rw.substring(2,6).toLocaleLowerCase()) {
          $scope.checkout.rowers[ix]=DatabaseService.getRower(rw.toUpperCase());
+       }
+       for (var ir=0; ir<ix; ir++) {
+         if ($scope.checkout.rowers[ir]==$scope.checkout.rowers[ix]) {
+           $scope.checkout.rowers[ix]="";
+         }
        }
      }
      
