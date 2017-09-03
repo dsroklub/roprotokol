@@ -3,7 +3,9 @@
 </div>
 <div ng-if="stats" id="year_report">
 <div class="report-front-page">
-<h1>Rosæsonen {{stats.parameters.to_year}}</h1>
+<h1 ng-if="year_done">Rosæsonen {{stats.parameters.to_year}}</h1>
+<h1 ng-if="!year_done">Foreløbig rapport for rosæsonen {{stats.parameters.to_year}}</h1>
+
 
 <img src="assets/dsrlogo.svg" height="400px" />
 
@@ -14,8 +16,14 @@
 
 <h3>1. Indledning</h3>
 <p>Denne rapport er automatisk genereret ud fra udtræk fra roprotokollen.</p>
+
 <p>Dette betyder, at alle tal er beregnet på samme måde - også dem fra tidligere år.
-Dog er der naturligvis forskel på, hvilke turtyper og både, der har været til rådighed de enkelte år.<p>
+Dog er der naturligvis forskel på, hvilke turtyper og både, der har været til rådighed de enkelte år.</p>
+
+<p ng-if="!year_done"><b>Bemærk, at rosæsonen {{stats.parameters.to_year}} ikke er slut endnu.</b>
+Denne rapport giver derfor ikke et retvisende billede for {{stats.parameters.to_year}}. Især er
+frafaldsstatistikken ufuldstændig.</p>
+
 <p>Man skal være opmærksom på, at rapporten ikke er mere præcis end datagrundlaget: I det omfang
 roprotokollen er udfyldt forkert, vil rapporten afspejle dette. Desuden er alle rostatistikker fra
 før 2016 baseret på data, der er konverteret fra den gamle roprotokol. Der kan være opstået

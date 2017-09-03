@@ -57,11 +57,11 @@ var app = angular.module('rowApp', [
 	  templateUrl: 'templates/admin.html',
 	  controller: 'AdminCtrl'
 	});
-	$routeProvider.when('/year_report/', {
+	$routeProvider.when('/yearreport/', {
 	  templateUrl: 'templates/year_report.html',
 	  controller: 'YearReportCtrl'
 	});
-	$routeProvider.when('/convert_candidates/', {
+	$routeProvider.when('/convertcandidates/', {
 	  templateUrl: 'templates/convert_candidates.html',
 	  controller: 'ConvertCandidatesCtrl'
 	});
