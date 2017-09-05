@@ -9,7 +9,7 @@
     include("../rowingapp/backend/inc/backheader.php");
 ?>
     <table>
-      <caption>Inringger instruktion</caption>
+<caption>Inringger b&aring;dstatistik i &aring;r</caption>
       <tr>
 <th>B&aring;d</th>
         <th>distance</th>
@@ -25,13 +25,11 @@
          if (!$rodb->set_charset("utf8")) {
              printf("Error loading character set utf8: %s\n", $rodb->error);
          }
-$boatclause=" AND (BoatType.Category=2)";
+$boatclause=" ";
 
 $s="SELECT Boat.id,Boat.Name AS boatname, BoatType.Name AS boat_type, CAST(Sum(Meter/1000.0) AS UNSIGNED) AS distance, Count(Trip.id) AS num_trips
 FROM (BoatType INNER JOIN Boat ON BoatType.id = Boat.BoatType) LEFT JOIN Trip ON Boat.id = Trip.BoatID
-WHERE Year(OutTime)=Year(NOW()) ". $boatclause .
-    " GROUP BY Boat.Name, BoatType.Name, Boat.id
-    ORDER BY distance desc";
+WHERE Year(OutTime)=Year(NOW()) AND (BoatType.Category=2) GROUP BY Boat.Name, BoatType.Name, Boat.id ORDER BY distance desc";
 
 
          error_log("SQL :\n".$s."\n");
@@ -41,8 +39,8 @@ WHERE Year(OutTime)=Year(NOW()) ". $boatclause .
       print("<tr><td>".$row['boatname']."</td><td class='nr'>".$row['distance']."</td><td class='nr'>".$row['num_trips']."</td></tr>\n");
       }
       }  else {
-      error_log("SQL instruction stat error: ".$rodb->error);
-      echo " FEJL i instruktionsstatistik ".$rodb->error;      
+      error_log("SQL boat stat error: ".$rodb->error);
+      echo " FEJL i boat statistik ".$rodb->error;      
       }      
       ?>
     </table>
