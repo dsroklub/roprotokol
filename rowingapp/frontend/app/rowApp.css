@@ -651,6 +651,7 @@ li.selected,button.selected {
 .seasonschart {
     display:inline-block;
     float:left;
+    margin-right:30%;
     width:70%;
 }
 
@@ -1165,4 +1166,9 @@ img.wrench {
     position: absolute;
     top: -10em !important;
     max-height: 800px;
+}
+
+.statbox {
+    display: inline-block;
+    float:left;
 }

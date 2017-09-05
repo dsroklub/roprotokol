@@ -301,7 +301,7 @@
   </div>
   
   <div ng-if="currentrower">
-    <table class="genericlist">
+    <table class="genericlist statbox">
       <caption>{{currentrower.name}}'s Rokammerater</caption>
       <thead>
         <tr><th>rokammerater</th><th>km roet</th></tr>
@@ -313,8 +313,21 @@
         </tr>      
       </tbody> 
     </table>
+
+    <table class="genericlist statbox">
+      <caption>{{currentrower.name}}'s Robåde</caption>
+      <thead>
+        <tr><th>Favoritbåde</th><th>km roet</th></tr>
+      </thead>
+      <tbody class="tbody">
+        <tr ng-if="currentrower" ng-repeat="rowerboat in rowerboats">
+          <td>{{rowerboat.boatname}}</td>
+          <td class="rnum">{{rowerboat.dist|mtokm}}</td>
+        </tr>      
+      </tbody> 
+    </table>
   </div>
-    
+
   <div class="seasonschart" ng-if="currentrower">
     <h2>Sæsonoversigt for {{currentrower.name}}</h2>
     <canvas id="roweractivity" class="chart chart-bar"

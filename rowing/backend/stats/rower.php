@@ -20,6 +20,14 @@ if ($q=="mates") {
     GROUP By mate 
     ORDER BY dist DESC 
     LIMIT 10";
+} else if ($q=="boats") {
+    $s="SELECT Boat.Name as boatname, SUM(Meter) as dist 
+    FROM Member me, Boat,Trip,TripMember tm
+    WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID AND Trip.BoatID=Boat.id
+    GROUP By Boat.id 
+    ORDER BY dist DESC 
+    LIMIT 10";
+//    echo $s;
 } else {
     echo "invalid query ".$q;
     exit(0);
