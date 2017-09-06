@@ -130,7 +130,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       } 
     }
     
-    this.getData('coxteams',promises);
+//    this.getData('coxteams',promises);
     this.getData('destinations',promises);
     this.getData('get_reservations',promises);
     this.getData('get_events',promises);

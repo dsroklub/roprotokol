@@ -27,7 +27,20 @@ if ($q=="mates") {
     GROUP By Boat.id 
     ORDER BY dist DESC 
     LIMIT 10";
-//    echo $s;
+} else if ($q=="destinations") {
+    $s="SELECT Trip.Destination AS destination, COUNT(Trip.id) as numtrips
+    FROM Member me,Trip,TripMember tm
+    WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID 
+    GROUP By Trip.Destination 
+    ORDER BY numtrips DESC 
+    LIMIT 10";
+} else if ($q=="triptypes") {
+    $s="SELECT TripType.Name AS triptype, COUNT(Trip.id) as numtrips
+    FROM Member me,Trip,TripMember tm,TripType
+    WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID AND TripType.id=Trip.TripTypeID
+    GROUP By TripType.id
+    ORDER BY numtrips DESC 
+    LIMIT 20";
 } else {
     echo "invalid query ".$q;
     exit(0);

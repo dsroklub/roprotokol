@@ -108,6 +108,33 @@
           <td>{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td><td class="rnum" >{{trip.distance|mtokm}}</td>
         </tr>
       </table>
+
+
+      <table class="genericlist statbox">
+        <caption>{{currentboat.name}} er roet af</caption>
+      <thead>
+        <tr><th>roer</th><th>km roet</th></tr>
+      </thead>
+      <tbody class="tbody">
+        <tr ng-repeat="rower in crew">
+          <td>{{rower.rowername}}</td>
+          <td class="rnum">{{rower.dist|mtokm}}</td>
+        </tr>      
+      </tbody> 
+    </table>
+
+      <table class="genericlist statbox">
+        <caption>{{currentboat.name}} bruges til</caption>
+        <thead>
+        <tr><th>roer</th><th>km roet</th></tr>
+        </thead>
+      <tbody class="tbody">
+        <tr ng-repeat="triptype in boat_triptypes">
+          <td>{{triptype.triptype}}</td>
+          <td class="rnum">{{triptype.numtrips}}</td>
+        </tr>      
+      </tbody> 
+      </table>
     </div>
 
     <div class="turoversigt" ng-if="tripdate">
@@ -264,7 +291,7 @@
             <tr>
 	      <td><label for="correction_triptype">Tur type</label></td>
 	      <td>
-	        <select id="correction_triptype" type="text" ng-model="correction.triptype" ng-options="item as item.name for item in triptypes" required>		
+	        <select id="correction_triptype" type="text" ng-model="correction.triptype" ng-options="item as item.name for item in triptypes" required>
 	        </select>
 	      </td>    
             </tr>
@@ -274,13 +301,15 @@
 	        <label for="correction.reason">Begrundelse</label>
               </td>
       	      <td>
-	        <input placeholder="begrundelse" autocomplete="off" id="correction.reason" name="reason" type="text" ng-model="correction.reason"  ng-minlength="3" required>
+	        <input placeholder="begrundelse" autocomplete="off" id="correction.reason" name="reason" type="text"
+                       ng-model="correction.reason"  ng-minlength="3" required>
               </td>
             </tr>
 
             <tr>
 	      <td><label for="correction.reporter">Indberetter</label></td>
-	      <td><input placeholder="indberetters navn" autocomplete="off" id="correction.reporter" name="reporter" type="text" ng-model="correction.reporter" ng-minlength="3" required></td>
+	      <td><input placeholder="indberetters navn" autocomplete="off" id="correction.reporter" name="reporter" type="text"
+                         ng-model="correction.reporter" ng-minlength="3" required></td>
             </tr>
 
 	    <tr>
@@ -288,12 +317,12 @@
 	        <button ng-show="correctionForm.$valid" class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
 	      </td>
 	      <td>
-	        <button class="big" ng-show="correctionForm.$valid" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse</button>
+	        <button class="big" ng-show="correctionForm.$valid" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse
+                </button>
                 <label ng-hide="correction.reason && correction.reporter" class="alert notready">angiv begrundelse og dit navn</label>
                 <label ng-hide="correction.distance" class="alert notready">Distance skal være positiv</label>
 	      </td>
-	    </tr>
-	    	    
+	    </tr>	    	    
           </tbody>
         </table>
       </form>
@@ -326,6 +355,33 @@
         </tr>      
       </tbody> 
     </table>
+
+    <table class="genericlist statbox">
+      <caption>{{currentrower.name}}'s destinationer</caption>
+      <thead>
+        <tr><th>Sted</th><th>gange</th></tr>
+      </thead>
+      <tbody class="tbody">
+        <tr ng-if="currentrower" ng-repeat="rowerdest in rowerdests">
+          <td>{{rowerdest.destination}}</td>
+          <td class="rnum">{{rowerdest.numtrips}}</td>
+        </tr>      
+      </tbody> 
+    </table>
+
+    <table class="genericlist statbox">
+      <caption>{{currentrower.name}}'s ror</caption>
+      <thead>
+        <tr><th>Turtype</th><th>gange</th></tr>
+      </thead>
+      <tbody class="tbody">
+        <tr ng-if="currentrower" ng-repeat="rowertriptype in rowertriptypes">
+          <td>{{rowertriptype.triptype}}</td>
+          <td class="rnum">{{rowertriptype.numtrips}}</td>
+        </tr>      
+      </tbody> 
+    </table>
+
   </div>
 
   <div class="seasonschart" ng-if="currentrower">

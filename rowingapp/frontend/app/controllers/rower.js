@@ -72,10 +72,22 @@ app.controller(
          $scope.boattrips=res.data;
        }
                                    );
-       DatabaseService.getBoatTripsAggregated($scope.currentboat,function (res) {
-         $scope.boattripsaggregated=res.data;
-       }
-                                             );
+       DatabaseService.getBoatTripsAggregated(
+         $scope.currentboat,function (res) {
+           $scope.boattripsaggregated=res.data;
+         }
+       );
+       DatabaseService.getDataNow(
+         'stats/boat','boat='+$scope.currentboat.id+"&q=rowers", function (res) {
+           $scope.crew=res.data;
+         }
+       );
+       DatabaseService.getDataNow(
+         'stats/boat','boat='+$scope.currentboat.id+"&q=triptypes", function (res) {
+           $scope.boat_triptypes=res.data;
+         }
+       );
+
        $scope.mk_chart();
      }
      
@@ -95,6 +107,15 @@ app.controller(
          $scope.rowerboats=res.data;
        }
                                               );
+
+       DatabaseService.getDataNow('stats/rower','rower='+$scope.currentrower.id+"&q=destinations", function (res) {
+         $scope.rowerdests=res.data;
+       }
+                                              );
+       DatabaseService.getDataNow('stats/rower','rower='+$scope.currentrower.id+"&q=triptypes", function (res) {
+         $scope.rowertriptypes=res.data;
+       }
+                                 );
        
        DatabaseService.getRowerTrips($scope.currentrower,function (res) {
          if (res.data.length>0) {
