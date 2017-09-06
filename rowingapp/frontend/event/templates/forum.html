@@ -8,7 +8,7 @@
 <h1 class="error" ng-hide="dbready || dbgrace">Henter data<br>vær tålmodig</h1>
 <table>
   <tr>
-    <th>Forum </th><td>
+    <th>Abonner på forum: </th><td>
       <select name="forum" id="forum" ng-model="subscription.forum"
               ng-options="forum.forum for forum in fora | filter: {role:null}">
       </select>
@@ -20,15 +20,14 @@
 </table>
 
 
-<h2>Mine abonnementer</h2>
-
 <table class="subscriptions">
-  
+  <caption>Mine abonnementer</caption>
   <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''}"  class="event"
       ng-class-odd="'oddstat'" ng-class-even="'even'"
       ng-class="{selected: current_forum == userforum}"
       >
-    <td ng-click="setCurrentForum(userforum)" uib-tooltip="vis filer for {{userforum.forum}}">
+<!--    uib-tooltip="vis filer for {{userforum.forum}}"-->
+    <td ng-click="setCurrentForum(userforum)">
       {{userforum.forum}}
     </td>
     <td>
@@ -43,10 +42,8 @@
 </table>
 
 
-<h2>{{current_forum.forum}} medlemmer:</h2>
 <div ng-show="current_forum.owner==current_user.member_id">
-  <h3>Tilføj rorere til dit forum: wait
-    {{current_forum.forum}}</h3>
+  <h3>Tilføj rorere til dit forum:  {{current_forum.forum}}</h3>
   <input placeholder="tilføj medlem" autocomplete="off" id="newforummember" name="newforummember" type="text"
          ng-model="newforummember.member"
          typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
@@ -56,10 +53,8 @@
 </div>
 
 <table>
+  <caption>{{current_forum.forum}} Medlem</caption>
   <thead>
-    <tr>
-      <th>Medlem</th>
-    </tr>
   </thead>
   <tr ng-repeat="forummember in forummembers | filter: {role:''}"  class="forummember" ng-class-odd="'oddstat'" ng-class-even="'even'">
     <td>
@@ -76,14 +71,10 @@
 </table>
 
 
-<h2>{{current_forum.forum}} filer:</h2>
 
-
-<table>
+<table class="subscriptions">
+<caption>{{current_forum.forum}} filer:</caption>
   <thead>
-    <tr>
-      <th>Fil</th>
-    </tr>
   </thead>
   <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.forum" class="event" ng-class-odd="'oddstat'" ng-class-even="'even'">
     <td>

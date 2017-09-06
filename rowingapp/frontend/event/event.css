@@ -267,6 +267,13 @@ button.statcat, button.adminbut {
    width: auto;
 }
 
+caption {
+          min-width: 20em;
+          }
+
+table {
+    margin-top: 2em;
+        } 
 
 .listmenu caption{
     background: #23aee2;
@@ -308,9 +315,9 @@ li.selected,button.selected {
 }
 
 .selected td {
-    padding: 0 0 0 0;
-    border-right: 1px solid #F1F2F7;
-    border-bottom: 1px solid #F1F2F7;
+//    padding: 0 0 0 0;
+//    border-right: 1px solid #F1F2F7;
+//    border-bottom: 1px solid #F1F2F7;
     background: #50E663;
 }
 
@@ -473,8 +480,9 @@ datetimepicker.trip-search-field ng-form div input {
     background: white;
 }
 
-.subscription {
-    font-weight: bold;
+.subscriptions caption {
+                font-weight: bold;
+                min-width:20em;
 }
 
 .topsel {
@@ -593,8 +601,11 @@ tr td {
  
 .subscriptions {
     cursor: pointer;    
+    border-radius: 1em;
+    display:inline-block;
+
 }
 
 .remove{
          color: red;
-         }
+}
