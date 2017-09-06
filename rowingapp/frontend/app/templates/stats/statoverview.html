@@ -29,7 +29,7 @@
 	    <tr ng-repeat="stat in $data track by $index" ng-class-odd="'oddstat'" > 
 	      <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
 	      <td class="rnum" data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}">{{stat.id}}</td>
-	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}"><a href="/frontend/app#!rowers?rower={{stat.id}}"> {{stat.firstname}} {{stat.lastname}}</a><img ng-repeat="year in stat.wrenches | split:','" class="wrench" title="Mangler vintervedligehold {{year}}" alt="Mangler vintervedligehold {{year}}" ng-src="/frontend/app/assets/tools/{{year | year2tool}}.svg" /></td>
+	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}"><a href="{{burl}}#!rowers?rower={{stat.id}}"> {{stat.firstname}} {{stat.lastname}}</a><img ng-repeat="year in stat.wrenches | split:','" class="wrench" title="Mangler vintervedligehold {{year}}" alt="Mangler vintervedligehold {{year}}" ng-src="{{burl}}assets/tools/{{year | year2tool}}.svg" /></td>
 	      <td data-title="'Distance'" sortable="'distance'" class="rnum">{{stat.distance|mtokm}}</td>
 	    </tr>
 	  </tbody>
@@ -57,7 +57,7 @@
 	  <tbody>
 	    <tr ng-repeat="boatstat in $data" ng-class-odd="'oddstat'"> 
 	      <td sortable="'rank'" data-title="'Nr'">{{boatstat.rank}} </td>
-	      <td data-title="'boatname'" sortable="'boatname'"><a href="/frontend/app#!rowers?boat={{boatstat.id}}"> {{boatstat.boatname}}</a></td>
+	      <td data-title="'boatname'" sortable="'boatname'"><a href="{{burl}}#!rowers?boat={{boatstat.id}}"> {{boatstat.boatname}}</a></td>
 	      <td data-title="'boat_type'" sortable="'boat_type'"> {{boatstat.boat_type}}</td>
 	      <td class="rnum" data-title="'num_trips'" sortable="'num_trips'"> {{boatstat.num_trips}}</td>
 	      <td data-title="'Distance'" sortable="'distance'" class="rnum">{{boatstat.distance|mtokm}}</td>

@@ -4,9 +4,10 @@
 
 app.controller(
   'BoatCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log) {
+  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log','$location',
+   function ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log, $location) {
      $scope.allboatdamages=[];
+     $scope.burl=$location.$$absUrl.split("ind/")[0];
 
      $scope.isName = function(n) {
        if (!n) {

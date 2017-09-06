@@ -6,10 +6,11 @@ var rabbitComperator = function(mid) {
 
 app.controller(
   'StatCtrl',
-  ['$scope', 'DatabaseService', 'NgTableParams', '$filter',
-   function ($scope,   DatabaseService,   NgTableParams, $filter) {
+  ['$scope', 'DatabaseService', 'NgTableParams', '$filter','$log','$location',
+   function ($scope,   DatabaseService,   NgTableParams, $filter, $log, $location) {
           
      $scope.seasons=[];
+     $scope.burl=$location.$$absUrl.split("statoverview/")[0];
      $scope.currentseason=new Date().getFullYear();
      $scope.statseason=$scope.currentseason;
      for (var y=$scope.statseason;y>2009;y--) {
