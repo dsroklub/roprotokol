@@ -25,7 +25,7 @@
       </thead>
       <tbody>
         <tr ng-repeat-start="message in messages"  ng-class="{selected: currentmessage == message}"
-            ng-click="setCurrentMessage(message)" class="message" ng-class-odd="'oddstat'">
+            ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >
           <td>{{message.subject}}</td>
           <td>{{message.source}}</td>
           <td>{{message.forum.forum}}</td>

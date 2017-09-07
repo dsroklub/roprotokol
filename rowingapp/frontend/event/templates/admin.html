@@ -12,20 +12,22 @@
 </ng-form>
 
 
-<h2>Eksisterende fora mm</h2>
-<ul>
-    <li name="forum" id="forum"  ng-repeat="forum in fora"> 
-      {{forum.forum}}
-  </li>
-</ul>
-
-<h2>Læg en fil op</h2>
+<table>
+    <caption>Eksisterende fora mm</caption>
+    <tbody class="tbody">
+      <tr name="forum" id="forum"  ng-repeat="forum in fora">
+        <td>
+          {{forum.forum}}
+          </td>
+      </tr>
+    </tbody>         
+</table>
 
 <form name="upform">
   <fieldset>
     <table>
       <tr>
-        <legend>Tilføj en fil til forum</legend>
+        <caption>Tilføj en fil til forum</caption>
         <td>Fil</td>
         <td><input type="file" ngf-validate="{size: {max: '5MB', min: '10B'}}"
                    ngf-max-files="5" ng-change="file_selected()"
@@ -38,7 +40,7 @@
         <td>forum:</td>
         <td>
           <select name="uploadforum" id="uploadforum" 
-                     ng-options="forum as forum.name for forum in fora" ng-model="forumfile.forum" required>
+                     ng-options="forum as forum.forum for forum in fora" ng-model="forumfile.forum" required>
           </select>
         </td>
       </tr>

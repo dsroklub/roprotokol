@@ -23,7 +23,7 @@
 <table class="subscriptions">
   <caption>Mine abonnementer</caption>
   <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''}"  class="event"
-      ng-class-odd="'oddstat'" ng-class-even="'even'"
+      ng-class-odd="'odd'" ng-class-even="'even'"
       ng-class="{selected: current_forum == userforum}"
       >
 <!--    uib-tooltip="vis filer for {{userforum.forum}}"-->
@@ -56,7 +56,7 @@
   <caption>{{current_forum.forum}} Medlem</caption>
   <thead>
   </thead>
-  <tr ng-repeat="forummember in forummembers | filter: {role:''}"  class="forummember" ng-class-odd="'oddstat'" ng-class-even="'even'">
+  <tr ng-repeat="forummember in forummembers | filter: {role:''}"  class="forummember" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
       {{forummember.name}}
     </td>
@@ -76,7 +76,7 @@
 <caption>{{current_forum.forum}} filer:</caption>
   <thead>
   </thead>
-  <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.forum" class="event" ng-class-odd="'oddstat'" ng-class-even="'even'">
+  <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.forum" class="event" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
       <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}">
       {{file.filename}}</a>

@@ -118,7 +118,7 @@ eventApp.controller(
                       );
      }
 
-     $scope.event_add_member = function (rights) {
+     $scope.is_cox = function (rights) {
        var is_cox=0;
        for (var i=0;i< rights.length;i++ ) {
          if (rights[i].menber_rigth="cox") {
@@ -177,6 +177,18 @@ eventApp.controller(
        })
      }
      
+
+     $scope.accept_event_participant = function(em) {
+       em.event_id=$scope.currentevent.event_id;
+       var sr=DatabaseService.createSubmit("event_accept_participant",em);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           em.role="member";
+         } else {
+           alert(status.error);
+         }
+       });       
+     }
 
      $scope.include_member = function(eventmember) {
        eventmember.event=$scope.currentevent.event_id;
@@ -243,17 +255,6 @@ eventApp.controller(
        });       
      }
 
-     $scope.accept_event_participant = function(em) {
-       em.event_id=$scope.currentevent.event_id;
-       var sr=DatabaseService.createSubmit("event_accept_participant",em);
-       sr.promise.then(function(status) {
-	 if (status.status =='ok') {
-           em.role="member";
-         } else {
-           alert(status.error);
-         }
-       });       
-     }
 
      $scope.eventleave = function() {
        $log.debug("leave");

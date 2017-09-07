@@ -25,6 +25,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
     width: auto;
     color: #0088C0;
+    background:white;                     
     display:table;
     border-radius: 5px;
     padding: 2px;
@@ -117,7 +118,8 @@ td.usage {
 
 input {
     max-width:50em;
-    background: ghostwhite;
+//        background: ghostwhite;
+    background: #fffed5;
 }
 
 fieldset {
@@ -231,7 +233,8 @@ button.statcat, button.adminbut {
 
 .baselayout,
 .genericmenu h2 {
-    background: #23aee2;
+    background: #0088C0;
+ //   background: #23aee2;
     padding: 10pt;
     color: white;
     font-size: 10pt;
@@ -242,7 +245,7 @@ button.statcat, button.adminbut {
 
 .baselayout thead tr th {
    padding: 10pt;
-   background: #eb098a;
+   background: #0088C0;
    cursor: default;                          
 }
 
@@ -279,31 +282,13 @@ table {
     margin-top: 2em;
         } 
 
-.listmenu caption{
-    background: #23aee2;
-    padding: 10pt;
-    font-size: 10pt;
-    font-weight: 400;
-    border-bottom: 1px solid white;
-    border-radius: 5px 5px 0 0;
-}
-
-.listmenu table caption {
-    background: #23aee2;
-    padding: 10pt;
-    color: white;
-    font-size: 10pt;
-    font-weight: 400;
-    border-bottom: 1px solid white;
-    border-radius: 5px 5px 0 0;
-}
 
 table caption {
-    background: #23aee2;
-    color: white;
-    font-size: 12pt;
-    border-radius: 5px 5px 0 0;
-    text-align: center;
+   background: #0088C0;
+   color: white;
+   font-size: 12pt;
+   border-radius: 5px 5px 0 0;
+   text-align: center;
 }
 
 li.selected,button.selected {
@@ -337,28 +322,23 @@ li.selected,button.selected {
     border-bottom: 1px solid white;
     border-radius: 1.5em 1.5em 0 0;
 }
-.checkout-form form {
-    padding: 1pt;
-    background: white;
-}
-.checkout-form label {
-    font-weight: 400;
-    color: #555;
-}
 
 .even {
-    background: yellow;
+  background: #ffffaa;
+  color: #0088C0;
 }
 
-.oddstat {
-    background: #FFAA88;
+.odd {
+  background: #FFDDAA;
+  color: #0088C0;
 }
 .error {
     color: red;
 }
 
 .message {
-    color: black;
+           color: black;
+           background: blue;
 }
 
 .numin  {
@@ -450,7 +430,7 @@ datetimepicker.ng-empty ng-form div input {
 }
 
 .ng-pristine {
-    background: white;
+    background: #fffed5;
 }
 .error {
     color: red;
@@ -490,7 +470,6 @@ datetimepicker.trip-search-field ng-form div input {
 }
 
 .topsel {
-    xbackground: green;
     background:#BFFFBF;
     border-radius: 0.8em;
     color: black !important;
@@ -505,18 +484,6 @@ datetimepicker.trip-search-field ng-form div input {
     color: black;
 }
 
-.listbox {
-    background-color: #ddddff;
-    display:inline-block;
-    border-radius: 0.4em;
-    padding: 1em;
-}
-
-.listbox th {
-    padding-left: 1em;
-    padding-right: 1em;
-    align:center;
-}
 
 textarea.signuptext {
     width:40%;
@@ -537,7 +504,8 @@ textarea.signuptext {
     margin-left: 2em;
     padding:0.4em;
     border-radius: 0.8em;
-    border: 2px solid #23aee2;
+                background: #76e093;
+                color: black;
     max-width: 30em;
 }
 
@@ -613,3 +581,13 @@ tr td {
 .remove{
          color: red;
 }
+
+.user {
+        background:#d2f6d2;
+        } 
+
+
+.forowner {
+            background:#9ae4b6;
+            color: black;
+        }

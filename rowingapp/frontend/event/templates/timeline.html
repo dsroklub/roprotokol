@@ -18,14 +18,14 @@
   </thead>
   <tbody>
     <tr ng-repeat="ev in events" ng-click="setCurrentEvent(ev)"  ng-class="{selected: currentevent == ev}"
-        class="event" ng-class-odd="'oddstat'">
+        class="event" ng-class-odd="'odd'" ng-class-even="'even'">
       <td>{{ev.name}}</td>
       <td>{{ev.start_time | date:"d. MMM yyyy"}}</td>
       <td>{{ev.distance|mtokm}} km</td>
       <td ng-show="ev.open">åben</td>
       <td ng-hide="ev.open">lukket</td>
       <td ng-if="ev.owner==current_user.member_id">
-        <pre><i uib-tooltip="du styrer denne begivenhed" class="fa fa-user"></i></pre>
+        <pre class=user><i uib-tooltip="du styrer denne begivenhed" class="fa fa-user"></i></pre>
       </td>
     </tr>
   </tbody>
@@ -57,8 +57,9 @@
   </button>
   <button class="green" ng-show="is_event_member()" ng-click="eventleave()">
     Frameld mig
-  </button><br>
-  <div ng-show="currentevent.owner==current_user.member_id">
+  </button>
+  <br>
+  <div ng-show="currentevent.owner==current_user.member_id" class="forowner">
 
     <select ng-model="currentevent.status" ng-change="set_event_status(currentevent)">
       <option value="on">Aktiv</option>
@@ -89,10 +90,7 @@
       <tr ng-repeat="em in currentevent.participants">
         <td>{{em.name}}   <i uib-tooltip="styrmand" ng-if="em.is_cox>0" class="fa fa-graduation-cap"></i></td>
         <td class="role">{{em.role}}</td>
-        <td ng-show='currentevent.owner==current_user.member_id && em.role=="supplicant"'>
-          <button class="submit"  ng-click="include_member(em)"> medtag</button>
-        </td>
-        <td>
+        <td ng-show='currentevent.owner==current_user.member_id'>
           <i ng-click="accept_event_participant(em)" ng-show="em.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
           <i ng-click="accept_event_participant(em)" ng-show="em.role=='wait'" uib-tooltip="optag roer fra ventelisten"
              class="fa fa-plus"></i>
@@ -105,5 +103,6 @@
 </div>
 
 <!--pre>
+  {{currentevent.participants|json}}
   cux {{currentevent|json}}
 </pre-->

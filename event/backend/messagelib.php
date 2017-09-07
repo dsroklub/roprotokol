@@ -29,11 +29,11 @@ function post_message($toEmails,$subject,$message) {
     
     if (PEAR::isError($mail_status)) {
         $res["status"]="error";
-        $res["message"] = "Kunne ikke sende besked" . $mail_status->getMessage();
+        $error="Kunne ikke sende besked: " . $mail_status->getMessage();
     }
         
     if ($error) {
-        error_log($error);
+        error_log("messagelib: $error");
         $res['message']=$message;
         $res['status']='error';
         $res['error']=$error;
