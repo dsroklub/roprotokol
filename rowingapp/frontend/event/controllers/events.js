@@ -338,6 +338,7 @@ eventApp.controller(
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
            $log.debug("settings updated");
+           $scope.publicsetting.$setPristine();
          } else {
            alert(status.error);
          }

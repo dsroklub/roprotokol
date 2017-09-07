@@ -1,11 +1,15 @@
 /* Generic */
+
 html, body {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 10pt;
+             /*    background: #F1F2F7;
     color: #555;
-    background: #F1F2F7;
+*/
+    background: #FFFFFF;
+    color: #0088C0;
     font-weight: 400;
 }
 
@@ -20,7 +24,7 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
     width: auto;
-    background: #eaeaa3;
+    color: #0088C0;
     display:table;
     border-radius: 5px;
     padding: 2px;
@@ -163,7 +167,7 @@ input.big {
 }
 .menu {
     list-style: none;
-    background: #879b15;
+    background: #0088C0;
     padding: 0 10pt;
     margin: 0;
     width: 100%
