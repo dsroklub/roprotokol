@@ -1,7 +1,10 @@
 <h1 class="error" ng-hide="dbready || dbgrace">Henter data<br>vær tålmodig</h1>
 <h2>Send en besked</h2>
 <ng-form name="messageform">
-  <select class="forumselect" name="forum" id="forum" ng-model="message.forum" ng-options="forum.forum for forum in fora" required> </select><br>
+  <select class="forumselect" name="forum" id="forum" ng-model="message.forum" ng-options="forum.forum for forum in fora" required>
+    <option value="" disabled selected="selected">vælg forum</option>
+  </select>
+  <br>
   <input class="forumselect" type="text" placeholder="emne" id="messagesubject" ng-model="message.subject" required>
   <br>
 <textarea class="forumselect" placeholder="besked" id="message_body" type="text" ng-model="message.body" required></textarea>
@@ -27,14 +30,14 @@
         <tr ng-repeat-start="message in messages"  ng-class="{selected: currentmessage == message}"
             ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >
           <td>{{message.subject}}</td>
+          <td>{{message.sender}}</td>
           <td>{{message.source}}</td>
-          <td>{{message.forum.forum}}</td>
           <td>{{message.created |date:"d. MMM yyyy"}}</td>
           <td>{{message.body |limitTo :20}}...</td>
           <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
         </tr>
         <tr ng-repeat-end ng-if="currentmessage == message">
-          <td class="popempty"></td><td class="popdown" colspan="4"> <pre  ng-bind=message.body></pre> </td>
+          <td class="popempty"></td><td class="popdown" colspan="4"> <pre class="popdown" ng-bind=message.body></pre> </td>
         </tr>
       </tbody>
     </table>

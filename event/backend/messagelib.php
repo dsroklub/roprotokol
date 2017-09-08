@@ -10,6 +10,7 @@ function post_message($toEmails,$subject,$message) {
     global $rodb;
     $res=array ("status" => "ok");
     $error=null;
+    $warning=null;
     $smtp = Mail::factory('sendmail', array ());
     $mail_headers = array(
         'From'                      => "Roaftaler i Danske Studenters Roklub <elgaard@agol.dk>",
@@ -28,8 +29,7 @@ function post_message($toEmails,$subject,$message) {
     $mail_status = $smtp->send($toEmails, $mail_headers, $message);
     
     if (PEAR::isError($mail_status)) {
-        $res["status"]="error";
-        $error="Kunne ikke sende besked: " . $mail_status->getMessage();
+        $warning="Kunne ikke sende besked som email: " . $mail_status->getMessage();
     }
         
     if ($error) {
@@ -37,6 +37,9 @@ function post_message($toEmails,$subject,$message) {
         $res['message']=$message;
         $res['status']='error';
         $res['error']=$error;
+    } else if ($warning) {
+        $res["status"]="warning";
+        $res['warning']=$warning;
     }
     return $res;
 }

@@ -1,326 +1,225 @@
-/* Generic */
-
 html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 10pt;
-             /*    background: #F1F2F7;
-    color: #555;
-*/
-    background: #FFFFFF;
-    color: #0088C0;
-    font-weight: 400;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10pt;
+  background: #FFFFFF;
+  color: #0088C0;
+  font-weight: 400;
 }
 
 button {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 a {
-    color: #333;
-    text-decoration: none;
+  color: #333;
+  text-decoration: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    width: auto;
-    color: #0088C0;
-    background:white;                     
-    display:table;
-    border-radius: 5px;
-    padding: 2px;
-}
-
-ul.teams {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: inline-block;
-    background: #dfcfb2 !important;
-}
-
-.tools ul {
-    list-style-type: none;
-    padding: 0;
-    margin-left: 2em;
-    color: blue    max-width: 29%;
-    position :fixed;
-}
-
-.tools a {
-    color: red;
-    font-weight: bold;
+  width: auto;
+  color: #0088C0;
+  background:white;                     
+  display:table;
+  border-radius: 5px;
+  padding: 2px;
 }
 
 pre.ng-binding {
     /* display: none; */
 }
 *:focus {
-    outline: 0;
+  outline: 0;
 }
 
 button {
-    -webkit-appearance: none;
-    background: none;
-    border-radius: 5px;
-    border: 0;
-    padding: 4pt 10pt;
-    margin-top: 5pt;
-    border: 1px solid #ccc;
+  webkit-appearance: none;
+  background: none;
+  border-radius: 5px;
+  border: 0;
+  padding: 4pt 10pt;
+  margin-top: 5pt;
+  border: 1px solid #ccc;
 }
 
 button:hover {
-    /*    color: #23AEE2;*/
-    /*    border: 1px solid #23AEE2;*/
+  /*    color: #23AEE2;*/
+  /*    border: 1px solid #23AEE2;*/
 }
+
 button i {
-    margin-right: 5pt;
+  margin-right: 5pt;
 }
+
 button.red {   
-    border: 1px solid #FF6C60;
-    color: #FF6C60;
-    background: #171717;
-    font-size: 16pt;
+  border: 1px solid #FF6C60;
+  color: #FF6C60;
+  background: #171717;
+  font-size: 16pt;
 }
 button.submit, button.green, button.login {   
-    border: 1px solid #3ECBBF;
-    background: #028000;
-    color: #FFFFFF;
-    font-size: 16pt;
+  border: 1px solid #3ECBBF;
+  background: #028000;
+  color: #FFFFFF;
+  font-size: 16pt;
 }
 button.header, tr.header {   
-    border: 1px solid #000000;
-    color: #FFFFFF;
-    background: #75c1be;
-}
-button.klar {   
-    border: 1px solid #3ECBBF;
-    color: #000000;
-    background:#F1FFEF;
-    padding: 1pt 3pt;
-    margin-top: 2px !important;
-    margin-bottom: 2px !important;
-}
-
-
-button.yellow {
-    color: #f0ce4e;
-    border: 1px solid #f0ce4e;
+  border: 1px solid #000000;
+  color: #FFFFFF;
+  background: #75c1be;
 }
 
 th {
-    padding: 0.5em;
+  padding: 0.5em;
 }
 
 td.usage {
-    max-width:14pt;
+  max-width:14pt;
 }
 
 input {
-    max-width:50em;
-//        background: ghostwhite;
+  max-width:50em;
+  //        background: ghostwhite;
     background: #fffed5;
 }
 
 fieldset {
-    background: ghostwhite;
+  background: ghostwhite;
 }
-
 
 button.big,button.action,input.big {
-    background: #D6FFB6; !important;
-    border: 2px solid #000000;
-    color: #000000;
-    margin-top:0px;
+  background: #D6FFB6; !important;
+  border: 2px solid #000000;
+  color: #000000;
+  margin-top:0px;
 }
-
-button.minor {
-    color: #000000;
-    font-size: 8pt;
-    background: #FFFAC5; !important;
-    border: 1px solid #000000;
-    padding 4px;
-    margin-left: 4px;
-    margin-top:0px;
-}
-
 
 button.action {
-    color: #000000;
-    padding: 0pt 8pt;
+  color: #000000;
+  padding: 0pt 8pt;
 }
 
 input.big {
-    color: #000000;
+  color: #000000;
 }
-
-
-/* Custom */
 .menuholder {
-    margin: 0;
+  margin: 0;
 }
 .menu li.logo {
-    padding: 0;
-    padding-top: 3pt;
-    padding-left: 4pt;
+  padding: 0;
+  padding-top: 3pt;
+  padding-left: 4pt;
 }
 .logo img {
-    height: 30pt;
+  height: 30pt;
 }
 .menu {
-    list-style: none;
-    background: #0088C0;
-    padding: 0 10pt;
-    margin: 0;
-    width: 100%
+  list-style: none;
+  background: #0088C0;
+  padding: 0 10pt;
+  margin: 0;
+  width: 100%
  }
 .maxwidth {
-    width: 100%
+  width: 100%
 }
 
 .description {
-    width: 50em;
-    background: ghostwhite;
+  width: 50em;
+  background: ghostwhite;
 }
 .tripdescription {
-    background: ghostwhite;
-    white-space:pre-wrap;
+  background: ghostwhite;
+  white-space:pre-wrap;
 }
 
 .menu li {
-    display: inline-block;
-    padding: 4pt 4pt;
-    margin: 0;
-    cursor: pointer;
-    vertical-align: top;
+  display: inline-block;
+  padding: 4pt 4pt;
+  margin: 0;
+  cursor: pointer;
+  vertical-align: top;
 }
 .menu li a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 .menu li:hover a {
-    color: #d4d4c8;
-}
-.quarter {
-    color: green;
-    font-size: 16pt;
-    margin-right: 4pt;
+  color: #d4d4c8;
 }
 
 .menu li i {
-    font-size: 12pt;
-    margin-right: 4pt;
+  font-size: 12pt;
+  margin-right: 4pt;
 }
 .menu li:hover i {
-    color: #ede511;
+  color: #ede511;
 }
 
 .main {
-    margin: 0;   
-    padding: 4pt 6pt;
+  margin: 0;   
+  padding: 4pt 6pt;
 }
 
 .prompt {
-    display:inline-block;
+  display:inline-block;
 }
 
-button.statcat, button.adminbut {
-    background: #EEC88E;
-    margin: 3pt;
-}
-
-
-
-.baselayout,
-.genericmenu h2 {
-    background: #0088C0;
- //   background: #23aee2;
-    padding: 10pt;
-    color: white;
-    font-size: 10pt;
-    font-weight: 400;
-    border-radius: 5px 5px 0 0;
-    cursor: pointer;
+.baselayout {
+  background: #0088C0;
+  padding: 10pt;
+  color: white;
+  font-size: 10pt;
+  font-weight: 400;
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
 }
 
 .baselayout thead tr th {
-   padding: 10pt;
-   background: #0088C0;
-   cursor: default;                          
+  padding: 10pt;
+  background: #0088C0;
+  cursor: default;                          
 }
 
 .baselayout thead th:first-child {
-    border-radius: 5px 0 0 0;
+  border-radius: 5px 0 0 0;
 }
-
 
 .baselayout thead th:last-child {
-    border-radius: 0 5px 0 0;
-}
-
-
-.genericmenu ul {
-    background: white;
-}
-.genericmenu ul li {
-    cursor: pointer;
-}
-
-.genericmenu ul li:hover {
-    background: #57C8F2;
-}
-
-.genericmenu {
-   width: auto;
+  border-radius: 0 5px 0 0;
 }
 
 caption {
-          min-width: 20em;
-          }
+  min-width: 20em;
+}
 
 table {
-    margin-top: 2em;
-        } 
-
+  margin-top: 2em;
+} 
 
 table caption {
-   background: #0088C0;
-   color: white;
-   font-size: 12pt;
-   border-radius: 5px 5px 0 0;
-   text-align: center;
+  background: #0088C0;
+  color: white;
+  font-size: 12pt;
+  border-radius: 5px 5px 0 0;
+  text-align: center;
 }
 
 li.selected,button.selected {
-    background: #50E663 !important;
+  background: #50E663 !important;
 }
 .rnum {
-    text-align: right!important;
-    padding-right: 6px;
+  text-align: right!important;
+  padding-right: 6px;
 }
 .togg {
-    text-align: center;
-    padding: 2px;
+  text-align: center;
+  padding: 2px;
 }
 
 .selected td {
-//    padding: 0 0 0 0;
-//    border-right: 1px solid #F1F2F7;
-//    border-bottom: 1px solid #F1F2F7;
     background: #50E663;
-}
-
-.deletion  {
-    background: #F5B8B8;
-}
-.checkout-form h2 {
-    background: #3ECBBF;
-    padding: 10pt;
-    color: white;
-    font-size: 10pt;
-    font-weight: 400;
-    border-bottom: 1px solid white;
-    border-radius: 1.5em 1.5em 0 0;
 }
 
 .even {
@@ -333,180 +232,145 @@ li.selected,button.selected {
   color: #0088C0;
 }
 .error {
-    color: red;
+  color: red;
 }
 
 .message {
-           color: black;
-           background: blue;
 }
 
 .numin  {
-    max-width: 3em;
-    text-align: right!important;
-    
+  max-width: 3em;
+  text-align: right!important;  
 }
 
-input[type=number]::-webkit-inner-spin-button {  
-    opacity: 1;
-}
+/* input[type=number]::-webkit-inner-spin-button {   */
+/*   opacity: 1; */
+/* } */
 
 select  {
-    border-radius: 1.5empx;
-    border: 1px solid #ccc;
-    padding: 3pt;
-    margin-bottom: 0pt;
-    background-color: #FFB992;
-    border-radius: 5px;
+  border-radius: 1.5empx;
+  border: 1px solid #ccc;
+  padding: 3pt;
+  margin-bottom: 0pt;
+  background-color: #FFB992;
+  border-radius: 5px;
 }
 
-.leftpane {
-    float:left;
-    width:70%;
-}
-
-.toppane {
-    width: 100%;
-    clear:both;
-}
 .alert {
-    color: #f00;
-}
-
-.datealert {
-    background: #f00;
-}
-
-.toppopup .uib-datepicker-popup {
-    top: 0px!important;
+  color: #f00;
 }
 
 .debug {
-    width:100%;
+  width:100%;
 }
 
 button[disabled], html input[disabled] {
-    cursor: default;
-    background: #808080 !important;
-    pointer-events: none;
+  cursor: default;
+  background: #808080 !important;
+  pointer-events: none;
 }
-.ok,.degree {
-    text-align:center;
+.ok {
+  text-align:center;
 }
-
 
 textarea {
-           resize: vertical;
-           width: 35em;
+  resize: vertical;
+  width: 35em;
 }
 
 .event_comment {
-           width: 100%;
-           height: 8em;
+  width: 100%;
+  height: 8em;
 }
 
 .uib-time input {
-    width: 2em;
+  width: 2em;
 }
 
 .uib-timepicker tr td {
-    padding : 0px;
+  padding : 0px;
 }
 
-
 .form-control {
-    padding: 0px;
+  padding: 0px;
 }
 
 .tbody {
-    background : #FFD;
+  background : #FFD;
 }
 select.ng-invalid, input.ng-invalid, textarea.ng-invalid {
-    background: #FCC;
+  background: #FCC;
 }
 
 datetimepicker.ng-empty ng-form div input {
-    background: #FCC;
+  background: #FCC;
 }
 
 .ng-pristine {
-    background: #fffed5;
+  background: #fffed5;
 }
 .error {
-    color: red;
-    background:white;
+  color: red;
+  background:white;
 }
 .widget-clock .time {
-    font-size: 2.0em;
-    margin: 0;
-    color: yellow;
+  font-size: 2.0em;
+  margin: 0;
+  color: yellow;
 }
 
 .hours {
-    margin-left: 4em;
-    font-size: 1.0em;
+  margin-left: 4em;
+  font-size: 1.0em;
 }
 
 .uib-datepicker tr td {
-    background: #DAD3D3;
-    padding: 0px;
+  background: #DAD3D3;
+  padding: 0px;
 }
 
 .uib-datepicker button {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 .uib-daypicker button {
-    margin: 0px;
+  margin: 0px;
 }
 
 datetimepicker.trip-search-field ng-form div input {
-    background: white;
+  background: white;
 }
 
 .subscriptions caption {
-                font-weight: bold;
-                min-width:20em;
+  font-weight: bold;
+  min-width:20em;
 }
 
 .topsel {
-    background:#BFFFBF;
-    border-radius: 0.8em;
-    color: black !important;
-    border: 1px solid yellow;
+  background:#BFFFBF;
+  border-radius: 0.8em;
+  color: black !important;
+  border: 1px solid yellow;
 }
 
 .topsel a {
-    color: black !important;
+  color: black !important;
 }
 
 .topsel i {
-    color: black;
+  color: black;
 }
 
-
-textarea.signuptext {
-    width:40%;
-    vertical-align: top;
-    align:center;
-}
-
-.nottoday {
-	  background: #bbbbaa;    
-}
-.acts {
-    display: inline;
-}
 .eventdetails {
-    display:inline-block;
-    vertical-align:top;
-    cursor: pointer;
-    margin-left: 2em;
-    padding:0.4em;
-    border-radius: 0.8em;
-                background: #76e093;
-                color: black;
-    max-width: 30em;
+  display:inline-block;
+  vertical-align:top;
+  cursor: pointer;
+  margin-left: 2em;
+  padding:0.4em;
+  border-radius: 0.8em;
+  background: #76e093;
+  color: black;
+  max-width: 30em;
 }
 
 .leftlist {
@@ -519,9 +383,9 @@ tr td {
 
 .forumselect {
   vertical-align: text-bottom;
-               font-size: x-large;
-               max-width:100%;
-               }
+  font-size: x-large;
+  max-width:100%;
+}
 
 #messagesubject {
   vertical-align: text-bottom;
@@ -542,7 +406,7 @@ tr td {
   border-right: 2px;
   border-top: 0px;                 
   border-radius:0.3em;         
-  background: white;
+  background: #ffffa0;
   color: black;
 }
 
@@ -551,43 +415,39 @@ tr td {
   background: #50E663;
 }
 
-
 .generate {
   background: #43d4eb;
 }
 
-
 .role {
-    color: blue;
+  color: blue;
 }
 
 .selectedmessage {
-    float:left;
-    margin-left: 1em;
-    border-radius: 5px;
-    display:inline-block;
-    border: 2px solid #ccc;
-    background: #c6efd7;
-    vertical-align: top;
+  float:left;
+  margin-left: 1em;
+  border-radius: 5px;
+  display:inline-block;
+  border: 2px solid #ccc;
+  background: #c6efd7;
+  vertical-align: top;
 }
  
 .subscriptions {
-    cursor: pointer;    
-    border-radius: 1em;
-    display:inline-block;
-
+  cursor: pointer;    
+  border-radius: 1em;
+  display:inline-block;
 }
 
 .remove{
-         color: red;
+  color: red;
 }
 
 .user {
-        background:#d2f6d2;
-        } 
-
+  background:#d2f6d2;
+} 
 
 .forowner {
-            background:#9ae4b6;
-            color: black;
-        }
+  background:#9ae4b6;
+  color: black;
+}

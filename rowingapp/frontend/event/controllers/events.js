@@ -276,14 +276,18 @@ eventApp.controller(
      $scope.messagesend = function() {
        var sr=DatabaseService.createSubmit("send_forum_message",$scope.message);
        sr.promise.then(function(status) {
-	 if (status.status =='ok') {
-           $log.debug("forum created");
-           $scope.message.source="Mig";
-           $scope.message.created=new Date().toISOString();
-           $scope.messages.push($scope.message);
-           $scope.message={};
-         } else {
+	 if (status.status == 'error') {
            alert(status.error);
+         } else {
+           $log.debug("forum message sent");
+           $scope.message.sender="Mig";
+           $scope.message.source=$scope.message.forum.forum;
+           $scope.message.created=new Date().toISOString();
+           $scope.messages.splice(0,0,$scope.message);
+           $scope.message={};
+         }
+         if (status.status == 'warning') {
+           alert(status.warning);
          }
        });
      }
