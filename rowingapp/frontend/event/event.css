@@ -281,7 +281,7 @@ textarea {
 }
 
 .event_comment {
-  width: 100%;
+/*  width: 100%; */
   height: 8em;
 }
 
@@ -456,4 +456,8 @@ tr td {
 .forowner {
   background:#9ae4b6;
   color: black;
+}
+
+datetimepicker.ng-empty ng-form div input {
+    background: #e9ff91;
 }

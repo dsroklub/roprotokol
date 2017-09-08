@@ -19,7 +19,7 @@
       </td>
     </tr>
 
-    <tr><th>Navn</th><td> <input type="text" id="owner_in" ng-model="newevent.name" required></td></tr>
+    <tr><th>Turen hedder</th><td> <input type="text" id="owner_in" ng-model="newevent.name" required></td></tr>
     <tr><th>Turen starter</th><td> <input type="text" id="owner_in" ng-model="newevent.location" required></td></tr>
     
     <tr>
@@ -76,7 +76,7 @@
            close-text="Vælg"
            clear-text="nulstil"
            date-options="dateOptions"
-          show-meridian="false"
+           show-meridian="false"
            data-ng-model="newevent.starttime"
            >
         </datetimepicker>
@@ -98,7 +98,13 @@
     </td>
     </tr>
 
-    <tr><th>Beskrivelse<br><button class="generate" ng-click="eventmessage()">Generer</button></th>
+    <tr>
+      <th>
+        Beskrivelse:<br>
+        <button class="generate" ng-click="eventmessage()">Generer</button>
+        <br>
+        og tilret
+      </th>
       <td>
         <textarea placeholder="beskriv turen/arrangementet" class="event_comment" type="text" ng-model="newevent.comment">
         </textarea>
