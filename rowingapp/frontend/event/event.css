@@ -196,7 +196,9 @@ caption {
 
 table {
   margin-top: 2em;
-} 
+}
+
+
 
 table caption {
   background: #0088C0;
@@ -289,6 +291,10 @@ textarea {
 
 .uib-timepicker tr td {
   padding : 0px;
+}
+
+.uib-timepicker {
+  margin-top: 0em;
 }
 
 .form-control {
