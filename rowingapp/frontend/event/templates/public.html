@@ -23,8 +23,7 @@ Din offentlige DSR side, som kan ses af alle er:
 
 <h2>Vælg hvad andre kan se på din offentlige side:</h2>
 <form name="publicsetting">
-  <table>
-    
+  <table>    
     <tr><th>Offentlig profil</th>
       <td><input type="checkbox" id="public" ng-model="member_setting.is_public" ng-true-value="1" ng-false-value="0" ></td></tr>
     
@@ -36,14 +35,23 @@ Din offentlige DSR side, som kan ses af alle er:
       <th>Vis mine aktiviteter i DSR</th>
       <td> <input type="checkbox" id="status" ng-model="member_setting.show_activities" ng-true-value="1" ng-false-value="0" ></td></tr>
     
-    <tr><td>
-   <button ng-disabled="publicsetting.$pristine" class="green"  ng-click="member_setting_update()">Opdater</button>
-   <!--pre>
-     {{publicsetting|json}}
-   </pre-->
-</td>
- </tr>
-</table>
+    <tr>
 
+    <tr>
+      <th>Hver gang jeg går i land send en email til: </th>
+      <td> <input type="email" id="notification_email" ng-model="member_setting.notification_email"></td>
+      <td> <i class="fa fa-remove" ng-click="emailflush()"></i></td>
+    </tr>
+    
+    <tr>
+      
+      <td>
+        <button ng-disabled="publicsetting.$pristine || publicsetting.$invalid" class="green"  ng-click="member_setting_update()">Opdater</button>
+        <!--pre>
+            {{publicsetting|json}}
+            </pre-->
+      </td>
+    </tr>
+  </table>
 </form>
 

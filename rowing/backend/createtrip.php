@@ -10,7 +10,7 @@ $error=null;
 error_log(" Create trip $data");
 
 $rodb->begin_transaction();
-if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) { 
+if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) {
   $stmt->bind_param('i', $newtrip->boat->id);
   $stmt->execute();
   $result= $stmt->get_result();

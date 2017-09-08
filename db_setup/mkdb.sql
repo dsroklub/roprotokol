@@ -188,6 +188,9 @@ CREATE TABLE Member (
   Initials char(10),
   JoinDate DateTime,
   RemoveDate DateTime,
+  Email VARCHAR(255),
+  ShowEmail VARCHAR(255),
+  Gender       INTEGER,
   KommuneKode INTEGER,
   CprNo Boolean,
   PRIMARY KEY (id),
@@ -681,6 +684,7 @@ CREATE TABLE member_setting (
   is_public BOOLEAN NOT NULL DEFAULT FALSE,
   show_status BOOLEAN NOT NULL DEFAULT FALSE,
   show_activities BOOLEAN NOT NULL DEFAULT FALSE,
+  notification_email VARCHAR(255),
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member)
  );

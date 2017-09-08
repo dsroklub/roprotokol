@@ -291,7 +291,14 @@ eventApp.controller(
          }
        });
      }
-     
+
+
+
+     $scope.emailflush = function() {
+       $scope.member_setting.notification_email=null;
+       $scope.publicsetting.$setDirty();
+     }
+
      $scope.forumcreate = function(arg) {
        var sr=DatabaseService.createSubmit("forum_create",$scope.newforum);
        sr.promise.then(function(status) {

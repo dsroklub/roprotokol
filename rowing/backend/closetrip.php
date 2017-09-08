@@ -42,8 +42,48 @@ if ($error) {
 }
 $res['message']=$message;
 $res['boat']=$closedtrip->boat->name;
+invalidate('trip');
+
+
+if ($stmt = $rodb->prepare(
+    "SELECT member_setting.notification_email as email, CONCAT(FirstName,' ',LastName) as rower, Trip.Destination as destination  
+    FROM Member,Trip,TripMember,member_setting
+    WHERE Trip.id=? AND TripMember.TripId=Trip.id AND member_setting.member=Member.id AND Member.id=TripMember.member_id AND notification_email IS NOT NULL" )) { 
+  $stmt->bind_param('i', $tripId);
+  $stmt->execute();
+  $result= $stmt->get_result();
+  require_once("Mail.php");
+  $smtp = Mail::factory('sendmail', array ());
+
+  $mail_headers = array(
+      'From'                      => "Roprotokollen i Danske Studenters Roklub <elgaard@agol.dk>",
+      'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
+      'Content-Transfer-Encoding' => "8bit",
+      'Content-Type'              => 'text/plain; charset="utf8"',
+      'Date'                      => date('r'),
+      'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
+      'MIME-Version'              => "1.0",
+      'X-Mailer'                  => "PHP-Custom",
+    );
+
+  while ($row = $result->fetch_assoc()) {
+      $email=$row['email'];
+      $mail_headers['Subject'] = $row['rower']." er gået i land";
+      $body=$row['rower'] . " er kommet tilbage fra ". $row['destination'];
+      
+      $mail_status = $smtp->send(array($email), $mail_headers, $body);
+
+      if (PEAR::isError($mail_status)) {
+          $warning="Kunne ikke sende besked som email: " . $mail_status->getMessage() . " headers=".print_r($mail_headers,true)." $body";
+          error_log(" $warning ");
+      } else {
+          //  error_log(" SENT EMAIL " . $mail_status->getMessage());
+      }
+  } 
+} else {
+    error_log("close trip email error: ". $rodb->error);
+} 
 
 $rodb->close();
-invalidate('trip');
 echo json_encode($res);
 ?> 
