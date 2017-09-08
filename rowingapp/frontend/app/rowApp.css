@@ -421,6 +421,10 @@ li.selected,button.selected {
     -webkit-user-select:none;
 }
 
+.genericlist thead th:last-child {
+    border-right: 0px;
+}
+
 .statlist thead th {
     background: #3ECBBF;
     color: white;
