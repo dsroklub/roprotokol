@@ -402,6 +402,9 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   this.getRowerTripsAggregated = function (member,onSuccess) {
     this.getDataNow('rowertripsaggregated','member='+member.id,onSuccess);
   }
+  this.getRowerTripsAggregatedAllTime = function (member,onSuccess) {
+    this.getDataNow('rowertripsaggregated','member='+member.id+'&season=all',onSuccess);
+  }
   this.getRowerTrips = function (member,onSuccess) {
     this.getDataNow('rowertrips','member='+member.id,onSuccess);
   }

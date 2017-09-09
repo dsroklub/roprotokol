@@ -99,7 +99,7 @@
 
     <div class="boattrips" ng-show="currentboat">
       <table class="genericlist">
-        <caption>Turoversigt for {{currentboat.name}}</caption>
+        <caption>Turoversigt for {{currentboat.name}} (sæson)</caption>
         <thead>
           <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
@@ -162,13 +162,36 @@
           <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
         </thead>
         <tbody class="tbody">
-        <tr ng-repeat="ta in rowertripsaggregated">
-          <td>{{ta.triptype}}</td><td class="rnum">{{ta.trip_count}}</td><td class="rnum">{{ta.distance|mtokm}}</td><td class="rnum">{{ta.average |mtokm}}</td>
+          <tr ng-repeat="ta in rowertripsaggregated">
+            <td>{{ta.triptype}}</td>
+            <td class="rnum">{{ta.trip_count}}</td>
+            <td class="rnum">{{ta.distance|mtokm}}</td>
+            <td class="rnum">{{ta.average |mtokm}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>    
+
+    <div ng-show="currentrower" class="triptypeview">
+      <table class="genericlist">
+        <caption>historisk oversigt for {{currentrower.name}} fordelt på turtyper</caption>
+        <thead>
+          <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
+        </thead>
+        <tbody class="tbody">
+        <tr ng-repeat="ta in rowertripsaggregatedalltime">
+          <td>{{ta.triptype}}</td>
+          <td class="rnum">{{ta.trip_count}}</td>
+          <td class="rnum">{{ta.distance|mtokm}}</td>
+          <td class="rnum">{{ta.average |mtokm}}</td>
         </tr>
         </tbody>
       </table>
     </div>    
   </div>
+ 
+
+</div>
       
   <div class="tripview" ng-show="currenttrip">
     <table class="genericlist"  ng-hide="correction">

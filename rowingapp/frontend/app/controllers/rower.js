@@ -9,6 +9,7 @@ app.controller(
      $scope.trip={};
      $scope.tripdate=new Date();
      $scope.rowertripsaggregated=[];
+     $scope.rowertripsaggregatedalltime=[];
      $scope.rower='';
      $scope.currentrower=null;
      $scope.correctedboattype=null;
@@ -126,6 +127,11 @@ app.controller(
                                     );
        DatabaseService.getRowerTripsAggregated($scope.currentrower,function (res) {
          $scope.rowertripsaggregated=res.data;
+       }
+                                              );
+       
+       DatabaseService.getRowerTripsAggregatedAllTime($scope.currentrower,function (res) {
+         $scope.rowertripsaggregatedalltime=res.data;
        }
                                               );
        $scope.mk_chart();
