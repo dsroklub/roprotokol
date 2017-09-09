@@ -7,7 +7,7 @@ app.controller(
      $scope.datetrips=[];
      $scope.tripmembers=[];
      $scope.trip={};
-     $scope.tripdate=null;
+     $scope.tripdate=new Date();
      $scope.rowertripsaggregated=[];
      $scope.rower='';
      $scope.currentrower=null;
