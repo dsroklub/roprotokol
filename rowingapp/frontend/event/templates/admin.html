@@ -1,8 +1,5 @@
-
-<h2>Opret nyt forum</h2>
-
-<ng-form name="newforumform">
-
+<ng-form name="newforumform" ng-if="current_user.is_fora_admin">
+  <h2>Opret nyt forum</h2>
   <input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off"
          ng-model="newforum.name" required><br>
   <input type="text" class="description" placeholder="beskrivelse af forum" class="forum" autocomplete="off"
@@ -13,14 +10,14 @@
 
 
 <table>
-    <caption>Eksisterende fora mm</caption>
-    <tbody class="tbody">
-      <tr name="forum" id="forum"  ng-repeat="forum in fora">
-        <td>
-          {{forum.forum}}
-          </td>
-      </tr>
-    </tbody>         
+  <caption>Eksisterende fora mm</caption>
+  <tbody class="tbody">
+    <tr name="forum" id="forum"  ng-repeat="forum in fora">
+      <td>
+        {{forum.forum}}
+      </td>
+    </tr>
+  </tbody>         
 </table>
 
 <form name="upform">
@@ -85,3 +82,6 @@
     </table>
   </fieldset>
 </form>
+<pre>
+CU  {{  current_user.is_fora_admin|json }}
+  </pre>

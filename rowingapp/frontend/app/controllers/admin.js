@@ -401,7 +401,7 @@ app.controller(
             
           }
                                      )
-        }
+     }
                             ]
           )
 

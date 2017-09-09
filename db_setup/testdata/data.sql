@@ -99,15 +99,9 @@ UNLOCK TABLES;
 -- Dumping data for table `MemberRightType`
 --
 
-LOCK TABLES `MemberRightType` WRITE;
 /*!40000 ALTER TABLE `MemberRightType` DISABLE KEYS */;
-<<<<<<< HEAD
 INSERT INTO `MemberRightType` VALUES ('kajak_b','kajak B'),('8','otter'),('8cox','otter styrmand'),('competition','kaproere'),('cox','styrmand'),('coxtheory','styrmandsteori'),('instructor','instruktør'),('kajak','kajak'),('kanin','kanin'),('langturøresund','Langure på Øresund'),('longdistance','LDK'),('longdistancetheory','langtursstyrmandsteori'),('motorboat','motorbåd'),('rowright','roret'),('sculler','sculler'),('skærgård','skærgården'),('svava','svava'),('swim400','kan svømme 400m'),('wrench','har rød svensknøgle');
-=======
 INSERT INTO `MemberRightType` (`member_right`, `description`, `arg`) VALUES ('2kajak','2-er kajak',NULL),('8','otter',NULL),('8cox','otter styrmand',NULL),('competition','kaproere',NULL),('cox','styrmand',NULL),('coxtheory','styrmandsteori',NULL),('kajak','kajak',NULL),('kanin','kanin',NULL),('langturøresund','Langure på Øresund',NULL),('longdistance','langtursstyrmand',NULL),('longdistancetheory','langtursstyrmandsteori',NULL),('motorboat','motorbåd',NULL),('rowright','roret',NULL),('sculler','sculler',NULL),('skærgård','skærgården',NULL),('svava','svava',NULL),('swim400','kan svømme 400m',NULL),('wrench','har rød svensknøgle',NULL),('instructor','instruktør inrigger','row'),('instructor','instruktør, sculler','sculler'),('instructor','instruktør, kajak','kajak');
->>>>>>> b377ec3abbdf4c55fce4890e28e27f6fdecf42e2
-/*!40000 ALTER TABLE `MemberRightType` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Dumping data for table `TripRights`

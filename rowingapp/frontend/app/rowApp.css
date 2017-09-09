@@ -33,7 +33,6 @@ ul {
     padding: 0;
     margin-left: 2em;
     color: blue    max-width: 29%;
-    position :fixed;
 }
 
 .tools a {
@@ -1175,4 +1174,8 @@ img.wrench {
 .statbox {
     display: inline-block;
     float:left;
+}
+
+.eventtime {
+  white-space:nowrap;
 }

@@ -15,8 +15,11 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 if ($stmt = $rodb->prepare(
         "INSERT INTO event(owner, boat_category, start_time, end_time, distance, max_participants, location, name, category, comment,open)
          SELECT Member.id, ?,CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,?,? 
-         FROM Member
+         FROM Member,MemberRights
          WHERE 
+           MemberRights.member_id=Member.id AND
+           MemberRights.MemberRight='event' AND
+           MemberRights.MemberRight='fora' AND 
            MemberId=?
          ")) {
 

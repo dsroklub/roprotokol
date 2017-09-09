@@ -147,7 +147,8 @@
             </td>        
             <td>
 	      <button  class="minor" ng-show="!newusage.name">Udfyld ny anvendelse her</button>
-	      <button ng-click="create_usage(newusage)" ng-model="newusage.create" class="big" ng-show="newusage.name && newusage.name.length>0">Opret ny anvendelse</button>
+	      <button ng-click="create_usage(newusage)" ng-model="newusage.create" class="big"
+                      ng-show="newusage.name && newusage.name.length>0">Opret ny anvendelse</button>
             </td>
 	  </tr>
 	</tbody>
@@ -530,8 +531,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="ev in DB('get_events')">
-	<td>{{ev.event_time}}</td>	  
+      <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="ev in DB('get_events')">
+	<td class=eventtime>{{ev.event_time}}</td>	  
 	<td>{{ev.event}} </td>
       </tr>
     </tbody>
@@ -568,7 +569,7 @@
 
   <ul class="tools">
     <li><a href="/backend/basic/current.php?returnlink">Dagens Ture.</a>
-      <ul class="tools">
+      <ul>
         <li>rød: skulle have været inde nu</li>
         <li>gul: på vandet</li>
         <li>grøn: turen afsluttet</li>        
