@@ -1,63 +1,64 @@
 'use strict';
 
-app.controller('AdminCtrl', ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm','$log',
-                             function ($scope, DatabaseService, NgTableParams, $filter,$route,$confirm,$log) {
-
-          var rower_diff = function(current,correction) {
-            var diffs={'from':{},'to':{}};
-            angular.forEach(current, function(rid,rower,kv) {
-              if (correction[rower]!=rid) {
-                diffs.from[rower]=rid;
-              }
-            },this);
-            angular.forEach(correction, function(rid,rower,kv) {
-              if (current[rower]!=rid) {
-                diffs.to[rower]=rid;
-              }
-            },this);
-            return diffs;
-          }
-
-          $scope.rowerkm_force_email = false;
-          $scope.rowerkm_include_trips = true;
-          $scope.rowerkm_separate_instruction = false;
-          $scope.rowerkm_only_members = false;
-          $scope.rowerkm_year = new Date().getFullYear();
-          var correction_diff = function(current,correction) {
-	    var res={'diff':{}};
-            if (!correction.DeleteTrip) {
-              var flds=['boat','Destination','intime','outtime','distance','triptype'];
-              for (var ki=0; ki<flds.length;ki++) {
-                var k=flds[ki];
-                if (current[k]!=correction[k]) {
-                  res.diff[k]={'from':current[k],'to':correction[k]};
-                }
-              }
-              if (JSON.stringify(current.rowers) != JSON.stringify(correction.rowers)) {
-                res.rowerdiff=rower_diff(current.rowers,correction.rowers);
-              }
-            }
-            return res;
-          };
+app.controller(
+    'AdminCtrl',
+    ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm','$log',
+     function ($scope, DatabaseService, NgTableParams, $filter,$route,$confirm,$log) {
+	 var rower_diff = function(current,correction) {
+	     var diffs={'from':{},'to':{}};
+	     angular.forEach(current, function(rid,rower,kv) {
+		 if (correction[rower]!=rid) {
+		     diffs.from[rower]=rid;
+		 }
+	     },this);
+	     angular.forEach(correction, function(rid,rower,kv) {
+		 if (current[rower]!=rid) {
+		     diffs.to[rower]=rid;
+		 }
+	     },this);
+	     return diffs;
+	 }
+	 
+         $scope.rowerkm_force_email = false;
+         $scope.rowerkm_include_trips = true;
+         $scope.rowerkm_separate_instruction = false;
+         $scope.rowerkm_only_members = false;
+         $scope.rowerkm_year = new Date().getFullYear();
+         var correction_diff = function(current,correction) {
+	     var res={'diff':{}};
+             if (!correction.DeleteTrip) {
+		 var flds=['boat','Destination','intime','outtime','distance','triptype'];
+		 for (var ki=0; ki<flds.length;ki++) {
+                     var k=flds[ki];
+                     if (current[k]!=correction[k]) {
+			 res.diff[k]={'from':current[k],'to':correction[k]};
+                     }
+		 }
+		 if (JSON.stringify(current.rowers) != JSON.stringify(correction.rowers)) {
+                     res.rowerdiff=rower_diff(current.rowers,correction.rowers);
+		 }
+             }
+             return res;
+         };
                                
-          $scope.dateOptions = {
-            showWeeks: false,
-            formatDay:"d",
-            formatYear: 'yyyy',
-            formatMonth: 'MMM',
-            title:"dato"
-          };
-                               
-          $scope.weekdays=[
-            {id:0,day:"-"},
-            {id:1,day:"mandag"},
-            {id:2,day:"tirsdag"},
-            {id:3,day:"onsdag"},
-            {id:4,day:"torsdag"},
-            {id:5,day:"fredag"},
-            {id:6,day:"lørdag"},
-            {id:7,day:"søndag"}
-          ];
+         $scope.dateOptions = {
+             showWeeks: false,
+             formatDay:"d",
+             formatYear: 'yyyy',
+             formatMonth: 'MMM',
+             title:"dato"
+         };
+         
+         $scope.weekdays=[
+             {id:0,day:"-"},
+             {id:1,day:"mandag"},
+             {id:2,day:"tirsdag"},
+             {id:3,day:"onsdag"},
+             {id:4,day:"torsdag"},
+             {id:5,day:"fredag"},
+             {id:6,day:"lørdag"},
+             {id:7,day:"søndag"}
+         ];
 
           $scope.reservations=[];
             $scope.reservation={};

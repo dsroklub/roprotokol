@@ -70,7 +70,10 @@ if ($stmt = $rodb->prepare(
       $email=$row['email'];
       $mail_headers['Subject'] = $row['rower']." er gået i land";
       $body=$row['rower'] . " er kommet tilbage fra ". $row['destination'];
-      
+
+      if (!empty($closedtrip->boat->comment)) {
+          $body .= "\r\n\r\nKommentar til turen: ".$closedtrip->boat->comment;    
+      }
       $mail_status = $smtp->send(array($email), $mail_headers, $body);
 
       if (PEAR::isError($mail_status)) {
