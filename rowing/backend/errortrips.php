@@ -35,8 +35,8 @@ $sql=
             Trip.Destination as destination,
             Trip.CreatedDate as created,
             Meter as distance,
-            InTime as intime,
-            OutTime as outtime,
+            DATE_FORMAT(InTime,'%Y-%m-%dT%T') as intime,
+            DATE_FORMAT(OutTime,'%Y-%m-%dT%T') as outtime,
             GROUP_CONCAT(CONCAT(Member.FirstName,' ',Member.LastName),':§§:',Member.MemberID ORDER BY Seat SEPARATOR '££') as rowers 
       FROM Boat,
            Trip
