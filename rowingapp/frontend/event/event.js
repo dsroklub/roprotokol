@@ -1,6 +1,5 @@
 'use strict';
 
-var rv=13;
 var eventApp = angular.module('eventApp', [
   'ngRoute',
   'ngSanitize',
@@ -9,16 +8,14 @@ var eventApp = angular.module('eventApp', [
   'angular-momentjs',
   'ngDialog',
   'ngTable',
-  'rowApp.version',
-  'rowApp.range',
+  'eventApp.version',
   'eventApp.database',
-  'rowApp.utilities',
+  'eventApp.utilities',
   'angular-confirm',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
   'angular.filter',
   'checklist-model',
-  'eventApp.database',
   'ngFileUpload'
 ])
 .config([

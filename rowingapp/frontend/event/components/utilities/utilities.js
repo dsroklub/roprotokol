@@ -3,14 +3,8 @@
 
 var right2dkm;
 
-var side2dk = {
-  'left':'venstre',
-  'right':'højre',
-  'center':'midtfor'
-}
 
 var right2dk;
-
 var subject2dk = {
   'all':'alle',
   'cox':'styrmanden',
@@ -19,36 +13,27 @@ var subject2dk = {
 }
 
 
-angular.module('rowApp.utilities.urldecode', []).filter('urldecode', function () {
+angular.module('eventApp.utilities.urldecode', []).filter('urldecode', function () {
   return function (text) {
     return window.decodeURIComponent(text);
   };
 });
 
-angular.module('rowApp.utilities.urlencode', []).filter('urlencode', function () {
+angular.module('eventApp.utilities.urlencode', []).filter('urlencode', function () {
   return function (text) {
     return window.encodeURIComponent(text);
   };
 });
 
-angular.module('rowApp.utilities.nodsr', []).filter('nodsr', function () {
-  return function (text) {
-    if (text === "DSR") {
-      return "";
-    } else {
-      return text;
-    }
-  };
-});
 
-angular.module('rowApp.utilities.mtokm', []).filter('mtokm', function () {
+angular.module('eventApp.utilities.mtokm', []).filter('mtokm', function () {
   return function (meters) {
     return (meters / 1000).toFixed(1);
   };
 });
 
 
-angular.module('rowApp.utilities.totime', []).filter('totime', function () {
+angular.module('eventApp.utilities.totime', []).filter('totime', function () {
   return function(hours) {
     var hrs = Math.floor(hours);
     var min = Math.round(hours % 1 * 60);
@@ -58,7 +43,7 @@ angular.module('rowApp.utilities.totime', []).filter('totime', function () {
 });
 
 
-angular.module('rowApp.utilities.txttotime', []).filter('txttotime', function () {
+angular.module('eventApp.utilities.txttotime', []).filter('txttotime', function () {
   return function(txt) {
     if (!txt) return null;
     var t=txt.split(/[- :T]/);
@@ -67,7 +52,7 @@ angular.module('rowApp.utilities.txttotime', []).filter('txttotime', function ()
   };
 });
 
-angular.module('rowApp.utilities.ifNull', []).filter('ifNull', function () {
+angular.module('eventApp.utilities.ifNull', []).filter('ifNull', function () {
   return function( val, defaultVal, suffix) {
     if (val === null) return defaultVal;
     if (suffix != null) {
@@ -77,34 +62,17 @@ angular.module('rowApp.utilities.ifNull', []).filter('ifNull', function () {
   };
 });
 
-angular.module('rowApp.utilities.subArray', []).filter('subArray', function () {
-  return function( arr, start, len) {
-    if (! arr.splice ) {
-      console.log("subArray input cannot be spliced", arr);
-      return null;
-    }
-    if (start == null) {
-      start = 0;
-    }
-    return arr.splice(start, len);
-  };
-});
-
-
-angular.module('rowApp.utilities.keys', []).filter('keys', function () {
+angular.module('eventApp.utilities.keys', []).filter('keys', function () {
   return function( obj) {
     return Object.keys(obj);
   };
 });
 
-
-
-angular.module('rowApp.utilities.onlynumber', []).directive('onlynumber', function () {
+angular.module('eventApp.utilities.onlynumber', []).directive('onlynumber', function () {
   return {
     restrict: 'EA',
     require: 'ngModel',
     link: function (scope, elem, attrs, ngModel) {
-
       function checknumber() {
         var et=elem.val();
         if (et==null) return;
@@ -129,7 +97,7 @@ angular.module('rowApp.utilities.onlynumber', []).directive('onlynumber', functi
 }
                                                           )
 
-angular.module('rowApp.utilities.transformkm', []).directive('transformkm', function () {
+angular.module('eventApp.utilities.transformkm', []).directive('transformkm', function () {
   return { 
     restrict: 'A',
     require: 'ngModel',
@@ -160,14 +128,12 @@ angular.module('rowApp.utilities.transformkm', []).directive('transformkm', func
 
 
 angular.module('eventApp.utilities', [
-  'rowApp.utilities.onlynumber',
-  'rowApp.utilities.urldecode',
-  'rowApp.utilities.urlencode',
-  'rowApp.utilities.nodsr',
-  'rowApp.utilities.transformkm',
-  'rowApp.utilities.mtokm',
-  'rowApp.utilities.txttotime',
-  'rowApp.utilities.totime',
-  'rowApp.utilities.ifNull',
-  'rowApp.utilities.subArray',
-]).value('version', '0.2');
+  'eventApp.utilities.onlynumber',
+  'eventApp.utilities.urldecode',
+  'eventApp.utilities.urlencode',
+  'eventApp.utilities.transformkm',
+  'eventApp.utilities.mtokm',
+  'eventApp.utilities.txttotime',
+  'eventApp.utilities.totime',
+  'eventApp.utilities.ifNull',
+]).value('version', '0.3');

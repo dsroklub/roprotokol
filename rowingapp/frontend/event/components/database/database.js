@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('eventApp.database', [
-  'eventApp.database.basic-services',
+  'eventApp.database.login-services',
   'eventApp.database.database-services'
 ])
-.value('version', '0.1');
+.value('version', '0.2');

@@ -3,8 +3,8 @@
 
 eventApp.controller(
   'eventCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
+  ['$scope', '$routeParams', 'DatabaseService','LoginService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
+   function ($scope, $routeParams, DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
      $anchorScroll.yOffset = 50;
      $scope.teams=[];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
@@ -43,7 +43,9 @@ eventApp.controller(
        $scope.newevent.category=$scope.eventcategories[0];
        $scope.newevent.starttime=null;
        $scope.newevent.endtime=null;
-       $scope.current_user=DatabaseService.getDB('event/current_user');
+       LoginService.check_user().promise.then(function(u) {         
+         $scope.current_user=u;
+       });
        $scope.member_path=$location.protocol()+"://"+ $location.host()+"/backend/event/";
        $scope.site_path=$location.protocol()+"://"+ $location.host();
        $scope.dbready=true;
@@ -57,6 +59,8 @@ eventApp.controller(
            }
          }
        }
+       $log.debug("events set user " + $scope.current_user);
+       LoginService.set_user($scope.current_user);
      });
      
      $scope.subscribe = function() {
@@ -287,6 +291,7 @@ eventApp.controller(
            $scope.message={};
          }
          if (status.status == 'warning') {
+
            alert(status.warning);
          }
        });

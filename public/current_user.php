@@ -6,7 +6,7 @@ include("utils.php");
 
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
-    error_log("CU=$cuser");
+    error_log("CU public c=$cuser");
     
     $s="SELECT Member.MemberId as member_id, CONCAT(Member.FirstName,' ', Member.LastName) as name, Member.Email as member_email 
     FROM Member 

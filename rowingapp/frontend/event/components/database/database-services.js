@@ -39,7 +39,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
 
   this.getData = function (dataid,promises) {
     //  $log.debug(" getData: " + dataid);
-    console.log("getData "+dataid);
     if(!valid[dataid] || !db[dataid]) {
       var dq=$q.defer();
       promises.push(dq.promise);
@@ -61,8 +60,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
 
   this.fetch = function (subscriptions) {
     $log.debug("DB fetch "+Date());
-    console.log("DB fetch "+Date());
-    console.log(subscriptions);
     var headers = {};
     var promises=[];
     
@@ -102,7 +99,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
       valid[subtp]=false;
-      console.log(" now inval: "+subtp);
+//      console.log(" now inval: "+subtp);
     }
   };
 
@@ -124,7 +121,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
           $log.debug("  doinvalidate "+tp); // NEL
-          console.log("  doinvalidate "+tp); // NEL
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
