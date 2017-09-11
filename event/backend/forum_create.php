@@ -15,7 +15,13 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
 if ($stmt = $rodb->prepare(
     "INSERT INTO forum (name,description,is_open,owner) 
-   SELECT ?,?,?,Member.id FROM Member WHERE Member.MemberId=?")) {
+   SELECT ?,?,?,Member.id FROM Member,MemberRights WHERE 
+   Member.MemberId=? AND
+   MemberRights.member_id=Member.id AND
+   MemberRights.MemberRight='event' AND
+   MemberRights.MemberRight='fora'
+"
+)) {
 
     $triptype="NULL";
     $isopen=$newforum->open?1:0;

@@ -11,8 +11,8 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     
     $s="SELECT 
        sha1(CONCAT(authentication.password,?)) as token,
-       IFNULL(mrc.MemberRight,0) as is_cox,
-       IFNULL(mrf.MemberRight,0) as is_fora_admin,
+       IFNULL(mrc.MemberRight,'') as is_cox,
+       IFNULL(mrf.MemberRight,'') as is_fora_admin,
        Member.MemberId as member_id, CONCAT(Member.FirstName,' ', Member.LastName) as name, Member.Email as member_email 
     FROM Member  
        LEFT JOIN MemberRights mrc ON mrc.member_id=Member.id AND mrc.MemberRight='cox'

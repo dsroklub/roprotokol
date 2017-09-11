@@ -64,7 +64,8 @@
     <td ng-show="current_forum.owner==current_user.member_id">
       <i ng-click="accept_forum_supplicant(userforum)" ng-show="userforum.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
 
-      <i ng-hide="forummember.member_id==current_user.member_id" ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus"></i> 
+      <i ng-hide="forummember.member_id==current_user.member_id" ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus">
+      </i> 
     </td>
     
   </tr>

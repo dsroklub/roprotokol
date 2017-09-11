@@ -30,7 +30,7 @@ eventApp.controller(
      $timeout(function() { $scope.dbgrace = false;}, 2000);
 
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-     DatabaseService.init({"message":true,"event":true,"member":true,"user":true}).then(function () {
+     DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
        $scope.boatcategories=DatabaseService.getDB('event/boat_category');
        $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
        $scope.fora=DatabaseService.getDB('event/fora');
@@ -238,7 +238,7 @@ eventApp.controller(
 	 if (status.status =='ok') {
            var p=angular.copy($scope.current_user);
            p.role=status.role;
-           p.is_cox=$scope.current_user.is_cox!="0";
+           p.is_cox=$scope.current_user.is_cox!="";
            $scope.currentevent.participants.push(p);
          } else {
            alert(status.error);
@@ -302,6 +302,7 @@ eventApp.controller(
      $scope.emailflush = function() {
        $scope.member_setting.notification_email=null;
        $scope.publicsetting.$setDirty();
+
      }
 
      $scope.forumcreate = function(arg) {
@@ -324,6 +325,7 @@ eventApp.controller(
        });
        
        file.upload.then(function (response) {
+         $scope.forumfile={};
          $timeout(function () {
            file.result = response.data;
          });
@@ -371,7 +373,6 @@ eventApp.controller(
      $scope.setCurrentForum = function (forum) {
        $scope.current_forum=forum;
        DatabaseService.simpleGet('event/forum_members',{"forum":forum.forum}).then(function (d) {
-        console.log(d);
         $scope.forummembers=d.data;
        }
                                                                                                      );
@@ -399,7 +400,6 @@ eventApp.controller(
            alert(status.error);
          }
        });
-       console.log(message);
      }
 
      $scope.addInvitee = function () {

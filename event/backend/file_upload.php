@@ -1,5 +1,6 @@
 <?php
 include("../../rowing/backend/inc/common.php");
+include("utils.php");
 
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");

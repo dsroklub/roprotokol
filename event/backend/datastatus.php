@@ -9,8 +9,9 @@ $ts=42;
 $tsa=array(
     'boat' => $mem->get('boat'),
     'member' =>  $mem->get('member'),
+    'file' =>  $mem->get('file'),
     'stats' =>  $mem->get('stats'),
-    'fora' =>  $mem->get('fora'),
+    'fora' =>  $mem->get('forum'),
     'event' =>  $mem->get('event')
 );
 $res=json_encode($tsa);

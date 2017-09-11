@@ -9,7 +9,8 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   var cachedepend={
     'member':['rowers','event/events_participants'],
     'event':['event/events','event/event_category','event/userfora','event/events_participants'],
-    'message':['event/messages']
+    'message':['event/messages'],
+    'file':['event/forum_files_list']
   };
   
   var datastatus={
@@ -17,6 +18,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     'trip':null,
     'member':null,
     'event':null,
+    'forum':null,
     'destination':null,
     'file':null
   };
@@ -38,8 +40,9 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   }
 
   this.getData = function (dataid,promises) {
-    //  $log.debug(" getData: " + dataid);
+//    console.log(" getData: " + dataid);
     if(!valid[dataid] || !db[dataid]) {
+//      console.log("   DOOData: " + dataid);
       var dq=$q.defer();
       promises.push(dq.promise);
       $http.get(toURL(dataid+'.php')).then(function onSuccess (response) {
@@ -104,6 +107,8 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   };
 
   this.init = function(subscriptions) {
+    $log.debug("DB init now sync "+subscriptions);
+//    console.log("DBl init now sync "+JSON.stringify(subscriptions));
     return this.sync(subscriptions);
   }
 
@@ -113,21 +118,21 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       subscriptions={};
     }
     var sq=$q.defer();
-    // $log.debug("get Datastatus");
-    $http.post('../../backend/event/datastatus.php', null).then (function(response) {
+//    console.log("get Datastatus");
+    $http.post('/backend/event/datastatus.php', null).then (function(response) {
       var ds=response.data;
       var doreload=false;
-      $log.debug("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
+//      console.log("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-          $log.debug("  doinvalidate "+tp); // NEL
+//          console.log("  doinvalidate "+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
 	datastatus[tp]=ds[tp];
       }
       if (doreload) {
-	$log.debug(" do reload " + JSON.stringify(valid));
+//	console.log(" do reload " + JSON.stringify(valid));
 	dbservice.fetch(subscriptions).then(function() {
 	  sq.resolve("sync done");
 	});

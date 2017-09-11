@@ -11,15 +11,12 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 // $cuser="7854"; // FIXME
-
+error_log("EVENTCREATE NEWEVENT user=$cuser: ".print_r($newevent,true));
 if ($stmt = $rodb->prepare(
         "INSERT INTO event(owner, boat_category, start_time, end_time, distance, max_participants, location, name, category, comment,open)
          SELECT Member.id, ?,CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,?,? 
-         FROM Member,MemberRights
+         FROM Member
          WHERE 
-           MemberRights.member_id=Member.id AND
-           MemberRights.MemberRight='event' AND
-           MemberRights.MemberRight='fora' AND 
            MemberId=?
          ")) {
 
@@ -41,30 +38,36 @@ if ($stmt = $rodb->prepare(
         $newevent->open,
         $cuser) ||  die("create event BIND errro ".mysqli_error($rodb));
 
-    if (!$stmt->execute()) {
+    if ($stmt->execute()) {
+        error_log("created EVENT");
+    } else {
         $error=" event exe error ".mysqli_error($rodb);
         error_log($error);
         $message=$message."\n"."create event insert error: ".mysqli_error($rodb);
     } 
+} else {
+    $error=" event exe error ".mysqli_error($rodb);
+    error_log($error);
 }
 
 
 $rd=$rodb->query("SELECT LAST_INSERT_ID() as event_id FROM DUAL")->fetch_assoc() or die("Error in query: " . mysqli_error($db));
 $event_id=$rd["event_id"];
-//error_log(" event_id: $event_id");
+error_log(" event_id: $event_id ".print_r($rd,true));
 
 if (empty($error) and $newevent->owner_in) {
     if ($ostmt = $rodb->prepare("INSERT INTO event_member(member,event,enter_time,role)
-         SELECT Member.id, LAST_INSERT_ID() ,NOW(),'owner' FROM Member WHERE MemberId=?")) {
-        $ostmt->bind_param('s',$cuser) ||  $error=mysqli_error($rodb);        
+         SELECT Member.id, ? ,NOW(),'owner' FROM Member WHERE MemberId=?")) {
+        $ostmt->bind_param('is',$event_id, $cuser) ||  $error=mysqli_error($rodb);        
         if ($ostmt->execute()) {
+            error_log("inserted owner $cuser");
         } else {
             $error="event Insert DB STMT  error: ".mysqli_error($rodb);
             $message=$message."\n"."create event owner insert error: ".mysqli_error($rodb);
             error_log($error);
         }                
     } else {
-        $error="event owner Insert error: ".mysqli_error($rodb);
+        $error="event owner: Insert error: ".mysqli_error($rodb);
     }
 }
 
@@ -72,7 +75,6 @@ if (empty($error) and $newevent->owner_in) {
 // members
 
 $toMemberIds=array();
-
 if (empty($error)) {
     if ($istmt = $rodb->prepare("INSERT INTO event_invitees(member,event,role)
          SELECT Member.id, LAST_INSERT_ID(),'member' From Member WHERE MemberId=?")) {
@@ -94,7 +96,7 @@ if (empty($error)) {
 // Now Store message
 $subject="Invitation til $newevent->name";
 $body="Invitation til http://aftaler/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
-
+//error_log("EVENTCREATE MESSAGE");
 if ($stmt = $rodb->prepare(
         "INSERT INTO event_message(member_from, event, created, subject, message)
          SELECT mf.id, ?,NOW(),?,?
@@ -181,7 +183,7 @@ if (count($toMemberIds)>0) {
      $stmt->execute() or die("Error in location query: " . mysqli_error($rodb));
      $result= $stmt->get_result() or die("Error in location query: " . mysqli_error($rodb));
      while ($rower = $result->fetch_assoc()) {
-         error_log(print_r($rower,true));
+//         error_log(print_r($rower,true));
          $toEmails[] = $rower['email'];
      }
      
