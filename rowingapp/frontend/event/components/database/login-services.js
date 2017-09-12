@@ -4,10 +4,10 @@ angular.module('eventApp.database.login-services', []).service('LoginService', f
   var cuser={'user':'lnone'};
 
   this.getpw = function(data) {
-    $http.post('public/getpw.php', data).then(function(r) {
+    $http.post('/public/getpw.php', data).then(function(r) {
       alert("password er sendt");
     },function(r) {
-      alert("det mislykkedes at sende nyt password");
+      alert("Det mislykkedes at sende nyt password");
     });
   }
 

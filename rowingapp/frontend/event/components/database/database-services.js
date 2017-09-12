@@ -25,7 +25,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
 
   function toURL(service){
     if (databasesource=='real') {
-      return '../../backend/'+service;
+      return '/backend/'+service;
     } else {
       return 'data/'+service.replace('.php','').replace(/\?/g,'Q').replace(/=/g,'')+".json";
     }
@@ -196,7 +196,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   this.updateDB_async = function(op,data,config) {
     var qup=$q.defer();
     var res=undefined;
-    $http.post('../../backend/'+op+".php", data,config).then(function(r) {
+    $http.post('/backend/'+op+".php", data,config).then(function(r) {
       qup.resolve(r.data)
     },function(r) {
       $log.error(r.status);
@@ -230,7 +230,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   this.createSubmit = function(entity,data) {
     var entityCreated=$q.defer();
     var res=undefined;
-    $http.post('../../backend/event/'+entity+'.php', data).then(function(r) {
+    $http.post('/backend/event/'+entity+'.php', data).then(function(r) {
       entityCreated.resolve(r.data);
     },function(r) {
       entityCreated.resolve({"error":entity+"  fejl"});
@@ -252,7 +252,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   };
 
   this.getpw = function(data) {
-    $http.post('../../../public/getpw.php', data).then(function(r) {
+    $http.post('/public/getpw.php', data).then(function(r) {
     },function(r) {
       alert("det mislykkedes at sende nyt password");
     });

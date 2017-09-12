@@ -1,7 +1,10 @@
 
 <h2> <a href="{{public_path}}?member={{current_user.member_id}}"> Indstillinger for {{current_user.name}} ({{current_user.member_id}})</a></h2>
 
+<h4 ng-show="current_user.has_remote_access" >Du har lov til <a class="link" href="https://roprotokol.danskestudentersroklub.dk/frontend/app/index.html">at bruge roprotokollen udefra <i class="fa fa-link"></i></a></h4>
+
 <h3>Din offentlige side</h3>
+
 
 Din offentlige DSR side, som kan ses af alle er:
 <br>

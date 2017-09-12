@@ -42,15 +42,15 @@ if ($res) {
             }
         }
         $body = "Kode til DSR for $memberId \n Din kode er: $pw\nDit brugernavn er dit medlemsnummer";
-        $mail_error = send_email("Kode til styrmandsinstruktion", $body, $person, $pw);
+        $mail_error = send_email("Kode til DSR styrmandsinstruktion og aftaler", $body, $person, $pw);
         if ($mail_error) {
-            echo "<p class=\"error\">Fejl: Kunne ikke afsende mail til styrmandsinstruktion: $mail_error</p>\n";
+            echo "<p class=\"error\">Fejl: Kunne ikke afsende mail til aftaler og styrmandsinstruktion: $mail_error</p>\n";
         } else {
             $sent = true;
         }
     } else {
         $r["status"]="not member";
-        $r["message"]="Enten har du tastet dit medlemsnummer forkert eller også er du allerede styrmand";
+        $r["message"]="medlemsnummeret findes ikke";
     }
     $res->close();
 } else {
