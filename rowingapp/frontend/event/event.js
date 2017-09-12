@@ -49,6 +49,10 @@ var eventApp = angular.module('eventApp', [
       templateUrl: 'templates/public.html',
       controller: 'eventCtrl'
 	});
+    $routeProvider.when('/about/', {
+      templateUrl: 'templates/about.html',
+      controller: 'noRight'
+	});
     $routeProvider.when('/!#timeline/:event', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
