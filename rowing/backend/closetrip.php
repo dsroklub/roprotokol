@@ -43,6 +43,7 @@ if ($error) {
 $res['message']=$message;
 $res['boat']=$closedtrip->boat->name;
 invalidate('trip');
+invalidate('stats');
 
 
 if ($stmt = $rodb->prepare(

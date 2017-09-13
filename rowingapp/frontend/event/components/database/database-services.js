@@ -13,6 +13,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     'fora':['event/messages'],
     'file':['event/forum_files_list']
   };
+// permament for now    'destinations':['event/destinations']
   
   var datastatus={
     'member':null,
@@ -42,7 +43,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   this.getData = function (dataid,promises) {
 //    console.log(" getData: " + dataid);
     if(!valid[dataid] || !db[dataid]) {
-//      console.log("   DOOData: " + dataid);
+      console.log("     INVALID: " + dataid);
       var dq=$q.defer();
       promises.push(dq.promise);
       $http.get(toURL(dataid+'.php')).then(function onSuccess (response) {
@@ -77,6 +78,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     this.getData('event/fora',promises);
     //    this.getData('event/events',promises);
     this.getData('event/events_participants',promises);
+    this.getData('event/destinations',promises);
     this.getData('event/userfora',promises);
     if(!valid['rowers']) {
       var rq=$q.defer();
@@ -102,7 +104,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
       valid[subtp]=false;
-//      console.log(" now inval: "+subtp);
+      console.log("   now inval: "+subtp + " because: "+tp);
     }
   };
 
@@ -122,10 +124,10 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     $http.post('/backend/event/datastatus.php', null).then (function(response) {
       var ds=response.data;
       var doreload=false;
-//      console.log("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
+      console.log("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-//          console.log("  doinvalidate "+tp);
+          console.log("  doinvalidate "+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}

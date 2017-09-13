@@ -6,7 +6,9 @@ $forum=sanestring($_REQUEST['forum']);
 $filename=sanestring($_REQUEST['file']);
 
 
-$s="SELECT mime_type as mt,filename,file FROM forum_file WHERE forum=? AND filename=?";
+$s="SELECT mime_type as mt,filename,file 
+    FROM forum_file 
+    WHERE forum=? AND filename=? AND expire>NOW()";
 
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("ss", $forum,$filename);

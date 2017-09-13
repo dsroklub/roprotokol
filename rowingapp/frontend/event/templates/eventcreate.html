@@ -7,7 +7,7 @@
 
 <div>
 <ng-form name="neweventform">
-  <h2>Opret en ny begivenhed</h2>
+  <h2>Opret en ny begivenhed, fx en rotur</h2>
 
   <br>
   <table>
@@ -112,6 +112,14 @@
     </tr>
 
     
+    <tr>
+      <th>evt Mål</th>
+      <td>
+        <select ng-change="update_distance()" name="destination" id="destination" ng-model="newevent.destination" ng-options="dest.name for dest in destinations">
+        </select>
+      </td>
+    </tr>
+
     <tr>
       <th>(ca distance)</th>
       <td>

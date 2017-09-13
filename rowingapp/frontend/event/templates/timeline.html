@@ -13,15 +13,17 @@
       <th>Navn</th>
       <th>start</th>
       <th>distance</th>
-      <th>Åben</th>
+      <th>til</th>
+      <th>åben</th>
    </tr> 
   </thead>
   <tbody>
     <tr ng-repeat="ev in events" ng-click="setCurrentEvent(ev)"  ng-class="{selected: currentevent == ev}"
         class="event" ng-class-odd="'odd'" ng-class-even="'even'">
-      <td>{{ev.name}}</td>
+      <td ng-class="{iamin: is_event_member(ev)}"><span class="tooltiptext">Jeg deltager</span>{{ev.name}}</td>
       <td>{{ev.start_time | date:"d. MMM yyyy"}}</td>
       <td>{{ev.distance|mtokm}} km</td>
+      <td>{{ev.destination}}</td>      
       <td ng-show="ev.open">åben</td>
       <td ng-hide="ev.open">lukket</td>
       <td ng-if="ev.owner==current_user.member_id">
@@ -49,13 +51,13 @@
     </tbody>         
   </table>
 
-  <button ng-hide="currentevent.open || is_event_member()" class="green" ng-click="eventjoin('supplicant')">
+  <button ng-hide="currentevent.open || is_event_member(currentevent)" class="green" ng-click="eventjoin('supplicant')">
     Jeg vil med. Anmod om deltagelse
   </button>
-  <button ng-show="currentevent.open && ! is_event_member()" class="green"  ng-click="eventjoin('member')">
+  <button ng-show="currentevent.open && ! is_event_member(currentevent)" class="green"  ng-click="eventjoin('member')">
     Jeg vil med. Tilmeld mig
   </button>
-  <button class="green" ng-show="is_event_member()" ng-click="eventleave()">
+  <button class="green" ng-show="is_event_member(currentevent)" ng-click="eventleave()">
     Frameld mig
   </button>
   <br>

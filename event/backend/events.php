@@ -4,10 +4,11 @@ include("utils.php");
 
 $res=array ("status" => "ok");
 
-$s="SELECT Member.MemberId AS owner, CONCAT(Member.FirstName,' ',Member.LastName) as owner_name, event.name, BoatCategory.Name as boat_category, start_time,end_time, distance, TripType.Name as trip_type, max_participants, location, category, preferred_intensity, comment, event.open,event.status
-FROM Member, (event LEFT JOIN BoatCategory on BoatCategory.id=event.boat_category) LEFT JOIN TripType ON TripType.id=event.trip_type 
-WHERE Member.id=event.owner AND start_time >= NOW()";
-
+$s="SELECT Member.MemberId AS owner, CONCAT(Member.FirstName,' ',Member.LastName) as owner_name, event.name, 
+    BoatCategory.Name as boat_category, start_time,end_time, 
+    distance, destination, TripType.Name as trip_type, max_participants, location, category, preferred_intensity, comment, event.open,event.status
+    FROM Member, (event LEFT JOIN BoatCategory on BoatCategory.id=event.boat_category) LEFT JOIN TripType ON TripType.id=event.trip_type 
+    WHERE Member.id=event.owner AND start_time >= NOW()";
 $result=$rodb->query($s);
 
 if ($result) {

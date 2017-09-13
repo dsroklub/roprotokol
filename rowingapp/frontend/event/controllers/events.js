@@ -35,6 +35,7 @@ eventApp.controller(
        $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
+       $scope.destinations=DatabaseService.getDB('event/destinations')['DSR'];
        $scope.userfora=DatabaseService.getDB('event/userfora');
        $scope.messages=DatabaseService.getDB('event/messages');
        $scope.member_setting=DatabaseService.getDB('event/member_setting');
@@ -211,6 +212,7 @@ eventApp.controller(
        if ($scope.newevent.category)  {$scope.newevent.comment +="\ndet er en "+ $scope.newevent.category.name;}
        if ($scope.newevent.starttime)  {$scope.newevent.comment +="\ndet starter "+ $filter('date')($scope.newevent.starttime,"d MMM yyyy kl. HH:mm");}
        if ($scope.newevent.endtime) {$scope.newevent.comment += "\nog slutter " + $filter('date')($scope.newevent.endtime,"d MMM yyyy kl. HH:mm");}
+       if ($scope.newevent.destination) {$scope.newevent.comment += "\nTuren går til " +$scope.newevent.destination.name}
        if ($scope.newevent.distance) {$scope.newevent.comment += "\nTuren forventes at være på ca " +$scope.newevent.distance/1000 +" km";}
        if ($scope.newevent.location) {$scope.newevent.comment += "\nVi starter i " +$scope.newevent.location;}
        if ($scope.newevent.max_participants) {$scope.newevent.comment += "\nder er plads til " +$scope.newevent.max_participants +" roere";}
@@ -218,12 +220,12 @@ eventApp.controller(
      }
 
      
-     $scope.is_event_member = function() {
-       if (!$scope.currentevent) {
+     $scope.is_event_member = function(event) {
+       if (!event || ! $scope.current_user) {
          return false;
        }
-       for (var i=0; i<$scope.currentevent.participants.length; i++){
-         if ($scope.currentevent.participants[i] && $scope.currentevent.participants[i].member_id==$scope.current_user.member_id ) {
+       for (var i=0; i<event.participants.length; i++){
+         if (event.participants[i] && event.participants[i].member_id==$scope.current_user.member_id ) {
            return true;
          }
        }       
@@ -385,6 +387,10 @@ eventApp.controller(
        
      }
      
+     $scope.update_distance = function () {
+       $scope.newevent.distance=$scope.newevent.destination.distance;
+     }
+
      $scope.setCurrentMessage = function (message) {
        $scope.currentmessage=message;
      }

@@ -13,18 +13,24 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 // $cuser="7854"; // FIXME
 error_log("EVENTCREATE NEWEVENT user=$cuser: ".print_r($newevent,true));
 if ($stmt = $rodb->prepare(
-        "INSERT INTO event(owner, boat_category, start_time, end_time, distance, max_participants, location, name, category, comment,open)
-         SELECT Member.id, ?,CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,?,? 
+        "INSERT INTO event(owner, boat_category, start_time, end_time, distance, max_participants, location, name, category, comment,open,destination)
+         SELECT Member.id, ?,CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,?,?,? 
          FROM Member
          WHERE 
            MemberId=?
          ")) {
 
     $triptype="NULL";
+    if (empty($newevent->destination)) {
+        $destination=null;
+    } else {
+        $destination=$newevent->destination->name;
+    }
+        
     $stime=date('Y-m-d H:i:s', strtotime($newevent->starttime));
     $etime=empty($newevent->endtime)?null:date('Y-m-d H:i:s', strtotime($newevent->endtime));
     $stmt->bind_param(
-        'sssiissssis',
+        'sssiissssiss',
         $newevent->boat_category->id,
         $stime,
         $etime,
@@ -36,6 +42,7 @@ if ($stmt = $rodb->prepare(
         $newevent->category->name,
         $newevent->comment,
         $newevent->open,
+        $destination,
         $cuser) ||  die("create event BIND errro ".mysqli_error($rodb));
 
     if ($stmt->execute()) {

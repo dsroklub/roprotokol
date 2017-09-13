@@ -6,13 +6,21 @@ header('Content-type: application/json');
 
 $ts=42;
 
+
+function dv($v) {
+    if (empty($v)) {
+        return 7;
+    } else {
+        return $v;
+    }
+}
 $tsa=array(
-    'member' =>  $mem->get('member'),
-    'file' =>  $mem->get('file'),
-    'stats' =>  $mem->get('stats'),
-    'fora' =>  $mem->get('forum'),
-    'message' =>  $mem->get('message'),
-    'event' =>  $mem->get('event')
+    'member' =>  dv($mem->get('member')),
+    'file' =>  dv($mem->get('file')),
+    'stats' =>  dv($mem->get('stats')),
+    'fora' =>  dv($mem->get('forum')),
+    'message' =>  dv($mem->get('message')),
+    'event' =>  dv($mem->get('event'))
 );
 $res=json_encode($tsa);
     print($res);

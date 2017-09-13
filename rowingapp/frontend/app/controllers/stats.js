@@ -17,7 +17,7 @@ app.controller(
        $scope.seasons.push(y);
      }
      $scope.statseason=""+$scope.statseason; // hack, because JS mixes strings and numbers
-     DatabaseService.init({"stats":true, "boat":true,"member":true, trip:true, }).then(function () {
+     DatabaseService.init({"stats":true, "boat":true,"member":true, "trip":true, }).then(function () {
        
        // (Need membership Start date, End Date for following information)
        

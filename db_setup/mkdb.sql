@@ -566,6 +566,7 @@ CREATE TABLE event (
   max_participants       INTEGER,
   location               VARCHAR(255),
   status                 VARCHAR(255) DEFAULT "on",
+  destination            VARCHAR(255),
   name                   VARCHAR(255),
   category               VARCHAR(255),
   preferred_intensity    VARCHAR(300),

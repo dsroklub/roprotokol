@@ -12,7 +12,7 @@ angular.module('eventApp.database.login-services', []).service('LoginService', f
   }
 
   this.setpw = function(data) {
-    $http.post('../../../backend/event/setpw.php', data).then(function(r) {
+    $http.post('/backend/event/setpw.php', data).then(function(r) {
       alert("password skiftet");
     },function(r) {
       alert("det mislykkedes at skifte password");
