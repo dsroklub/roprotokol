@@ -22,7 +22,7 @@
         class="event" ng-class-odd="'odd'" ng-class-even="'even'">
       <td ng-class="{iamin: is_event_member(ev)}"><span class="tooltiptext">Jeg deltager</span>{{ev.name}}</td>
       <td>{{ev.start_time | date:"d. MMM yyyy"}}</td>
-      <td>{{ev.distance|mtokm}} km</td>
+      <td class="rnum">{{ev.distance|mtokm}} km</td>
       <td>{{ev.destination}}</td>      
       <td ng-show="ev.open">åben</td>
       <td ng-hide="ev.open">lukket</td>
