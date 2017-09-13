@@ -99,20 +99,6 @@
     </tr>
 
     <tr>
-      <th>
-        Beskrivelse:<br>
-        <button class="generate" ng-click="eventmessage()">Generer</button>
-        <br>
-        og tilret
-      </th>
-      <td>
-        <textarea placeholder="beskriv turen/arrangementet" class="event_comment" type="text" ng-model="newevent.comment">
-        </textarea>
-      </td>
-    </tr>
-
-    
-    <tr>
       <th>evt Mål</th>
       <td>
         <select ng-change="update_distance()" name="destination" id="destination" ng-model="newevent.destination" ng-options="dest.name for dest in destinations">
@@ -128,6 +114,21 @@
         km
       </td>
     </tr>
+
+    <tr>
+      <th>
+        Beskrivelse:<br>
+        <button class="generate" ng-click="eventmessage()">Generer</button>
+        <br>
+        og tilret
+      </th>
+      <td>
+        <textarea placeholder="beskriv turen/arrangementet" class="event_comment" type="text" ng-model="newevent.comment">
+        </textarea>
+      </td>
+    </tr>
+
+    
     
 </table>
   <button class="green" ng-show="newevent.starttime && neweventform.$valid" ng-click="eventcreate()">Opret begivenhed</button>
