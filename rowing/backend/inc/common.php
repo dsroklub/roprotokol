@@ -40,7 +40,6 @@ function invalidate($tp) {
     $mem->increment($tp, 1, time());
 
 }
-
 function dbErr(&$db, &$res, $err="") {
     $res["status"]=$db->error;
     error_log("Database error $db->error $err");

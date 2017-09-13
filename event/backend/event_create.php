@@ -95,8 +95,8 @@ if (empty($error)) {
     
 // Now Store message
 $subject="Invitation til $newevent->name";
+$emailbody="Invitation til http://aftaler/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
 $body="Invitation til http://aftaler/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
-//error_log("EVENTCREATE MESSAGE");
 if ($stmt = $rodb->prepare(
         "INSERT INTO event_message(member_from, event, created, subject, message)
          SELECT mf.id, ?,NOW(),?,?
@@ -125,8 +125,10 @@ if (!empty($newevent->forum)) {
          WHERE Member.id=forum_subscription.member AND forum_subscription.forum=?")) {
         $stmt->bind_param(
             's',
-            $newevent->forum->name) ||  die("create forum message BIND errro ".mysqli_error($rodb));        
-        if (!$stmt->execute()) {
+            $newevent->forum->forum) ||  die("create forum message BIND errro ".mysqli_error($rodb));        
+        if ($stmt->execute()) {
+            invalidate("message");
+        } else {
             $error=" message forum membererror ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."forum message member DB error: ".mysqli_error($rodb);
@@ -155,6 +157,7 @@ if (count($toMemberIds)>0) {
                (SELECT member from member_message m2 WHERE m2.message=LAST_INSERT_ID())")) {
         call_user_func_array( array($stmt, 'bind_param'), $ml); 
         $stmt->execute() or die("Error in mm INSERT query: " . mysqli_error($rodb));
+        invalidate("message");
     } else {
         $error="Error in mm prepare query: $rodb->error";
         error_log($error);
@@ -188,7 +191,7 @@ if (count($toMemberIds)>0) {
      }
      
      $smtp = Mail::factory('sendmail', array ());     
-     $mail_status = $smtp->send($toEmails, $mail_headers, $body);
+     $mail_status = $smtp->send($toEmails, $mail_headers, $emailbody);
 
      if (PEAR::isError($mail_status)) {
          $res["status"]="warning";

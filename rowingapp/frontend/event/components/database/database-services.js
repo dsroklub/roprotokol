@@ -7,16 +7,16 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   var debug=3;
     
   var cachedepend={
-    'member':['rowers','event/events_participants'],
+    'member':['event/rowers','event/events_participants'],
     'event':['event/events','event/event_category','event/userfora','event/events_participants'],
     'message':['event/messages'],
+    'fora':['event/messages'],
     'file':['event/forum_files_list']
   };
   
   var datastatus={
-    'boat':null,
-    'trip':null,
     'member':null,
+    'message':null,
     'event':null,
     'forum':null,
     'destination':null,
@@ -202,7 +202,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       $log.error(r.status);
       qup.resolve(false);
     });
-    datastatus['trip']=null;
+    datastatus['message']=null;
     datastatus['event']=null;
     datastatus['boat']=null;
     datastatus['member']=null;
@@ -235,7 +235,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     },function(r) {
       entityCreated.resolve({"error":entity+"  fejl"});
     });
-    datastatus['trip']=null;
+    datastatus['event']=null;
     return entityCreated;
   };
   

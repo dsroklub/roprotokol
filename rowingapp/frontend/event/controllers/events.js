@@ -124,7 +124,7 @@ eventApp.controller(
 
      $scope.is_cox = function (rights) {
        var is_cox=0;
-       for (var i=0;i< rights.length;i++ ) {
+       for (var i=0;i<rights.length;i++ ) {
          if (rights[i].menber_rigth="cox") {
            is_cox=1;
            break;
@@ -141,8 +141,7 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("event_subscribe_by_owner",$scope.neweventmember);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           var is_cox=$scope.is_cox($scope.neweventmember.member.rights);
-           
+           var is_cox=$scope.is_cox($scope.neweventmember.member.rights);           
            $scope.currentevent.participants.push(
              {
                "name":$scope.neweventmember.member.name,
