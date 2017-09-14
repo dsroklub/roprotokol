@@ -71,8 +71,12 @@
       <li class="logo">
         <img src="../app/assets/dsrlogo.svg">  
       </li>
-      <li ng-show="ccurrentuser.user.member_id>0" ng-class="{topsel: activePath=='/login/'}"><a href="login/"><i class="fa fa-user"></i>Ud/pw</a></li>
-      <li ng-hide="ccurrentuser.user.member_id>0" ng-class="{topsel: activePath=='/login/'}"><a href="login/"><i class="fa fa-user"></i>Log ind</a></li>
+      <li ng-show="ccurrentuser.user.member_id>0" ng-class="{topsel: activePath=='/login/'}">
+        <a href="login/"><i class="fa fa-user"></i>Ud/pw</a>
+      </li>
+      <li ng-hide="ccurrentuser.user.member_id>0" ng-class="{topsel: activePath=='/login/'}">
+        <a href="login/"><i class="fa fa-user"></i>Log ind</a>
+      </li>
       <li ng-class="{topsel: activePath=='/timeline/'}"><a href="timeline/"><i class="fa fa-calendar"></i>Rokalender</a></li>
       <li ng-class="{topsel: activePath=='/forumsubscribe/'}"><a href="forumsubscribe/"><i class="fa fa-user-plus"></i>Fora</a></li>
       <li ng-class="{topsel: activePath=='/eventcreate/'}"><a href="eventcreate/"><i class="fa fa-calendar-plus-o"></i>Begivenhed</a></li>
