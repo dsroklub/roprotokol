@@ -7,13 +7,18 @@
 
 <h1 class="error" ng-hide="dbready || dbgrace">Henter data<br>vær tålmodig</h1>
 <table>
+  <thead>
+    <caption>Abonner på forum: </caption>
+  </thead>
   <tr>
-    <th>Abonner på forum: </th><td>
+    <td>
       <select name="forum" id="forum" ng-model="subscription.forum"
               ng-options="forum.forum for forum in fora | filter: {role:null}">
       </select>
       {{subscription.forum.open}}
     </td>
+  </tr>
+  <tr>
     <td ng-show="subscription.forum.is_open"> <button class="green" ng-click="subscribe()">Abonner</button></td>    
     <td ng-hide="subscription.forum.is_open">
       <button ng-show="subscription.forum" class="green" ng-click="subscribe()">Anmod on deltagelse</button>
@@ -55,8 +60,8 @@
 </div>
 
 <table>
-  <caption>{{current_forum.forum}} Medlem</caption>
   <thead>
+    <caption>{{current_forum.forum}} Medlem</caption>
   </thead>
   <tr ng-repeat="forummember in forummembers | filter: {role:''}"  class="forummember" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
@@ -84,10 +89,10 @@
       <input ng-model="filefilter" type="text"><i class="fa fa-search"></i>
     </td>
   </tr>
-  <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.forum" class="event" ng-class-odd="'odd'" ng-class-even="'even'">
+  <tr ng-repeat="file in forum_files | filter:filematch(filefilter)"
+      ng-show="file.forum==current_forum.forum" class="event" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
-      <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}">
-      {{file.filename}}</a>
+      <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}"> {{file.filename}}</a>
     </td>
   </tr>
 </table>

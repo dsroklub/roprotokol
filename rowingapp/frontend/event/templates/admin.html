@@ -1,14 +1,30 @@
-<ng-form name="newforumform" ng-if="current_user.is_fora_admin">
-  <h2>Opret nyt forum</h2>
-  <input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off"
-         ng-model="newforum.name" required>
-  Åben tilmelding: <input type="checkbox" ng-model="newforum.open" value="true"><br>
-  <br>
-  <input type="text" class="description" placeholder="beskrivelse af forum" class="forum" autocomplete="off"
-         ng-model="newforum.description">
-  <br>
-  <button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
-</ng-form>
+<form name="newforumform" ng-if="current_user.is_fora_admin">
+  <table>
+    <caption>Nyt forum</caption>
+    <tbody class="tbody">
+    <tr>
+      <td>
+        <input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off" ng-model="newforum.name" required>
+      </td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" ng-model="newforum.open" value="true"> Åben tilmelding</td>
+    <tr>
+      <td><input type="checkbox" ng-model="newforum.is_public"> Synligt for alle</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="text" class="description" placeholder="beskrivelse af forum" class="forum" autocomplete="off" ng-model="newforum.description">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</form>
 
 <table>
   <caption>Eksisterende fora mm</caption>
@@ -57,18 +73,18 @@
           udløber:
         </td>
         <td> <datetimepicker               
-                uib-tooltip="Udløbsdato"
-                popup="d MMM yyyy"
-                current-text="i dag"
-                close-text="vælg"
-                clear-text="rens"
-                date-format="yyyy-MM-dd"
-                hidden-time="true"
-                show-spinners="false"
-                date-options="dateOptions"
-                show-meridian="false"
-                ng-model="forumfile.expire"
-                >
+               uib-tooltip="Udløbsdato"
+               popup="d MMM yyyy"
+               current-text="i dag"
+               close-text="vælg"
+               clear-text="rens"
+               date-format="yyyy-MM-dd"
+               hidden-time="true"
+               show-spinners="false"
+               date-options="dateOptions"
+               show-meridian="false"
+               ng-model="forumfile.expire"
+               >
           </datetimepicker>
         </td>
       </tr>

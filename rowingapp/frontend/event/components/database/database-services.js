@@ -10,7 +10,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     'member':['event/rowers','event/events_participants'],
     'event':['event/events','event/event_category','event/userfora','event/events_participants'],
     'message':['event/messages'],
-    'fora':['event/messages'],
+    'forum':['event/messages','event/userfora'],
     'file':['event/forum_files_list']
   };
 // permament for now    'destinations':['event/destinations']

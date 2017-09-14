@@ -3,7 +3,7 @@
 
 eventApp.controller(
   'eventCtrl',
-  ['$scope', '$routeParams', 'DatabaseService','LoginService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
+  ['$scope',         '$routeParams','DatabaseService','LoginService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
    function ($scope, $routeParams, DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
      $anchorScroll.yOffset = 50;
      $scope.teams=[];
@@ -12,6 +12,7 @@ eventApp.controller(
      $scope.messages=[];
      $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
      $scope.subscription={};
+     $scope.newforum={"is_public":true,"open":true};
      $scope.eventarg=$routeParams.event;
      $scope.rParams=$routeParams;
      $scope.dateOptions = {
@@ -306,13 +307,13 @@ eventApp.controller(
 
      }
 
-     $scope.forumcreate = function(arg) {
+     $scope.forumcreate = function() {
        var sr=DatabaseService.createSubmit("forum_create",$scope.newforum);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
            $log.debug("forum created");
            $scope.fora.push($scope.newforum);
-           $scope.newforum={};
+           $scope.newforum={"is_public":true,"open":true};
          } else {
            alert(status.error);
          }
@@ -412,7 +413,16 @@ eventApp.controller(
        $scope.newevent.invitee=null
      }
 
-   }
 
+     $scope.filematch = function (filefilter) {
+       return function(file) {
+         if (!filefilter) {
+           return true
+         }         
+         return (file.filename.match( new RegExp(filefilter, 'i')));
+       }
+     };
+
+   }
   ]
 );

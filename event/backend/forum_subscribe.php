@@ -11,6 +11,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
+
 if ($stmt = $rodb->prepare(
         "INSERT INTO forum_subscription(member,forum,role)
          SELECT Member.id ,forum.name, IF(forum.is_open>0,'member','supplicant')
@@ -19,15 +20,10 @@ if ($stmt = $rodb->prepare(
            forum.name=? AND
            MemberId=?
          ")) {
-
-    if (!empty($subscription->role)) {
-        $role=$subscription->role;
-    }
     $stmt->bind_param(
         'ss',
         $subscription->forum->forum,
-        $cuser) ||  die("create event BIND errro ".mysqli_error($rodb));
-
+        $cuser) ||  die("forum subscribe BIND errro ".mysqli_error($rodb));
     if (!$stmt->execute()) {
         $error=" forum sub exe ".mysqli_error($rodb);
         $message=$message."\n"."forum sub insert error: ".mysqli_error($rodb);

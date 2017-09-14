@@ -7,29 +7,31 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $newforum=json_decode($data);
 $message='';
-error_log(print_r($newforum,true));
+error_log("NEW FORUM: ".print_r($newforum,true));
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 // $cuser="7854"; // FIXME
 
 if ($stmt = $rodb->prepare(
-    "INSERT INTO forum (name,description,is_open,owner) 
-   SELECT ?,?,?,Member.id FROM Member,MemberRights WHERE 
+    "INSERT INTO forum (name,description,is_open,is_public,owner) 
+   SELECT ?,?,?,?,Member.id FROM Member,MemberRights WHERE 
    Member.MemberId=? AND
    MemberRights.member_id=Member.id AND
    MemberRights.MemberRight='event' AND
-   MemberRights.MemberRight='fora'
+   MemberRights.argument='fora'
 "
 )) {
 
     $triptype="NULL";
-    $isopen=$newforum->open?1:0;
+    $isopen=empty($newforum->open)?0:1;
+    $ispublic=empty($newforum->is_public)?0:1;
     $stmt->bind_param(
-        'ssis',
+        'ssiis',
         $newforum->name,
         $newforum->description,
         $isopen,
+        $ispublic,
         $cuser
     ) ||  die("create forum BIND errro ".mysqli_error($rodb));
 
@@ -42,6 +44,33 @@ if ($stmt = $rodb->prepare(
     $error=" forum db error ".mysqli_error($rodb);
     error_log($error);
 }
+
+
+if (!$ispublic) {
+    if ($stmt = $rodb->prepare(
+        "INSERT INTO forum_subscription(member,forum,role)
+         SELECT Member.id ,forum.name, 'owner'
+         FROM Member, forum
+         WHERE 
+           forum.name=? AND
+           MemberId=?
+         ")) {
+
+    $stmt->bind_param(
+        'ss',
+        $newforum->name,
+        $cuser) ||  die("create forum BIND errro ".mysqli_error($rodb));
+
+    if (!$stmt->execute()) {
+        $error=" forum sub exe ".mysqli_error($rodb);
+        $message=$message."\n"."forum sub insert error: ".mysqli_error($rodb);
+    } 
+} else {
+    $error=" forum sub prep ".mysqli_error($rodb);
+}
+
+}
+
     
 if ($error) {
     error_log($error);
@@ -50,5 +79,6 @@ if ($error) {
     $res['error']=$error;
 }
 invalidate("event");
+invalidate("forum");
 echo json_encode($res);
 ?> 
