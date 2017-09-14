@@ -621,6 +621,7 @@ CREATE TABLE forum (
   description VARCHAR(255),
   owner     INTEGER,
   is_open      BOOLEAN DEFAULT TRUE,
+  is_public     BOOLEAN DEFAULT TRUE,
   FOREIGN KEY (owner) REFERENCES Member(id) NOT NULL
 );
 

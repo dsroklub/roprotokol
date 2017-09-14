@@ -15,7 +15,9 @@
       {{subscription.forum.open}}
     </td>
     <td ng-show="subscription.forum.is_open"> <button class="green" ng-click="subscribe()">Abonner</button></td>    
-    <td ng-hide="subscription.forum.is_open"> <button ng-show="subscription.forum" class="green" ng-click="subscribe()">Anmod on deltagelse</button></td>
+    <td ng-hide="subscription.forum.is_open">
+      <button ng-show="subscription.forum" class="green" ng-click="subscribe()">Anmod on deltagelse</button>
+    </td>
   </tr>
 </table>
 
@@ -74,9 +76,14 @@
 
 
 <table class="subscriptions">
-<caption>{{current_forum.forum}} filer:</caption>
   <thead>
+    <caption>{{current_forum.forum}} filer:</caption>
   </thead>
+  <tr>
+    <td>
+      <input ng-model="filefilter" type="text"><i class="fa fa-search"></i>
+    </td>
+  </tr>
   <tr ng-repeat="file in forum_files" ng-show="file.forum==current_forum.forum" class="event" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
       <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}">
