@@ -6,7 +6,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 
 
-$s="SELECT forum.name as forum,forum.description, owner.MemberId as owner, is_open, is_public,forum_subscription.role
+$s="SELECT forum.name as forum,forum.description, owner.MemberId as owner, is_open, is_public, forum_subscription.role
     FROM Member owner, forum JOIN Member m LEFT JOIN forum_subscription ON (forum.name=forum_subscription.forum AND forum_subscription.member=m.id)
     WHERE owner.id=forum.owner and m.MemberId=?
 HAVING is_public OR role IS NOT NULL;

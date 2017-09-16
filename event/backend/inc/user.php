@@ -32,7 +32,39 @@ function check_event_owner($eventId) {
             $message=$message."\n"."role update error: ".mysqli_error($rodb);
         }
     } else {
-        $error=" event status set ".mysqli_error($rodb);
+        $error=" check even owner ".mysqli_error($rodb);
+        error_log($error);
+    }
+    return false;
+}
+
+
+function check_forum_owner($forum) {
+    global $currentuser;
+    global $rodb;
+    if ($stmt = $rodb->prepare(
+        "SELECT Member.id
+         FROM forum_subscription, Member
+         WHERE forum_subscription.forum=? AND MemberId=? AND forum_subscription.member=Member.id AND forum_subscription.role='owner'")
+    ) {        
+        $stmt->bind_param(
+            'ss',
+            $forum->forum,
+            $currentuser
+        ) ||  die("check forum owner errro ".mysqli_error($rodb));
+        
+        if ($stmt->execute()) {
+            error_log("check forum owner OK");
+            $result= $stmt->get_result() or die("Error in forum owner check: " . mysqli_error($rodb));
+            if (count($result)==1) {
+                return true;
+            }        
+        } else {
+            $error=" forum status set exe ".mysqli_error($rodb);
+            $message=$message."\n"."role update error: ".mysqli_error($rodb);
+        }
+    } else {
+        $error=" forum status set ".mysqli_error($rodb);
         error_log($error);
     }
     return false;

@@ -228,7 +228,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     return at;
   }
 
-
   this.createSubmit = function(entity,data) {
     var entityCreated=$q.defer();
     var res=undefined;

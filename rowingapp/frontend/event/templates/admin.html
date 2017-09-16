@@ -33,6 +33,14 @@
       <td>
         {{forum.forum}}
       </td>
+
+      <td ng-show="forum.is_public && forum.role=='owner'" ng-click="toggle_forum_visibility(forum)">
+        <button>gør privat</button>
+      </td>
+      <td ng-show="!forum.is_public && forum.role=='owner'" ng-click="toggle_forum_visibility(forum)">
+        <button>gør synligt for alle</button>
+      </td>
+      
     </tr>
   </tbody>         
 </table>

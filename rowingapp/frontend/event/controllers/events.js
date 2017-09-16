@@ -179,7 +179,7 @@ eventApp.controller(
 	 if (status.status !='ok') {
            alert(status.error);
          }
-       })
+       });
      }
      
 
@@ -233,6 +233,17 @@ eventApp.controller(
        return false;
      }
 
+     $scope.is_forum_owner = function(event) {
+       if (!event || ! $scope.current_user) {
+         return false;
+       }
+       for (var i=0; i<event.participants.length; i++){
+         if (event.participants[i] && event.participants[i].member_id==$scope.current_user.member_id ) {
+           return true;
+         }
+       }       
+       return false;
+     }
      $scope.eventjoin = function(role) {
        $scope.currentevent.new_role=role;
        var sr=DatabaseService.createSubmit("event_join",$scope.currentevent);
@@ -414,7 +425,18 @@ eventApp.controller(
      }
 
 
-     $scope.filematch = function (filefilter) {
+     $scope.toggle_forum_visibility = function (forum) {
+       var sr=DatabaseService.createSubmit("toggle_forum_visibility",forum);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           forum.is_public = !forum.is_public;
+	 } else {
+           alert(status.error);
+         }
+       });
+     }
+     
+       $scope.filematch = function (filefilter) {
        return function(file) {
          if (!filefilter) {
            return true
