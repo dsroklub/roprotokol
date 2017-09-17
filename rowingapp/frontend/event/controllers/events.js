@@ -364,7 +364,10 @@ eventApp.controller(
          $scope.forumfile.filename = fn;
        }
      }
-     
+
+     $scope.burl=$location.$$absUrl.split("message/")[0]; // FXIME
+     console.log($scope.burl);
+
      $scope.member_setting_update = function() {
        var sr=DatabaseService.createSubmit("member_setting_update",$scope.member_setting);
        sr.promise.then(function(status) {
@@ -440,11 +443,34 @@ eventApp.controller(
        return function(file) {
          if (!filefilter) {
            return true
-         }         
+         }
          return (file.filename.match( new RegExp(filefilter, 'i')));
        }
      };
 
+     $scope.forummatch = function (forumfilter) {
+       return function(forum) {
+         if (!forumfilter) {
+           return true
+         }
+         return (forum.forum.match( new RegExp(forumfilter, 'i')));
+       }
+     };
+
+     $scope.messagematch = function (messagefilter) {
+       return function(message) {
+         if (!messagefilter) {
+           return true
+         }         
+         return (
+           message.subject.match( new RegExp(messagefilter, 'i')) ||
+             message.sender.match( new RegExp(messagefilter, 'i')) ||
+             message.body.match( new RegExp(messagefilter, 'i')) 
+         );
+       }
+     };
+
+     
    }
   ]
 );

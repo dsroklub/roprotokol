@@ -13,7 +13,7 @@
 
 
 <h2>Mine Beskeder</h2>
-
+<input ng-model="messagefilter" type="text"><i class="fa fa-search"></i>
 <div>
   <div class="messagelist">
     <table class="baselayout" width="100%">
@@ -25,11 +25,17 @@
           <th>Tid</th>
           <th>Besked</th>
         </tr> 
-      </thead>
+     </thead>
       <tbody>
-        <tr ng-repeat-start="message in messages"  ng-class="{selected: currentmessage == message}"
-            ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >
-          <td>{{message.subject}}</td>
+        <tr ng-repeat-start="message in messages | filter:messagematch(messagefilter)"
+            ng-class="{selected: currentmessage == message}"
+            ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >          
+          <td>
+            <a href="{{burl}}/#!timeline?event=6">
+            <i class="fa fa-link" ng-show="message.type=='event'"></i>
+            {{message.subject}}
+            </a>
+          </td>
           <td>{{message.sender}}</td>
           <td>{{message.source}}</td>
           <td>{{message.created |date:"d. MMM yyyy"}}</td>

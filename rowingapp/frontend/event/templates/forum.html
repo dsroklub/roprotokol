@@ -28,8 +28,16 @@
 
 
 <table class="subscriptions">
-  <caption>Mine abonnementer</caption>
-  <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''}"  class="event"
+  <thead>
+    <caption>Mine abonnementer</caption>
+  </thead>
+
+    <tr>
+      <td>
+        <input ng-model="forumfilter" type="text"><i class="fa fa-search"></i>
+      </td>
+    </tr>
+  <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''} | filter:forummatch(forumfilter)"  class="event
       ng-class-odd="'odd'" ng-class-even="'even'"
       ng-class="{selected: current_forum == userforum}"
       >
@@ -90,7 +98,8 @@
     </td>
   </tr>
   <tr ng-repeat="file in forum_files | filter:filematch(filefilter)"
-      ng-show="file.forum==current_forum.forum" class="event" ng-class-odd="'odd'" ng-class-even="'even'">
+      ng-show="file.forum==current_forum.forum"
+      class="event" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
       <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}"> {{file.filename}}</a>
     </td>

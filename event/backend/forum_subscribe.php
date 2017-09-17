@@ -13,7 +13,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
 
 if ($stmt = $rodb->prepare(
-        "INSERT INTO forum_subscription(member,forum,role)
+    "INSERT INTO forum_subscription(member,forum,role)
          SELECT Member.id ,forum.name, IF(forum.is_open>0,'member','supplicant')
          FROM Member, forum
          WHERE 
