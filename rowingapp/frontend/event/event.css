@@ -64,6 +64,13 @@ button.submit, button.green, button.login {
   color: #FFFFFF;
   font-size: 16pt;
 }
+
+button.chooser {   
+  border: 1px solid #3ECBBF;
+  background: #5dff5a;
+  color: black;
+}
+
 button.header, tr.header {   
   border: 1px solid #000000;
   color: #FFFFFF;
@@ -250,7 +257,6 @@ li.selected,button.selected {
 /* } */
 
 select  {
-  border-radius: 1.5empx;
   border: 1px solid #ccc;
   padding: 3pt;
   margin-bottom: 0pt;

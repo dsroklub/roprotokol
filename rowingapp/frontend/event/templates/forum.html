@@ -34,7 +34,7 @@
 
     <tr>
       <td>
-        <input ng-model="forumfilter" type="text"><i class="fa fa-search"></i>
+        <i class="fa fa-search"></i><input ng-model="forumfilter" type="text"><i class="fa fa-eraser"  ng-click="forumfilter=null"></i>
       </td>
     </tr>
   <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''} | filter:forummatch(forumfilter)"  class="event
@@ -94,7 +94,9 @@
   </thead>
   <tr>
     <td>
-      <input ng-model="filefilter" type="text"><i class="fa fa-search"></i>
+      <i class="fa fa-search"></i>
+      <input ng-model="filefilter" type="text">
+      <i class="fa fa-eraser"  ng-click="filefilter=null"></i>
     </td>
   </tr>
   <tr ng-repeat="file in forum_files | filter:filematch(filefilter)"
