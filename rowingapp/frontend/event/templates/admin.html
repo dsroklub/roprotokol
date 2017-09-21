@@ -29,10 +29,13 @@
 <table>
   <caption>Eksisterende fora mm</caption>
   <tbody class="tbody">
+      <td>
+        <i class="fa fa-search"></i><input ng-model="forumfilter" type="text"><i class="fa fa-eraser"  ng-click="forumfilter=null"></i>
+      </td>
     <tr>
       <th></th>       <th></th>     <th>åbent</th>      <th>synligt</th>
     </tr>
-    <tr name="forum" id="forum"  ng-repeat="forum in fora">
+    <tr name="forum" id="forum"  ng-repeat="forum in fora | filter:forummatch(forumfilter)">
       <td>
         {{forum.forum}}
       </td>
