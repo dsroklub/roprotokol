@@ -1,27 +1,29 @@
-<form name="newforumform" ng-if="current_user.is_fora_admin">
+<form name="newforumform" ng-if="current_user.is_fora_admin" class="newforum">
   <table>
     <caption>Nyt forum</caption>
+    <thead>
+    </thead>
     <tbody class="tbody">
-    <tr>
-      <td>
-        <input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off" ng-model="newforum.name" required>
-      </td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" ng-model="newforum.open" value="true"> Åben tilmelding</td>
-    <tr>
-      <td><input type="checkbox" ng-model="newforum.is_public"> Synligt for alle</td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <input type="text" class="description" placeholder="beskrivelse af forum" class="forum" autocomplete="off" ng-model="newforum.description">
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
-      </td>
-    </tr>
+      <tr>
+	<td>
+          <input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off" ng-model="newforum.name" required>
+	</td>
+      </tr>
+      <tr>
+	<td><input type="checkbox" ng-model="newforum.open" value="true"> Åben tilmelding</td>
+      <tr>
+	<td><input type="checkbox" ng-model="newforum.is_public"> Synligt for alle</td>
+      </tr>
+      <tr>
+	<td colspan="2">
+          <input type="text" class="description" placeholder="beskrivelse af forum" class="forum" autocomplete="off" ng-model="newforum.description">
+	</td>
+      </tr>
+      <tr>
+	<td>
+          <button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
+	</td>
+      </tr>
     </tbody>
   </table>
 </form>

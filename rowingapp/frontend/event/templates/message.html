@@ -10,8 +10,6 @@
 <textarea class="forumselect" placeholder="besked" id="message_body" type="text" ng-model="message.body" required></textarea>
 <button class="green forumselect" ng-disabled="!messageform.$valid" ng-click="messagesend()">Send besked</button>
 </ng-form>
-
-
 <h2>Mine Beskeder</h2>
 <input ng-model="messagefilter" type="text"><i class="fa fa-search"></i>
 <div>
@@ -31,9 +29,14 @@
             ng-class="{selected: currentmessage == message}"
             ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >          
           <td>
-            <a href="{{burl}}/#!timeline?event=6">
-            <i class="fa fa-link" ng-show="message.type=='event'"></i>
-            {{message.subject}}
+            <div ng-show="message.type=='forum'" ng-click=reply(message)>
+              <i class="fa fa-reply" ></i>
+              {{message.subject}}
+            </div>
+
+            <a href="{{burl}}/#!timeline?event={{message.event}}" ng-show="message.type=='event'">
+              <i class="fa fa-link" ></i>
+              {{message.subject}}
             </a>
           </td>
           <td>{{message.sender}}</td>

@@ -2,68 +2,69 @@
 // Niels Elgaard Larsen, v2
 
 eventApp.controller(
-  'eventCtrl',
-  ['$scope',         '$routeParams','DatabaseService','LoginService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
-   function ($scope, $routeParams, DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
-     $anchorScroll.yOffset = 50;
-     $scope.teams=[];
-     $scope.todpattern="[0-2]\\d:[0-5]\\d";
-     $scope.signup={act:[]};
-     $scope.messages=[];
-     $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
-     $scope.subscription={};
-     $scope.newforum={"is_public":true,"open":true};
-     $scope.eventarg=$routeParams.event;
-     $scope.rParams=$routeParams;
-     $scope.dateOptions = {
-       showWeeks: false
-     };
-     $scope.init = function(){
-       $scope.newevent={invitees:[]};
-       $scope.newevent.location="DSR";
-       $scope.newevent.max_participants="";
-       $scope.newevent.owner_in=1;
-       $scope.newevent.open=1;
-     }
-     $scope.init();
-     $scope.dbready=false;
-     $scope.dbgrace=true;
-     $timeout(function() { $scope.dbgrace = false;}, 2000);
+    'eventCtrl',
+    ['$scope',         '$routeParams','DatabaseService','LoginService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
+     function ($scope, $routeParams, DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
+	 $anchorScroll.yOffset = 50;
+	 $scope.teams=[];
+	 $scope.todpattern="[0-2]\\d:[0-5]\\d";
+	 $scope.signup={act:[]};
+	 $scope.messages=[];
+	 $scope.message={};	 
+	 $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
+	 $scope.subscription={};
+	 $scope.newforum={"is_public":true,"open":true};
+	 $scope.eventarg=$routeParams.event;
+	 $scope.rParams=$routeParams;
+	 $scope.dateOptions = {
+	     showWeeks: false
+	 };
+	 $scope.init = function() {
+	     $scope.newevent={invitees:[]};
+	     $scope.newevent.location="DSR";
+	     $scope.newevent.max_participants="";
+	     $scope.newevent.owner_in=1;
+	     $scope.newevent.open=1;
+	 }
+	 $scope.init();
+	 $scope.dbready=false;
+	 $scope.dbgrace=true;
+	 $timeout(function() { $scope.dbgrace = false;}, 2000);
+	 
+	 $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
+	 DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
+	     $scope.boatcategories=DatabaseService.getDB('event/boat_category');
+	     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
+	     $scope.fora=DatabaseService.getDB('event/fora');
+	     $scope.events=DatabaseService.getDB('event/events_participants');
+	     $scope.destinations=DatabaseService.getDB('event/destinations')['DSR'];
+	     $scope.userfora=DatabaseService.getDB('event/userfora');
+	     $scope.messages=DatabaseService.getDB('event/messages');
+	     $scope.member_setting=DatabaseService.getDB('event/member_setting');
+	     $scope.eventcategories=DatabaseService.getDB('event/event_category');
+	     $scope.eventroles=DatabaseService.getDB('event/roles');
+	     $scope.newevent.category=$scope.eventcategories[0];
+	     $scope.newevent.starttime=null;
+	     $scope.newevent.endtime=null;
+	     LoginService.check_user().promise.then(function(u) {         
+		 $scope.current_user=u;
+	     });
+	     $scope.member_path=$location.protocol()+"://"+ $location.host()+"/backend/event/";
+	     $scope.site_path=$location.protocol()+"://"+ $location.host();
+	     $scope.dbready=true;
 
-     $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-     DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
-       $scope.boatcategories=DatabaseService.getDB('event/boat_category');
-       $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
-       $scope.fora=DatabaseService.getDB('event/fora');
-       $scope.events=DatabaseService.getDB('event/events_participants');
-       $scope.destinations=DatabaseService.getDB('event/destinations')['DSR'];
-       $scope.userfora=DatabaseService.getDB('event/userfora');
-       $scope.messages=DatabaseService.getDB('event/messages');
-       $scope.member_setting=DatabaseService.getDB('event/member_setting');
-       $scope.eventcategories=DatabaseService.getDB('event/event_category');
-       $scope.eventroles=DatabaseService.getDB('event/roles');
-       $scope.newevent.category=$scope.eventcategories[0];
-       $scope.newevent.starttime=null;
-       $scope.newevent.endtime=null;
-       LoginService.check_user().promise.then(function(u) {         
-         $scope.current_user=u;
-       });
-       $scope.member_path=$location.protocol()+"://"+ $location.host()+"/backend/event/";
-       $scope.site_path=$location.protocol()+"://"+ $location.host();
-       $scope.dbready=true;
-
-       if ($scope.eventarg) {
-         $log.debug("look for event "+$scope.eventarg);
-         for (var i=0; i<$scope.events.length; i++){
-           if ($scope.events[i].event_id==$scope.eventarg) {
-             $scope.currentevent=$scope.events[i];
-             $log.debug("found currentevent");
-           }
-         }
-       }
-       $log.debug("events set user " + $scope.current_user);
-       LoginService.set_user($scope.current_user);
-     });
+	     if ($scope.eventarg) {
+		 $log.debug("look for event "+$scope.eventarg);
+		 for (var i=0; i<$scope.events.length; i++){
+		     if ($scope.events[i].event_id==$scope.eventarg) {
+			 $scope.currentevent=$scope.events[i];
+			 $log.debug("found currentevent");
+		     }
+		 }
+	     }
+	     $log.debug("events set user " + $scope.current_user);
+	     LoginService.set_user($scope.current_user);
+	 });
      
      $scope.subscribe = function() {
        var sr=DatabaseService.createSubmit("forum_subscribe",$scope.subscription);
@@ -428,49 +429,60 @@ eventApp.controller(
      }
 
 
-     $scope.toggle_forum_visibility = function (forum) {
-       var sr=DatabaseService.createSubmit("toggle_forum_visibility",forum);
-       sr.promise.then(function(status) {
-	 if (status.status =='ok') {
-           forum.is_public = !forum.is_public;
-	 } else {
-           alert(status.error);
-         }
-       });
+       $scope.toggle_forum_visibility = function (forum) {
+	   var sr=DatabaseService.createSubmit("toggle_forum_visibility",forum);
+	   sr.promise.then(function(status) {
+	       if (status.status =='ok') {
+		   forum.is_public = !forum.is_public;
+	       } else {
+		   alert(status.error);
+               }
+	   });
+       }
+       
+	 $scope.filematch = function (filefilter) {
+	     return function(file) {
+		 if (!filefilter) {
+		     return true
+		 }
+		 return (file.filename.match( new RegExp(filefilter, 'i')));
+	     }
+	 };
+	 
+	 $scope.forummatch = function (forumfilter) {
+	     return function(forum) {
+		 if (!forumfilter) {
+		     return true
+		 }
+		 return (forum.forum.match( new RegExp(forumfilter, 'i')));
+	     }
+	 };
+	 
+	 $scope.reply = function (message) {
+	     $scope.message.forum = $scope.fora.filter (function(f) {
+             return (f['forum']==message.source );
+           })[0];
+	     
+	     $scope.message.subject = message.subject;
+
+	     if ($scope.message.subject.indexOf("re:")!=0) {
+		 $scope.message.subject = "re: "+$scope.message.subject;
+	     }
+	     $scope.message.body = message.sender + ":\n"
+	 }
+       
+	 $scope.messagematch = function (messagefilter) {
+	     return function(message) {
+		 if (!messagefilter) {
+		     return true
+		 }         
+		 return (
+		     message.subject.match( new RegExp(messagefilter, 'i')) ||
+			 message.sender.match( new RegExp(messagefilter, 'i')) ||
+			 message.body.match( new RegExp(messagefilter, 'i')) 
+		 );
+	     }
+	 };		 
      }
-     
-       $scope.filematch = function (filefilter) {
-       return function(file) {
-         if (!filefilter) {
-           return true
-         }
-         return (file.filename.match( new RegExp(filefilter, 'i')));
-       }
-     };
-
-     $scope.forummatch = function (forumfilter) {
-       return function(forum) {
-         if (!forumfilter) {
-           return true
-         }
-         return (forum.forum.match( new RegExp(forumfilter, 'i')));
-       }
-     };
-
-     $scope.messagematch = function (messagefilter) {
-       return function(message) {
-         if (!messagefilter) {
-           return true
-         }         
-         return (
-           message.subject.match( new RegExp(messagefilter, 'i')) ||
-             message.sender.match( new RegExp(messagefilter, 'i')) ||
-             message.body.match( new RegExp(messagefilter, 'i')) 
-         );
-       }
-     };
-
-     
-   }
-  ]
+    ]
 );

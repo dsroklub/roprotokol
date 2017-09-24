@@ -389,6 +389,11 @@ datetimepicker.trip-search-field ng-form div input {
   display:inline-block;
 }
 
+.newforum {
+    background: white;
+  display:inline-block;
+}
+
 tr td {
   padding: 0.2em;
 }
