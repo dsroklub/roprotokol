@@ -58,11 +58,20 @@ button.red {
   background: #171717;
   font-size: 16pt;
 }
+
 button.submit, button.green, button.login {   
   border: 1px solid #3ECBBF;
   background: #028000;
   color: #FFFFFF;
   font-size: 16pt;
+}
+
+button.bodycopy {
+    vertical-align: text-bottom;
+    border: 1px solid #3ECBBF;
+    background: #b3fdb2;
+    color: #000000;
+    font-size: 12pt;
 }
 
 button.chooser {   
@@ -398,9 +407,13 @@ tr td {
   padding: 0.2em;
 }
 
+.msgbody {
+    min-height: 8em;
+}
+
 .forumselect {
   vertical-align: text-bottom;
-  font-size: x-large;
+  font-size: large;
   max-width:100%;
 }
 
@@ -479,6 +492,13 @@ tr td {
   width: 0em;
   position: absolute;
 }
+
+.tooltip .tooltip-inner{
+    background-color: white;
+    color: black;
+    padding-left: 5em;
+}
+
 
 .iamin:hover .tooltiptext {
   visibility: visible;

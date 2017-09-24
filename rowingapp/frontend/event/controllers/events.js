@@ -57,7 +57,7 @@ eventApp.controller(
 		 $log.debug("look for event "+$scope.eventarg);
 		 for (var i=0; i<$scope.events.length; i++){
 		     if ($scope.events[i].event_id==$scope.eventarg) {
-			 $scope.currentevent=$scope.events[i];
+			 $scope.setCurrentEvent($scope.events[i]);
 			 $log.debug("found currentevent");
 		     }
 		 }
@@ -458,7 +458,7 @@ eventApp.controller(
 	     }
 	 };
 	 
-	 $scope.reply = function (message) {
+	 $scope.forum_reply = function (message) {
 	     $scope.message.forum = $scope.fora.filter (function(f) {
              return (f['forum']==message.source );
            })[0];
@@ -468,7 +468,9 @@ eventApp.controller(
 	     if ($scope.message.subject.indexOf("re:")!=0) {
 		 $scope.message.subject = "re: "+$scope.message.subject;
 	     }
-	     $scope.message.body = message.sender + ":\n"
+	     $scope.message.old_body = message.sender + ":\n==\n"+message.body+"\n==\n";
+	     $scope.message.body = message.sender + ":\n";
+	     $anchorScroll('forum');
 	 }
        
 	 $scope.messagematch = function (messagefilter) {

@@ -4,14 +4,18 @@ include("utils.php");
  
 $forum=sanestring($_REQUEST['forum']);
 $filename=sanestring($_REQUEST['file']);
-
+if (isset($_SERVER['PHP_AUTH_USER'])) {
+    $cuser=$_SERVER['PHP_AUTH_USER'];
+}
 
 $s="SELECT mime_type as mt,filename,file 
-    FROM forum_file 
-    WHERE forum=? AND filename=? AND expire>NOW()";
+    FROM forum_file, Member, forum_subscription
+    WHERE 
+    Member.MemberID=? AND forum_subscription.member=Member.id AND forum_subscription.forum=forum_file.forum AND
+    forum_file.forum=? AND filename=? AND expire>NOW()";
 
 if ($stmt = $rodb->prepare($s)) {
-    $stmt->bind_param("ss", $forum,$filename);
+    $stmt->bind_param("sss", $cuser,$forum,$filename);
     $stmt->execute();
     $result= $stmt->get_result() or die("Error in file query: " . mysqli_error($rodb));
     if ($result) {

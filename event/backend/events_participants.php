@@ -16,7 +16,7 @@ SELECT event.status,event.id as event_id,event.open,owner_member.MemberId AS own
           LEFT JOIN BoatCategory on BoatCategory.id=event.boat_category LEFT JOIN TripType ON TripType.id=event.trip_type 
           LEFT JOIN event_member ON event_member.event=event.id 
              LEFT JOIN (SELECT member_id, 1 as iscox from MemberRights WHERE MemberRight='cox') as mc ON mc.member_id=event_member.member
-   WHERE owner_member.id=event.owner AND event.start_time >= NOW()
+   WHERE owner_member.id=event.owner AND event.end_time >= NOW()
       AND  em.id=event_member.member
       GROUP BY owner,start_time,event_id
 ";
