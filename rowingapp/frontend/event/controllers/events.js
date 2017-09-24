@@ -297,12 +297,14 @@ eventApp.controller(
 	 if (status.status == 'error') {
            alert(status.error);
          } else {
-           $log.debug("forum message sent");
-           $scope.message.sender="Mig";
-           $scope.message.source=$scope.message.forum.forum;
-           $scope.message.created=new Date().toISOString();
-           $scope.messages.splice(0,0,$scope.message);
-           $scope.message={};
+             $log.debug("forum message sent");
+             $scope.message.sender="Mig";
+             $scope.message.type="forum";
+	     $scope.message.current=1;
+	     $scope.message.source=$scope.message.forum.forum;
+             $scope.message.created=new Date().toISOString();
+             $scope.messages.splice(0,0,$scope.message);
+             $scope.message={};
          }
          if (status.status == 'warning') {
 
