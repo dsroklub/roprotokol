@@ -499,7 +499,6 @@ tr td {
     padding-left: 5em;
 }
 
-
 .iamin:hover .tooltiptext {
   visibility: visible;
   position: absolute;
@@ -514,4 +513,15 @@ tr td {
 
 datetimepicker.ng-empty ng-form div input {
     background: #e9ff91;
+}
+
+.helpbox {
+    padding: 1em;
+    margin-left:5em;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    background: #ddffe4;
+    font-size: 10pt;
+
 }
