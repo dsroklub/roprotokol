@@ -118,14 +118,15 @@
 	      </td>	  
               <td>
 	        <datetimepicker
-                   date-format="dd-MMM-yyyy"
-                   show-spinners="false"
-                   current-text="i dag"
-                   close-text="Vælg"
-                   clear-text="Rens"
-                   date-options="dateOptions"
-                   show-meridian="false"
-                   data-ng-model="checkout.starttime"
+                  date-format="dd-MMM-yyyy"
+                  show-spinners="false"
+                  current-text="i dag"
+                  close-text="Vælg"
+                  clear-text="Rens"
+                  date-options="dateOptions"
+                  show-meridian="false"
+                  data-ng-model="checkout.starttime"
+		  ng-change="newStartTime()"
                    >
                 </datetimepicker>
               </td>
@@ -136,14 +137,16 @@
 	      </td>
               <td>
 	        <datetimepicker
-                   date-format="dd-MMM-yyyy"
-                   show-spinners="false"
-                   date-options="dateOptions"
-                   current-text="i dag"
-                   close-text="Vælg"
-                   clear-text="Rens"
-                   show-meridian="false"
-                   ng-model="checkout.expectedtime"
+                  date-format="dd-MMM-yyyy"
+                  show-spinners="false"
+                  date-options="expectedOptions"
+                  current-text="i dag"
+                  close-text="Vælg"
+                  clear-text="Rens"
+                  show-meridian="false"
+                  ng-model="checkout.expectedtime"
+		  ng-click="set_expected()"
+
                    >
                 </datetimepicker>
 	      </td>

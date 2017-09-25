@@ -16,8 +16,14 @@ eventApp.controller(
 	 $scope.newforum={"is_public":true,"open":true};
 	 $scope.eventarg=$routeParams.event;
 	 $scope.rParams=$routeParams;
+	 $scope.min_time=new Date();
 	 $scope.dateOptions = {
-	     showWeeks: false
+	     showWeeks: false,
+	     minDate: $scope.min_time
+	 };
+	 $scope.enddateOptions = {
+	     showWeeks: false,
+	     minDate: $scope.min_time
 	 };
 	 $scope.init = function() {
 	     $scope.newevent={invitees:[]};
@@ -25,6 +31,7 @@ eventApp.controller(
 	     $scope.newevent.max_participants="";
 	     $scope.newevent.owner_in=1;
 	     $scope.newevent.open=1;
+	     $scope.newevent.endtime_dirty=0;
 	 }
 	 $scope.init();
 	 $scope.dbready=false;
@@ -45,7 +52,7 @@ eventApp.controller(
 	     $scope.eventroles=DatabaseService.getDB('event/roles');
 	     $scope.newevent.category=$scope.eventcategories[0];
 	     $scope.newevent.starttime=null;
-	     $scope.newevent.endtime=null;
+//	     $scope.newevent.endtime=null;
 	     LoginService.check_user().promise.then(function(u) {         
 		 $scope.current_user=u;
 	     });
@@ -475,6 +482,24 @@ eventApp.controller(
 	     $anchorScroll('forum');
 	 }
        
+	 $scope.set_event_end = function () {
+	     if ($scope.newevent.endtime) {
+		 $scope.newevent.endtime_dirty=1;
+	     }
+	 }
+
+	 $scope.set_event_start = function () {
+	     if ($scope.newevent.starttime && ($scope.newevent.endtime < $scope.newevent.starttime   || !$scope.newevent.endtime_dirty)) {
+		 var tdiff=3600000;
+		 if ($scope.newevent.destination) {
+		     tdiff=$scope.newevent.destination.duration*3600000;
+		 }
+		 $scope.enddateOptions.minDate=$scope.newevent.starttime;
+		 $scope.newevent.endtime=new Date($scope.newevent.starttime.getTime()+tdiff);
+		 
+	     }
+	 }
+	 
 	 $scope.messagematch = function (messagefilter) {
 	     return function(message) {
 		 if (!messagefilter) {

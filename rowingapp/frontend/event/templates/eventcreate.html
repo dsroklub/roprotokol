@@ -63,41 +63,12 @@
 	<input type="number" class="number" size="5" maxlength="5" autocomplete="off" ng-model="newevent.max_participants"></td>
     </tr>
     
-    <tr><th>(bådtype)</th><td>
+    <tr>
+      <th>(bådtype)</th><td>
         <select name="boatcategory" id="boatcat" ng-model="newevent.boat_category" ng-options="boatcat.Name for boatcat in boatcategories">
         </select>
-    </td></tr>
-    <tr><th>Start:</th>
-      <td>
-        <datetimepicker
-           date-format="dd-MMM-yyyy"
-           show-spinners="false"
-           current-text="i dag"
-           close-text="Vælg"
-           clear-text="nulstil"
-           date-options="dateOptions"
-           show-meridian="false"
-           data-ng-model="newevent.starttime"
-           >
-        </datetimepicker>
       </td>
     </tr>
-    <tr><th>(evt slut)</th>
-      <td>
-      <datetimepicker
-         date-format="dd-MMM-yyyy"
-         show-spinners="false"
-         current-text="i dag"
-         close-text="Vælg"
-         clear-text="nulstil"
-         date-options="dateOptions"
-         show-meridian="false"
-         data-ng-model="newevent.endtime"
-         >
-        </datetimepicker>
-    </td>
-    </tr>
-
     <tr>
       <th>evt Mål</th>
       <td>
@@ -105,6 +76,43 @@
         </select>
       </td>
     </tr>
+    <tr><th>Start:</th>
+      <td>
+        <datetimepicker
+          date-format="dd-MMM-yyyy"
+          show-spinners="false"
+          current-text="i dag"
+          close-text="Vælg"
+          clear-text="nulstil"
+          date-options="dateOptions"
+          show-meridian="false"
+          data-ng-model="newevent.starttime"
+	  ng-change="set_event_start()"
+          >
+        </datetimepicker>
+      </td>
+    </tr>
+
+
+    <tr>
+      <th>(evt slut)</th>
+      <td>
+      <datetimepicker
+        date-format="dd-MMM-yyyy"
+        show-spinners="false"
+        current-text="i dag"
+        close-text="Vælg"
+        clear-text="nulstil"
+        date-options="enddateOptions"
+        show-meridian="false"
+        data-ng-model="newevent.endtime"
+	ng-click="set_event_end()"
+	
+         >
+        </datetimepicker>
+    </td>
+    </tr>
+
 
     <tr>
       <th>(ca distance)</th>
@@ -137,5 +145,5 @@
 </ng-form>
 </div>
 <!--pre>
-  endtime {{newevent.endtime}}
+  newevent {{newevent|json}}
 </pre-->

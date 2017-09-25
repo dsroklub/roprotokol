@@ -6,7 +6,7 @@ app.controller(
   'BoatCtrl',
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log','$location',
    function ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log, $location) {
-     $scope.allboatdamages=[];
+       $scope.allboatdamages=[];
      $scope.burl=$location.$$absUrl.split("ind/")[0];
 
      $scope.isName = function(n) {
@@ -365,8 +365,8 @@ app.controller(
        }
      };
      
-     $scope.reportDamageForBoat = function (damage) {
-       if (damage.degree && damage.boat && damage.description && damage.reporter) {
+       $scope.reportDamageForBoat = function (damage) {
+         if (damage.degree && damage.boat && damage.description && damage.reporter) {
 	 $scope.damagesnewstatus="OK";
 	 var exeres=DatabaseService.updateDB_async('newdamage',damage,$scope.config).then(        
            function(data) {
@@ -380,16 +380,38 @@ app.controller(
 	 $scope.damagesnewstatus="alle felterne skal udfyldes";
        }
      };
+       
+       $scope.min_time=new Date();
+       
+       $scope.dateOptions = {
+	   showWeeks: false,
+       };
+       $scope.expectedOptions = {
+	   showWeeks: false,
+       };
 
+       $scope.set_expected = function () {
+         if ($scope.checkout.expectedtime) {
+	   $scope.checkout.expectedtime_dirty=1;
+	 }
+       }
 
-     $scope.dateOptions = {
-       showWeeks: false,
-     };
-  
+     $scope.newStartTime = function () {
+       if ($scope.checkout && $scope.checkout.starttime && ($scope.checkout.exptectedtime < $scope.checkout.starttime   || !$scope.checkout.expectedtime_dirty)) {
+	 var tdiff=3600000;
+	 if ($scope.checkout.destination && $scope.checkout.destination.duration) {
+	   tdiff=$scope.checkout.destination.duration*3600000;
+	 }
+         console.log("et "+tdiff);
+	 $scope.expectedOptions.minDate=$scope.checkout.starttime;
+	 $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+tdiff);
+       }
+     }
+     
      $scope.togglecheckout = function (tm) {   
        $scope.timeopen[tm]=!$scope.timeopen[tm];
      }
-
+     
      $scope.validRowers = function () {       
        if (!$scope.checkout.rowers || $scope.checkout.rowers.length<0) {
 	 return false;
