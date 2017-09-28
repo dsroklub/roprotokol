@@ -160,6 +160,8 @@ eventApp.controller(
                "enter_time":new Date().toISOString(),
                "is_cox":is_cox
              });
+	 } else if (status.status =='warning') {
+           alert(status.warning);
          } else {
            alert(status.error);
          }
@@ -185,7 +187,11 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("set_event_status",event);
        sr.promise.then(function(status) {
 	 if (status.status !='ok') {
+         if (status.status =='warning') {
+           alert(status.warning);
+         } else {
            alert(status.error);
+         }
          }
        });
      }
@@ -499,19 +505,71 @@ eventApp.controller(
 		 
 	     }
 	 }
-	 
-	 $scope.messagematch = function (messagefilter) {
-	     return function(message) {
-		 if (!messagefilter) {
-		     return true
-		 }         
-		 return (
-		     message.subject.match( new RegExp(messagefilter, 'i')) ||
-			 message.sender.match( new RegExp(messagefilter, 'i')) ||
-			 message.body.match( new RegExp(messagefilter, 'i')) 
-		 );
+       
+       $scope.$watchCollection('currentevent.participants', function(participants,oldparticipants) {
+         if (participants) {
+           var coxs=0;
+           var nr=0;
+           for (var i=0; i<participants.length;i++) {
+             var rw=participants[i];
+             if (["member","owner"].indexOf(rw.role)>=0) {
+               nr++;
+               if (rw.is_cox) {
+                 coxs++;
+               }
+             }
+           }
+           
+           if ($scope.currentevent.max_participants) {
+             var nr=Math.min(nr,$scope.currentevent.max_participants);
+           }
+           var max2=Math.floor(nr/3);
+           var max4=Math.floor(nr/5);
+           if (max4>coxs) {
+             max4=coxs;
+           }
+           if (max2>coxs) {
+             max2=coxs;
+           }
+           
+           var mc=0;
+           for (var c2=0; c2<=max2; c2++) {
+             for (var c4=0; c4<=max4; c4++) {
+	       if (c2*3+c4*5 <= nr && c2*3+c4*5>mc && c2+c4<=coxs) {
+	         mc=c2*3+c4*5;
+	       } 
+             }
+           }
+           
+           var bcms=[];
+           for (var c2=0; c2<=max2; c2++) {
+             for (var c4=0; c4<=max4; c4++) {
+	       if (c2*3+c4*5==mc && c2+c4<=coxs) {
+	         bcms.push({"i2":c2,"i4":c4});
+	     } 
+             }
+         }
+         //return {'configuration':bcms, maxcrew:mc};
+           //         bcms=[];
+           $scope.crews={"configurations":bcms, "on_water":mc,"rowers":nr, "left_out":nr-mc};
+         } else {
+           $scope.crews={};
+         }
+       }
+                    );
+       
+       $scope.messagematch = function (messagefilter) {
+	 return function(message) {
+	   if (!messagefilter) {
+	     return true
+	   }         
+	   return (
+	     message.subject.match( new RegExp(messagefilter, 'i')) ||
+	       message.sender.match( new RegExp(messagefilter, 'i')) ||
+	       message.body.match( new RegExp(messagefilter, 'i')) 
+	   );
 	     }
-	 };		 
+       };		 
      }
     ]
 );

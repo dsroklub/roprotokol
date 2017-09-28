@@ -68,13 +68,12 @@
     </select>
     
     <h3>Tilføj rorere til din begivenhed</h3>
-    <input placeholder="tilføj medlem" autocomplete="off" id="neweventmember" name="neweventmember.member" type="text"
+    <input placeholder="tilføj medlem" autocomplete="off" id="neweventmemberinput" name="neweventmember.member" type="text"
            ng-model="neweventmember.member"
            typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
            typeahead-template-url="memberTemplate.html" required />
     
-    <select name="role" id="role" ng-model="neweventmember.role"
-            ng-options="role.name as role.description for role in eventroles">
+    <select name="role" id="role" ng-model="neweventmember.role" ng-options="role.name as role.description for role in eventroles" ng-init="neweventmember.role='member'">
     </select>
     
     <i ng-show="neweventmember.member" ng-click="event_add_member()" class="fa fa-plus"></i>    
@@ -101,8 +100,24 @@
       </tr>      
     </tbody>         
   </table>
+
+  <table ng-if="currentevent.boat_category=='Almindelig roning'">
+    <caption>
+      {{crews.on_water}} kommber på vandet ({{crews.left_out}} mangler)
+    </caption>
+    <thead>
+      <tr  ><th>Toere</th><th>Firere</th></tr>
+    </thead>
+    <tbody class="tbody">
+      <tr ng-class-even="'even'" ng-class-odd="'odd'" ng-repeat="bc in crews.configurations">
+        <td>{{bc.i2}} </td>
+        <td>{{bc.i4}} </td>
+      </tr>      
+    </tbody>         
+  </table>
+
 </div>
 
 <!--pre>
-NEVM  {{neweventmember|json}}
+CE  {{currentevent|json}}
 </pre-->
