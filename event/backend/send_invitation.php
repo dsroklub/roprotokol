@@ -9,8 +9,7 @@ $smtp = Mail::factory('sendmail', array ());
 error_log("invitations=".print_r($data,true));
 
 $mail_headers = array(
-    'From'                      => "Roaftaler i Danske Studenters Roklub <elgaard@agol.dk>",
-    'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
+    'From'                      => "Roaftaler i Danske Studenters Roklub <roaftaler_noreply@danskestudentersroklub.dk>",
     'Content-Transfer-Encoding' => "8bit",
     'Content-Type'              => 'text/plain; charset="utf8"',
     'Date'                      => date('r'),
