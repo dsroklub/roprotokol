@@ -103,10 +103,17 @@
 
   <table ng-if="currentevent.boat_category=='Almindelig roning'">
     <caption>
-      {{crews.on_water}} kommber på vandet ({{crews.left_out}} mangler)
+      <p>
+      {{crews.on_water}} kommer på vandet ({{crews.left_out}} mangler)
+      </p>
+      <p ng-if="crews.left_out>0">
+        <small>
+        Men måske kan i bruge Heimdal eller en coastelbåd.
+        </small>
+      </p>
     </caption>
     <thead>
-      <tr  ><th>Toere</th><th>Firere</th></tr>
+      <tr><th>Toere</th><th>Firere</th></tr>
     </thead>
     <tbody class="tbody">
       <tr ng-class-even="'even'" ng-class-odd="'odd'" ng-repeat="bc in crews.configurations">
