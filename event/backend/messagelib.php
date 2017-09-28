@@ -13,8 +13,7 @@ function post_message($toEmails,$subject,$message) {
     $warning=null;
     $smtp = Mail::factory('sendmail', array ());
     $mail_headers = array(
-        'From'                      => "Roaftaler i Danske Studenters Roklub <elgaard@agol.dk>",
-        'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
+        'From'                      => "Roaftaler i Danske Studenters Roklub <aftaler_noreply@danskestudentersroklub.dk>",
         'Content-Transfer-Encoding' => "8bit",
         'Content-Type'              => 'text/plain; charset="utf8"',
         'Date'                      => date('r'),

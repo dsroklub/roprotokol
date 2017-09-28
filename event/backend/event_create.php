@@ -173,8 +173,8 @@ if (count($toMemberIds)>0) {
 // Now email
 
      $mail_headers = array(
-         'From'                      => "Roaftaler i Danske Studenters Roklub <elgaard@agol.dk>",
-         'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
+         'From'                      => "Roaftaler i Danske Studenters Roklub <aftaler_noreply@danskestudentersroklub.dk>",
+//         'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
          'Content-Transfer-Encoding' => "8bit",
          'Content-Type'              => 'text/plain; charset="utf8"',
          'Date'                      => date('r'),
