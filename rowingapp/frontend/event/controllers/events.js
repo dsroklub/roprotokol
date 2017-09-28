@@ -135,7 +135,7 @@ eventApp.controller(
      $scope.is_cox = function (rights) {
        var is_cox=0;
        for (var i=0;i<rights.length;i++ ) {
-         if (rights[i].menber_rigth="cox") {
+         if (rights[i].member_rigth=="cox") {
            is_cox=1;
            break;
          }
