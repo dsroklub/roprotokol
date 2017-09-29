@@ -46,16 +46,16 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
     var c2;
     var c4;
     var mc=0;
-    for (c2=0; c2<=max2; c2=c2+1) {
-      for (c4=0; c4<=max4; c4=c4+1) {
+    for (c2=0; c2<=max2; c2=++) {
+      for (c4=0; c4<=max4; c4++) {
 	if (c2*3+c4*5<=$scope.rowers+$scope.coxs && c2*3+c4*5>mc && c2+c4<=$scope.coxs) {
 	  mc=c2*3+c4*5;
 	} 
       }
     }
     
-    for (c2=0; c2<=max2; c2=c2+1) {
-      for (c4=0; c4<=max4; c4=c4+1) {
+    for (c2=0; c2<=max2; c2++) {
+      for (c4=0; c4<=max4; c4++) {
 	if (c2*3+c4*5==mc && c2+c4<=$scope.coxs) {
 	  bcms.push({"i2":c2,"i4":c4});
 	} 

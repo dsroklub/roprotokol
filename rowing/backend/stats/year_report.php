@@ -485,7 +485,7 @@ $s = "SELECT Member.MemberID as member_no,
         AND TripMember.Seat=1
         AND Trip.TripTypeID IN (5)
         AND Boat.BoatType IN (1,2)
-      GROUP BY TripMember.member_id
+      GROUP BY TripMember.member_id,TripMember.MemberName
       ORDER BY trips DESC, name ASC";
 
 $r = $rodb->query($s);

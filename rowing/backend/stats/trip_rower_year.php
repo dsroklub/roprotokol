@@ -28,10 +28,10 @@ if ($sqldebug) {
 }
 
 if ($stmt = $rodb->prepare($s)) {
-     $stmt->execute(); 
+     $stmt->execute();
      $result= $stmt->get_result();
      process($result,$output,"turtypestatistik",array("sæson","turtype","ture","roerture","unikke roere"));
-     $stmt->close(); 
- } 
+     $stmt->close();
+ }
 $rodb->close();
-?> 
+?>
