@@ -332,7 +332,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     $s = "SELECT COUNT(DISTINCT Trip.id) as boatTrips,
                  COUNT(TripMember.member_id) as personTrips,
                  COUNT(DISTINCT(TripMember.member_id)) as individuals,
-		 COUNT(DISTINCT(Trip.BoatID)) as boatCount
+		 COUNT(DISTINCT(Trip.BoatID)) as boatCount,
                  ROUND(COUNT(TripMember.member_id)/COUNT(distinct Trip.id), 1) as persons_per_trip,
                  TripType.Name as triptype,
                  BoatType.Category as boatCat
