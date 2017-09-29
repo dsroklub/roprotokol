@@ -2,7 +2,6 @@
 set_include_path(get_include_path().':..');
 include("inc/common.php");
 
-
 if (isset($_GET["allboats"])) {
     $qboats="";
 } else {
@@ -15,11 +14,12 @@ if (isset($_GET["km"])) {
     $km=" ";
 }
 
-
-$s="SELECT YEAR(Trip.OutTime) as year,TripType.tripstat_name as name,CAST(Sum(Meter)$km AS UNSIGNED) AS distance, COUNT('x') as trips 
-    FROM Trip,TripType,Boat,BoatType
+$s="SELECT YEAR(Trip.OutTime) as year,TripType.tripstat_name as name,COUNT(DISTINCT Trip.id),COUNT(Member.id),COUNT(DISTINCT Member.id)
+    FROM Trip,TripType,Boat,BoatType,TripMember,Member
     WHERE Trip.TripTypeID=TripType.id AND Trip.BoatID=Boat.id $qboats AND Boat.BoatType=BoatType.id 
     AND Trip.OutTime IS NOT NULL
+    AND TripMember.TripID=Trip.id
+    AND TripMember.member_id=Member.id
     GROUP BY TripType.name, year,TripType.tripstat_name
     ORDER BY year,TripType.tripstat_name";
 
@@ -30,7 +30,7 @@ if ($sqldebug) {
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
      $result= $stmt->get_result();
-     process($result,$output,"turtypestatistik",array("sæson","turtype","km","ture"));
+     process($result,$output,"turtypestatistik",array("sæson","turtype","ture","roerture","unikke roere"));
      $stmt->close(); 
  } 
 $rodb->close();

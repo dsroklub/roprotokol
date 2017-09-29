@@ -19,8 +19,12 @@ if (isset($_GET["season"])) {
 }
 
 $sqldebug=false;
+$output="json";
 if (isset($_GET["sqldebug"])) {
     $sqldebug=true;
+}
+if (isset($_GET["output"]) and $_GET["output"]=="csv") {
+    $output="csv";
 }
 
 require_once("db.php");
@@ -61,3 +65,27 @@ function dbfetch($db,$table, $columns=['*'], $orderby=null) {
     echo ']';
 }
 $error=null;
+
+function process ($result,$output="json",$name="cvsfile",$captions=null) {
+    if ($output=="json") {
+        header('Content-type: application/json;charset=utf-8');
+        echo '[';
+        $rn=1;
+        while ($row = $result->fetch_assoc()) {
+            if ($rn>1) echo ',';
+            echo json_encode($row);
+            $rn=$rn+1;
+        }
+        echo ']';
+    } else if ($output=="csv") {
+        header('Content-type: text/csv');
+        header('Content-Disposition: filename="langtursstyrmaend.csv"');
+        if ($captions) {
+            echo implode(",",$captions)."\n";
+        }
+        while ($row = $result->fetch_assoc()) {
+            echo implode(",",$row)."\n";
+            $rn=$rn+1;
+        }
+    }
+}
