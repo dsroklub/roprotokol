@@ -30,7 +30,7 @@ if ($sqldebug) {
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute();
      $result= $stmt->get_result();
-     process($result,$output,"turtypestatistik",array("sæson","turtype","ture","roerture","unikke roere"));
+     process($result,$output,"roerstatistik",array("season","turtype","ture","roerture","unikke roere"));
      $stmt->close();
  }
 $rodb->close();

@@ -27,12 +27,12 @@ if (! preg_match("/^\d\d\-\d\d$/", $cut_date)) {
 }
 
 
-function get_cut($year, $date, $offset) {
+function get_cut($year, $date=null, $offset=null) {
   global $cut_date, $cut_year_offset;
-  if (! isset($date)) {
+  if ($date) {
     $date = $cut_date;
   }
-  if (! isset($offset)) {
+  if ($offset) {
     $offset = $cut_year_offset;
   }
 
@@ -326,9 +326,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     $res[$table][$y] = [];
     $to_cut = get_cut($y);
     $from_cut = get_cut($y - 1);
-
     $step = 'trips';
-
     $s = "SELECT COUNT(DISTINCT Trip.id) as boatTrips,
                  COUNT(TripMember.member_id) as personTrips,
                  COUNT(DISTINCT(TripMember.member_id)) as individuals,
@@ -344,6 +342,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
           WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
           GROUP BY BoatType.Category, TripType.id
           ORDER BY boatCat, triptype";
+    error_log("YRR\n$s\n\n");
     $r = $rodb->query($s);
     if ($r) {
        $total = 0;

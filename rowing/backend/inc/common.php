@@ -79,13 +79,12 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
         echo ']';
     } else if ($output=="csv") {
         header('Content-type: text/csv');
-        header('Content-Disposition: filename="langtursstyrmaend.csv"');
+        header('Content-Disposition: filename="'.$name.'.csv"');
         if ($captions) {
             echo implode(",",$captions)."\n";
         }
         while ($row = $result->fetch_assoc()) {
             echo implode(",",$row)."\n";
-            $rn=$rn+1;
         }
     }
 }
