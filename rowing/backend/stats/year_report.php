@@ -319,7 +319,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 
 
 
-// Tabel 5 - Bådture og personture, robåd og kajak
+// Tabel 6+7 - Bådture og personture, robåd og kajak
 $table = 'trips';
 $res[$table] = [];
 for ($y = $from_year; $y <= $to_year; $y++) {
@@ -331,6 +331,8 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 
     $s = "SELECT COUNT(DISTINCT Trip.id) as boatTrips,
                  COUNT(TripMember.member_id) as personTrips,
+                 COUNT(DISTINCT(TripMember.member_id)) as individuals,
+		 COUNT(DISTINCT(Trip.BoatID)) as boatCount,
                  ROUND(COUNT(TripMember.member_id)/COUNT(distinct Trip.id), 1) as persons_per_trip,
                  TripType.Name as triptype,
                  BoatType.Category as boatCat
@@ -348,6 +350,8 @@ for ($y = $from_year; $y <= $to_year; $y++) {
        while ($row = $r->fetch_assoc()) {
          $res[$table][$y][$row['triptype']][$boat_types[$row['boatCat']]]['boat_trips'] = $row['boatTrips'];
          $res[$table][$y][$row['triptype']][$boat_types[$row['boatCat']]]['person_trips'] = $row['personTrips'];
+         $res[$table][$y][$row['triptype']][$boat_types[$row['boatCat']]]['individuals'] = $row['individuals'];
+         $res[$table][$y][$row['triptype']][$boat_types[$row['boatCat']]]['boats'] = $row['boatCount'];
          $res[$table][$y][$row['triptype']][$boat_types[$row['boatCat']]]['persons_per_trip'] = round($row['persons_per_trip'], 1);
 	 $tripTypes[$row['triptype']] = 1;
        }
@@ -358,7 +362,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 }
 
 
-// Tabel 6 - Aktivitetsniveau 2014 og 2015 opdelt på turtyper (robåde)
+// Tabel 5 - Aktivitetsniveau 2014 og 2015 opdelt på turtyper (robåde)
 $table = 'trips';
 for ($y = $from_year; $y <= $to_year; $y++) {
     $to_cut = get_cut($y);
@@ -392,7 +396,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 
 
 
-// Tabel 7 - Aktivitetsprofil for medlemmerne
+// Tabel 8 - Aktivitetsprofil for medlemmerne
 $table = 'rower_activity';
 $res[$table] = [];
 for ($y = $from_year; $y <= $to_year; $y++) {
@@ -463,7 +467,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 
 
 
-// Tabel 8 - Aktive instruktører
+// Tabel 9 - Aktive instruktører
 $table = 'instructors';
 $res[$table] = [];
 $to_cut = get_cut($to_year);
@@ -496,7 +500,7 @@ if ($r) {
 
 
 
-// Tabel 10 (Kaniners aktivitet efter roret) udgår - er ikke anvendelig.
+// Tabel 11 (Kaniners aktivitet efter roret) udgår - er ikke anvendelig.
     // $s = "SELECT TripType.Name as triptype,
     //              COUNT(distinct TripMember.member_id) as members,
     //              IF((RemoveDate IS NOT NULL AND RemoveDate <= '" . $to_cut . "'), 1, 0) as removed_1,
@@ -518,7 +522,7 @@ if ($r) {
 
 
 
-// Tabel 11 - Kaniners aktivitet efter roret – mere end 2 ture
+// Tabel 12 - Kaniners aktivitet efter roret – mere end 2 ture
 $table = 'rabbit_activity';
 $res[$table] = [];
 for ($y = $from_year; $y <= $to_year; $y++) {
@@ -585,7 +589,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 }
 
 
-// Tabel 12 - Frafald blandt medlemmer - efter aktivitet
+// Tabel 13 - Frafald blandt medlemmer - efter aktivitet
 $table = 'member_dropout';
 $res[$table] = [];
 for ($y = $from_year; $y <= $to_year; $y++) {
@@ -659,8 +663,8 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 
 
 
-// Tabel 13 - Både efter turtype og samlet kilometertal
-// Tabel 14-16 bruger samme udtræk
+// Tabel 14 - Både efter turtype og samlet kilometertal
+// Tabel 15-16 bruger samme udtræk
 $table = 'boats';
 $to_cut = get_cut($to_year);
 $from_cut = get_cut($to_year - 1);
@@ -745,7 +749,7 @@ if ($r) {
 
 
 
-// Tabel 16 - Ikke roede både
+// Tabel 17 - Ikke roede både
 $table = 'boats';
 $to_cut = get_cut($to_year);
 $from_cut = get_cut($to_year - 1);
