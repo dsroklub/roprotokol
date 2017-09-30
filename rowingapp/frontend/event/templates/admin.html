@@ -43,8 +43,8 @@
       </td>
       
       <td >
-        <button ng-show="forum.is_public && forum.role=='owner'" ng-click="toggle_forum_visibility(forum)" class="chooser">gør privat</button>
-        <button ng-show="!forum.is_public && forum.role=='owner'" ng-click="toggle_forum_visibility(forum)" class="chooser">gør synligt for alle</button>
+        <button ng-show="forum.is_public && (forum.role=='owner' || forum.owner==current_user.member_id)" ng-click="toggle_forum_visibility(forum)" class="chooser">gør privat</button>
+        <button ng-show="!forum.is_public && (forum.role=='owner'|| forum.owner==current_user.member_id)" ng-click="toggle_forum_visibility(forum)" class="chooser">gør synligt for alle</button>
       </td>
 
       <td><i ng-if="forum.is_open" class="fa fa-check"></i> </td>

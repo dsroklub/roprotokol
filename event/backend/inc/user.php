@@ -45,12 +45,19 @@ function check_forum_owner($forum) {
     if ($stmt = $rodb->prepare(
         "SELECT Member.id
          FROM forum_subscription, Member
-         WHERE forum_subscription.forum=? AND MemberId=? AND forum_subscription.member=Member.id AND forum_subscription.role='owner'")
+         WHERE 
+           forum_subscription.forum=? AND MemberId=? AND forum_subscription.member=Member.id AND forum_subscription.role='owner'
+         UNION 
+            SELECT Member.id FROM forum,Member where forum.owner=Member.id AND Member.MemberID=? AND forum.name=?
+            "
+    )
     ) {        
         $stmt->bind_param(
-            'ss',
+            'ssss',
             $forum->forum,
-            $currentuser
+            $currentuser,
+            $currentuser,
+            $forum->forum
         ) ||  die("check forum owner errro ".mysqli_error($rodb));
         
         if ($stmt->execute()) {
@@ -64,7 +71,7 @@ function check_forum_owner($forum) {
             $message=$message."\n"."role update error: ".mysqli_error($rodb);
         }
     } else {
-        $error=" forum status set ".mysqli_error($rodb);
+        $error=" forum check user ".mysqli_error($rodb);
         error_log($error);
     }
     return false;
