@@ -13,7 +13,7 @@ eventApp.controller(
 	 $scope.message={};	 
 	 $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
 	 $scope.subscription={};
-	 $scope.newforum={"is_public":true,"open":true};
+	 $scope.newforum={"is_public":true,"is_open":true};
 	 $scope.eventarg=$routeParams.event;
 	 $scope.rParams=$routeParams;
 	 $scope.min_time=new Date();
@@ -30,7 +30,7 @@ eventApp.controller(
 	     $scope.newevent.location="DSR";
 	     $scope.newevent.max_participants="";
 	     $scope.newevent.owner_in=1;
-	     $scope.newevent.open=1;
+	     $scope.newevent.is_open=1;
 	     $scope.newevent.endtime_dirty=0;
 	 }
 	 $scope.init();
@@ -340,7 +340,7 @@ eventApp.controller(
 	 if (status.status =='ok') {
            $log.debug("forum created");
            $scope.fora.push($scope.newforum);
-           $scope.newforum={"is_public":true,"open":true};
+           $scope.newforum={"is_public":true,"is_open":true};
          } else {
            alert(status.error);
          }

@@ -24,11 +24,11 @@ if ($stmt = $rodb->prepare(
 )) {
 
     $triptype="NULL";
-    $isopen=empty($newforum->open)?0:1;
+    $isopen=empty($newforum->is_open)?0:1;
     $ispublic=empty($newforum->is_public)?0:1;
     $stmt->bind_param(
         'ssiis',
-        $newforum->name,
+        $newforum->forum,
         $newforum->description,
         $isopen,
         $ispublic,
@@ -58,7 +58,7 @@ if (!$ispublic) {
 
     $stmt->bind_param(
         'ss',
-        $newforum->name,
+        $newforum->forum,
         $cuser) ||  die("create forum BIND errro ".mysqli_error($rodb));
 
     if (!$stmt->execute()) {
