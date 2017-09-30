@@ -1,7 +1,7 @@
 /*jslint node: true */
 'use strict';
 
-var right2dkm;
+var right2dk;
 
 var side2dk = {
   'left':'venstre',

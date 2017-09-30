@@ -76,7 +76,7 @@ app.controller(
             $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
             $scope.boatkayakcategories = DatabaseService.getDB('boatkayakcategory');
             $scope.rights_subtypes = DatabaseService.getDB('rights_subtype');
-            var errortrips = DatabaseService.getDB('errortrips');
+            $scope.errortrips = DatabaseService.getDB('errortrips');
             $scope.levels=DatabaseService.getDB('boatlevels');
             $scope.brands=DatabaseService.getDB('boat_brand');
             $scope.usages=DatabaseService.getDB('boat_usages');
