@@ -6,7 +6,7 @@
   </head>
   <body>
 <?php
-     $member= $_GET["member"];
+$member=$_GET["member"];
 $res=array ("status" => "ok");
 include("../rowing/backend/inc/common.php");
 include("utils.php");
@@ -36,23 +36,37 @@ if ($is_public) {
      echo "<h1>Roside for $name ($member)</h2>";
 
      if ($show_status) {
-         echo "<h2>Mine sidste 10 roture</h2>";
+         echo "<h2>Mine sidste 10 DSR aktiviteter (roture og gymnastik)</h2>";
          
          echo "Her kan man se om jeg er på vandet og holde øje med hvornår jeg går i land igen";
          
-         $s="SELECT Boat.id as boatid, Boat.Name AS boat, 
-                DATE_FORMAT(OutTime,'%Y-%m-%d %H:%i') as outtime, 
-                DATE_FORMAT(ExpectedIn,'%Y-%m-%d %H:%i') as expectedintime, 
-                DATE_FORMAT(InTime,'%Y-%m-%d %H:%i') as intime, 
-     Trip.Destination as destination, Trip.id, TripType.Name AS triptype
-     FROM Member,TripMember,TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID 
-     WHERE Trip.id=TripMember.TripID AND TripMember.member_id=Member.id AND Member.MemberId=?
-     GROUP BY Trip.id 
-     ORDER BY ExpectedIn DESC 
-     LIMIT 10";
-         
+         $s="
+  (SELECT Boat.id as boatid, 
+      Boat.Name AS boat, 
+      DATE_FORMAT(OutTime,'%Y-%m-%d %H:%i') as outtime, 
+      DATE_FORMAT(ExpectedIn,'%Y-%m-%d %H:%i') as expectedintime, 
+      DATE_FORMAT(InTime,'%Y-%m-%d %H:%i') as intime, 
+      Trip.Destination as destination, 
+      Trip.id as tripid, 
+      TripType.Name AS triptype
+      FROM Member,TripMember,TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID 
+      WHERE Trip.id=TripMember.TripID AND TripMember.member_id=Member.id AND Member.MemberId=?)
+UNION
+  (SELECT 'Gymnastik' as boatid,
+      '' as boat,
+      DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as outtime, 
+      '' as expectedintime,
+      '' as intime,
+      '' as destination,
+      0 as tripid,
+      team as triptype
+      FROM Member,team_participation
+      WHERE team_participation.member_id=Member.id AND Member.MemberId=?)
+  ORDER BY outtime DESC 
+  LIMIT 10";
+//         echo "SQL= $s";
          if ($stmt = $rodb->prepare($s)) {
-             $stmt->bind_param("s", $member);
+             $stmt->bind_param("ss", $member,$member);
              $stmt->execute();
              $result= $stmt->get_result() or die("Error in user query: " . mysqli_error($rodb));
              echo "<table>";
@@ -65,7 +79,7 @@ if ($is_public) {
                  echo "<td>". $row['triptype'].  "</td>";
                  echo "<td>". $row['boat'].  "</td>";
                  echo "<td>". $row['outtime']."</td>";
-                 if (empty($row['intime'])) {
+                 if (empty($row['intime']) and !empty($row['boat'])) {
                      echo '<td class="onwater">'. $row['expectedintime'].  "</td>";
                      echo '<td class="onwater">På vandet</td>';
                  } else {
