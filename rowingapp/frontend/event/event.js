@@ -72,7 +72,7 @@ var eventApp = angular.module('eventApp', [
     $routeProvider.when('/', {redirectTo: '/login'});
     $routeProvider.otherwise({
       templateUrl: 'templates/notimplementet.html',
-      controller: 'eventCtrl'
+      controller: 'noRight'
     });
   }])
     .config(['uiSelectConfig', function(uiSelectConfig) {

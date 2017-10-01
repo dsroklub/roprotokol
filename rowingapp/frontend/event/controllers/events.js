@@ -40,7 +40,7 @@ eventApp.controller(
        $timeout(function() { $scope.dbgrace = false;}, 2000);
        
        $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-	 DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
+	 DatabaseService.sync({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
 	     $scope.boatcategories=DatabaseService.getDB('event/boat_category');
 	     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
 	     $scope.fora=DatabaseService.getDB('event/fora');
