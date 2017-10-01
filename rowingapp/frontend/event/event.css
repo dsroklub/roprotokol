@@ -273,6 +273,12 @@ select  {
   border-radius: 5px;
 }
 
+button.deletealert {   
+  border: 1px solid #3ECBBF;
+  background: red;
+  color: black;
+}
+
 .alert {
   color: #f00;
 }

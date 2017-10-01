@@ -19,7 +19,7 @@ if ($stmt = $rodb->prepare(
    Member.MemberId=? AND
    MemberRights.member_id=Member.id AND
    MemberRights.MemberRight='event' AND
-   MemberRights.argument='fora'
+   MemberRights.argument='fora' LIMIT 1
 "
 )) {
 
@@ -36,15 +36,14 @@ if ($stmt = $rodb->prepare(
     ) ||  die("create forum BIND errro ".mysqli_error($rodb));
 
     if (!$stmt->execute()) {
-        $error=" forum exe error ".mysqli_error($rodb);
+        $error=" forum exe error " . mysqli_error($rodb) . " \nnewforum=".print_r($newforum,true);
         error_log($error);
         $message=$message."\n"."create forum insert error: ".mysqli_error($rodb);
-    } 
+    }
 } else {
     $error=" forum db error ".mysqli_error($rodb);
     error_log($error);
 }
-
 
 if (!$ispublic) {
     if ($stmt = $rodb->prepare(

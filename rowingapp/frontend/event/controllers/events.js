@@ -339,6 +339,7 @@ eventApp.controller(
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
            $log.debug("forum created");
+           $scope.newforum.owner=$scope.current_user.member_id;
            $scope.fora.push($scope.newforum);
            $scope.newforum={"is_public":true,"is_open":true};
          } else {
@@ -347,6 +348,20 @@ eventApp.controller(
        });
      }               
 
+     $scope.forumdelete = function(forum) {
+       var sr=DatabaseService.createSubmit("forum_delete",forum);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+           $log.debug("forum deleted");
+           var ix=$scope.fora.indexOf(forum);
+           $scope.fora.splice(ix,1);
+
+         } else {
+           alert(status.error);
+         }
+       });
+     }
+       
      $scope.uploadFile = function(file) {
        file.upload = UploadBase.upload({
          url: '/backend/event/file_upload.php',
