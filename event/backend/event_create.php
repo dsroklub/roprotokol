@@ -1,6 +1,7 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 require_once("Mail.php");
+include("utils.php");
 
 
 $res=array ("status" => "ok");
@@ -124,24 +125,38 @@ if ($stmt = $rodb->prepare(
     } 
 }
 
-if (!empty($newevent->forum)) {
+$iforas="";
+if (!empty($newevent->fora)) {
+    $ifors=array();
+    foreach ($newevent->fora as $forum) {
+        $ifora[]="'".sanestring("$forum->forum")."'";
+    }
+    $iforas=implode(",",$ifora);
+}
+
+error_log("FORAIM ".implode(",",$ifora));
+if (!empty($newevent->fora)) {
     if ($stmt = $rodb->prepare(
         "INSERT INTO member_message(member, message)
-         SELECT Member.id,LAST_INSERT_ID()
+         SELECT DISTINCT Member.id,LAST_INSERT_ID()
          FROM Member, forum_subscription
-         WHERE Member.id=forum_subscription.member AND forum_subscription.forum=?")) {
-        $stmt->bind_param(
-            's',
-            $newevent->forum->forum) ||  die("create forum message BIND errro ".mysqli_error($rodb));        
+         WHERE 
+             Member.id=forum_subscription.member AND 
+             forum_subscription.forum IN ($iforas)")) {
         if ($stmt->execute()) {
             invalidate("message");
         } else {
-            $error=" message forum membererror ".mysqli_error($rodb);
+            $error=" message forum member error ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."forum message member DB error: ".mysqli_error($rodb);
         } 
+    } else {
+        $error=" evnt create forum error IF=.$iforas". $rodb->error;
+        error_log($error);
     }
 }
+
+// TODO also email to forum member invitees. NEL
 
 if (count($toMemberIds)>0) {
     $qMarks = str_repeat('?,', count($toMemberIds) - 1) . '?';
@@ -169,9 +184,7 @@ if (count($toMemberIds)>0) {
         $error="Error in mm prepare query: $rodb->error";
         error_log($error);
     }
-
 // Now email
-
      $mail_headers = array(
          'From'                      => "Roaftaler i Danske Studenters Roklub <aftaler_noreply@danskestudentersroklub.dk>",
 //         'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
@@ -186,9 +199,7 @@ if (count($toMemberIds)>0) {
 
      $toEmails=array();
      $stmt=$rodb->prepare("SELECT email FROM Member 
-                      WHERE MemberId IN ($qMarks) AND email IS NOT NULL") or die("Error in location query: ". mysqli_error($rodb));
-     
-
+                      WHERE MemberId IN ($qMarks) AND email IS NOT NULL") or die("Error in location query: ". mysqli_error($rodb));     
      call_user_func_array(array($stmt, 'bind_param'), $mi); 
      $stmt->execute() or die("Error in location query: " . mysqli_error($rodb));
      $result= $stmt->get_result() or die("Error in location query: " . mysqli_error($rodb));

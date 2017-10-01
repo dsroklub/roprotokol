@@ -5,40 +5,41 @@ eventApp.controller(
     'eventCtrl',
     ['$scope',         '$routeParams','DatabaseService','LoginService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
      function ($scope, $routeParams, DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
-	 $anchorScroll.yOffset = 50;
-	 $scope.teams=[];
-	 $scope.todpattern="[0-2]\\d:[0-5]\\d";
-	 $scope.signup={act:[]};
-	 $scope.messages=[];
-	 $scope.message={};	 
-	 $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
-	 $scope.subscription={};
-	 $scope.newforum={"is_public":true,"is_open":true};
-	 $scope.eventarg=$routeParams.event;
-	 $scope.rParams=$routeParams;
-	 $scope.min_time=new Date();
-	 $scope.dateOptions = {
-	     showWeeks: false,
-	     minDate: $scope.min_time
+       $anchorScroll.yOffset = 50;
+       $scope.teams=[];
+       $scope.todpattern="[0-2]\\d:[0-5]\\d";
+       $scope.signup={act:[]};
+       $scope.messages=[];
+       $scope.message={};
+       $scope.forumfile={"filefolder":"/"};	 
+       $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
+       $scope.subscription={};
+       $scope.newforum={"is_public":true,"is_open":true};
+       $scope.eventarg=$routeParams.event;
+       $scope.rParams=$routeParams;
+       $scope.min_time=new Date();
+       $scope.dateOptions = {
+	 showWeeks: false,
+	 minDate: $scope.min_time
+       };
+       $scope.enddateOptions = {
+	 showWeeks: false,
+	 minDate: $scope.min_time
 	 };
-	 $scope.enddateOptions = {
-	     showWeeks: false,
-	     minDate: $scope.min_time
-	 };
-	 $scope.init = function() {
-	     $scope.newevent={invitees:[]};
-	     $scope.newevent.location="DSR";
-	     $scope.newevent.max_participants="";
-	     $scope.newevent.owner_in=1;
-	     $scope.newevent.is_open=1;
-	     $scope.newevent.endtime_dirty=0;
-	 }
-	 $scope.init();
-	 $scope.dbready=false;
+       $scope.init = function() {
+	 $scope.newevent={invitees:[]};
+	 $scope.newevent.location="DSR";
+	 $scope.newevent.max_participants="";
+	 $scope.newevent.owner_in=1;
+	 $scope.newevent.is_open=1;
+	 $scope.newevent.endtime_dirty=0;
+       }
+       $scope.init();
+       $scope.dbready=false;
 	 $scope.dbgrace=true;
-	 $timeout(function() { $scope.dbgrace = false;}, 2000);
-	 
-	 $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
+       $timeout(function() { $scope.dbgrace = false;}, 2000);
+       
+       $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
 	 DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
 	     $scope.boatcategories=DatabaseService.getDB('event/boat_category');
 	     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
@@ -326,8 +327,6 @@ eventApp.controller(
        });
      }
 
-
-
      $scope.emailflush = function() {
        $scope.member_setting.notification_email=null;
        $scope.publicsetting.$setDirty();
@@ -365,11 +364,11 @@ eventApp.controller(
      $scope.uploadFile = function(file) {
        file.upload = UploadBase.upload({
          url: '/backend/event/file_upload.php',
-         data: {"expire":$scope.forumfile.expire,forum:$scope.forumfile.forum.forum, filename:$scope.forumfile.filename ,"file": file},
+         data: {"expire":$scope.forumfile.expire, "forum":$scope.forumfile.forum.forum, "filename":$scope.forumfile.filename, "filefolder":$scope.forumfile.filefolder ,"file": file},
        });
        
        file.upload.then(function (response) {
-         $scope.forumfile={};
+         $scope.forumfile={"filefolder":"/"};
          $timeout(function () {
            file.result = response.data;
          });
@@ -572,6 +571,17 @@ eventApp.controller(
          }
        }
                     );
+
+
+
+       $scope.getfolders = function(fld) {
+         if (! $scope.forumfile.forum) return [];
+         var flds = $scope.forumfile.forum.folders.slice();
+         if (fld && flds.indexOf(fld) === -1) {
+           flds.unshift(fld);
+         }
+         return flds;
+       }
        
        $scope.messagematch = function (messagefilter) {
 	 return function(message) {

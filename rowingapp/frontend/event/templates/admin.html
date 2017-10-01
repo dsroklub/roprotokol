@@ -87,6 +87,27 @@
       </tr>
       <tr>
         <td>
+          folder:
+        </td>
+        <td>
+          <ui-select
+            reset-search-input="false"           
+            ng-model="forumfile.filefolder" 
+            pattern="[.a-zA-Z0-9_æøåÆØÅ#\-@/]{1,100}"
+            taggingLabel=false
+            >
+
+	    <ui-select-match placeholder="bogstaver, tal, #,-,_ kan ikke begynde med /">
+              {{forumfile.filefolder||"angiv folder"}}
+            </ui-select-match>
+	    <ui-select-choices repeat="ff in getfolders($select.search) | filter: $select.search ">
+              {{ff}}
+	    </ui-select-choices>
+          </ui-select>
+        </td>
+      </tr>
+      <tr>
+        <td>
           udløber:
         </td>
         <td> <datetimepicker               

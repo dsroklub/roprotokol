@@ -9,8 +9,8 @@ function multifield($fld) {
       if (count($ris) > 1) {
         $res[$ris[0]]=$ris[1];
       } else {
-        echo "UUUU";print_r($rg);echo "XXXX\n\n";
-        error_log("Unparseable multifield: >>$fld<<");
+          echo "UUUU $fld";print_r($fld);echo "XXXX\n\n";
+          error_log("Unparseable multifield: >>$fld<<");
       }
     }
   }

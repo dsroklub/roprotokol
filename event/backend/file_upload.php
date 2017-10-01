@@ -8,7 +8,8 @@ error_log("file data=".$data);
 //error_log("POST=". print_r($_POST,true));
 
 $forum=sanestring($_POST["forum"]);
-$filename=sanestring($_POST["filename"]);
+$filename=sanestring($_POST["filename"],true);
+$filefolder=sanestring($_POST["filefolder"]);
 $expire=explode(".",$_POST["expire"])[0];
 $file=$_POST["file"];
 
@@ -21,7 +22,7 @@ $ofilename=$file['name']['file'];
 $tmpfilename=$file['tmp_name']['file'];
 $otype=$file['type']['file'];
 
-error_log("FORUM=$forum, filename=$filename, exp=$expire, ofilename=$ofilename, tmp_file=$tmpfilename,type=$otype");
+error_log("FORUM=$forum, filename=$filename, filefolder=$filefolder, exp=$expire, ofilename=$ofilename, tmp_file=$tmpfilename,type=$otype");
 $fileup=json_decode($data);
 $message='';
 if (isset($_SERVER['PHP_AUTH_USER'])) {
@@ -36,8 +37,8 @@ if ($fp) {
     $mimeType=$finfo->buffer($content);
     fclose($fp);
     if ($stmt = $rodb->prepare(
-        "INSERT INTO forum_file(member_from,created,forum,filename,mime_type,file,expire)
-         SELECT Member.id, NOW(), ?, ?,?,?, CONVERT_TZ(?,'+00:00','SYSTEM')
+        "INSERT INTO forum_file(member_from,created,forum,filename,folder,mime_type,file,expire)
+         SELECT Member.id, NOW(), ?, ?,?,?,?, CONVERT_TZ(?,'+00:00','SYSTEM')
          FROM Member
          WHERE 
            MemberId=?
@@ -45,9 +46,10 @@ if ($fp) {
 
         $triptype="NULL";
         $stmt->bind_param(
-            'ssssss',
+            'sssssss',
             $forum,
             $filename,
+            $filefolder,
             $mimeType,
             $content,
             $expire,

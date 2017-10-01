@@ -66,6 +66,11 @@ button.submit, button.green, button.login {
   font-size: 16pt;
 }
 
+.chosenforum {
+  background: #aaffaa;
+}
+
+
 button.bodycopy {
     vertical-align: text-bottom;
     border: 1px solid #3ECBBF;

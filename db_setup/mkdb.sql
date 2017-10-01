@@ -655,6 +655,7 @@ CREATE TABLE forum_file (
   filename        VARCHAR(255) NOT NULL,
   mime_type       VARCHAR(255) NOT NULL,
   file            MEDIUMBLOB,
+  folder          VARCHAR(255),
   expire          DATETIME,
   PRIMARY KEY (forum,filename),
   CONSTRAINT forum_file_fk FOREIGN KEY (member_from) REFERENCES Member (id)

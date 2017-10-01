@@ -33,10 +33,19 @@
       </td>
     </tr>
     
-    <tr><th>Inviter forum </th><td>
-        <select name="forum" id="forum" ng-model="newevent.forum" ng-options="forum.forum for forum in fora">
-        <option value="">Ingen</option>
-        </select>
+    <tr>
+      <th>Inviter fora</th><td>        
+        <ui-select multiple class="chosenforum"
+          name="forum" id="forum" ng-model="newevent.fora"
+          >
+          <ui-select-match  placeholder="fora du vil invitere">
+            {{$item.forum}}
+          </ui-select-match>
+          
+          <ui-select-choices repeat="forum in fora">
+            {{forum.forum}}
+	  </ui-select-choices>
+        </ui-select>
       </td>
     </tr>
     <tr><th>&nbsp; og medlemmer</th><td>
@@ -135,9 +144,7 @@
         </textarea>
       </td>
     </tr>
-
-    
-    
+       
 </table>
   <button class="green" ng-show="newevent.starttime && neweventform.$valid" ng-click="eventcreate()">Opret begivenhed</button>
   <button class="red" ng-hide="neweventform.$valid">Udfyld navn</button>
