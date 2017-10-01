@@ -65,6 +65,10 @@ var eventApp = angular.module('eventApp', [
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
     });
+    $routeProvider.when('/forcelogin/', {
+      templateUrl: 'templates/login.html',
+      controller: 'eventCtrl'
+	});
     $routeProvider.when('/login/', {
       templateUrl: 'templates/login.html',
       controller: 'noRight'

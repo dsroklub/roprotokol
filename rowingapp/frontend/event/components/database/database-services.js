@@ -108,7 +108,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     }
   };
 
-  this.init = function(subscriptions) {
+  this.noinit = function(subscriptions) {
     $log.debug("DB init now sync "+subscriptions);
 //    console.log("DBl init now sync "+JSON.stringify(subscriptions));
     return this.sync(subscriptions);

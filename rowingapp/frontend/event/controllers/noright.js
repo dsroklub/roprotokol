@@ -21,8 +21,17 @@ eventApp.controller(
        }
      }
      
+     
      $scope.ccurrentuser = LoginService.get_cuser();
+   
+     $scope.userlogin = function(){
+       LoginService.check_user().promise.then(function(u) {         
+         $scope.current_user=u;
+         ccurrentuser.member_id=u.member_id;
+       });
+     }    
    }
+   
   ]
 );
 
