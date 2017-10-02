@@ -1,5 +1,6 @@
 <?php
 include("../../rowing/backend/inc/common.php");
+require_once("inc/user.php");
 
 
 $res=array ("status" => "ok");
@@ -30,30 +31,32 @@ if ($cuser==$subscription->member_id) {
     
 } else {
     error_log("DEL by owner");
-    if ($stmt = $rodb->prepare(
-        "DELETE FROM forum_subscription
+    if (check_forum_owner($subscription->forum)) {
+        if ($stmt = $rodb->prepare(
+            "DELETE FROM forum_subscription
          WHERE forum=? AND 
-           (forum_subscription.member IN (SELECT Member.id FROM Member WHERE MemberId=?) AND 
-             EXISTS (SELECT 'x' FROM forum, Member owner WHERE owner.id=forum.owner AND owner.MemberId=?))"
-      )
+           forum_subscription.member IN (SELECT Member.id FROM Member WHERE MemberId=?)"
+        )
      ) {
-        $stmt->bind_param(
-            'sss',
-            $subscription->forum,
-            $subscription->member_id,
-            $cuser) ||  die("forum unsubscribe BIND errro ".mysqli_error($rodb));
-    }    
-}
-
-if ($stmt) {
-    if ($stmt->execute()) {
-        $res['status']='ok';
+            $stmt->bind_param(
+                'ss',
+                $subscription->forum,
+                $subscription->member_id
+            ) ||  die("forum unsubscribe BIND errro ".mysqli_error($rodb));
+        }    
+        if ($stmt) {
+            if ($stmt->execute()) {
+                $res['status']='ok';
+            } else {
+                $error=" forum unsubscribe ".mysqli_error($rodb);
+                $message=$message."\n"."forum unsub error: ".mysqli_error($rodb);
+            }
+        } else {
+            $error=" forum unsubscribe prepare ".mysqli_error($rodb);
+        }
     } else {
-        $error=" forum unsubscribe ".mysqli_error($rodb);
-        $message=$message."\n"."forum unsub error: ".mysqli_error($rodb);
+        $error="not forum owner or admin";
     }
-} else {
-    $error=" forum unsubscribe prepare ".mysqli_error($rodb);
 }
 
 if ($error) {

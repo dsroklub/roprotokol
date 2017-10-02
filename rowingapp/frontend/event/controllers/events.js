@@ -11,6 +11,7 @@ eventApp.controller(
        $scope.signup={act:[]};
        $scope.messages=[];
        $scope.message={};
+       $scope.selectedforum={};
        $scope.forumfile={"filefolder":"/"};	 
        $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
        $scope.subscription={};
@@ -104,8 +105,8 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("forum_unsubscribe",forum);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           var ix=$scope.userfora.indexOf(forum);
-           $scope.userfora.splice(ix,1);
+           var ix=$scope.forummembers.indexOf(forum);
+           $scope.forummembers.splice(ix,1);
            forum.role=null;
          } else {
            alert(status.error);
@@ -468,7 +469,23 @@ eventApp.controller(
                }
 	   });
        }
-       
+
+       $scope.toggle_forummember_role = function (forummember) {
+         forummember.old_role=forummember.role;
+         if (forummember.role=="admin") {
+           forummember.role="member";
+         } else {
+           forummember.role="admin";
+         }
+	   var sr=DatabaseService.createSubmit("set_forum_member_role",forummember);
+	   sr.promise.then(function(status) {
+	     if (status.status !='ok') {
+               forummember.role=forummember.old_role;
+	       alert(status.error);
+             }
+	   });
+       }
+
 	 $scope.filematch = function (filefilter) {
 	     return function(file) {
 		 if (!filefilter) {

@@ -31,28 +31,31 @@
 <table>
   <caption>Eksisterende fora mm</caption>
   <tbody class="tbody">
+    <tr>
       <td>
         <i class="fa fa-search"></i><input ng-model="forumfilter" type="text"><i class="fa fa-eraser"  ng-click="forumfilter=null"></i>
       </td>
+    </tr>
     <tr>
       <th></th>       <th></th>     <th>åbent</th>      <th>synligt</th>
     </tr>
-    <tr name="forum" id="forum"  ng-repeat="forum in fora | filter:forummatch(forumfilter)">
-      <td>
+    <tr  name="forumrow" id="forumrow"  ng-repeat="forum in fora | filter:forummatch(forumfilter)">
+      <td ng-class-odd="'odd'">
         {{forum.forum}}
       </td>
       
-      <td >
+      <td>
         <button ng-show="forum.owner==current_user.member_id" ng-click="forumdelete(forum)"  confirm="Vil du slette forum: {{forum.forum}}?" class="deletealert"><i class="fa fa-trash"></i></button>
-        <button ng-show="forum.is_public && (forum.role=='owner' || forum.owner==current_user.member_id)" ng-click="toggle_forum_visibility(forum)" class="chooser">gør privat</button>
-        <button ng-show="!forum.is_public && (forum.role=='owner'|| forum.owner==current_user.member_id)" ng-click="toggle_forum_visibility(forum)" class="chooser">gør synligt for alle</button>
+        <button ng-show="forum.is_public && (forum.role=='admin' || forum.owner==current_user.member_id)" ng-click="toggle_forum_visibility(forum)" class="chooser">gør privat</button>
+        <button ng-show="!forum.is_public && (forum.role=='admin'|| forum.owner==current_user.member_id)" ng-click="toggle_forum_visibility(forum)" class="chooser">gør synligt for alle</button>
       </td>
 
-      <td><i ng-if="forum.is_open" class="fa fa-check"></i> </td>
-      <td><i ng-if="forum.is_public" class="fa fa-check"></i></td>
+        <td><i ng-if="forum.is_open" class="fa fa-check"></i></td>
+        <td><i ng-if="forum.is_public" class="fa fa-check"></i></td>
     </tr>
   </tbody>         
 </table>
+
 
 <form name="upform">
   <fieldset>
