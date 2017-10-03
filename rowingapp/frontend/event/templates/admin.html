@@ -130,7 +130,8 @@
         </td>
       </tr>
       <tr><td>
-        <button ng-disabled="!upform.$valid" ng-click="uploadFile(forumfile)" class="submit">Indsend fil</button>
+        <button ng-disabled="!upform.$valid || !forumfile.expire" ng-click="uploadFile(forumfile)" class="submit">Indsend fil</button>
+        <button ng-hide="forumfile.expire" class="alert">Angiv en udløbsdato</button>
         <span class="progress" ng-show="forumfile.progress >= 0">
           <div style="width:{{forumfile.progress}}%" ng-bind="forumfile.progress + '%'" class="ng-binding"></div>
         </span>

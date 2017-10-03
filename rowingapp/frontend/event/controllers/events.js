@@ -602,14 +602,13 @@ eventApp.controller(
        }
                     );
 
-
-
        $scope.getfolders = function(fld) {
          if (! $scope.forumfile.forum) return [];
          var flds = $scope.forumfile.forum.folders.slice();
          if (fld && flds.indexOf(fld) === -1) {
            flds.unshift(fld);
          }
+         // console.log(flds);
          return flds;
        }
        

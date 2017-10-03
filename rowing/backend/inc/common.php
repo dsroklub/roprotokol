@@ -53,7 +53,7 @@ function dbErr(&$db, &$res, $err="") {
 function dbfetch($db,$table, $columns=['*'], $orderby=null) {
     $s='SELECT '. implode(',',$columns) . '  FROM ' . $table;
         if ($orderby) {
-        $s .= " ORDER BY $orderby";
+            $s .= " ORDER BY ". implode(",",$orderby);
     }
     $result=$db->query($s) or die("Error in stat query: " . mysqli_error($db));
     echo '[';
