@@ -103,9 +103,9 @@
   <tr ng-repeat="file in forum_files | filter:filematch(filefilter)"
       ng-show="file.forum==current_forum.forum"
       class="event" ng-class-odd="'odd'" ng-class-even="'even'">
-<td>
-{{file.folder}}
-</td>
+     <td ng-click="set_file_filter(file.folder)">
+       {{file.folder}}
+     </td>
 
     <td>
       <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}"> {{file.filename}}</a>

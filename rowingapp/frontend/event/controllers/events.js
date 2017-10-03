@@ -368,18 +368,24 @@ eventApp.controller(
          data: {"expire":$scope.forumfile.expire, "forum":$scope.forumfile.forum.forum, "filename":$scope.forumfile.filename, "filefolder":$scope.forumfile.filefolder ,"file": file},
        });
        
-       file.upload.then(function (response) {
-         $scope.forumfile={"filefolder":"/"};
-         $timeout(function () {
-           file.result = response.data;
+       file.upload.then(
+         function (response) {
+           $scope.forumfile.expire=null;
+           $scope.forumfile.file=null;
+           $scope.forumfile.filename=null;
+           if ($scope.forumfile.forum.folders.indexOf($scope.forumfile.filefolder)<0) {
+             $scope.forumfile.forum.folders.push($scope.forumfile.filefolder);
+           }
+           $timeout(function () {
+             file.result = response.data;
+           });
+         }, function (response) {
+           if (response.status > 0)
+             $scope.errorMsg = response.status + ': ' + response.data;
+         }, function (evt) {
+           // Math.min is to fix IE which reports 200% sometimes
+           file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
          });
-       }, function (response) {
-         if (response.status > 0)
-           $scope.errorMsg = response.status + ': ' + response.data;
-       }, function (evt) {
-         // Math.min is to fix IE which reports 200% sometimes
-         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-       });
      }
        
      $scope.file_selected = function() {
@@ -491,10 +497,17 @@ eventApp.controller(
 		 if (!filefilter) {
 		     return true
 		 }
-		 return (file.filename.match( new RegExp(filefilter, 'i')));
+	       return (
+                 file.folder==filefilter ||
+                 file.filename.match( new RegExp(filefilter, 'i'))
+               );
 	     }
 	 };
-	 
+
+       $scope.set_file_filter = function (filefilter) {
+         $scope.filefilter=filefilter;
+       }
+
 	 $scope.forummatch = function (forumfilter) {
 	     return function(forum) {
 		 if (!forumfilter) {

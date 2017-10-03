@@ -75,7 +75,7 @@ if ($error) {
     $res['status']='error';
     $res['error']=$error;
 }
-invalidate("event");
+invalidate("forum");
 invalidate("file");
 invalidate("message");
 echo json_encode($res);
