@@ -101,17 +101,17 @@ app.controller(
             // }
          
          var i=0;
-         while (i < errortrips.length -1) {
-           while (errortrips[i].id && i < errortrips.length-1) {
+         while (i < $scope.errortrips.length -1) {
+           while ($scope.errortrips[i].id && i < $scope.errortrips.length-1) {
              i++;
            }
            var j=i+1;
-           while (j<errortrips.length && errortrips[j].Trip==errortrips[i].Trip) {
+           while (j<$scope.errortrips.length && errortrips[j].Trip==$scope.errortrips[i].Trip) {
              $scope.ziperrors.push({
-               'trip':errortrips[i].Trip,
-               'current':errortrips[i],
-               'correction':errortrips[j],
-               'diffs': correction_diff(errortrips[i],errortrips[j])
+               'trip':$scope.errortrips[i].Trip,
+               'current':$scope.errortrips[i],
+               'correction':$scope.errortrips[j],
+               'diffs': correction_diff($scope.errortrips[i],$scope.errortrips[j])
              });
              j++;
            }
