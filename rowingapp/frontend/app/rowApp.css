@@ -32,7 +32,8 @@ ul {
     list-style-type: none;
     padding: 0;
     margin-left: 2em;
-    color: blue    max-width: 29%;
+    color: blue;
+    max-width: 29%;
 }
 
 .tools a {
