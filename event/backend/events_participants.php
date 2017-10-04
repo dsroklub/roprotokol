@@ -11,13 +11,13 @@ SELECT event.status,event.id as event_id,event.open,owner_member.MemberId AS own
   GROUP_CONCAT(CONCAT(em.FirstName,' ',em.LastName),':§§:',em.MemberId,':§§:', IFNULL(mc.iscox,0), ':§§:', event_member.role, ':§§:',DATE_FORMAT(event_member.enter_time,'%Y-%m-%dT%T') SEPARATOR '££') AS participants
   FROM 
     Member owner_member, 
-     Member em ,
           event 
           LEFT JOIN BoatCategory on BoatCategory.id=event.boat_category LEFT JOIN TripType ON TripType.id=event.trip_type 
           LEFT JOIN event_member ON event_member.event=event.id 
              LEFT JOIN (SELECT member_id, 1 as iscox from MemberRights WHERE MemberRight='cox') as mc ON mc.member_id=event_member.member
+       LEFT JOIN Member em ON em.id=event_member.member
+
    WHERE owner_member.id=event.owner AND event.end_time >= NOW()
-      AND  em.id=event_member.member
       GROUP BY owner,start_time,event_id
 ";
 
