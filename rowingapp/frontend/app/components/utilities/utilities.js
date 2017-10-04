@@ -1,8 +1,6 @@
 /*jslint node: true */
 'use strict';
 
-var right2dk;
-
 var side2dk = {
   'left':'venstre',
   'right':'højre',
@@ -10,6 +8,7 @@ var side2dk = {
 }
 
 var right2dk;
+var right2dkm;
 
 var subject2dk = {
   'all':'alle',
