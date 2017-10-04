@@ -106,7 +106,7 @@ app.controller(
              i++;
            }
            var j=i+1;
-           while (j<$scope.errortrips.length && errortrips[j].Trip==$scope.errortrips[i].Trip) {
+           while (j<$scope.errortrips.length && $scope.errortrips[j].Trip==$scope.errortrips[i].Trip) {
              $scope.ziperrors.push({
                'trip':$scope.errortrips[i].Trip,
                'current':$scope.errortrips[i],
