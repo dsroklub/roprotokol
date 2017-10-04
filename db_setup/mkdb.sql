@@ -633,7 +633,7 @@ CREATE TABLE forum_subscription (
   member     INTEGER,
   forum      VARCHAR(255),
   role       VARCHAR(255) NOT NULL, -- waiting, cox, any, leader, admin
-  FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE,
+  FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,forum)
 );
@@ -644,7 +644,7 @@ CREATE TABLE forum_message (
   forum      VARCHAR(255),
   subject    VARCHAR(1000),
   message    VARCHAR(10000),
-  FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE,
+  FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (member_from) REFERENCES Member(id)
 );
 

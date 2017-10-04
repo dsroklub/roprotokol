@@ -7,7 +7,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 
 
-$s="SELECT forum.name as forum,forum.description, owner.MemberId as owner, is_open, is_public, forum_subscription.role,GROUP_CONCAT(forum_file.folder  SEPARATOR '££') as folders
+$s="SELECT forum.name as forum,forum.description, owner.MemberId as owner, is_open, is_public, forum_subscription.role,GROUP_CONCAT(DISTINCT forum_file.folder  SEPARATOR '££') as folders
     FROM Member owner, forum JOIN Member m LEFT JOIN forum_subscription ON (forum.name=forum_subscription.forum AND forum_subscription.member=m.id)
       LEFT JOIN forum_file on forum_file.forum=forum.name
     WHERE owner.id=forum.owner and m.MemberId=?

@@ -41,5 +41,6 @@ if ($error) {
     $res['error']=$error;
 }
 invalidate("forum");
+invalidate("message");
 echo json_encode($res);
 ?> 

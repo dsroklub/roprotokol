@@ -11,6 +11,7 @@ eventApp.controller(
        $scope.signup={act:[]};
        $scope.messages=[];
        $scope.message={};
+       $scope.selectedforum={};
        $scope.forumfile={"filefolder":"/"};	 
        $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
        $scope.subscription={};
@@ -104,8 +105,8 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("forum_unsubscribe",forum);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           var ix=$scope.userfora.indexOf(forum);
-           $scope.userfora.splice(ix,1);
+           var ix=$scope.forummembers.indexOf(forum);
+           $scope.forummembers.splice(ix,1);
            forum.role=null;
          } else {
            alert(status.error);
@@ -367,18 +368,24 @@ eventApp.controller(
          data: {"expire":$scope.forumfile.expire, "forum":$scope.forumfile.forum.forum, "filename":$scope.forumfile.filename, "filefolder":$scope.forumfile.filefolder ,"file": file},
        });
        
-       file.upload.then(function (response) {
-         $scope.forumfile={"filefolder":"/"};
-         $timeout(function () {
-           file.result = response.data;
+       file.upload.then(
+         function (response) {
+           $scope.forumfile.expire=null;
+           $scope.forumfile.file=null;
+           $scope.forumfile.filename=null;
+           if ($scope.forumfile.forum.folders.indexOf($scope.forumfile.filefolder)<0) {
+             $scope.forumfile.forum.folders.push($scope.forumfile.filefolder);
+           }
+           $timeout(function () {
+             file.result = response.data;
+           });
+         }, function (response) {
+           if (response.status > 0)
+             $scope.errorMsg = response.status + ': ' + response.data;
+         }, function (evt) {
+           // Math.min is to fix IE which reports 200% sometimes
+           file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
          });
-       }, function (response) {
-         if (response.status > 0)
-           $scope.errorMsg = response.status + ': ' + response.data;
-       }, function (evt) {
-         // Math.min is to fix IE which reports 200% sometimes
-         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-       });
      }
        
      $scope.file_selected = function() {
@@ -468,16 +475,39 @@ eventApp.controller(
                }
 	   });
        }
-       
+
+       $scope.toggle_forummember_role = function (forummember) {
+         forummember.old_role=forummember.role;
+         if (forummember.role=="admin") {
+           forummember.role="member";
+         } else {
+           forummember.role="admin";
+         }
+	   var sr=DatabaseService.createSubmit("set_forum_member_role",forummember);
+	   sr.promise.then(function(status) {
+	     if (status.status !='ok') {
+               forummember.role=forummember.old_role;
+	       alert(status.error);
+             }
+	   });
+       }
+
 	 $scope.filematch = function (filefilter) {
 	     return function(file) {
 		 if (!filefilter) {
 		     return true
 		 }
-		 return (file.filename.match( new RegExp(filefilter, 'i')));
+	       return (
+                 file.folder==filefilter ||
+                 file.filename.match( new RegExp(filefilter, 'i'))
+               );
 	     }
 	 };
-	 
+
+       $scope.set_file_filter = function (filefilter) {
+         $scope.filefilter=filefilter;
+       }
+
 	 $scope.forummatch = function (forumfilter) {
 	     return function(forum) {
 		 if (!forumfilter) {
@@ -572,14 +602,13 @@ eventApp.controller(
        }
                     );
 
-
-
        $scope.getfolders = function(fld) {
          if (! $scope.forumfile.forum) return [];
          var flds = $scope.forumfile.forum.folders.slice();
          if (fld && flds.indexOf(fld) === -1) {
            flds.unshift(fld);
          }
+         // console.log(flds);
          return flds;
        }
        

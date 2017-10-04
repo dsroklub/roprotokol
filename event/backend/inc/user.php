@@ -46,7 +46,7 @@ function check_forum_owner($forum) {
         "SELECT Member.id
          FROM forum_subscription, Member
          WHERE 
-           forum_subscription.forum=? AND MemberId=? AND forum_subscription.member=Member.id AND forum_subscription.role='owner'
+           forum_subscription.forum=? AND MemberId=? AND forum_subscription.member=Member.id AND forum_subscription.role='admin'
          UNION 
             SELECT Member.id FROM forum,Member where forum.owner=Member.id AND Member.MemberID=? AND forum.name=?
             "

@@ -37,7 +37,7 @@
         <i class="fa fa-search"></i><input ng-model="forumfilter" type="text"><i class="fa fa-eraser"  ng-click="forumfilter=null"></i>
       </td>
     </tr>
-  <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''} | filter:forummatch(forumfilter)"  class="event
+  <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''} | filter:forummatch(forumfilter)"  class="event"
       ng-class-odd="'odd'" ng-class-even="'even'"
       ng-class="{selected: current_forum == userforum}"
       >
@@ -69,20 +69,21 @@
 
 <table>
   <thead>
-    <caption>{{current_forum.forum}} Medlem</caption>
+    <caption>{{current_forum.forum}}medlemmer</caption>
   </thead>
-  <tr ng-repeat="forummember in forummembers | filter: {role:''}"  class="forummember" ng-class-odd="'odd'" ng-class-even="'even'">
+  <tr ng-repeat="forummember in forummembers"  class="forummember" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
       {{forummember.name}}
     </td>
-
-    <td ng-show="current_forum.owner==current_user.member_id">
-      <i ng-click="accept_forum_supplicant(userforum)" ng-show="userforum.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
-
-      <i ng-hide="forummember.member_id==current_user.member_id" ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus">
-      </i> 
+    <td>
+      <button ng-show="current_forum.owner==current_user.member_id || current_forum.role=='admin'" ng-click="toggle_forummember_role(forummember)" class="chooser">{{forummember.role}}</button>
+      <button ng-show="current_forum.owner!=current_user.member_id && current_forum.role!='admin'">{{forummember.role}}</button>
     </td>
-    
+    <td ng-show="current_forum.owner==current_user.member_id || current_forum.role=='admin'">
+      <i ng-click="accept_forum_supplicant(forummember)" ng-show="forummember.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
+      <i ng-hide="forummember.member_id==current_user.member_id"  ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus">
+      </i> 
+    </td>    
   </tr>
 </table>
 
@@ -102,13 +103,17 @@
   <tr ng-repeat="file in forum_files | filter:filematch(filefilter)"
       ng-show="file.forum==current_forum.forum"
       class="event" ng-class-odd="'odd'" ng-class-even="'even'">
-<td>
-{{file.folder}}
-</td>
+     <td ng-click="set_file_filter(file.folder)">
+       {{file.folder}}
+     </td>
 
     <td>
       <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}"> {{file.filename}}</a>
     </td>
+     <td class="numin">
+       {{file.file_length}}
+    </td>
+
   </tr>
 </table>
 
