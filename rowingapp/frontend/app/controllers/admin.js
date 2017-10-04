@@ -59,62 +59,64 @@ app.controller(
              {id:6,day:"lørdag"},
              {id:7,day:"søndag"}
          ];
+       
+       $scope.reservations=[];
+       $scope.reservation={};
+       $scope.errortrips=[];
 
-          $scope.reservations=[];
-            $scope.reservation={};
-            DatabaseService.init({"boat":true,"member":true, "trip":true,"reservation":true}).then(function () {
-            $scope.currentrower=null;
-            $scope.do="events";
-            $scope.DB=DatabaseService.getDB;
-            $scope.triptypes=DatabaseService.getDB('triptypes');
-            $scope.reservations = DatabaseService.getDB('get_reservations');
-            $scope.clientname = DatabaseService.client_name();
-            $scope.allboats = DatabaseService.getBoats();
-            $scope.iboats=DatabaseService.getDB('boats');
-            $scope.locations = DatabaseService.getDB('locations');
-            $scope.events = DatabaseService.getDB('get_events');
-            $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
-            $scope.boatkayakcategories = DatabaseService.getDB('boatkayakcategory');
-            $scope.rights_subtypes = DatabaseService.getDB('rights_subtype');
-            $scope.errortrips = DatabaseService.getDB('errortrips');
-            $scope.levels=DatabaseService.getDB('boatlevels');
-            $scope.brands=DatabaseService.getDB('boat_brand');
-            $scope.usages=DatabaseService.getDB('boat_usages');
-            $scope.placementlevels=[0,1,2];
-            $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
-            $scope.ziperrors=[];
-            $scope.getTriptypeWithID=DatabaseService.getTriptypeWithID;
-            // var mainplan=[[],[],[],[],[]];
-            // var num_aisles=5;
-            // var num_rows=3;
-            // for (var a=0;a<num_aisles;a++) {
-            //   mainplan[a]=[];
-            //   for (var r=0;r<num_rows;r++) {
-                
-            //   }
-            // }
-            
+       DatabaseService.init({"boat":true,"member":true, "trip":true,"reservation":true}).then(function () {
+         $scope.currentrower=null;
+         $scope.do="events";
+         $scope.DB=DatabaseService.getDB;
+         $scope.triptypes=DatabaseService.getDB('triptypes');
+         $scope.reservations = DatabaseService.getDB('get_reservations');
+         $scope.clientname = DatabaseService.client_name();
+         $scope.allboats = DatabaseService.getBoats();
+         $scope.iboats=DatabaseService.getDB('boats');
+         $scope.locations = DatabaseService.getDB('locations');
+         $scope.events = DatabaseService.getDB('get_events');
+         $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
+         $scope.boatkayakcategories = DatabaseService.getDB('boatkayakcategory');
+         $scope.rights_subtypes = DatabaseService.getDB('rights_subtype');
+         $scope.errortrips = DatabaseService.getDB('errortrips');
+         $scope.levels=DatabaseService.getDB('boatlevels');
+         $scope.brands=DatabaseService.getDB('boat_brand');
+         $scope.usages=DatabaseService.getDB('boat_usages');
+         $scope.placementlevels=[0,1,2];
+         $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
+         $scope.ziperrors=[];
+         $scope.getTriptypeWithID=DatabaseService.getTriptypeWithID;
+         // var mainplan=[[],[],[],[],[]];
+         // var num_aisles=5;
+         // var num_rows=3;
+         // for (var a=0;a<num_aisles;a++) {
+         //   mainplan[a]=[];
+         //   for (var r=0;r<num_rows;r++) {
+         
+         //   }
+         // }
+         
             // for (var b=0;b<$scope.allboats.length;b++ ) {
-              
+         
             // }
-            
-            var i=0;
-            while (i < errortrips.length -1) {
-              while (errortrips[i].id && i < errortrips.length-1) {
-                i++;
-              }
-              var j=i+1;
-              while (j<errortrips.length && errortrips[j].Trip==errortrips[i].Trip) {
-                $scope.ziperrors.push({
-                  'trip':errortrips[i].Trip,
-                  'current':errortrips[i],
-                  'correction':errortrips[j],
-                  'diffs': correction_diff(errortrips[i],errortrips[j])
-                });
-                j++;
-              }
-              i++;
-            }
+         
+         var i=0;
+         while (i < errortrips.length -1) {
+           while (errortrips[i].id && i < errortrips.length-1) {
+             i++;
+           }
+           var j=i+1;
+           while (j<errortrips.length && errortrips[j].Trip==errortrips[i].Trip) {
+             $scope.ziperrors.push({
+               'trip':errortrips[i].Trip,
+               'current':errortrips[i],
+               'correction':errortrips[j],
+               'diffs': correction_diff(errortrips[i],errortrips[j])
+             });
+             j++;
+           }
+           i++;
+         }
             $scope.boatcategories = DatabaseService.getBoatTypes();
 
             $scope.errorhandler = function(error) {
