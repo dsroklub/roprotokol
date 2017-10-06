@@ -202,7 +202,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   };
 
   var defaultLocation = 'DSR';
-  var this.boatcat2dk;
+  var boatcat2dk;
   this.init = function(subscriptions) {
 
     this.boatcat2dk = {
