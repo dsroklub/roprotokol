@@ -202,8 +202,18 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   };
 
   var defaultLocation = 'DSR';
+  var this.boatcat2dk;
   this.init = function(subscriptions) {
 
+    this.boatcat2dk = {
+      'any':'alle',
+      'rowboat':'robåd',
+      'kayak':'kajak',
+      'kaniner':'kaniner'
+    };
+    
+
+    
     db.boatlevels={
       1:'Let',
       2:'Mellem',
