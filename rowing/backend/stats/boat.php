@@ -19,7 +19,7 @@ if ($q=="rowers") {
     WHERE Boat.id=? AND tm.member_id=Member.id AND Trip.id=tm.TripID AND Trip.BoatID=Boat.id
     GROUP By Member.id 
     ORDER BY dist DESC 
-    LIMIT 20";
+    LIMIT 200";
 //    echo $s;
 } else if ($q=="triptypes") {
     $s="SELECT TripType.Name AS triptype, COUNT(Trip.id) as numtrips
@@ -27,7 +27,7 @@ if ($q=="rowers") {
     WHERE Trip.BoatID=? AND TripType.id=Trip.TripTypeID
     GROUP By TripType.id
     ORDER BY numtrips DESC 
-    LIMIT 10";    
+    LIMIT 20";    
 } else {
     echo "invalid query ".$q;
     exit(0);

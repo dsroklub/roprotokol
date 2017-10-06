@@ -1,46 +1,15 @@
 'use strict';
 angular.module('rowApp.database.database-services', []).service('DatabaseService', function($http, $q,$log) {
+
   var valid={};
   var db={};
-  var rowerstatistics={};
-  var boatstatistics={};
+  var rowerstatistics=[];
+  var boatstatistics=[];
   var databasesource=dbmode;
   var tx=null;
   var debug=3;
-  
-  db.boatlevels={
-    1:'Let',
-    2:'Mellem',
-    3:'Svær',
-    4:'Meget svær'
-  }
-  
-  // FIXME Not used?
-  this.boatcat2dk = {
-      'any':'alle',
-      'rowboat':'robåd',
-      'kayak':'kajak',
-      'kaniner':'kaniner'
-  };
-
-
-  var cachedepend={
-    'reservation':['reservation','boat'],
-    'boat':['boats','boatdamages','availableboats','reservations','boat_status','boat_usages','boat_status','get_events'],
-    'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
-    'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
-    'destination':['destinations'],
-    'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat'],
-    'archivestats':[],    
-    'team':['team']
-  };
-  
-  var datastatus={
-    'boat':null,
-    'trip':null,
-    'member':null,
-    'destination':null
-  };
+  var cachedepend;
+  var datastatus;
 
   function toURL(service){
     if (databasesource=='real') {
@@ -224,9 +193,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     tx=qll;
     return qll;
   };
-
   
-  this.defaultLocation = 'DSR';
   this.invalidate_dependencies=function(tp) {
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
@@ -234,7 +201,33 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     }
   };
 
+  var defaultLocation = 'DSR';
   this.init = function(subscriptions) {
+
+    db.boatlevels={
+      1:'Let',
+      2:'Mellem',
+      3:'Svær',
+      4:'Meget svær'
+    }
+    defaultLocation = 'DSR';
+    cachedepend={
+      'reservation':['reservation','boat'],
+      'boat':['boats','boatdamages','availableboats','reservations','boat_status','boat_usages','boat_status','get_events'],
+      'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
+      'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
+      'destination':['destinations'],
+      'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat'],
+      'archivestats':[],    
+      'team':['team']
+    };
+  
+    datastatus={
+      'boat':null,
+      'trip':null,
+      'member':null,
+      'destination':null
+    };
 
 //    var cache = $cacheFactory.get('$http');
 //    cache.removeAll();
