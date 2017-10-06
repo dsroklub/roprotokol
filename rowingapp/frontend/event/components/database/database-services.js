@@ -2,34 +2,14 @@
 angular.module('eventApp.database.database-services', []).service('DatabaseService', function($http, $q,$log) {
   var valid={};
   var db={};
-  var databasesource=dbmode;
   var tx=null;
   var debug=3;
     
-  var cachedepend={
-    'member':['event/rowers','event/events_participants'],
-    'event':['event/events','event/event_category','event/userfora','event/events_participants'],
-    'message':['event/messages'],
-    'forum':['event/messages','event/userfora'],
-    'file':['event/forum_files_list']
-  };
-// permament for now    'destinations':['event/destinations']
-  
-  var datastatus={
-    'member':null,
-    'message':null,
-    'event':null,
-    'forum':null,
-    'destination':null,
-    'file':null
-  };
+  var cachedepend;
+  var datastatus={};
 
   function toURL(service){
-    if (databasesource=='real') {
       return '/backend/'+service;
-    } else {
-      return 'data/'+service.replace('.php','').replace(/\?/g,'Q').replace(/=/g,'')+".json";
-    }
   }
   
   this.onDBerror = function (err) {
@@ -65,8 +45,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   this.fetch = function (subscriptions) {
     $log.debug("DB fetch "+Date());
     var headers = {};
-    var promises=[];
-    
+    var promises=[];    
     this.getData('event/roles',promises);
     this.getData('event/memberrighttypes',promises);
     this.getData('event/forum_files_list',promises);
@@ -108,6 +87,27 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     }
   };
 
+
+  this.init = function(subscriptions) {
+    datastatus={
+      'member':null,
+      'message':null,
+      'event':null,
+      'forum':null,
+      'destination':null,
+      'file':null
+    };
+
+    cachedepend={
+      'member':['event/rowers','event/events_participants'],
+      'event':['event/events','event/event_category','event/userfora','event/events_participants'],
+      'message':['event/messages'],
+      'forum':['event/messages','event/userfora'],
+      'file':['event/forum_files_list']
+    };
+    return this.sync(subscriptions);
+  }
+  
   this.noinit = function(subscriptions) {
     $log.debug("DB init now sync "+subscriptions);
 //    console.log("DBl init now sync "+JSON.stringify(subscriptions));

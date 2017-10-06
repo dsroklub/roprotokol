@@ -20,8 +20,7 @@ eventApp.controller(
          LoginService.setpw($scope.login);
        }
      }
-     
-     
+          
      $scope.ccurrentuser = LoginService.get_cuser();
    
      $scope.userlogin = function(){
