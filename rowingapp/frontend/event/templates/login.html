@@ -1,33 +1,26 @@
-
-<!-- <pre> -->
-<!--   CCUSER=  {{ccurrentuser|json}} -->
-<!-- </pre> -->
-
 <div ng-hide="ccurrentuser.user.member_id">
-<button class="green" ng-click="userlogin()">Log ind</button>
+  <button class="green" ng-click="userlogin()">Log ind</button>
   {{loginstatus}}
 </div>
 
-  <h1 ng-show="currentuser.id">Velkommen {{currentuser.name}} ({{currentuser.member_id}})</h1>
+<h1 ng-show="current_user.member_id">Velkommen {{current_user.name}} ({{current_user.member_id}})</h1>
 <ng-form name="eventLogin" ng-hide="ccurrentuser.user.member_id">
   <h2>Hvis du ikke har fået et password</h2>
   
   <div>
     <label for="event.deltager">Mit medlemsnummer er</label>
     <input autocomplete="off" id="member" name="member" type="text" ng-model="login.member"  required />
-  </div>
-  
+  </div>  
   <br>
   <button class="login" ng-click="getpw()" class="green">Send mit password</button>
 </ng-form>
   
-<h2>Skift password, mindst 8 tegn</h2>
-<ng-form name="newpw">  
+<ng-form name="newpw" ng-show="ccurrentuser.user.member_id">  
+  <h2>Skift password, mindst 8 tegn</h2>
   <input data-ng-model='login.pw' pattern=".{8}.*" type="password" name='password' placeholder='password'>
   gentag: <input data-ng-model='login.pw2' type="password" name='password2' placeholder='password'>    
   <button ng-show="login.pw==login.pw2" class="login" ng-click="setpw()" class="green">Skift password</button>   
 </ng-form>
-
 
 <div ng-show="ccurrentuser.user.member_id">
   <button ng-click="logout()" class="red">log ud</button>

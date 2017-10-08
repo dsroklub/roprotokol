@@ -1,0 +1,3 @@
+Chromiun
+
+zoom-lock extension

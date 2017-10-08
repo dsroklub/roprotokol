@@ -29,8 +29,6 @@ eventApp.controller(
          ccurrentuser.member_id=u.member_id;
        });
      }    
-   }
-   
+   }   
   ]
 );
-

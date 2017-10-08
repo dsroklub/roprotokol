@@ -13,12 +13,7 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
     'member':['rowers'],
   };
   
-  var datastatus={
-    'boat':null,
-    'trip':null,
-    'member':null,
-    'destination':null
-  };
+  var datastatus={};
 
   function toURL(service){
     if (databasesource=='real') {
@@ -95,6 +90,13 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
   };
 
   this.init = function(subscriptions) {
+    datastatus={
+      'boat':null,
+      'trip':null,
+      'member':null,
+      'destination':null
+    };
+    
     return this.sync(subscriptions);
   }
 

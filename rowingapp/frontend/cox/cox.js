@@ -18,9 +18,7 @@ var coxApp = angular.module('coxApp', [
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
   'angular.filter',
-  'checklist-model',
-  'coxApp.database'
-//  ,'ds.clock'
+  'checklist-model'
 ])
 .config([
   '$locationProvider', function($locationProvider) {
