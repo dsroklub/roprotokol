@@ -70,7 +70,13 @@
       <li class="logo">
         <img src="../app/assets/dsrlogo.svg">  
       </li>
-      <li ng-class="{topsel: activePath=='/login/'}"><a href="login/"><i class="fa fa-user"></i>Login</a></li>
+      <li ng-show="ccurrentuser.user.member_id>0" ng-class="{topsel: activePath=='/login/'}">
+        <a href="login/"><i class="fa fa-sign-in"></i>Ud/pw</a>
+      </li>
+      <li ng-hide="ccurrentuser.user.member_id>0" ng-class="{topsel: activePath=='/login/'}">
+        <a href="login/"><i class="fa fa-user"></i>Log ind</a>
+      </li>
+
       <li ng-class="{topsel: activePath=='/signup/'}"><a href="signup/"><i class="fa fa-heartbeat"></i>For<br>aspirant</a></li>
       <li ng-class="{topsel: activePath=='/admin/'}"><a href="admin/"><i class="fa fa-bank"></i>admin</a></li>
       <li ng-class="{topsel: activePath=='/requirements/'}"><a href="requirements/"><i class="fa fa-check-square"></i>Krav</a></li>
