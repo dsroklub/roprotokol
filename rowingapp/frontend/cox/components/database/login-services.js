@@ -49,7 +49,7 @@ angular.module('coxApp.login-services', []).service('LoginService', function($ht
 
 
   this.logout = function() {
-    $http.get('/backend/event/logout.php').then(function(r) {
+    $http.get('/backend/cox/aspirants/logout.php').then(function(r) {
       cuser={"user":"logget ud"};
       alert("logget ud");
     },function(r) {
