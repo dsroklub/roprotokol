@@ -198,7 +198,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
       });
     } else {
       result = rowers.filter(function(element) {
-        return (element.id==val);
+        return (element.id==parseInt(val));
       });
     }
     return result.filter(function(rower) {        
