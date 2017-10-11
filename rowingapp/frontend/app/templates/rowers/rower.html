@@ -13,6 +13,7 @@
     </a>
   </script>
   
+  <div class="lefts">  
   <div class="toppane">  
     <h3 class="prompt">Søg efter:</h3>
     
@@ -352,7 +353,8 @@
     </div>    
   </div>
   
-  <div ng-if="currentrower">
+  <div ng-if="currentrower" class="boxes">
+    <div>
     <table class="genericlist statbox">
       <caption>{{currentrower.name}}'s Rokammerater</caption>
       <thead>
@@ -365,7 +367,9 @@
         </tr>      
       </tbody> 
     </table>
+    </div>
 
+    <div>
     <table class="genericlist statbox">
       <caption>{{currentrower.name}}'s Robåde</caption>
       <thead>
@@ -378,7 +382,9 @@
         </tr>      
       </tbody> 
     </table>
+    </div>
 
+    <div>
     <table class="genericlist statbox">
       <caption>{{currentrower.name}}'s destinationer</caption>
       <thead>
@@ -391,7 +397,9 @@
         </tr>      
       </tbody> 
     </table>
+    </div>
 
+    <div>
     <table class="genericlist statbox">
       <caption>{{currentrower.name}}'s ror</caption>
       <thead>
@@ -404,14 +412,16 @@
         </tr>      
       </tbody> 
     </table>
-
+    </div>
   </div>
+  
+</div>
 
-  <div class="seasonschart" ng-if="currentrower">
-    <h2>Sæsonoversigt for {{currentrower.name}}</h2>
-    <canvas id="roweractivity" class="chart chart-bar"
-            chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
-    </canvas>         
+<div class="seasonschart" ng-if="currentrower">
+  <h2>Sæsonoversigt for {{currentrower.name}}</h2>
+  <canvas id="roweractivity" class="chart chart-bar"
+          chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
+  </canvas>         
   </div>
 </div>
 

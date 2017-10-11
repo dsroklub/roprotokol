@@ -762,9 +762,18 @@ select  {
 }
 
 .toppane {
-    width: 100%;
-    clear:both;
+   width: 100%;
+   clear:both;
 }
+
+.lefts {
+   width: 60%;
+}
+
+.boxes {
+max-width: 70%;
+}
+
 .alert {
     color: #f00;
 }
@@ -1173,8 +1182,9 @@ img.wrench {
 }
 
 .statbox {
-    display: inline-block;
+/*    display: inline-block;
     float:left;
+*/
 }
 
 .eventtime {
