@@ -365,7 +365,7 @@ eventApp.controller(
      $scope.uploadFile = function(file) {
        file.upload = UploadBase.upload({
          url: '/backend/event/file_upload.php',
-         data: {"expire":$scope.forumfile.expire, "forum":$scope.forumfile.forum.forum, "filename":$scope.forumfile.filename, "filefolder":$scope.forumfile.filefolder ,"file": file},
+         data: {"expire":$scope.forumfile.notexpire?"3017-04-04":$scope.forumfile.expire, "forum":$scope.forumfile.forum.forum, "filename":$scope.forumfile.filename, "filefolder":$scope.forumfile.filefolder ,"file": file},
        });
        
        file.upload.then(
