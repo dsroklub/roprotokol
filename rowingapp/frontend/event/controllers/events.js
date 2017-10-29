@@ -2,78 +2,78 @@
 // Niels Elgaard Larsen, v2
 
 eventApp.controller(
-    'eventCtrl',
-    ['$scope',         '$routeParams','DatabaseService','LoginService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
-     function ($scope, $routeParams, DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
-       $anchorScroll.yOffset = 50;
-       $scope.teams=[];
-       $scope.todpattern="[0-2]\\d:[0-5]\\d";
-       $scope.signup={act:[]};
-       $scope.messages=[];
-       $scope.message={};
-       $scope.selectedforum={};
-       $scope.forumfile={"filefolder":"/"};	 
-       $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
-       $scope.subscription={};
-       $scope.newforum={"is_public":true,"is_open":true};
-       $scope.eventarg=$routeParams.event;
-       $scope.rParams=$routeParams;
-       $scope.min_time=new Date();
-       $scope.dateOptions = {
-	 showWeeks: false,
-	 minDate: $scope.min_time
-       };
-       $scope.enddateOptions = {
-	 showWeeks: false,
-	 minDate: $scope.min_time
-	 };
-       $scope.init = function() {
-	 $scope.newevent={invitees:[]};
-	 $scope.newevent.location="DSR";
-	 $scope.newevent.max_participants="";
-	 $scope.newevent.owner_in=1;
-	 $scope.newevent.is_open=1;
-	 $scope.newevent.endtime_dirty=0;
-       }
-       $scope.init();
-       $scope.dbready=false;
-	 $scope.dbgrace=true;
-       $timeout(function() { $scope.dbgrace = false;}, 2000);
-       
-       $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-	 DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
-	     $scope.boatcategories=DatabaseService.getDB('event/boat_category');
-	     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
-	     $scope.fora=DatabaseService.getDB('event/fora');
-	     $scope.events=DatabaseService.getDB('event/events_participants');
-	     $scope.destinations=DatabaseService.getDB('event/destinations')['DSR'];
-	     $scope.userfora=DatabaseService.getDB('event/userfora');
-	     $scope.messages=DatabaseService.getDB('event/messages');
-	     $scope.member_setting=DatabaseService.getDB('event/member_setting');
-	     $scope.eventcategories=DatabaseService.getDB('event/event_category');
-	     $scope.eventroles=DatabaseService.getDB('event/roles');
-	     $scope.newevent.category=$scope.eventcategories[0];
-	     $scope.newevent.starttime=null;
-//	     $scope.newevent.endtime=null;
-	     LoginService.check_user().promise.then(function(u) {         
-		 $scope.current_user=u;
-	     });
-	     $scope.member_path=$location.protocol()+"://"+ $location.host()+"/backend/event/";
-	     $scope.site_path=$location.protocol()+"://"+ $location.host();
-	     $scope.dbready=true;
+  'eventCtrl',
+  ['$scope',         '$routeParams','DatabaseService','LoginService', '$filter', 'ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
+   function ($scope, $routeParams, DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
+     $anchorScroll.yOffset = 50;
+     $scope.teams=[];
+     $scope.todpattern="[0-2]\\d:[0-5]\\d";
+     $scope.signup={act:[]};
+     $scope.messages=[];
+     $scope.message={};
+     $scope.selectedforum={};
+     $scope.forumfile={"filefolder":"/"};	 
+     $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
+     $scope.subscription={};
+     $scope.newforum={"is_public":true,"is_open":true};
+     $scope.eventarg=$routeParams.event;
+     $scope.rParams=$routeParams;
+     $scope.min_time=new Date();
+     $scope.dateOptions = {
+       showWeeks: false,
+       minDate: $scope.min_time
+     };
+     $scope.enddateOptions = {
+       showWeeks: false,
+       minDate: $scope.min_time
+     };
+     $scope.init = function() {
+       $scope.newevent={invitees:[]};
+       $scope.newevent.location="DSR";
+       $scope.newevent.max_participants="";
+       $scope.newevent.owner_in=1;
+       $scope.newevent.is_open=1;
+       $scope.newevent.endtime_dirty=0;
+     }
+     $scope.init();
+     $scope.dbready=false;
+     $scope.dbgrace=true;
+     $timeout(function() { $scope.dbgrace = false;}, 2000);
+     
+     $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
+     DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
+       $scope.boatcategories=DatabaseService.getDB('event/boat_category');
+       $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
+       $scope.fora=DatabaseService.getDB('event/fora');
+       $scope.events=DatabaseService.getDB('event/events_participants');
+       $scope.destinations=DatabaseService.getDB('event/destinations')['DSR'];
+       $scope.userfora=DatabaseService.getDB('event/userfora');
+       $scope.messages=DatabaseService.getDB('event/messages');
+       $scope.member_setting=DatabaseService.getDB('event/member_setting');
+       $scope.eventcategories=DatabaseService.getDB('event/event_category');
+       $scope.eventroles=DatabaseService.getDB('event/roles');
+       $scope.newevent.category=$scope.eventcategories[0];
+       $scope.newevent.starttime=null;
+       //	     $scope.newevent.endtime=null;
+       LoginService.check_user().promise.then(function(u) {         
+	 $scope.current_user=u;
+       });
+       $scope.member_path=$location.protocol()+"://"+ $location.host()+"/backend/event/";
+       $scope.site_path=$location.protocol()+"://"+ $location.host();
+       $scope.dbready=true;
 
-	     if ($scope.eventarg) {
-		 $log.debug("look for event "+$scope.eventarg);
-		 for (var i=0; i<$scope.events.length; i++){
-		     if ($scope.events[i].event_id==$scope.eventarg) {
-			 $scope.setCurrentEvent($scope.events[i]);
-			 $log.debug("found currentevent");
-		     }
-		 }
-	     }
-	     $log.debug("events set user " + $scope.current_user);
-	     LoginService.set_user($scope.current_user);
-	 });
+       if ($scope.eventarg) {
+	 $log.debug("look for event "+$scope.eventarg);
+	 for (var i=0; i<$scope.events.length; i++){
+	   if ($scope.events[i].event_id==$scope.eventarg) {
+	     $scope.setCurrentEvent($scope.events[i]);
+	     $log.debug("found currentevent");
+	   }
+	 }
+       }
+       $log.debug("events set user " + $scope.current_user);
+       LoginService.set_user($scope.current_user);
+     });
      
      $scope.subscribe = function() {
        var sr=DatabaseService.createSubmit("forum_subscribe",$scope.subscription);
@@ -189,11 +189,11 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("set_event_status",event);
        sr.promise.then(function(status) {
 	 if (status.status !='ok') {
-         if (status.status =='warning') {
-           alert(status.warning);
-         } else {
-           alert(status.error);
-         }
+           if (status.status =='warning') {
+             alert(status.warning);
+           } else {
+             alert(status.error);
+           }
          }
        });
      }
@@ -312,14 +312,14 @@ eventApp.controller(
 	 if (status.status == 'error') {
            alert(status.error);
          } else {
-             $log.debug("forum message sent");
-             $scope.message.sender="Mig";
-             $scope.message.type="forum";
-	     $scope.message.current=1;
-	     $scope.message.source=$scope.message.forum.forum;
-             $scope.message.created=new Date().toISOString();
-             $scope.messages.splice(0,0,$scope.message);
-             $scope.message={};
+           $log.debug("forum message sent");
+           $scope.message.sender="Mig";
+           $scope.message.type="forum";
+	   $scope.message.current=1;
+	   $scope.message.source=$scope.message.forum.forum;
+           $scope.message.created=new Date().toISOString();
+           $scope.messages.splice(0,0,$scope.message);
+           $scope.message={};
          }
          if (status.status == 'warning') {
 
@@ -361,15 +361,28 @@ eventApp.controller(
          }
        });
      }
-       
+     
      $scope.uploadFile = function(file) {
        file.upload = UploadBase.upload({
          url: '/backend/event/file_upload.php',
-         data: {"expire":$scope.forumfile.notexpire?"3017-04-04":$scope.forumfile.expire, "forum":$scope.forumfile.forum.forum, "filename":$scope.forumfile.filename, "filefolder":$scope.forumfile.filefolder ,"file": file},
+         data: {
+           "expire":$scope.forumfile.notexpire?"3017-04-04":$scope.forumfile.expire,
+           "forum":$scope.forumfile.forum.forum,
+           "filename":$scope.forumfile.filename,
+           "filefolder":$scope.forumfile.filefolder,
+           "file": file},
        });
        
        file.upload.then(
          function (response) {
+           $scope.forum_files.push(
+             {
+               "forum":$scope.forumfile.forum.forum,
+               "folder":$scope.forumfile.filefolder,
+               "file_length":file.file.size,
+               "filename":$scope.forumfile.filename
+             }
+           );
            $scope.forumfile.expire=null;
            $scope.forumfile.file=null;
            $scope.forumfile.filename=null;
@@ -380,23 +393,24 @@ eventApp.controller(
              file.result = response.data;
            });
          }, function (response) {
-           if (response.status > 0)
+           if (response.status > 0) {
              $scope.errorMsg = response.status + ': ' + response.data;
+           }
          }, function (evt) {
            // Math.min is to fix IE which reports 200% sometimes
            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
          });
      }
-       
+     
      $scope.file_selected = function() {
        if ($scope.forumfile.file) {
          var allowedchars=".:;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890_-#";
          var fns=$scope.forumfile.file.name.replace(" ","_");
          var fn="";
          for (var fi=0;fi<fns.length && fi<100;fi++) {
-             if (allowedchars.indexOf(fns.charAt(fi))>=0) {
-               fn+=fns.charAt(fi);
-             }
+           if (allowedchars.indexOf(fns.charAt(fi))>=0) {
+             fn+=fns.charAt(fi);
+           }
          }         
          $scope.forumfile.filename = fn;
        }
@@ -415,7 +429,7 @@ eventApp.controller(
            alert(status.error);
          }
        });
-          }
+     }
      
 
      $scope.getRowerByName = function (val) {
@@ -425,17 +439,26 @@ eventApp.controller(
 
      $scope.setCurrentForum = function (forum) {
        $scope.current_forum=forum;
-       DatabaseService.simpleGet('event/forum_members',{"forum":forum.forum}).then(function (d) {
-        $scope.forummembers=d.data;
+
+       //       if (!$scope.forumfile.forum) {
+       for (var f=0; f<$scope.fora.length; f++) {
+         if ($scope.fora[f].forum==forum.forum) {
+           $scope.forumfile.forum=$scope.fora[f];
+           break;
+         }
        }
-                                                                                                     );
+       //       }
+       DatabaseService.simpleGet('event/forum_members',{"forum":forum.forum}).then(function (d) {
+         $scope.forummembers=d.data;
+       }
+                                                                                  );
      }
      
      $scope.setCurrentEvent = function (ev) {
        $scope.currentevent=ev;
        $anchorScroll('currenteventbox');
-//       var cb=document.getElementById('currenteventbox');
-  //     cb.focus();
+       //       var cb=document.getElementById('currenteventbox');
+       //     cb.focus();
        
      }
      
@@ -446,7 +469,7 @@ eventApp.controller(
      $scope.setCurrentMessage = function (message) {
        $scope.currentmessage=message;
      }
-
+     
      $scope.messagedelete = function (message) {
        var sr=DatabaseService.createSubmit("message_unlink",message);
        sr.promise.then(function(status) {
@@ -465,165 +488,164 @@ eventApp.controller(
      }
 
 
-       $scope.toggle_forum_visibility = function (forum) {
-	   var sr=DatabaseService.createSubmit("toggle_forum_visibility",forum);
-	   sr.promise.then(function(status) {
-	       if (status.status =='ok') {
-		   forum.is_public = !forum.is_public;
-	       } else {
-		   alert(status.error);
-               }
-	   });
-       }
-
-       $scope.toggle_forummember_role = function (forummember) {
-         forummember.old_role=forummember.role;
-         if (forummember.role=="admin") {
-           forummember.role="member";
-         } else {
-           forummember.role="admin";
+     $scope.toggle_forum_visibility = function (forum) {
+       var sr=DatabaseService.createSubmit("toggle_forum_visibility",forum);
+       sr.promise.then(function(status) {
+	 if (status.status =='ok') {
+	   forum.is_public = !forum.is_public;
+	 } else {
+	   alert(status.error);
          }
-	   var sr=DatabaseService.createSubmit("set_forum_member_role",forummember);
-	   sr.promise.then(function(status) {
-	     if (status.status !='ok') {
-               forummember.role=forummember.old_role;
-	       alert(status.error);
-             }
-	   });
+       });
+     }
+
+     $scope.toggle_forummember_role = function (forummember) {
+       forummember.old_role=forummember.role;
+       if (forummember.role=="admin") {
+         forummember.role="member";
+       } else {
+         forummember.role="admin";
        }
+       var sr=DatabaseService.createSubmit("set_forum_member_role",forummember);
+       sr.promise.then(function(status) {
+	 if (status.status !='ok') {
+           forummember.role=forummember.old_role;
+	   alert(status.error);
+         }
+       });
+     }
 
-	 $scope.filematch = function (filefilter) {
-	     return function(file) {
-		 if (!filefilter) {
-		     return true
-		 }
-	       return (
-                 file.folder==filefilter ||
-                 file.filename.match( new RegExp(filefilter, 'i'))
-               );
-	     }
-	 };
-
-       $scope.set_file_filter = function (filefilter) {
-         $scope.filefilter=filefilter;
+     $scope.filematch = function (filefilter) {
+       return function(file) {
+	 if (!filefilter) {
+	   return true
+	 }
+	 return (
+           file.folder==filefilter ||
+             file.filename.match( new RegExp(filefilter, 'i'))
+         );
        }
+     };
+     
+     $scope.set_file_filter = function (filefilter) {
+       $scope.filefilter=filefilter;
+     }
 
-	 $scope.forummatch = function (forumfilter) {
-	     return function(forum) {
-		 if (!forumfilter) {
-		     return true
-		 }
-		 return (forum.forum.match( new RegExp(forumfilter, 'i')));
-	     }
-	 };
-	 
-	 $scope.forum_reply = function (message) {
-	     $scope.message.forum = $scope.fora.filter (function(f) {
-             return (f['forum']==message.source );
-           })[0];
-	     
-	     $scope.message.subject = message.subject;
-
-	     if ($scope.message.subject.indexOf("re:")!=0) {
-		 $scope.message.subject = "re: "+$scope.message.subject;
-	     }
-	     $scope.message.old_body = message.sender + ":\n==\n"+message.body+"\n==\n";
-	     $scope.message.body = message.sender + ":\n";
-	     $anchorScroll('forum');
+     $scope.forummatch = function (forumfilter) {
+       return function(forum) {
+	 if (!forumfilter) {
+	   return true
 	 }
+	 return (forum.forum.match( new RegExp(forumfilter, 'i')));
+       }
+     };
+     
+     $scope.forum_reply = function (message) {
+       $scope.message.forum = $scope.fora.filter (function(f) {
+         return (f['forum']==message.source );
+       })[0];
        
-	 $scope.set_event_end = function () {
-	     if ($scope.newevent.endtime) {
-		 $scope.newevent.endtime_dirty=1;
-	     }
-	 }
-
-	 $scope.set_event_start = function () {
-	     if ($scope.newevent.starttime && ($scope.newevent.endtime < $scope.newevent.starttime   || !$scope.newevent.endtime_dirty)) {
-		 var tdiff=3600000;
-		 if ($scope.newevent.destination) {
-		     tdiff=$scope.newevent.destination.duration*3600000;
-		 }
-		 $scope.enddateOptions.minDate=$scope.newevent.starttime;
-		 $scope.newevent.endtime=new Date($scope.newevent.starttime.getTime()+tdiff);
-		 
-	     }
-	 }
+       $scope.message.subject = message.subject;
        
-       $scope.$watchCollection('currentevent.participants', function(participants,oldparticipants) {
-         if (participants) {
-           var coxs=0;
-           var nr=0;
-           for (var i=0; i<participants.length;i++) {
-             var rw=participants[i];
-             if (["member","owner"].indexOf(rw.role)>=0) {
-               nr++;
-               if (rw.is_cox) {
-                 coxs++;
-               }
+       if ($scope.message.subject.indexOf("re:")!=0) {
+	 $scope.message.subject = "re: "+$scope.message.subject;
+       }
+       $scope.message.old_body = message.sender + ":\n==\n"+message.body+"\n==\n";
+       $scope.message.body = message.sender + ":\n";
+       $anchorScroll('forum');
+     }
+     
+     $scope.set_event_end = function () {
+       if ($scope.newevent.endtime) {
+	 $scope.newevent.endtime_dirty=1;
+       }
+     }
+
+     $scope.set_event_start = function () {
+       if ($scope.newevent.starttime && ($scope.newevent.endtime < $scope.newevent.starttime   || !$scope.newevent.endtime_dirty)) {
+	 var tdiff=3600000;
+	 if ($scope.newevent.destination) {
+	   tdiff=$scope.newevent.destination.duration*3600000;
+	 }
+	 $scope.enddateOptions.minDate=$scope.newevent.starttime;
+	 $scope.newevent.endtime=new Date($scope.newevent.starttime.getTime()+tdiff);	   
+       }
+     }
+     
+     $scope.$watchCollection('currentevent.participants', function(participants,oldparticipants) {
+       if (participants) {
+         var coxs=0;
+         var nr=0;
+         for (var i=0; i<participants.length;i++) {
+           var rw=participants[i];
+           if (["member","owner"].indexOf(rw.role)>=0) {
+             nr++;
+             if (rw.is_cox) {
+               coxs++;
              }
            }
-           
-           if ($scope.currentevent.max_participants) {
-             var nr=Math.min(nr,$scope.currentevent.max_participants);
-           }
-           var max2=Math.floor(nr/3);
-           var max4=Math.floor(nr/5);
-           if (max4>coxs) {
-             max4=coxs;
-           }
-           if (max2>coxs) {
-             max2=coxs;
-           }
-           
-           var mc=0;
-           for (var c2=0; c2<=max2; c2++) {
-             for (var c4=0; c4<=max4; c4++) {
-	       if (c2*3+c4*5 <= nr && c2*3+c4*5>mc && c2+c4<=coxs) {
-	         mc=c2*3+c4*5;
-	       } 
-             }
-           }
-           
-           var bcms=[];
-           for (var c2=0; c2<=max2; c2++) {
-             for (var c4=0; c4<=max4; c4++) {
-	       if (c2*3+c4*5==mc && c2+c4<=coxs) {
-	         bcms.push({"i2":c2,"i4":c4});
+         }
+         
+         if ($scope.currentevent.max_participants) {
+           var nr=Math.min(nr,$scope.currentevent.max_participants);
+         }
+         var max2=Math.floor(nr/3);
+         var max4=Math.floor(nr/5);
+         if (max4>coxs) {
+           max4=coxs;
+         }
+         if (max2>coxs) {
+           max2=coxs;
+         }
+         
+         var mc=0;
+         for (var c2=0; c2<=max2; c2++) {
+           for (var c4=0; c4<=max4; c4++) {
+	     if (c2*3+c4*5 <= nr && c2*3+c4*5>mc && c2+c4<=coxs) {
+	       mc=c2*3+c4*5;
 	     } 
-             }
+           }
+         }
+         
+         var bcms=[];
+         for (var c2=0; c2<=max2; c2++) {
+           for (var c4=0; c4<=max4; c4++) {
+	     if (c2*3+c4*5==mc && c2+c4<=coxs) {
+	       bcms.push({"i2":c2,"i4":c4});
+	     } 
+           }
          }
          //return {'configuration':bcms, maxcrew:mc};
-           //         bcms=[];
-           $scope.crews={"configurations":bcms, "on_water":mc,"rowers":nr, "left_out":nr-mc};
-         } else {
-           $scope.crews={};
-         }
+         //         bcms=[];
+         $scope.crews={"configurations":bcms, "on_water":mc,"rowers":nr, "left_out":nr-mc};
+       } else {
+         $scope.crews={};
        }
-                    );
-
-       $scope.getfolders = function(fld) {
-         if (! $scope.forumfile.forum) return [];
-         var flds = $scope.forumfile.forum.folders.slice();
-         if (fld && flds.indexOf(fld) === -1) {
-           flds.unshift(fld);
-         }
-         // console.log(flds);
-         return flds;
-       }
-       
-       $scope.messagematch = function (messagefilter) {
-	 return function(message) {
-	   if (!messagefilter) {
-	     return true
-	   }         
-	   return (
-	     message.subject.match( new RegExp(messagefilter, 'i')) ||
-	       message.sender.match( new RegExp(messagefilter, 'i')) ||
-	       message.body.match( new RegExp(messagefilter, 'i')) 
-	   );
-	     }
-       };		 
      }
-    ]
+                            );
+
+     $scope.getfolders = function(fld) {
+       if (!$scope.forumfile.forum || !$scope.forumfile.forum.folders) return [];
+       var flds = $scope.forumfile.forum.folders.slice();
+       if (fld && flds.indexOf(fld) === -1) {
+         flds.unshift(fld);
+       }
+       // console.log(flds);
+       return flds;
+     }
+     
+     $scope.messagematch = function (messagefilter) {
+       return function(message) {
+	 if (!messagefilter) {
+	   return true
+	 }         
+	 return (
+	   message.subject.match( new RegExp(messagefilter, 'i')) ||
+	     message.sender.match( new RegExp(messagefilter, 'i')) ||
+	     message.body.match( new RegExp(messagefilter, 'i')) 
+	 );
+       }
+     };		 
+   }
+  ]
 );
