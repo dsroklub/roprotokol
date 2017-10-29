@@ -16,7 +16,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
 
 if ($cuser==$subscription->member_id) {
-    error_log("self DEL");
+    error_log("self unsubscribe $subscription->forum $cuser");
     if ($stmt = $rodb->prepare(
         "DELETE FROM forum_subscription
          WHERE forum=? AND 
@@ -28,7 +28,12 @@ if ($cuser==$subscription->member_id) {
             $subscription->forum,
             $cuser) ||  die("forum unsub BIND errro ".mysqli_error($rodb));
     }
-    
+    if ($stmt->execute()) {
+        $res['status']='ok';
+    } else {
+        $error=" forum self unsubscribe ".mysqli_error($rodb);
+        $message=$message."\n"."forum self unsub error: ".mysqli_error($rodb);
+    }
 } else {
     error_log("DEL by owner");
     if (check_forum_owner($subscription->forum)) {

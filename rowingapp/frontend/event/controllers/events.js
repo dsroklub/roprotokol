@@ -105,8 +105,10 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("forum_unsubscribe",forum);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           var ix=$scope.forummembers.indexOf(forum);
-           $scope.forummembers.splice(ix,1);
+           if ($scope.forummembers) {
+             var ix=$scope.forummembers.indexOf(forum);
+             $scope.forummembers.splice(ix,1);
+           }
            forum.role=null;
          } else {
            alert(status.error);
