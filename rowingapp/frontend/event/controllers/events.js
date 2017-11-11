@@ -42,11 +42,15 @@ eventApp.controller(
      
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
      DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
-       $scope.boatcategories=DatabaseService.getDB('event/boat_category');
+       $scope.boatcategories=DatabaseService.getDB('event/boat_category')
+       $scope.boatcategories.push({Name:"Inriggere"});
+       $scope.boatcategories.push({Name:"Coastal"});
+       $scope.boatcategories.push({Name:"Outriggere"});
        $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
        $scope.destinations=DatabaseService.getDB('event/destinations')['DSR'];
+       $scope.destinations.push({name:"Langtur"});
        $scope.userfora=DatabaseService.getDB('event/userfora');
        $scope.messages=DatabaseService.getDB('event/messages');
        $scope.member_setting=DatabaseService.getDB('event/member_setting');
@@ -139,7 +143,7 @@ eventApp.controller(
      $scope.is_cox = function (rights) {
        var is_cox=0;
        for (var i=0;i<rights.length;i++ ) {
-         if (rights[i].member_rigth=="cox") {
+         if (rights[i].member_right==="cox") {
            is_cox=1;
            break;
          }
