@@ -1,0 +1,4 @@
+#!/bin/sh
+alsaplayer -q /media/Siren.mp3 > /dev/null&
+echo sound alarm >> /tmp/alarm.log
+date >> /tmp/alarm.log

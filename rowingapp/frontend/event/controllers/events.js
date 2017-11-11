@@ -211,6 +211,8 @@ eventApp.controller(
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
            em.role="member";
+           $scope.do_participants($scope.currentevent.participants,null);
+           
          } else {
            alert(status.error);
          }
@@ -577,8 +579,9 @@ eventApp.controller(
 	 $scope.newevent.endtime=new Date($scope.newevent.starttime.getTime()+tdiff);	   
        }
      }
-     
-     $scope.$watchCollection('currentevent.participants', function(participants,oldparticipants) {
+
+
+     $scope.do_participants = function(participants,oldparticipants) {
        if (participants) {
          var coxs=0;
          var nr=0;
@@ -628,7 +631,8 @@ eventApp.controller(
          $scope.crews={};
        }
      }
-                            );
+     
+     $scope.$watchCollection('currentevent.participants', $scope.do_participants);
 
      $scope.getfolders = function(fld) {
        if (!$scope.forumfile.forum || !$scope.forumfile.forum.folders) return [];
