@@ -42,15 +42,12 @@ eventApp.controller(
      
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
      DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
-       $scope.boatcategories=DatabaseService.getDB('event/boat_category')
-       $scope.boatcategories.push({Name:"Inriggere"});
-       $scope.boatcategories.push({Name:"Coastal"});
-       $scope.boatcategories.push({Name:"Outriggere"});
+       $scope.boatcategories=
+         [{Name:"Inriggere"},{Name:"Coastal"},{Name:"Outriggere"}].concat(DatabaseService.getDB('event/boat_category'));
        $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
-       $scope.destinations=DatabaseService.getDB('event/destinations')['DSR'];
-       $scope.destinations.push({name:"Langtur"});
+       $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
        $scope.userfora=DatabaseService.getDB('event/userfora');
        $scope.messages=DatabaseService.getDB('event/messages');
        $scope.member_setting=DatabaseService.getDB('event/member_setting');

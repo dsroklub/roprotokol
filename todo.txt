@@ -4,5 +4,7 @@ zoom-lock extension
 
 auto waiting list when over max
 
+Oversæt roller til dansk
+
 
 
