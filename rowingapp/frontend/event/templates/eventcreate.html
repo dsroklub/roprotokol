@@ -32,7 +32,12 @@
         Ellers skal du godkende hver tilmelding
       </td>
     </tr>
-    
+
+    <th>Automatisk ventelistehåndtering</th>
+      <td> <input type="checkbox" id="owner_in" ng-model="newevent.automatic" ng-true-value="1" ng-false-value="0" >
+      </td>
+    </tr>
+
     <tr>
       <th>Inviter fora</th><td>        
         <ui-select multiple class="chosenforum"
@@ -74,7 +79,7 @@
     
     <tr>
       <th>(bådtype)</th><td>
-        <select name="boatcategory" id="boatcat" ng-model="newevent.boat_category" ng-options="boatcat.Name for boatcat in boatcategories">
+        <select name="boatcategory" id="boatcat" ng-model="newevent.boat_category" ng-options="boatcat.name for boatcat in boatcategories">
         </select>
       </td>
     </tr>
