@@ -1,0 +1,4 @@
+#!/bin/sh
+
+matchbox-window-manager -use_titlebar no -use_desktop_mode plain&
+chromium-browser --app="https://roprotokol.danskestudentersroklub.dk"

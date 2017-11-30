@@ -1,3 +1,14 @@
 Chromiun
 
 zoom-lock extension
+
+auto waiting list when over max
+
+Oversæt roller til dansk
+
+
+event, caching:
+  piggyback on event join, leave, force
+
+event, generalize leave.
+  make promotion work for remove as leave

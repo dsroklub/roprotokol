@@ -43,11 +43,9 @@ if ($stmt = $rodb->prepare("select max_participants,boat_category,owner,auto_adm
 
 error_log("event join owner=$owner, open=$open, max=$max, auto=$autoadminister, realm=$realmembers");
 
-if ($autoadminister) {
-    if ($max and $open and $max>0 and $max<=$realmembers and $role!="supplicant") {        
-        $role="wait";
-        error_log("new role $role");
-    }
+if ($max and $open and $max>0 and $max<=$realmembers and $role!="supplicant") {        
+    $role="wait";
+    error_log("new role $role");
 }
 
 $res["role"]=$role;

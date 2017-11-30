@@ -556,7 +556,8 @@ CREATE TABLE event (
   id                     INTEGER  NOT NULL AUTO_INCREMENT,
   owner                  INTEGER,
   auto_administer        BOOLEAN default false,
-  boat_category          INTEGER,
+  boat_category          INTGER,
+  boats                  VARCHAR(255),
   start_time             DATETIME,
   end_time               DATETIME,
   distance               INTEGER, -- Planned distance
@@ -572,7 +573,6 @@ CREATE TABLE event (
   preferred_intensity    VARCHAR(300),
   comment                VARCHAR(5000),
   FOREIGN KEY (owner) REFERENCES Member(id), 
-  FOREIGN KEY (boat_category) REFERENCES BoatCategory(id),
   FOREIGN KEY (trip_type) REFERENCES TripType(id),
   PRIMARY KEY(id)
 );

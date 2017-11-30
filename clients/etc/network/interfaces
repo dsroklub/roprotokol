@@ -1,0 +1,7 @@
+auto lo
+iface lo inet loopback
+
+auto enp4s0
+iface enp4s0 inet static
+address 10.21.55.1xx
+

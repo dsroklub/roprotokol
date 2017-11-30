@@ -1,0 +1,13 @@
+chromium-browser 		install
+joe				install
+matchbox			install
+ssh				install
+xserver-common			install
+nodm				install
+ntp 				install
+xserver-xorg-core 		install
+xserver-xorg-video-intel	install
+xterm				install
+xserver-xorg-input-libinput	install
+xserver-xorg-input-evdev	install
+

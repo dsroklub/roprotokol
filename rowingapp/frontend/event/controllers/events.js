@@ -32,7 +32,8 @@ eventApp.controller(
        $scope.newevent.location="DSR";
        $scope.newevent.max_participants="";
        $scope.newevent.owner_in=1;
-       $scope.newevent.is_open=1;
+       $scope.newevent.open=1;
+       $scope.newevent.automatic=1;
        $scope.newevent.endtime_dirty=0;
      }
      $scope.init();
@@ -42,11 +43,12 @@ eventApp.controller(
      
      $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
      DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
-       $scope.boatcategories=DatabaseService.getDB('event/boat_category');
+       $scope.boatcategories=
+         [{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
        $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
        $scope.fora=DatabaseService.getDB('event/fora');
        $scope.events=DatabaseService.getDB('event/events_participants');
-       $scope.destinations=DatabaseService.getDB('event/destinations')['DSR'];
+       $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
        $scope.userfora=DatabaseService.getDB('event/userfora');
        $scope.messages=DatabaseService.getDB('event/messages');
        $scope.member_setting=DatabaseService.getDB('event/member_setting');
@@ -139,7 +141,7 @@ eventApp.controller(
      $scope.is_cox = function (rights) {
        var is_cox=0;
        for (var i=0;i<rights.length;i++ ) {
-         if (rights[i].member_rigth=="cox") {
+         if (rights[i].member_right==="cox") {
            is_cox=1;
            break;
          }
@@ -207,6 +209,8 @@ eventApp.controller(
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
            em.role="member";
+           $scope.do_participants($scope.currentevent.participants,null);
+           
          } else {
            alert(status.error);
          }
@@ -302,6 +306,16 @@ eventApp.controller(
                break;
              }
            }
+           if (status.promoted) {
+             for (var i=0; i<$scope.currentevent.participants.length; i++) {
+               if ($scope.currentevent.participants[i].member_id==status.promoted ) {
+                 $scope.currentevent.participants[i].role="member";
+                 break;
+             }
+           }           }
+           if (status.dirty) {
+// FIXME             $scope.events=DatabaseService.getDB('event/events_participants');
+           }           
          } else {
            alert(status.error);
          }
@@ -573,8 +587,9 @@ eventApp.controller(
 	 $scope.newevent.endtime=new Date($scope.newevent.starttime.getTime()+tdiff);	   
        }
      }
-     
-     $scope.$watchCollection('currentevent.participants', function(participants,oldparticipants) {
+
+
+     $scope.do_participants = function(participants,oldparticipants) {
        if (participants) {
          var coxs=0;
          var nr=0;
@@ -624,7 +639,8 @@ eventApp.controller(
          $scope.crews={};
        }
      }
-                            );
+     
+     $scope.$watchCollection('currentevent.participants', $scope.do_participants);
 
      $scope.getfolders = function(fld) {
        if (!$scope.forumfile.forum || !$scope.forumfile.forum.folders) return [];
