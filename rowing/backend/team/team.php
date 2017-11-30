@@ -2,7 +2,7 @@
 
 set_include_path(get_include_path().':..');
 include("inc/common.php");
-$s='SELECT team.name,description,dayofweek,teacher,timeofday, weekday(NOW())+1=no AS today 
+$s='SELECT no as dow,team.name,description,dayofweek,teacher,timeofday, weekday(NOW())+1=no AS today 
     FROM team,weekday
     WHERE weekday.name=team.dayofweek
     ORDER BY no,timeofday,team.name,teacher

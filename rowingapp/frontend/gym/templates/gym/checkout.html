@@ -8,11 +8,12 @@
 <form ng-submit="attend()" name="gymParticipant">
 
   <h2>Registerer deltager på gymnastikhold</h2>
+  <h2>DOW {{dayofweek}}</h2>
   <table class="listbox">
       <tr>
         <th>Hold</th> <th>Holdtidspnkt</th>  <th>Underviser</th>
       </tr>
-      <tr  ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm, nottoday: tm.today == 0}" >
+      <tr  ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm, nottoday: tm.dow != dayofweek}" >
         <td>{{tm.name}} {{teamkey}}  {{tm.description}} </td> <td>{{tm.dayofweek}} {{tm.timeofday}} </td> <td>  {{tm.teacher}} <td>
       </tr>
   </table>

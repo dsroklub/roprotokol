@@ -2,10 +2,11 @@
 
 gymApp.controller(
   'teamCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log',
-   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, $log) {
+  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log','$timeout',
+   function ($scope, $routeParams, DatabaseService, $filter, ngDialog, $log,  $timeout) {
      $scope.newteam={dayofweek:"Mandag"};
      $scope.attendance = [];
+     $scope.dayofweek=99;
      $scope.quarters = [1,2,3,4];
      $scope.todpattern="[0-2]\\d:[0-5]\\d";
      $scope.weekdays=["Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag","Søndag"];
@@ -16,6 +17,17 @@ gymApp.controller(
        $scope.currentdate=new Date();
      });
 
+
+     var refreshDOW = function() {
+       var dow=new Date().getDay();       
+       if (dow != $scope.dayofweek) {
+         $scope.dayofweek = dow;
+       }
+       $timeout(refreshDOW, 3600000);  // once an hour
+     };
+     refreshDOW();
+
+     
      $scope.isSameDay= function() {
        var d=new Date();
        return (d.getDate()==$scope.currentdate.getDate() &&
