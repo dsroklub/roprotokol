@@ -100,6 +100,7 @@
       <i class="fa fa-eraser"  ng-click="filefilter=null"></i>
     </td>
   </tr>
+  <tr><th>folder</th><th>navn</th><th>MByte</th></tr>
   <tr ng-repeat="file in forum_files | filter:filematch(filefilter)"
       ng-show="file.forum==current_forum.forum"
       class="event" ng-class-odd="'odd'" ng-class-even="'even'">
@@ -111,7 +112,7 @@
       <a ng-href="/backend/event/file.php?forum={{file.forum|urlencode}}&file={{file.filename|urlencode}}"> {{file.filename}}</a>
     </td>
      <td class="numin">
-       {{file.file_length}}
+       {{(file.file_length/1024/1024).toFixed(1)}}
     </td>
 
   </tr>
