@@ -25,7 +25,7 @@ if ($res) {
         } else {
             error_log("get pw error: ".$link->error);
         }
-        if ($pw==null){
+        if (empty($pw) or ($pw[0]=='$')) { // transferred htpasswd hashes
             $pw = generate_password();
             $hpw= '{SHA}' . base64_encode(sha1($pw, TRUE));
             error_log("new  pw= $pw $hpw");
