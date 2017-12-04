@@ -208,8 +208,11 @@
         <td >{{tripmember.name}}</td><td class="rnum">{{tripmember.id}}</td>
       </tr>
         <tr>
-          <td><button class="big" ng-show="tripmembers.length>0 " ng-click="start_correct()">meld rettelser</button></td>
-        </tr>        
+          <td><button class="big" ng-show="tripmembers.length>0 && currenttrip.intime" ng-click="start_correct()">meld rettelser</button></td>
+        </tr>
+        <tr ng-hide="currenttrip.intime">        
+          <td colspan=2 class="error" >på vandet, indskriv turen før du kan rette den.<br> Eller slet den. </td>
+        </tr>
     </table>
     
     <div class="correction" ng-show="correction">

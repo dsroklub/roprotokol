@@ -38,12 +38,14 @@ app.controller(
      $scope.DB=DatabaseService.getDB;
      
      $scope.tripselect= function(trip) {
-  //     console.log("trip select "+trip);
+       //     console.log("trip select "+trip);
        $scope.currenttrip=trip;
        DatabaseService.getTripMembers(trip.id,function (res) {
          $scope.tripmembers=res.data;
          if ($scope.correction) {
-           $scope.start_correct();
+           if (trip.intime) {
+             $scope.start_correct();
+           }
          }                      
        });
      }

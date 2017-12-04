@@ -11,7 +11,7 @@ if (isset($_GET["tripdate"])) {
   
 $sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, TripType.name as triptype,
     Trip.Destination as destination, DATE_FORMAT(Trip.CreatedDate,'%Y-%m-%dT%T') as created, Meter as distance, 
-    DATE_FORMAT(InTime,'%Y-%m-%d %T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%dT%T') as outtime, 
+    DATE_FORMAT(InTime,'%Y-%m-%dT%T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%dT%T') as outtime, 
 	DATE_FORMAT(ExpectedIn,'%Y-%m-%dT%T') as expectedin, Comment as comment 
     FROM Boat,Trip,TripType  
     WHERE Date(Trip.OutTime)=? AND Boat.id = Trip.BoatID  AND TripType.id=Trip.TripTypeID
