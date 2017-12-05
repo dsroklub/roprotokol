@@ -116,7 +116,7 @@ if ($iswinter) {
     if ($sunset < $now or $now<$sunrise) {
         $res['notification']='det er mørkt og vinter, I skal ikke ro nu';
     } else if ($sunset < strtotime($expectedtime)) {
-        $res['notification']='det bliver mørkt klokken ' . date('H:i',$sunset) . ' I skal være i land kl '.date('H:i',$sunset-1800).' Er du sikker på at I kan nå at komme ind i tide?';
+        $res['notification']='Solen går ned klokken ' . date('H:i',$sunset) . '. I skal være i land kl '.date('H:i',$sunset-1800).'. Er du sikker på, at I kan nå at komme ind i tide?';
     }    
 } else {
     if ($sunset < $now or $now<$sunrise) {

@@ -506,7 +506,7 @@ app.controller(
            data.boat.trip=status.tripid;
 
            if (status.notification){
-             $scope.checkoutnotification="! "+status.notification;
+             $scope.checkoutnotification=status.notification;
            }
            $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+":";
            if ($scope.checkout.boat.placement_aisle) {
