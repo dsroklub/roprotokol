@@ -632,6 +632,13 @@ li.selected,button.selected {
     max-width: 30em;        
     border-radius: 8px;
 }
+.checkoutnotification {
+    color: black;
+    background: yellow;
+    font-size: 20pt;
+    max-width: 30em;        
+    border-radius: 8px;
+}
 .checkouterrormessage {
     color: black;
     background: #FF8888;

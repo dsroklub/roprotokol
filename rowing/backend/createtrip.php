@@ -103,6 +103,29 @@ if ($error) {
     $rodb->commit();
 }
 
+
+# DSR 55.71472/12.58661
+
+$now=time();
+$iswinter=!date("I");
+$sunset=date_sunset($now, SUNFUNCS_RET_TIMESTAMP, 55.71472, 12.58661, 90.5833333, 1);
+$sunrise=date_sunrise($now, SUNFUNCS_RET_TIMESTAMP, 55.71472, 12.58661, 90.5833333, 1);
+
+// error_log("SUNS winter=$iswinter, sunset=$sunset, ".date('H:i',$sunset));
+if ($iswinter) {
+    if ($sunset < $now or $now<$sunrise) {
+        $res['notification']='det er mørkt og vinter, I skal ikke ro nu';
+    } else if ($sunset < strtotime($expectedtime)) {
+        $res['notification']='det bliver mørkt klokken ' . date('H:i',$sunset) . ' I skal være i land kl '.date('H:i',$sunset-1800).' Er du sikker på at I kan nå at komme ind i tide?';
+    }    
+} else {
+    if ($sunset < $now or $now<$sunrise) {
+        $res['notification']='det er mørkt, husk en lygte';
+    } else if ($sunset < strtotime($expectedtime)) {
+        $res['notification']='det bliver mørkt klokken ' . date('H:i',$sunset) .' Husk en lygte';
+    }
+}
+
 $res['message']=$message;
 invalidate("trip");
 $rodb->close();

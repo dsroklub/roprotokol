@@ -86,6 +86,7 @@ app.controller(
          rowers= $routeParams.rowers.split(",");
        }
        $scope.checkoutmessage="";
+       $scope.checkoutnotification="";
        $scope.checkouterrormessage="";
        $scope.rigthsmessage="rrr";
        $scope.timeopen={
@@ -100,6 +101,7 @@ app.controller(
        $scope.triptypes = DatabaseService.getTripTypes();
        $scope.destinations = DatabaseService.getDestinations(DatabaseService.defaultLocation);
        $scope.checkoutmessage="";
+       $scope.checkoutnotification="";
        $scope.usersettime=false;
        $scope.selectedBoatCategory=null;
        var now = new Date();
@@ -261,6 +263,7 @@ app.controller(
      $scope.do_boat_category = function(cat) {
        $scope.selectedBoatCategory=cat;
        $scope.checkoutmessage=null;
+       $scope.checkoutnotification=null;
        $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
        for (var i = $scope.checkout.rowers.length; i < cat.seatcount; i++) {
 	 $scope.checkout.rowers.push("");
@@ -272,6 +275,7 @@ app.controller(
      $scope.checkoutBoat = function(boat) {
        var oldboat=$scope.checkout.boat;
        $scope.checkoutmessage=null;
+       $scope.checkoutnotification=null;
        $scope.checkout.boat=boat;
        $scope.destinations = DatabaseService.getDestinations(boat.location);
        $scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat.id);
@@ -500,6 +504,10 @@ app.controller(
 	 // DatabaseService.reload(['trip']);
 	 if (status.status =='ok') {
            data.boat.trip=status.tripid;
+
+           if (status.notification){
+             $scope.checkoutnotification="! "+status.notification;
+           }
            $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+":";
            if ($scope.checkout.boat.placement_aisle) {
              $scope.checkoutmessage+=("Dør "+$scope.checkout.boat.placement_aisle);
