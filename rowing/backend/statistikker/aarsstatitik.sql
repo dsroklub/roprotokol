@@ -38,26 +38,26 @@ WHERE TripMember.Season = 2015
 
 
 -- Tabel 4 - Samlet aktivitetsniveau
-select sum(Trip.Meter)/1000 as km, BoatType.Category as bådkat  FROM Trip  INNER JOIN Boat ON (Boat.id = Trip.BoatID) INNER JOIN BoatType ON (BoatType.id = Boat.BoatType) where Trip.season='2015' GROUP BY BoatType.Category;
+select sum(Trip.Meter)/1000 as km, BoatType.Category as bådkat  FROM Trip  INNER JOIN Boat ON (Boat.id = Trip.BoatID) INNER JOIN BoatType ON (BoatType.id = Boat.BoatType) where YEAR(Trip.OutTime)='2015' GROUP BY BoatType.Category;
 
 
 -- Tabel 5 - Bådture og personture, robåd og kajak
-select count(distinct Trip.TripID) as baadture, COUNT(TripMember.member_id) as personture, ROUND(COUNT(TripMember.member_id)/COUNT(distinct Trip.TripID), 1) as personer_pr_tur, TripType.Name as turtype, BoatType.Category as bådkat  FROM Trip JOIN TripMember ON (TripMember.TripID = Trip.TripID) INNER JOIN TripType on Trip.TripTypeID = TripType.id INNER JOIN Boat ON (Boat.id = Trip.BoatID) INNER JOIN BoatType ON (BoatType.id = Boat.BoatType) where Trip.season='2015' GROUP BY BoatType.Category, TripType.id order by bådkat, turtype;
+select count(distinct Trip.TripID) as baadture, COUNT(TripMember.member_id) as personture, ROUND(COUNT(TripMember.member_id)/COUNT(distinct Trip.TripID), 1) as personer_pr_tur, TripType.Name as turtype, BoatType.Category as bådkat  FROM Trip JOIN TripMember ON (TripMember.TripID = Trip.TripID) INNER JOIN TripType on Trip.TripTypeID = TripType.id INNER JOIN Boat ON (Boat.id = Trip.BoatID) INNER JOIN BoatType ON (BoatType.id = Boat.BoatType) where YEAR(Trip.OutTime)='2015' GROUP BY BoatType.Category, TripType.id order by bådkat, turtype;
 
 
 
 -- Tabel 6 - Aktivitetsniveau 2014 og 2015 opdelt på turtyper (robåde)
-select TripType.Name as turtype, sum(Trip.Meter)/1000 as Afstand, count(Trip.TripID) as baadture, sum(Trip.Meter)/1000/count(Trip.TripID) as km_pr_tur FROM Trip INNER JOIN TripType on Trip.TripTypeID = TripType.id INNER JOIN Boat ON (Boat.id = Trip.BoatID) INNER JOIN BoatType ON (BoatType.id = Boat.BoatType) where Trip.season='2015' AND BoatType.Category = 2  GROUP BY TripType.id order by turtype;
+select TripType.Name as turtype, sum(Trip.Meter)/1000 as Afstand, count(Trip.TripID) as baadture, sum(Trip.Meter)/1000/count(Trip.TripID) as km_pr_tur FROM Trip INNER JOIN TripType on Trip.TripTypeID = TripType.id INNER JOIN Boat ON (Boat.id = Trip.BoatID) INNER JOIN BoatType ON (BoatType.id = Boat.BoatType) where YEAR(Trip.OutTime)='2015' AND BoatType.Category = 2  GROUP BY TripType.id order by turtype;
 
 
 -- Tabel 7 - Aktivitetsprofil for medlemmerne
-select count(distinct TripMember.member_id) from Trip INNER JOIN TripMember ON (Trip.id = TripMember.TripID) WHERE Trip.Season = 2015;
+select count(distinct TripMember.member_id) from Trip INNER JOIN TripMember ON (Trip.id = TripMember.TripID) WHERE YEAR(Trip.OutTime) = 2015;
 
-select floor(meh.km/100), count(meh.medlemsnr) as antal, count(meh.medlemsnr)/702*100 as andel FROM (select TripMember.member_id as medlemsnr, sum(Trip.Meter)/1000 as km from Trip INNER JOIN TripMember ON Trip.TripID = TripMember.TripID WHERE Trip.Season=2015 GROUP BY medlemsnr) as meh group by floor(meh.km/100);
+select floor(meh.km/100), count(meh.medlemsnr) as antal, count(meh.medlemsnr)/702*100 as andel FROM (select TripMember.member_id as medlemsnr, sum(Trip.Meter)/1000 as km from Trip INNER JOIN TripMember ON Trip.TripID = TripMember.TripID WHERE YEAR(Trip.OutTime)=2015 GROUP BY medlemsnr) as meh group by floor(meh.km/100);
 
 
 -- Tabel 8 - Aktive instruktører 2015
-select TripMember.member_id as medlemsnr, TripMember.MemberName as navn, COUNT(TripMember.member_id)  as ture FROM Trip  JOIN TripMember ON (TripMember.TripID = Trip.id) INNER JOIN Boat ON (Boat.id = Trip.BoatID) where Trip.season='2015' AND Boat.BoatType IN (1, 2) AND TripMember.Seat=0 AND Trip.TripTypeID IN (5) GROUP BY TripMember.member_id order by ture desc, navn asc;
+select TripMember.member_id as medlemsnr, TripMember.MemberName as navn, COUNT(TripMember.member_id)  as ture FROM Trip  JOIN TripMember ON (TripMember.TripID = Trip.id) INNER JOIN Boat ON (Boat.id = Trip.BoatID) where YEAR(Trip.OutTime)='2015' AND Boat.BoatType IN (1, 2) AND TripMember.Seat=0 AND Trip.TripTypeID IN (5) GROUP BY TripMember.member_id order by ture desc, navn asc;
 
 
 -- Tabel 9 - Udmeldte kaniner efter aktivitet
@@ -76,7 +76,7 @@ select count(*)
                INNER JOIN TripMember ON (TripMember.TripID = Trip.TripID)
                INNER JOIN Boat ON (Boat.id = Trip.BoatID)
                INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
-          WHERE Trip.season='2015' AND BoatType.Category=2
+          WHERE YEAR(Trip.OutTme)='2015' AND BoatType.Category=2
                 AND Trip.TripTypeID = 5
           GROUP BY member_id
           HAVING COUNT(TripMember.member_id) >= 1
@@ -97,7 +97,7 @@ select count(*)
                INNER JOIN TripMember ON (TripMember.TripID = Trip.TripID)
                INNER JOIN Boat ON (Boat.id = Trip.BoatID)
                INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
-          WHERE Trip.season='2015' AND BoatType.Category=2
+          WHERE Year(Trip.OutTime)='2015' AND BoatType.Category=2
                 AND Trip.TripTypeID = 8
           GROUP BY MemberID
           HAVING COUNT(TripMember.member_id) >= 3
@@ -143,7 +143,7 @@ select count(*)
                INNER JOIN TripMember ON (TripMember.TripID = Trip.TripID)
                INNER JOIN Boat ON (Boat.id = Trip.BoatID)
                INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
-          WHERE Trip.season='2015' AND BoatType.Category=2
+          WHERE YEAR(Trip.OutTime)='2015' AND BoatType.Category=2
                 AND Trip.TripTypeID <> 5
           GROUP BY MemberID
           HAVING COUNT(TripMember.member_id) >= 3
@@ -166,7 +166,7 @@ INNER JOIN Boat ON (Boat.id = Trip.BoatID)
 INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
 INNER JOIN TripType on (Trip.TripTypeID = TripType.id)
 INNER JOIN Member ON (Member.id = TripMember.member_id)
-where Trip.Season='2015'
+where YEAR(Trip.OutTime)='2015'
   AND BoatType.Category=2
   AND YEAR(Member.Created) = 2015
   AND Trip.TripTypeID NOT IN (5)
@@ -183,7 +183,7 @@ INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
 INNER JOIN TripType on (Trip.TripTypeID = TripType.id)
 INNER JOIN Member ON (Member.id = TripMember.member_id)
 LEFT JOIN tblMembers ON (Member.MemberID = tblMembers.MemberID)
-where Trip.Season='2015'
+where YEAR(Trip.OutTime)='2015'
   AND BoatType.Category=2
   AND YEAR(Member.Created) = 2015
   AND Trip.TripTypeID NOT IN (5)
@@ -207,7 +207,7 @@ select TripType.Name as turtype,
                JOIN TripMember ON (TripMember.TripID = Trip.TripID)
                INNER JOIN Boat ON (Boat.id = Trip.BoatID)
                INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
-          WHERE Trip.season='2015' AND BoatType.Category=2
+          WHERE YEAR(Trip.OutTime)='2015' AND BoatType.Category=2
           GROUP BY TripTypeID, member_id
           HAVING COUNT(TripMember.member_id) > 2
         ) t
@@ -229,7 +229,7 @@ JOIN ( SELECT Trip.TripTypeID as TripTypeID,
        INNER JOIN TripMember ON (TripMember.TripID = Trip.TripID)
        INNER JOIN Boat ON (Boat.id = Trip.BoatID)
        INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
-       WHERE Trip.Season = '2014'
+       WHERE YEAR(Trip.OutTime) = '2014'
          AND BoatType.Category=2
        GROUP BY Trip.TripTypeID, TripMember.member_id
        HAVING COUNT(TripMember.member_id) >= 3
@@ -258,7 +258,7 @@ SELECT Boat.Name AS Boat,
        INNER JOIN Boat ON (BoatType.id = Boat.BoatType)
        LEFT OUTER JOIN Trip ON Boat.id = Trip.BoatID
        LEFT OUTER JOIN TripType ON (TripType.id = Trip.TripTypeID)
-       WHERE Season='2015'
+       WHERE YEAR(Trip.OutTime)='2015'
    GROUP BY Boat.Name, Boat.id, BoatType.Name, turtype
 
 INTO OUTFILE '/tmp/baadstatistik.csv'
@@ -275,7 +275,7 @@ SELECT Boat.Name AS Båd,
   WHERE Boat.id NOT IN (
             select Trip.BoatID
             FROM Trip
-            WHERE Season='2015'
+            WHERE YEAR(OutTime)='2015'
         )
    ORDER BY BoatType.Name, Boat.Name;
 
@@ -296,7 +296,7 @@ SELECT tblMembers.MemberID as Medlemsnummer, CONCAT(tblMembers.FirstName, ' ', t
       INNER JOIN TripMember ON (TripMember.TripID = Trip.TripID)
       INNER JOIN Boat ON (Boat.id = Trip.BoatID)
       INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
-      WHERE Trip.season='2015'
+      WHERE YEAR(Trip.OutTime)='2015'
         AND BoatType.Category=2
         AND Trip.TripTypeID = 5
     )

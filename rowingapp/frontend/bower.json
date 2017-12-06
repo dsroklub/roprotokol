@@ -17,7 +17,6 @@
     "ng-table": "^1.0.0",
     "ngDialog": "*",
     "angular-ui-select": "*",
-    "fontawesome": "https://github.com/FortAwesome/Font-Awesome.git#~4.6.1",
     "angular-momentjs": "*",
     "moment": "*",
     "angular-ui-bootstrap-datetimepicker": "*",
@@ -28,6 +27,7 @@
     "angular-filter": "~0.5.8",
     "checklist-model": "angular-checklist-model#~0.10.0",
     "levenshtein": "^1.0.5",
+    "components-font-awesome": "^4.7.0",
     "ng-file-upload": "~12.2.13"
   },
   "resolutions": {

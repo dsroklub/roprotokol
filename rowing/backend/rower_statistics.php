@@ -19,13 +19,16 @@ if (isset($_GET["boattype"])) {
 
 
 // echo "boats:". $boatclause."\n<br>";
-    $s="SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance ,Member.MemberID as id, GROUP_CONCAT(distinct mr.argument SEPARATOR ',') as wrenches, Member.FirstName as firstname, Member.LastName as lastname 
-    FROM BoatType,Trip,TripMember,Boat,Member LEFT JOIN MemberRights mr ON Member.id=mr.member_id and mr.MemberRight='wrench'
+    $s="SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance,Member.MemberID as id, GROUP_CONCAT(distinct mr.argument SEPARATOR ',') as wrenches, Member.FirstName as firstname, Member.LastName as lastname, 
+    CAST(SUM(IF(season.summer_start<OutTime AND season.summer_end>OutTime,Meter,0)) AS UNSIGNED) AS summer 
+    FROM season,BoatType,Trip,TripMember,Boat,
+        Member LEFT JOIN MemberRights mr ON Member.id=mr.member_id and mr.MemberRight='wrench'
     WHERE 
       Trip.id = TripMember.TripID AND
       Member.id = TripMember.member_id AND
       Boat.id = Trip.BoatID AND     
       BoatType.id = Boat.BoatType AND
+      season.season=Year(OutTime) AND 
       (((Year(OutTime))=?) " . $boatclause .")".
     " GROUP BY Member.MemberID, mr.MemberRight, firstname, lastname 
     ORDER BY distance desc";

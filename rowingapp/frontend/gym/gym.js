@@ -42,9 +42,10 @@ var gymApp = angular.module('gymApp', [
 	  controller: 'teamCtrl'
 	});
 	$routeProvider.when('/', {redirectTo: '/registrer'});
-	$routeProvider.otherwise({
-	  templateUrl: 'templates/notimplementet.html',
-	});
+        
+	$routeProvider.otherwise(
+          {redirectTo: '/registrer'}
+        );
       }])
     .config(['uiSelectConfig', function(uiSelectConfig) {
       uiSelectConfig.theme = 'bootstrap';

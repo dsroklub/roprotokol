@@ -5,53 +5,53 @@
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="gymApp" class="no-js"> <!--<![endif]-->
   <head>
     <base href="/frontenda/gym/">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>DSR Gymnastik</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png"  href="media/gymico.png" />
-  <link rel="stylesheet" href="../app/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../app/bower_components/angular-ui-select/dist/select.min.css">
-  <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog.min.css">
-  <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog-theme-default.css">
-  <link rel="stylesheet" href="../app/bower_components/fontawesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
-  <link rel="stylesheet" href="../app/bower_components/angular-ui-clock/dist/angular-clock.css">
-  <link rel="stylesheet" href="gym.css"/>
-  <!--base href="/frontend/app"-->
-  <script src="../app/bower_components/angular/angular.js"></script>
-  <script src="../app/components/angular-locale_da-dk.js"></script>
-  <script src="../app/bower_components/angular-route/angular-route.js"></script>
-  <script src="../app/bower_components/angular-sanitize/angular-sanitize.js"></script>
-  <script src="../app/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-  <script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="../app/bower_components/angular-ui-select/dist/select.min.js"></script>
-  <script src="../app/bower_components/ngDialog/js/ngDialog.min.js"></script>
-  <script src="../app/bower_components/ng-table/dist/ng-table.js"></script>
-  <script src="../app/bower_components/angular-confirm-modal/angular-confirm.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DSR Gymnastik</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png"  href="media/gymico.png" />
+    <link rel="stylesheet" href="../app/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../app/bower_components/angular-ui-select/dist/select.min.css">
+    <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog-theme-default.css">
+    <link rel="stylesheet" href="../app/bower_components/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
+    <link rel="stylesheet" href="../app/bower_components/angular-ui-clock/dist/angular-clock.css">
+    <link rel="stylesheet" href="gym.css"/>
+    <!--base href="/frontend/app"-->
+    <script src="../app/bower_components/angular/angular.js"></script>
+    <script src="../app/components/angular-locale_da-dk.js"></script>
+    <script src="../app/bower_components/angular-route/angular-route.js"></script>
+    <script src="../app/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../app/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="../app/bower_components/angular-ui-select/dist/select.min.js"></script>
+    <script src="../app/bower_components/ngDialog/js/ngDialog.min.js"></script>
+    <script src="../app/bower_components/ng-table/dist/ng-table.js"></script>
+    <script src="../app/bower_components/angular-confirm-modal/angular-confirm.min.js"></script>
 
-  <script src="../app/bower_components/moment/moment.js"></script>
-  <script src="../app/bower_components/moment/locale/da.js"></script>
-  <script src="../app/bower_components/angular-momentjs/angular-momentjs.js"></script>
-  <script src="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
-  <script src="../app/bower_components/angular-ui-clock/dist/angular-clock.js"></script>
-  <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
+    <script src="../app/bower_components/moment/moment.js"></script>
+    <script src="../app/bower_components/moment/locale/da.js"></script>
+    <script src="../app/bower_components/angular-momentjs/angular-momentjs.js"></script>
+    <script src="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
+    <script src="../app/bower_components/angular-ui-clock/dist/angular-clock.js"></script>
+    <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
+    
+    <script src="components/version/version.js"></script>
+    <script src="components/version/version-directive.js"></script>
+    <script src="components/version/interpolate-filter.js"></script>
 
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
-
-  <script src="components/utilities/utilities.js"></script>
-  <script src="components/database/database.js"></script>
-  <script>var dbmode='real';
-  </script>
-  <script src="gym.js"></script>
-  <script src="controllers/team/team.js"></script>
-  <script src="controllers/team/menu.js"></script>
-  <script src="components/database/database-services.js"></script>
-  <script src="components/database/database-directives.js"></script>
-
+    <script src="components/utilities/utilities.js"></script>
+    <script src="components/database/database.js"></script>
+    <script>var dbmode='real';
+    </script>
+    <script src="gym.js"></script>
+    <script src="controllers/team/team.js"></script>
+    <script src="controllers/team/menu.js"></script>
+    <script src="components/database/database-services.js"></script>
+    <script src="components/database/login-services.js"></script>
+    <script src="components/database/database-directives.js"></script>
 </head>
 <body>
 
@@ -65,7 +65,7 @@
         <img src="../app/assets/dsrlogo.svg">  
       </li>
       <li ng-class="{topsel: activePath=='/registrer/'}"><a href="registrer"><i class="fa fa-heartbeat"></i>Registrer</a></li>
-      <li ng-class="{topsel: activePath=='/admin/'}"><a href="admin"><i class="fa fa-bank"></i>Admin</a></li>
+      <li ng-show="showadmin" ng-class="{topsel: activePath=='/admin/'}"><a href="admin"><i class="fa fa-bank"></i>Admin</a></li>
       <li ng-class="{topsel: activePath=='/om/'}"><a href="om"><i class="fa fa-commenting"></i>Om</a></li>
       <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
       </li>

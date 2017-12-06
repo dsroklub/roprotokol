@@ -62,6 +62,13 @@ angular.module('rowApp.utilities.mtokm', []).filter('mtokm', function () {
   };
 });
 
+angular.module('rowApp.utilities.mtokmint', []).filter('mtokmint', function () {
+  return function (m) {
+    return (m / 1000).toFixed(0);
+  };
+});
+
+
 angular.module('rowApp.utilities.rightreqs', []).filter('rightreqs', ['DatabaseService', function (db_service) {
   make_rights(db_service);
   var ss={'cox':'styrmanden','all':'alle','any':'mindst en','forbidden':'forbudt'};
@@ -317,6 +324,7 @@ angular.module('rowApp.utilities', [
   'rowApp.utilities.rowtodk',
   'rowApp.utilities.transformkm',
   'rowApp.utilities.mtokm',
+  'rowApp.utilities.mtokmint',
   'rowApp.utilities.rightreqs',
   'rowApp.utilities.subjecttodk',
   'rowApp.utilities.righttodk',
