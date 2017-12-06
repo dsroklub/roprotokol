@@ -26,8 +26,8 @@
 	      <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer <i class="fa fa-sort"></th>
 	      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}"
                    ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'desc') ? 'asc' : 'desc')">Km år <i class="fa fa-sort"></th>
-	      <th  ng-class="{'sort-asc': tableParams.isSortBy('summer', 'asc'),'sort-desc': tableParams.isSortBy('summer', 'desc')}"
-                   ng-click="tableParams.sorting('summer', tableParams.isSortBy('summer', 'desc') ? 'asc' : 'desc')"><i class="fa fa-thermometer-full" aria-hidden="true"></i> <i class="fa fa-sort"></th>
+	      <!--th  ng-class="{'sort-asc': tableParams.isSortBy('summer', 'asc'),'sort-desc': tableParams.isSortBy('summer', 'desc')}"
+                   ng-click="tableParams.sorting('summer', tableParams.isSortBy('summer', 'desc') ? 'asc' : 'desc')"><i class="fa fa-thermometer-full" aria-hidden="true"></i> <i class="fa fa-sort"></th-->
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -40,8 +40,8 @@
                      title="Mangler vintervedligehold {{year}}"
                      alt="Mangler vintervedligehold {{year}}"
                      ng-src="{{burl}}assets/tools/{{year | year2tool}}.svg" /></td>
-	      <td data-title="'Distance'" sortable="'distance'" class="rnum">{{stat.distance|mtokm}}</td>
-	      <td data-title="'Sommer'" sortable="'summer'" class="rnum summerstat">{{stat.summer|mtokmint}}</td>
+	      <td data-title="'Distance'" sortable="'distance'" class="rnum" uib-tooltip="sommer: {{stat.summer|mtokmint}}">{{stat.distance|mtokm}}</td>
+	      <!--td data-title="'Sommer'" sortable="'summer'" class="rnum summerstat">{{stat.summer|mtokmint}}</td-->
 	    </tr>
 	  </tbody>
 	</table>
