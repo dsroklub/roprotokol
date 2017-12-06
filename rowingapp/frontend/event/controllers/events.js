@@ -50,6 +50,7 @@ eventApp.controller(
        $scope.events=DatabaseService.getDB('event/events_participants');
        $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
        $scope.userfora=DatabaseService.getDB('event/userfora');
+       $scope.userfora=DatabaseService.getDB('event/fora');
        $scope.messages=DatabaseService.getDB('event/messages');
        $scope.member_setting=DatabaseService.getDB('event/member_setting');
        $scope.eventcategories=DatabaseService.getDB('event/event_category');
@@ -356,6 +357,7 @@ eventApp.controller(
 	 if (status.status =='ok') {
            $log.debug("forum created");
            $scope.newforum.owner=$scope.current_user.member_id;
+           $scope.newforum["role"]=null;
            $scope.fora.push($scope.newforum);
            $scope.newforum={"is_public":true,"is_open":true};
          } else {

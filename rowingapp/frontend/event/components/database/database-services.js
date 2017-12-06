@@ -93,7 +93,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       'member':null,
       'message':null,
       'event':null,
-      'forum':null,
+      'fora':null,
       'destination':null,
       'file':null
     };
@@ -102,7 +102,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       'member':['event/rowers','event/events_participants'],
       'event':['event/events','event/event_category','event/userfora','event/events_participants'],
       'message':['event/messages'],
-      'forum':['event/messages','event/userfora'],
+      'fora':['event/messages','event/userfora','event/fora'],
       'file':['event/forum_files_list']
     };
     return this.sync(subscriptions);

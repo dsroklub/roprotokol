@@ -47,7 +47,7 @@ if ($error) {
     $res['status']='error';
     $res['error']=$error;
 }
-invalidate("forum");
+invalidate("fora");
 invalidate("message");
 error_log(print_r($res,true));
 echo json_encode($res);

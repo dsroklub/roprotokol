@@ -78,6 +78,6 @@ if ($error) {
     $res['error']=$error;
 }
 invalidate("event");
-invalidate("forum");
+invalidate("fora");
 echo json_encode($res);
 ?> 

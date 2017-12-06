@@ -55,7 +55,7 @@ if ($error) {
     $res['status']='error';
     $res['error']=$error;
 }
-invalidate("forum");
+invalidate("fora");
 echo json_encode($res);
 ?> 
 

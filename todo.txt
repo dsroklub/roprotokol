@@ -7,8 +7,14 @@ auto waiting list when over max
 Oversæt roller til dansk
 
 
+EVENT:
 event, caching:
   piggyback on event join, leave, force
 
 event, generalize leave.
   make promotion work for remove as leave
+
+Når man opretter et nyt forum, abonner på det.
+  Opdater "mine abonnementer" (caching?)
+
+
