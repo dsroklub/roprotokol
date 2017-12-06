@@ -9,7 +9,7 @@ INNER JOIN Boat ON (Boat.id = Trip.BoatID)
 INNER JOIN BoatType ON (Boat.BoatType = BoatType.id)
 LEFT JOIN Member ON (TripMember.member_id = Member.id)
 LEFT JOIN tblMembers ON (Member.MemberID = tblMembers.MemberID)
-where Trip.season='2015'
+where YEAR(Trip.OutTime)='2015'
   AND BoatType.Category = 2
 GROUP BY TripMember.member_id
 HAVING kilometer > 100
