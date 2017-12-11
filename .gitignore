@@ -1,4 +1,5 @@
 /nbproject/private/
+/public/inc/gitrevision.php
 *.mdb
 *.accdb
 /v2/roprotokol/nbproject/private/

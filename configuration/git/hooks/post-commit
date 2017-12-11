@@ -1,0 +1,3 @@
+#!/bin/sh
+#
+git rev-parse HEAD | awk  'END { print "<?php\n$gitrevision=\"" $1 "\";"}' > public/inc/gitrevision.php
