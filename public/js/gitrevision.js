@@ -1,2 +1,2 @@
-var gitrevision="initial";
+var gitrevision="initial2";
 

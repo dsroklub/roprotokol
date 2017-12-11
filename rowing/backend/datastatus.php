@@ -12,7 +12,7 @@ $tsa=array(
     'member' =>  $mem->get('member'),
     'trip' =>  $mem->get('trip'),
     'stats' =>  $mem->get('stats'),
-    'revision' => $gitrevision
+    'gitrevision' => $gitrevision
 );
 $res=json_encode($tsa);
     print($res);
