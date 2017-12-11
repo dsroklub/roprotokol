@@ -30,7 +30,6 @@ var app = angular.module('rowApp', [
   '$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }])
-
     .config([
       '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/boat/checkout/:boat_id', {

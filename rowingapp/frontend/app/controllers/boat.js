@@ -406,7 +406,6 @@ app.controller(
 	 if ($scope.checkout.destination && $scope.checkout.destination.duration) {
 	   tdiff=$scope.checkout.destination.duration*3600000;
 	 }
-         console.log("et "+tdiff);
 	 $scope.expectedOptions.minDate=$scope.checkout.starttime;
 	 $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+tdiff);
        }

@@ -9,7 +9,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   var tx=null;
   var debug=3;
   var cachedepend;
-  var datastatus;
+  var currentseason=new Date().getFullYear();
 
   function toURL(service){
     if (databasesource=='real') {
@@ -27,13 +27,17 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     return db[dataid];
   }
 
-  this.getData = function (dataid,promises) {
+  this.getData = function (dataid,arg,promises) {
+    var a="";
+    if (arg) {
+      a="?"+arg;
+    }
   //  $log.debug(" getData: " + dataid);
-    if(!valid[dataid] || !db[dataid]) {
+    if(!valid[dataid] || !db[dataid+""+arg]) {
       var dq=$q.defer();
       promises.push(dq.promise);
-      $http.get(toURL(dataid+'.php')).then(function onSuccess (response) {
-        db[dataid] = response.data;
+      $http.get(toURL(dataid+'.php'+a)).then(function onSuccess (response) {
+        db[dataid+""+arg] = response.data;
 	valid[dataid]=true;
         dq.resolve(dataid);
       });
@@ -99,21 +103,21 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       } 
     }
     
-//    this.getData('coxteams',promises);
-    this.getData('destinations',promises);
-    this.getData('get_reservations',promises);
-    this.getData('get_events',promises);
-    this.getData('boattypes',promises);
-    this.getData('errortrips',promises);
-    this.getData('triptypes',promises);
-    this.getData('locations',promises);
-    this.getData('boatkayakcategory',promises);
-    this.getData('memberrighttypes',promises);
-    this.getData('boat_brand',promises);
-    this.getData('boat_usages',promises);    
-    this.getData('rights_subtype',promises);
-    this.getData('team/team',promises);    
+    this.getData('destinations',"",promises);
+    this.getData('get_reservations',"",promises);
+    this.getData('get_events',"",promises);
+    this.getData('boattypes',"",promises);
+    this.getData('errortrips',"",promises);
+    this.getData('triptypes',"",promises);
+    this.getData('locations',"",promises);
+    this.getData('boatkayakcategory',"",promises);
+    this.getData('memberrighttypes',"",promises);
+    this.getData('boat_brand',"",promises);
+    this.getData('boat_usages',"",promises);    
+    this.getData('rights_subtype',"",promises);
+    this.getData('stats/trip_stat_year',"season="+currentseason,promises);
 
+    
     if(!valid['rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);
@@ -160,7 +164,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
                   //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
                   this.push(stat);
                 }, rowerstatistics[year][bt]);
-	        valid['rowerstatistics'+boattype]=true;	  
+	        valid['rowerstatistics'+bt]=true;	  
 	        sq.resolve(true);
 	      });
 	    })(boattype);
@@ -180,7 +184,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
                 angular.forEach(response.data, function(stat, index) {
                   this.push(stat);
                 }, boatstatistics[year][bt]);
-	        valid['boatstatistics'+boattype]=true;	  
+	        valid['boatstatistics'+bt]=true;	  
 	        sq.resolve(true);
 	      });
 	    })(boattype);
@@ -203,6 +207,16 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
 
   var defaultLocation = 'DSR';
   var boatcat2dk;
+
+  var datastatus={
+    'boat':null,
+    'stats':null,
+    'reservation':null,
+    'trip':null,
+    'member':null,
+    'destination':null
+  };
+  
   this.init = function(subscriptions) {
 
     this.boatcat2dk = {
@@ -211,9 +225,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       'kayak':'kajak',
       'kaniner':'kaniner'
     };
-    
-
-    
+        
     db.boatlevels={
       1:'Let',
       2:'Mellem',
@@ -227,45 +239,46 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],
-      'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat'],
-      'archivestats':[],    
-      'team':['team']
+      'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat','stats/trip_stat_year'],
+      'archivestats':[]
     };
-  
-    datastatus={
-      'boat':null,
-      'trip':null,
-      'member':null,
-      'destination':null
-    };
-
-//    var cache = $cacheFactory.get('$http');
-//    cache.removeAll();
-    // $templateCache.removeAll();
-     
     return this.sync(subscriptions);
   }
 
   this.sync = function(subscriptions) {
     var dbservice=this;
+    console.log("DB Sync GIT "+gitrevision);
+    
     if (!subscriptions) {
       subscriptions={};
     }
     var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).then (function(response) {
       var ds=response.data;
+
+      if (gitrevision != ds.gitrevision) {
+        $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
+        window.location="/frontend/app/index.html";
+        //        window.location.reload();
+        //    var cache = $cacheFactory.get('$http');
+        //    cache.removeAll();
+        // $templateCache.removeAll();
+     
+
+      }
+      
       var doreload=false;
-      $log.debug("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
+      $log.log("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-          $log.debug("  inval "+tp); // NEL
+          $log.log("  inval "+tp); // NEL
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
 	datastatus[tp]=ds[tp];
       }
       if (doreload) {
-	$log.debug(" do reload " + JSON.stringify(valid));
+	$log.log(" do reload " + JSON.stringify(valid));
 	dbservice.fetch(subscriptions).then(function() {
 	  sq.resolve("sync done");
 	});
@@ -414,17 +427,21 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   this.getDateTrips = function (tripdate,onSuccess) {
     this.getDataNow('datetrips','tripdate='+tripdate,onSuccess);
   }
-  this.getTeams = function (onSuccess) {
-    this.getDataNow('team/team',null,onSuccess);
-  }
   this.getTripMembers = function (tripid,onSuccess) {
     this.getDataNow('tripmembers','trip='+tripid,onSuccess);
   }  
   this.getRowerStatistics = function (bt,y) {
-    return rowerstatistics[y][bt];
+    if (y in rowerstatistics) {
+      return rowerstatistics[y][bt];
+    }
+    return [];
   };
+  
   this.getBoatStatistics = function (bt,y) {
+    if (y in boatstatistics) {
     return boatstatistics[y][bt];
+    }
+    return [];
   };
 
   this.getRower = function(val) {
@@ -501,45 +518,6 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     return at;
   }
 
-
-  this.attendTeam = function(data) {
-    var attendance=$q.defer();
-    var res=undefined;
-    $http.post('../../backend/team/register.php', data).then(function(r) {
-      attendance.resolve(r.data);
-    },function(sdata,status,headers,config) {
-      attendance.resolve(false);
-    });
-    datastatus['gym']=null;
-    return attendance;
-  }
-
-
-  this.addTeam = function(data) {
-    var adt=$q.defer();
-    var res=undefined;
-    $http.post('../../backend/team/addteam.php', data).then(function(r) {
-      adt.resolve(r.data);
-    },function(r) {
-      adt.resolve(false);
-    });
-    datastatus['gym']=null;
-    return adt;
-  }
-
-  
-  this.deleteTeam = function(data) {
-    var dt=$q.defer();
-    var res=undefined;
-    $http.post('../../backend/team/deleteteam.php', data).then(function(r) {
-      dt.resolve(r.data);
-    },function(r) {
-      dt.resolve(false);
-    });
-    datastatus['gym']=null;
-    return dt;
-  }
-  
   this.createTrip = function(data) {
     var tripCreated=$q.defer();
     var res=undefined;

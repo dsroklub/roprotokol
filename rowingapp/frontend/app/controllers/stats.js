@@ -17,6 +17,37 @@ app.controller(
        $scope.seasons.push(y);
      }
      $scope.statseason=""+$scope.statseason; // hack, because JS mixes strings and numbers
+
+     $scope.boattype="any";
+       
+     $scope.isObjectAndHasId = function (val) {
+       return typeof(val) === 'string' && val.length > 3;
+     };
+     
+
+     
+     $scope.getBoatData = function getBoatData(params) {
+         var filterInfo = params.filter();
+       var rawData = DatabaseService.getBoatStatistics($scope.boattype,$scope.statseason);
+       var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
+       var orderedData = params.sorting() ?
+	   $filter('orderBy')(filteredData, params.orderBy()) :
+	   filteredData;
+       if (orderedData) {
+	 orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+       }
+       return orderedData;
+     }
+     
+     $scope.boatcat2dk=DatabaseService.boatcat2dk;
+     
+     $scope.triptypestat={};
+     $scope.triptypestat.labels=[];
+     $scope.triptypestat.series=[];
+     $scope.triptypestat.labelmap={};
+     $scope.triptypestat.distance=[];
+     $scope.triptypestat.numtrips=[];
+     
      DatabaseService.init({"stats":true, "boat":true,"member":true, "trip":true, }).then(function () {
        
        // (Need membership Start date, End Date for following information)
@@ -55,54 +86,37 @@ app.controller(
        // TODO: Who rows with most different people       
        // TODO: Add more from page 11
 
-       $scope.boattype="any";
-       $scope.docats = function (val) {
-         $scope.rowcategory=val;
-	 if (val=='kaniner') {
-	   $scope.tableParams.filter({'id':'k'});
-	   $scope.boattype='any';
-	 } else {
-	   $scope.tableParams.filter({'id':''});
-	   $scope.boattype=val;
-	   $scope.tableParams.reload();
-	   $scope.boattableParams.reload();
-	 }
-       };
-       
-       $scope.isObjectAndHasId = function (val) {
-         return typeof(val) === 'string' && val.length > 3;
-       };
-
-       $scope.tableParams = new NgTableParams({
-         page: 1,            // show first page
-         count: 200,          // count per page
-         filter: {
-           id: ''       // initial filter	
-         },
-         sorting: {
-           rank: 'asc'     // initial sorting
+       var ddata = DatabaseService.getDB('stats/trip_stat_year'+"season="+$scope.statseason);
+       $scope.triptypestat.fy=ddata[0].year;
+       if (!$scope.triptypestat.fy) {
+         $scope.triptypestat.fy=2010;
+       }
+       for (var y=$scope.triptypestat.fy;y<=ddata[ddata.length-1].year;y++) {
+         $scope.triptypestat.series.push('sæson '+y);
+         $scope.triptypestat.distance.push([]);
+         $scope.triptypestat.numtrips.push([]);
+       }
+       angular.forEach(ddata, function(tt) {
+         if (($scope.triptypestat.labelmap[tt.name] === undefined)) {
+           $scope.triptypestat.labelmap[tt.name]=$scope.triptypestat.labels.length;
+           $scope.triptypestat.labels.push(tt.name);
          }
-       }, {
-         counts:[50,100,200,500],
-         total: DatabaseService.getRowerStatistics($scope.boattype,$scope.statseason).length,
-         getData: $scope.getRowerData
-       });
-       
-       $scope.boattableParams = new NgTableParams({
-         page: 1,            // show first page
-         count: 1000,
-         filter: {
-           boatname: ''       // initial filter	
-         },
-         sorting: {
-           rank: 'asc',     // initial sorting
+         $scope.triptypestat.distance[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]=tt.distance/1000.0;
+         $scope.triptypestat.numtrips[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]=tt.trips;
+         //$scope.triptypestat.data[1].push(tt.trips);      
+       },this);
+       for (var y=0; y<$scope.triptypestat.distance.length;y++) {
+         var ya=$scope.triptypestat.distance[y];
+         var yt=$scope.triptypestat.numtrips[y];
+         for (var l=0;l<$scope.triptypestat.labels.length;l++) {
+           if (!ya[l]) {
+             ya[l]=0.0;
+             yt[l]=0.0;
+           }
          }
-       }, {
-         counts:[],
-         getData: $scope.getBoatData
-       });      
+       }
      }
-                                );		  
+                                                                                        );
      $scope.getRowerData = function getRowerData(params) {
        var filterInfo = params.filter();
        var rawData = DatabaseService.getRowerStatistics($scope.boattype,$scope.statseason);
@@ -114,7 +128,49 @@ app.controller(
 	 return rData;
        }
      }
-                  
+
+     $scope.docats = function (val) {
+       $scope.rowcategory=val;
+       if (val=='kaniner') {
+	 $scope.tableParams.filter({'id':'k'});
+	 $scope.boattype='any';
+       } else {
+	 $scope.tableParams.filter({'id':''});
+	 $scope.boattype=val;
+	 $scope.tableParams.reload();
+	 $scope.boattableParams.reload();
+       }
+     };
+
+          $scope.tableParams = new NgTableParams({
+       page: 1,            // show first page
+       count: 200,          // count per page
+       filter: {
+           id: ''       // initial filter	
+       },
+       sorting: {
+         rank: 'asc'     // initial sorting
+       }
+     }, {
+       counts:[50,100,200,500],
+       total: DatabaseService.getRowerStatistics($scope.boattype,$scope.statseason).length,
+       getData: $scope.getRowerData
+     });
+     
+     $scope.boattableParams = new NgTableParams({
+       page: 1,            // show first page
+       count: 1000,
+       filter: {
+         boatname: ''       // initial filter	
+       },
+       sorting: {
+         rank: 'asc',     // initial sorting
+       }
+     }, {
+       counts:[],
+         getData: $scope.getBoatData
+     });
+     
      $scope.changeSeason= function() {
        console.log("change season to " + $scope.statseason)
        if($scope.tableParams) {
@@ -125,63 +181,7 @@ app.controller(
        }
      }
      
-                  
-     $scope.getBoatData = function getBoatData(params) {
-       var filterInfo = params.filter();
-       var rawData = DatabaseService.getBoatStatistics($scope.boattype,$scope.statseason);
-       var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
-       var orderedData = params.sorting() ?
-	   $filter('orderBy')(filteredData, params.orderBy()) :
-	   filteredData;
-       if (orderedData) {
-	 orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-       }
-       return orderedData;
-     }
-     
-     $scope.boatcat2dk=DatabaseService.boatcat2dk;
-     
-     {
-       $scope.triptypestat={};
-       $scope.triptypestat.labels=[];
-       $scope.triptypestat.series=[];
-       $scope.triptypestat.labelmap={};
-       $scope.triptypestat.distance=[];
-       $scope.triptypestat.numtrips=[];
-       DatabaseService.getDataNow('stats/trip_stat_year',"season="+$scope.statseason,function(d) {
-         $scope.triptypestat.fy=d.data[0].year;
-	 if (!$scope.triptypestat.fy) {
-	   $scope.triptypestat.fy=2010;
-	 }
-         for (var y=$scope.triptypestat.fy;y<=d.data[d.data.length-1].year;y++) {           
-           $scope.triptypestat.series.push('sæson '+y);
-           $scope.triptypestat.distance.push([]);
-           $scope.triptypestat.numtrips.push([]);
-         }
-         angular.forEach(d.data, function(tt) {
-           if (($scope.triptypestat.labelmap[tt.name] === undefined)) {
-             $scope.triptypestat.labelmap[tt.name]=$scope.triptypestat.labels.length;
-             $scope.triptypestat.labels.push(tt.name);
-           }
-           $scope.triptypestat.distance[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]=tt.distance/1000.0;
-           $scope.triptypestat.numtrips[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]=tt.trips;
-           //$scope.triptypestat.data[1].push(tt.trips);      
-         },this);
-         for (var y=0; y<$scope.triptypestat.distance.length;y++) {
-           var ya=$scope.triptypestat.distance[y];
-           var yt=$scope.triptypestat.numtrips[y];
-           for (var l=0;l<$scope.triptypestat.labels.length;l++) {
-             if (!ya[l]) {
-               ya[l]=0.0;
-               yt[l]=0.0;
-             }
-           }
-         }
-         console.log("got data");
-       }
-                                 );
-     }
    }
-     ]
+  ]
 )
 

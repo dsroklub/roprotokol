@@ -14,7 +14,7 @@
     "html5-boilerplate": "*",
     "angular-bootstrap": "*",
     "bootstrap": "*",
-    "ng-table": "^1.0.0",
+    "ng-table": "^4.0.0",
     "ngDialog": "*",
     "angular-ui-select": "*",
     "angular-momentjs": "*",
