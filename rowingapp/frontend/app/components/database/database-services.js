@@ -295,6 +295,9 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   };
   
   this.lookup = function (resource,key,value) {
+    if (!db[resource]) {
+      return null;
+    }
     for (var i=0;i<db[resource].length;i++) {
       if (db[resource][i][key]==value) return db[resource][i];
     }
