@@ -402,7 +402,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
 	sq.resolve(boatstatistics[y][bt]);
       },function(r) {
         $log.error(r.status);
-        qup.resolve(false);
+        sq.resolve(false);
       }                                                       );
     } else {
       sq.resolve(boatstatistics[y][bt]);
@@ -432,7 +432,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
 	sq.resolve(rowerstatistics[y][bt]);
       },function(r) {
         $log.error(r.status);
-        qup.resolve(false);
+        sq.resolve(false);
       }                                                       );
     } else {
       sq.resolve(rowerstatistics[y][bt]);
