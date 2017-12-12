@@ -116,7 +116,6 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     this.getData('boat_usages',"",promises);    
     this.getData('rights_subtype',"",promises);
     this.getData('stats/trip_stat_year',"",promises);
-
     
     if(!valid['rowers']) {
       var rq=$q.defer();
