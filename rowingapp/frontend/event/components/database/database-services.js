@@ -87,17 +87,17 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     }
   };
 
+  datastatus={
+    'gitrevision':null,
+    'member':null,
+    'message':null,
+    'event':null,
+    'fora':null,
+    'destination':null,
+    'file':null
+  };
 
   this.init = function(subscriptions) {
-    datastatus={
-      'member':null,
-      'message':null,
-      'event':null,
-      'fora':null,
-      'destination':null,
-      'file':null
-    };
-
     cachedepend={
       'member':['event/rowers','event/events_participants'],
       'event':['event/events','event/event_category','event/userfora','event/events_participants'],
@@ -124,7 +124,11 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     $http.post('/backend/event/datastatus.php', null).then (function(response) {
       var ds=response.data;
       var doreload=false;
-      console.log("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
+      //      console.log("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
+      if (gitrevision != ds.gitrevision) {
+        $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
+        window.location="/frontend/event/index.html";
+      }
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
           console.log("  doinvalidate "+tp);

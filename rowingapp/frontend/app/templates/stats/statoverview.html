@@ -6,8 +6,7 @@
     <select  ng-model="statseason" ng-change="changeSeason()">
       <option ng-repeat="ss in seasons">{{ss}}</option>
     </select>
-    <button ng-click="tableParams.sorting({}) && boattableParams.sorting({}) && (statseason=''+currentseason)"
-            class="btn btn-default pull-right">Normal visning
+    <button ng-click="show_normal()" class="btn btn-default pull-right">Normal visning
     </button>
     <!--div>Søg efter roer: <input ng-model="filter"><button ng-click="tableParams.filter('')">Clear</button>FIXME </div-->
   </div>

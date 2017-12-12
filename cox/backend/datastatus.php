@@ -1,4 +1,5 @@
 <?php
+include("../../public/inc/gitrevision.php");
 $mem  = new Memcached();
 $mem->addServer('127.0.0.1',11211);
 $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, TRUE);
@@ -10,7 +11,8 @@ $tsa=array(
     'boat' => $mem->get('boat'),
     'member' =>  $mem->get('member'),
     'trip' =>  $mem->get('trip'),
-    'stats' =>  $mem->get('stats')
+    'stats' =>  $mem->get('stats'),
+    'gitrevision' => $gitrevision
 );
 $res=json_encode($tsa);
     print($res);

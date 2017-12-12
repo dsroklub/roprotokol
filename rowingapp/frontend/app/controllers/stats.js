@@ -6,8 +6,8 @@ var rabbitComperator = function(mid) {
 
 app.controller(
   'StatCtrl',
-  ['$scope', 'DatabaseService', 'NgTableParams', '$filter','$log','$location',
-   function ($scope,   DatabaseService,   NgTableParams, $filter, $log, $location) {
+  ['$scope', 'DatabaseService', 'NgTableParams', '$filter','$log','$location','$q',
+   function ($scope,   DatabaseService,   NgTableParams, $filter, $log, $location,$q) {
           
      $scope.seasons=[];
      $scope.burl=$location.$$absUrl.split("statoverview/")[0];
@@ -22,24 +22,50 @@ app.controller(
        
      $scope.isObjectAndHasId = function (val) {
        return typeof(val) === 'string' && val.length > 3;
-     };
+     };     
      
 
-     
-     $scope.getBoatData = function getBoatData(params) {
-         var filterInfo = params.filter();
-       var rawData = DatabaseService.getBoatStatistics($scope.boattype,$scope.statseason);
-       var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
-       var orderedData = params.sorting() ?
-	   $filter('orderBy')(filteredData, params.orderBy()) :
-	   filteredData;
-       if (orderedData) {
-	 orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-       }
-       return orderedData;
+     $scope.show_normal = function () {
+       $scope.tableParams.sorting({});
+       $scope.tableParams.filter({'id':''});
+       $scope.boattableParams.sorting({});
+       $scope.boattype='any';
+       $scope.rowcategory='any';
+       $scope.statseason=''+$scope.currentseason;
      }
-     
-     $scope.boatcat2dk=DatabaseService.boatcat2dk;
+
+     $scope.getBoatData = function getBoatData(params) {
+       var $bdefer=$q.defer();
+       var filterInfo = params.filter();
+       DatabaseService.getBoatStatistics($scope.boattype,$scope.statseason).then(function (rawdata) {
+         var filteredData=filterInfo ? $filter('filter')(rawdata, filterInfo) : rawdata;	
+         var orderedData = params.sorting() ?
+	     $filter('orderBy')(filteredData, params.orderBy()) :
+	     filteredData;
+         if (orderedData) {
+	   orderedData=orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+         }         
+         $bdefer.resolve(orderedData);
+       }
+                                                                                );
+       return $bdefer.promise
+     }
+
+     $scope.getRowerData = function getRowerData(params) {
+       var $rdefer=$q.defer();
+       var filterInfo = params.filter();
+       DatabaseService.getRowerStatistics($scope.boattype,$scope.statseason).then(
+         function (rawData) {
+           var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
+           var orderedData = params.sorting() ?  $filter('orderBy')(filteredData, params.orderBy()) :  filteredData;
+           if (orderedData) {
+	     orderedData=orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+           }
+           $rdefer.resolve(orderedData);
+         }
+       );
+       return $rdefer.promise
+     }
      
      $scope.triptypestat={};
      $scope.triptypestat.labels=[];
@@ -49,6 +75,7 @@ app.controller(
      $scope.triptypestat.numtrips=[];
      
      DatabaseService.init({"stats":true, "boat":true,"member":true, "trip":true, }).then(function () {
+       $scope.boatcat2dk=DatabaseService.boatcat2dk;
        
        // (Need membership Start date, End Date for following information)
        
@@ -82,11 +109,9 @@ app.controller(
        // TODO: Stacked Barchart - Member activiy KM per intervals per year in % (Filter on Date)
        // Member activiy KM per intervals <100, 100-200, 200-300, 300-500, >500
        
-       // TODO: Stacked Barchart - Instructions per finish rabbit       
-       // TODO: Who rows with most different people       
-       // TODO: Add more from page 11
+       // TODO: Stacked Barchart - Instructions per finished rabbit       
 
-       var ddata = DatabaseService.getDB('stats/trip_stat_year'+"season="+$scope.statseason);
+       var ddata = DatabaseService.getDB('stats/trip_stat_year');
        $scope.triptypestat.fy=ddata[0].year;
        if (!$scope.triptypestat.fy) {
          $scope.triptypestat.fy=2010;
@@ -117,17 +142,6 @@ app.controller(
        }
      }
                                                                                         );
-     $scope.getRowerData = function getRowerData(params) {
-       var filterInfo = params.filter();
-       var rawData = DatabaseService.getRowerStatistics($scope.boattype,$scope.statseason);
-       var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
-       var orderedData = params.sorting() ?  $filter('orderBy')(filteredData, params.orderBy()) :  filteredData;
-       if (orderedData) {
-	 return orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
-       } else {
-	 return rData;
-       }
-     }
 
      $scope.docats = function (val) {
        $scope.rowcategory=val;
@@ -142,7 +156,7 @@ app.controller(
        }
      };
 
-          $scope.tableParams = new NgTableParams({
+     $scope.tableParams = new NgTableParams({
        page: 1,            // show first page
        count: 200,          // count per page
        filter: {
@@ -153,7 +167,6 @@ app.controller(
        }
      }, {
        counts:[50,100,200,500],
-       total: DatabaseService.getRowerStatistics($scope.boattype,$scope.statseason).length,
        getData: $scope.getRowerData
      });
      

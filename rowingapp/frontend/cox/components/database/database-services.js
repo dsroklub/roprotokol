@@ -134,7 +134,7 @@ angular.module('coxApp.database.database-services', []).service('DatabaseService
     for (var ti=0; ti<tps.length; ti++) {
       this.invalidate_dependencies(tps[ti]);
     }
-    this.init();
+    this.sync();
   }
  
   this.lookup = function (resource,key,value) {

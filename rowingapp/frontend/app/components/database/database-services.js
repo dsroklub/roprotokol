@@ -115,7 +115,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     this.getData('boat_brand',"",promises);
     this.getData('boat_usages',"",promises);    
     this.getData('rights_subtype',"",promises);
-    this.getData('stats/trip_stat_year',"season="+currentseason,promises);
+    this.getData('stats/trip_stat_year',"",promises);
 
     
     if(!valid['rowers']) {
@@ -145,50 +145,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
           boatstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
         }
         for (var bi=0; bi<boatmaintypes.length; bi++) {
-          var boattype= boatmaintypes[bi];        
-         
-          if ( (y==thisYear && !valid['rowerstatistics'+boattype]) ||
-               !rowerstatistics[y][boattype]  ||
-               rowerstatistics[y][boattype].length<1) {
-            rowerstatistics[y][boattype]=[];
-	    (function (bt) {
-              var year=y;
-	      var sq=$q.defer();
-	      promises.push(sq.promise);
-              var farg="?season="+year;
-	      if (bt != "any") {
-	        farg+='&boattype='+bt;
-	      }      
-	      $http.get(toURL('rower_statistics.php'+farg)).then(function(response) {
-                angular.forEach(response.data, function(stat, index) {
-                  //stat.search = stat.id + " " + stat.firstname + " " + stat.lastname;
-                  this.push(stat);
-                }, rowerstatistics[year][bt]);
-	        valid['rowerstatistics'+bt]=true;	  
-	        sq.resolve(true);
-	      });
-	    })(boattype);
-          }
-          
-          if((y==thisYear && !valid['boatstatistics'+boattype])  || !boatstatistics[y][boattype] ||  boatstatistics[y][boattype].length<1) {
-            boatstatistics[y][boattype]=[];
-	    (function (bt) {
-              var year=y;
-	      var sq=$q.defer();
-	      promises.push(sq.promise);
-              var farg="?season="+year;
-	      if (bt != "any") {
-	        farg+='&boattype='+bt;
-	      }      
-	      $http.get(toURL('boat_statistics.php'+farg)).then(function(response) {
-                angular.forEach(response.data, function(stat, index) {
-                  this.push(stat);
-                }, boatstatistics[year][bt]);
-	        valid['boatstatistics'+bt]=true;	  
-	        sq.resolve(true);
-	      });
-	    })(boattype);
-          }
+          var boattype= boatmaintypes[bi];                 
         }
         currentyear=false;
       }
@@ -247,8 +204,6 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
 
   this.sync = function(subscriptions) {
     var dbservice=this;
-    console.log("DB Sync GIT "+gitrevision);
-    
     if (!subscriptions) {
       subscriptions={};
     }
@@ -262,15 +217,13 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
         //        window.location.reload();
         //    var cache = $cacheFactory.get('$http');
         //    cache.removeAll();
-        // $templateCache.removeAll();
-     
-
+        // $templateCache.removeAll();    
       }
       
       var doreload=false;
       $log.log("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
-	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
+	if ((!ds[tp] ||  !(tp in datastatus) || datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
           $log.log("  inval "+tp); // NEL
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
@@ -430,18 +383,62 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   this.getTripMembers = function (tripid,onSuccess) {
     this.getDataNow('tripmembers','trip='+tripid,onSuccess);
   }  
-  this.getRowerStatistics = function (bt,y) {
-    if (y in rowerstatistics) {
-      return rowerstatistics[y][bt];
-    }
-    return [];
-  };
   
   this.getBoatStatistics = function (bt,y) {
-    if (y in boatstatistics) {
-    return boatstatistics[y][bt];
+    var sq=$q.defer();
+    if((y==currentseason && !valid['boatstatistics'+bt])  || !boatstatistics[y][bt] || boatstatistics[y][bt].length<1) {
+      if (!(y in boatstatistics)) {
+        boatstatistics[y]=[];
+      }
+      boatstatistics[y][bt]=[];
+      var farg="?season="+y;
+      if (bt != "any") {
+	farg+='&boattype='+bt;
+      }      
+      $http.get(toURL('boat_statistics.php'+farg)).then(function(response) {
+        angular.forEach(response.data, function(stat, index) {
+          this.push(stat);
+        }, boatstatistics[y][bt]);
+	valid['boatstatistics'+bt]=true;	  
+	sq.resolve(boatstatistics[y][bt]);
+      },function(r) {
+        $log.error(r.status);
+        qup.resolve(false);
+      }                                                       );
+    } else {
+      sq.resolve(boatstatistics[y][bt]);
     }
-    return [];
+    return sq.promise;
+  };
+
+    this.getRowerStatistics = function (bt,y) {
+      var sq=$q.defer();
+      if ( (y==currentseason && !valid['rowerstatistics'+bt]) ||
+           !rowerstatistics[y][bt]  ||
+           rowerstatistics[y][bt].length<1) {
+              if (!(y in rowerstatistics)) {
+                rowerstatistics[y]=[];
+              }
+            rowerstatistics[y][bt]=[];
+        var farg="?season="+y;
+        if (bt != "any") {
+	  farg+='&boattype='+bt;
+        }
+        
+        $http.get(toURL('rower_statistics.php'+farg)).then(function(response) {
+          angular.forEach(response.data, function(stat, index) {
+            this.push(stat);
+          }, rowerstatistics[y][bt]);
+	valid['rowerstatistics'+bt]=true;	  
+	sq.resolve(rowerstatistics[y][bt]);
+      },function(r) {
+        $log.error(r.status);
+        qup.resolve(false);
+      }                                                       );
+    } else {
+      sq.resolve(rowerstatistics[y][bt]);
+    }
+    return sq.promise;
   };
 
   this.getRower = function(val) {
