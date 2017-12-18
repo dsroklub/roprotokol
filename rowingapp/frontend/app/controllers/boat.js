@@ -54,38 +54,7 @@ app.controller(
        $scope.checkout_open=[];
        $scope.norower=[];
        $scope.reuse=$routeParams.reuse;
-       
-       if ($scope.reuse) {
-	 var reusetrip=DatabaseService.closeForm('trip/reuseopentrip',{'reusetrip':$scope.reuse},'trip');
-	 reusetrip.promise.then(function(status) {
-           if (status.reuse && status.reuse.id) {
-             $scope.checkout.triptype=DatabaseService.getTriptypeWithID(status.reuse.triptype_id);
-             $scope.checkout.destination=DatabaseService.getDestinationWithName(status.reuse.destination);
-             $scope.checkout.distance=$scope.checkout.destination.distance;
-             $scope.checkout.boat=DatabaseService.getBoatWithId(status.reuse.boat_id);
-             $scope.checkout.comments=status.reuse.comment;
-             $scope.checkout.starttime=new Date(status.reuse.outtime);
-             $scope.checkout.expectedtime=new Date(status.reuse.expectedintime);
-             $scope.selectedBoatCategory=DatabaseService.getBoatTypeWithName($scope.checkout.boat.category);
-             $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
-             $scope.checkout.rowers=[];
-             angular.forEach(status.reuse.rowers,function(kv) {
-               $scope.checkout.rowers.push(DatabaseService.getRower(kv.member_id));
-             }
-                            );
-             $scope.updateExpectedTime();
-	     // FIXME update checkout fields
-	   }           
-	 });
-       }
-       var boat_id = $routeParams.boat_id;
-       var destination = $routeParams.destination;
-       var rowers=[];
-       // TODO set defaults, for eg re-checkin
-       if ($routeParams.rowers) {
-         rowers= $routeParams.rowers.split(",");
-       }
-       $scope.checkoutmessage="";
+              $scope.checkoutmessage="";
        $scope.checkoutnotification="";
        $scope.checkouterrormessage="";
        $scope.rigthsmessage="rrr";
@@ -94,12 +63,52 @@ app.controller(
          'expected':false,
          'end':false
        };
+
+
+       $scope.checkout = {
+         'boat' : null,
+         'destination': {'distance':999},
+         'starttime': now,
+         'expectedtime': now,
+         'endtime': null,
+         'triptype': null,
+         'rowers': ["","","","",""],
+         'client_name':DatabaseService.client_name(),
+         'distance':0,
+         'comments':''
+       };
+       $scope.destinations = DatabaseService.getDestinations(DatabaseService.defaultLocation);
+       
+       if ($scope.reuse) {
+	 var reusetrip=DatabaseService.closeForm('trip/reuseopentrip',{'reusetrip':$scope.reuse},'trip');
+	 reusetrip.promise.then(function(status) {
+           if (status.reuse && status.reuse.id) {
+             $scope.checkout.triptype=DatabaseService.getTriptypeWithID(status.reuse.triptype_id);
+             $scope.checkout.destination=$scope.get_destination(status.reuse.destination);
+             $scope.checkout.distance=$scope.checkout.destination.distance;
+             $scope.checkout.boat=DatabaseService.getBoatWithId(status.reuse.boat_id);
+             $scope.checkout.comments=status.reuse.comment;
+             $scope.checkout.starttime=new Date(status.reuse.outtime);
+             $scope.checkout.expectedtime=new Date(status.reuse.expectedintime);
+             $scope.checkout.expectedtime_dirty=1;             
+             $scope.selectedBoatCategory=DatabaseService.getBoatTypeWithName($scope.checkout.boat.category);
+             $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
+             $scope.checkout.rowers=[];
+             angular.forEach(status.reuse.rowers,function(kv) {
+               $scope.checkout.rowers.push(DatabaseService.getRower(kv.member_id));
+             }
+                            );
+             // $scope.updateExpectedTime();
+	   }           
+	 });
+       }
+       var boat_id = $routeParams.boat_id;
+       var destination = $routeParams.destination;
        if (boat_id) {
          $scope.selectedboat = DatabaseService.getBoatWithId(boat_id);
        }
        $scope.allboatdamages = DatabaseService.getDamages();
        $scope.triptypes = DatabaseService.getTripTypes();
-       $scope.destinations = DatabaseService.getDestinations(DatabaseService.defaultLocation);
        $scope.checkoutmessage="";
        $scope.checkoutnotification="";
        $scope.usersettime=false;
@@ -110,19 +119,6 @@ app.controller(
          'boat' : null,
        }
       
-       $scope.checkout = {
-         'boat' : null,
-         'destination': {'distance':999},
-         'starttime': now,
-         // TODO: Add sunrise and sunset calculations : https://github.com/mourner/suncalc
-         'expectedtime': now,
-         'endtime': null, // FIXME
-         'triptype': null,
-         'rowers': ["","","","",""],
-         'client_name':DatabaseService.client_name(),
-         'distance':0,
-         'comments':''
-       };
        $scope.checkouttime_clean=$scope.checkout.starttime;
 
        if ($scope.cico==2) {
@@ -140,6 +136,15 @@ app.controller(
          }
        }
        return false;
+     }
+
+     $scope.get_destination = function(destination) {
+       for (var di=0; di<$scope.destinations.length; di++) {
+         if ($scope.destinations[di].name == destination) {
+           return($scope.destinations[di]);
+         }
+       }
+       return null;
      }
 
      $scope.checkRights = function() {
