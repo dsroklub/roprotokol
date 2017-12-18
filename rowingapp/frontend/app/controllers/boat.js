@@ -85,6 +85,7 @@ app.controller(
            if (status.reuse && status.reuse.id) {
              $scope.checkout.triptype=DatabaseService.getTriptypeWithID(status.reuse.triptype_id);
              $scope.checkout.destination=$scope.get_destination(status.reuse.destination);
+             $scope.checkoutForm.checkout_destination.$setDirty();
              $scope.checkout.distance=$scope.checkout.destination.distance;
              $scope.checkout.boat=DatabaseService.getBoatWithId(status.reuse.boat_id);
              $scope.checkout.comments=status.reuse.comment;

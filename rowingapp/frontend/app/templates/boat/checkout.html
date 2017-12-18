@@ -96,7 +96,8 @@
               </td>
               <td>
                 <ui-select
-                   class="checkout_destination"
+                  class="checkout_destination"
+                  name="checkout_destination"
 		   ng-model="checkout.destination"
 		   on-select="updateCheckout($item)"
                    ng-class="{uiselected: !checkout.destination}"
