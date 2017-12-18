@@ -85,17 +85,38 @@ angular.module('eventApp.utilities.onlynumber', []).directive('onlynumber', func
           elem.val(et);
           ngModel.$setViewValue(et.trim());
         }
-      }
-      
+      }      
       scope.$watch(attrs.ngModel, function(newValue, oldValue) {
-        checknumber();
-
-                              
+        checknumber();                              
       });
     }
   };
 }
-                                                          )
+                                                             );
+
+
+
+angular.module('eventApp.utilities.safefilename', []).directive(
+  'safefilename', function () {
+    return {
+      restrict: 'EA',
+      require: 'ngModel',
+      link: function (scope, elem, attrs, ngModel) {
+        function checkname() {
+          var et=elem.val();
+          if (et==null) return;
+          if (et.length === 0) return;
+          et=et.replace(/[^a-z0-9æøå#=:+\-@_]/gi, '');
+          elem.val(et);
+          ngModel.$setViewValue(et.trim());
+        }      
+        scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+          checkname();                              
+        });
+      }
+    };
+  }
+);
 
 angular.module('eventApp.utilities.transformkm', []).directive('transformkm', function () {
   return { 
@@ -129,6 +150,7 @@ angular.module('eventApp.utilities.transformkm', []).directive('transformkm', fu
 
 angular.module('eventApp.utilities', [
   'eventApp.utilities.onlynumber',
+  'eventApp.utilities.safefilename',
   'eventApp.utilities.urldecode',
   'eventApp.utilities.urlencode',
   'eventApp.utilities.transformkm',

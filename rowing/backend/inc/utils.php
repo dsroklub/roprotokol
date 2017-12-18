@@ -45,7 +45,7 @@ function multifield_array($fld,$keys) {
 }
 
 function sanestring($s) {
-   $allowedchars=".:;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890_-#";
+   $allowedchars=".:;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890=:_-#";
     $r="";
     for ($i=0; $i<100 && $i < strlen($s) ;$i++) {
         $c=$s[$i];

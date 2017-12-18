@@ -21,7 +21,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   }
 
   this.getData = function (dataid,promises) {
-//    console.log(" getData: " + dataid);
     if(!valid[dataid] || !db[dataid]) {
       console.log("     INVALID: " + dataid);
       var dq=$q.defer();
