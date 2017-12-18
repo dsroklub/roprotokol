@@ -50,7 +50,7 @@ eventApp.controller(
        $scope.events=DatabaseService.getDB('event/events_participants');
        $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
        $scope.userfora=DatabaseService.getDB('event/userfora');
-       $scope.userfora=DatabaseService.getDB('event/fora');
+       $scope.fora=DatabaseService.getDB('event/fora');
        $scope.messages=DatabaseService.getDB('event/messages');
        $scope.member_setting=DatabaseService.getDB('event/member_setting');
        $scope.eventcategories=DatabaseService.getDB('event/event_category');

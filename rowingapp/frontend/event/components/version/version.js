@@ -5,4 +5,4 @@ angular.module('eventApp.version', [
   'eventApp.version.version-directive'
 ])
 
-.value('version', '0.5');
+.value('version', '0.6');
