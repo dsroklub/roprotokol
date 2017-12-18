@@ -80,4 +80,3 @@ if ($error) {
 invalidate("event");
 invalidate("fora");
 echo json_encode($res);
-?> 
