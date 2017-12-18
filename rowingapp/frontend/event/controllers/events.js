@@ -15,7 +15,7 @@ eventApp.controller(
      $scope.forumfile={"filefolder":"/"};	 
      $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
      $scope.subscription={};
-     $scope.newforum={"is_public":true,"is_open":true};
+     $scope.newforum={"is_public":true,"is_open":true,"owner_subscribe":true};
      $scope.eventarg=$routeParams.event;
      $scope.rParams=$routeParams;
      $scope.min_time=new Date();
@@ -369,7 +369,7 @@ eventApp.controller(
            $scope.newforum.owner=$scope.current_user.member_id;
            $scope.newforum["role"]=null;
            $scope.fora.push($scope.newforum);
-           $scope.newforum={"is_public":true,"is_open":true};
+           $scope.newforum={"is_public":true,"is_open":true,"owner_subscribe":true};
          } else {
            alert(status.error);
          }

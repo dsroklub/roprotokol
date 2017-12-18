@@ -26,5 +26,4 @@ $tsa=array(
 
 );
 $res=json_encode($tsa);
-    print($res);
-?> 
+print($res);

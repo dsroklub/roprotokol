@@ -45,7 +45,7 @@ if ($stmt = $rodb->prepare(
     error_log($error);
 }
 
-if (!$ispublic) {
+if ($newforum->owner_subscribe) {
     if ($stmt = $rodb->prepare(
         "INSERT INTO forum_subscription(member,forum,role)
          SELECT Member.id ,forum.name, 'owner'
@@ -54,22 +54,18 @@ if (!$ispublic) {
            forum.name=? AND
            MemberId=?
          ")) {
-
-    $stmt->bind_param(
-        'ss',
-        $newforum->forum,
-        $cuser) ||  die("create forum BIND errro ".mysqli_error($rodb));
-
-    if (!$stmt->execute()) {
-        $error=" forum sub exe ".mysqli_error($rodb);
-        $message=$message."\n"."forum sub insert error: ".mysqli_error($rodb);
-    } 
-} else {
-    $error=" forum sub prep ".mysqli_error($rodb);
+        $stmt->bind_param(
+            'ss',
+            $newforum->forum,
+            $cuser) ||  die("create forum owner subscribe BIND errro ".mysqli_error($rodb));
+        if (!$stmt->execute()) {
+            $error=" forum create sub exe ".mysqli_error($rodb);
+            $message=$message."\n"."forum create owner subscribe error: ".mysqli_error($rodb);
+        } 
+    } else {
+        $error=" forum sub prep ".mysqli_error($rodb);
+    }
 }
-
-}
-
     
 if ($error) {
     error_log($error);

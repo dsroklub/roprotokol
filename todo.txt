@@ -10,8 +10,5 @@ event, caching:
 event, generalize leave.
   make promotion work for remove as leave
 
-Når man opretter et nyt forum, abonner på det.
-  Opdater "mine abonnementer" (caching?)
-
 Vis lstyrmænd for tilmeldte til arrangementer
  * advarsel, hvis det ikke går op.
