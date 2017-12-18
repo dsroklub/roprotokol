@@ -30,7 +30,7 @@ if ($stmt = $rodb->prepare($s)) {
          if ($first) $first=0; else echo ',';
          error_log(print_r($row,true));
          $row['folders']=explode('££',$row['folders']);
-         echo json_encode($row);
+         echo json_encode($row,JSON_PRETTY_PRINT);
      }
      echo ']';
 } else {

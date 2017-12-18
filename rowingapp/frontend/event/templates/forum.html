@@ -32,12 +32,12 @@
     <caption>Mine abonnementer</caption>
   </thead>
 
-    <tr>
-      <td>
-        <i class="fa fa-search"></i><input ng-model="forumfilter" type="text"><i class="fa fa-eraser"  ng-click="forumfilter=null"></i>
-      </td>
-    </tr>
-  <tr class="subscription" ng-repeat="userforum in userfora| filter: {role:''} | filter:forummatch(forumfilter)"  class="event"
+  <tr>
+    <td>
+      <i class="fa fa-search"></i><input ng-model="forumfilter" type="text"><i class="fa fa-eraser"  ng-click="forumfilter=null"></i>
+    </td>
+  </tr>
+  <tr class="subscription" ng-repeat="userforum in userfora | filter: {role:''} | filter:forummatch(forumfilter)"  class="event"
       ng-class-odd="'odd'" ng-class-even="'even'"
       ng-class="{selected: current_forum == userforum}"
       >

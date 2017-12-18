@@ -1,11 +1,7 @@
 Chromiun
-
 zoom-lock extension
-
 auto waiting list when over max
-
 Oversæt roller til dansk
-
 
 EVENT:
 event, caching:
@@ -17,4 +13,5 @@ event, generalize leave.
 Når man opretter et nyt forum, abonner på det.
   Opdater "mine abonnementer" (caching?)
 
-
+Vis lstyrmænd for tilmeldte til arrangementer
+ * advarsel, hvis det ikke går op.
