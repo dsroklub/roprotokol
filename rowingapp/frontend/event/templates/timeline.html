@@ -88,7 +88,10 @@
     </thead>
     <tbody class="tbody">
       <tr ng-repeat="em in currentevent.participants">
-        <td>{{em.name}}   <i uib-tooltip="styrmand" ng-if="em.is_cox>0" class="fa fa-graduation-cap"></i></td>
+        <td>{{em.name}}
+          <i uib-tooltip="styrmand" ng-if="em.is_cox>0" class="fa fa-graduation-cap"></i>
+          <b uib-tooltip="langtursstyrmand" ng-if="em.is_long_cox>0"> L</b>
+        </td>
         <td class="role">{{em.role}}</td>
         <td ng-show='currentevent.owner==current_user.member_id'>
           <i ng-click="accept_event_participant(em)" ng-show="em.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
@@ -101,10 +104,10 @@
     </tbody>         
   </table>
 
-  <table ng-if="currentevent.boat_category=='Almindelig roning'">
+  <table ng-if="currentevent.boats=='Inriggere'">
     <caption>
       <p>
-      {{crews.on_water}} kommer på vandet ({{crews.left_out}} mangler)
+      {{crews.on_water}} kommer på vandet ({{crews.left_out}} kommer ikke med)
       </p>
       <p ng-if="crews.left_out>0">
         <small>

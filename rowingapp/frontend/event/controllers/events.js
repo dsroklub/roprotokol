@@ -149,10 +149,10 @@ eventApp.controller(
                       );
      }
 
-     $scope.is_cox = function (rights) {
+     $scope.is_cox = function (rights,longcox) {
        var is_cox=0;
        for (var i=0;i<rights.length;i++ ) {
-         if (rights[i].member_right==="cox") {
+         if (rights[i].member_right==="longdistance" || (!longcox && (rights[i].member_right==="cox"))) {
            is_cox=1;
            break;
          }
@@ -168,13 +168,15 @@ eventApp.controller(
        var sr=DatabaseService.createSubmit("event_subscribe_by_owner",$scope.neweventmember);
        sr.promise.then(function(status) {
 	 if (status.status =='ok') {
-           var is_cox=$scope.is_cox($scope.neweventmember.member.rights);           
+           var is_cox=$scope.is_cox($scope.neweventmember.member.rights,false);
+           var is_long_cox=$scope.is_cox($scope.neweventmember.member.rights,true);
            $scope.currentevent.participants.push(
              {
                "name":$scope.neweventmember.member.name,
                "member_id":$scope.neweventmember.member.id,
                "role":$scope.neweventmember.role,
                "enter_time":new Date().toISOString(),
+               "is_long_cox":is_long_cox,
                "is_cox":is_cox
              });
 	 } else if (status.status =='warning') {
@@ -285,6 +287,7 @@ eventApp.controller(
            var p=angular.copy($scope.current_user);
            p.role=status.role;
            p.is_cox=$scope.current_user.is_cox!="";
+           p.is_long_cox=$scope.current_user.is_long_cox!="";
            $scope.currentevent.participants.push(p);
          } else {
            alert(status.error);
@@ -603,13 +606,15 @@ eventApp.controller(
 
      $scope.do_participants = function(participants,oldparticipants) {
        if (participants) {
+         var is_longdistance=($scope.currentevent.event_category=="langtur");
+         
          var coxs=0;
          var nr=0;
          for (var i=0; i<participants.length;i++) {
            var rw=participants[i];
            if (["member","owner"].indexOf(rw.role)>=0) {
              nr++;
-             if (rw.is_cox) {
+             if (rw.is_long_cox>0 || (!is_longdistance && rw.is_cox>0)) {
                coxs++;
              }
            }
