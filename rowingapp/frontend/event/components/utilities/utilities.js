@@ -106,7 +106,7 @@ angular.module('eventApp.utilities.safefilename', []).directive(
           var et=elem.val();
           if (et==null) return;
           if (et.length === 0) return;
-          et=et.replace(/[^a-z0-9æøå#=:+\-@_]/gi, '');
+          et=et.replace(/[^\.a-z0-9æøå#=:+\-@_]/gi, '').replace(/[.](?=.*[.])/g, "");
           elem.val(et);
           ngModel.$setViewValue(et.trim());
         }      

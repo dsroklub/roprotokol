@@ -2,7 +2,7 @@
 
 var rv=2;
 
-var coxApp = angular.module('coxApp', [
+module('coxApp', [
   'ngRoute',
   'ngSanitize',
   'ui.bootstrap',

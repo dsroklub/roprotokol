@@ -2,7 +2,10 @@
   <div class="boattypesmenu">
     <h2>bådtype</h2>
     <ul>
-      <li ng-repeat="boatcategory in boatcategories" ng-class="{selected: boatcategory == selectedBoatCategory}"  ng-click="do_boat_category(boatcategory)">{{boatcategory.name}}</li>
+      <li ng-repeat="boatcategory in boatcategories"
+          ng-class="{selected: boatcategory == selectedBoatCategory}"
+          ng-click="do_boat_category(boatcategory)">{{boatcategory.name}}
+      </li>
       <!--li ng-click="selectedBoatCategory=null">Alle Bådtyper</li FIXME requires that we iterator over allboats and filter instead of using categories-->
     </ul>
   </div>
@@ -15,7 +18,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-click="checkoutBoat(boat)" ng-repeat="boat in selectedboats|filter: matchBoatId(selectedboat,false) " ng-class="{selected: boat == checkout.boat}">
+        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'"
+            ng-click="checkoutBoat(boat)"
+            ng-repeat="boat in selectedboats|filter: matchBoatId(selectedboat,false) "
+            ng-class="{selected: boat == checkout.boat}"
+            >
           <td class="boatname"><div >
 	      {{boat.name}}
 	    </div>
@@ -159,7 +166,8 @@
               </td>
               <td>
                 <select name="triptypechooser" id="checkout_triptype" ng-model="checkout.triptype"
-                        ng-options="item as item.name for item in triptypes|filter: {active:1} : true" ng-change="updateExpectedTime(checkout.destination)" required>
+                        ng-options="item as item.name for item in triptypes|filter: {active:1} : true"
+                        ng-change="updateExpectedTime(checkout.destination)" required>
                 </select>
               </td>    
 	    </tr>	

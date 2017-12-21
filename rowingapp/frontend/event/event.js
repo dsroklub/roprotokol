@@ -1,6 +1,6 @@
 'use strict';
 
-var eventApp = angular.module('eventApp', [
+angular.module('eventApp', [
   'ngRoute',
   'ngSanitize',
   'ui.bootstrap',

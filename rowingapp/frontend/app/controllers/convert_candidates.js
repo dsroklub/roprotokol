@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ConvertCandidatesCtrl', ['$scope', '$rootScope', 'DatabaseService', '$filter', '$confirm',
+angular.module('rowApp').controller('ConvertCandidatesCtrl', ['$scope', '$rootScope', 'DatabaseService', '$filter', '$confirm',
                              function ($scope, $rootScope, DatabaseService, $filter,$confirm) {
 
   $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};

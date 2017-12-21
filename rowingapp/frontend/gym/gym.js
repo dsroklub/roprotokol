@@ -1,6 +1,6 @@
 'use strict';
 
-var gymApp = angular.module('gymApp', [
+angular.module('gymApp', [
   'ngRoute',
   'ngSanitize',
   'ui.bootstrap',

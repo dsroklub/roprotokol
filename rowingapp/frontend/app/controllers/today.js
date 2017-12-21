@@ -1,6 +1,8 @@
 'use strict';
 // Not worth caching for this
-app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', function ($scope, $routeParams, DatabaseService, $interval, ngForm) {
+angular.module('rowApp').controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', TodayCtrl]);
+
+function TodayCtrl ($scope, $routeParams, DatabaseService, $interval, ngForm) {
   $scope.tripstoday=[];
   $scope.onwater=[];
   $scope.available=[];
@@ -11,8 +13,6 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
   $scope.rowers=0;
   $scope.coxs=1;
   $scope.manerr="";
-
-  
   $scope.maxcrew=0;
 
   $scope.critical_time = function (tx) {
@@ -75,11 +75,10 @@ app.controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$inte
   DatabaseService.getOnWater(function (res) {
     $scope.onwater=res.data;
   }
-				);
-  DatabaseService.getAvailableBoats('DSR',function (res) {
-    $scope.available=res.data;
-  }
-				   );
-
-  
-}]);
+			    );
+  DatabaseService.getAvailableBoats(
+    'DSR',function (res) {
+      $scope.available=res.data;
+    }
+  );  
+}

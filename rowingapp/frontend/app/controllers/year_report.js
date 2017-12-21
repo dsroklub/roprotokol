@@ -1,14 +1,17 @@
 'use strict';
 
-app.controller('YearReportCtrl', ['$scope', '$rootScope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm','$log',
-                             function ($scope, $rootScope, DatabaseService, NgTableParams, $filter,$route,$confirm,$log) {
+angular.module('rowApp').controller('YearReportCtrl',
+                                    ['$scope', '$rootScope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm','$log',YearReportCtrl]);
+
+function YearReportCtrl ($scope, $rootScope, DatabaseService, NgTableParams, $filter,$route,$confirm,$log) {
 
   $scope.statusMsg = 'Henter data...';
   $scope.statusClass = 'ok';
   $scope.now = new Date();
 
   DatabaseService.init().then(function () {
-    DatabaseService.simpleGet('stats/year_report').then( function(response) {
+    DatabaseService.simpleGet('stats/year_report').then(
+      function(response) {
       if (response.data && response.data.status === 'ok') {
         $scope.statusMsg = null;
         $scope.stats = response.data;
@@ -23,12 +26,9 @@ app.controller('YearReportCtrl', ['$scope', '$rootScope', 'DatabaseService', 'Ng
         $scope.statusClass = 'error';
       }
     },
-    function(response) {
-      $scope.statusMsg = 'Kunne ikke hente data: ' + response.statusText;
-      $scope.statusClass = 'error';
-    })
+      function(response) {
+        $scope.statusMsg = 'Kunne ikke hente data: ' + response.statusText;
+        $scope.statusClass = 'error';
+      })
   });
-
-
-
-}]);
+}

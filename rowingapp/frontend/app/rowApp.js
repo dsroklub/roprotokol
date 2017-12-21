@@ -1,24 +1,25 @@
 'use strict';
 
-var app = angular.module('rowApp', [
-  'ngRoute',
-  'ngSanitize',
-  'ui.bootstrap',
-  'ui.select',
-  'angular-momentjs',
-  'ngDialog',
-  'ngTable',
-  'rowApp.version',
-  'rowApp.range',
-  'rowApp.database',
-  'rowApp.utilities',
-  'angular-confirm',
-  'chart.js',
-  'ui.bootstrap',
-  'ui.bootstrap.datetimepicker',
-  'angular.filter',
-  'ds.clock'
-])
+angular.
+  module('rowApp', [
+    'ngRoute',
+    'ngSanitize',
+    'ui.bootstrap',
+    'ui.select',
+    'angular-momentjs',
+    'ngDialog',
+    'ngTable',
+    'rowApp.version',
+    'rowApp.range',
+    'rowApp.database',
+    'rowApp.utilities',
+    'angular-confirm',
+    'chart.js',
+    'ui.bootstrap',
+    'ui.bootstrap.datetimepicker',
+    'angular.filter',
+    'ds.clock'
+  ])
 
 /*
 .config(function($locationProvider) { // OAuth html5 mode seems to break our routing

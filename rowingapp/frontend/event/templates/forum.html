@@ -130,6 +130,7 @@
                    ngf-select="" ng-model="forumfile.file" name="forumfile" ngf-accept="'*/*'">
           <i ng-show="upform.forumfile.$error.required">* kræves</i>
           <h1 ng-show="upform.$error.maxSize">Filen er for stor</h1>
+          <h1 ng-show="upform.$error.minSize">Filen er for lille</h1>
         </td>
       </tr>
       <tr>
@@ -208,6 +209,7 @@
 </form>
 
 <!--pre>
+  upe {{upform.$error|json}}
   foruma {{fora|json}}
   userfora {{userfora|json}}
 </pre-->
