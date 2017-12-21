@@ -2,6 +2,10 @@
 
 angular.module('eventApp', [
   'ngRoute',
+  'dsrcommon.utilities.onlynumber',
+  'dsrcommon.utilities.transformkm',
+  'dsrcommon.utilities.safefilename',
+  'dsrcommon.utilities.mtokm',
   'ngSanitize',
   'ui.bootstrap',
   'ui.select',
@@ -10,7 +14,6 @@ angular.module('eventApp', [
   'ngTable',
   'eventApp.version',
   'eventApp.database',
-  'eventApp.utilities',
   'angular-confirm',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',

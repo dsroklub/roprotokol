@@ -34,18 +34,6 @@ var make_rights = function(db_service){
     }
 }
 
-angular.module('rowApp.utilities.urldecode', []).filter('urldecode', function () {
-  return function (text) {
-    return window.decodeURIComponent(text);
-  };
-});
-
-angular.module('rowApp.utilities.urlencode', []).filter('urlencode', function () {
-  return function (text) {
-    return window.encodeURIComponent(text);
-  };
-});
-
 angular.module('rowApp.utilities.nodsr', []).filter('nodsr', function () {
   return function (text) {
     if (text === "DSR") {
@@ -316,8 +304,6 @@ angular.module('rowApp.utilities.transformkm', []).directive('transformkm', func
 
 angular.module('rowApp.utilities', [
   'rowApp.utilities.onlynumber',
-  'rowApp.utilities.urldecode',
-  'rowApp.utilities.urlencode',
   'rowApp.utilities.nodsr',
   'rowApp.utilities.sidetodk',
   'rowApp.utilities.leveltodk',
