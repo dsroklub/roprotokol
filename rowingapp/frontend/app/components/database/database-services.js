@@ -578,6 +578,25 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       alert("det mislykkedes at sende nyt password");
     });
   }
+
+  var right2dk;
+  var right2dkm;
+  
+  var make_rights = function(){
+    if (! (right2dkm && right2dk)) {
+      var rights = getDB('memberrighttypes');
+      if (rights && rights.length) {
+        right2dk = {};
+        right2dkm = {};        
+        for (var i = 0; i < rights.length; i++) {
+          var r = rights[i];
+          right2dk[r.member_right] = r.showname;
+          right2dkm[r.member_right] = r.predicate;
+        }
+      }
+    }
+  }
+
   
   /// The rest is just for testing
   this.test = function(src) {

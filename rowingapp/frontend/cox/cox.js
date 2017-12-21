@@ -2,7 +2,7 @@
 
 var rv=2;
 
-module('coxApp', [
+angular.module('coxApp', [
   'ngRoute',
   'ngSanitize',
   'ui.bootstrap',
@@ -13,7 +13,6 @@ module('coxApp', [
   'rowApp.version',
   'rowApp.range',
   'coxApp.database',
-  'rowApp.utilities',
   'angular-confirm',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',

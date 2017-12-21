@@ -9,7 +9,7 @@ angular.module('rowApp').controller(
   ]);
 
 function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log, $location) {
-  vm=this;
+  var vm=this;
   
   $scope.allboatdamages=[];
   $scope.burl=$location.$$absUrl.split("ind/")[0];
