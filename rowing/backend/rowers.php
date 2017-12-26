@@ -11,7 +11,9 @@ $s="SELECT JSON_MERGE(
       'id',Member.MemberID, 
       'name', CONCAT(FirstName,' ',LastName) 
    ),
-   CONCAT('{\"rights\" : [',GROUP_CONCAT(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired)),']}')
+   CONCAT('{\"rights\" : [',
+     GROUP_CONCAT(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired)),
+   ']}')
    ) AS json
    FROM Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  
    WHERE Member.MemberID!='0'
@@ -29,4 +31,3 @@ echo '[';
 }
 echo ']';
 $rodb->close();
-?> 
