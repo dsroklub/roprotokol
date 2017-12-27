@@ -6,32 +6,47 @@ include("../../../rowing/backend/inc/common.php");
 include("utils.php");
 
 
-error_log("RSS " . print_r($_SERVER['PHP_AUTH_USER'],true));
+//error_log("RSS " . print_r($_SERVER['PHP_AUTH_USER'],true));
 
-$s="SELECT Member.MemberId as member_id, wish, team_requests.phone,team_requests.email,team,
-    CONCAT(Member.FirstName,' ', Member.LastName) as name, preferred_time, preferred_intensity,
-    activities, comment,
-    GROUP_CONCAT(course_requirement.name,':§§:',IFNULL(dispensation,0), ':§§:',ifNULL(passed,'') ORDER BY course_requirement.name SEPARATOR '££') AS passes
+$s="SELECT JSON_MERGE(
+    JSON_OBJECT(
+      'member_id',Member.MemberID, 
+      'name', CONCAT(FirstName,' ',LastName),
+      'wish',wish,
+      'phone',team_requests.phone,
+      'email',team_requests.email,
+      'team',team,
+      'preferred_time',preferred_time, 
+      'preferred_intensity',preferred_intensity,
+      'activities',activities, 
+      'comment',comment
+   ),
+   CONCAT(
+     '{', JSON_QUOTE('passes'),': [',
+     GROUP_CONCAT(JSON_OBJECT(
+        'pass',course_requirement.name,
+        'dispensation',IFNULL(dispensation,0),
+        'passes',ifNULL(passed,'')
+     )),
+   ']}')
+   ) AS json
     FROM team_requests 
          LEFT JOIN Member on Member.id=team_requests.member_id
          JOIN course_requirement 
          LEFT JOIN course_requirement_pass ON course_requirement.name=course_requirement_pass.requirement AND course_requirement_pass.member_id=Member.id
    WHERE NOT EXISTS (SELECT 'x' FROM MemberRights WHERE MemberRight='cox' AND Member.id=MemberRights.member_id)
    GROUP By team_requests.member_id
-   ORDER By Member.MemberId,passes
+   ORDER By Member.MemberId
 ";
 
-// print("SQL = $s");
-//    ORDER BY team
 $result=$rodb->query($s);
 
 if ($result) {
     echo '[';
     $first=1;
     while ($row = $result->fetch_assoc()) {
-        if ($first) $first=0; else echo ',';
-        $row['passes']=multifield_array($row['passes'],["pass","dispensation","passed"]);
-        echo json_encode($row);
+	  if ($first) $first=0; else echo ",\n";
+	  echo $row['json'];
     }
     echo ']';
 } else {

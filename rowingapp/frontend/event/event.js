@@ -81,8 +81,9 @@ angular.module('eventApp', [
       templateUrl: 'templates/notimplementet.html',
       controller: 'noRight'
     });
+  }]).config(['uiSelectConfig', function(uiSelectConfig) {
+    uiSelectConfig.theme = 'bootstrap';
   }])
-    .config(['uiSelectConfig', function(uiSelectConfig) {
-      uiSelectConfig.theme = 'bootstrap';
-    }]);
+//  .config(['http', function(httpConfig) {  httpConfig.headers.common['Content-Type'] = 'application/json; charset=utf-8'; }])
+;
 

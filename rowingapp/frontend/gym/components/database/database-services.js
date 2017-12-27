@@ -292,20 +292,6 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     return dt;
   }
   
-
-  this.mergeArray = function (array1,array2) {
-    var ra={}
-    if (array1) 
-      for(var item in array1) {
-	ra[item] = array1[item];
-      }
-    if (array2)
-      for(var item in array2) {
-	ra[item] = array2[item];
-      }
-    return ra;
-  }
-
   this.client_name =function () {
     var clientname="terminal";
     if (localStorage) {

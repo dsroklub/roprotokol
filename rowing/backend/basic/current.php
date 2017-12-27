@@ -22,7 +22,12 @@ $s="SELECT Boat.id as boatid, Boat.Name AS boat,
    IF (DAYOFYEAR(NOW())=DAYOFYEAR(ExpectedIn),Date_Format(ExpectedIn,'%H:%i'), Date_Format(ExpectedIn,'%e/%c %H:%i')) as expectedintime,
    NOW()>ExpectedIn as late,
    Trip.Destination as destination, Trip.id, TripType.Name AS triptype,
-   GROUP_CONCAT(Member.MemberID,':§§:', CONCAT(Member.FirstName,' ',Member.LastName) SEPARATOR '££') AS rowers 
+   CONCAT(
+       '[',
+        GROUP_CONCAT(JSON_OBJECT(
+       'member_id',Member.MemberID,
+       'name', CONCAT(Member.FirstName,' ',Member.LastName))),
+   ']') AS rowers 
    FROM TripMember LEFT JOIN Member ON Member.id = TripMember.member_id, TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID 
    WHERE Trip.id=TripMember.TripID AND (Trip.InTime Is Null OR Trip.InTime  >= CURDATE()) 
    GROUP BY Trip.id 
@@ -55,7 +60,6 @@ $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
      } else {
          echo "<tr  class=notin>";
      }
-     $row['rowers']=multifield($row['rowers']);
      echo "<td>".$row['boat']."</td>";
      echo "<td>".$row['destination']."</td>";
      echo "<td>".$row['outtime']."</td>";
@@ -63,9 +67,10 @@ $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
      echo "<td>".$row['expectedintime']."</td>";
      echo "<td>";
       $fr=true;
-      foreach ( $row['rowers'] as $rower) {
+      $rowers=json_decode($row['rowers']);
+      foreach ( $rowers as $rower) {
           if (!$fr) echo ", ";
-          echo $rower;
+          echo "$rower->name ($rower->member_id)";
       $fr=false;
       }
       echo "</td>";

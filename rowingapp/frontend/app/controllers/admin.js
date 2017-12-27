@@ -2,7 +2,9 @@
 
 angular.module('rowApp').controller(
     'AdminCtrl',
-  ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm','$log', AdminCtrl]);
+  ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm','$log',
+   AdminCtrl
+  ]);
 
 function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$confirm,$log) {
   var rower_diff = function(current,correction) {

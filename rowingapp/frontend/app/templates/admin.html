@@ -1,4 +1,8 @@
 <div class="menuholder">
+  <div><form>
+    <input placeholder="admin kodeord" autocomplete="off" class="adminpw" type="password" ng-model="config.headers.password">
+    </form>
+    </div>
   <button class="adminbut" ng-class="{selected: do=='boat'}" ng-click="do='boat'">Både</button>
   <button class="adminbut" ng-class="{selected: do=='user'}" ng-click="do='user'">Roere</button>
   <button class="adminbut" ng-class="{selected: do=='trip'}" ng-click="do='trip'">Ture</button>
@@ -6,7 +10,6 @@
   <button class="adminbut" ng-class="{selected: do=='events'}" ng-click="do='events'">Hændelser</button>
   <button class="adminbut" ng-class="{selected: do=='reservations'}" ng-click="do='reservations'">Reservationer</button>
   <button class="adminbut" ng-class="{selected: do=='misc'}" ng-click="do='misc'">Diverse</button>
-  <input placeholder="admin kodeord" class="adminpw" type="password" ng-model="config.headers.password">
 </div>
 
 <div ng-if="do=='boat'">
@@ -345,7 +348,7 @@
   </div>
   <div class="adminconvertrower" ng-show="currentrower.id">
     <button  class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer {{currentrower.name}} til denne</button>
-    <input autocomplete="off" id="findrower" name="name" type="text"
+    <input autocomplete="off" id="findrowerforconvert" name="name" type="text"
            typeahead-on-select="alert($item)" ng-model="converttorower"
            uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
            typeahead-template-url="taTemplate.html" required />
@@ -514,7 +517,10 @@
                       >
               ny reservation</button></td>
         </tr>
-        <tr><td colspan=8>en reservation skal have et start- og sluttidspunkt. Og <strong>enten</strong> en fast ugedag eller start og slutdatoer. Turtype og formål <strong>skal</strong> udfyldes</td></tr>
+        <tr><td colspan=8>en reservation skal have et start- og sluttidspunkt.
+            Og <strong>enten</strong> en fast ugedag eller start og slutdatoer. Turtype og formål <strong>skal</strong> udfyldes
+          </td>
+        </tr>
 
       </tbody>
     </table>    
