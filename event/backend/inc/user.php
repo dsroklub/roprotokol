@@ -39,7 +39,7 @@ function check_event_owner($eventId) {
 }
 
 
-function check_forum_owner($forum) {
+function check_forum_owner($forumName) {
     global $currentuser;
     global $rodb;
     if ($stmt = $rodb->prepare(
@@ -54,16 +54,16 @@ function check_forum_owner($forum) {
     ) {        
         $stmt->bind_param(
             'ssss',
-            $forum->forum,
+            $forumName,
             $currentuser,
             $currentuser,
-            $forum->forum
+            $forumName
         ) ||  die("check forum owner errro ".mysqli_error($rodb));
         
         if ($stmt->execute()) {
-            error_log("check forum owner OK");
             $result= $stmt->get_result() or die("Error in forum owner check: " . mysqli_error($rodb));
-            if (count($result)==1) {
+            if (count($result->fetch_assoc())==1) {
+                // error_log("check forum TRUE ".print_r($result,true));
                 return true;
             }        
         } else {

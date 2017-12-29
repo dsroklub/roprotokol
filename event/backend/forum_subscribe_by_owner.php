@@ -23,6 +23,7 @@ if ($stmt = $rodb->prepare(
           AND EXISTS (
             SELECT 'x' FROM forum, Member owner WHERE owner.MemberId=? and forum.owner=owner.id AND forum.name=?
           )
+        ON DUPLICATE KEY UPDATE role='member'
          ")) {
 
     $role="member";
@@ -42,7 +43,11 @@ if ($stmt = $rodb->prepare(
     if (!$stmt->execute()) {
         $error=" forummember by owner exe ".mysqli_error($rodb);
         $message=$message."\n"."owner forummember error: ".mysqli_error($rodb);
-    } 
+    }
+    if ($rodb->affected_rows !=1) {
+        $res["status"]="warning";
+        $res["warning"]="duplicate";
+    }
 } else {
     $error=" forummember by owner ".mysqli_error($rodb);
 }

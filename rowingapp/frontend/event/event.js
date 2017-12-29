@@ -6,6 +6,7 @@ angular.module('eventApp', [
   'dsrcommon.utilities.transformkm',
   'dsrcommon.utilities.safefilename',
   'dsrcommon.utilities.mtokm',
+  'dsrcommon.utilities.urlencode',
   'ngSanitize',
   'ui.bootstrap',
   'ui.select',

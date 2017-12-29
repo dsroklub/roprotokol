@@ -89,7 +89,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
         $scope.subscription.forum.role=role;
         $scope.subscription.forum.member_id=$scope.current_user.member_id;
         $scope.userfora.push($scope.subscription.forum);
-        set_role(forum.forum,role);
+        $scope.set_role(forum.forum,role);
       } else {
         alert(status.error);
       }
@@ -109,8 +109,8 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
   
   $scope.set_role = function(forum,role) {
     for (var fi=0;fi<$scope.fora.length;fi++ ) {
-      if ($scope.fora[$fi].forum==forum) {
-        $scope.fora[$fi].role=role;
+      if ($scope.fora[fi].forum==forum) {
+        $scope.fora[fi].role=role;
         break;
       }
     }
@@ -125,7 +125,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
           $scope.forummembers.splice(ix,1);
         }
         forum.role=null;
-        set_role(forum.forum,null);
+        $scope.set_role(forum.forum,null);
       } else {
         alert(status.error);
       }
@@ -143,8 +143,9 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
           "role":$scope.newforummember.role,
           "forum":$scope.newforummember.forum.forum,
           "name":$scope.newforummember.member.name
-        }
-                                );
+        }                                );
+      } else if (status.status =='warning') {
+        alert("! "+status.warning);
       } else {
         alert(status.error);
       }

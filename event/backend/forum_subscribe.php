@@ -19,6 +19,7 @@ if ($stmt = $rodb->prepare(
          WHERE 
            forum.name=? AND
            MemberId=?
+     ON DUPLICATE KEY UPDATE role='member'
          ")) {
     $stmt->bind_param(
         'ss',
