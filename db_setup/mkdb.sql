@@ -639,6 +639,7 @@ CREATE TABLE forum_subscription (
 );
 
 CREATE TABLE forum_message (
+  id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
   member_from  INTEGER,
   created    DATETIME,
   forum      VARCHAR(255),
@@ -662,7 +663,7 @@ CREATE TABLE forum_file (
 );
 
 CREATE TABLE event_message (
-  id         INTEGER  NOT NULL AUTO_INCREMENT,
+  id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
   member_from  INTEGER,
   created    DATETIME,
   event      INTEGER,

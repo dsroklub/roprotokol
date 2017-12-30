@@ -7,6 +7,7 @@ angular.module('eventApp').controller(
 function noRight ($scope, $routeParams, LoginService, filter, ngDialog, orderBy,$log) {
   $scope.loginstatus= "";
   $scope.current_user=null;
+  $scope.gitrevision=gitrevision;
   $scope.logout = function() {
     LoginService.logout();;
   }

@@ -121,12 +121,13 @@ function post_forum_message($forum,$subject,$message) {
 
     $toEmails=array();
     while ($rower = $result->fetch_assoc()) {
-        error_log(print_r($rower,true));
+        error_log("pfmail -> " . print_r($rower,true));
         $toEmails[] = $rower['email'];
     }
     $result->free();
-    $res=post_message($toEmails,$subject,$message . "\nSendt fra DSR aftaler, Forum: $forum");
 
+
+    $msgid="error";
     if ($stmt = $rodb->prepare(
         "INSERT INTO forum_message(member_from, forum, created, subject, message)
          SELECT mf.id,?,NOW(),?,?
@@ -150,6 +151,7 @@ function post_forum_message($forum,$subject,$message) {
             error_log("forum send insert db $error");
         } 
     }
+    $res=post_message($toEmails,$subject,$message . "\n\nSendt fra DSR aftaler\nhttps://aftaler.danskestudentersroklub.dk/\nForum: $forum\nhttps://aftaler.danskestudentersroklub.dk/frontend/event/message/?message=$msgid");
     invalidate("message");   
     return $res;    
 }

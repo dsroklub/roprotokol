@@ -12,7 +12,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-error_log("EVENTCREATE NEWEVENT user=$cuser: ".print_r($newevent,true));
+// error_log("EVENTCREATE NEWEVENT user=$cuser: ".print_r($newevent,true));
 if ($stmt = $rodb->prepare(
         "INSERT INTO event(owner, boats, start_time, end_time, distance, max_participants, location, name, category, comment,open,auto_administer,destination)
          SELECT Member.id, ?,CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,?,?,?,? 

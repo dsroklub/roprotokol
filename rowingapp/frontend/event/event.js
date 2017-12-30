@@ -41,6 +41,10 @@ angular.module('eventApp', [
       templateUrl: 'templates/eventcreate.html',
       controller: 'eventCtrl'
 	});
+    $routeProvider.when('/!#message/:message', {
+      templateUrl: 'templates/message.html',
+      controller: 'eventCtrl'
+	});
     $routeProvider.when('/message/', {
       templateUrl: 'templates/message.html',
       controller: 'eventCtrl'

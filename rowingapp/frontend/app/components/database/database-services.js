@@ -245,7 +245,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       }
       
       var doreload=false;
-      $log.log("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
+      // $log.log("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
 	if ((!ds[tp] ||  !(tp in datastatus) || datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
           $log.log("  inval "+tp); // NEL

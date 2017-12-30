@@ -20,6 +20,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
   $scope.subscription={};
   $scope.newforum={"is_public":true,"is_open":true,"owner_subscribe":true};
   $scope.eventarg=$routeParams.event;
+  $scope.messagearg=$routeParams.message;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
   $scope.dateOptions = {
@@ -73,7 +74,19 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
       for (var i=0; i<$scope.events.length; i++){
 	if ($scope.events[i].event_id==$scope.eventarg) {
 	  $scope.setCurrentEvent($scope.events[i]);
+          break;
 	  $log.debug("found currentevent");
+	}
+      }
+    }
+
+    if ($scope.messagearg) {
+      $log.debug("look for event "+$scope.messagearg);
+      for (var i=0; i<$scope.messages.length; i++){
+	if ($scope.messages[i].msgid==$scope.messagearg) {
+	  $scope.setCurrentMessage($scope.messages[i]);
+          break;
+	  $log.debug("found current message");
 	}
       }
     }
