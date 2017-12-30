@@ -151,7 +151,7 @@ function post_forum_message($forum,$subject,$message) {
             $message=$message."\n"."forum message DB error: ".mysqli_error($rodb);
         } 
     }
-    $res=post_message($toEmails,$subject,$message . "\n\nSendt fra DSR aftaler\nhttps://aftaler.danskestudentersroklub.dk/\nForum: $forum\nhttps://aftaler.danskestudentersroklub.dk/frontend/event/#!message/?message=$msgid");
+    $res=post_message($toEmails,$subject,$message . "\n\nSendt fra DSR aftaler\nhttps://aftaler.danskestudentersroklub.dk/\nForum: $forum\nhttps://aftaler.danskestudentersroklub.dk/frontend/event/#!message/?message=f$msgid");
     invalidate("message");   
     return $res;    
 }
