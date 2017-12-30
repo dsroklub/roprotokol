@@ -15,7 +15,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-if (check_forum_owner($forum)) {
+if (check_forum_owner($forum->forum)) {
     if ($stmt = $rodb->prepare(
         "UPDATE forum
          SET is_public= NOT is_public

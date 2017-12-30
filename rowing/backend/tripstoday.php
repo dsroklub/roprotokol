@@ -3,9 +3,20 @@ include("inc/common.php");
 include("inc/utils.php");
 
 
-$s="SELECT Trip.id, TripType.Name AS triptype, Boat.Name AS boat, Trip.Destination as destination, 
-     DATE_FORMAT(Trip.InTime,'%Y-%m-%dT%T') as intime,DATE_FORMAT(Trip.OutTime,'%Y-%m-%dT%T') as outtime, DATE_FORMAT(Trip.ExpectedIn,'%Y-%m-%dT%T') as expectedintime,
-     GROUP_CONCAT(Member.MemberID,':§§:', Concat(Member.FirstName,' ',Member.LastName) ORDER BY Seat SEPARATOR '££') AS rowers 
+// TODO when we can use Mysql 8 replace with JSON_ARRAYAGG etc
+$s="SELECT JSON_MERGE(
+    JSON_OBJECT(
+     'id',Trip.id, 
+      'triptype', TripType.Name, 
+      'boat',Boat.Name,
+      'destination',Trip.Destination, 
+      'intime',DATE_FORMAT(Trip.InTime,'%Y-%m-%dT%T'),
+      'outtime',DATE_FORMAT(Trip.OutTime,'%Y-%m-%dT%T'),
+      'expectedintime', DATE_FORMAT(Trip.ExpectedIn,'%Y-%m-%dT%T')
+     ),
+   CONCAT('{\"rowers\" : [',
+     GROUP_CONCAT(JSON_OBJECT('member_id', Member.MemberID, 'name', CONCAT(Member.FirstName,' ',Member.LastName)) ORDER BY Seat),']}')
+) AS json
    FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  
    WHERE Boat.id=Trip.BoatID AND Trip.id=TripMember.TripID AND Trip.InTime IS NOT NULL AND TripType.id = Trip.TripTypeID  AND Trip.InTime  >= CURDATE() 
    GROUP BY Trip.id 
@@ -23,8 +34,7 @@ if ($stmt = $rodb->prepare($s)) {
      $first=1;
      while ($row = $result->fetch_assoc()) {
        if ($first) $first=0; else echo ',';
-       $row['rowers']=multifield_array($row['rowers'],["member_id","name"]);
-       echo json_encode($row,JSON_PRETTY_PRINT);
+       echo $row['json'];
      }
      echo ']';
 } else {

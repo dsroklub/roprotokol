@@ -7,7 +7,6 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   var boatstatistics=[];
   var databasesource=dbmode;
   var tx=null;
-  var debug=3;
   var cachedepend;
   var currentseason=new Date().getFullYear();
 
@@ -25,6 +24,15 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
 
   this.getDB = function (dataid) {
     return db[dataid];
+  }
+
+  var right2dk={"nothing":"here"};
+  var right2dkm={};
+  this.getRight2dk = function (r) {
+    return right2dk[r];
+  }
+  this.getRight2dkm = function (r) {
+    return right2dkm[r];
   }
 
   this.getData = function (dataid,arg,promises) {
@@ -111,12 +119,28 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     this.getData('triptypes',"",promises);
     this.getData('locations',"",promises);
     this.getData('boatkayakcategory',"",promises);
-    this.getData('memberrighttypes',"",promises);
     this.getData('boat_brand',"",promises);
     this.getData('boat_usages',"",promises);    
     this.getData('rights_subtype',"",promises);
     this.getData('stats/trip_stat_year',"",promises);
     
+    if(!valid['memberrighttypes']) {
+      var rq=$q.defer();
+      $http.get(toURL('memberrighttypes.php')).then(function(response) {
+        var rights=response.data;
+        right2dk = {};
+        right2dkm = {};
+        db['memberrighttypes']= rights;
+        for (var i=0;i<rights.length;i++) {
+          var r=rights[i];
+          right2dk[r.member_right] = r.showname;
+          right2dkm[r.member_right] = r.predicate;
+        }
+	valid['memberrighttypes']=true;
+        rq.resolve(true);
+      });
+    }
+
     if(!valid['rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);
@@ -190,6 +214,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     }
     defaultLocation = 'DSR';
     cachedepend={
+      'admin':[,'memberrighttypes'],
       'reservation':['reservation','boat'],
       'boat':['boats','boatdamages','availableboats','reservations','boat_status','boat_usages','boat_status','get_events'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
@@ -547,18 +572,6 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     return 1;
   };
 
-  this.mergeArray = function (array1,array2) {
-    var ra={}
-    if (array1) 
-      for(var item in array1) {
-	ra[item] = array1[item];
-      }
-    if (array2)
-      for(var item in array2) {
-	ra[item] = array2[item];
-      }
-    return ra;
-  }
 
   this.client_name =function () {
     var clientname="terminal";
@@ -578,25 +591,6 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       alert("det mislykkedes at sende nyt password");
     });
   }
-
-  var right2dk;
-  var right2dkm;
-  
-  var make_rights = function(){
-    if (! (right2dkm && right2dk)) {
-      var rights = getDB('memberrighttypes');
-      if (rights && rights.length) {
-        right2dk = {};
-        right2dkm = {};        
-        for (var i = 0; i < rights.length; i++) {
-          var r = rights[i];
-          right2dk[r.member_right] = r.showname;
-          right2dkm[r.member_right] = r.predicate;
-        }
-      }
-    }
-  }
-
   
   /// The rest is just for testing
   this.test = function(src) {

@@ -23,6 +23,7 @@ angular.
     'rowApp.utilities.subjecttodk',
     'rowApp.utilities.rightreqs',
     'rowApp.utilities.righttodk',
+    'rowApp.utilities.argrighttodk',
     'ngSanitize',
     'ui.bootstrap',
     'ui.select',

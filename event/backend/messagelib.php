@@ -8,6 +8,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
 function post_message($toEmails,$subject,$message) {
     global $rodb;
+//    error_log("post message $toEmail, $subject\n$message");
     $res=array ("status" => "ok");
     $error=null;
     $warning=null;
@@ -77,7 +78,6 @@ function post_event_message($eventId,$subject,$message) {
             $subject,
             $message,
             $cuser) ||  die("create event message BIND errro ".mysqli_error($rodb));        
-        error_log("NOW EV EXE");
         if (!$stmt->execute()) {
             $error=" message event error ".mysqli_error($rodb);
             error_log($error);
@@ -125,7 +125,7 @@ function post_forum_message($forum,$subject,$message) {
         $toEmails[] = $rower['email'];
     }
     $result->free();
-    $res=post_message($toEmails,$subject,$message);
+    $res=post_message($toEmails,$subject,$message . "\nSendt fra DSR aftaler, Forum: $forum");
 
     if ($stmt = $rodb->prepare(
         "INSERT INTO forum_message(member_from, forum, created, subject, message)

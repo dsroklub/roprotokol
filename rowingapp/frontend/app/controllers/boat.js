@@ -85,21 +85,21 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     
     if ($scope.reuse) {
       var reusetrip=DatabaseService.closeForm('trip/reuseopentrip',{'reusetrip':$scope.reuse},'trip');
-      reusetrip.promise.then(function(status) {
-        if (status.reuse && status.reuse.id) {
-          $scope.checkout.triptype=DatabaseService.getTriptypeWithID(status.reuse.triptype_id);
-          $scope.checkout.destination=$scope.get_destination(status.reuse.destination);
+      reusetrip.promise.then(function(reuse) {
+        if (reuse.id) {
+          $scope.checkout.triptype=DatabaseService.getTriptypeWithID(reuse.triptype_id);
+          $scope.checkout.destination=$scope.get_destination(reuse.destination);
           $scope.checkoutForm.checkout_destination.$setDirty();
           $scope.checkout.distance=$scope.checkout.destination.distance;
-          $scope.checkout.boat=DatabaseService.getBoatWithId(status.reuse.boat_id);
-          $scope.checkout.comments=status.reuse.comment;
-          $scope.checkout.starttime=new Date(status.reuse.outtime);
-          $scope.checkout.expectedtime=new Date(status.reuse.expectedintime);
+          $scope.checkout.boat=DatabaseService.getBoatWithId(reuse.boat_id);
+          $scope.checkout.comments=reuse.comment;
+          $scope.checkout.starttime=new Date(reuse.outtime);
+          $scope.checkout.expectedtime=new Date(reuse.expectedintime);
           $scope.checkout.expectedtime_dirty=1;             
           $scope.selectedBoatCategory=DatabaseService.getBoatTypeWithName($scope.checkout.boat.category);
           $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.checkout.boat.category);
           $scope.checkout.rowers=[];
-          angular.forEach(status.reuse.rowers,function(kv) {
+          angular.forEach(reuse.rowers,function(kv) {
             $scope.checkout.rowers.push(DatabaseService.getRower(kv.member_id));
           }
                          );
@@ -158,7 +158,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     }
     var tripRequirements=($scope.checkout.triptype)?$scope.checkout.triptype.rights:[];
     var boatRequirements=($scope.selectedBoatCategory)?$scope.selectedBoatCategory.rights:[];
-    var reqs=DatabaseService.mergeArray(tripRequirements,boatRequirements);
+    var reqs=tripRequirements.concat(boatRequirements);
     var norights=[];
     var subright=null;
     
@@ -166,11 +166,11 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       subright=$scope.selectedBoatCategory.rights_subtype;
     }
     
-    angular.forEach(reqs, function(subject,rq) {
+    angular.forEach(reqs, function(r,k) {
+      var rq=r.required_right;
+      var subject=r.requirement;
       // console.log("check right "+rq);
-      if (rq=="findIndex") {
-	// ignore
-      } else if (subject='cox') {
+      if (subject='cox') {
         if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
           if (!(has_right(rq,subright,$scope.checkout.rowers[0].rights))) {
             norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));

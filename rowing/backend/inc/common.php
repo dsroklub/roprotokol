@@ -1,5 +1,5 @@
 <?php
-header('Content-type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 ini_set('default_charset', 'utf-8');
 ini_set('display_errors', 'Off');
 error_reporting(E_ALL);

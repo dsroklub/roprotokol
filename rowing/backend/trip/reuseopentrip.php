@@ -4,26 +4,35 @@ include("inc/common.php");
 include("inc/utils.php");
 
 $error=null;
-$res=array ("status" => "ok");
-$message="";
-error_log('close trip');
+$res=array ("status" => "error");
 $data = file_get_contents("php://input");
 $reuse=json_decode($data);
 
 $rodb->begin_transaction();
 error_log("reuse open trip ". $reuse->reusetrip);
 
-$s="SELECT Trip.id,
-           TripType.id as triptype_id,
-           TripType.Name AS triptype,
-           Boat.id as boat_id,
-           Boat.Name AS boat,
-           Trip.Destination as destination, 
-           Trip.InTime as intime,
-           DATE_FORMAT(CONVERT_TZ(Trip.OutTime,    'SYSTEM', '+0:00'), '%Y-%m-%dT%T.000Z') as outtime,
-           DATE_FORMAT(CONVERT_TZ(Trip.ExpectedIn, 'SYSTEM', '+0:00'), '%Y-%m-%dT%T.000Z') as expectedintime,
-           GROUP_CONCAT(Member.MemberID,':§§:', CONCAT(Member.FirstName,' ',Member.LastName) SEPARATOR '££') AS rowers,
-           MAX(Trip.Comment) as comment
+$s="SELECT JSON_MERGE(
+    JSON_OBJECT(
+    'id',Trip.id,
+    'status','OK',
+    'message','',
+    'triptype_id',TripType.id,
+    'triptype',  TripType.Name,
+    'boat_id',Boat.id,
+    'boat',Boat.Name,
+    'destination', Trip.Destination, 
+    'intime', Trip.InTime,
+    'outtime', DATE_FORMAT(CONVERT_TZ(Trip.OutTime,    'SYSTEM', '+0:00'), '%Y-%m-%dT%T.000Z'),
+    'expectedintime', DATE_FORMAT(CONVERT_TZ(Trip.ExpectedIn, 'SYSTEM', '+0:00'), '%Y-%m-%dT%T.000Z'),
+    'comment',  MAX(Trip.Comment)), 
+   CONCAT(
+     '{', JSON_QUOTE('rowers'),': [',
+     GROUP_CONCAT(JSON_OBJECT(
+       'member_id',Member.MemberID,
+       'name', CONCAT(Member.FirstName,' ',Member.LastName))),
+   ']}')
+   ) AS json
+
    FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  
    WHERE Boat.id=Trip.BoatID
      AND Trip.id=?
@@ -39,8 +48,8 @@ if ($stmt = $rodb->prepare("$s")) {
   $result= $stmt->get_result();
   if ($result) {
   	if ($row = $result->fetch_assoc()) {
-      $row['rowers']=multifield_array($row['rowers'],["member_id","name"]);
-      $res['reuse']=$row;
+      $okres=$row["json"];
+      error_log("reuse open trip json=". $row["json"]);
     } else {
     	$error = 'No such trip found';
     }
@@ -74,13 +83,13 @@ if ($error) {
 
 
 if ($error) {
+ http_response_code(500);
  $res['status']='error';
  $res['error']=$error;
+ json_encode($res,JSON_PRETTY_PRINT);
+ exit(-1);
 }
-$res['message']=$message;
-
 $rodb->commit();
 $rodb->close();
 invalidate('trip');
-echo json_encode($res,JSON_PRETTY_PRINT);
-?> 
+echo $okres;

@@ -1,15 +1,45 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
+//header('Content-type: application/json;charset=utf8');
+//header('Content-type: text/xx');
+//mb_internal_encoding("utf-8");
 
-$s="
-SELECT boats,event.status,event.id as event_id,event.open,owner_member.MemberId AS owner, 
-  CONCAT(owner_member.FirstName,' ',owner_member.LastName) as owner_name,
-  event.name,event.destination, BoatCategory.Name as boat_category, 
-  event.category as event_category,
-  DATE_FORMAT(start_time,'%Y-%m-%dT%T') as start_time,DATE_FORMAT(end_time,'%Y-%m-%dT%T') as end_time, distance, 
-  TripType.Name as trip_type, max_participants, location, comment,
-  GROUP_CONCAT(CONCAT(em.FirstName,' ',em.LastName),':§§:',em.MemberId,':§§:', IFNULL(mc.iscox,0),':§§:', IFNULL(mlc.islongcox,0), ':§§:', event_member.role, ':§§:',DATE_FORMAT(event_member.enter_time,'%Y-%m-%dT%T') SEPARATOR '££') AS participants
+
+//echo  chr(239) . chr(187) . chr(191);
+$s="SELECT JSON_MERGE(
+    JSON_OBJECT(
+     'boats',boats,
+     'status',event.status,
+     'event_id', event.id,
+     'open',event.open,
+     'event_category',event.category,
+     'owner',owner_member.MemberId,
+     'name',event.name,
+     'destination',event.destination, 
+     'start_time',DATE_FORMAT(start_time,'%Y-%m-%dT%T'),
+     'end_time',DATE_FORMAT(end_time,'%Y-%m-%dT%T'),
+     'boat_category',BoatCategory.Name,
+     'trip_type',TripType.Name, 
+     'max_participants',max_participants,
+     'location',location,
+     'comment',comment,
+     'distance',distance,
+     'owner_name',CONCAT(owner_member.FirstName,' ',owner_member.LastName)
+),
+   CONCAT(
+    '{', JSON_QUOTE('participants'),': [',
+       GROUP_CONCAT(JSON_OBJECT(
+       'name',CONCAT(em.FirstName,' ',em.LastName),
+       'member_id',em.MemberId,
+       'is_cox', IFNULL(mc.iscox,0), 
+       'is_long_cox',IFNULL(mlc.islongcox,0),
+       'role', event_member.role,
+       'enter_time',DATE_FORMAT(event_member.enter_time,'%Y-%m-%dT%T')
+       )
+     ),
+   ']}')
+   ) AS json
   FROM 
     Member owner_member, 
           event 
@@ -21,18 +51,16 @@ SELECT boats,event.status,event.id as event_id,event.open,owner_member.MemberId 
        LEFT JOIN Member em ON em.id=event_member.member
 
    WHERE owner_member.id=event.owner AND event.end_time >= NOW()
-      GROUP BY owner,start_time,event_id
+      GROUP BY owner,start_time,event.id
 ";
 
 $result=$rodb->query($s);
-
 if ($result) {
     echo '[';
     $first=1;
     while ($row = $result->fetch_assoc()) {
-        if ($first) $first=0; else echo ',';	  
-        $row['participants']=multifield_array($row['participants'],["name","member_id","is_cox","is_long_cox","role","enter_time"]);
-        echo json_encode($row,JSON_PRETTY_PRINT);
+        if ($first) $first=0; else echo ",\n";	  
+  	    echo $row['json'];
     }
     echo ']';
 } else {

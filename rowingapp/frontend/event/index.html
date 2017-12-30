@@ -4,13 +4,19 @@
 <!--[if IE 8]>         <html lang="en" ng-app="eventApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="eventApp" class="no-js"> <!--<![endif]-->
 <head>
-  <base href="/front23/event/">
+  <base href="/front27/event/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>DSR roaftaler</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png"  href="media/ico.png" />
+  <script>
+   if (window.location.pathname.startsWith('/frontend/')) {
+     var frontend=document.getElementsByTagName('base')[0].href.split('/')[3];    
+     window.location.pathname=window.location.pathname.replace('/frontend/','/'+frontend+'/');
+   }    
+  </script>
 
   <link rel="stylesheet" href="../app/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../app/bower_components/angular-ui-select/dist/select.min.css">
@@ -47,9 +53,7 @@
   <script src="../dsrcommon/components/utilities/transformkm.js"></script>
   <script src="../dsrcommon/components/utilities/safefilename.js"></script>
   <script src="../dsrcommon/components/utilities/mtokm.js"></script>
-
-  <script>var dbmode='real';
-  </script>
+  <script src="../dsrcommon/components/utilities/urlencode.js"></script>
   <script src="../../public/js/gitrevision.js"></script>
   <script src="components/database/login-services.js"></script>
   <script src="event.js"></script>
@@ -58,6 +62,7 @@
   <script src="controllers/menu.js"></script>
   <script src="components/database/database-directives.js"></script>
   <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
+  <!--script src="../dsrcommon/controllers/main.js"></script-->
 </head>
 <body>
 
@@ -89,7 +94,7 @@
       <li ng-class="{topsel: activePath=='/about/'}"><a href="about/"><i class="fa fa-info-circle"></i>Om</a></li>      
     </ul>
   </div>
-<div class="main" ng-init="databasesource=real">
+<div class="main">
   <div ng-view></div>
   </div>
 

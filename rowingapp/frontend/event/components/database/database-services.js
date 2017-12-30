@@ -8,6 +8,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   var cachedepend;
   var datastatus={};
 
+  
   function toURL(service){
       return '/backend/'+service;
   }
@@ -22,10 +23,11 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
 
   this.getData = function (dataid,promises) {
     if(!valid[dataid] || !db[dataid]) {
-      console.log("     INVALID: " + dataid);
+//      console.log("     INVALID: " + dataid);
       var dq=$q.defer();
       promises.push(dq.promise);
-      $http.get(toURL(dataid+'.php')).then(function onSuccess (response) {
+      //      $http.get(toURL(dataid+'.php'),{headers:{"X-Force-Content-Type":"application/json; charset=UTF-8"}}).then(function onSuccess (response) {
+      $http.get(toURL(dataid+'.php'),{}).then(function onSuccess (response) {
         db[dataid] = response.data;
 	valid[dataid]=true;
         dq.resolve(dataid);
@@ -82,7 +84,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
       valid[subtp]=false;
-      console.log("   now inval: "+subtp + " because: "+tp);
     }
   };
 
@@ -130,7 +131,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       }
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-          console.log("  doinvalidate "+tp);
+          // $log->debug("  doinvalidate "+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
