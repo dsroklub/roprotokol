@@ -77,7 +77,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
 	}
       }
     }
-    $log.debug("events set user " + $scope.current_user);
+    // $log.debug("events set user " + $scope.current_user);
     LoginService.set_user($scope.current_user);
   });
   
@@ -451,8 +451,8 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
     }
   }
 
-  $scope.burl=$location.$$absUrl.split("message/")[0]; // FXIME
-  console.log($scope.burl);
+  $scope.burl=$location.$$absUrl.split("message/")[0]; // FIXME
+ // $log.debug("burl="+$scope.burl);
 
   $scope.member_setting_update = function() {
     var sr=DatabaseService.createSubmit("member_setting_update",$scope.member_setting);

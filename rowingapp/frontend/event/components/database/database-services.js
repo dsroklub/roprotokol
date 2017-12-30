@@ -84,7 +84,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
       valid[subtp]=false;
-//      console.log("   now inval: "+subtp + " because: "+tp);
     }
   };
 
@@ -132,7 +131,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       }
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-          console.log("  doinvalidate "+tp);
+          // $log->debug("  doinvalidate "+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}

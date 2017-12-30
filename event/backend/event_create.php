@@ -103,8 +103,8 @@ if (empty($error)) {
     
 // Now Store message
 $subject="Invitation til $newevent->name";
-$emailbody="Invitation til http://aftaler/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
-$body="Invitation til http://aftaler/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
+$emailbody="Invitation til https://aftaler.danskestudentersroklub.dk/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
+$body="Invitation til https://aftaler.danskestudentersroklub.dk/frontend/event/#!timeline?event=$event_id " . $newevent->comment;
 if ($stmt = $rodb->prepare(
         "INSERT INTO event_message(member_from, event, created, subject, message)
          SELECT mf.id, ?,NOW(),?,?
