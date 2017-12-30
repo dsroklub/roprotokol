@@ -542,7 +542,7 @@ CREATE TABLE cox_log (
 --- Events
 
 CREATE TABLE event_category (
-  name                   VARCHAR(255),
+  name                   VARCHAR(255) PRIMARY KEY,
   description            VARCHAR(255),
   priority               INTEGER
 );
