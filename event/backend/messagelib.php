@@ -142,16 +142,16 @@ function post_forum_message($forum,$subject,$message) {
             $cuser) ||  die("create forum message BIND errro ".mysqli_error($rodb));
         
         error_log("NOW EXE");
-        if (!$stmt->execute()) {
+        if ($stmt->execute()) {            
+            $msgid=$rodb->query("SELECT LAST_INSERT_ID() AS msgid")->fetch_assoc()["msgid"];                
+            error_log("got msgid $msgid");
+        } else {
             $error=" message forum error ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."forum message DB error: ".mysqli_error($rodb);
-        } else {
-            $error=$rodb->error;
-            error_log("forum send insert db $error");
         } 
     }
-    $res=post_message($toEmails,$subject,$message . "\n\nSendt fra DSR aftaler\nhttps://aftaler.danskestudentersroklub.dk/\nForum: $forum\nhttps://aftaler.danskestudentersroklub.dk/frontend/event/message/?message=$msgid");
+    $res=post_message($toEmails,$subject,$message . "\n\nSendt fra DSR aftaler\nhttps://aftaler.danskestudentersroklub.dk/\nForum: $forum\nhttps://aftaler.danskestudentersroklub.dk/frontend/event/#!message/?message=$msgid");
     invalidate("message");   
     return $res;    
 }
