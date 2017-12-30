@@ -48,5 +48,3 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 } else {
     echo '{"id":"0","name":"Ikke logget ind"}';
 }
-
-?>
