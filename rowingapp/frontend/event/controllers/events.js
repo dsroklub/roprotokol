@@ -356,7 +356,6 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
         $scope.message={};
       }
       if (status.status == 'warning') {
-
         alert(status.warning);
       }
     });
@@ -575,7 +574,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
     }
   };
   
-  $scope.forum_reply = function (message) {
+  $scope.forum_reply = function (message,el) {
     $scope.message.forum = $scope.fora.filter (function(f) {
       return (f['forum']==message.source );
     })[0];
@@ -586,8 +585,11 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
       $scope.message.subject = "re: "+$scope.message.subject;
     }
     $scope.message.old_body = message.sender + ":\n==\n"+message.body+"\n==\n";
-    $scope.message.body = message.sender + ":\n";
-    $anchorScroll('forum');
+    $anchorScroll('msgbody');
+    if (document.queryCommandSupported && document.queryCommandSupported('paste')) {
+      msgbody.focus();
+      var x=document.execCommand("paste",false,null);      
+    }
   }
   
   $scope.set_event_end = function () {
