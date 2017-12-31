@@ -9,7 +9,7 @@ function safefilename () {
         var et=elem.val();
         if (et==null) return;
         if (et.length === 0) return;
-        et=et.replace(/[^\.a-z0-9æøå#=:+\-@_]/gi, '').replace(/[.](?=.*[.])/g, "");
+        et=et.replace(/[^\. a-z0-9æøå#=:+\-@_]/gi, '').replace(' ','_').replace(/[.](?=.*[.])/g, "");
         elem.val(et);
         ngModel.$setViewValue(et.trim());
       }      
