@@ -170,7 +170,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       var rq=r.required_right;
       var subject=r.requirement;
       // console.log("check right "+rq);
-      if (subject='cox') {
+      if (rq == null) {
+        // Skip, we are waiting for Mysql Json AGG
+      } else if (subject='cox') {
         if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
           if (!(has_right(rq,subright,$scope.checkout.rowers[0].rights))) {
             norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));

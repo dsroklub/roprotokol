@@ -21,6 +21,7 @@ SQT
 ;
 // $s="SELECT TurTypeID as id, Navn as name FROM TurType ORDER BY id";
 
+if ($sqldebug) echo "$s\n";
 
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';
