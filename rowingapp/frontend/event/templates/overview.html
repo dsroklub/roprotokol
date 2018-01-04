@@ -1,0 +1,290 @@
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<h1 class="error" ng-hide="dbready || dbgrace">Henter data<br>vær tålmodig</h1>
+
+<table>
+  <thead>
+    <caption>Forum: </caption>
+  </thead>
+  <tr>
+    <td>
+      <select name="forum" id="forum" ng-model="current_forum"
+              ng-options="forum.forum for forum in fora ">
+      </select>
+      {{subscription.forum.open}}
+    </td>
+  </tr>
+</table>
+
+<div  class="leftlist">
+<table class="baselayout" >
+  <thead>
+    <tr>
+      <th>Navn</th>
+      <th>start</th>
+      <th>distance</th>
+      <th>til</th>
+      <th>åben</th>
+   </tr> 
+  </thead>
+  <tbody>
+    <tr ng-repeat="ev in events | filter: event_forum_match()" ng-click="setCurrentEvent(ev)"  ng-class="{selected: currentevent == ev}"
+        class="event" ng-class-odd="'odd'" ng-class-even="'even'">
+      <td ng-class="{iamin: is_event_member(ev)}"><span class="tooltiptext">Jeg deltager</span>{{ev.name}}</td>
+      <td>{{ev.start_time | date:"d. MMM yyyy"}}</td>
+      <td class="rnum">{{ev.distance|mtokm}} km</td>
+      <td>{{ev.destination}}</td>      
+      <td ng-show="ev.open">åben</td>
+      <td ng-hide="ev.open">lukket</td>
+      <td ng-if="ev.owner==current_user.member_id">
+        <pre class=user><i uib-tooltip="du styrer denne begivenhed" class="fa fa-user"></i></pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+<div ng-show="currentevent" class="eventdetails anchor" id="currenteventbox" name="currenteventbox">
+  <table>
+    <caption> Begivenhed {{currentevent.name}} </caption>
+    <tbody class="tbody">
+      <tr><th>starter</th><td>{{currentevent.start_time|date :"d-MMM-yyyy HH:mm"}}</td></tr>
+      <tr ng-if="currentevent.end_time"><th>slutter</th><td>{{currentevent.end_time|date :"d-MMM-yyyy HH:mm"}}</td></tr>
+      <tr ng-if="currentevent.max_participants"><th>max deltagere</th><td>{{currentevent.max_participants}}</td></tr>
+      <tr ng-if="currentevent.boat_category"><th>Vi ror i</th><td>{{currentevent.boat_category}}</td></tr>
+      <tr class="tripdescription" ng-if="currentevent.comment"><th>Beskrivelse</th><td>{{currentevent.comment}}</td></tr>
+      <tr class="owner" ng-hide="currentevent.open"><th>Ejer</th><td>{{currentevent.owner_name}}</td></tr>            
+      <tr><th>Hvor:</th><td>{{currentevent.location}}</td></tr>
+      <tr ng-show="currentevent.distance"><th>distance</th><td>{{currentevent.distance|mtokm}} km</td></tr>
+    </tbody>         
+  </table>
+
+  <button ng-hide="currentevent.open || is_event_member(currentevent)" class="green" ng-click="eventjoin('supplicant')">
+    Jeg vil med. Anmod om deltagelse
+  </button>
+  <button ng-show="currentevent.open && ! is_event_member(currentevent)" class="green"  ng-click="eventjoin('member')">
+    Jeg vil med. Tilmeld mig
+  </button>
+  <button class="green" ng-show="is_event_member(currentevent)" ng-click="eventleave()">
+    Frameld mig
+  </button>
+  <br>
+  <div ng-show="currentevent.owner==current_user.member_id" class="forowner">
+
+    <select ng-model="currentevent.status" ng-change="set_event_status(currentevent)">
+      <option value="on">Aktiv</option>
+      <option value="canceled">Aflyst</option>
+    </select>
+    
+    <h3>Tilføj rorere til din begivenhed</h3>
+    <input placeholder="tilføj medlem" autocomplete="off" id="neweventmemberinput" name="neweventmember.member" type="text"
+           ng-model="neweventmember.member"
+           typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+           typeahead-template-url="memberTemplate.html" required />
+    
+    <select name="role" id="role" ng-model="neweventmember.role" ng-options="role.name as role.description for role in eventroles" ng-init="neweventmember.role='member'">
+    </select>
+    
+    <i ng-show="neweventmember.member" ng-click="event_add_member()" class="fa fa-plus"></i>    
+    
+  </div>
+  <table>
+    <caption>
+      Deltagere
+    </caption>
+    <thead>
+      <tr><th>Navn</th><th>rolle</th></tr>
+    </thead>
+    <tbody class="tbody">
+      <tr ng-repeat="em in currentevent.participants">
+        <td>{{em.name}}
+          <i uib-tooltip="styrmand" ng-if="em.is_cox>0" class="fa fa-graduation-cap"></i>
+          <b uib-tooltip="langtursstyrmand" ng-if="em.is_long_cox>0"> L</b>
+        </td>
+        <td class="role">{{em.role}}</td>
+        <td ng-show='currentevent.owner==current_user.member_id'>
+          <i ng-click="accept_event_participant(em)" ng-show="em.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
+          <i ng-click="accept_event_participant(em)" ng-show="em.role=='wait'" uib-tooltip="optag roer fra ventelisten"
+             class="fa fa-plus"></i>
+          <i ng-hide="em.member_id==current_user.member_id" ng-click="event_remove_participant(em)"
+             uib-tooltip="fjern roer fra begivenhed" class="remove fa fa-minus"></i
+        </td>
+      </tr>      
+    </tbody>         
+  </table>
+
+  <table ng-if="currentevent.boats=='Inriggere'">
+    <caption>
+      <p>
+      {{crews.on_water}} kommer på vandet ({{crews.left_out}} kommer ikke med)
+      </p>
+      <p ng-if="crews.left_out>0">
+        <small>
+        Men måske kan i bruge <span ng-if="crews.rowers>3">Heimdal eller </span> en coastalbåd.
+        </small>
+      </p>
+    </caption>
+    <thead>
+      <tr><th>Toere</th><th>Firere</th></tr>
+    </thead>
+    <tbody class="tbody">
+      <tr ng-class-even="'even'" ng-class-odd="'odd'" ng-repeat="bc in crews.configurations">
+        <td>{{bc.i2}} </td>
+        <td>{{bc.i4}} </td>
+      </tr>      
+    </tbody>         
+  </table>
+
+</div>
+
+<h2>Forumbeskeder</h2>
+<input ng-model="messagefilter" type="text"><i class="fa fa-search"></i>
+<div>
+  <div class="messagelist">
+    <table class="baselayout" width="100%">
+      <thead>
+        <tr>
+          <th>Emne</th>
+          <th>Fra</th>
+          <th>Forum</th>
+          <th>Tid</th>
+          <th>Besked</th>
+        </tr> 
+     </thead>
+      <tbody>
+        <tr ng-repeat-start="message in messages | filter:{source:current_forum.forum} |filter:messagematch(messagefilter)"
+            ng-class="{selected: currentmessage == message}"
+            ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >          
+          <td>
+            <div ng-show="message.type=='forum'" >
+              <i class="fa fa-reply" ng-click=forum_reply(message)></i>
+              {{message.subject}}
+            </div>
+
+	    <div ng-show="message.type=='event'">
+              <a ng-show="message.current>0" href="{{burl}}#!timeline?event={{message.event}}" >
+              <i class="fa fa-link" ></i>
+            </a>
+              <i uib-tooltip="allerede afholdt" ng-show="message.current<1" class="fa fa-ban" ></i>
+	      {{message.subject}}
+	    </div>
+          </td>
+          <td>{{message.sender}}</td>
+          <td>
+            <i ng-show="message.type=='event'" uib-tooltip="en tur" class="fa fa-anchor" ></i>
+	    {{message.source}}
+	  </td>
+          <td>{{message.created |date:"d. MMM yyyy"}}</td>
+          <td>{{message.body |limitTo :20}}...</td>
+          <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
+        </tr>
+        <tr ng-repeat-end ng-if="currentmessage == message">
+          <td class="popempty"></td><td class="popdown" colspan="4"> <pre class="popdown" ng-bind=message.body></pre> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="leftlist">
+<h2>Filer</h2>
+<form name="upform">
+  <fieldset>
+    <table>
+      <tr>
+        <caption>Tilføj en fil til forum</caption>
+        <td>Fil</td>
+        <td><input type="file" ngf-validate="{size: {max: '5MB', min: '10B'}}"
+                   ngf-max-files="5" ng-change="file_selected()"
+                   ngf-select="" ng-model="forumfile.file" name="forumfile" ngf-accept="'*/*'">
+          <i ng-show="upform.forumfile.$error.required">* kræves</i>
+          <h1 ng-show="upform.$error.maxSize">Filen er for stor</h1>
+          <h1 ng-show="upform.$error.minSize">Filen er for lille</h1>
+        </td>
+      </tr>
+      <tr>
+        <td>forum:</td>
+        <td>
+          <select name="uploadforum" id="uploadforum" 
+                  ng-options="forum as forum.forum for forum in fora" ng-model="forumfile.forum" required>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Navn på fil:
+        </td>
+        <td>
+          <input type="text" safefilename name="fileName" ng-model="forumfile.filename" size="39" required
+                 title="filnavn: bogstaver, tal, #,-,_"
+                 pattern="[.a-zA-Z0-9_æøåÆØÅ#=:\+\-@]{1,100}">
+          </td>
+      </tr>
+      <tr>
+        <td>
+          folder:
+        </td>
+        <td>
+          <ui-select
+            reset-search-input="false"           
+            ng-model="forumfile.filefolder" 
+            pattern="[.a-zA-Z0-9_æøåÆØÅ# \-@/]{1,100}"
+            taggingLabel=false
+            >
+
+	    <ui-select-match placeholder="bogstaver, tal, #,-,_ kan ikke begynde med /">
+              {{forumfile.filefolder||"angiv folder"}}
+            </ui-select-match>
+	    <ui-select-choices repeat="ff in getfolders($select.search) | filter: $select.search ">
+              {{ff}}
+	    </ui-select-choices>
+          </ui-select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          udløber:
+        </td>
+        <td>
+          <input type="checkbox" ng-model="forumfile.notexpire" value="true"> Aldrig
+          <datetimepicker               
+               uib-tooltip="Udløbsdato"
+               popup="d MMM yyyy"
+               current-text="i dag"
+               close-text="vælg"
+               clear-text="rens"
+               date-format="yyyy-MM-dd"
+               hidden-time="true"
+               show-spinners="false"
+               date-options="dateOptions"
+               show-meridian="false"
+               ng-model="forumfile.expire"
+               >
+          </datetimepicker>
+        </td>
+      </tr>
+      <tr><td>
+        <button ng-disabled=" !upform.$valid ||  !forumfile.file || ( !forumfile.expire && !forumfile.notexpire)" ng-click="uploadFile(forumfile)" class="submit">Indsend fil</button>
+        <span class="progress" ng-show="forumfile.progress >= 0">
+          <div style="width:{{forumfile.progress}}%" ng-bind="forumfile.progress + '%'" class="ng-binding"></div>
+        </span>
+        <span ng-show="forumfile.result">Så er den på plads</span>
+        </td>
+      </tr>
+    </table>
+    <div ng-hide="forumfile.expire || forumfile.notexpire" class="alert">Angiv en udløbsdato</div>
+  </fieldset>
+</form>
+<div>
+<pre>
+  CF {{current_forum|json}}
+  event {{events|json}}
+</pre>

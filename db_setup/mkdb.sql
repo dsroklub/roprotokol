@@ -674,6 +674,15 @@ CREATE TABLE event_message (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE event_forum (
+  event      INTEGER,
+  forum      VARCHAR(255) NOT NULL,
+  FOREIGN KEY (forum)       REFERENCES forum(name) ON UPDATE CASCADE,
+  FOREIGN KEY (event)       REFERENCES event(id),
+  PRIMARY KEY (event,forum)
+);
+
+
 CREATE TABLE member_message (
  member  INTEGER,
  message INTEGER,

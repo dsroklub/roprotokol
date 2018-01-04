@@ -128,7 +128,16 @@ if ($stmt = $rodb->prepare(
 $iforas="";
 if (!empty($newevent->fora)) {
     $ifors=array();
+
+
     foreach ($newevent->fora as $forum) {
+        if ($stmt = $rodb->prepare("INSERT INTO event_forum(event,forum) VALUES(?,?)")) {
+            $stmt->bind_param('is',$event_id,$forum->forum);
+            if (!$stmt->execute()) {
+                $error=" event,forum error ".mysqli_error($rodb);
+                error_log($error);
+            }     
+        }        
         $ifora[]="'".sanestring("$forum->forum")."'";
     }
     $iforas=implode(",",$ifora);

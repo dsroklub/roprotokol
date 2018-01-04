@@ -28,6 +28,13 @@ $s="SELECT JSON_MERGE(
      'owner_name',CONCAT(owner_member.FirstName,' ',owner_member.LastName)
 ),
    CONCAT(
+    '{', JSON_QUOTE('fora'),': [',
+       GROUP_CONCAT(JSON_OBJECT(
+       'forum',event_forum.forum
+       )
+     ),
+   ']}'),
+   CONCAT(
     '{', JSON_QUOTE('participants'),': [',
        GROUP_CONCAT(JSON_OBJECT(
        'name',CONCAT(em.FirstName,' ',em.LastName),
@@ -49,6 +56,8 @@ $s="SELECT JSON_MERGE(
              LEFT JOIN (SELECT member_id, 1 as iscox from MemberRights WHERE MemberRight='cox') as mc ON mc.member_id=event_member.member
              LEFT JOIN (SELECT member_id, 1 as islongcox from MemberRights WHERE MemberRight='longdistance') as mlc ON mlc.member_id=event_member.member
        LEFT JOIN Member em ON em.id=event_member.member
+
+          LEFT JOIN event_forum ON event_forum.event=event.id 
 
    WHERE owner_member.id=event.owner AND event.end_time >= NOW()
       GROUP BY owner,start_time,event.id

@@ -37,6 +37,10 @@ angular.module('eventApp', [
       templateUrl: 'templates/forum.html',
       controller: 'eventCtrl'
 	});
+    $routeProvider.when('/overview/', {
+      templateUrl: 'templates/overview.html',
+      controller: 'eventCtrl'
+	});
     $routeProvider.when('/eventcreate/', {
       templateUrl: 'templates/eventcreate.html',
       controller: 'eventCtrl'

@@ -23,6 +23,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
   $scope.messagearg=$routeParams.message;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
+  $scope.current_forum={"forum":"uuu"};
   $scope.dateOptions = {
     showWeeks: false,
     minDate: $scope.min_time
@@ -587,6 +588,18 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
       return (forum.forum.match( new RegExp(forumfilter, 'i')));
     }
   };
+
+  $scope.event_forum_match = function () {
+    return function (event) {
+      for (var i=0;i<event.fora.length;i++) {
+        if (event.fora[i].forum==$scope.current_forum.forum) {
+          return true;
+        }
+      }
+      return false;
+    }
+  };
+
   
   $scope.forum_reply = function (message) {
     $scope.message.forum = $scope.fora.filter (function(f) {
