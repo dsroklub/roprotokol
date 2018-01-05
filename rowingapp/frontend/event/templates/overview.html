@@ -23,6 +23,17 @@
 
 <div ng-include="'templates/eventlist.html'" class="leftlist"></div>
 
+<div ng-if='message.body'>
+  <h2>Svar på en besked til {{message.forum.forum}}</h2>
+  <ng-form name="messageform">
+    <input class="forumselect " type="text" placeholder="emne" id="messagesubject" ng-model="message.subject" required>
+    <br>
+    <textarea class="forumselect msgbody" placeholder="besked" id="message_body" type="text" ng-model="message.body" required></textarea><br>
+    <button class="bodycopy" ng-show="message.old_body" ng-click="message.body=message.old_body">Indsæt tekst</button>
+    <button class="green forumselect" ng-disabled="!messageform.$valid" ng-click="messagesend()">Send svar</button>
+  </ng-form>
+</div>
+
 <div ng-include="'templates/messagelist.html'"></div>
 
 <table class="subscriptions">
