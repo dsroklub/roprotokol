@@ -12,51 +12,6 @@
 <button class="green forumselect" ng-disabled="!messageform.$valid" ng-click="messagesend()">Send besked</button>
 </ng-form>
 <h2>Mine Beskeder</h2>
-<input ng-model="messagefilter" type="text"><i class="fa fa-search"></i>
-<div>
-  <div class="messagelist">
-    <table class="baselayout" width="100%">
-      <thead>
-        <tr>
-          <th>Emne</th>
-          <th>Fra</th>
-          <th>Forum</th>
-          <th>Tid</th>
-          <th>Besked</th>
-        </tr> 
-     </thead>
-      <tbody>
-        <tr ng-repeat-start="message in messages | filter:messagematch(messagefilter)"
-            ng-class="{selected: currentmessage == message}"
-            ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >          
-          <td>
-            <div ng-show="message.type=='forum'" >
-              <i class="fa fa-reply" ng-click=forum_reply(message)></i>
-              {{message.subject}}
-            </div>
 
-	    <div ng-show="message.type=='event'">
-              <a ng-show="message.current>0" href="{{burl}}#!timeline?event={{message.event}}" >
-              <i class="fa fa-link" ></i>
-            </a>
-              <i uib-tooltip="allerede afholdt" ng-show="message.current<1" class="fa fa-ban" ></i>
-	      {{message.subject}}
-	    </div>
-          </td>
-          <td>{{message.sender}}</td>
-          <td>
-            <i ng-show="message.type=='event'" uib-tooltip="en tur" class="fa fa-anchor" ></i>
-	    {{message.source}}
-	  </td>
-          <td>{{message.created |date:"d. MMM yyyy"}}</td>
-          <td>{{message.body |limitTo :20}}...</td>
-          <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
-        </tr>
-        <tr ng-repeat-end ng-if="currentmessage == message">
-          <td class="popempty"></td><td class="popdown" colspan="4"> <pre class="popdown" ng-bind=message.body></pre> </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-  
+
+<div ng-include="'templates/messagelist.html'"></div>

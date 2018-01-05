@@ -23,7 +23,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
   $scope.messagearg=$routeParams.message;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
-  $scope.current_forum={"forum":"uuu"};
+  $scope.current_forum={"forum":null};
   $scope.dateOptions = {
     showWeeks: false,
     minDate: $scope.min_time
@@ -33,14 +33,17 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
     minDate: $scope.min_time
   };
   $scope.init = function() {
-    $scope.newevent={invitees:[]};
-    $scope.newevent.location="DSR";
-    $scope.newevent.max_participants="";
-    $scope.newevent.owner_in=1;
-    $scope.newevent.open=1;
-    $scope.newevent.automatic=1;
-    $scope.newevent.endtime_dirty=0;
+    $scope.newevent={
+      invitees:[],
+      "location":"DSR",
+      max_participants:"",
+      owner_in:1,
+      automatic:1,
+      endtime_dirty:0
+    }
+    $scope.neweventmember={};
   }
+  
   $scope.init();
   $scope.dbready=false;
   $scope.dbgrace=true;
@@ -179,7 +182,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
   }
   
   $scope.event_add_member = function(arg) {
-    if (!$scope.neweventmember) {
+    if (!$scope.neweventmember.role) {
       $scope.neweventmember.role="member";
     }
     $scope.neweventmember.event=$scope.currentevent;
@@ -412,6 +415,10 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
   }
   
   $scope.uploadFile = function(file) {
+    if ($scope.current_forum && !$scope.forumfile.forum) {
+      $scope.forumfile.forum=$scope.current_forum;
+    }
+    
     file.upload = UploadBase.upload({
       url: '/backend/event/file_upload.php',
       data: {
@@ -566,7 +573,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
 
   $scope.filematch = function (filefilter) {
     return function(file) {
-      if (!filefilter) {
+      if (!filefilter || filefilter=="") {
 	return true
       }
       return (
@@ -701,13 +708,15 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
   
   $scope.messagematch = function (messagefilter) {
     return function(message) {
-      if (!messagefilter) {
-	return true
-      }         
       return (
-	message.subject.match( new RegExp(messagefilter, 'i')) ||
-	  message.sender.match( new RegExp(messagefilter, 'i')) ||
-	  message.body.match( new RegExp(messagefilter, 'i')) 
+        (
+          !$scope.current_forum.forum || message.source == $scope.current_forum.forum
+        ) &&(
+          !messagefilter ||
+	    message.subject.match( new RegExp(messagefilter, 'i')) ||
+	    message.sender.match( new RegExp(messagefilter, 'i')) ||
+	    message.body.match( new RegExp(messagefilter, 'i'))
+          )
       );
     }
   };		 

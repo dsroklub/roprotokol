@@ -435,7 +435,7 @@ tr td {
  } 
 
 .messagelist {
-    float:left;
+    display:inline-block;
 }
 .rightcontainer {
     display:inline-block;
