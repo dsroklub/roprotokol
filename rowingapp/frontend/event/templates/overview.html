@@ -23,6 +23,10 @@
 
 <div ng-include="'templates/eventlist.html'" class="leftlist"></div>
 
+<br>
+<button ng-show="current_forum.forum" ng-click="do_event_create()">Opret ny begivennhed for {{current_forum.forum}} 
+</button>
+
 <div ng-if='message.body'>
   <h2>Svar på en besked til {{message.forum.forum}}</h2>
   <ng-form name="messageform">
@@ -38,15 +42,10 @@
 
 <table class="subscriptions">
   <thead>
-    <caption>{{current_forum.forum}} filer:</caption>
+    <caption>{{current_forum.forum}} filer:
+      <input ng-model="filefilter" class="filter" type="text"> <i class="fa fa-search"></i><i class="fa fa-eraser"  ng-click="filefilter=null"></i>
+</caption>
   </thead>
-  <tr>
-    <td>
-      <i class="fa fa-search"></i>
-      <input ng-model="filefilter" type="text">
-      <i class="fa fa-eraser"  ng-click="filefilter=null"></i>
-    </td>
-  </tr>
   <tr><th>folder</th><th>navn</th><th>MByte</th></tr>
   <tr ng-repeat="file in forum_files | filter:filematch(filefilter)"
       ng-show="file.forum==current_forum.forum"

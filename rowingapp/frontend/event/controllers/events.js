@@ -3,11 +3,11 @@
 
 angular.module('eventApp').controller(
   'eventCtrl',
-  ['$scope','$routeParams','DatabaseService','LoginService','$filter','ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
+  ['$scope','$routeParams','$route','DatabaseService','LoginService','$filter','ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','UploadBase',
    eventCtrl
   ]);
 
-function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
+function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
   $anchorScroll.yOffset = 50;
   $scope.teams=[];
   $scope.todpattern="[0-2]\\d:[0-5]\\d";
@@ -21,6 +21,7 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
   $scope.newforum={"is_public":true,"is_open":true,"owner_subscribe":true};
   $scope.eventarg=$routeParams.event;
   $scope.messagearg=$routeParams.message;
+  $scope.forumarg=$routeParams.forum;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
   $scope.current_forum={"forum":null};
@@ -35,12 +36,13 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
   $scope.init = function() {
     $scope.newevent={
       invitees:[],
+      fora:[],
       "location":"DSR",
       max_participants:"",
       owner_in:1,
       automatic:1,
       endtime_dirty:0
-    }
+    };
     $scope.neweventmember={};
   }
   
@@ -59,6 +61,16 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
     $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
     $scope.userfora=DatabaseService.getDB('event/userfora');
     $scope.fora=DatabaseService.getDB('event/fora');
+
+    if($scope.forumarg) {
+      for (var fi=0; fi<$scope.fora.length; fi++) {
+        if ($scope.fora[fi].forum==$scope.forumarg) {
+          $scope.newevent.fora.push($scope.fora[fi]);
+          break;
+        }
+      }
+    }
+
     $scope.messages=DatabaseService.getDB('event/messages');
     $scope.member_setting=DatabaseService.getDB('event/member_setting');
     $scope.eventcategories=DatabaseService.getDB('event/event_category');
@@ -706,16 +718,27 @@ function eventCtrl ($scope, $routeParams, DatabaseService, LoginService, $filter
     return flds;
   }
   
+
+  $scope.do_event_create = function () {
+    $location.url("/eventcreate/");   
+    $location.search({"forum":$scope.current_forum.forum});
+  }
+  
   $scope.messagematch = function (messagefilter) {
     return function(message) {
+      if (!messagefilter) {
+        mf=null;
+      } else {
+        var mf=messagefilter.toLowerCase();
+      }
       return (
         (
           !$scope.current_forum.forum || message.source == $scope.current_forum.forum
         ) &&(
           !messagefilter ||
-	    message.subject.match( new RegExp(messagefilter, 'i')) ||
-	    message.sender.match( new RegExp(messagefilter, 'i')) ||
-	    message.body.match( new RegExp(messagefilter, 'i'))
+	    message.subject.toLowerCase().indexOf(mf)>-1 ||
+	    message.sender.toLowerCase().indexOf(mf)>-1 ||
+	    message.body.toLowerCase().indexOf(mf)>-1
           )
       );
     }

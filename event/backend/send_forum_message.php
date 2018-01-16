@@ -8,7 +8,7 @@ error_log("data: $data");
 $msg=json_decode($data);
 
 $toEmails=array();
-error_log("forum: " . $msg->forum->forum);
+error_log("send forum message: " . $msg->forum->forum);
 
 $res=post_forum_message($msg->forum->forum, $msg->subject,  $msg->body);
 echo json_encode($res);

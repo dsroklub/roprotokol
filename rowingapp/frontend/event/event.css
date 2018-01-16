@@ -102,7 +102,16 @@ td.usage {
 input {
   max-width:50em;
   //        background: ghostwhite;
-    background: #fffed5;
+        background: #fffed5;
+        color: black;
+}
+
+
+input.filter {
+  border-radius: 5px;
+  max-width:40em;
+  background: #fffed5;
+  color: black;
 }
 
 fieldset {

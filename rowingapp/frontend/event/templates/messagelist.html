@@ -1,8 +1,8 @@
-<input ng-model="messagefilter" type="text"><i class="fa fa-search"></i>
 <div>
   <div class="messagelist">
     <table class="baselayout" width="100%">
-    <caption>{{current_forum.forum}} beskeder</caption>
+      <caption>{{current_forum.forum}} beskeder <input class="filter" ng-model="messagefilter" type="text"><i class="fa fa-search"></i>
+      </caption>
       <thead>
         <tr>
           <th>Emne</th>
