@@ -29,10 +29,10 @@ if (! preg_match("/^\d\d\-\d\d$/", $cut_date)) {
 
 function get_cut($year, $date=null, $offset=null) {
   global $cut_date, $cut_year_offset;
-  if ($date) {
+  if (!$date) {
     $date = $cut_date;
   }
-  if ($offset) {
+  if (!$offset) {
     $offset = $cut_year_offset;
   }
 
@@ -107,7 +107,6 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 
     $step = 'stats';
     $s = "select Gender as gender, count(*) as count, avg(datediff(JoinDate, Birthday)/365) as age FROM Member WHERE " . $joindate_where . " GROUP BY gender";
-error_log($step . $y . ": " . $s);
     $r = $rodb->query($s);
     if ($r) {
        $res[$table][$y]['total'] = ['count' => 0]; 
@@ -157,7 +156,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     $r = $rodb->query($s);
     if ($r) {
        $count = $r->fetch_row()[0];
-       $res[$table][$y][$step] = [ 'count' => $count, 'percentage' => round(100 * $count / $incoming, 0) ];
+       $res[$table][$y][$step] = [ 'count' => $count, 'percentage' => round(($incoming ? 100 * $count / $incoming : 0), 0) ];
     } else {
       make_error();
       goto end;
@@ -173,7 +172,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
       $r = $rodb->query($s);
       if ($r) {
         $count = $r->fetch_row()[0];
-        $res[$table][$y][$step] = [ 'count' => $count, 'percentage' => round(100 * $count / $incoming, 0) ];
+        $res[$table][$y][$step] = [ 'count' => $count, 'percentage' => round(($incoming ? 100 * $count / $incoming : 0), 0) ];
       } else {
         make_error();
         goto end;
@@ -231,7 +230,6 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                         INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
                         WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
                           AND DATE(Trip.OutTime) < '" .  $to_cut . "'
-                          AND BoatType.Category=2
                           AND Trip.TripTypeID " . $condition . "
                        GROUP BY MemberID
                       ) t ON (t.MemberID = Member.id)
@@ -342,7 +340,6 @@ for ($y = $from_year; $y <= $to_year; $y++) {
           WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
           GROUP BY BoatType.Category, TripType.id
           ORDER BY boatCat, triptype";
-    error_log("YRR\n$s\n\n");
     $r = $rodb->query($s);
     if ($r) {
        $total = 0;
@@ -413,7 +410,11 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     if ($r) {
        $res[$table][$y]['total'] = [];
        $res[$table][$y]['total']['count'] = $r->fetch_row()[0];
-       $res[$table][$y]['total']['percentage'] = round(100 * $res[$table][$y]['total']['count'] / $res['members'][$y]['during'], 0);
+       if ($res['members'][$y]['during']) {
+       	  $res[$table][$y]['total']['percentage'] = round(100 * $res[$table][$y]['total']['count'] / $res['members'][$y]['during'], 0);
+       } else {
+       	  $res[$table][$y]['total']['percentage'] = 0;
+       }
     } else {
       make_error();
       goto end;
@@ -484,7 +485,7 @@ $s = "SELECT Member.MemberID as member_no,
         AND TripMember.Seat=1
         AND Trip.TripTypeID IN (5)
         AND Boat.BoatType IN (1,2)
-      GROUP BY TripMember.member_id,TripMember.MemberName
+      GROUP BY TripMember.member_id, IFNULL(TripMember.MemberName, CONCAT(Member.FirstName, ' ', Member.LastName))
       ORDER BY trips DESC, name ASC";
 
 $r = $rodb->query($s);
