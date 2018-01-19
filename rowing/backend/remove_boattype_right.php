@@ -10,8 +10,8 @@ $data=json_decode($data);
 $rodb->begin_transaction();
 error_log('remove right '.json_encode($data));
 
-if ($stmt = $rodb->prepare("DELETE FROM BoatRights WHERE boat_type=? AND required_right=?")) {
-    $stmt->bind_param('is', $data->boattype->id,$data->right);
+if ($stmt = $rodb->prepare("DELETE FROM BoatRights WHERE boat_type=? AND required_right=? AND requirement=?")) {
+    $stmt->bind_param('iss', $data->boattype->id,$data->right->required_right,$data->right->requirement);
     $stmt->execute();
 } else {
     error_log('OOOP'.$rodb->error);

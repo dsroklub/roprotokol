@@ -1,6 +1,4 @@
 <?php
-
-set_include_path(get_include_path().':/');
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
@@ -24,7 +22,6 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
      authentication 
     WHERE Member.MemberId=? AND authentication.member_id=Member.id
   ";
-
     if ($stmt = $rodb->prepare($s)) {
         $stmt->bind_param('ss',
             $config['secret'],

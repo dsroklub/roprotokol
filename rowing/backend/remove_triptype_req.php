@@ -11,8 +11,8 @@ $data=json_decode($data);
 $rodb->begin_transaction();
 error_log('remove right '.json_encode($data));
 
-if ($stmt = $rodb->prepare("DELETE FROM TripRights WHERE trip_type=? AND required_right=?")) {
-    $stmt->bind_param('is', $data->triptype->id,$data->right);
+if ($stmt = $rodb->prepare("DELETE FROM TripRights WHERE trip_type=? AND required_right=? AND requirement=?")) {
+    $stmt->bind_param('iss', $data->triptype->id,$data->right->required_right,$data->right->requirement);
     $stmt->execute();
 } else {
     error_log('OOOP'.$rodb->error);

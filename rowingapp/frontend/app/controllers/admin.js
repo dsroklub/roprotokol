@@ -66,7 +66,8 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   $scope.reservations=[];
   $scope.reservation={};
   $scope.errortrips=[];
-
+  $scope.trip={};
+  
   DatabaseService.init({"boat":true,"member":true, "trip":true,"reservation":true}).then(function () {
     $scope.currentrower=null;
     $scope.do="events";
@@ -275,7 +276,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       data.boattype=$scope.currentboattype;
       var exeres=DatabaseService.updateDB('add_boattype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          existing_rights[data.right]=data.subject;
+          existing_rights.push({"requirement":data.right, "required":data.subject});
         }
       });
     }
@@ -291,7 +292,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     
     $scope.add_triptype_requirement = function(data) {
       data.triptype=$scope.currenttriptype;
-      $scope.requiredtriprights[data.right]=data.subject;
+      $scope.requiredtriprights.push({"requirement":data.right, "required":data.subject});
       var exeres=DatabaseService.updateDB('add_triptype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
           $scope.trip.newright.right=null;
@@ -353,7 +354,13 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
 
     $scope.noreq= function(allreqs) {
       return function(rtt) {
-        return (allreqs && !allreqs[rtt.member_right]);
+        if (!allreqs) return false;
+        for (var i=0; i<allreqs.length; i++) {
+          if (allreqs[i].required_right==rtt.member_right) {
+            return false;
+          }
+        }
+        return true;
       }
     }
     
@@ -392,7 +399,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       )            }
     
     $scope.dotriprights = function (rr,tt) {
-      if (rr&rr.length==0) { // Hack, must be due to PHP json marshalling
+      if (rr && rr.length==0) { // Hack, must be due to PHP json marshalling
         $scope.requiredtriprights={};
       } else {
         $scope.requiredtriprights=rr;

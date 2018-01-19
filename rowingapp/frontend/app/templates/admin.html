@@ -185,14 +185,14 @@
       <img ng-click="currentboattype=null"  width="40px" src="media/popclose.svg" >
     </caption>
     <thead>
-      <tr><th>Rettighed</th><th>kræves af</th><th></th></tr>	
+      <tr><th>Rettighed</th><th>kræves af</th><th></th></tr>
     </thead>
     <tbody>
-      <tr ng-repeat="(rt,subject) in requiredboatrights">
-	<td>{{rt|righttodk}}</td>	  
-	<td> <select ng-model="subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{subject}}</select></td>
+      <tr ng-repeat="r in requiredboatrights">
+	<td>{{r.required_right|righttodk}}</td>
+	<td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{r.requirement}}</select></td>
         <td>
-          <button class="action" ng-click="remove_boattype_requirement(rt,$index)">Fjern krav</button>
+          <button class="action" ng-click="remove_boattype_requirement(r,$index)">Fjern krav</button>
         </td>
       </tr>
       <tr>
@@ -250,10 +250,10 @@
         </tr>	
       </thead>
       <tbody>
-        <tr ng-repeat="(rt,subject) in requiredtriprights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-	  <td>{{rt| righttodk }}</td>	  
-	  <td> <select ng-model="subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{subject}}</select></td>
-          <td><button class="action" ng-click="remove_triptype_requirement(rt)">Fjern krav</button></td>
+        <tr ng-repeat="r in requiredtriprights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+	  <td>{{r.required_right| righttodk }}</td>	  
+	  <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{r.requirement}}</select></td>
+          <td><button class="action" ng-click="remove_triptype_requirement(r,$index)">Fjern krav</button></td>
         </tr>
         <tr>
           <td>
@@ -375,7 +375,7 @@
 	       <tr><td>Oprettet</td><td>{{et.current.created}}</td></tr>
 	      <tr><td>Roere</td><td>
 		<ul>
-		  <li ng-repeat="(rower,rid) in et.current.rowers">{{rower}} ({{rid}}) </li>
+		  <li ng-repeat="rower in et.current.rowers">{{rower.name}} ({{rower.id}}) </li>
 		</ul>
 	      </td></tr>
 	    </body>
@@ -391,11 +391,11 @@
           <div ng-if="et.diffs.rowerdiff"><strong>Roere</strong>:
             <div class="rowerdiff">
               <ul>
-                <li ng-repeat="(nm,rid) in et.diffs.rowerdiff.from"><strong>{{nm}} ({{rid}}) </strong></li>
+                <li ng-repeat="rw in et.diffs.rowerdiff.from"><strong>{{rw.name}} ({{rw.id}}) </strong></li>
               </ul>
               &darr;
               <ul>
-                <li ng-repeat="(nm,rid) in et.diffs.rowerdiff.to"><strong>{{nm}} ({{rid}}) </strong></li>
+                <li ng-repeat="rw in et.diffs.rowerdiff.to"><strong>{{rw.name}} ({{rw.id}}) </strong></li>
               </ul>
             </div>                            
           </div>

@@ -20,7 +20,6 @@ if ($q=="rowers") {
     GROUP By Member.id 
     ORDER BY dist DESC 
     LIMIT 200";
-//    echo $s;
 } else if ($q=="triptypes") {
     $s="SELECT TripType.Name AS triptype, COUNT(Trip.id) as numtrips
     FROM Trip,TripType
@@ -33,8 +32,12 @@ if ($q=="rowers") {
     exit(0);
 }
 
+if ($sqldebug) {
+    echo $s;
+}
+
 if ($stmt = $rodb->prepare($s)) {
-    $stmt->bind_param("s",$boat);
+    $stmt->bind_param("i",$boat);
      $stmt->execute(); 
      $result= $stmt->get_result();
      echo '[';

@@ -20,7 +20,8 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
      CONCAT(
        '{', JSON_QUOTE('rowers'),': [',
        GROUP_CONCAT(JSON_OBJECT(
-           CONCAT(Member.FirstName,' ',Member.LastName),Member.MemberID) ORDER BY Seat),
+           'name',CONCAT(Member.FirstName,' ',Member.LastName),
+            'id',Member.MemberID) ORDER BY Seat),
    ']}')
    ) AS json
        FROM Error_Trip
@@ -50,7 +51,8 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
      CONCAT(
        '{', JSON_QUOTE('rowers'),': [',
        GROUP_CONCAT(JSON_OBJECT(
-           CONCAT(Member.FirstName,' ',Member.LastName),Member.MemberID) ORDER BY Seat),
+           'name',CONCAT(Member.FirstName,' ',Member.LastName),
+            'id',Member.MemberID) ORDER BY Seat),
    ']}')
    ) AS json
       FROM Boat,
