@@ -267,7 +267,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       var data={boattype:$scope.currentboattype,'right':rt};
       var exeres=DatabaseService.updateDB('remove_boattype_right',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          delete $scope.requiredboatrights[rt];
+          $scope.requiredboatrights.splice(ix,1);
         }
       });              
     }
@@ -285,7 +285,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       var data={triptype:$scope.currenttriptype,'right':rt};
       var exeres=DatabaseService.updateDB('remove_triptype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          delete $scope.requiredtriprights[rt];
+          delete $scope.requiredtriprights.splice(ix,1);
         }
       });                            
     }
