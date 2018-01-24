@@ -610,6 +610,9 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
   $scope.event_forum_match = function () {
     return function (event) {
+      if (!($scope.current_forum && $scope.current_forum.forum)) {
+        return true;
+      }
       for (var i=0;i<event.fora.length;i++) {
         if (event.fora[i].forum==$scope.current_forum.forum) {
           return true;
