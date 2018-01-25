@@ -26,6 +26,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   
   DatabaseService.init({"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
     // Load Category Overview
+    $scope.current_user=DatabaseService.getDB('current_user');
+    $scope.newdamage.reporter=DatabaseService.getRowerByMemberId($scope.current_user);
     $scope.boatcategories = DatabaseService.getBoatTypes();
     // Load selected boats based on boat category
     $scope.reservations = DatabaseService.getDB('get_reservations');
@@ -369,7 +371,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       }
       if (DatabaseService.fixDamage(data)) {
         damagelist.splice(damagelist.indexOf(bd),1);
-        $scope.newdamage.reporter=null;
+        $scope.newdamage.reporter=$scope.current_user;
         $scope.allboatdamages = DatabaseService.getDamages();
         $scope.damagesnewstatus="klarmeldt";
       } else {
@@ -388,7 +390,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         function(data) {
           if (data.status=="ok") {
             $scope.allboatdamages.splice(0,0,data.damage);
-            $scope.newdamage=null;
+            $scope.newdamage={};
+            $scope.newdamage.reporter=$scope.current_user;
           }                  
         }
       )

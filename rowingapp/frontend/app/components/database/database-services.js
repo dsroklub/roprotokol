@@ -9,7 +9,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   var tx=null;
   var cachedepend;
   var currentseason=new Date().getFullYear();
-
+  
   function toURL(service){
     if (databasesource=='real') {
       return '../../backend/'+service;
@@ -234,7 +234,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).then (function(response) {
       var ds=response.data;
-
+      db['current_user']=ds.uid;
       if (gitrevision != ds.gitrevision) {
         $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
         window.location="/frontend/app/index.html";
@@ -475,10 +475,22 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     return rs[0];
   }
 
-    this.getRowersByNameOrId = function(nameorid, preselectedids) {
+  this.getRowerByMemberId = function(member_id) {
+    var rowers=db['rowers'];
+    if (!rowers) {
+      return null;
+    }
+    for (var ri=0; ri<rowers.length; ri++) {
+      if (rowers[ri].id==member_id) {
+        return rowers[ri];
+      }
+    }
+  }
+
+  this.getRowersByNameOrId = function(nameorid, preselectedids) {
     var val = nameorid.trim().toLowerCase();
     if (val.length<3 && isNaN(val)) {
-       return [];
+      return [];
     }
     var rowers=db['rowers'];
     if (!rowers) {
@@ -591,7 +603,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       alert("det mislykkedes at sende nyt password");
     });
   }
-  
+
   /// The rest is just for testing
   this.test = function(src) {
     var boats = db['boatcategories']["Inrigger 2+"];

@@ -65,6 +65,10 @@ function dbfetch($db,$table, $columns=['*'], $orderby=null) {
 }
 $error=null;
 
+if (isset($_SERVER['PHP_AUTH_USER'])) {
+    $cuser=$_SERVER['PHP_AUTH_USER'];
+}
+
 function process ($result,$output="json",$name="cvsfile",$captions=null) {
     if ($output=="json") {
         header('Content-type: application/json;charset=utf-8');

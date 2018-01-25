@@ -7,7 +7,7 @@
 
 <ng-form name="reportDamage">
   <label for="damages.anmelder">skademelder/klarmelder</label>
-  <input  placeholder="skriv dit navn her" autocomplete="off" id="anmelder" name="anmelder" type="text"
+  <input ng-disabled="current_user"  placeholder="skriv dit navn her" autocomplete="off" id="anmelder" name="anmelder" type="text"
           ng-model="newdamage.reporter"
           uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="reporterTemplate.html"
           required />

@@ -12,6 +12,7 @@ $tsa=array(
     'member' =>  $mem->get('member'),
     'trip' =>  $mem->get('trip'),
     'stats' =>  $mem->get('stats'),
+    'uid' => $_SERVER['PHP_AUTH_USER'],
     'gitrevision' => $gitrevision
 );
 $res=json_encode($tsa);

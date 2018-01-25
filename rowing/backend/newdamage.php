@@ -8,11 +8,15 @@ $newdamage=json_decode($data);
 $rodb->query("BEGIN TRANSACTION");
 error_log(json_encode($newdamage));
 error_log("rep ".json_encode($newdamage->reporter->id));
-
+if (empty($cuser)) {
+    $reporter=$newdamage->reporter->id;
+} else {
+    $reporter=$cuser;
+}
     
 if ($stmt = $rodb->prepare("INSERT INTO Damage(Boat,Degree,ResponsibleMember,Description,Created) 
 SELECT ?,?,id,?,NOW() From Member WHERE MemberID=?")) { 
-    $stmt->bind_param('iiss', $newdamage->boat->id , $newdamage->degree, $newdamage->description,$newdamage->reporter->id);
+    $stmt->bind_param('iiss', $newdamage->boat->id , $newdamage->degree, $newdamage->description,$reporter);
     if (!$stmt->execute()) {
         error_log("could not create damage, DB error".$stmt->error);
     } 

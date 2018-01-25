@@ -810,7 +810,7 @@ max-width: 70%;
 
 button[disabled], html input[disabled] {
     cursor: default;
-    background: #808080 !important;
+    background: #BBBBBB !important;
     pointer-events: none;
 }
 
