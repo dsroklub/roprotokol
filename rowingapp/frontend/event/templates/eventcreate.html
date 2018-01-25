@@ -76,14 +76,13 @@
     <tr><th>(max deltg)</th><td>
 	<input type="number" class="number" size="5" maxlength="5" autocomplete="off" ng-model="newevent.max_participants"></td>
     </tr>
-    
-    <tr>
+    <tr ng-show="newevent.category.name =='rotur' || newevent.category.name=='langtur'">
       <th>(bådtype)</th><td>
         <select name="boatcategory" id="boatcat" ng-model="newevent.boat_category" ng-options="boatcat.name for boatcat in boatcategories">
         </select>
       </td>
     </tr>
-    <tr>
+    <tr ng-show="newevent.category.name =='rotur'">
       <th>evt Mål</th>
       <td>
         <select ng-change="update_distance()" name="destination" id="destination" ng-model="newevent.destination" ng-options="dest.name for dest in destinations">

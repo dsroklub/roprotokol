@@ -7,9 +7,7 @@
 
 <h1 class="error" ng-hide="dbready || dbgrace">Henter data<br>vær tålmodig</h1>
 
+<select name="boatcategory" id="boatcat" ng-model="current_boat_type" ng-options="boatcat.name for boatcat in boatcategories">
+<option value="">alle bådtyper</option>
+</select>
 <div ng-include="'templates/eventlist.html'"></div>
-
-
-<!--pre>
-  {{currentevent|json}}
-</pre-->

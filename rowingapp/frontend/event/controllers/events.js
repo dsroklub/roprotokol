@@ -25,6 +25,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
   $scope.current_forum={"forum":null};
+  $scope.current_boat_type={'id':null,'name':null};
+
   $scope.dateOptions = {
     showWeeks: false,
     minDate: $scope.min_time
@@ -605,6 +607,15 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 	return true
       }
       return (forum.forum.match( new RegExp(forumfilter, 'i')));
+    }
+  };
+
+  $scope.event_boat_type_match = function () {
+    return function (event) {
+      if (!($scope.current_boat_type && $scope.current_boat_type.name)) {
+        return true;
+      }
+      return (event.boats==$scope.current_boat_type.name);
     }
   };
 

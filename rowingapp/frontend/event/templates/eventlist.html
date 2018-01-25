@@ -7,16 +7,18 @@
       <th>start</th>
       <th>distance</th>
       <th>til</th>
+      <th>både</th>
       <th>åben</th>
    </tr> 
   </thead>
   <tbody>
-    <tr ng-repeat="ev in events | filter: event_forum_match()" ng-click="setCurrentEvent(ev)"  ng-class="{selected: currentevent == ev}"
+    <tr ng-repeat="ev in events | filter: event_forum_match()| filter: event_boat_type_match()" ng-click="setCurrentEvent(ev)"  ng-class="{selected: currentevent == ev}"
         class="event" ng-class-odd="'odd'" ng-class-even="'even'">
       <td ng-class="{iamin: is_event_member(ev)}"><span class="tooltiptext">Jeg deltager</span>{{ev.name}}</td>
       <td>{{ev.start_time | date:"d. MMM yyyy"}}</td>
       <td class="rnum">{{ev.distance|mtokm}} km</td>
       <td>{{ev.destination}}</td>      
+      <td>{{ev.boats}}</td>
       <td ng-show="ev.open">åben</td>
       <td ng-hide="ev.open">lukket</td>
       <td ng-if="ev.owner==current_user.member_id">
