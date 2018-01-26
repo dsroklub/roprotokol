@@ -91,3 +91,14 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
         }
     }
 }
+
+function eventLog($entry) {
+    error_log("log $entry");
+    global $rodb;
+    if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
+        $stmt->bind_param('s', $entry);
+        $stmt->execute();
+    } else {
+        error_log($rodb->error);
+    }    
+}

@@ -15,12 +15,7 @@ if ($stmt = $rodb->prepare("UPDATE Damage, (SELECT id FROM Member WHERE MemberID
 } else {
     error_log("fix damage database error ");
 } 
-
-if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
-    $ev=$fix->reporter->name." klarmeldte skaden: ".$fix->damage->description." på båden ".$fix->damage->boat;
-    $stmt->bind_param('s', $ev);
-    $stmt->execute();
-}     
+eventLog($fix->reporter->name." klarmeldte skaden: ".$fix->damage->description." på båden ".$fix->damage->boat);
 
 $rodb->query("END TRANSACTION");
 $rodb->close();

@@ -7,6 +7,10 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
 
+$admin="bådhalsbruger";
+if (!empty($cuser)) {
+    $admin=$cuser;
+}
 
 $rodb->begin_transaction();
 error_log('add rower right right '.json_encode($data));
@@ -21,7 +25,7 @@ if ($stmt = $rodb->prepare("INSERT INTO  MemberRights (member_id,MemberRight,arg
     error_log('OOOP'.$rodb->error);
 }
 $rodb->commit();
-$rodb->close();
 invalidate('member');
+eventLog("$admin tildelte ".$data->right->member_right ." til ".$data->rower->id);
 echo json_encode($res);
-?> 
+$rodb->close();

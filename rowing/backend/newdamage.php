@@ -14,8 +14,10 @@ if (empty($cuser)) {
     $reporter=$cuser;
 }
     
-if ($stmt = $rodb->prepare("INSERT INTO Damage(Boat,Degree,ResponsibleMember,Description,Created) 
-SELECT ?,?,id,?,NOW() From Member WHERE MemberID=?")) { 
+if ($stmt = $rodb->prepare("
+INSERT INTO Damage(Boat,Degree,ResponsibleMember,Description,Created) 
+SELECT ?,?,id,?,NOW() 
+From Member WHERE MemberID=?")) { 
     $stmt->bind_param('iiss', $newdamage->boat->id , $newdamage->degree, $newdamage->description,$reporter);
     if (!$stmt->execute()) {
         error_log("could not create damage, DB error".$stmt->error);
@@ -24,13 +26,7 @@ SELECT ?,?,id,?,NOW() From Member WHERE MemberID=?")) {
     error_log("new damage database error".$stmt->error);
 }
 
-if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
-    error_log("des ".$newdamage->description);
-    error_log("bo ".$newdamage->boat->name);
-    $ev=$newdamage->reporter->name." meldte skaden: ".$newdamage->description. " grad ".$newdamage->degree." på båden ".$newdamage->boat->name;
-    $stmt->bind_param('s', $ev);
-    $stmt->execute();
-}     
+eventLog($newdamage->reporter->name." meldte skaden: ".$newdamage->description. " grad ".$newdamage->degree." på båden ".$newdamage->boat->name);
 $result=$rodb->query("SELECT LAST_INSERT_ID() AS id FROM DUAL") or die ("Error in new id query: " . mysqli_error($rodb));
 $nid = $result->fetch_assoc();
 error_log("nid ".$nid['id']);
