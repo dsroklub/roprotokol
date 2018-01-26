@@ -371,7 +371,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       }
       if (DatabaseService.fixDamage(data)) {
         damagelist.splice(damagelist.indexOf(bd),1);
-        $scope.newdamage.reporter=$scope.current_user;
+        $scope.newdamage.reporter=DatabaseService.getRowerByMemberId($scope.current_user);
         $scope.allboatdamages = DatabaseService.getDamages();
         $scope.damagesnewstatus="klarmeldt";
       } else {
@@ -391,7 +391,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
           if (data.status=="ok") {
             $scope.allboatdamages.splice(0,0,data.damage);
             $scope.newdamage={};
-            $scope.newdamage.reporter=$scope.current_user;
+            $scope.newdamage.reporter=DatabaseService.getRowerByMemberId($scope.current_user);
           }                  
         }
       )
