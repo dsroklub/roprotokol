@@ -61,6 +61,7 @@ if ($error) {
     $res['error']=$error;
 }
 invalidate("fora");
+invalidate("member");
 echo json_encode($res);
 ?> 
 

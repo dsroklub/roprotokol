@@ -73,10 +73,10 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         }
       }
     }
-    $scope.rower={};
-    $scope.memberid="7843";
+    $scope.privatemessage={};
+//    $scope.memberid="7843";
     if($scope.memberid) {
-      $scope.rower.member=DatabaseService.getRower($scope.memberid);
+      $scope.privatemessage.member=DatabaseService.getRower($scope.memberid);
     }
     $scope.messages=DatabaseService.getDB('event/messages');
     $scope.member_setting=DatabaseService.getDB('event/member_setting');
@@ -399,7 +399,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   }
 
     $scope.privatemessagesend = function() {
-    var sr=DatabaseService.createSubmit("send_private_message",$scope.message);
+    var sr=DatabaseService.createSubmit("send_private_message",$scope.privatemessage);
     sr.promise.then(function(status) {
       if (status.status == 'error') {
         alert(status.error);

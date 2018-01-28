@@ -60,16 +60,16 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
     this.getData('event/events_participants',promises);
     this.getData('event/destinations',promises);
     this.getData('event/userfora',promises);
-    if(!valid['rowers']) {
+    if(!valid['event/rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);
       $http.get(toURL('event/rowers.php')).then(function(response) {
-        db['rowers'] = [];
+        db['event/rowers'] = [];
         angular.forEach(response.data, function(rower, index) {
           rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
           this.push(rower);
-        }, db['rowers']);
-	valid['rowers']=true;
+        }, db['event/rowers']);
+	valid['event/rowers']=true;
         rq.resolve(true);
       });
     }
@@ -131,14 +131,14 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       }
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-          // $log->debug("  doinvalidate "+tp);
+          $log.debug("  doinvalidate "+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	}
 	datastatus[tp]=ds[tp];
       }
       if (doreload) {
-//	console.log(" do reload " + JSON.stringify(valid));
+	console.log(" do reload " + JSON.stringify(valid));
 	dbservice.fetch(subscriptions).then(function() {
 	  sq.resolve("sync done");
 	});
@@ -180,7 +180,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   }
   
   this.getRower = function(val) {
-    var rs=db['rowers'].filter(function(element) {
+    var rs=db['event/rowers'].filter(function(element) {
       return element['id']==val;
     });
     return rs[0];
@@ -188,7 +188,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
 
   this.getRowersByNameOrId = function(nameorid, preselectedids) {
     var val = nameorid.toLowerCase();
-    var rowers=db['rowers'];
+    var rowers=db['event/rowers'];
     if (rowers) {
       var result = rowers.filter(function(element) {
         return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;

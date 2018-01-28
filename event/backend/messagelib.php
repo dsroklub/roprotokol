@@ -45,6 +45,19 @@ function post_message($toEmails,$subject,$message) {
 }
 
 
+function post_private_message($memberId,$subject,$message) {
+    global $rodb;
+    $stmt = $rodb->prepare("SELECT email FROM Member WHERE Member.MemberId=?");
+    $stmt->bind_param('s',$memberId) or die("{\"status\":\"Error in event private message query bind: " . mysqli_error($rodb) ."\"}");
+    $stmt->execute() or die("{\"status\":'Error in private message exe query: " . mysqli_error($rodb) ."\"}");
+    $result= $stmt->get_result() or die("{\"status\":'Error in private message query: " . mysqli_error($rodb) ."\"}");
+    if ($email=$result->fetch_assoc()) {
+        return post_message([$email],$subjet,$message);
+    } else {
+        error_log("member not found");
+    }    
+}
+
 function post_event_message($eventId,$subject,$message) {
     global $rodb;
     global $cuser;
