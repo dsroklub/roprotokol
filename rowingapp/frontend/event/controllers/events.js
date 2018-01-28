@@ -22,6 +22,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.eventarg=$routeParams.event;
   $scope.messagearg=$routeParams.message;
   $scope.forumarg=$routeParams.forum;
+  $scope.memberarg=$routeParams.memberid;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
   $scope.current_forum={"forum":null};
@@ -72,7 +73,11 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         }
       }
     }
-
+    $scope.rower={};
+    $scope.memberid="7843";
+    if($scope.memberid) {
+      $scope.rower.member=DatabaseService.getRower($scope.memberid);
+    }
     $scope.messages=DatabaseService.getDB('event/messages');
     $scope.member_setting=DatabaseService.getDB('event/member_setting');
     $scope.eventcategories=DatabaseService.getDB('event/event_category');
@@ -393,6 +398,21 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     });
   }
 
+    $scope.privatemessagesend = function() {
+    var sr=DatabaseService.createSubmit("send_private_message",$scope.message);
+    sr.promise.then(function(status) {
+      if (status.status == 'error') {
+        alert(status.error);
+      } else {
+        $log.debug("private message sent");
+        $scope.privatemessage={};
+      }
+      if (status.status == 'warning') {
+        alert(status.warning);
+      }
+    });
+  }
+
   $scope.emailflush = function() {
     $scope.member_setting.notification_email=null;
     $scope.publicsetting.$setDirty();
@@ -501,7 +521,6 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     });
   }
   
-
   $scope.getRowerByName = function (val) {
     // Generate list of ids that we already have added
     return DatabaseService.getRowersByNameOrId(val);
@@ -738,6 +757,11 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     $location.search({"forum":$scope.current_forum.forum});
   }
   
+  $scope.show_member = function (memberid) {
+    $location.url("/member/");   
+    $location.search({"memberid":memberid});
+  }
+
   $scope.messagematch = function (messagefilter) {
     return function(message) {
       if (!messagefilter) {

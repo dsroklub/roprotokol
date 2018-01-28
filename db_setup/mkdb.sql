@@ -698,6 +698,7 @@ CREATE TABLE member_setting (
   show_status BOOLEAN NOT NULL DEFAULT FALSE,
   show_activities BOOLEAN NOT NULL DEFAULT FALSE,
   notification_email VARCHAR(255),
+  phone VARCHAR(20),
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member)
  );

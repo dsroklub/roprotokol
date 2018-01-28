@@ -1,5 +1,4 @@
-function sanestring($s,$slash=false) {
-   $allowedchars=".:;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890_-#";
+function sanestring($s,$slash=false,$allowedchars=".:;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890_-#") {
    if ($slash) {
        $allowedchars.="/";
    }

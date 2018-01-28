@@ -6,14 +6,16 @@ header('Content-type: application/json');
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
       'id',Member.MemberID, 
+       'phone',member_setting.phone,
       'name', CONCAT(FirstName,' ',LastName) 
    ),
    CONCAT('{\"rights\" : [',
      GROUP_CONCAT(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired)),
    ']}')
    ) AS json
-   FROM Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  
-   WHERE Member.MemberID!='0'
+   FROM member_setting,Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  
+   WHERE Member.MemberID!='0' AND
+   member_setting.member=Member.id
    GROUP BY Member.id";
 
 if ($sqldebug) {

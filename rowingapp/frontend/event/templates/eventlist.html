@@ -83,7 +83,7 @@
     </thead>
     <tbody class="tbody">
       <tr ng-repeat="em in currentevent.participants">
-        <td>{{em.name}}
+        <td ng-click="show_member(em.id)">{{em.name}}
           <i uib-tooltip="styrmand" ng-if="em.is_cox>0" class="fa fa-graduation-cap"></i>
           <b uib-tooltip="langtursstyrmand" ng-if="em.is_long_cox>0"> L</b>
         </td>

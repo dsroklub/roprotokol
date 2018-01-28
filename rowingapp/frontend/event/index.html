@@ -4,7 +4,8 @@
 <!--[if IE 8]>         <html lang="en" ng-app="eventApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="eventApp" class="no-js"> <!--<![endif]-->
 <head>
-  <base href="/front43/event/">
+  <!--#include virtual="/public/eventbasetag.html" -->
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>DSR roaftaler</title>
@@ -93,6 +94,7 @@
       <li ng-class="{topsel: activePath=='/overview/'}"><a href="overview/"><i class="fa fa-binoculars"></i>Oversigt</a></li>
       <li ng-class="{topsel: activePath=='/public/'}"><a href="public/"><i class="fa fa-user"></i>Min side</a></li>
       <li ng-class="{topsel: activePath=='/about/'}"><a href="about/"><i class="fa fa-info-circle"></i>Om</a></li>      
+      <li ng-class="{topsel: activePath=='/member/'}"><a href="member/"><i class="fa fa-female"></i><i class="fa fa-male"></i>Medlem</a></li>      
     </ul>
   </div>
 <div class="main">

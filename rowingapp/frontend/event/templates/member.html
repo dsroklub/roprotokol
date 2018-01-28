@@ -1,0 +1,21 @@
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+<form>
+<input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="membermember" type="text"
+           ng-model="rower.member"
+           typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+           typeahead-template-url="memberTemplate.html" required />
+</form>
+<h3><i class="fa fa-phone"></i>&nbsp;  <a href="tel:{{rower.member.phone}}">{{rower.member.phone}}</a></h3>
+
+<ng-form name="privatemessageform">
+  <input class="forumselect " type="text" placeholder="emne" id="messagesubject" ng-model="privatemessage.subject" required>
+  <br>
+<textarea class="forumselect msgbody" placeholder="besked" id="privatemessage_body" type="text" ng-model="privatemessage.body" required></textarea><br>
+<button class="green forumselect" ng-disabled="!privatemessageform.$valid" ng-click="privatemessagesend()">Send privat besked til {{rower.member.name}}</button>
+</ng-form>
+
