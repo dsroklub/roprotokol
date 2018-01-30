@@ -52,7 +52,7 @@ function post_private_message($memberId,$subject,$message) {
     $stmt->execute() or die("{\"status\":'Error in private message exe query: " . mysqli_error($rodb) ."\"}");
     $result= $stmt->get_result() or die("{\"status\":'Error in private message query: " . mysqli_error($rodb) ."\"}");
     if ($email=$result->fetch_assoc()) {
-        return post_message([$email["email"]],$subjet,$message);
+        return post_message([$email["email"]],$subject,$message);
     } else {
         error_log("member not found");
     }    
