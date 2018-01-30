@@ -12,7 +12,7 @@
 </form>
 <h3 ng-show="privatemessage.member.phone"><i class="fa fa-phone"></i>&nbsp;
   <a href="tel:{{privatemessage.member.phone}}">{{privatemessage.member.phone}}</a></h3>
-<h3 ng-hide="privatemessage.member.phone">har ikke oplyst sit telefonnummer</h3>
+<h3 ng-hide="privatemessage.member.phone || !privatemessage.member">har ikke oplyst sit telefonnummer</h3>
 
 <form ng-show="privatemessage.member" name="privatemessageform">
   <input class="forumselect " type="text" placeholder="emne" id="messagesubject" ng-model="privatemessage.subject" required>
