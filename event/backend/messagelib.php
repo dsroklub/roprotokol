@@ -41,7 +41,7 @@ function post_message($toEmails,$subject,$message) {
         $res["status"]="warning";
         $res['warning']=$warning;
     }
-    error_log("now RES");
+    error_log("now RES ".print_r($res,true));
     return $res;
 }
 
@@ -49,7 +49,7 @@ function post_message($toEmails,$subject,$message) {
 function post_private_message($memberId,$subject,$message) {
     global $rodb;
     global $cuser;
-    error_log("send msg p");
+    $res=array ("status" => "init");
     $stmt = $rodb->prepare("SELECT email FROM Member WHERE Member.MemberId=?");
     $stmt->bind_param('s',$memberId) or die("{\"status\":\"Error in event private message query bind: " . mysqli_error($rodb) ."\"}");
     $stmt->execute() or die("{\"status\":'Error in private message exe query: " . mysqli_error($rodb) ."\"}");
@@ -98,6 +98,7 @@ function post_private_message($memberId,$subject,$message) {
     } else {
         error_log("ppmm error" .$rodb->error);
     }
+    return $res;
 }
 
 function post_event_message($eventId,$subject,$message) {
