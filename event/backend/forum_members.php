@@ -6,10 +6,11 @@ $forum=sanestring($_REQUEST['forum']);
 
 error_log("forum $forum");
 $s="
-SELECT forum_subscription.forum, forum.owner,Member.MemberId as member_id, CONCAT(Member.FirstName,' ',Member.LastName) as name, role
-   FROM Member, forum_subscription,forum
+SELECT forum_subscription.forum, mo.MemberId as owner,Member.MemberId as member_id, CONCAT(Member.FirstName,' ',Member.LastName) as name, role, forum_subscription.comment,forum_subscription.value
+   FROM Member mo,Member, forum_subscription,forum
    WHERE 
      forum_subscription.forum=forum.name AND
+     mo.id=forum.owner AND
      forum_subscription.member=Member.id AND 
      forum_subscription.forum=?
    ORDER BY name

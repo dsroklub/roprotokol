@@ -1,12 +1,6 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
-//header('Content-type: application/json;charset=utf8');
-//header('Content-type: text/xx');
-//mb_internal_encoding("utf-8");
-
-
-//echo  chr(239) . chr(187) . chr(191);
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
      'boats',boats,
@@ -22,8 +16,8 @@ $s="SELECT JSON_MERGE(
      'boat_category',BoatCategory.Name,
      'trip_type',TripType.Name, 
      'max_participants',max_participants,
-     'location',location,
-     'comment',comment,
+     'location',event.location,
+     'comment',event.comment,
      'distance',distance,
      'owner_name',CONCAT(owner_member.FirstName,' ',owner_member.LastName)
 ),

@@ -599,6 +599,8 @@ CREATE TABLE event_boat_type (
 CREATE TABLE event_member (
   member     INTEGER,
   event      INTEGER,
+  comment    VARCHAR(4096),
+  value      FLOAT,
   enter_time DATETIME, -- default NOW(),
   role       VARCHAR(255), -- waiting, cox, any, leader, admin
   FOREIGN KEY (member) REFERENCES Member(id),
@@ -633,6 +635,8 @@ CREATE TABLE forum_subscription (
   member     INTEGER,
   forum      VARCHAR(255),
   role       VARCHAR(255) NOT NULL, -- waiting, cox, any, leader, admin
+  comment    VARCHAR(4096),
+  value      FLOAT,
   FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,forum)

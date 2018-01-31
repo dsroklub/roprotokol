@@ -509,6 +509,20 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.burl=$location.$$absUrl.split("message/")[0]; // FIXME
  // $log.debug("burl="+$scope.burl);
 
+  $scope.update_forummembervalue = function(member,val) {
+    var d={"forummember":member,"value":val};
+    var sr=DatabaseService.createSubmit("forummember_value_update",d);
+    sr.promise.then(function(status) {
+      if (status.status =='ok') {
+        $log.debug("member value updated");        
+      } else {
+        alert(status.error);
+      }
+    }
+                   );
+  }
+    
+  
   $scope.member_setting_update = function() {
     var sr=DatabaseService.createSubmit("member_setting_update",$scope.member_setting);
     sr.promise.then(function(status) {

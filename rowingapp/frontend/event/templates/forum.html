@@ -69,7 +69,7 @@
 
 <table>
   <thead>
-    <caption>{{current_forum.forum}}medlemmer</caption>
+    <caption>{{current_forum.forum}} medlemmer</caption>
   </thead>
   <tr ng-repeat="forummember in forummembers"  class="forummember" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
@@ -83,7 +83,12 @@
       <i ng-click="accept_forum_supplicant(forummember)" ng-show="forummember.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
       <i ng-hide="forummember.member_id==current_user.member_id"  ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus">
       </i> 
-    </td>    
+    </td>
+    <td>{{forummember.value}}</td>
+    <td ng-show="current_forum.owner==current_user.member_id">
+      <input type="number" size="4" value="{{forummember.value}}" ng-model="forummemberval"> </input>
+      <button ng-click="update_forummembervalue(forummember,forummemberval)">update</button>
+    </td>
   </tr>
 </table>
 
