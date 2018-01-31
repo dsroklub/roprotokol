@@ -19,7 +19,7 @@ if ($stmt = $rodb->prepare(
 
     $stmt->bind_param(
         'ss',
-        $msg->msgid,
+        $msg->id,
         $cuser) ||  die("msg unlink BIND errro ".mysqli_error($rodb));
 
     if (!$stmt->execute()) {
