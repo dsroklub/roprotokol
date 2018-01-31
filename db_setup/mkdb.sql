@@ -666,12 +666,21 @@ CREATE TABLE event_message (
   id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
   member_from  INTEGER,
   created    DATETIME,
-  event      INTEGER,
+  event      INTEGER NULL,
   subject    VARCHAR(1000),
   message    VARCHAR(10000),
   FOREIGN KEY (member_from) REFERENCES Member(id),
   FOREIGN KEY (event)       REFERENCES event(id),
-  PRIMARY KEY (id)
+--  PRIMARY KEY (id)
+);
+
+CREATE TABLE private_message (
+  id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  member_from  INTEGER,
+  created    DATETIME,
+  subject    VARCHAR(1000),
+  message    VARCHAR(10000),
+  FOREIGN KEY (member_from) REFERENCES Member(id)
 );
 
 CREATE TABLE event_forum (
