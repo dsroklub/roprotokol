@@ -25,6 +25,7 @@ if ($stmt = $rodb->prepare(
         $is_public= $settings['is_public'];
     }
     $show_status=0;
+    $show_activities=0;
     if (!empty($settings['show_status'])) {
         $show_status=$settings['show_status'];
     }
@@ -40,18 +41,18 @@ if ($stmt = $rodb->prepare(
     $stmt->bind_param(
         'ssssss',
         $is_public,
-        $show_status,
+        $show_status,        
         $show_activities,
         $notification_email,
         $phone,
         $cuser) ||  die("member setting BIND errro ".mysqli_error($rodb));
     if (!$stmt->execute()) {
-        $error=" setting exe ".mysqli_error($rodb);
+        $error=" member setting exe ".mysqli_error($rodb);
         error_log($error);
         $message=$message."\n"."create setting insert error: ".mysqli_error($rodb);
     } 
 } else {
-        $error=" setting update exe ".mysqli_error($rodb);
+        $error=" mem setting update exe ".mysqli_error($rodb);
 }
 
 if ($error) {

@@ -21,7 +21,7 @@ if ($stmt = $rodb->prepare("
         $update["forummember"]["member_id"],
         $cuser) ||  die("member setting BIND errro ".mysqli_error($rodb));
     if (!$stmt->execute()) {
-        $error=" setting exe ".mysqli_error($rodb);
+        $error=" forummember upd exe ".mysqli_error($rodb);
         error_log($error);
         $message=$message."\n"."create setting insert error: ".mysqli_error($rodb);
     } 
