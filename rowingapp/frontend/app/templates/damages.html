@@ -32,7 +32,7 @@
     <option value="3">3 svær</option>
     <option value="4">4 Vedligehold</option>
   </select>
-  <textarea placeholder="bekskriv skaden" class="damagetext" autocomplete="off" id="damages.damage" name="skade" type="text"
+  <textarea placeholder="beskriv skaden" class="damagetext" autocomplete="off" id="damages.damage" name="skade" type="text"
             ng-model="newdamage.description" required></textarea>
   <button class="klar"
           ng-disabled="!(newdamage.reporter && newdamage.reporter.id && newdamage.boat.id && newdamage.description && newdamage.degree)"

@@ -44,7 +44,7 @@
           <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
         </tr>
         <tr ng-repeat-end ng-if="currentmessage == message">
-          <td class="popempty"></td><td class="popdown" colspan="4"> <pre class="popdown" ng-bind=message.body></pre> </td>
+          <td class="popempty"></td><td class="popdown" colspan="4"> <div class="popdown" ng-bind=message.body></div> </td>
         </tr>
       </tbody>
     </table>
