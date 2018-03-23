@@ -207,6 +207,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     };
         
     db.boatlevels={
+      0:'',
       1:'Let',
       2:'Mellem',
       3:'Svær',
