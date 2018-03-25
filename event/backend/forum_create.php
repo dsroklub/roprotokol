@@ -13,14 +13,16 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 // $cuser="7854"; // FIXME
 
+
+/*,MemberRights AND */
+/*    MemberRights.member_id=Member.id AND */
+/*    MemberRights.MemberRight='event' AND */
+/*    MemberRights.argument='fora' LIMIT 1 */
+    
 if ($stmt = $rodb->prepare(
     "INSERT INTO forum (name,description,is_open,is_public,owner) 
-   SELECT ?,?,?,?,Member.id FROM Member,MemberRights WHERE 
-   Member.MemberId=? AND
-   MemberRights.member_id=Member.id AND
-   MemberRights.MemberRight='event' AND
-   MemberRights.argument='fora' LIMIT 1
-"
+   SELECT ?,?,?,?,Member.id FROM Member WHERE 
+   Member.MemberId=?"
 )) {
 
     $triptype="NULL";
