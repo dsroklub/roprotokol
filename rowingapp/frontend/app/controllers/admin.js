@@ -72,6 +72,16 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.currentrower=null;
     $scope.do="events";
     $scope.DB=DatabaseService.getDB;
+    $scope.current_rower=DatabaseService.getCurrentRower();
+    $scope.isadmin=false;
+    if ($scope.current_rower) {
+      for (var r in $scope.current_rower.rights) {
+        if ($scope.current_rower.rights[r].member_right=="admin" && $scope.current_rower.rights[r].arg=="roprotokol") {
+          $scope.isadmin=true;
+          break;
+        }
+      }
+    }
     $scope.triptypes=DatabaseService.getDB('triptypes');
     $scope.reservations = DatabaseService.getDB('get_reservations');
     $scope.clientname = DatabaseService.client_name();

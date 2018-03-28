@@ -488,6 +488,11 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     }
   }
 
+  this.getCurrentRower = function() {
+    if (!db['current_user']) return null;
+    return this.getRowerByMemberId(db['current_user']);
+  }
+
   this.getRowersByNameOrId = function(nameorid, preselectedids) {
     var val = nameorid.trim().toLowerCase();
     if (val.length<3 && isNaN(val)) {

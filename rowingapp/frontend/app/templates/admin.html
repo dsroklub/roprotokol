@@ -1,8 +1,9 @@
 <div class="menuholder">
-  <div><form>
-    <input placeholder="admin kodeord" autocomplete="off" class="adminpw" type="password" ng-model="config.headers.password">
+  <div ng-hide="isadmin">
+    <form>
+      <input placeholder="admin kodeord" autocomplete="off" class="adminpw" type="password" ng-model="config.headers.password">
     </form>
-    </div>
+  </div>
   <button class="adminbut" ng-class="{selected: do=='boat'}" ng-click="do='boat'">Både</button>
   <button class="adminbut" ng-class="{selected: do=='user'}" ng-click="do='user'">Roere</button>
   <button class="adminbut" ng-class="{selected: do=='trip'}" ng-click="do='trip'">Ture</button>
