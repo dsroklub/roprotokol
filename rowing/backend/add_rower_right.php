@@ -17,12 +17,17 @@ error_log('add rower right right '.json_encode($data));
 
 error_log('id='.$data->rower->id);
 error_log('right='.$data->right->member_right.":".$data->right->arg);
+$arg=$data->right->arg;
+
+if (!$arg) {
+    $arg="";
+}
 
 if ($stmt = $rodb->prepare("INSERT INTO  MemberRights (member_id,MemberRight,argument,Acquired) SELECT id,?,?,NOW() FROM Member Where MemberID=?")) {
-    $stmt->bind_param('sss', $data->right->member_right,$data->right->arg,  $data->rower->id);
+    $stmt->bind_param('sss', $data->right->member_right,$arg,  $data->rower->id);
     $stmt->execute();
 } else {
-    error_log('OOOP'.$rodb->error);
+    error_log('OOOPS rower right: '.$rodb->error);
 }
 $rodb->commit();
 invalidate('member');
