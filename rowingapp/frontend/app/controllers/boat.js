@@ -25,7 +25,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   };
 
   $scope.newdamage={};
-
+  $scope.boattype=null;
   DatabaseService.init({"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
     // Load Category Overview
     $scope.current_user=DatabaseService.getDB('current_user');
@@ -307,6 +307,12 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.matchBoat = function(boat) {
     return function(matchboat) {
       return (matchboat.id && (boat==null || matchboat.boat_id==boat.id));
+    }
+  };
+
+  $scope.matchBoatAndType = function(boat,boattype) {
+    return function(matchboat) {
+      return (matchboat.id && (boat==null || matchboat.boat_id==boat.id) && (!boattype || matchboat.boattype==boattype.name));
     }
   };
   
