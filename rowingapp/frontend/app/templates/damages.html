@@ -54,11 +54,11 @@
 <br>
 <table class="genericlist">
   <thead>
-    <tr><th>Båd</th><th></th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>klarmeld</th></tr>
+    <tr><th>Båd</th><th ng-show="!boattype"></th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>klarmeld</th></tr>
   </thead>
   <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="bd in allboatdamages | filter: matchBoatAndType(newdamage.boat,boattype)">
     <td>{{bd.boat}}</td>
-    <td>{{bd.boattype}}</td>
+    <td ng-show="!boattype">{{bd.boattype}}</td>
     <td>{{bd.reporter}}</td>
     <td>{{bd.created| txttotime | date:"d. MMM yyyy"}}</td>
     <td class="degree">{{bd.degree|damagedegreedk}}</td>
