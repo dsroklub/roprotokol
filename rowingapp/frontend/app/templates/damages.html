@@ -23,7 +23,7 @@
 </script>
 <div class="report">
   <input placeholder="Vælg båd" autocomplete="off" id="select_boat" name="name" type="text" ng-model="newdamage.boat"
-         typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)"
+         typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoatsWithType($viewValue,boattype)"
          typeahead-template-url="boatTemplate.html" required>
 
   <select name="boattypechooser" id="boattypechooser" ng-model="boattype"

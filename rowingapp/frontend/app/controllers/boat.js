@@ -332,6 +332,15 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     return result;
   };
 
+  $scope.getMatchingBoatsWithType = function (vv,boattype) {
+    var bts=DatabaseService.getBoats();
+    var result = bts
+        .filter(function(boat) {
+          return ( boat['name'].toLowerCase().indexOf(vv.toLowerCase()) == 0  && (!boattype || boattype.name==boat.category));
+        });
+    return result;
+  };
+
   $scope.getRowerByName = function (val) {
     return DatabaseService.getRowersByNameOrId(val);
   }
