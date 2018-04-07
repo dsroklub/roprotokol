@@ -87,21 +87,22 @@ SET m.FirstName = tm.FirstName,
     echo "<br>Indsætter eventuelle nye medlemmer i roprotokollen<br>";
 
     $s="
-INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, Gender,KommuneKode,CprNo )
-  SELECT DISTINCTROW tMem.MemberID,
-                     tMem.LastName,
-                     tMem.FirstName,
-                     tMem.JoinDate,
-                     tMem.RemoveDate,
-                     tMem.E_mail,
-                     tMem.OnAddressList,
-		     tMem.Birthdate,
-		     tMem.KommuneKode,
-		     tMem.CprNo,
-		     CASE tMem.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
+INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, KommuneKode,CprNo,Gender )
+  SELECT DISTINCTROW 
+  CAST(tMem.MemberID AS CHAR) AS mid,
+  tMem.LastName,
+  tMem.FirstName,
+  tMem.JoinDate,
+  tMem.RemoveDate,
+  tMem.E_mail,
+  tMem.OnAddressList,
+  tMem.Birthdate,
+  tMem.KommuneKode,
+  tMem.CprNo,
+  CASE tMem.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
   FROM tblMembersToRoprotokol tMem
-  WHERE (((tMem.RemoveDate) IS NULL) AND MemberID NOT IN (SELECT MemberID From Member))
-  ORDER BY tMem.MemberID;
+  WHERE (((tMem.RemoveDate) IS NULL) AND CAST(MemberID AS CHAR) NOT IN (SELECT MemberID From Member))
+  ORDER BY mid;
 ";
     error_log("SQL :\n".$s."\n");
     if ($stmt = $rodb->prepare($s)) { 
