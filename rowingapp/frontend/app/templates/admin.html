@@ -331,7 +331,7 @@
           <tr> <th>Rettighed</th><th></th> </tr>	
         </thead>
         <tbody>
-	  <tr ng-repeat="rr in currentrower.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+	  <tr ng-repeat="rr in currentrower.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-show="rr.member_right">
             <td>{{rr |argrighttodk }}</td>
             <td>
               <button class="big" ng-click="remove_rower_right(rr,currentrower,$index)">inddrag rettighed</button>
