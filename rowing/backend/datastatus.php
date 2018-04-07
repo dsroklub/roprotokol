@@ -6,13 +6,16 @@ $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, TRUE);
 header('Content-type: application/json');
 
 $ts=42;
-
+$uid=null;
+if (isset($_SERVER['PHP_AUTH_USER'])) {
+    $uid=$_SERVER['PHP_AUTH_USER'];
+}
 $tsa=array(
     'boat' => $mem->get('boat'),
     'member' =>  $mem->get('member'),
     'trip' =>  $mem->get('trip'),
     'stats' =>  $mem->get('stats'),
-    'uid' => $_SERVER['PHP_AUTH_USER'],
+    'uid' => $uid,
     'gitrevision' => $gitrevision
 );
 $res=json_encode($tsa);
