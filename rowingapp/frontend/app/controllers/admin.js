@@ -186,7 +186,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       var exeres=DatabaseService.updateDB('usage_update_description',usage,$scope.config,$scope.errorhandler);
     }
     $scope.update_usage_name = function(usage) {
-      var exeres=DatabaseService.updateDB('usage_update_description',usage,$scope.config,$scope.errorhandler);
+      var exeres=DatabaseService.updateDB('usage_update_name',usage,$scope.config,$scope.errorhandler);
     }
     $scope.create_usage = function(usage) {
       $log.info('create new usage '+usage);
