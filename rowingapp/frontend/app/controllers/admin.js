@@ -286,7 +286,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       data.boattype=$scope.currentboattype;
       var exeres=DatabaseService.updateDB('add_boattype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          existing_rights.push({"requirement":data.right, "required":data.subject});
+          existing_rights.push({"requirement":data.subject, "required_right":data.right});
         }
       });
     }
@@ -302,7 +302,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     
     $scope.add_triptype_requirement = function(data) {
       data.triptype=$scope.currenttriptype;
-      $scope.requiredtriprights.push({"requirement":data.right, "required":data.subject});
+      $scope.requiredtriprights.push({"required_right":data.right, "requirement":data.subject});
       var exeres=DatabaseService.updateDB('add_triptype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
           $scope.trip.newright.right=null;
@@ -377,9 +377,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.make_reservation = function (reservation){
       var r=angular.copy(reservation);
       r.start_time=$filter('date')(reservation.start_time,"HH:mm");
-      
-      //r.start_time=reservation.start_time.getHours()+":"+reservation.start_time.getMinutes();
-      r.end_time=reservation.end_time.getHours()+":"+reservation.end_time.getMinutes();
+      r.end_time=$filter('date')(reservation.end_time,"HH:mm");
       if (r.end_date) {
         r.end_date=DatabaseService.toIsoDate(reservation.end_date);
       }
@@ -417,10 +415,14 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       $scope.currenttriptype=tt;
     }
 
+    $scope.matchBoatType = function(boattype) {
+      return function(matchboat) {
+        return (matchboat.id  && boattype && matchboat.category==boattype.name);
+      }
+    };
     $scope.dotripactive = function (tt) {
       var exeres=DatabaseService.updateDB('activate_triptype',tt,$scope.config,$scope.errorhandler);
-    }
-    
+    }    
   }                                                                                        )
 }
 

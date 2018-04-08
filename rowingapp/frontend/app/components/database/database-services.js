@@ -216,8 +216,8 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     defaultLocation = 'DSR';
     cachedepend={
       'admin':[,'memberrighttypes'],
-      'reservation':['reservation','boat'],
-      'boat':['boats','boatdamages','availableboats','reservations','boat_status','boat_usages','boat_status','get_events'],
+      'reservation':['reservation','boat','get_reservations'],
+      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','boat_status','get_events'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],

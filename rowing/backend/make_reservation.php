@@ -19,8 +19,8 @@ if (!$dow) {
     $dow=0;
 }
 if ($dow>0) {
-$start_date="1917-03-28";
-    $end_date="";
+  $start_date="1917-03-28";
+  $end_date=null;
 }
 
 $rodb->begin_transaction();

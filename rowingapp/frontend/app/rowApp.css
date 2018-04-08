@@ -344,6 +344,14 @@ table caption {
 .blok, .destinations {
     display: inline-block;
     float: left;
+    padding:4px;
+}
+.bblok{
+    display: inline-block;
+        float: left;
+        min-width:70em;
+}
+.iblok {
 }
 .rowchart {
     display: inline-block;
@@ -756,6 +764,11 @@ select  {
     margin-bottom: 0pt;
     background-color: #FFB992;
     border-radius: 5px;
+}
+
+.chooser  {
+    background: yellow;
+    color: green;                
 }
 
 .boattypeform {
