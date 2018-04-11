@@ -802,7 +802,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         ) &&(
           !messagefilter ||
 	    message.subject.toLowerCase().indexOf(mf)>-1 ||
-	    message.sender.toLowerCase().indexOf(mf)>-1 ||
+	    (message.sender && message.sender.toLowerCase().indexOf(mf)>-1) ||
 	    message.body.toLowerCase().indexOf(mf)>-1
           )
       );
