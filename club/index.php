@@ -17,8 +17,7 @@
       
 
 <?php
-
-      
+$cuser=-1;
 include("../rowing/backend/inc/common.php");
 include("../event/backend/messagelib.php");
 

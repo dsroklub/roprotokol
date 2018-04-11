@@ -798,3 +798,6 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
  (2037,"2037-03-29","2037-10-25"),
  (2038,"2038-03-28","2038-10-31"),
  (2039,"2039-03-27","2039-10-30");
+
+
+INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");

@@ -1,9 +1,11 @@
 <?php
+require("inc/utils.php");
 include("../../rowing/backend/inc/common.php");
 include("inc/forummail.php");
 
-
 $res=array ("status" => "ok");
+
+verify_real_user();
 $data = file_get_contents("php://input");
 $newforum=json_decode($data);
 $message='';

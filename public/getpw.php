@@ -1,10 +1,7 @@
 <?php
 $r=array ("status" => "ok");
-$json = file_get_contents("php://input");
-$data=json_decode($json);
-
-error_log("data=".print_r($data,true)."XX");
-$memberId=$data;
+$memberId = trim(file_get_contents("php://input"));
+error_log("mid=$memberId");
 
 require("inc/db.php");
 require("inc/mail_sender.php");

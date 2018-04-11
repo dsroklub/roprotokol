@@ -1,7 +1,7 @@
 <?php
+require("inc/utils.php");
 include("../../rowing/backend/inc/common.php");
 require_once("Mail.php");
-include("utils.php");
 
 
 $res=array ("status" => "ok");
@@ -11,7 +11,7 @@ $message='';
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
-
+verify_real_user();
 // error_log("EVENTCREATE NEWEVENT user=$cuser: ".print_r($newevent,true));
 if ($stmt = $rodb->prepare(
         "INSERT INTO event(owner, boats, start_time, end_time, distance, max_participants, location, name, category, comment,open,auto_administer,destination)

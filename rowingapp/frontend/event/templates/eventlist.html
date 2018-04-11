@@ -45,11 +45,11 @@
     </tbody>         
   </table>
 
-  <button ng-hide="currentevent.open || is_event_member(currentevent)" class="green" ng-click="eventjoin('supplicant')">
-    Jeg vil med. Anmod om deltagelse
+  <button ng-hide="currentevent.open || current_user.member_id=='baadhal' || is_event_member(currentevent)" class="green" ng-click="eventjoin('supplicant')">
+    Jeg vil med. Anmod om deltagelse 
   </button>
-  <button ng-show="currentevent.open && ! is_event_member(currentevent)" class="green"  ng-click="eventjoin('member')">
-    Jeg vil med. Tilmeld mig
+  <button ng-show="currentevent.open && !is_event_member(currentevent) && current_user.member_id!='baadhal'" class="green"  ng-click="eventjoin('member')">
+    Jeg vil med. Tilmeld mig {{current_user.member_id}}
   </button>
   <button class="green" ng-show="is_event_member(currentevent)" ng-click="eventleave()">
     Frameld mig

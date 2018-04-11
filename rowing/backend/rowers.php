@@ -16,7 +16,7 @@ $s="SELECT JSON_MERGE(
    ']}')
    ) AS json
    FROM Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  
-   WHERE Member.MemberID!='0'
+   WHERE Member.MemberID!='0' AND Member.id>=0
    GROUP BY Member.id";
 
 if ($sqldebug) {
