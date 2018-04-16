@@ -4,7 +4,7 @@
 <head>
  <link rel="stylesheet" href="club.css"/>
 <head>
-<form method="post" action="index.php">
+<form method="post" action="index.php?action=mail">
   <input class="forumselect" name="memberid" pattern="[gk]?\d{1,5}" type="text" id="messagesto" placeholder='medlemsnummber' required><br>
   <input class="forumselect" name="subject" type="text" placeholder="emne" id="messagesubject" required><br>
   <textarea placeholder="besked" class="msgbody" name="body"  id="privatemessage_body" type="text" required>
@@ -21,7 +21,8 @@ $cuser=-1;
 include("../rowing/backend/inc/common.php");
 include("../event/backend/messagelib.php");
 
-if (isset($_REQUEST['action']) and ($_REQUEST['action']=="submit")) {
+if (isset($_REQUEST['action']) and ($_REQUEST['action']=="mail")) {
+    error_log("klub private msg ".$_REQUEST['memberid']);
     $res=post_private_message($_REQUEST['memberid'], htmlspecialchars($_REQUEST['subject']),   htmlspecialchars($_REQUEST['body']));
     echo print_r($res);
 }

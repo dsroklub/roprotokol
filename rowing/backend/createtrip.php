@@ -7,7 +7,7 @@ $newtrip=json_decode($data);
 $message="createtrip  ".json_encode($newtrip);
 $error=null;
 
-error_log(" Create trip $data");
+// error_log(" Create trip $data");
 
 $rodb->begin_transaction();
 if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) {
@@ -17,7 +17,6 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
   if ($result->fetch_assoc()) {
       $res["status"]="error";
       $error="already on water";
-#      $message='create trip failed, already on water: '. json_encode($newtrip,true);
       error_log($error);
       error_log($data);
   }
