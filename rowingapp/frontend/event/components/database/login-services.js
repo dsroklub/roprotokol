@@ -49,7 +49,7 @@ angular.module('eventApp.database.login-services', []).service('LoginService', f
 
 
   this.logout = function() {
-    $http.get('/frontend/README',{'headers':{'AUTHORIZATION','dummy'}}).then(function(r) {
+      $http.get('/frontend/README',{'headers':{'AUTHORIZATION':'dummy'}}).then(function(r) {
       cuser={"user":"logget ud"};
       alert("logget ud");
     },function(r) {
