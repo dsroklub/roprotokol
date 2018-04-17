@@ -448,6 +448,13 @@ CREATE TABLE Configuration (
 
 INSERT INTO Configuration (id, value) VALUES ('db_version', '1');
 
+DROP TABLE IF EXISTS status;
+CREATE TABLE status (
+  sculler_open INTEGER NOT NULL DEFAULT 0
+);
+INSERT INTO status (sculler_open) VALUES (0);
+
+
 CREATE INDEX tripmembermemberix ON TripMember(member_id);
 
 CREATE INDEX damageresponsible ON Damage(ResponsibleMember);
@@ -711,6 +718,7 @@ CREATE TABLE member_setting (
   show_status BOOLEAN NOT NULL DEFAULT FALSE,
   show_activities BOOLEAN NOT NULL DEFAULT FALSE,
   notification_email VARCHAR(255),
+  email_shared VARCHAR(255),
   phone VARCHAR(20),
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member)

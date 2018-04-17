@@ -10,13 +10,13 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 error_log("MS UPDATE $data,   PUB=".$settings['is_public']);
 if ($stmt = $rodb->prepare(
-        "INSERT INTO member_setting(member,is_public,show_status,show_activities,notification_email,phone)
-         SELECT Member.id, ?,?,?,?,?
+        "INSERT INTO member_setting(member,is_public,show_status,show_activities,notification_email,phone,email_shared)
+         SELECT Member.id, ?,?,?,?,?,?
          FROM Member
          WHERE 
            MemberId=?
          ON DUPLICATE KEY 
-  UPDATE is_public=VALUES(is_public),show_status=VALUES(show_status),show_activities=VALUES(show_activities),notification_email=VALUES(notification_email),phone=VALUES(phone)
+  UPDATE is_public=VALUES(is_public),show_status=VALUES(show_status),show_activities=VALUES(show_activities),notification_email=VALUES(notification_email),phone=VALUES(phone),email_shared=VALUES(email_shared)
          "))  {
     $notification_email=null;
     $phone=null;
@@ -38,13 +38,17 @@ if ($stmt = $rodb->prepare(
     if (!empty($settings['phone'])) {
         $phone=sanestring(trim($settings['phone']),false,"+ 01234567890");
     }
+    if (!empty($settings['email_shared'])) {
+        $email_shared= filter_var($settings['email_shared'],FILTER_SANITIZE_EMAIL);
+    }
     $stmt->bind_param(
-        'ssssss',
+        'sssssss',
         $is_public,
         $show_status,        
         $show_activities,
         $notification_email,
         $phone,
+        $email_shared,
         $cuser) ||  die("member setting BIND errro ".mysqli_error($rodb));
     if (!$stmt->execute()) {
         $error=" member setting exe ".mysqli_error($rodb);

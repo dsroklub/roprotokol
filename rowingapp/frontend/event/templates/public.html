@@ -61,7 +61,10 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
       <th>Telefonnummer som kan ses af andre DSR-medlemmer og som vises i bådhallen</th>
       <td> <input pattern="(\+\d+ ?)?\d+$" type="tel" id="phone" ng-model="member_setting.phone"></td>
     </tr>
-
+    <tr>
+      <th>Email som kan ses af andre DSR-medlemmer og som vises i bådhallen</th>
+      <td> <input  type="email" id="email_shared" ng-model="member_setting.email_shared"></td>
+    </tr>
     <tr>      
       <td>
         <button ng-disabled="publicsetting.$pristine || publicsetting.$invalid" class="green"  ng-click="member_setting_update()">Opdater</button>

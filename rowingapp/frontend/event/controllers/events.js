@@ -236,6 +236,9 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else if (status.status =='warning') {
         alert("Advarsel: "+status.message);
         $scope.init();
+      } else if (status.status =='error') {
+        alert("Fejl: "+status.message);
+        $scope.init();
       } else {
         alert("Fejl: "+status.message);
       }

@@ -10,9 +10,9 @@
            typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
            typeahead-template-url="memberTemplate.html" required />
 </form>
-<h3 ng-show="privatemessage.member.phone"><i class="fa fa-phone"></i>&nbsp;
-  <a href="tel:{{privatemessage.member.phone}}">{{privatemessage.member.phone}}</a></h3>
+<h3 ng-show="privatemessage.member.phone"><i class="fa fa-phone"></i>&nbsp; <a href="tel:{{privatemessage.member.phone}}">{{privatemessage.member.phone}}</a></h3>
 <h3 ng-hide="privatemessage.member.phone || !privatemessage.member">har ikke oplyst sit telefonnummer</h3>
+<h3 ng-show="privatemessage.member.email_shared"><i class="fa fa-envelope"></i>&nbsp; <a href="mail:{{privatemessage.member.email_shared}}">{{privatemessage.member.email_shared}}</a></h3>
 
 <form ng-show="privatemessage.member" name="privatemessageform">
   <input class="forumselect " type="text" placeholder="emne" id="messagesubject" ng-model="privatemessage.subject" required>

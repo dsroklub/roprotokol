@@ -68,12 +68,13 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   $scope.errortrips=[];
   $scope.trip={};
   
-  DatabaseService.init({"boat":true,"member":true, "trip":true,"reservation":true}).then(function () {
+  DatabaseService.init({"boat":true,"status":true,"member":true, "trip":true,"reservation":true}).then(function () {
     $scope.currentrower=null;
     $scope.do="events";
     $scope.DB=DatabaseService.getDB;
     $scope.current_rower=DatabaseService.getCurrentRower();
     $scope.isadmin=false;
+    $scope.sculler_open=DatabaseService.getDB('status').sculler_open;
     if ($scope.current_rower) {
       for (var r in $scope.current_rower.rights) {
         if ($scope.current_rower.rights[r].member_right=="admin" && $scope.current_rower.rights[r].arg=="roprotokol") {
@@ -187,6 +188,9 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
     $scope.update_usage_name = function(usage) {
       var exeres=DatabaseService.updateDB('usage_update_name',usage,$scope.config,$scope.errorhandler);
+    }
+    $scope.set_sculler_open = function(sculler_open) {
+      var exeres=DatabaseService.updateDB('set_sculler_open',sculler_open,$scope.config,$scope.errorhandler);
     }
     $scope.create_usage = function(usage) {
       $log.info('create new usage '+usage);

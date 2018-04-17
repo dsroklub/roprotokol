@@ -1,7 +1,8 @@
 <div class="menuholder">
-  <div ng-hide="isadmin">
+  <div>
     <form>
-      <input placeholder="admin kodeord" autocomplete="off" class="adminpw" type="password" ng-model="config.headers.password">
+      <input ng-hide="isadmin" placeholder="admin kodeord" autocomplete="off" class="adminpw" type="password" ng-model="config.headers.password">
+      Scullerskilt: <select ng-change="set_sculler_open(sculler_open)" ng-model="sculler_open" ng-options="op.id as op.n for op in [{n:'Lukket',id:0},{n:'Åbent',id:1}]"></select>
     </form>
   </div>
   <button class="adminbut" ng-class="{selected: do=='boat'}" ng-click="do='boat'">Både</button>

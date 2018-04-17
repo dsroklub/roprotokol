@@ -134,8 +134,8 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
           $log.debug("  doinvalidate "+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
+	  datastatus[tp]=ds[tp];
 	}
-	datastatus[tp]=ds[tp];
       }
       if (doreload) {
 	console.log(" do reload " + JSON.stringify(valid));

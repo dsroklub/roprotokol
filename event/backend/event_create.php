@@ -138,7 +138,7 @@ if (!empty($newevent->fora)) {
                 error_log($error);
             }     
         }        
-        $ifora[]="'".sanestring("$forum->forum")."'";
+        $ifora[]="'".$rodb->real_escape_string("$forum->forum")."'";
     }
     $iforas=implode(",",$ifora);
 }
@@ -159,7 +159,7 @@ if (!empty($newevent->fora)) {
             $message=$message."\n"."forum message member DB error: ".mysqli_error($rodb);
         } 
     } else {
-        $error=" evnt create forum error IF=.$iforas". $rodb->error;
+        $error=" event create forum error IF=$iforas: ". $rodb->error;
         error_log($error);
     }
 }

@@ -10,4 +10,10 @@
 <select name="boatcategory" id="boatcat" ng-model="current_boat_type" ng-options="boatcat.name for boatcat in boatcategories">
 <option value="">alle bådtyper</option>
 </select>
+
+<select name="forum" id="forum" ng-model="current_forum"
+        ng-options="forum.forum for forum in fora">
+  <option value="">alle fora</option>
+</select>
+
 <div ng-include="'templates/eventlist.html'"></div>

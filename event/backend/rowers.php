@@ -7,6 +7,7 @@ $s="SELECT JSON_MERGE(
     JSON_OBJECT(
       'id',Member.MemberID, 
       'phone',member_setting.phone,
+      'email_shared',member_setting.email_shared,
       'name', CONCAT(FirstName,' ',LastName) 
    ),
    CONCAT('{\"rights\" : [',
