@@ -104,7 +104,7 @@ INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, S
   tMem.CprNo,
   CASE tMem.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
   FROM tblMembersToRoprotokol tMem
-  WHERE (((tMem.RemoveDate) IS NULL) AND CAST(MemberID AS CHAR) NOT IN (SELECT MemberID From Member))
+  WHERE (((tMem.RemoveDate) IS NULL) AND MemberID NOT IN (SELECT MemberID From Member))
   ORDER BY mid;
 ";
     error_log("SQL :\n".$s."\n");
