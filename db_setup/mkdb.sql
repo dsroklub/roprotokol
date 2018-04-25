@@ -330,7 +330,7 @@ CREATE TABLE event_log (
 
 DROP TABLE IF EXISTS tblMembersToRoprotokol;
 CREATE TABLE tblMembersToRoprotokol (
-  MemberID           INT, 
+  MemberID           varchar(10), 
   LastName           Text (50), 
   FirstName          Text (50), 
   E_mail             Text (100), 
