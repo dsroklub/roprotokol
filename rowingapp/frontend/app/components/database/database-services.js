@@ -9,7 +9,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   var tx=null;
   var cachedepend;
   var currentseason=new Date().getFullYear();
-
+  
   function toURL(service){
     if (databasesource=='real') {
       return '../../backend/'+service;
@@ -122,6 +122,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     this.getData('boat_brand',"",promises);
     this.getData('boat_usages',"",promises);    
     this.getData('rights_subtype',"",promises);
+    this.getData('status',"",promises);
     this.getData('stats/trip_stat_year',"",promises);
     
     if(!valid['memberrighttypes']) {
@@ -181,6 +182,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   this.invalidate_dependencies=function(tp) {
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
+      $log.debug(' !v '+subtp);
       valid[subtp]=false;	    
     }
   };
@@ -207,6 +209,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     };
         
     db.boatlevels={
+      0:'',
       1:'Let',
       2:'Mellem',
       3:'Svær',
@@ -214,9 +217,10 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     }
     defaultLocation = 'DSR';
     cachedepend={
-      'admin':[,'memberrighttypes'],
-      'reservation':['reservation','boat'],
-      'boat':['boats','boatdamages','availableboats','reservations','boat_status','boat_usages','boat_status','get_events'],
+      'status':['status'],
+      'admin':['memberrighttypes','rights_subtype'],
+      'reservation':['reservation','boat','get_reservations'],
+      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],
@@ -234,7 +238,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     var sq=$q.defer();
     $http.post('../../backend/datastatus.php', null).then (function(response) {
       var ds=response.data;
-
+      db['current_user']=ds.uid;
       if (gitrevision != ds.gitrevision) {
         $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
         window.location="/frontend/app/index.html";
@@ -251,8 +255,8 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
           $log.log("  inval "+tp); // NEL
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
+	  datastatus[tp]=ds[tp];
 	}
-	datastatus[tp]=ds[tp];
       }
       if (doreload) {
 	$log.log(" do reload " + JSON.stringify(valid));
@@ -475,10 +479,27 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     return rs[0];
   }
 
-    this.getRowersByNameOrId = function(nameorid, preselectedids) {
+  this.getRowerByMemberId = function(member_id) {
+    var rowers=db['rowers'];
+    if (!rowers) {
+      return null;
+    }
+    for (var ri=0; ri<rowers.length; ri++) {
+      if (rowers[ri].id==member_id) {
+        return rowers[ri];
+      }
+    }
+  }
+
+  this.getCurrentRower = function() {
+    if (!db['current_user']) return null;
+    return this.getRowerByMemberId(db['current_user']);
+  }
+
+  this.getRowersByNameOrId = function(nameorid, preselectedids) {
     var val = nameorid.trim().toLowerCase();
     if (val.length<3 && isNaN(val)) {
-       return [];
+      return [];
     }
     var rowers=db['rowers'];
     if (!rowers) {
@@ -522,6 +543,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
     datastatus['trip']=null;
     datastatus['boat']=null;
     datastatus['member']=null;
+    datastatus['status']=null;
     return qup.promise;
   }
   
@@ -591,7 +613,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       alert("det mislykkedes at sende nyt password");
     });
   }
-  
+
   /// The rest is just for testing
   this.test = function(src) {
     var boats = db['boatcategories']["Inrigger 2+"];

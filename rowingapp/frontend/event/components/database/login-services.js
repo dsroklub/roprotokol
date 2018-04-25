@@ -49,6 +49,17 @@ angular.module('eventApp.database.login-services', []).service('LoginService', f
 
 
   this.logout = function() {
+      $http.get('/frontend/README',{'headers':{'AUTHORIZATION':'dummy'}}).then(function(r) {
+      cuser={"user":"logget ud"};
+      alert("logget ud");
+    },function(r) {
+      if (r.status==401) {
+        cuser.user={"user":"logget Ud"};
+      } else {
+        alert("log ud problem");
+      }
+    });
+
     $http.get('/backend/event/logout.php').then(function(r) {
       cuser={"user":"logget ud"};
       alert("logget ud");
@@ -59,6 +70,7 @@ angular.module('eventApp.database.login-services', []).service('LoginService', f
         alert("logget ud problem");
       }
     });
+    
   }
   
 });

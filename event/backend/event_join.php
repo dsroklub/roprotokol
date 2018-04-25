@@ -1,8 +1,9 @@
 <?php
+require("inc/utils.php");
 include("../../rowing/backend/inc/common.php");
 
-
 $res=array ("status" => "ok");
+verify_real_user("lave nye begivenheder");
 $data = file_get_contents("php://input");
 $subscription=json_decode($data);
 $message='';
@@ -78,4 +79,3 @@ if ($error) {
 }
 invalidate("event");
 echo json_encode($res);
-?> 

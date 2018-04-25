@@ -41,9 +41,65 @@ function post_message($toEmails,$subject,$message) {
         $res["status"]="warning";
         $res['warning']=$warning;
     }
+    error_log("now RES ".print_r($res,true));
     return $res;
 }
 
+
+function post_private_message($memberId,$subject,$message) {
+    global $rodb;
+    global $cuser;
+    $res=array ("status" => "init");
+    $stmt = $rodb->prepare("SELECT email FROM Member WHERE Member.MemberId=?");
+    $stmt->bind_param('s',$memberId) or die("{\"status\":\"Error in event private message query bind: " . mysqli_error($rodb) ."\"}");
+    $stmt->execute() or die("{\"status\":'Error in private message exe query: " . mysqli_error($rodb) ."\"}");
+    $result= $stmt->get_result() or die("{\"status\":'Error in private message query: " . mysqli_error($rodb) ."\"}");
+    if ($email=$result->fetch_assoc()) {
+        $res=post_message([$email["email"]],$subject,$message);
+    } else {
+        error_log("member not found");
+    }
+    error_log("PPM");
+    if ($stmt = $rodb->prepare(
+        "INSERT INTO private_message(member_from, created, subject, message)
+         SELECT MAX(Member.id),NOW(),?,?
+         FROM Member
+         WHERE 
+           Member.MemberId=?")) {        
+        $stmt->bind_param(
+            'sss',
+            $subject,
+            $message,
+            $cuser) ||  die("create forum message BIND errro ".mysqli_error($rodb));
+        
+        error_log("NOW EXE");
+        if ($stmt->execute()) {
+            error_log("sent private message $subject");
+        } else {
+            $error=" pricatemessage error ".mysqli_error($rodb);
+            error_log($error);
+        } 
+    } else {
+        error_log("ppm error" .$rodb->error);
+    }
+    if ($stmt = $rodb->prepare(
+        "INSERT INTO member_message(member, message)
+             SELECT Member.id,LAST_INSERT_ID()
+             FROM Member
+             WHERE Member.MemberId=?")) {
+        $stmt->bind_param(
+            's',
+            $memberId) ||  die("create event message BIND errro ".mysqli_error($rodb));        
+        if (!$stmt->execute()) {
+            $error=" message membererror ".mysqli_error($rodb);
+            error_log($error);
+            $message=$message."\n"."private messagelib member DB error: ".mysqli_error($rodb);
+        } 
+    } else {
+        error_log("ppmm error" .$rodb->error);
+    }
+    return $res;
+}
 
 function post_event_message($eventId,$subject,$message) {
     global $rodb;

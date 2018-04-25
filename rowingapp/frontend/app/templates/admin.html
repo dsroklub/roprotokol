@@ -1,8 +1,10 @@
 <div class="menuholder">
-  <div><form>
-    <input placeholder="admin kodeord" autocomplete="off" class="adminpw" type="password" ng-model="config.headers.password">
+  <div>
+    <form>
+      <input ng-hide="isadmin" placeholder="admin kodeord" autocomplete="off" class="adminpw" type="password" ng-model="config.headers.password">
+      Scullerskilt: <select ng-change="set_sculler_open(sculler_open)" ng-model="sculler_open" ng-options="op.id as op.n for op in [{n:'Lukket',id:0},{n:'Åbent',id:1}]"></select>
     </form>
-    </div>
+  </div>
   <button class="adminbut" ng-class="{selected: do=='boat'}" ng-click="do='boat'">Både</button>
   <button class="adminbut" ng-class="{selected: do=='user'}" ng-click="do='user'">Roere</button>
   <button class="adminbut" ng-class="{selected: do=='trip'}" ng-click="do='trip'">Ture</button>
@@ -49,14 +51,15 @@
             </td>
 	    <td><select  ng-model="newboattype.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
             <td><button class="big" ng-show="newboattype.name && newboattype.seatcount && newboattype.category" ng-click="create_boattype(newboattype)">Opret ny bådtype </button></td>
-	    <!--td ><button class="action" ng-model="newboattype.rights" ng-click="currentboattype=newboattype"> {{newboattype.rights|rightreqs}}</button></td-->
 	  </tr>
 	  </tbody>
       </table>
     </form>
-
-    <table class="boatlist blok boatadminap" >
-      <caption>Både</caption>
+    
+    <table class="boatlist bblok boatadminap" >
+      <caption>Både
+        <select class="chooser" name="boattypechooser" id="boattypechooser" ng-model="boattype"  ng-options="boatcategory.name for boatcategory in boatcategories"> </select>
+      </caption>
       <thead>
 	<tr>
 	  <th>Båd</th><th>Kategori</th><th>Lokalitet</th><th>Port</th><th>Inderst/Yderst</th><th>Hylde</th><th>Side</th>
@@ -64,7 +67,7 @@
 	</tr>	
       </thead>
       <tbody>
-	<tr ng-repeat="boat in allboats">
+	<tr ng-repeat="boat in allboats | filter: matchBoatType(boattype)">
 	  <td>
 	    <input type="text" ng-model="boat.name" ng_change="set_name_for_boat(boat)" ng-model-options="{updateOn:'blur'}">
 	  </td>
@@ -130,7 +133,7 @@
     
     <div class="blok">
       <table>
-	<caption>Anvendelser</caption>
+	<caption>Anvendelser (særligt)</caption>
 	<tbody>	  
 	  <tr><th>Anvendelse</th><th>Beskrivelse</th></tr>
 	  <tr ng-repeat="usage in usages">
@@ -159,7 +162,7 @@
     </div>
   </div>
 
-  <div class="blok">
+  <div class="iblok">
     <table>
       <caption>Fabrikater</caption>
 	<tbody>	  
@@ -171,7 +174,7 @@
 	      <input type="text" placeholder="nyt fabrikat" ng-model="newbrand.name">
             </td>
             <td>
-	      <button ng-click="create_boat_brand(newbrand)" ng-model="newbrand.name" class="big" ng-show="newbrand.name && newbrand.name.length>0">Opret nyt fabrikat</button>
+	      <button ng-click="create_boat_brand(newbrand)" ng-model="newbrand.name" class="big" ng-show="newbrand.name && newbrand.name.length">Opret nyt fabrikat</button>
             </td>
 	  </tr>
 	</tbody>
@@ -188,7 +191,7 @@
       <tr><th>Rettighed</th><th>kræves af</th><th></th></tr>
     </thead>
     <tbody>
-      <tr ng-repeat="r in requiredboatrights">
+      <tr ng-repeat="r in requiredboatrights" ng-if="r.required_right">
 	<td>{{r.required_right|righttodk}}</td>
 	<td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{r.requirement}}</select></td>
         <td>
@@ -250,7 +253,7 @@
         </tr>	
       </thead>
       <tbody>
-        <tr ng-repeat="r in requiredtriprights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+        <tr ng-repeat="r in requiredtriprights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-if="r.required_right">
 	  <td>{{r.required_right| righttodk }}</td>	  
 	  <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{r.requirement}}</select></td>
           <td><button class="action" ng-click="remove_triptype_requirement(r,$index)">Fjern krav</button></td>
@@ -330,7 +333,7 @@
           <tr> <th>Rettighed</th><th></th> </tr>	
         </thead>
         <tbody>
-	  <tr ng-repeat="rr in currentrower.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+	  <tr ng-repeat="rr in currentrower.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-show="rr.member_right">
             <td>{{rr |argrighttodk }}</td>
             <td>
               <button class="big" ng-click="remove_rower_right(rr,currentrower,$index)">inddrag rettighed</button>
@@ -347,7 +350,7 @@
     </div>
   </div>
   <div class="adminconvertrower" ng-show="currentrower.id">
-    <button  class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer {{currentrower.name}} til denne</button>
+    <button  class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer {{currentrower.name}} ({{currentrower.id}}) til denne</button>
     <input autocomplete="off" id="findrowerforconvert" name="name" type="text"
            typeahead-on-select="alert($item)" ng-model="converttorower"
            uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
@@ -461,7 +464,7 @@
                />
           </td>            
 	  <td>
-            <fieldset ng-disabled="reservation.dayofweek>0">
+            <fieldset ng-hide="reservation.dayofweek">
               <datetimepicker               
                  uib-tooltip="startdato hvis det ikke er en fast ugedag"
                  popup="d MMM yyyy"
@@ -488,7 +491,7 @@
           </td>
             
           <td>
-            <fieldset ng-disabled="reservation.dayofweek>0">
+            <fieldset ng-hide="reservation.dayofweek">
 	      <datetimepicker
                 uib-tooltip="slutdato hvis det ikke er en fast ugedag"
                 popup="d MMM yyyy"

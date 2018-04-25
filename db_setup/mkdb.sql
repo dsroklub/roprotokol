@@ -448,6 +448,13 @@ CREATE TABLE Configuration (
 
 INSERT INTO Configuration (id, value) VALUES ('db_version', '1');
 
+DROP TABLE IF EXISTS status;
+CREATE TABLE status (
+  sculler_open INTEGER NOT NULL DEFAULT 0
+);
+INSERT INTO status (sculler_open) VALUES (0);
+
+
 CREATE INDEX tripmembermemberix ON TripMember(member_id);
 
 CREATE INDEX damageresponsible ON Damage(ResponsibleMember);
@@ -599,6 +606,8 @@ CREATE TABLE event_boat_type (
 CREATE TABLE event_member (
   member     INTEGER,
   event      INTEGER,
+  comment    VARCHAR(4096),
+  value      FLOAT,
   enter_time DATETIME, -- default NOW(),
   role       VARCHAR(255), -- waiting, cox, any, leader, admin
   FOREIGN KEY (member) REFERENCES Member(id),
@@ -633,6 +642,8 @@ CREATE TABLE forum_subscription (
   member     INTEGER,
   forum      VARCHAR(255),
   role       VARCHAR(255) NOT NULL, -- waiting, cox, any, leader, admin
+  comment    VARCHAR(4096),
+  value      FLOAT,
   FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,forum)
@@ -666,12 +677,21 @@ CREATE TABLE event_message (
   id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
   member_from  INTEGER,
   created    DATETIME,
-  event      INTEGER,
+  event      INTEGER NULL,
   subject    VARCHAR(1000),
   message    VARCHAR(10000),
   FOREIGN KEY (member_from) REFERENCES Member(id),
   FOREIGN KEY (event)       REFERENCES event(id),
-  PRIMARY KEY (id)
+--  PRIMARY KEY (id)
+);
+
+CREATE TABLE private_message (
+  id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  member_from  INTEGER,
+  created    DATETIME,
+  subject    VARCHAR(1000),
+  message    VARCHAR(10000),
+  FOREIGN KEY (member_from) REFERENCES Member(id)
 );
 
 CREATE TABLE event_forum (
@@ -698,6 +718,8 @@ CREATE TABLE member_setting (
   show_status BOOLEAN NOT NULL DEFAULT FALSE,
   show_activities BOOLEAN NOT NULL DEFAULT FALSE,
   notification_email VARCHAR(255),
+  email_shared VARCHAR(255),
+  phone VARCHAR(20),
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member)
  );
@@ -784,3 +806,6 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
  (2037,"2037-03-29","2037-10-25"),
  (2038,"2038-03-28","2038-10-31"),
  (2039,"2039-03-27","2039-10-30");
+
+
+INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");

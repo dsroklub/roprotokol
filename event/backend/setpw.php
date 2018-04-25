@@ -1,11 +1,12 @@
 <?php
-$r=array ("status" => "ok");
+require("inc/utils.php");
+
+$res=array ("status" => "ok");
 $json = file_get_contents("php://input");
 $data=json_decode($json);
 $cuser=$_SERVER['PHP_AUTH_USER'];
-
+verify_real_user("skifte password");
 error_log("data=".print_r($data,true)."XX");
-
 include("../../rowing/backend/inc/common.php");
 require("db.php");
 $pw=$data->pw;

@@ -23,9 +23,12 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     }
     return false;
   };
-  
+
+  $scope.newdamage={};
+  $scope.boattype=null;
   DatabaseService.init({"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
     // Load Category Overview
+    $scope.newdamage.reporter=DatabaseService.getCurrentRower();
     $scope.boatcategories = DatabaseService.getBoatTypes();
     // Load selected boats based on boat category
     $scope.reservations = DatabaseService.getDB('get_reservations');
@@ -303,6 +306,12 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       return (matchboat.id && (boat==null || matchboat.boat_id==boat.id));
     }
   };
+
+  $scope.matchBoatAndType = function(boat,boattype) {
+    return function(matchboat) {
+      return (matchboat.id && (boat==null || matchboat.boat_id==boat.id) && (!boattype || matchboat.boattype==boattype.name));
+    }
+  };
   
   $scope.matchBoatId = function(boat,onwater) {
     return function(matchboat) {
@@ -316,6 +325,15 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     var result = bts
         .filter(function(element) {
           return (element['name'].toLowerCase().indexOf(vv.toLowerCase()) == 0);
+        });
+    return result;
+  };
+
+  $scope.getMatchingBoatsWithType = function (vv,boattype) {
+    var bts=DatabaseService.getBoats();
+    var result = bts
+        .filter(function(boat) {
+          return ( boat['name'].toLowerCase().indexOf(vv.toLowerCase()) == 0  && (!boattype || boattype.name==boat.category));
         });
     return result;
   };
@@ -369,7 +387,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       }
       if (DatabaseService.fixDamage(data)) {
         damagelist.splice(damagelist.indexOf(bd),1);
-        $scope.newdamage.reporter=null;
+	$scope.newdamage.reporter=DatabaseService.getCurrentRower();
         $scope.allboatdamages = DatabaseService.getDamages();
         $scope.damagesnewstatus="klarmeldt";
       } else {
@@ -388,8 +406,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         function(data) {
           if (data.status=="ok") {
             $scope.allboatdamages.splice(0,0,data.damage);
-            $scope.newdamage=null;
-          }                  
+            $scope.newdamage={};
+	    $scope.newdamage.reporter=DatabaseService.getCurrentRower();
+          }
         }
       )
     } else {

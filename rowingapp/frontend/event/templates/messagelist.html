@@ -21,6 +21,10 @@
               <i class="fa fa-reply" ng-click=forum_reply(message)></i>
               {{message.subject}}
             </div>
+            <div ng-show="message.type=='private'" >
+              <!--i class="fa fa-reply" ng-click=private_reply(message)></i FIXME -->
+              {{message.subject}}
+            </div>
 
 	    <div ng-show="message.type=='event'">
               <a ng-show="message.current>0" href="{{burl}}#!timeline?event={{message.event}}" >
@@ -40,7 +44,7 @@
           <td><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
         </tr>
         <tr ng-repeat-end ng-if="currentmessage == message">
-          <td class="popempty"></td><td class="popdown" colspan="4"> <pre class="popdown" ng-bind=message.body></pre> </td>
+          <td class="popempty"></td><td class="popdown" colspan="4"> <div class="popdown" ng-bind=message.body></div> </td>
         </tr>
       </tbody>
     </table>

@@ -10,10 +10,6 @@ error_log("member: ".$subscription->member->id);
 error_log("forum:". $subscription->forum->forum);
 error_log("role:". $subscription->role);
 
-if (isset($_SERVER['PHP_AUTH_USER'])) {
-    $cuser=$_SERVER['PHP_AUTH_USER'];
-}
-
 if ($stmt = $rodb->prepare(
     "INSERT INTO forum_subscription(member,forum,role)
          SELECT Member.id, ?,?

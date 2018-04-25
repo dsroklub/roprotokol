@@ -1,0 +1,71 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10pt;
+  background: #FFFFFF;
+  color: #0088C0;
+  font-weight: 400;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  width: auto;
+  color: #0088C0;
+  background:white;                     
+  display:table;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+table {
+  margin-top: 2em;
+}
+
+button {
+  background: #bcffbd;
+  border-radius: 5px;
+  border: 0;
+  padding: 4pt 10pt;
+  margin-top: 5pt;
+  border: 1px solid #ccc;
+}
+
+.tablelayout {
+  background: #0088C0;
+  color: white;
+  font-size: 10pt;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+
+table caption {
+  background:#2f5869;
+  color: white;
+  font-size: 12pt;
+  border-radius: 7px 7px 0 0;
+  text-align: center;
+}
+
+.even {
+  background: #ffffaa;
+  color: #0088C0;
+}
+
+.odd {
+  background: #FFDDAA;
+  color: #0088C0;
+}
+
+select  {
+  border: 1px solid #ccc;
+  padding: 3pt;
+  margin-bottom: 0pt;
+  background-color: #FFB992;
+  border-radius: 5px;
+}
+
+tr td {
+  padding: 0.2em;
+}

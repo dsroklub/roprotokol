@@ -408,10 +408,11 @@ tr td {
   vertical-align: text-bottom;
   font-size: x-large;
   max-width: 100%;                  
- } 
+ }
 
 .messagelist {
-    display:inline-block;
+  display:inline-block;
+    max-width: 100%
 }
 .rightcontainer {
     display:inline-block;
@@ -425,6 +426,7 @@ tr td {
   border-radius:0.3em;         
   background: #d0f8d5;
   color: black;
+  white-space: pre-wrap;
 }
 
 .popempty {

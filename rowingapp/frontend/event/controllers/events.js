@@ -22,9 +22,12 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.eventarg=$routeParams.event;
   $scope.messagearg=$routeParams.message;
   $scope.forumarg=$routeParams.forum;
+  $scope.memberarg=$routeParams.memberid;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
   $scope.current_forum={"forum":null};
+  $scope.current_boat_type={'id':null,'name':null};
+
   $scope.dateOptions = {
     showWeeks: false,
     minDate: $scope.min_time
@@ -70,7 +73,11 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         }
       }
     }
-
+    $scope.privatemessage={};
+//    $scope.memberid="7843";
+    if($scope.memberid) {
+      $scope.privatemessage.member=DatabaseService.getRower($scope.memberid);
+    }
     $scope.messages=DatabaseService.getDB('event/messages');
     $scope.member_setting=DatabaseService.getDB('event/member_setting');
     $scope.eventcategories=DatabaseService.getDB('event/event_category');
@@ -229,6 +236,9 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else if (status.status =='warning') {
         alert("Advarsel: "+status.message);
         $scope.init();
+      } else if (status.status =='error') {
+        alert("Fejl: "+status.message);
+        $scope.init();
       } else {
         alert("Fejl: "+status.message);
       }
@@ -247,7 +257,20 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       }
     });
   }
-  
+
+  $scope.set_event_openness = function(event) {
+    var sr=DatabaseService.createSubmit("set_event_openness",event);
+    sr.promise.then(function(status) {
+      if (status.status !='ok') {
+        if (status.status =='warning') {
+          alert("advarsel: "+status.warning);
+        } else {
+          alert("fejl "+status.error);
+        }
+      }
+    });
+  }
+
 
   $scope.accept_event_participant = function(em) {
     em.event_id=$scope.currentevent.event_id;
@@ -290,7 +313,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
   
   $scope.is_event_member = function(event) {
-    if (!event || ! $scope.current_user) {
+    if (!event || !event.participants || ! $scope.current_user) {
       return false;
     }
     for (var i=0; i<event.participants.length; i++){
@@ -386,6 +409,21 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       }
       if (status.status == 'warning') {
 
+        alert(status.warning);
+      }
+    });
+  }
+
+    $scope.privatemessagesend = function() {
+    var sr=DatabaseService.createSubmit("send_private_message",$scope.privatemessage);
+    sr.promise.then(function(status) {
+      if (status.status == 'error') {
+        alert(status.error);
+      } else {
+        $log.debug("private message sent");
+        $scope.privatemessage={};
+      }
+      if (status.status == 'warning') {
         alert(status.warning);
       }
     });
@@ -487,6 +525,20 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.burl=$location.$$absUrl.split("message/")[0]; // FIXME
  // $log.debug("burl="+$scope.burl);
 
+  $scope.update_forummembervalue = function(member,val) {
+    var d={"forummember":member,"value":val};
+    var sr=DatabaseService.createSubmit("forummember_value_update",d);
+    sr.promise.then(function(status) {
+      if (status.status =='ok') {
+        $log.debug("member value updated");        
+      } else {
+        alert(status.error);
+      }
+    }
+                   );
+  }
+    
+  
   $scope.member_setting_update = function() {
     var sr=DatabaseService.createSubmit("member_setting_update",$scope.member_setting);
     sr.promise.then(function(status) {
@@ -499,7 +551,6 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     });
   }
   
-
   $scope.getRowerByName = function (val) {
     // Generate list of ids that we already have added
     return DatabaseService.getRowersByNameOrId(val);
@@ -608,8 +659,20 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
   };
 
+  $scope.event_boat_type_match = function () {
+    return function (event) {
+      if (!($scope.current_boat_type && $scope.current_boat_type.name)) {
+        return true;
+      }
+      return (event.boats==$scope.current_boat_type.name);
+    }
+  };
+
   $scope.event_forum_match = function () {
     return function (event) {
+      if (!($scope.current_forum && $scope.current_forum.forum)) {
+        return true;
+      }
       for (var i=0;i<event.fora.length;i++) {
         if (event.fora[i].forum==$scope.current_forum.forum) {
           return true;
@@ -724,6 +787,11 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     $location.search({"forum":$scope.current_forum.forum});
   }
   
+  $scope.show_member = function (memberid) {
+    $location.url("/member/");   
+    $location.search({"memberid":memberid});
+  }
+
   $scope.messagematch = function (messagefilter) {
     return function(message) {
       if (!messagefilter) {
@@ -737,7 +805,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         ) &&(
           !messagefilter ||
 	    message.subject.toLowerCase().indexOf(mf)>-1 ||
-	    message.sender.toLowerCase().indexOf(mf)>-1 ||
+	    (message.sender && message.sender.toLowerCase().indexOf(mf)>-1) ||
 	    message.body.toLowerCase().indexOf(mf)>-1
           )
       );

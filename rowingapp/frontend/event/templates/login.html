@@ -15,14 +15,14 @@
   <button class="login" ng-click="getpw()" class="green">Send mit password</button>
 </form>
   
-<form name="newpw" ng-show="ccurrentuser.user.member_id">  
+<form name="newpw" ng-show="ccurrentuser.user.member_id && ccurrentuser.user.member_id!='baadhal'">  
   <h2>Skift password, mindst 8 tegn</h2>
   <input data-ng-model='login.pw' autocomplete="off" pattern=".{8}.*" type="password" name='password' placeholder='password'>
   gentag: <input data-ng-model='login.pw2' autocomplete="off" type="password" name='password2' placeholder='password'>    
   <button ng-show="login.pw==login.pw2" class="login" ng-click="setpw()" class="green">Skift password</button>   
 </form>
 
-<div ng-show="ccurrentuser.user.member_id">
+<div ng-show="ccurrentuser.user.member_id && ccurrentuser.user.member_id!='baadhal'">
   <button ng-click="logout()" class="red">log ud</button>
   {{loginstatus}}
 </div>

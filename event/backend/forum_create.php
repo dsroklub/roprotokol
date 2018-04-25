@@ -1,9 +1,11 @@
 <?php
+require("inc/utils.php");
 include("../../rowing/backend/inc/common.php");
 include("inc/forummail.php");
 
-
 $res=array ("status" => "ok");
+
+verify_real_user();
 $data = file_get_contents("php://input");
 $newforum=json_decode($data);
 $message='';
@@ -13,14 +15,16 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 // $cuser="7854"; // FIXME
 
+
+/*,MemberRights AND */
+/*    MemberRights.member_id=Member.id AND */
+/*    MemberRights.MemberRight='event' AND */
+/*    MemberRights.argument='fora' LIMIT 1 */
+    
 if ($stmt = $rodb->prepare(
     "INSERT INTO forum (name,description,is_open,is_public,owner) 
-   SELECT ?,?,?,?,Member.id FROM Member,MemberRights WHERE 
-   Member.MemberId=? AND
-   MemberRights.member_id=Member.id AND
-   MemberRights.MemberRight='event' AND
-   MemberRights.argument='fora' LIMIT 1
-"
+   SELECT ?,?,?,?,Member.id FROM Member WHERE 
+   Member.MemberId=?"
 )) {
 
     $triptype="NULL";
