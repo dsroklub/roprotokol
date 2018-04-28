@@ -9,7 +9,7 @@
     include("../rowingapp/backend/inc/backheader.php");
 ?>
     <table>
-      <caption>$boatcat instruktion</caption>
+      <caption>Instruktion</caption>
       <tr>
         <th>Dato</th>
         <th>antal roere<br> ink instruktører</th>
