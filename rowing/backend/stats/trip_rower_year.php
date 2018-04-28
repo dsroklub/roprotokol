@@ -34,4 +34,3 @@ if ($stmt = $rodb->prepare($s)) {
      $stmt->close();
  }
 $rodb->close();
-?>
