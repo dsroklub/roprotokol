@@ -21,7 +21,7 @@
          $category=2;
          $boatcat="Inriggere";
          $minSeats=2;
-         if (isset($_GET["category"]) && isset($_GET["category"]=="1")) {
+         if (isset($_GET["category"]) && $_GET["category"]=="1") {
              $category=1;
              $boatcat="Kajak, surfski";
              $minSeats=0;
