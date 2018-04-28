@@ -186,7 +186,7 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
   });
   
   $scope.changeSeason= function() {
-    console.log("change season to " + $scope.statseason)
+    $log.info("Change season to " + $scope.statseason)
     if($scope.tableParams) {
       $scope.tableParams.reload();
     }
