@@ -176,7 +176,6 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     angular.forEach(reqs, function(r,k) {
       var rq=r.required_right;
       var subject=r.requirement;
-      // console.log("check right "+rq);
       var arg=rq=='instructor'?subright:null;
       if (rq == null) {
         // Skip, we are waiting for Mysql Json AGG in MariaDB 10.3
@@ -495,7 +494,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         $scope.checkinmessage=status.boat+" er nu ledig, turen er slettet";
         $scope.checkin.boat=null;
       } else {
-        console.log("error "+status.message);
+        $log.error("error "+status.message);
         $scope.checkoutmessage="Fejl: "+closetrip;
       };
     }
@@ -519,9 +518,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         
       } else if (status.status =='error' && status.error=="notonwater") {
         $scope.checkinmessage= status.boat+" var allerede skrevet ind";
-        console.log("not on water")
+        $log.debug("not on water")
       } else {
-        console.log("error "+status.message);
+        $log.error("error "+status.message);
         $scope.checkoutmessage="Fejl: "+closetrip;
       };
     }
@@ -583,16 +582,15 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       $scope.updateExpectedTime();
     }
     var ds=DatabaseService.reload(['boat'])
-    console.log(" boatsync ds="+ds);
     if (ds) {
       ds.then(function(what) {
         if ($scope.selectedBoatCategory) {
           $scope.selectedboats = DatabaseService.getBoatsWithCategoryName($scope.selectedBoatCategory.name);
           if ($scope.checkout.boat) {
-            console.log("update selected boats");
+            $log.debug("update selected boats");
             $scope.checkout.boat=DatabaseService.getBoatWithId($scope.checkout.boat.id);
             if ($scope.checkout.boat.trip) {
-	      console.log("selected boat was taken");
+	      $log.debug("selected boat was taken");
 	      $scope.checkouterrormessage="For sent: "+$scope.checkout.boat.name+" blev taget";
 	      $scope.checkout.boat.trip=null;
 	      $scope.checkout.boat=null;
