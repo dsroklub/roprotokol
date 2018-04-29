@@ -11,31 +11,28 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
 # Installation
 
-    apt-get install npm python-mysqldb memcached php-memcached php-mysql libapache2-mod-php nodejs nodejs-legacy mysql-server php-mail
+    apt-get install npm python-mysqldb memcached php-memcached php-mysql libapache2-mod-php nodejs nodejs-legacy mysql-server php-mail composer php-cli
     # or mariadb
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
     apt-get install  libaprutil1-dbd-mysql pkg-php-tools
     # Remember to restart your web server.
 
-   a2enmod dbd  rewrite
-   a2enmod authn_dbd
-   a2enmod php7.0 
+   a2enmod dbd  rewrite include authn_dbd  php7.0 
+   sudo npm install -g bower karma
 
-    sudo npm install -g bower karma
-
-    # for debug scripts
-    apt-get install php-cli
-
-    cd rowingapp/frontend; npm install
-
-Set <code>group_concat_max_len = 50000</code> e.g. in /etc/mysql/my.cnf
+   # for debug scripts
+   cd rowingapp/phplib; composer update
+   cd rowingapp/frontend; npm install
 
 Create database:
 
-    CREATE SCHEMA roprotokol DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+   sudo mysqladmin  --default-character-set=utf8 create roprotokol 
     CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol';
+    CREATE USER 'apacheauth'@'localhost' IDENTIFIED BY 'XXXX';
     GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost';
+    GRANT ALL PRIVILEGES ON roprotokol.authentification TO 'apacheauth'@'localhost';
     FLUSH PRIVILEGES;
+
 
 Import schema:
 
