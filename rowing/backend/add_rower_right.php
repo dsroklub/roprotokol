@@ -23,11 +23,17 @@ if (!$arg) {
     $arg="";
 }
 
-if ($stmt = $rodb->prepare("INSERT INTO  MemberRights (member_id,MemberRight,argument,Acquired) SELECT id,?,?,NOW() FROM Member Where MemberID=?")) {
+if ($stmt = $rodb->prepare("INSERT INTO  MemberRights (member_id,MemberRight,argument,Acquired) SELECT id,?,?,NOW() FROM Member Where MemberID=? ON DUPLICATE KEY UPDATE Acquired=NOW()")) {
     $stmt->bind_param('sss', $data->right->member_right,$arg,  $data->rower->id);
-    $stmt->execute();
+    if (!$stmt->execute()) {
+        error_log('OOOPS rower right EXE: '.$rodb->error);
+        $res["status"]="error";
+        $res["message"]="$rodb->error";
+    };
 } else {
-    error_log('OOOPS rower right: '.$rodb->error);
+        $res["status"]="error";
+        $res["message"]="prepare error";
+        error_log('OOOPS rower right: '.$rodb->error);
 }
 $rodb->commit();
 invalidate('member');
