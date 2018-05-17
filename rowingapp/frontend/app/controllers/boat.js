@@ -566,8 +566,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         // TODO: clear
       } else if (status.status =='error' && status.error=="already on water") {
         $scope.checkouterrormessage = $scope.checkout.boat.name + " er allerede udskrevet, vælg en anden båd";
+      } else if (status.status =='error' && status.error=="rower already on water") {
+        $scope.checkouterrormessage = $scope.checkout.boat.name + " er allerede udskrevet, vælg en anden båd";
       } else {
-        $scope.checkoutmessage="Fejl: "+JSON.stringify(newtrip);
+        $scope.checkouterrormessage="Fejl: "+status.error;
         // TODO: give error that we could not save the trip
       };
     },function() {alert("error")}, function() {alert("notify")}

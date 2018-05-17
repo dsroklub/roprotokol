@@ -260,7 +260,7 @@
     <div ng-show="boatdamages" class="damageslist">
       <h2>Skader på {{checkout.boat.name}}</h2>
       <ul>
-        <li ng-repeat="damage in boatdamages">
+        <li ng-repeat="damage in boatdamages" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
           <!--button class="green" ng-click="reportFixDamage(damage,boatdamages,$index)" class="fa fa-check">Klarmeld</button-->
           {{damage.description}}
         </li>

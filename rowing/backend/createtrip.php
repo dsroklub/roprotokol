@@ -22,14 +22,28 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
   }
 }
 
+
+foreach ($newtrip->rowers as $rower) {
+    if ($stmt = $rodb->prepare("SELECT Boat.name as boat FROM Trip,TripMember,Member,Boat WHERE Boat.id=Trip.BoatID AND Member.MemberID=? AND Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND Trip.InTime IS NULL")) {
+        $stmt->bind_param('i', $rower->id);
+        $stmt->execute();
+        $result= $stmt->get_result();
+        if ($r=$result->fetch_assoc()) {
+            $res["status"]="error";
+            $error .= "$rower->name er allerede på vandet i ".$r["boat"];
+        }
+    }
+}
+
+
 $teamName=null;
 
 if (!empty($newtrip->trip_team)) {
     $teamName=$newtrip->trip_team->name;
 }
+$expectedtime=mysdate($newtrip->expectedtime);    
 if (!$error) {
     $starttime=mysdate($newtrip->starttime);
-    $expectedtime=mysdate($newtrip->expectedtime);    
     // error_log('now new trip'. json_encode($newtrip));
     if ($stmt = $rodb->prepare(
         "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team) 
@@ -56,9 +70,9 @@ if (!$error) {
     }
 
     if ($stmt = $rodb->prepare("SELECT LAST_INSERT_ID() as tripid FROM DUAL")) {
-     $stmt->execute();
-     $result= $stmt->get_result() or die("Error trip id query: " . mysqli_error($rodb));
-      $res['tripid']= $result->fetch_assoc()['tripid'];
+        $stmt->execute();
+        $result= $stmt->get_result() or die("Error trip id query: " . mysqli_error($rodb));
+        $res['tripid']= $result->fetch_assoc()['tripid'];
     } else {
         error_log($rodb->error);
     }    
