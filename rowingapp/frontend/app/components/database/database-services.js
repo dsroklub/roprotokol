@@ -241,7 +241,7 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       db['current_user']=ds.uid;
       if (gitrevision != ds.gitrevision) {
         $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
-        window.location="/frontend/app/index.html";
+        window.location="/frontend/app/index.shtml";
         //        window.location.reload();
         //    var cache = $cacheFactory.get('$http');
         //    cache.removeAll();

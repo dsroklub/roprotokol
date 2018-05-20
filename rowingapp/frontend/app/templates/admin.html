@@ -448,7 +448,7 @@
           <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>        
           <td>{{rv.purpose}}</td>
           <!--td>{{rv.description}}</td-->
-          <td><button ng-click="cancel_reservation($index)" class="red">slet reservation</button></td>
+          <td><button ng-click="cancel_reservation($index)" class="reject">slet reservation</button></td>
         </tr>
         <tr>
 	  <td><select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in allboats" required></select></td>
