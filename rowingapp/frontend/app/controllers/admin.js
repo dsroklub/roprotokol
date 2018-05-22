@@ -30,7 +30,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   var correction_diff = function(current,correction) {
     var res={'diff':{}};
     if (!correction.DeleteTrip) {
-      var flds=['boat','destination','intime','outtime','distance','triptype'];
+      var flds=['boat','destination','intime','outtime','distance','triptype','comment'];
       for (var ki=0; ki<flds.length;ki++) {
         var k=flds[ki];
         if (current[k]!=correction[k]) {

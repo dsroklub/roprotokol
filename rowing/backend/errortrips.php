@@ -14,9 +14,11 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
      'triptype', TripType.Name,
      'destination', Error_Trip.Destination,
      'created', Error_Trip.CreatedDate,
-     'distance', Distance,
-     'intime', DATE_FORMAT(TimeIn,'%Y-%m-%dT%T') ,
-     'outtime',DATE_FORMAT(TimeOut,'%Y-%m-%dT%T')),
+     'distance', Error_Trip.Distance,
+     'intime', DATE_FORMAT(TimeIn,'%Y-%m-%dT%T'),
+     'outtime',DATE_FORMAT(TimeOut,'%Y-%m-%dT%T'),
+     'comment',Error_Trip.Comment
+    ),
      CONCAT(
        '{', JSON_QUOTE('rowers'),': [',
        GROUP_CONCAT(JSON_OBJECT(
@@ -44,9 +46,10 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
       'triptype', TripType.Name,
       'destination', Trip.Destination,
       'created', Trip.CreatedDate,
-      'distance',  Meter,
+      'distance',  Trip.Meter,
       'intime',  DATE_FORMAT(InTime,'%Y-%m-%dT%T'),
-      'outtime', DATE_FORMAT(OutTime,'%Y-%m-%dT%T')
+      'outtime', DATE_FORMAT(OutTime,'%Y-%m-%dT%T'),
+      'comment',Trip.Comment
       ),
      CONCAT(
        '{', JSON_QUOTE('rowers'),': [',

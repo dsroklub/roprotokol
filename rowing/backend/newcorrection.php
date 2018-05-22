@@ -20,9 +20,9 @@ if ($correction->deleterequest) {
 } else {
     error_log(" times: ".$correction->outtime." , ". $correction->intime);
     if ($stmt = $rodb->prepare(
-        "INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter,Fixed) 
-                VALUES(?,?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,0)")) {
-        $stmt->bind_param('isisissis',
+        "INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter,Comment,Fixed) 
+                VALUES(?,?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,0)")) {
+        $stmt->bind_param('isisississ',
         $correction->id,
         $correction->reason,
         $correction->boat->id,
@@ -31,7 +31,8 @@ if ($correction->deleterequest) {
         mysdate($correction->outtime),
         mysdate($correction->intime),
         $correction->distance,
-        $correction->reporter
+        $correction->reporter,
+        $correction->comment
         );
         error_log('now EXE '. json_encode($correction));
         if (!$stmt->execute()) {
