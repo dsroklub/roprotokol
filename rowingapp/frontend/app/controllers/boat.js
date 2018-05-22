@@ -179,24 +179,24 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       var arg=rq=='instructor'?subright:null;
       if (rq == null) {
         // Skip, we are waiting for Mysql Json AGG in MariaDB 10.3
-      } else if (subject='cox') {
+      } else if (subject=='cox') {
         if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
           if (!(has_right(rq,arg,$scope.checkout.rowers[0].rights))) {
-            norights.push("styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq]));
+            norights.push("styrmand "+$scope.checkout.rowers[0].name+" Har ikke "+ $filter('righttodk')([rq]));
           }
         }
-      } else if (subject='all') {
+      } else if (subject=='all') {
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
-          if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
+          if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
-	      norights.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
+	      norights.push($scope.checkout.rowers[ri].name +" har Ikke "+$filter('righttodk')([rq]));
             }
           }
         }
-      } else if (rq='any') {
+      } else if (subject=='any') {
         var ok=false;
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
-          if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
+          if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
 	      ok=true;
             }
@@ -205,17 +205,17 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         if (!ok) {
           norights.push(" der skal være mindst een roer med "+ $filter('righttodk')([rq]));
         }
-      } else if (rq='none') {
+      } else if (subject=='none') {
         var ok=true;
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
-          if (checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-            if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
+          if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
+            if (has_right(rq,arg,$scope.checkout.rowers[ri].rights)) {
 	      ok=false;
             }
           }
         }
         if (!ok) {
-          norights.push(" der må ikke være nogen "+rq+" i båden");
+          norights.push(" der må ikke være nogen "+$filter('righttodk')([rq])+" i båden");
         }
       }   
     },vm);
