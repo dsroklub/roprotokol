@@ -137,6 +137,7 @@ CREATE TABLE Error_Trip (
   Boat varchar(100),
   BoatID int(11) NOT NULL,
   TripTypeID int(11),
+  Comment varchar(1000),
   TimeOut datetime,
   TimeIn datetime,
   Destination varchar(100),

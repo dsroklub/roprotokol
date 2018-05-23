@@ -76,7 +76,7 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
         $rn=1;
         while ($row = $result->fetch_assoc()) {
             if ($rn>1) echo ',';
-            echo json_encode($row);
+            echo json_encode($row,JSON_PRETTY_PRINT);
             $rn=$rn+1;
         }
         echo ']';
