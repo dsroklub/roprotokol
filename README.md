@@ -17,7 +17,7 @@ https://agol.dk/roprotokol/frontend/app/real.html
     apt-get install  libaprutil1-dbd-mysql pkg-php-tools
     # Remember to restart your web server.
 
-   a2enmod dbd  rewrite include authn_dbd  php7.0 
+   a2enmod dbd  rewrite include authn_dbd  php7.2
    sudo npm install -g bower karma
 
    # for debug scripts
