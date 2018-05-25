@@ -7,6 +7,10 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
 
+$admin="bådhalsbruger";
+if (!empty($cuser)) {
+    $admin=$cuser;
+}
 
 $rodb->begin_transaction();
 error_log('delete rower right:  '.json_encode($data));
@@ -21,7 +25,7 @@ if ($stmt = $rodb->prepare("DELETE FROM MemberRights WHERE MemberRight=? AND (ar
     error_log('OOOP'.$rodb->error);
 }
 $rodb->commit();
+eventLog("$admin fjernede ".$data->right->member_right ." fra ".$data->rower->id);
 $rodb->close();
 invalidate('member');
 echo json_encode($res);
-?> 

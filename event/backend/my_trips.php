@@ -22,14 +22,8 @@ if ($sqldebug) echo $s;
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("ss",$cuser,$cuser);
      $stmt->execute(); 
-     $result= $stmt->get_result();     
-     while ($row = $result->fetch_assoc()) {
-         echo $row['tid'];
-         echo ','. $row['boat'];
-         echo ','. number_format ($row['km'],1) . ',';
-         echo ','. $row['destination'];
-         echo "\r\n";
-     }
+     $result= $stmt->get_result();
+     process($result,$output);
      $stmt->close(); 
 } else {
     $error=$rodb->error;
@@ -38,6 +32,5 @@ if ($stmt = $rodb->prepare($s)) {
 } else {
     echo "No user";
 }
-
 $rodb->close();
-?> 
+

@@ -72,6 +72,7 @@ button.red {
 button.green {   
     border: 1px solid #3ECBBF;
     color: #3ECBBF;
+    background:#FFFFFF;
 }
 button.klar {   
     border: 1px solid #3ECBBF;
@@ -115,6 +116,11 @@ button.minor {
 
 
 button.action {
+    color: #000000;
+    padding: 0pt 8pt;
+}
+button.reject {
+    background: red;
     color: #000000;
     padding: 0pt 8pt;
 }

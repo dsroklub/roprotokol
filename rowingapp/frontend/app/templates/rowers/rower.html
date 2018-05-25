@@ -32,6 +32,7 @@
       
       
       <input placeholder="båd"
+             ng-change="boattype=null"
              autocomplete="off"
              id="selectboat"
              name="boat_search"
@@ -42,6 +43,12 @@
              uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)"
              typeahead-template-url="boatTemplate.html"
              class="trip-search-field">
+
+      <select name="boattypechooser" id="boattypechooser" ng-model="boattype" ng-change="currentboat=null;trip.boat=null"
+              ng-options="boatcategory.name for boatcategory in boatcategories">
+        <option value="">alle typer</option>
+      </select>
+      
       
       <datetimepicker
              date-format="d-MMM-yyyy"
@@ -85,7 +92,7 @@
           <tr><th>TurID</th><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
         <tbody class="tbody">
-        <tr ng-repeat="trip in rowertrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
+        <tr ng-repeat="trip in rowertrips" ng-hide="boattype && boattype.id!=trip.boat_type_id" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
           <td class="selected">{{trip.id}}</td>
           <td>{{trip.boat}}</td>
           <td>{{trip.triptype}}</td>
@@ -104,7 +111,7 @@
         <thead>
           <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
-        <tr ng-repeat="trip in boattrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
+        <tr ng-repeat="trip in boattrips" ng-click="tripselect(trip,$index)" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-class='{selected: trip == currenttrip}' >
           <td class="selected">{{trip.id}}</td><td>{{trip.boat}}</td><td>{{trip.destination}}</td>
           <td>{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td><td class="rnum" >{{trip.distance|mtokm}}</td>
         </tr>
@@ -137,14 +144,13 @@
       </tbody> 
       </table>
     </div>
-
     <div class="turoversigt" ng-if="tripdate">
       <table class="genericlist">
         <caption>Turoversigt for dagen {{tripdate| date : fulldate: UTC}}</caption>
         <thead>
           <tr><th>TurID</th><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
-        <tr ng-repeat="trip in datetrips" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
+        <tr ng-repeat="trip in datetrips" ng-hide="boattype && boattype.name!=trip.boat_type" ng-click="tripselect(trip,$index)" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-class='{selected: trip == currenttrip}' >
           <td class="selected">{{trip.id}}</td>
           <td>{{trip.boat}}</td>
           <td>{{trip.triptype}}</td>
@@ -320,6 +326,13 @@
 	      <td>
 	        <select id="correction_triptype" type="text" ng-model="correction.triptype" ng-options="item as item.name for item in triptypes" required>
 	        </select>
+	      </td>    
+            </tr>
+            <tr>
+	      <td><label for="correction_comment">Kommentar</label></td>
+	      <td>
+	        <input placeholder="ny kommentar" autocomplete="off" id="correction.comment" name="comment" type="text"
+                       ng-model="correction.comment">
 	      </td>    
             </tr>
 	    

@@ -23,7 +23,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
 
   this.getData = function (dataid,promises) {
     if(!valid[dataid] || !db[dataid]) {
-//      console.log("     INVALID: " + dataid);
       var dq=$q.defer();
       promises.push(dq.promise);
       //      $http.get(toURL(dataid+'.php'),{headers:{"X-Force-Content-Type":"application/json; charset=UTF-8"}}).then(function onSuccess (response) {
@@ -110,7 +109,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   
   this.noinit = function(subscriptions) {
     $log.debug("DB init now sync "+subscriptions);
-//    console.log("DBl init now sync "+JSON.stringify(subscriptions));
     return this.sync(subscriptions);
   }
 
@@ -120,14 +118,13 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       subscriptions={};
     }
     var sq=$q.defer();
-//    console.log("get Datastatus");
     $http.post('/backend/event/datastatus.php', null).then (function(response) {
       var ds=response.data;
       var doreload=false;
-      //      console.log("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
+      //      $log.debug("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
       if (gitrevision != ds.gitrevision) {
         $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
-        window.location="/frontend/event/index.html";
+        window.location="/frontend/event/index.shtml";
       }
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
@@ -138,7 +135,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
 	}
       }
       if (doreload) {
-	console.log(" do reload " + JSON.stringify(valid));
+	$log.debug(" do reload " + JSON.stringify(valid));
 	dbservice.fetch(subscriptions).then(function() {
 	  sq.resolve("sync done");
 	});

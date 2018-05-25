@@ -9,7 +9,7 @@
     include("../rowingapp/backend/inc/backheader.php");
 ?>
     <table>
-      <caption>Inringger instruktion</caption>
+      <caption>Instruktion</caption>
       <tr>
         <th>Dato</th>
         <th>antal roere<br> ink instruktører</th>
@@ -18,6 +18,14 @@
         <th>både</th>
       </tr>
       <?php
+         $category=2;
+         $boatcat="Inriggere";
+         $minSeats=2;
+         if (isset($_GET["category"]) && $_GET["category"]=="1") {
+             $category=1;
+             $boatcat="Kajak, surfski";
+             $minSeats=0;
+         }
          ini_set('default_charset', 'utf-8');
          ini_set('display_errors', 'On');
 
@@ -31,10 +39,10 @@
 (SELECT Date(Trip.OutTime) as day, COUNT(TripMember.member_id) as rowers, COUNT(DISTINCT(Trip.id)) as trips, 
 GROUP_CONCAT(DISTINCT(Boat.Name) ORDER BY Boat.Name) as boats
 FROM TripType,TripMember,Boat,BoatType, Trip
-WHERE Trip.TripTypeID=TripType.id AND TripType.Name='Instruktion' AND TripMember.TripID=Trip.id  AND Boat.id=Trip.BoatID AND Boat.BoatType=BoatType.id AND BoatType.Seatcount>2 AND Category=2 GROUP BY day) as daytrips
+WHERE Trip.TripTypeID=TripType.id AND TripType.Name='Instruktion' AND TripMember.TripID=Trip.id  AND Boat.id=Trip.BoatID AND Boat.BoatType=BoatType.id AND BoatType.Seatcount>$minSeats AND Category=$category GROUP BY day) as daytrips
 JOIN (SELECT Date(Trip.OutTime) as day, SUM(BoatType.Seatcount-1) as seats
      FROM TripType,Boat,BoatType, Trip
-     WHERE Trip.TripTypeID=TripType.id AND TripType.Name='Instruktion' AND Boat.id=Trip.BoatID AND Boat.BoatType=BoatType.id AND BoatType.Seatcount>2 GROUP by day)
+     WHERE Trip.TripTypeID=TripType.id AND TripType.Name='Instruktion' AND Boat.id=Trip.BoatID AND Boat.BoatType=BoatType.id AND BoatType.Seatcount>$minSeats GROUP by day)
      as sr ON sr.day=daytrips.day GROUP BY daytrips.day
 ORDER BY day DESC
 ";

@@ -137,6 +137,7 @@ CREATE TABLE Error_Trip (
   Boat varchar(100),
   BoatID int(11) NOT NULL,
   TripTypeID int(11),
+  Comment varchar(1000),
   TimeOut datetime,
   TimeIn datetime,
   Destination varchar(100),
@@ -200,7 +201,7 @@ CREATE TABLE Member (
 DROP TABLE IF EXISTS MemberRightType;
 CREATE TABLE MemberRightType (
   member_right varchar(50) NOT NULL,
-  arg varchar(200),
+  arg varchar(200) NOT NULL DEFAULT "",
   description varchar(200),
   PRIMARY KEY (member_right,arg)
 );
@@ -208,8 +209,8 @@ CREATE TABLE MemberRightType (
 DROP TABLE IF EXISTS MemberRights;
 CREATE TABLE MemberRights (
   member_id int(11) NOT NULL,
-  MemberRight varchar(50) NOT NULL,
-  Acquired datetime NOT NULL,
+  MemberRight varchar(50) NOT NULL REFERENCES MemberRightType (member_right) ON DELETE CASCADE ON UPDATE CASCADE,
+  Acquired datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   argument varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (member_id,MemberRight,Acquired,argument)
 );
@@ -330,7 +331,7 @@ CREATE TABLE event_log (
 
 DROP TABLE IF EXISTS tblMembersToRoprotokol;
 CREATE TABLE tblMembersToRoprotokol (
-  MemberID           INT, 
+  MemberID           varchar(10), 
   LastName           Text (50), 
   FirstName          Text (50), 
   E_mail             Text (100), 

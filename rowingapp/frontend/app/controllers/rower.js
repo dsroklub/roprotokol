@@ -40,7 +40,6 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
   $scope.DB=DatabaseService.getDB;
   
   $scope.tripselect= function(trip) {
-    //     console.log("trip select "+trip);
     $scope.currenttrip=trip;
     DatabaseService.getTripMembers(trip.id,function (res) {
       $scope.tripmembers=res.data;
@@ -163,7 +162,6 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
   }  
   
   $scope.updatecorrect = function (boattype) {
-    console.log("upd correct");
     if (boattype) {
       $scope.correction.boat=null;
     }

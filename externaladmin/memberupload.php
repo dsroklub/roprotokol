@@ -72,12 +72,15 @@ SET m.FirstName = tm.FirstName,
     m.JoinDate = tm.JoinDate,
     m.RemoveDate = tm.RemoveDate,
     m.Birthday = tm.Birthdate,
-    m.Gender = CASE tm.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
+    m.Gender = CASE tm.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END;
 ";
 
     error_log("SQL :\n".$s."\n");
     if ($stmt = $rodb->prepare($s)) {
-        $stmt->execute() || die($rodb->error);
+        if (!$stmt->execute()) {
+            error_log("SQL stmt error: ".$rodb->error);
+            die($rodb->error);
+        }
     } else {
         error_log("SQL stmt error: ".$rodb->error);
         echo " FEJL i opdatering: ".$rodb->error;
@@ -89,7 +92,7 @@ SET m.FirstName = tm.FirstName,
     $s="
 INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, KommuneKode,CprNo,Gender )
   SELECT DISTINCTROW 
-  CAST(tMem.MemberID AS CHAR) AS mid,
+  tMem.MemberID AS mid,
   tMem.LastName,
   tMem.FirstName,
   tMem.JoinDate,
@@ -101,7 +104,7 @@ INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, S
   tMem.CprNo,
   CASE tMem.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
   FROM tblMembersToRoprotokol tMem
-  WHERE (((tMem.RemoveDate) IS NULL) AND CAST(MemberID AS CHAR) NOT IN (SELECT MemberID From Member))
+  WHERE (((tMem.RemoveDate) IS NULL) AND MemberID NOT IN (SELECT MemberID From Member))
   ORDER BY mid;
 ";
     error_log("SQL :\n".$s."\n");
@@ -120,7 +123,7 @@ UPDATE Member,tblMembersToRoprotokol
 SET
 Member.KommuneKode=tblMembersToRoprotokol.KommuneKode,
 Member.CprNo=tblMembersToRoprotokol.CprNo
-    WHERE CAST(tblMembersToRoprotokol.MemberID AS CHAR) =Member.MemberID;
+    WHERE tblMembersToRoprotokol.MemberID=Member.MemberID;
 ')){ 
         $stmt->execute() || die($rodb->error);
     }  else {
