@@ -1,5 +1,6 @@
 'use strict';
-angular.module('eventApp.database.database-services', []).service('DatabaseService', function($http, $q,$log) {
+
+function dbservice($http, $q, $log) {
   var valid={};
   var db={};
   var tx=null;
@@ -125,6 +126,7 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
       if (gitrevision != ds.gitrevision) {
         $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
         window.location="/frontend/event/index.shtml";
+        window.location.reload(true);
       }
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
@@ -268,5 +270,6 @@ angular.module('eventApp.database.database-services', []).service('DatabaseServi
   this.valid = function() {
     return valid;
   }
+}
 
-});
+angular.module('eventApp.database.database-services', []).service('DatabaseService', ['$http','$q','$log',dbservice]);

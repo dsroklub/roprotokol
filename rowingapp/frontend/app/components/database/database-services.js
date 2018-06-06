@@ -1,6 +1,5 @@
 'use strict';
-angular.module('rowApp.database.database-services', []).service('DatabaseService', function($http, $q,$log) {
-
+function dbservice($http, $q, $log) {
   var valid={};
   var db={};
   var rowerstatistics=[];
@@ -241,8 +240,9 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
       db['current_user']=ds.uid;
       if (gitrevision != ds.gitrevision) {
         $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
-        window.location="/frontend/app/index.shtml";
-        //        window.location.reload();
+//        window.location="/frontend/app/index.shtml";
+        window.location.reload(true);
+	  // $angularCacheFactory.clearAll();
         //    var cache = $cacheFactory.get('$http');
         //    cache.removeAll();
         // $templateCache.removeAll();    
@@ -622,5 +622,6 @@ angular.module('rowApp.database.database-services', []).service('DatabaseService
   this.valid = function() {
     return valid;
   }
+}
 
-});
+angular.module('rowApp.database.database-services', []).service('DatabaseService', ['$http','$q','$log',dbservice]);
