@@ -197,7 +197,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         var ok=false;
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-            if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
+            if ((has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
 	      ok=true;
             }
           }
