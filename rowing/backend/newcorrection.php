@@ -11,8 +11,8 @@ error_log('new correction '. json_encode($correction));
 $rodb->begin_transaction();
 
 if ($correction->deleterequest) {
-    if ($stmt = $rodb->prepare("INSERT INTO Error_Trip(Trip,ReasonForCorrection,DeleteTrip,CreatedDate,Reporter,Fixed) VALUES(?,?,1,NOW(),?,0)")) {
-        $stmt->bind_param('iss', $correction->id,$correction->reason,$correction->reporter);
+    if ($stmt = $rodb->prepare("INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,DeleteTrip,CreatedDate,Reporter,Fixed) VALUES(?,?,?,1,NOW(),?,0)")) {
+        $stmt->bind_param('iss', $correction->id,$correction->reason,$correction->boat->id,$correction->reporter);
         $stmt->execute() || error_log(' delete error trip request failed: '.$rodb->error);
     } else {
         error_log("EC Del error: ".$rodb->error);
