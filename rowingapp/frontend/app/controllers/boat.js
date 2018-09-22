@@ -30,6 +30,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     // Load Category Overview
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
     $scope.boatcategories = DatabaseService.getBoatTypes();
+    $scope.nowtime=new Date();
+    var endofday=new Date();
+    $scope.twohoursec=((2+$scope.nowtime.getHours())*60+$scope.nowtime.getMinutes())*60+$scope.nowtime.getSeconds();
     $scope.sculler_open=DatabaseService.getDB('status').sculler_open;
     // Load selected boats based on boat category
     $scope.reservations = DatabaseService.getDB('get_reservations');

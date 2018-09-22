@@ -1220,3 +1220,6 @@ img.wrench {
 .summerstat {
     font-size: 5pt;
 }
+.warn {
+    background: yellow;
+}
