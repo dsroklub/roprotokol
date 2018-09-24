@@ -23,17 +23,13 @@ $s="SELECT Boat.id,
            MAX(Trip.Comment) as comment,
            boat_usage.name as boatusage,
            Boat.brand,
-           Boat.level,
---           reservation.dayofweek,
-           DAYOFWEEK(NOW())-1 as dayofweek,
-           TIME_TO_SEC(MIN(start_time))  as first_reservation
+           Boat.level
     FROM Boat
          INNER JOIN BoatType ON (BoatType.id=BoatType)
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
          LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
          LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
          LEFT JOIN boat_usage ON Boat.boat_usage=boat_usage.id
-         LEFT JOIN reservation ON reservation.boat=Boat.id AND reservation.dayofweek=DAYOFWEEK(NOW())-1 AND reservation.end_time>TIME(NOW())
     WHERE 
          Boat.Decommissioned IS NULL
     GROUP BY
