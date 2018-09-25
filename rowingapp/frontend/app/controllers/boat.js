@@ -29,14 +29,6 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
     // Load Category Overview
     var reservations=DatabaseService.getDB('get_reservations');
-    var reservationsByBoat=[];
-    var now=new Date();
-    for (var ri=0; ri<reservations.length;ri++) {
-      if (!reservationsByBoat[reservations[ri].boat_id]) {
-        reservationsByBoat[reservations[ri].boat_id]=[];
-      }
-      reservationsByBoat[reservations[ri].boat_id].push(reservations[ri]);
-    }
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
     $scope.boatcategories = DatabaseService.getBoatTypes();
     $scope.nowtime=new Date();
@@ -67,46 +59,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       {id:6,day:"lørdag"},
       {id:7,day:"søndag"}
     ];
-    
-    $scope.allboats = DatabaseService.getBoats();
-    var this_dayofweek=now.getDay();
-    if (this_dayofweek==0) {
-      this_dayofweek=7;
-    }
-    for (var bi=0; bi<$scope.allboats.length;bi++) {
-      if (reservationsByBoat[$scope.allboats[bi].id]) {
-        for (ri=0; ri<reservationsByBoat[$scope.allboats[bi].id].length; ri++) {
-          var reservation=reservationsByBoat[$scope.allboats[bi].id][ri];
-          var starttime=new Date;
-          var endtime=new Date;
-          var from_time=reservation.start_time.split(":");
-          var end_time=reservation.end_time.split(":");
-          if (reservation.dayofweek==0) {
-            var startdate=new Date(reservation.start_date);
-            var enddate=new Date(reservation.end_date);
-            enddate.setHours(end_time[0]);
-            enddate.setMinutes(end_time[1]);
-            startdate.setHours(from_time[0]);
-            startdate.setMinutes(from_time[1]);
-            if (endtime>$scope.nowtime && (starttime-now)/1000/3600<2) {
-              $scope.allboats[bi].reserved_to=reservationsByBoat[$scope.allboats[bi].id][ri].triptype;
-              break;
-            }
-          } else if (reservation.dayofweek==this_dayofweek) {
-            endtime.setHours(end_time[0]);
-            endtime.setMinutes(end_time[1]);
-            starttime.setHours(from_time[0]);
-            starttime.setMinutes(from_time[1]);
-            if (endtime>$scope.nowtime && (starttime-now)/1000/3600<2) {
-              $scope.allboats[bi].reserved_to=reservationsByBoat[$scope.allboats[bi].id][ri].triptype;
-              break;
-            }
-          }
-        }
-      }
-    }    
 
-    
+    DatabaseService.update_reservations();
+    $scope.allboats = DatabaseService.getBoats();    
     $scope.levels =DatabaseService.getDB('boatlevels');
     $scope.coxteams =DatabaseService.getDB('coxteams');
     $scope.brands =DatabaseService.getDB('boat_brand');      // Checkout code
@@ -122,7 +77,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       'expected':false,
       'end':false
     };
-    
+
+    var now = new Date();
     $scope.checkout = {
       'boat' : null,
       'destination': {'distance':999},
@@ -172,7 +128,6 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     $scope.checkoutnotification="";
     $scope.usersettime=false;
     $scope.selectedBoatCategory=null;
-    var now = new Date();
     
     $scope.checkin = {
       'boat' : null,
@@ -331,6 +286,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
   $scope.do_boat_category = function(cat) {
     $scope.selectedBoatCategory=cat;
+    DatabaseService.update_reservations();
     $scope.checkoutmessage=null;
     $scope.checkoutnotification=null;
     $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
