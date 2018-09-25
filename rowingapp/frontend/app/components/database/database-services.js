@@ -5,7 +5,6 @@ function dbservice($http, $q, $log) {
   var rowerstatistics=[];
   var boatstatistics=[];
   var databasesource=dbmode;
-  var tx=null;
   var cachedepend;
   var currentseason=new Date().getFullYear();
   
@@ -174,7 +173,6 @@ function dbservice($http, $q, $log) {
       }
     }
     var qll=$q.all(promises);
-    tx=qll;
     return qll;
   };
   
@@ -261,6 +259,15 @@ function dbservice($http, $q, $log) {
       if (doreload) {
 	$log.log(" do reload " + JSON.stringify(valid));
 	dbservice.fetch(subscriptions).then(function() {
+
+          db['reservationsByBoat']=[];
+          var reservations=db['get_reservations'];
+          for (var ri=0; ri<reservations.length;ri++) {
+            if (!db['reservationsByBoat'][reservations[ri].boat_id]) {
+              db['reservationsByBoat'][reservations[ri].boat_id]=[];
+            }
+            db['reservationsByBoat'][reservations[ri].boat_id].push(reservations[ri]);
+          }          
 	  sq.resolve("sync done");
 	});
       } else {
