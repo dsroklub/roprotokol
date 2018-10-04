@@ -1,6 +1,6 @@
 'use strict';
--// cico==1 checkin
--// cico=2 checkout
+// cico==1 checkin
+// cico=2 checkout
 
 angular.module('rowApp').controller(
   'BoatCtrl',
@@ -230,6 +230,15 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     angular.forEach($scope.reservations, function(rv) {
       var otime=$scope.checkout.starttime;
       var etime=$scope.checkout.expectedtime;
+      var pp_timediff=function(t1,t2) {
+        if (t1.getFullYear() === t2.getFullYear() && t1.getMonth() === t2.getMonth() && t1.getDate() === t2.getDate()) {
+          return (t1.toLocaleDateString("da-DK",{"hour":"numeric","minute":"numeric"}) + " til " +
+                  t2.toLocaleDateString("da-DK",{"hour":"numeric","minute":"numeric"}));
+        } else {
+          return (t1.toLocaleDateString("da-DK",{"day":"numeric","month":"numeric","year":"numeric","hour":"numeric","minute":"numeric"})+  " til " +
+                  t2.toLocaleDateString("da-DK",{"day":"numeric","month":"numeric","year":"numeric","hour":"numeric","minute":"numeric"}));
+        }
+      }
       if ($scope.checkout.triptype && $scope.checkout.boat && $scope.checkout.boat.id==rv.boat_id && etime) {
         if (rv.dayofweek>0) {
           // Ugereservering
@@ -250,9 +259,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
                 (etime > et && otime > et)
             )
                ) {
-              norights.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + ": "+rv.purpose+
-                            " fra "+rv.start_time+" til "+rv.end_time);
-            }             
+              norights.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + ": "+
+                            rv.purpose+" "+ rv.start_time+" til "+rv.end_time);
+            }
           }
         } else {
           // kalendereservering
@@ -266,7 +275,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
              )
           {
             norights.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + " :"+rv.purpose+
-                          " fra " +st+" til "+et);
+                         " "+ pp_timediff(st,et));
           }
         }
       }

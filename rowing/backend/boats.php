@@ -18,6 +18,7 @@ $s="SELECT JSON_OBJECT(
     WHERE 
          Boat.Decommissioned IS NULL
     GROUP BY Boat.id
+    ORDER by Boat.name
     ";
 //echo $s;
 $result=$rodb->query($s) or die("Error in boats query: " . mysqli_error($rodb));;
