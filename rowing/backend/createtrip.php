@@ -24,13 +24,13 @@ if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS N
 
 
 foreach ($newtrip->rowers as $rower) {
-    if ($stmt = $rodb->prepare("SELECT Boat.name as boat FROM Trip,TripMember,Member,Boat WHERE Boat.id=Trip.BoatID AND Member.MemberID=? AND Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND Trip.InTime IS NULL")) {
+    if ($stmt = $rodb->prepare("SELECT Boat.name AS boat, Trip.Destination  FROM Trip,TripMember,Member,Boat WHERE Boat.id=Trip.BoatID AND Member.MemberID=? AND Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND Trip.InTime IS NULL AND Trip.OutTime < NOW()")) {
         $stmt->bind_param('s', $rower->id);
         $stmt->execute();
         $result= $stmt->get_result();
         if ($r=$result->fetch_assoc()) {
             $res["status"]="error";
-            $error .= "$rower->name er allerede på vandet i ".$r["boat"];
+            $error .= "$rower->name er allerede på vandet i ".$r["boat"] . " til " . $r["Destination"]."\n";
         }
     }
 }

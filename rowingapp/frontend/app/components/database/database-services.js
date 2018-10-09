@@ -236,7 +236,7 @@ function dbservice($http, $q, $log) {
     if (this_dayofweek==0) {
       this_dayofweek=7;
     }
-    var allboats=db['boats'];
+    var allboats=db['boatsA'];
     var reservationsByBoat=db['reservationsByBoat'];
     for (var bi=0; bi<allboats.length;bi++) {
       if (reservationsByBoat[allboats[bi].id]) {
