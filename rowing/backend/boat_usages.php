@@ -12,4 +12,3 @@ echo '[';
 }
 echo ']';
 $rodb->close();
-?> 
