@@ -71,16 +71,16 @@ if ($error) {
   $error = "Could not delete trip";
 }
 
-if ($error) {
-  // Skip
-} elseif ($stmt = $rodb->prepare("DELETE FROM TripMember WHERE TripID=?")) { 
-  $stmt->bind_param('i', $reuse->reusetrip);
-  $stmt->execute();
-  $result= $stmt->get_result();
-} else {
-  $error = "Could not delete trip members";
-}
-
+// Handled by foreign key cascade
+/* if ($error) { */
+/*   // Skip */
+/* } elseif ($stmt = $rodb->prepare("DELETE FROM TripMember WHERE TripID=?")) {  */
+/*   $stmt->bind_param('i', $reuse->reusetrip); */
+/*   $stmt->execute(); */
+/*   $result= $stmt->get_result(); */
+/* } else { */
+/*   $error = "Could not delete trip members"; */
+/* } */
 
 if ($error) {
  http_response_code(500);

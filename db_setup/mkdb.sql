@@ -9,7 +9,6 @@ CREATE TABLE Boat (
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   MotionPlus varchar(100),
   boat_usage int(11),
   level int(11),
@@ -19,6 +18,7 @@ CREATE TABLE Boat (
   placement_level INT, -- 0=ground, 1 .. shelves
   placement_side Char(6), -- -left, right,center
   Decommissioned datetime,
+  -- TODO FOREIGN KEY (BoatType) REFERENCES BoatTypes(Name) ON DELETE Restrict ON UPDATE CASCADE,
   PRIMARY KEY (id)
 );
 
@@ -29,7 +29,6 @@ CREATE TABLE BoatCategory (
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   PRIMARY KEY (id),
   UNIQUE KEY Navn (`Name`)
 );
@@ -69,7 +68,6 @@ CREATE TABLE BoatConfiguration (
   OprettetDato datetime,
   RedigeretDato datetime,
   Kommentar varchar(1000),
-  Initialer varchar(10)
 );
 
 DROP TABLE IF EXISTS BoatRights;
@@ -77,22 +75,20 @@ CREATE TABLE BoatRights (
   boat_type int(11) NOT NULL,
   required_right varchar(30) NOT NULL,
   requirement varchar(10),
+  FOREIGN KEY (required_right) REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (boat_type,required_right)
 );
 
 DROP TABLE IF EXISTS BoatType;
 CREATE TABLE BoatType (
-  id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100),
   Seatcount int(11),
   Description varchar(1000),
   Category int(11),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   rights_subtype CHAR(20),
-  PRIMARY KEY (id),
-  KEY gruppenavn (`Name`)
+  PRIMARY KEY (`Name`)
 );
 
 
@@ -108,22 +104,24 @@ CREATE TABLE Damage (
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
+  FOREIGN KEY (ResponsibleMember) REFERENCES Member(id) ON DELETE SET NULL,
+  FOREIGN KEY (Boat) REFERENCES Boat(id) ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS Destination;
 CREATE TABLE Destination (
   id int(11),
+  created_by int,
   Location varchar(10) NOT NULL DEFAULT 'DSR',
   Name varchar(100) NOT NULL,
   Meter int(11),
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   ExpectedDurationNormal float,
   ExpectedDurationInstruction float,
+  FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL, 
   PRIMARY KEY (`Name`,Location)
 );
 
@@ -148,6 +146,7 @@ CREATE TABLE Error_Trip (
   Mail varchar(300),
   Fixed_comment varchar(1000),
   `Fixed` int(11), -- 0=open,1=fixed,2=rejected,3=other
+  FOREIGN KEY (Destination) REFERENCES Destination(name) ON UPDATE CASCADE ON DELETE NO ACTION,
   PRIMARY KEY (id)
 );
 
@@ -186,7 +185,6 @@ CREATE TABLE Member (
   Created datetime,
   Updated datetime,
   log varchar(2000),
-  Initials char(10),
   JoinDate DateTime,
   RemoveDate DateTime,
   Email VARCHAR(255),
@@ -209,18 +207,21 @@ CREATE TABLE MemberRightType (
 DROP TABLE IF EXISTS MemberRights;
 CREATE TABLE MemberRights (
   member_id int(11) NOT NULL,
+  created_by int,
   MemberRight varchar(50) NOT NULL REFERENCES MemberRightType (member_right) ON DELETE CASCADE ON UPDATE CASCADE,
   Acquired datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   argument varchar(100) NOT NULL DEFAULT '',
+  FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL,
+  FOREIGN KEY (member_id) REFERENCES Member(id) ON DELETE CASCADE, 
   PRIMARY KEY (member_id,MemberRight,Acquired,argument)
 );
 
 DROP TABLE IF EXISTS reservation;
 CREATE TABLE reservation (
-  boat INT,
+  boat INT REFERENCES Boat(id) ON DELETE RESTRICT ON UPDATE CASCADE,
   start_time time,
   end_time time,
-  start_date date,
+  start_date date DEFAULT "1867-07-01",
   end_date date,
   member INT,
   dayofweek INT,
@@ -230,7 +231,8 @@ CREATE TABLE reservation (
   Purpose varchar(100),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
+  created_by int,
+  FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE NO ACTION, 
   PRIMARY KEY (boat,start_time,start_date,dayofweek)
 );
 
@@ -247,12 +249,12 @@ CREATE TABLE Trip (
   Comment varchar(1000),
   CreatedDate date,
   EditDate date,
-  Initials varchar(10),
   tripstat_name CHAR(20),
   DESTID int(11),
   info varchar(20),
   team varchar(200),
   PRIMARY KEY (id),
+  FOREIGN KEY (Destination) REFERENCES Destination(name) ON UPDATE CASCADE ON DELETE NO ACTION,
   KEY tripfk (BoatID),
   KEY tripout (OutTime)
 );
@@ -261,18 +263,18 @@ DROP TABLE IF EXISTS TripMember;
 CREATE TABLE TripMember (
   TripID int(11) NOT NULL,
   Seat int(11) NOT NULL,
-  member_id int(11),
-  MemberName varchar(100),
+  member_id int(11) REFERENCES Member(id),
   CreatedDate date,
   EditDate date,
-  Initials varchar(10),
+  FOREIGN KEY (member_id) REFERENCES Member(id) ON DELETE RESTRICT,
+  FOREIGN KEY (TripID) REFERENCES Trip(id) ON DELETE CASCADE, 
   PRIMARY KEY (TripID,Seat)
 );
 
 DROP TABLE IF EXISTS TripRights;
 CREATE TABLE TripRights (
   trip_type int(11) NOT NULL,
-  required_right varchar(30) NOT NULL,
+  required_right varchar(30) REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
   requirement varchar(10),
   PRIMARY KEY (trip_type,required_right)
 );
@@ -285,7 +287,6 @@ CREATE TABLE TripType (
   Description varchar(1000),
   Created datetime,
   Updated datetime,
-  Initials varchar(10),
   Active int(11),
   PRIMARY KEY (id),
   UNIQUE KEY Navn (`Name`)

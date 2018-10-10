@@ -13,7 +13,7 @@ $s="SELECT JSON_OBJECT(
            'brand',Boat.brand,
            'level',Boat.level) as json
     FROM Boat
-         INNER JOIN BoatType ON (BoatType.id=BoatType)
+         INNER JOIN BoatType ON (BoatType.Name=boat_type)
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)         
     WHERE 
          Boat.Decommissioned IS NULL
