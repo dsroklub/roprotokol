@@ -25,8 +25,8 @@ angular.
     'rowApp.utilities.righttodk',
     'rowApp.utilities.argrighttodk',
     'ngSanitize',
-    'ui.bootstrap',
     'ui.select',
+    'ui.bootstrap',
     'angular-momentjs',
     'ngDialog',
     'ngTable',
@@ -34,7 +34,6 @@ angular.
     'rowApp.range',
     'angular-confirm',
     'chart.js',
-    'ui.bootstrap',
     'ui.bootstrap.datetimepicker',
     'angular.filter',
     'ds.clock'
@@ -106,8 +105,8 @@ angular.
     // })
     .config(['uiSelectConfig', function(uiSelectConfig) {
       uiSelectConfig.theme = 'bootstrap';
+      uiSelectConfig.removeSelected = true;
     }])
-
     .config(['ChartJsProvider', function (ChartJsProvider) {
     // Configure all charts
     ChartJsProvider.setOptions({

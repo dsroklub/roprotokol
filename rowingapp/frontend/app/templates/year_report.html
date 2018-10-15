@@ -305,15 +305,22 @@ spillet kajakpolo, dyrket yoga, eller på anden måde har været aktive i klubbe
   <tr ng-repeat="y in stats.years | orderBy:'-'">
     <td class="left">{{y}}</td>
     <td ng-repeat="i in intervals">{{stats.rower_activity[y].intervals[i].count | number : 0 }}
-                                                 ( {{stats.rower_activity[y].intervals[i].percentage | number : 0 }}%)</td>
+      ( {{stats.rower_activity[y].intervals[i].percentage | number : 0 }}%),
+       {{stats.rower_activity[y].intervals[i].distance | number : 0}} km
+    </td>
     <td style="border-left-width: 3px">{{stats.rower_activity[y].total.count | number : 0 }}
-        ( {{stats.rower_activity[y].total.percentage | number : 0 }}%)</td></td>
+      ( {{stats.rower_activity[y].total.percentage | number : 0 }}%)
+      , {{stats.rower_activity[y].total.distance | number : 0}} km
+    </td>
   </tr>
 </table>
 
 <p>Fordeling af roede kilometer for medlemmer, der har roet mindst en tur. Tallene dækker både robåde og kajak.
 Procentsatserne er i procent af de aktive, bortset fra den sidste kolonne, som er af alle
-medlemmer.</p>
+  medlemmer.</p>
+<p>
+  Km er roerkm. Fx en to-åres inrigger til Skovshoveder giver 3*11.5 km= 34.5 km.
+</p>
 
 
 
