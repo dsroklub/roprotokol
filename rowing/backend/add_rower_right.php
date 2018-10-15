@@ -23,8 +23,8 @@ if (!$arg) {
     $arg="";
 }
 
-if ($stmt = $rodb->prepare("INSERT INTO  MemberRights (member_id,MemberRight,argument,Acquired) SELECT id,?,?,NOW() FROM Member Where MemberID=? ON DUPLICATE KEY UPDATE Acquired=NOW()")) {
-    $stmt->bind_param('sss', $data->right->member_right,$arg,  $data->rower->id);
+if ($stmt = $rodb->prepare("INSERT INTO  MemberRights (member_id,MemberRight,argument,Acquired,created_by) SELECT m.id,?,?,NOW(),mc.id FROM Member m, Member mc Where m.MemberID=? AND mc.MemberID=? ON DUPLICATE KEY UPDATE Acquired=NOW()")) {
+    $stmt->bind_param('ssss', $data->right->member_right,$arg,  $data->rower->id,$admin);
     if (!$stmt->execute()) {
         error_log('OOOPS rower right EXE: '.$rodb->error);
         $res["status"]="error";
