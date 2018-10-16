@@ -71,6 +71,8 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   DatabaseService.init({"boat":true,"status":true,"member":true, "trip":true,"reservation":true}).then(function () {
     $scope.currentrower=null;
     $scope.do="events";
+    $scope.newboat={};
+    $scope.newboattype={};
     $scope.DB=DatabaseService.getDB;
     $scope.current_rower=DatabaseService.getCurrentRower();
     $scope.isadmin=false;
@@ -86,7 +88,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.triptypes=DatabaseService.getDB('triptypes');
     $scope.reservations = DatabaseService.getDB('get_reservations');
     $scope.clientname = DatabaseService.client_name();
-    $scope.allboats = DatabaseService.getBoats();
+    $scope.boats={"allboats":DatabaseService.getDB('boatsA')};
     $scope.iboats=DatabaseService.getDB('boats');
     $scope.locations = DatabaseService.getDB('locations');
     $scope.events = DatabaseService.getDB('get_events');
@@ -155,6 +157,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       $log.info("new boattype");
       var exeres=DatabaseService.updateDB('create_boattype',bt,$scope.config,$scope.errorhandler);
       $scope.DB('boattypes').push(bt);
+      $scope.newboattype={};
     }
     $scope.create_boat_brand = function(bb) {
       var exeres=DatabaseService.updateDB('create_boat_brand',bb,$scope.config,$scope.errorhandler).then(function(status) {
@@ -237,10 +240,10 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       var exeres=DatabaseService.updateDB('set_side_for_boat',boat,$scope.config,$scope.errorhandler);
     }
 
-    $scope.retire_boat = function(boat,ix) {
+    $scope.retire_boat = function(boat) {
       var exeres=DatabaseService.updateDB('retire_boat',boat,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          $scope.allboats.splice(ix,1);              
+          $scope.boats.allboats.splice($scope.boats.allboats.indexOf(boat),1);
         }
       });                            
     }
@@ -248,7 +251,9 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.create_boat = function(boat) {
       var exeres=DatabaseService.updateDB('create_boat',boat,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          $scope.allboats.push(boat);
+          boat.id=status.boat_id;
+          $scope.boats.allboats.push(boat);
+          $scope.newboat={};
         }
       });                            
     }
@@ -419,9 +424,9 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       $scope.currenttriptype=tt;
     }
 
-    $scope.matchBoatType = function(boattype) {
+    $scope.matchBoatType = function(cat) {
       return function(matchboat) {
-        return (matchboat.id  && boattype && matchboat.category==boattype.name);
+        return (matchboat.id  && cat && matchboat.category==cat.name);
       }
     };
     $scope.dotripactive = function (tt) {

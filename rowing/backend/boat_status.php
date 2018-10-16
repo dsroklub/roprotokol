@@ -7,7 +7,7 @@ $s="SELECT Boat.id,
            BoatType.Seatcount as spaces,
            Boat.Description as description,
            BoatCategory.Name as boattype,
-           BoatType.Name as category,
+           Boat.boat_type as category,
            Boat.Location as location,
            Boat.placement_aisle,
            Boat.placement_level,
@@ -25,7 +25,7 @@ $s="SELECT Boat.id,
            Boat.brand,
            Boat.level
     FROM Boat
-         INNER JOIN BoatType ON (BoatType.id=BoatType)
+         INNER JOIN BoatType ON (BoatType.Name=Boat.boat_type)
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
          LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
          LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
@@ -34,7 +34,9 @@ $s="SELECT Boat.id,
          Boat.Decommissioned IS NULL
     GROUP BY
        Boat.id,
-       Boat.Name
+       Boat.Name,
+       BoatCategory.Name,
+       BoatType.Seatcount
     ORDER BY Boat.Name
     ";
 

@@ -67,7 +67,7 @@
 	</tr>	
       </thead>
       <tbody>
-	<tr ng-repeat="boat in allboats | filter: matchBoatType(boattype)">
+	<tr ng-repeat="boat in boats.allboats | filter: matchBoatType(boattype)">
 	  <td>
 	    <input type="text" ng-model="boat.name" ng_change="set_name_for_boat(boat)" ng-model-options="{updateOn:'blur'}">
 	  </td>
@@ -101,7 +101,7 @@
           <td><select ng-model="boat.usage_id" ng-options="usage.id as usage.name for usage in usages" ng-change="update_usage(boat)"> </select> </td>
 	  <!--td><input ng-model-options="{updateOn:'blur'}" autocomplete="off" id="boat.boatusage" name="boat.boatusage" type="text" ng-model="boat.boatusage" ng-change="update_usage(boat)"></td-->
 	  
-          <td><button ng-click="retire_boat(boat,$index)" class="action" confirm="Er du helt sikker på at du vil fjerne {{boat.name}}?" confirm-ok="ja, slet {{boat.name}}" confirm-cancel="nej">Slet/pensioner båd</button></td>
+          <td><button ng-click="retire_boat(boat)" class="action" confirm="Er du helt sikker på at du vil fjerne {{boat.name}}?" confirm-ok="ja, slet {{boat.name}}" confirm-cancel="nej">Slet/pensioner båd</button></td>
 	</tr>
       </tbody>
     </table>
@@ -124,7 +124,7 @@
               </td>
             </tr>
             <tr><td>
-		<button ng-click="create_boat(newboat)" ng-model="newboat.create" class="big" ng-show="newboat.category&&newboat.location&&newboat.name">Opret ny båd</button>
+		<button ng-click="create_boat(newboat)"  class="big" ng-show="newboat.category && newboat.location && newboat.name">Opret ny båd</button>
             </td></tr>
           </tbody>
 	</table>      
@@ -451,7 +451,7 @@
           <td><button ng-click="cancel_reservation($index)" class="reject">slet reservation</button></td>
         </tr>
         <tr>
-	  <td><select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in allboats" required></select></td>
+	  <td><select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required></select></td>
           <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
                       uib-tooltip="hvis det er en reservation på en fast ugedag. Ellers udfyld start- og slutdato"
                       ></select></td>
