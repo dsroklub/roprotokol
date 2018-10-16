@@ -24,7 +24,7 @@ if(!$skiplogin) {
     } 
     if ($adminpw == $remotepw) {
         $verified=true;
-        error_log("verified $cuser by password");
+        error_log("verified user by password");
     }
     
     if (!$verified) {

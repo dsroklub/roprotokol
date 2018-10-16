@@ -403,7 +403,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     $step = 'total_trips';
     $s = "SELECT COUNT(distinct TripMember.member_id)
           FROM Trip
-          INNER JOIN TripMember ON (Trip.id = TripMember.TripID)
+          JOIN TripMember ON (Trip.id = TripMember.TripID)
           WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'";
 
     $r = $rodb->query($s);
@@ -419,18 +419,31 @@ for ($y = $from_year; $y <= $to_year; $y++) {
       make_error();
       goto end;
     }
+    $s = "SELECT SUM(Meter)/1000
+          FROM Trip,TripMember
+          WHERE
+          TripMember.TripID=Trip.id AND
+          DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'";
+
+    $r = $rodb->query($s);
+    if ($r) {
+       $res[$table][$y]['total']['distance'] = $r->fetch_row()[0];
+    } else {
+      make_error();
+      goto end;
+    }
 
     $step = 'by_category';
-    $s = "SELECT FLOOR(meh.km/100) as hundreds,
-                 COUNT(meh.member_no) as members
+    $s = "SELECT FLOOR(meh.distance/100000) as hundreds,
+                 COUNT(meh.member_no) as members, SUM(distance)/1000 as km 
           FROM (SELECT TripMember.member_id as member_no,
-                       SUM(Trip.Meter)/1000 as km
+                       SUM(Trip.Meter) as distance
                 FROM Trip
-                INNER JOIN TripMember ON Trip.id = TripMember.TripID
+                JOIN TripMember ON Trip.id = TripMember.TripID
 		WHERE DATE(Trip.OutTime) >= '" . $from_cut . "' AND DATE(Trip.OutTime) < '" . $to_cut . "'
                 GROUP BY member_no)
           AS meh
-          GROUP BY FLOOR(meh.km/100)";
+          GROUP BY FLOOR(meh.distance/100000)";
     $r = $rodb->query($s);
     if ($r) {
        $res[$table][$y]['hundreds'] = [];
@@ -453,9 +466,10 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 	 }
 
 	 if (!isset($res[$table][$y]['intervals'][$category])) {
-	   $res[$table][$y]['intervals'][$category] = [ 'count' => 0 ];
+	   $res[$table][$y]['intervals'][$category] = [ 'count' => 0 , 'distance' => 0.0];
          }
          $res[$table][$y]['intervals'][$category]['count'] += $row['members'];
+         $res[$table][$y]['intervals'][$category]['distance'] += $row['km'];
          $res[$table][$y]['intervals'][$category]['percentage'] =
            round(100 * $res[$table][$y]['intervals'][$category]['count'] / $res[$table][$y]['total']['count'], 0);
        }
@@ -475,7 +489,7 @@ $from_cut = get_cut($to_year - 1);
 
 $step = 'list';
 $s = "SELECT Member.MemberID as member_no,
-             IFNULL(TripMember.MemberName, CONCAT(Member.FirstName, ' ', Member.LastName)) as name,
+             CONCAT(Member.FirstName, ' ', Member.LastName) as name,
              COUNT(TripMember.member_id) as trips
       FROM Trip
       INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
@@ -485,7 +499,7 @@ $s = "SELECT Member.MemberID as member_no,
         AND TripMember.Seat=1
         AND Trip.TripTypeID IN (5)
         AND Boat.BoatType IN (1,2)
-      GROUP BY TripMember.member_id, IFNULL(TripMember.MemberName, CONCAT(Member.FirstName, ' ', Member.LastName))
+      GROUP BY TripMember.member_id, CONCAT(Member.FirstName, ' ', Member.LastName)
       ORDER BY trips DESC, name ASC";
 
 $r = $rodb->query($s);
@@ -785,8 +799,6 @@ if ($r) {
   goto end;
 }
 
-
-
 end:
 
 $rodb->close();
@@ -804,8 +816,5 @@ $res['trip_types'] = array_keys($tripTypes);
 sort($res['trip_types']);
 
 header('Content-type: application/json;charset=utf-8');
-
-
-echo json_encode($res);
-?> 
+echo json_encode($res)."\n";
 
