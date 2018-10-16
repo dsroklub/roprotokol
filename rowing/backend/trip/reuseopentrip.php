@@ -72,17 +72,6 @@ if ($error) {
 }
 
 if ($error) {
-  // Skip
-} elseif ($stmt = $rodb->prepare("DELETE FROM TripMember WHERE TripID=?")) { 
-  $stmt->bind_param('i', $reuse->reusetrip);
-  $stmt->execute();
-  $result= $stmt->get_result();
-} else {
-  $error = "Could not delete trip members";
-}
-
-
-if ($error) {
  http_response_code(500);
  $res['status']='error';
  $res['error']=$error;

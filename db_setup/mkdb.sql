@@ -173,7 +173,7 @@ CREATE TABLE Locations (
 DROP TABLE IF EXISTS Member;
 CREATE TABLE Member (
   id int(11) NOT NULL AUTO_INCREMENT,
-  MemberID varchar(10),
+  MemberID varchar(10) UNIQUE,
   FirstName varchar(100),
   LastName varchar(100),
   Address varchar(100),

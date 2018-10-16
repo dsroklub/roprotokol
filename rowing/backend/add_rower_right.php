@@ -7,7 +7,8 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
 
-$admin="bådhalsbruger";
+
+$admin="baadhal";
 if (!empty($cuser)) {
     $admin=$cuser;
 }
@@ -23,7 +24,7 @@ if (!$arg) {
     $arg="";
 }
 
-if ($stmt = $rodb->prepare("INSERT INTO  MemberRights (member_id,MemberRight,argument,Acquired,created_by) SELECT m.id,?,?,NOW(),mc.id FROM Member m, Member mc Where m.MemberID=? AND mc.MemberID=? ON DUPLICATE KEY UPDATE Acquired=NOW()")) {
+if ($stmt = $rodb->prepare("INSERT INTO  MemberRights (member_id,MemberRight,argument,Acquired,created_by) SELECT m.id,?,?,NOW(),mc.id FROM Member m, Member mc WHERE m.MemberID=? AND mc.MemberID=? ON DUPLICATE KEY UPDATE Acquired=NOW()")) {
     $stmt->bind_param('ssss', $data->right->member_right,$arg,  $data->rower->id,$admin);
     if (!$stmt->execute()) {
         error_log('OOOPS rower right EXE: '.$rodb->error);
