@@ -4,7 +4,6 @@ include("inc/utils.php");
 
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
-     'id',id,
      'name',Name,
      'seatcount',Seatcount , 
      'category',Category, 
@@ -16,8 +15,8 @@ $s="SELECT JSON_MERGE(
       ']}')
     ) as json
     FROM BoatType
-    LEFT JOIN  BoatRights ON BoatType.id=boat_type
-    GROUP BY BoatType.Name,BoatType.id
+    LEFT JOIN  BoatRights ON BoatType.Name=BoatRights.boat_type
+    GROUP BY BoatType.Name,Seatcount,Category,rights_subtype,Description
     ORDER by Name
     ";
 //echo $s;

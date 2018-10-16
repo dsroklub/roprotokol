@@ -54,15 +54,39 @@ UPDATE Boat SET boat_type = (SELECT Name From BoatType WHERE id=BoatType);
 
 ALTER TABLE Error_Trip ADD FOREIGN KEY (Destination) REFERENCES Destination(name) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE Boat ADD FOREIGN KEY (boat_type) REFERENCES BoatType(Name) ON DELETE Restrict ON UPDATE CASCADE,
+DROP Trip.DESTID
 
 -- TO HERE
 
 
---TODO
---  Trip.TripTypeID to Trip.trip_type referencing Triptype.Name, update PHP;
--- DROP Trip.DESTID
--- Affects TripRights
+ALTER TABLE BoatRights CHANGE COLUMN boat_type  bt INT;
+ALTER TABLE BoatRights ADD COLUMN boat_type VARCHAR(100) NOT NULL REFERENCES BoatTypes(Name) ON DELETE Restrict ON UPDATE CASCADE;
+UPDATE BoatRights SET boat_type = (SELECT Name From BoatType WHERE id=bt);
+ALTER TABLE BoatRights DROP PRIMARY KEY;
+ALTER TABLE BoatRights DROP COLUMN bt;
+ALTER TABLE BoatRights ADD PRIMARY KEY (boat_type,requirement,required_right);
+
+
+ALTER TABLE event_boat_type CHANGE COLUMN boat_type  bt INT;
+ALTER TABLE event_boat_type ADD COLUMN boat_type VARCHAR(100) NOT NULL REFERENCES BoatTypes(Name) ON DELETE Restrict ON UPDATE CASCADE;
+UPDATE event_boat_type SET boat_type = (SELECT Name From BoatType WHERE id=bt);
+ALTER TABLE event_boat_type DROP FOREIGN KEY event_boat_type_ibfk_1;
+ALTER TABLE event_boat_type DROP COLUMN bt;
+
+ALTER TABLE BoatType CHANGE COLUMN id id INT;
+ALTER TABLE BoatType DROP PRIMARY KEY;
+ALTER TABLE BoatType ADD PRIMARY KEY (Name);
+ALTER TABLE BoatType DROP COLUMN id;
 
 ALTER TABLE Boat DROP COLUMN BoatType;
+ALTER TABLE Boat DROP COLUMN MotionPlus;
+
+
+
+
+--TODO
+--  Trip.TripTypeID to Trip.trip_type referencing Triptype.Name, update PHP;
+-- Affects TripRights
+
 
 

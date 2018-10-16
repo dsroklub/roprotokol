@@ -323,6 +323,7 @@ table caption {
     font-size: 12pt;
     border-radius: 5px 5px 0 0;
     text-align: center;
+    caption-side: top;            
 }
 
 .correction {
@@ -338,6 +339,7 @@ table caption {
     border-color: #ff0000;
     border-radius: 5px 5px 5px 5px;
     width:auto;
+    background: #F1F2F7;
     //    display: inline-block;
     padding: 5px;
     right : 0px;

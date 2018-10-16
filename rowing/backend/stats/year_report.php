@@ -227,7 +227,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                         FROM Trip
                         INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
                         INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-                        INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+                        INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
                         WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
                           AND DATE(Trip.OutTime) < '" .  $to_cut . "'
                           AND Trip.TripTypeID " . $condition . "
@@ -294,7 +294,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                  BoatType.Category as boatkat
           FROM Trip
           INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-          INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+          INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
           WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
           GROUP BY BoatType.Category;";
     $r = $rodb->query($s);
@@ -336,7 +336,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
           INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
           INNER JOIN TripType on Trip.TripTypeID = TripType.id
           INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-          INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+          INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
           WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
           GROUP BY BoatType.Category, TripType.id
           ORDER BY boatCat, triptype";
@@ -373,7 +373,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
           FROM Trip
           INNER JOIN TripType on Trip.TripTypeID = TripType.id
           INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-          INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+          INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
           WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
           GROUP BY BoatType.Category, TripType.id
           ORDER BY boatCat, triptype";
@@ -498,7 +498,7 @@ $s = "SELECT Member.MemberID as member_no,
       WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
         AND TripMember.Seat=1
         AND Trip.TripTypeID IN (5)
-        AND Boat.BoatType IN (1,2)
+        AND Boat.boat_type LIKE "Inrigger%"
       GROUP BY TripMember.member_id, CONCAT(Member.FirstName, ' ', Member.LastName)
       ORDER BY trips DESC, name ASC";
 
@@ -557,7 +557,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                  FROM Trip
                  INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
                  INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-                 INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+                 INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
                  WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
                    AND DATE(Trip.OutTime) < '" . $to_cut . "'
                    AND Trip.TripTypeID NOT IN (5)
@@ -626,7 +626,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                        FROM Trip
                        INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
                        INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-                       INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+                       INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
                        WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
                          AND DATE(Trip.OutTime) < '" . $to_cut . "'
                          AND BoatType.Category=2
@@ -686,17 +686,16 @@ $step = 'usage';
 $res[$table] = [ 'boattypes' => [], 'triptypes' => [], 'boats' => []];
 
 $s = "SELECT Boat.Name AS boat,
-             BoatType.Name AS boattype,
+             Boat.boat_type AS boattype,
              Sum(Meter)/1000 AS distance,
              COUNT(Trip.id) AS trips,
              TripType.Name AS triptype
-      FROM BoatType
-      INNER JOIN Boat ON (BoatType.id = Boat.BoatType)
+      FROM Boat
       LEFT OUTER JOIN Trip ON Boat.id = Trip.BoatID
       LEFT OUTER JOIN TripType ON (TripType.id = Trip.TripTypeID)
       WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
         AND DATE(Trip.OutTime) < '"  . $to_cut . "'
-      GROUP BY Boat.Name, Boat.id, BoatType.Name, triptype";
+      GROUP BY Boat.Name, Boat.id, Boat.boat_type, triptype";
 
 $messages[] = $s;
 $r = $rodb->query($s);
@@ -771,9 +770,8 @@ $step = 'unused';
 $res[$table][$step] = [ 'types' => [], 'boats' => []];
 
 $s = "SELECT b.Name AS boat,
-             BoatType.Name AS boattype
-       FROM BoatType
-       INNER JOIN Boat b ON (BoatType.id = b.BoatType)
+             Boat.boat_type AS boattype
+       FROM Boat b 
        WHERE b.Decommissioned IS NULL
          AND NOT EXISTS (
        	   SELECT 1
@@ -782,7 +780,7 @@ $s = "SELECT b.Name AS boat,
              AND DATE(Trip.OutTime) >= '" . $from_cut . "'
              AND DATE(Trip.OutTime) < '" . $to_cut . "'
        )
-   ORDER BY BoatType.Name, b.Name";
+   ORDER BY boat_type, b.Name";
 
 $r = $rodb->query($s);
 if ($r) {

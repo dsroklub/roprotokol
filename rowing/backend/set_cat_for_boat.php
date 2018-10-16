@@ -12,7 +12,7 @@ $rodb->begin_transaction();
 error_log("set cat ".json_encode($data));
 error_log("set cat for ". $data->category." -- ".$data->id);
 
-if ($stmt = $rodb->prepare("UPDATE Boat set BoatType=(SELECT id FROM BoatType WHERE Name=?) Where id=?")) { 
+if ($stmt = $rodb->prepare("UPDATE Boat set BoatType=? WHERE id=?")) { 
     $stmt->bind_param('si', $data->category,$data->id);
     $stmt->execute();
 } 
@@ -20,4 +20,3 @@ $rodb->commit();
 $rodb->close();
 invalidate('boat');
 echo json_encode($res);
-?> 

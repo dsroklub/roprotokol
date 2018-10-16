@@ -6,7 +6,7 @@ select TripMember.member_id as medlemsId,
 FROM Trip 
 JOIN TripMember ON (TripMember.TripID = Trip.TripID)
 INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-INNER JOIN BoatType ON (Boat.BoatType = BoatType.id)
+INNER JOIN BoatType ON (Boat.boat_type = BoatType.Name)
 LEFT JOIN Member ON (TripMember.member_id = Member.id)
 LEFT JOIN tblMembers ON (Member.MemberID = tblMembers.MemberID)
 where YEAR(Trip.OutTime)='2015'

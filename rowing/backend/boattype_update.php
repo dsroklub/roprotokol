@@ -10,8 +10,8 @@ $boattype=json_decode($data);
 $rodb->begin_transaction();
 error_log("boattype update ".json_encode($boattype));
 
-if ($stmt = $rodb->prepare("UPDATE BoatType SET SeatCount = ?, Description = ?, Category = ?, rights_subtype=?, Name = ?, Updated = NOW() WHERE id=?")) { 
-    $stmt->bind_param('isissi', $boattype->seatcount, $boattype->description, $boattype->category, $boattype->rights_subtype,$boattype->name, $boattype->id);
+if ($stmt = $rodb->prepare("UPDATE BoatType SET SeatCount = ?, Description = ?, Category = ?, rights_subtype=?, Updated = NOW() WHERE Name=?")) { 
+    $stmt->bind_param('isiss', $boattype->seatcount, $boattype->description, $boattype->category, $boattype->rights_subtype,$boattype->name);
     $stmt->execute() ||  error_log("update boattype exe  error:".$rodb->error);
 } else {
     error_log("update boattype prepare error :".$rodb->error);
@@ -22,7 +22,3 @@ $rodb->close();
 
 invalidate('boat');
 echo json_encode($res);
-?> 
-
-
-
