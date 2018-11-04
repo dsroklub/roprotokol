@@ -9,13 +9,11 @@ error_log('close trip');
 $data = file_get_contents("php://input");
 $closedtrip=json_decode($data);
 
-$distance = $closedtrip->boat->meter;
-
 $rodb->begin_transaction();
-error_log("delete open trip ". $closedtrip->boat->trip);
+error_log("delete open trip ". $closedtrip->trip_id);
 
 if ($stmt = $rodb->prepare("DELETE FROM Trip WHERE id=? AND InTime IS NULL")) { 
-  $stmt->bind_param('i', $closedtrip->boat->trip);
+  $stmt->bind_param('i', $closedtrip->trip_id);
   $stmt->execute();
   $result= $stmt->get_result();
 } 
@@ -26,10 +24,9 @@ if ($error) {
   $res['error']=$error;
 }
 $res['message']=$message;
-$res['boat']=$closedtrip->boat->name;
+$res['boat']=$closedtrip->boat;
 
 $rodb->commit();
 $rodb->close();
 invalidate('trip');
 echo json_encode($res);
-?> 
