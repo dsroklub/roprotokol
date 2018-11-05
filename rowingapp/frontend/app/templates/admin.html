@@ -72,8 +72,7 @@
 	    <input type="text" ng-model="boat.name" ng_change="set_name_for_boat(boat)" ng-model-options="{updateOn:'blur'}">
 	  </td>
 	  <td><select ng-change="set_cat_for_boat(boat)" ng-model="boat.category" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
-	  <td><select ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations">
-	    </select>
+	  <td><select ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations"></select>
 	  </td>
 
           <td>
@@ -300,6 +299,28 @@
       </thead>
       <tbody>
         <tr ng-repeat="ds in DB('destinations').Nordhavn" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+	  <td><input ng-change="set_destination_name(ds)"
+                     ng-model-options="{updateOn:'blur'}"
+                     ng-model="ds.name"
+                     xconfirm="Er du sikker på at du vil omdøbe {{ds.name}}?" confirm-ok="ja omdøb" confirm-cancel="nej"
+                     >
+          </td>
+	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></td>
+        </tr>
+      </tbody>
+    </table>
+
+      <table class="boatlist" >
+      <caption>Destinationer fra Andre</caption>
+      <thead>
+        <tr>
+          <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="ds in DB('destinations').Andre" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
 	  <td >{{ds.name}}</td>
 	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
 	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
@@ -307,8 +328,39 @@
         </tr>
       </tbody>
     </table>
+
   </div>
+  <table class="boatlist" >
+    <caption>Ny destination</caption>
+    <thead>
+      <tr>
+      <th>Destination</th><th>Beskrivelse</th><th>Fra Lokation</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
+      </tr>
+    </thead>
+    <form name="newdestinationf">
+      <tbody>
+        <tr>
+          <td><input name="zydname" type="text"  ng-model="new_destination.name"
+                      required></td>
+          <td><input name="zyddesc" type="text"  ng-model="new_destination.description"  required></td>
+          <td><select name="zylle" ng-model="new_destination.location" ng-options="loc.name as loc.name for loc in locations"  required></select>
+          <td><input type="number" min="0" step="0.5" ng-model="new_destination.distance" transformkm></td>
+          <td><input type="number" min="0" step="0.25" ng-model="new_destination.duration"></td>
+          <td><input type="number" min="0.25" step="0.25" ng-model="new_destination.duration_instruction"></td>
+        </tr>
+        <tr>
+          <td>
+            <button ng-disabled="newdestinationf.zydname.invalid"  class="action" ng-click="create_destination(new_destination)">Tilføj destination</button>
+          </td>
+          <td>IV {{newdestination.$invalid}}</td>
+        </tr>
+      </tbody>
+    </form>
+  </table>  
 </div>
+
+
+
 
 <div ng-show="do=='user'">
   <script type="text/ng-template" id="taTemplate.html">

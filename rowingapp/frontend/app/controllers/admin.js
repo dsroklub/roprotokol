@@ -154,11 +154,18 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
 
     $scope.create_boattype = function(bt) {
-      $log.info("new boattype");
       var exeres=DatabaseService.updateDB('create_boattype',bt,$scope.config,$scope.errorhandler);
       $scope.DB('boattypes').push(bt);
       $scope.newboattype={};
     }
+
+    $scope.create_destination = function(dest) {
+      $log.info("new destination");
+      var exeres=DatabaseService.updateDB('create_destination',dest,$scope.config,$scope.errorhandler);
+      $scope.DB('destinations')[dest.location].push(dest);
+      $scope.newdestination={};
+    }
+
     $scope.create_boat_brand = function(bb) {
       var exeres=DatabaseService.updateDB('create_boat_brand',bb,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
@@ -208,6 +215,17 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       );
     }
 
+    $scope.set_destination_name = function(destination) {
+      alert("Vil du virkelig omdøbe "+destination.name);
+      var exeres=DatabaseService.updateDB('set_destination_name',destination,$scope.config,$scope.errorhandler);
+      exeres.then(
+        function (status) {
+          if (exeres.status=="ok") {
+            destination.orig_name=destination.name;
+          }
+        })
+    }
+    
     $scope.set_duration = function(destination,loc) {
       var exeres=DatabaseService.updateDB('set_duration',destination,$scope.config,$scope.errorhandler);
     }
