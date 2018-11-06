@@ -21,7 +21,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     },this);
     return diffs;
   }
-  
+
   $scope.rowerkm_force_email = false;
   $scope.rowerkm_include_trips = true;
   $scope.rowerkm_separate_instruction = false;
@@ -67,6 +67,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   $scope.reservation={};
   $scope.errortrips=[];
   $scope.trip={};
+  $scope.showDestinations=["DSR","Nordhavn","Andre"];
   
   DatabaseService.init({"boat":true,"status":true,"member":true, "trip":true,"reservation":true}).then(function () {
     $scope.currentrower=null;
@@ -216,20 +217,23 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
 
     $scope.set_destination_name = function(destination) {
-      alert("Vil du virkelig omdøbe "+destination.name);
       var exeres=DatabaseService.updateDB('set_destination_name',destination,$scope.config,$scope.errorhandler);
-      exeres.then(
-        function (status) {
-          if (exeres.status=="ok") {
-            destination.orig_name=destination.name;
-          }
-        })
+      if (confirm("omdøb " + destination.orig_name + " til " + destination.orig_name)) {
+        exeres.then(
+          function (status) {
+            if (status.status=="ok") {
+              destination.orig_name=destination.name;
+            }
+          });
+      } else {
+        destination.name=destination.orig_name;
+      }
     }
     
-    $scope.set_duration = function(destination,loc) {
+    $scope.set_duration = function(destination) {
       var exeres=DatabaseService.updateDB('set_duration',destination,$scope.config,$scope.errorhandler);
     }
-    $scope.set_distance = function(destination,loc) {
+    $scope.set_distance = function(destination) {
       var exeres=DatabaseService.updateDB('set_distance',destination,$scope.config,$scope.errorhandler);
     }
 

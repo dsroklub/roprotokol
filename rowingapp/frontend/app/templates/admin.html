@@ -272,59 +272,21 @@
     </table>
   </div>
 
-  <div class="destinations">
-    <table class="boatlist" >
-      <caption>Destinationer</caption>
+    <table ng-repeat="showdest in showDestinations" class="boatlist" >
+      <caption>Destinationer fra {{showdest}}</caption>
       <thead>
         <tr>
           <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="ds in DB('destinations').DSR" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-	  <td >{{ds.name}}</td>
-	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0.1" step="0.1" ng-model="ds.duration"></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0.1" step="0.1" ng-model="ds.duration_instruction"></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <table class="boatlist" >
-      <caption>Destinationer fra Nordhavn</caption>
-      <thead>
-        <tr>
-          <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="ds in DB('destinations').Nordhavn" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-	  <td><input ng-change="set_destination_name(ds)"
-                     ng-model-options="{updateOn:'blur'}"
-                     ng-model="ds.name"
-                     xconfirm="Er du sikker på at du vil omdøbe {{ds.name}}?" confirm-ok="ja omdøb" confirm-cancel="nej"
-                     >
+        <tr ng-repeat="ds in DB('destinations')[showdest]" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+	  <td><input ng-model="ds.name" ng-model-options="{updateOn:'blur'}" ng-change="set_destination_name(ds)">
           </td>
+          
 	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></td>
-        </tr>
-      </tbody>
-    </table>
-
-      <table class="boatlist" >
-      <caption>Destinationer fra Andre</caption>
-      <thead>
-        <tr>
-          <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="ds in DB('destinations').Andre" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-	  <td >{{ds.name}}</td>
-	  <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration"></td>
-	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction"></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration" ng-model-options="{allowInvalid:true}"></td>
+	  <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction" ng-model-options="{allowInvalid:true}"></td>
         </tr>
       </tbody>
     </table>
