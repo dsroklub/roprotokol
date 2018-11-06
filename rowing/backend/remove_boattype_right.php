@@ -11,8 +11,8 @@ $rodb->begin_transaction();
 error_log('remove right '.json_encode($data));
 
 if ($stmt = $rodb->prepare("DELETE FROM BoatRights WHERE boat_type=? AND required_right=? AND requirement=?")) {
-    $stmt->bind_param('sss', $data->boattype->name,$data->right->required_right,$data->right->requirement);
-    $stmt->execute();
+    $stmt->bind_param('sss', $data->boat_type->name,$data->right->required_right,$data->right->requirement);
+    $stmt->execute() or dbErr($rodb,$res,"remove boattype");
 } else {
     error_log('OOOP'.$rodb->error);
 }

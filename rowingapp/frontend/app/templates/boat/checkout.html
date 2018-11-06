@@ -66,7 +66,7 @@
     <div class="big message checkouterrormessage">{{checkouterrormessage}}</div>
     <div class="big rightsmessage" ng-show="!checkRights()">{{rightsmessage}}</div>
     <div class="checkout-form">
-      <form name="checkoutForm" novalidate noautocomplete>
+      <form name="checkoutForm" novalidate autocomplete="off" noautocomplete>
         <table>
           <caption>Udskrivning af: {{checkout.boat.name}}</caption>
 	  <tbody>	  
@@ -84,13 +84,13 @@
 		          autocomplete="off"
 		          id="checkout_rower{{$index}}"
 		          typeahead-on-select="boatSync()"
-		          name="name"
+		          name="dhrepwifhp3 Chrome Sucks"
 		          type="text"
 		          ng-model="checkout.rowers[$index]"
                           ng-blur="co_rower_leave($index)"
 		          uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)"
 		          typeahead-template-url="rowersTemplate.html"
-		          required ></input>
+		          required >
 		  <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
                   <br>
 		  <div class="guestpenguin" ng-show="isName(checkout.rowers[$index]) && norower[$index]">
@@ -108,14 +108,14 @@
                 <ui-select
                   class="checkout_destination"
                   name="checkout_destination"
-		   ng-model="checkout.destination"
-		   on-select="updateCheckout($item)"
-                   ng-class="{uiselected: !checkout.destination}"
-                   >
+		  ng-model="checkout.destination"
+		  on-select="updateCheckout($item)"
+                  ng-class="{uiselected: !checkout.destination}"
+                  >
 		  <ui-select-match placeholder="Vælg Destination">
                     {{$select.selected.name||"vælg destination"}}
                   </ui-select-match>
-		  <ui-select-choices repeat="destination in destinations | filter: $select.search">
+		  <ui-select-choices repeat="destination in destinations | filter: $select.search ">
                     <span ng-bind-html="destination.name | highlight: $select.search"></span>
                     (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km ,
 		    <small ng-bind-html="destination.duration | totime"></small>t)
@@ -184,23 +184,15 @@
                 </select>
               </td>    
 	    </tr>	
-
-
             <tr>
               <td>
                 <label for="checkout_comments">Bemærkninger</label>
               </td>
               <td>
-                <textarea id="checkout_comments" type="text" ng-model="checkout.comments"></textarea>
-                <span class="error" ng-show="!checkout.comments && checkout.destination.name=='Øvrige [Skriv i kommentar]'">Krævet</span>
-
+                <textarea id="checkout_comments" type="text" ng-model="checkout.comments" name="efjwjli"></textarea>
+                <span class="error" ng-show="!checkout.comments && !(checkout.destination.duration>0)">Krævet</span>
               </td>    
 	    </tr>		
-	    <!-- tr>
-                 <td colspan="2">
-                   < FIXME fixit button id="reportdamage_button" class="yellow" ng-click="reportdamage(checkout)"><i class="fa fa-exclamation-triangle"></i> Meld skade</button>
-</td>    
-</tr -->
             <tr><td>
                 <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?"
                         confirm-ok="Udskriv båd"
@@ -218,6 +210,7 @@
       <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name || !checkout.rowers[0]">husk at vælge båd</button>
       <button class="alert minor" ng-hide="checkout.triptype || !checkout.destination.name || !checkout.rowers[0]">husk turtype</button>
       <button class="alert minor" ng-hide="checkout.destination || !checkout.triptype || !checkout.rowers[0]">vælg destination</button>
+      <button class="alert minor" ng-hide="checkout.distance>0">Sæt distance</button>
     </div>
 
     <div ng-show="checkout.boat.placement_aisle || checkout.boat.placement_level" class="damageslist">

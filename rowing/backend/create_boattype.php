@@ -20,4 +20,3 @@ $rodb->commit();
 $rodb->close();
 invalidate('boat');
 echo json_encode($res);
-?> 

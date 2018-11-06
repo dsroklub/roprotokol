@@ -32,7 +32,7 @@
       
       
       <input placeholder="båd"
-             ng-change="boattype=null"
+             ng-change="boat_type=null"
              autocomplete="off"
              id="selectboat"
              name="boat_search"
@@ -44,7 +44,7 @@
              typeahead-template-url="boatTemplate.html"
              class="trip-search-field">
 
-      <select name="boattypechooser" id="boattypechooser" ng-model="boattype" ng-change="currentboat=null;trip.boat=null"
+      <select name="boattypechooser" id="boattypechooser" ng-model="boat_type" ng-change="currentboat=null;trip.boat=null"
               ng-options="boatcategory.name for boatcategory in boatcategories">
         <option value="">alle typer</option>
       </select>
@@ -92,7 +92,7 @@
           <tr><th>TurID</th><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
         <tbody class="tbody">
-        <tr ng-repeat="trip in rowertrips" ng-hide="boattype && boattype.id!=trip.boat_type_id" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
+        <tr ng-repeat="trip in rowertrips" ng-hide="boat_type && boat_type.name!=trip.boat_type" ng-click="tripselect(trip,$index)" ng-class='{selected: trip == currenttrip}' >
           <td class="selected">{{trip.id}}</td>
           <td>{{trip.boat}}</td>
           <td>{{trip.triptype}}</td>
@@ -150,7 +150,7 @@
         <thead>
           <tr><th>TurID</th><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
-        <tr ng-repeat="trip in datetrips" ng-hide="boattype && boattype.name!=trip.boat_type" ng-click="tripselect(trip,$index)" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-class='{selected: trip == currenttrip}' >
+        <tr ng-repeat="trip in datetrips" ng-hide="boat_type && boat_type.name!=trip.boat_type" ng-click="tripselect(trip,$index)" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-class='{selected: trip == currenttrip}' >
           <td class="selected">{{trip.id}}</td>
           <td>{{trip.boat}}</td>
           <td>{{trip.triptype}}</td>
@@ -232,7 +232,7 @@
             <tr>
 	      <td>Bådtype</td>
 	      <td>
-	        <ui-select class="boattype" ng-model="correction.boattype" on-select="updatecorrect(true)">
+	        <ui-select class="boattype" ng-model="correction.boat_type" on-select="updatecorrect(true)">
 	          <ui-select-match placeholder="Vælg Bådtype">{{$select.selected.name||"vælg bådtype"}}</ui-select-match>
 	          <ui-select-choices repeat="bt in boatcategories | filter: $select.search">{{bt.name}}</ui-select-choices>
 	        </ui-select>
@@ -244,7 +244,7 @@
 	      <td>
 	        <ui-select class="boatlist" ng-model="correction.boat">
 	          <ui-select-match placeholder="Vælg båd">{{$select.selected.name||"vælg båd"}}</ui-select-match>
-	          <ui-select-choices repeat="boat in DB('boatcategories')[correction.boattype.name] | filter: $select.search">{{boat.name}}</ui-select-choices>
+	          <ui-select-choices repeat="boat in DB('boatcategories')[correction.boat_type.name] | filter: $select.search">{{boat.name}}</ui-select-choices>
 	        </ui-select>
 	      </td>
             </tr>

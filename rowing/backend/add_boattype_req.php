@@ -12,7 +12,7 @@ $rodb->begin_transaction(); //
 error_log('add right '.json_encode($data));
 
 if ($stmt = $rodb->prepare("INSERT INTO BoatRights (boat_type,required_right,requirement ) VALUES (?,?,?)")) {
-    $stmt->bind_param('sss', $data->boattype->name,$data->right,$data->subject);
+    $stmt->bind_param('sss', $data->boat_type->name,$data->right,$data->subject);
     $stmt->execute();
 } else {
     error_log('OOOP'.$rodb->error);

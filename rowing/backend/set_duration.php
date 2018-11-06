@@ -10,13 +10,11 @@ $data=json_decode($data);
 $location = $data->location;
 $rodb->begin_transaction();
 error_log("set dist ".json_encode($data));
-
-if ($stmt = $rodb->prepare("UPDATE Destination SET ExpectedDurationNormal=?, ExpectedDurationInstruction=? WHERE Name=? AND Location=?")) { 
-    $stmt->bind_param('ddss', $data->duration,$data->duration_instruction ,$data->name,$data->location);
-    $stmt->execute();
-} 
+($stmt = $rodb->prepare("UPDATE Destination SET ExpectedDurationNormal=?, ExpectedDurationInstruction=? WHERE Name=? AND Location=?")) || dbErr($rodb,$res,"cannot set duration (Prepare)");
+$stmt->bind_param('ddss', $data->duration,$data->duration_instruction ,$data->name,$data->location) || dbErr($rodb,$res,"cannot set duration (bind)");
+$stmt->execute() || dbErr($rodb,$res,"cannot set duration");
 $rodb->commit();
 $rodb->close();
 invalidate('destination');
 echo json_encode($res);
-?> 
+

@@ -22,7 +22,7 @@ function YearReportCtrl ($scope, $rootScope, DatabaseService, NgTableParams, $fi
         $scope.boattypes = Object.keys(response.data.boats.boattypes);
         $scope.year_done = $scope.now.getFullYear() > response.data.parameters.to_year;
       } else {
-        $scope.statusMsg = 'Kunne ikke hente data: ' + response.data.error;
+        $scope.statusMsg = 'Kunne Ikke hente data: ' + response.data.error;
         $scope.statusClass = 'error';
       }
     },

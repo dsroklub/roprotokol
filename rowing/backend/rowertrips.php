@@ -10,7 +10,7 @@ if (isset($_GET["member"])) {
     exit(1);
 }
 
-$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, TripType.name as triptype, Boat.BoatType as boat_type_id,
+$sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as triptype_id, TripType.name as triptype, Boat.boat_type,
     Trip.Destination as destination, DATE_FORMAT(Trip.CreatedDate,'%Y-%m-%dT%T') as created, Meter as distance, 
     DATE_FORMAT(InTime,'%Y-%m-%dT%T') as intime, DATE_FORMAT(OutTime,'%Y-%m-%dT%T') as outtime, 
     DATE_FORMAT(ExpectedIn,'%Y-%m-%dT%T') as expectedin, Comment as comment  
@@ -34,4 +34,3 @@ while ($row = $result->fetch_assoc()) {
 }
 echo ']';
 $rodb->close();
-?> 
