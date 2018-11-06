@@ -10,7 +10,7 @@ if (isset($_GET["location"])) {
     exit(1);
 }
 
-$s="SELECT boat_type as boattype,Count('q') as amount, GROUP_CONCAT(Boat.name SEPARATOR ', ') AS boats ".
+$s="SELECT boat_type as boat_type,Count('q') as amount, GROUP_CONCAT(Boat.name SEPARATOR ', ') AS boats ".
   " From Boat ".
   " WHERE ".
   " Boat.Location=? AND " .
@@ -34,7 +34,7 @@ if ($stmt = $rodb->prepare($s)) {
      $first=1;
      while ($row = $result->fetch_assoc()) {
        if ($first) $first=0; else echo ',';
-       echo '"'.$row["boattype"].'":'. json_encode($row,JSON_PRETTY_PRINT);
+       echo '"'.$row["boat_type"].'":'. json_encode($row,JSON_PRETTY_PRINT);
      }
      echo '}';
 } else  {

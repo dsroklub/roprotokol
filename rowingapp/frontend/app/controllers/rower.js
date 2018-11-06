@@ -161,15 +161,15 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
     })
   }  
   
-  $scope.updatecorrect = function (boattype) {
-    if (boattype) {
+  $scope.updatecorrect = function (boat_type) {
+    if (boat_type) {
       $scope.correction.boat=null;
     }
     
     $scope.correction.rowers=[];
     $scope.correction.outtime=new Date( $scope.correction.outtime);
     $scope.correction.intime=new Date( $scope.correction.intime);
-    for (var i=0; $scope.correction.boattype && i< $scope.correction.boattype.seatcount;i++) {
+    for (var i=0; $scope.correction.boat_type && i< $scope.correction.boat_type.seatcount;i++) {
       if (i< $scope.tripmembers.length) {
 	$scope.correction.rowers.push($scope.tripmembers[i]);
       } else {
@@ -181,7 +181,7 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
   $scope.start_correct = function () {
     $scope.correction=angular.copy($scope.currenttrip);
     $scope.correction.boat=DatabaseService.getBoatWithId($scope.currenttrip.boat_id);
-    $scope.correction.boattype=DatabaseService.getBoatTypeWithName($scope.correction.boat.category);
+    $scope.correction.boat_type=DatabaseService.getBoatTypeWithName($scope.correction.boat.category);
     $scope.correction.destination=DatabaseService.getDestinationWithName($scope.currenttrip.destination,$scope.correction.boat.location);
     $scope.correction.triptype=DatabaseService.getTriptypeWithID($scope.currenttrip.triptype_id,$scope.correction.boat.location);
     $scope.updatecorrect(false);

@@ -21,7 +21,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     },this);
     return diffs;
   }
-  
+
   $scope.rowerkm_force_email = false;
   $scope.rowerkm_include_trips = true;
   $scope.rowerkm_separate_instruction = false;
@@ -67,6 +67,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   $scope.reservation={};
   $scope.errortrips=[];
   $scope.trip={};
+  $scope.showDestinations=["DSR","Nordhavn","Andre"];
   
   DatabaseService.init({"boat":true,"status":true,"member":true, "trip":true,"reservation":true}).then(function () {
     $scope.currentrower=null;
@@ -138,8 +139,12 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
 
     $scope.errorhandler = function(error) {
       $log.error(error);
-      $route.reload();
-      alert("du skal logge ind");
+      if (error.status==400 || (error.data && error.data.status=="notauthorized")) {
+        $route.reload();
+        alert("du skal logge ind");
+      } else {
+        alert("DB fejl " + error.data.error);
+      }
     }
     
     $scope.getRowerByName = function (val) {
@@ -154,11 +159,18 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
 
     $scope.create_boattype = function(bt) {
-      $log.info("new boattype");
       var exeres=DatabaseService.updateDB('create_boattype',bt,$scope.config,$scope.errorhandler);
       $scope.DB('boattypes').push(bt);
       $scope.newboattype={};
     }
+
+    $scope.create_destination = function(dest) {
+      $log.info("new destination");
+      var exeres=DatabaseService.updateDB('create_destination',dest,$scope.config,$scope.errorhandler);
+      $scope.DB('destinations')[dest.location].push(dest);
+      $scope.newdestination={};
+    }
+
     $scope.create_boat_brand = function(bb) {
       var exeres=DatabaseService.updateDB('create_boat_brand',bb,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
@@ -208,10 +220,24 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       );
     }
 
-    $scope.set_duration = function(destination,loc) {
+    $scope.set_destination_name = function(destination) {
+      var exeres=DatabaseService.updateDB('set_destination_name',destination,$scope.config,$scope.errorhandler);
+      if (confirm("omdøb " + destination.orig_name + " til " + destination.orig_name)) {
+        exeres.then(
+          function (status) {
+            if (status.status=="ok") {
+              destination.orig_name=destination.name;
+            }
+          });
+      } else {
+        destination.name=destination.orig_name;
+      }
+    }
+    
+    $scope.set_duration = function(destination) {
       var exeres=DatabaseService.updateDB('set_duration',destination,$scope.config,$scope.errorhandler);
     }
-    $scope.set_distance = function(destination,loc) {
+    $scope.set_distance = function(destination) {
       var exeres=DatabaseService.updateDB('set_distance',destination,$scope.config,$scope.errorhandler);
     }
 
@@ -283,7 +309,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
     
     $scope.remove_boattype_requirement = function(rt,ix) {
-      var data={boattype:$scope.currentboattype,'right':rt};
+      var data={"boat_type":$scope.currentboattype,'right':rt};
       var exeres=DatabaseService.updateDB('remove_boattype_right',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
           $scope.requiredboatrights.splice(ix,1);

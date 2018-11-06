@@ -1,7 +1,7 @@
 <?php
 require("inc/common.php");
 include("inc/utils.php");
-
+$res=array ("status" => "ok");
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
      'name',Name,
@@ -20,7 +20,8 @@ $s="SELECT JSON_MERGE(
     ORDER by Name
     ";
 //echo $s;
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));
+$result=$rodb->query($s) or dbErr($rodb,$res,"boattype query");
+error_log(print_r($result,true));
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {

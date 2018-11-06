@@ -1,4 +1,8 @@
 /* Generic */
+.ng-pristine {
+    background: white;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -323,7 +327,7 @@ table caption {
     font-size: 12pt;
     border-radius: 5px 5px 0 0;
     text-align: center;
-    caption-side: top;            
+    caption-side: top;
 }
 
 .correction {
@@ -601,14 +605,6 @@ li.selected,button.selected {
 .oddstat {
     background: #FFAA88;
 }
-.oddboat {
-    background: #E8F2F3;
-}
-
-.evenboat {
-    background: #DBC4BB;
-}
-
 
 .stattypesmenu h2 {
     background: #23aee2;
@@ -775,13 +771,12 @@ select  {
 }
 
 .chooser  {
-    background: yellow;
     color: green;                
+    cursor: pointer;
 }
 
 .boattypeform {
     margin-top: 2em;
-
 }
 
 .leftpane {
@@ -894,6 +889,14 @@ textarea {
     background : #FFD;
 }
 
+
+.oddboat {
+    background: #E8F2F3;
+}
+
+.evenboat {
+    background: #DBC4BB;
+}
 .chart-bar {
     background : #DFD;
 }
@@ -915,9 +918,7 @@ datetimepicker.ng-empty ng-form div input {
     background: white;
 }
 
-.ng-pristine {
-    background: white;
-}
+
 .error {
     color: red;
     background:white;
@@ -985,6 +986,7 @@ datetimepicker.trip-search-field ng-form div input {
     padding-right: 1em;
     align:center;
 }
+
 
 textarea.signuptext {
     width:40%;

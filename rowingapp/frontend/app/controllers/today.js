@@ -65,17 +65,13 @@ function TodayCtrl ($scope, $routeParams, DatabaseService, $interval, ngForm) {
     $scope.boatcoms=bcms;
   };
   
-  DatabaseService.init({}).then(function () {
+  DatabaseService.init({boat:true}).then(function () {
+    $scope.onwater = DatabaseService.getDB('onwater');
   }
 			       );
   DatabaseService.getTodaysTrips(function (res) {
     $scope.tripstoday=res.data;
-  }
-				);
-  DatabaseService.getOnWater(function (res) {
-    $scope.onwater=res.data;
-  }
-			    );
+  });
   DatabaseService.getAvailableBoats(
     'DSR',function (res) {
       $scope.available=res.data;

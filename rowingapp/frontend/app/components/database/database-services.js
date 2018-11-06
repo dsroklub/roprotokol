@@ -117,6 +117,7 @@ function dbservice($http, $q, $log) {
     this.getData('boattypes',"",promises);
     this.getData('errortrips',"",promises);
     this.getData('triptypes',"",promises);
+    this.getData('onwater',"",promises);
     this.getData('locations',"",promises);
     this.getData('boatkayakcategory',"",promises);
     this.getData('boat_brand',"",promises);
@@ -169,9 +170,6 @@ function dbservice($http, $q, $log) {
         if (!boatstatistics[y]) {
           boatstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
         }
-        for (var bi=0; bi<boatmaintypes.length; bi++) {
-          var boattype= boatmaintypes[bi];
-        }
         currentyear=false;
       }
     }
@@ -182,7 +180,7 @@ function dbservice($http, $q, $log) {
   this.invalidate_dependencies=function(tp) {
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
-      $log.debug(' !v '+subtp);
+      // $log.debug(' !v '+subtp);
       valid[subtp]=false;
     }
   };
@@ -220,7 +218,7 @@ function dbservice($http, $q, $log) {
       'status':['status'],
       'admin':['memberrighttypes','rights_subtype'],
       'reservation':['reservation','boat','get_reservations'],
-      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events'],
+      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],
@@ -436,10 +434,6 @@ function dbservice($http, $q, $log) {
     $http.get(toURL(dataid+'.php'+a)).then(onSuccess);
   }
 
-  this.getOnWater = function (onSuccess) {
-    this.getDataNow('onwater',null,onSuccess);
-  }
-
   this.getTodaysTrips = function (onSuccess) {
     this.getDataNow('tripstoday',null,onSuccess);
   }
@@ -590,8 +584,7 @@ function dbservice($http, $q, $log) {
     $http.post('../../backend/'+op+".php", data,config).then(function(r) {
       qup.resolve(r.data)
     },function(r) {
-      $log.error(r.status);
-      qup.resolve(false);
+      qup.resolve(r);
     });
     datastatus['trip']=null;
     datastatus['boat']=null;
@@ -604,8 +597,8 @@ function dbservice($http, $q, $log) {
     var ar=this.updateDB_async(op,data,config);
      var at=ar.then(function (res) {
        $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
-       if (!res||res.status=="notauthorized") {
-         $log.error("auth error "+op+JSON.stringify(data));
+       if (!res||(res.status !="ok" && (!res.data||res.data.status=="error"||res.data.status=="notauthorized"))) {
+         $log.error("up DB error "+op+JSON.stringify(data));
          if (eh) {
            eh(res);
          }

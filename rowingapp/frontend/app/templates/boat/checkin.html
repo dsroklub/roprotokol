@@ -1,19 +1,15 @@
 <div class="big">{{checkinmessage}}</div>
-
 <div class="boatselection">
   <label for="select_boat">Båd</label>
-  <input autocomplete="off" typeahead-editable="false" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required></input>
+  <input autocomplete="off" typeahead-editable="false" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
 </div>
-
-
 <div class="boattypesmenu" style="float:left">
   <h2>Vælg bådtype</h2>
   <ul>
     <li ng-repeat="boatcategory in boatcategories" ng-class="{selected: boatcategory == selectedBoatCategory}" ng-click="selectBoatCategory(boatcategory)">{{boatcategory.name}}</li>
     <li ng-click="selectedBoatCategory=null">Alle bådtyper</li>
-  </ul>   
+  </ul>
 </div>
-
 <script type="text/ng-template" id="boatTemplate.html">
   <a>
     <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
@@ -22,87 +18,82 @@
 </script>
 <div ng-if="checkin.update_destination_for" class="destinationlist">
   <table >
-    <caption>Opdater destination<img ng-click="checkin.update_destination_for=null"  width="40px" src="media/popclose.svg" ></caption>
-    <tr><th>destination</th><th>distance</th></tr>
-    <tr ng-repeat="destination in destinations" ng-click="update_checkin_destiation(destination)">
+    <caption>Opdater destination<img class="chooser" ng-click="checkin.update_destination_for=null"  width="40px" src="media/popclose.svg" ></caption>
+    <tr>
+      <th>destination</th>
+      <th>distance</th>
+    </tr>
+    <tr class="chooser" ng-repeat="destination in destinations" ng-click="update_checkin_destiation(destination)">
       <td>{{destination.name}}</td>
       <td>{{destination.distance|mtokm}}</td>
     </tr>
   </table>
-
 </div>
 <div class="boatlist">
-  <table class="boatlist" style="float:right">
+  <table  style="float:right">
     <thead>
       <tr>
-        <th>Båd</th><th>Kategori</th><th>Hvor</th><th>Status</th><th>Destination</th><th>Forventes</th><th class="rnum">km</th>
+        <th>Båd</th>
+        <th>Kategori</th>
+        <th>Styrmand</th>
+        <th>Hvor</th>
+        <th>Status</th>
+        <th>Destination</th>
+        <th>Forventes</th>
+        <th class="rnum">km</th>
         <th>Korr. dist</th>
         <th>Bemærkning</th><th>Check Ind</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="boat in allboats | filter: matchBoatId(selectedboat,true)" ng-model="item"
-	  ng-class="{selected: boat == selectedboat}" 
-	  ng-class-odd="'oddboat'" ng-class-even="'evenboat'" >
-        <td ><div>
-	    {{boat.name}}
-	  </div>
-	</td>
-	<td>{{boat.category}}</td>
-        <td>{{boat.location|nodsr}} <i uib-tooltip="på hylde" ng-show="boat.placement_level" class="fa fa-level-up"></i> <small uib-tooltip="port {{boat.placement_aisle}}" ng-show="boat.placement_aisle">p{{boat.placement_aisle}}</small>
+      <tr  ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="boattrip in onwater | filter: matchType(selectedboat,selectedBoatCategory)" ng-model="item"  >
+        <td><div>
+            {{boattrip.boat}}
+          </div>
+        </td>
+        <td>{{boattrip.boat_type}}</td>
+        <td>{{boattrip.rowers[0].name}}</td>
+        <td>
+          {{boattrip.location|nodsr}} <i uib-tooltip="på hylde" ng-show="boattrip.boat_placement_level" class="fa fa-level-up"></i> <small uib-tooltip="port {{boattrip.boat_placement_aisle}}" ng-show="boattrip.boat_placement_aisle">p{{boattrip.boat_placement_aisle}}</small>
         </td>
         <td ng-click="damagesForBoat=boat">
-          <span ng-show="{{boat.damage==3}}">Svært skadet</span>
-          <span ng-show="{{boat.damage==2}}">Middel skadet</span>
-          <span ng-show="{{boat.damage==1}}">Let skadet</span>
-	</td>        
-        <td ng-click="checkin.update_destination_for=boat">
-       <i class="fa fa-pencil"></i>
-          {{boat.destination}}
+          <span ng-show="{{boattrip.damage==3}}">Svært skadet</span>
+          <span ng-show="{{boattrip.damage==2}}">Middel skadet</span>
+          <span ng-show="{{boattrip.damage==1}}">Let skadet</span>
         </td>
-	<td ng-class="{datealert: critical_time(boat.expected_in)}">{{boat.expected_in| txttotime | date :"HH:mm d. MMM"}}</td>
-        
-	<td class="rnum" ng-bind-html="boat.meter|mtokm">km</td>
-	<td class="colinput">
-	  <input  autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm
-                  name="kminput"></input>
-	</td>
-
-	<td class="colinput">
-	  <input  autocomplete="off" maxlength="200" size="3" ng-model="boat.comment" class="tripcomment" type="text" name="tripcomments"></input>
-	</td>        
-	<td class="colinput">
+        <td ng-click="checkin.update_destination_for=boattrip">
+          <i class="fa fa-pencil"></i>
+          {{boattrip.destination}}
+        </td>
+        <td ng-class="{datealert: critical_time(boattrip.expectedintime)}">{{boattrip.expectedintime| txttotime | date :"HH:mm d. MMM"}}</td>
+        <td class="rnum" ng-bind-html="boattrip.distance|mtokm">km</td>
+        <td class="colinput">
+          <input  autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm
+                  name="kminput">
+        </td>
+        <td class="colinput">
+          <input  autocomplete="off" maxlength="200" size="3" ng-model="boattrip.comment" class="tripcomment" type="text" name="tripcomments">
+        </td>
+        <td class="colinput">
           <div class="checkinactions">
-	    <button uib-tooltip="indskriv turen" ng-click="closetrip(boat,$index,item.km)" class="big"
+            <button uib-tooltip="indskriv turen" ng-click="closetrip(boattrip,$index,item.km)" class="big"
                     ng-disabled="boat.corrected_distance===0"
                     confirm-if="date_diff(boat.outtime)<10"
                     confirm="Er du sikker på, at du vil indskrive denne tur. Den er meget kort ({{date_diff(boat.outtime)}} minutter). Slet turen, hvis båden ikke har været på vandet"
                     confirm-ok="Ja, indskriv turen"
                     confirm-cancel="Nej, jeg fortryder"
-                    ></input>
+                    >
               Indskriv
             </button>
-	    <button uib-tooltip="slet turen hvis båden ikke kom på vandet" ng-click="deleteopentrip(boat,$index)" class="minor">Slet</button>
-	    <a href="{{burl}}#!ud?reuse={{boat.trip}}">
+            <button uib-tooltip="slet turen hvis båden ikke kom på vandet" ng-click="deleteopentrip(boattrip,$index)" class="minor">Slet</button>
+            <a href="{{burl}}#!ud?reuse={{boattrip}}">
               <button uib-tooltip="genbrug turoplysinger fx til at skriv en anden båd ud med samme roere og destination" ng-click="reusetrip(boat,$index)" class="minor">
                 <i class="fa fa-recycle"></i>Slet+Genbrug
               </button>
             </a>
           </div>
-	</td>	  
-        </tr>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>
-
-<!--br clear="all">
-<br clear="all">
-<pre>allboats = {{allboats | json}}</pre>
-<br clear="all">
-<h1 class="debug"ap>debug info</h1>
-<pre>checkin = {{checkin | json}}</pre>
-<pre>ab = {{allboats | json}}</pre>
-<pre>allboats = {{allboats | json}}</pre>
-<pre>selectedboat = {{selectedboat | json}}</pre>
-<pre>checkin = {{checkin | json}}</pre>
-<pre>selectedBoatCategory = {{selectedBoatCategory | json}}</pre-->

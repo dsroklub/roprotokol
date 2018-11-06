@@ -7,13 +7,13 @@ $message="";
 $data = file_get_contents("php://input");
 $closedtrip=json_decode($data);
 
-$distance = $closedtrip->boat->meter;
+$distance = $closedtrip->distance;
 if (!empty($closedtrip->boat->corrected_distance)) {
     $distance=$closedtrip->boat->corrected_distance;
 }
 
 $rodb->begin_transaction();
-$tripId=$closedtrip->boat->trip;
+$tripId=$closedtrip->trip_id;
 
 if ($stmt = $rodb->prepare("SELECT 'x' FROM Trip WHERE id=? AND InTime IS NULL")) { 
   $stmt->bind_param('i', $tripId);
@@ -30,7 +30,7 @@ if (!$error) {
     if ($stmt = $rodb->prepare(
         "UPDATE Trip SET InTime = NOW(),Meter=?, Destination=?,Comment=? WHERE id=?;"
     )) { 
-        $stmt->bind_param('issi', $distance,$closedtrip->boat->destination ,$closedtrip->boat->comment,$closedtrip->boat->trip);
+        $stmt->bind_param('issi', $distance,$closedtrip->destination ,$closedtrip->comment,$closedtrip->trip_id);
         $stmt->execute(); 
         $rodb->commit();
     }
@@ -41,7 +41,7 @@ if ($error) {
     $res['error']=$error;
 }
 $res['message']=$message;
-$res['boat']=$closedtrip->boat->name;
+$res['boat']=$closedtrip->boat;
 invalidate('trip');
 invalidate('stats');
 

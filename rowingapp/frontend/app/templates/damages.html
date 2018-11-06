@@ -23,10 +23,10 @@
 </script>
 <div class="report">
   <input placeholder="Vælg båd" autocomplete="off" id="select_boat" name="name" type="text" ng-model="newdamage.boat"
-         typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoatsWithType($viewValue,boattype)"
+         typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoatsWithType($viewValue,boat_type)"
          typeahead-template-url="boatTemplate.html" required>
 
-  <select name="boattypechooser" id="boattypechooser" ng-model="boattype"
+  <select name="boattypechooser" id="boattypechooser" ng-model="boat_type"
           ng-options="boatcategory.name for boatcategory in boatcategories">
     <option value="">alle typer</option>
   </select>
@@ -54,11 +54,11 @@
 <br>
 <table class="genericlist">
   <thead>
-    <tr><th>Båd</th><th ng-show="!boattype"></th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>klarmeld</th></tr>
+    <tr><th>Båd</th><th ng-show="!boat_type"></th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>klarmeld</th></tr>
   </thead>
-  <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="bd in allboatdamages | filter: matchBoatAndType(newdamage.boat,boattype)">
+  <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="bd in allboatdamages | filter: matchBoatAndType(newdamage.boat,boat_type)">
     <td>{{bd.boat}}</td>
-    <td ng-show="!boattype">{{bd.boattype}}</td>
+    <td ng-show="!boat_type">{{bd.boat_type}}</td>
     <td>{{bd.reporter}}</td>
     <td>{{bd.created| txttotime | date:"d. MMM yyyy"}}</td>
     <td class="degree">{{bd.degree|damagedegreedk}}</td>

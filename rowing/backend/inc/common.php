@@ -46,9 +46,14 @@ function invalidate($tp) {
 
 }
 function dbErr(&$db, &$res, $err="") {
-    $res["status"]=$db->error;
-    error_log("Database error $db->error $err");
+    $res["status"]="error";
+    $res["error"]="DB ". $err . ": " .$db->error;
+    error_log("Database error: $db->error $err");
     http_response_code(500);
+    echo json_encode($res);
+    $db->rollback();
+    $db->close();
+    exit(1);
 }
 
 function dbfetch($db,$table, $columns=['*'], $orderby=null) {

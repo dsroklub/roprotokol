@@ -21,4 +21,3 @@ $rodb->commit();
 $rodb->close();
 invalidate('destination');
 echo json_encode($res);
-?> 
