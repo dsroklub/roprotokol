@@ -216,9 +216,9 @@ function dbservice($http, $q, $log) {
     defaultLocation = 'DSR';
     cachedepend={
       'status':['status'],
-      'admin':['memberrighttypes','rights_subtype'],
+      'admin':['memberrighttypes','rights_subtype','errortrips','locations'],
       'reservation':['reservation','boat','get_reservations'],
-      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater'],
+      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],

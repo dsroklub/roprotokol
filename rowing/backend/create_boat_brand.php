@@ -18,5 +18,5 @@ if ($stmt = $rodb->prepare("INSERT INTO boat_brand (name) VALUES (?)")) {
 $rodb->commit();
 $rodb->close();
 invalidate('boat');
+invalidate('admin');
 echo json_encode($res);
-?> 
