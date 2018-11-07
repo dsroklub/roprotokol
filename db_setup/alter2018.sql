@@ -8,13 +8,13 @@ ALTER TABLE Destination DROP COLUMN Initials;
 
 ALTER TABLE Destination ADD column created_by INT;
 ALTER TABLE Destination ADD FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL;
+ALTER TABLE Boat ADD FOREIGN KEY (Location) REFERENCES Locations(name) ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE Destination ADD FOREIGN KEY (Location) REFERENCES Locations(name) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 ALTER TABLE reservation MODIFY COLUMN start_date date DEFAULT "1867-07-01";
 ALTER TABLE reservation DROP COLUMN Initials;
 ALTER TABLE reservation ADD COLUMN created_by INT;
 ALTER TABLE reservation ADD FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE RESTRICT;
-
-
 
 ALTER TABLE TripRights ADD FOREIGN KEY (required_right) REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE BoatRights ADD FOREIGN KEY (required_right) REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -31,12 +31,9 @@ ALTER TABLE Damage ADD FOREIGN KEY (Boat) REFERENCES Boat(id) ON DELETE CASCADE 
 ALTER TABLE TripMember DROP COLUMN Initials;
 ALTER TABLE TripType DROP COLUMN Initials;
 
-
-
 ALTER TABLE MemberRights ADD column created_by INT;
 ALTER TABLE MemberRights ADD FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL;
 -- TO HERE
-
 
 DELETE FROM TripMember where TripID NOT IN (SELECT id FROM Trip);
 

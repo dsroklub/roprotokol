@@ -24,5 +24,3 @@ if ($result) {
     $res["status"]=$rodb->error;
     echo json_encode($res);
 }
-
-?> 

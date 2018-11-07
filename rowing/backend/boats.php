@@ -8,7 +8,7 @@ $s="SELECT JSON_OBJECT(
            'spaces',BoatType.Seatcount,
            'description', Boat.Description,
            'category',BoatType.Name,
-           'boattype', Boat.boat_type,
+           'boat_type', Boat.boat_type,
            'location', Boat.Location,
            'brand',Boat.brand,
            'level',Boat.level) as json

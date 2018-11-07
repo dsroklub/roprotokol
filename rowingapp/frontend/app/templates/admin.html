@@ -58,7 +58,7 @@
 
     <table class="boatlist bblok boatadminap" >
       <caption>Både
-        <select class="chooser" name="boattypechooser" id="boattypechooser" ng-model="boattype"  ng-options="boatcategory.name for boatcategory in boatcategories"> </select>
+        <select class="chooser" name="boattypechooser" id="boattypechooser" ng-model="boat_type"  ng-options="boatcategory.name for boatcategory in boatcategories"> </select>
       </caption>
       <thead>
         <tr>
@@ -67,7 +67,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="boat in boats.allboats | filter: matchBoatType(boattype)">
+        <tr ng-repeat="boat in boats.allboats | filter: matchBoatType(boat_type)">
           <td>
             <input type="text" ng-model="boat.name" ng_change="set_name_for_boat(boat)" ng-model-options="{updateOn:'blur'}">
           </td>
@@ -115,7 +115,7 @@
               <td>
                 <input type="text" ng-model="newboat.name">
               </td>
-              <td><select  ng-model="newboat.boat_type" ng-options="cat.id as cat.name for cat in boatcategories">
+              <td><select  ng-model="newboat.boat_type" ng-options="cat.name for cat in boatcategories">
                 </select>
               </td>
               <td><select  ng-model="newboat.location" ng-options="loc.name as loc.name for loc in locations">
@@ -199,15 +199,15 @@
       </tr>
       <tr>
         <td>
-          <select ng-model="boattype.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)|unique:'member_right'">
+          <select ng-model="boat_type.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)|unique:'member_right'">
           </select>
         </td>
         <td>
-          <select ng-model="boattype.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">
+          <select ng-model="boat_type.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">
           </select>
         </td>
         <td>
-          <button ng-show="boattype.newright.subject && boattype.newright.right" class="action" ng-click="add_boattype_requirement(boattype.newright,requiredboatrights)">Tilføj krav</button>
+          <button ng-show="boat_type.newright.subject && boat_type.newright.right" class="action" ng-click="add_boattype_requirement(boat_type.newright,requiredboatrights)">Tilføj krav</button>
         </td>
       </tr>
     </tbody>
@@ -283,7 +283,6 @@
         <tr ng-repeat="ds in DB('destinations')[showdest]" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
           <td><input ng-model="ds.name" ng-model-options="{updateOn:'blur'}" ng-change="set_destination_name(ds)">
           </td>
-
           <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
           <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration" ng-model-options="{allowInvalid:true}"></td>
           <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction" ng-model-options="{allowInvalid:true}"></td>
@@ -299,12 +298,11 @@
       <th>Destination</th><th>Beskrivelse</th><th>Fra Lokation</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
       </tr>
     </thead>
-    <form name="newdestinationf">
+    <form name="newdestinationForm" validate>
       <tbody>
         <tr>
-          <td><input name="zydname" type="text"  ng-model="new_destination.name"
-                      required></td>
-          <td><input name="zyddesc" type="text"  ng-model="new_destination.description"  required></td>
+          <td><input name="zydname" type="text"  ng-model="new_destination.name" required></td>
+          <td><input name="zyddesc" type="text"  ng-model="new_destination.description"></td>
           <td><select name="zylle" ng-model="new_destination.location" ng-options="loc.name as loc.name for loc in locations"  required></select>
           <td><input type="number" min="0" step="0.5" ng-model="new_destination.distance" transformkm></td>
           <td><input type="number" min="0" step="0.25" ng-model="new_destination.duration"></td>
@@ -312,9 +310,8 @@
         </tr>
         <tr>
           <td>
-            <button ng-disabled="newdestinationf.zydname.invalid"  class="action" ng-click="create_destination(new_destination)">Tilføj destination</button>
+            <button ng-disabled="!(new_destination.name && new_destination.location)"  class="action" ng-click="create_destination(new_destination)">Tilføj destination</button>
           </td>
-          <td>IV {{newdestination.$invalid}}</td>
         </tr>
       </tbody>
     </form>

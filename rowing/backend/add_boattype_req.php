@@ -11,12 +11,9 @@ $data=json_decode($data);
 $rodb->begin_transaction(); // 
 error_log('add right '.json_encode($data));
 
-if ($stmt = $rodb->prepare("INSERT INTO BoatRights (boat_type,required_right,requirement ) VALUES (?,?,?)")) {
-    $stmt->bind_param('sss', $data->boattype->name,$data->right,$data->subject);
-    $stmt->execute();
-} else {
-    error_log('OOOP'.$rodb->error);
-}
+$stmt = $rodb->prepare  ("INSERT INTO BoatRights (boat_type,required_right,requirement ) VALUES (?,?,?)") or dbErr($rodb,$res,"BT req (prep)");
+$stmt->bind_param('sss', $data->boat_type->name,$data->right,$data->subject) or dbErr($rodb,$res,"BT req (bind)");
+$stmt->execute() or dbErr($rodb,$res,"BT req");
 $rodb->commit();
 $rodb->close();
 invalidate('boat');

@@ -12,3 +12,4 @@ echo '[';
 }
 echo ']';
 $rodb->close();
+invalidate('admin');
