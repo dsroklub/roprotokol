@@ -139,7 +139,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
 
     $scope.errorhandler = function(error) {
       $log.error(error);
-      if (error.status==400 || (error.data && error.data.status=="notauthorized")) {
+      if (error.status==400 || error.status=="notauthorized") {
         $route.reload();
         alert("du skal logge ind");
       } else {
