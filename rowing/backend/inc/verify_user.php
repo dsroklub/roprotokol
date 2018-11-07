@@ -2,7 +2,7 @@
 
 $cip=$_SERVER['REMOTE_ADDR'];
 #error_log("IP address from client ". $cip);
-    
+
 if(!$skiplogin) {
     $verified=false;
     $remotepw="";
@@ -19,12 +19,12 @@ if(!$skiplogin) {
             error_log("verified $cuser by password");
             $verified=true;
         }
-    } 
+    }
     if ($adminpw == $remotepw) {
         $verified=true;
         error_log("verified user by password");
     }
-    
+
     if (!$verified) {
         error_log("login failed");
         echo '{"status":"notauthorized","error":"forkert password"}';

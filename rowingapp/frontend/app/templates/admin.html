@@ -164,7 +164,7 @@
   <div class="iblok">
     <table class="genericlist">
       <caption>Fabrikater</caption>
-        <tbody class="tbody">          
+        <tbody class="tbody">
           <tr ng-repeat="brand in brands">
             <td>{{brand.name}}</td>
           </tr>
@@ -283,7 +283,6 @@
         <tr ng-repeat="ds in DB('destinations')[showdest]" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
           <td><input ng-model="ds.name" ng-model-options="{updateOn:'blur'}" ng-change="set_destination_name(ds)">
           </td>
-          
           <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
           <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration" ng-model-options="{allowInvalid:true}"></td>
           <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction" ng-model-options="{allowInvalid:true}"></td>
@@ -316,7 +315,7 @@
         </tr>
       </tbody>
     </form>
-  </table>  
+  </table>
 </div>
 
 
@@ -554,7 +553,7 @@
     <tbody>
       <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="ev in DB('get_events')">
         <td class=eventtime>{{ev.event_time}}</td>
-        <td>{{ev.event}} </td>
+        <td>{{ev.event}}</td>
       </tr>
     </tbody>
   </table>

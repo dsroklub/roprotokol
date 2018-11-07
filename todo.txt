@@ -15,3 +15,8 @@ event, generalize leave.
 
 Vis lstyrmænd for tilmeldte til arrangementer
  * advarsel, hvis det ikke går op.
+
+
+apt install libmysqlclient-dev
+apt source apr-util
+ buil install
