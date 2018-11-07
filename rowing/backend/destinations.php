@@ -3,7 +3,7 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$s="SELECT Destination.Location as location, Destination.Name as name, Meter as distance, ExpectedDurationNormal AS duration, ExpectedDurationInstruction AS duration_instruction
+$s="SELECT Destination.Location as location, Destination.Name as name,Destination.Name as orig_name, Meter as distance, ExpectedDurationNormal AS duration, ExpectedDurationInstruction AS duration_instruction
    FROM Destination
    ORDER BY Location,name";
 

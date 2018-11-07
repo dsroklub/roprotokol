@@ -117,6 +117,7 @@ function dbservice($http, $q, $log) {
     this.getData('boattypes',"",promises);
     this.getData('errortrips',"",promises);
     this.getData('triptypes',"",promises);
+    this.getData('onwater',"",promises);
     this.getData('locations',"",promises);
     this.getData('boatkayakcategory',"",promises);
     this.getData('boat_brand',"",promises);
@@ -182,7 +183,7 @@ function dbservice($http, $q, $log) {
   this.invalidate_dependencies=function(tp) {
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
-      $log.debug(' !v '+subtp);
+      // $log.debug(' !v '+subtp);
       valid[subtp]=false;
     }
   };
@@ -220,7 +221,7 @@ function dbservice($http, $q, $log) {
       'status':['status'],
       'admin':['memberrighttypes','rights_subtype'],
       'reservation':['reservation','boat','get_reservations'],
-      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events'],
+      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],
@@ -434,10 +435,6 @@ function dbservice($http, $q, $log) {
       a="?"+arg;
     }
     $http.get(toURL(dataid+'.php'+a)).then(onSuccess);
-  }
-
-  this.getOnWater = function (onSuccess) {
-    this.getDataNow('onwater',null,onSuccess);
   }
 
   this.getTodaysTrips = function (onSuccess) {

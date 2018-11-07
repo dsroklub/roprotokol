@@ -21,5 +21,4 @@ $tsa=array(
     'gitrevision' => $gitrevision
 );
 $res=json_encode($tsa);
-    print($res);
-?> 
+print($res);

@@ -6,11 +6,9 @@ include("inc/utils.php");
 $error=null;
 $res=array ("status" => "error");
 $data = file_get_contents("php://input");
-$reuse=json_decode($data);
+$reuse=json_decode(json_decode($data)->reusetrip);
 
 $rodb->begin_transaction();
-error_log("reuse open trip ". $reuse->reusetrip);
-
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
     'id',Trip.id,
@@ -43,7 +41,7 @@ $s="SELECT JSON_MERGE(
    ORDER BY Trip.id ";
 
 if ($stmt = $rodb->prepare("$s")) { 
-  $stmt->bind_param('i', $reuse->reusetrip);
+  $stmt->bind_param('i', $reuse->trip_id);
   $stmt->execute();
   $result= $stmt->get_result();
   if ($result) {
@@ -62,9 +60,10 @@ if ($stmt = $rodb->prepare("$s")) {
 
 
 if ($error) {
+    error_log("reuse Error: $error :" .$reuse->trip_id);
   // Skip
 } elseif ($stmt = $rodb->prepare("DELETE FROM Trip WHERE id=? AND InTime IS NULL")) { 
-  $stmt->bind_param('i', $reuse->reusetrip);
+  $stmt->bind_param('i', $reuse->trip_id);
   $stmt->execute();
   $result= $stmt->get_result();
 } else {

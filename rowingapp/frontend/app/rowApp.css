@@ -1,4 +1,8 @@
 /* Generic */
+.ng-pristine {
+    background: white;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -65,16 +69,16 @@ button:hover {
 button i {
     margin-right: 5pt;
 }
-button.red {   
+button.red {
     border: 1px solid #FF6C60;
     color: #FF6C60;
 }
-button.green {   
+button.green {
     border: 1px solid #3ECBBF;
     color: #3ECBBF;
     background:#FFFFFF;
 }
-button.klar {   
+button.klar {
     border: 1px solid #3ECBBF;
     color: #000000;
     background:#F1FFEF;
@@ -183,7 +187,7 @@ button#createtrip_button[disabled] {
 }
 
 .main {
-    margin: 0;   
+    margin: 0;
     padding: 4pt 6pt;
 }
 
@@ -323,7 +327,7 @@ table caption {
     font-size: 12pt;
     border-radius: 5px 5px 0 0;
     text-align: center;
-    caption-side: top;            
+    caption-side: top;
 }
 
 .correction {
@@ -582,7 +586,7 @@ li.selected,button.selected {
     float:left;
     clear:left;
     max-width: 30em;
-    margin-top: 1em;    
+    margin-top: 1em;
 }
 
 .damageslist {
@@ -590,7 +594,7 @@ li.selected,button.selected {
     float:left;
     clear:left;
     max-width: 30em;
-    margin-top: 1em;    
+    margin-top: 1em;
 }
 
 .checkoutBoat{
@@ -601,14 +605,6 @@ li.selected,button.selected {
 .oddstat {
     background: #FFAA88;
 }
-.oddboat {
-    background: #E8F2F3;
-}
-
-.evenboat {
-    background: #DBC4BB;
-}
-
 
 .stattypesmenu h2 {
     background: #23aee2;
@@ -645,21 +641,21 @@ li.selected,button.selected {
     color: black;
     background: #07FF00;
     font-size: 20pt;
-    max-width: 25em;        
+    max-width: 25em;
     border-radius: 8px;
 }
 .checkoutnotification {
     color: black;
     background: yellow;
     font-size: 20pt;
-    max-width: 15em;        
+    max-width: 15em;
     border-radius: 8px;
 }
 .checkouterrormessage {
     color: black;
     background: #FF8888;
     font-size: 22pt;
-    max-width: 30em;        
+    max-width: 30em;
     border-radius: 8px;
 }
 
@@ -705,7 +701,7 @@ div.guestpenguin {
     border-radius: 5px;
     height: 2em;
     min-width : 35em;
-    display: inline-block;    
+    display: inline-block;
 }
 
 input.adminpw {
@@ -754,10 +750,10 @@ input.adminpw {
 .numin  {
     max-width: 3em;
     text-align: right!important;
-    
+
 }
 
-input[type=number]::-webkit-inner-spin-button {  
+input[type=number]::-webkit-inner-spin-button {
     opacity: 1;
 }
 
@@ -775,13 +771,12 @@ select  {
 }
 
 .chooser  {
-    background: yellow;
-    color: green;                
+    color: green;
+    cursor: pointer;
 }
 
 .boattypeform {
     margin-top: 2em;
-
 }
 
 .leftpane {
@@ -844,7 +839,7 @@ button[disabled], html input[disabled] {
 }
 
 .seatcount {
-    max-width: 5em;	
+    max-width: 5em;
 }
 
 .ok,.degree {
@@ -894,6 +889,14 @@ textarea {
     background : #FFD;
 }
 
+
+.oddboat {
+    background: #E8F2F3;
+}
+
+.evenboat {
+    background: #DBC4BB;
+}
 .chart-bar {
     background : #DFD;
 }
@@ -915,9 +918,7 @@ datetimepicker.ng-empty ng-form div input {
     background: white;
 }
 
-.ng-pristine {
-    background: white;
-}
+
 .error {
     color: red;
     background:white;
@@ -985,6 +986,7 @@ datetimepicker.trip-search-field ng-form div input {
     padding-right: 1em;
     align:center;
 }
+
 
 textarea.signuptext {
     width:40%;
@@ -1158,11 +1160,11 @@ textarea.signuptext {
 	#year_report th.supercat {
 	  border: 3px solid #003;
 	}
-	
+
 	#year_report th.subcat-left {
 	  border-left: 3px solid #003;
 	}
-	
+
 
     #year_report tr.header > th.slanted,
     #year_report tr.header > th.around-slanted {
@@ -1172,12 +1174,12 @@ textarea.signuptext {
 	#year_report tr.header > th.slanted > div {
 	  background: #fff;
 	}
-	
+
 	#year_report tr.header > th.slanted > div > span {
 	  border-bottom: 2px solid #003;
 	  background: #fff;
 	}
-	
+
 	#year_report tr.header > th.slanted > div > span {
 	  background: #fff;
 	  color: #003;
@@ -1192,7 +1194,7 @@ img.wrench {
 }
 
 .nottoday {
-	  background: #bbbbaa;    
+	  background: #bbbbaa;
 }
 
 @media screen {
