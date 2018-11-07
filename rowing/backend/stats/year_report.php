@@ -40,10 +40,9 @@ function get_cut($year, $date=null, $offset=null) {
   return $year . '-' . $date;
 } 
 
-function make_error() {
+function make_error($query) {
   global $error, $table, $step, $y, $rodb;
-
-  $error = 'Could not get ' . $table . ':' . $step . '/' . $y . ': ' . $rodb->error;
+  $error = 'Could not get ' . $table . ':' . $step . '/' . $y . ': ' . $rodb->error . " " .$query;
 }
 
 
@@ -111,10 +110,10 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     if ($r) {
        $res[$table][$y]['total'] = ['count' => 0]; 
        while ($row = $r->fetch_assoc()) {
-       	 $res[$table][$y]['total']['count'] += $row['count'];
-	 $res[$table][$y][$genders[$row['gender']]] = []; 
-	 $res[$table][$y][$genders[$row['gender']]]['count'] = $row['count'];
-	 $res[$table][$y][$genders[$row['gender']]]['age'] = $row['age'];
+         $res[$table][$y]['total']['count'] += $row['count'];
+         $res[$table][$y][$genders[$row['gender']]] = []; 
+         $res[$table][$y][$genders[$row['gender']]]['count'] = $row['count'];
+         $res[$table][$y][$genders[$row['gender']]]['age'] = $row['age'];
        };
 
        $age_sum = 0;
@@ -227,7 +226,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                         FROM Trip
                         INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
                         INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-                        INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+                        INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
                         WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
                           AND DATE(Trip.OutTime) < '" .  $to_cut . "'
                           AND Trip.TripTypeID " . $condition . "
@@ -294,7 +293,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                  BoatType.Category as boatkat
           FROM Trip
           INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-          INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+          INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
           WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
           GROUP BY BoatType.Category;";
     $r = $rodb->query($s);
@@ -336,7 +335,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
           INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
           INNER JOIN TripType on Trip.TripTypeID = TripType.id
           INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-          INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+          INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
           WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
           GROUP BY BoatType.Category, TripType.id
           ORDER BY boatCat, triptype";
@@ -373,7 +372,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
           FROM Trip
           INNER JOIN TripType on Trip.TripTypeID = TripType.id
           INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-          INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+          INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
           WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
           GROUP BY BoatType.Category, TripType.id
           ORDER BY boatCat, triptype";
@@ -498,7 +497,7 @@ $s = "SELECT Member.MemberID as member_no,
       WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
         AND TripMember.Seat=1
         AND Trip.TripTypeID IN (5)
-        AND Boat.BoatType IN (1,2)
+        AND Boat.boat_type LIKE 'Inrigger%'
       GROUP BY TripMember.member_id, CONCAT(Member.FirstName, ' ', Member.LastName)
       ORDER BY trips DESC, name ASC";
 
@@ -557,7 +556,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                  FROM Trip
                  INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
                  INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-                 INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+                 INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
                  WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
                    AND DATE(Trip.OutTime) < '" . $to_cut . "'
                    AND Trip.TripTypeID NOT IN (5)
@@ -626,7 +625,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                        FROM Trip
                        INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
                        INNER JOIN Boat ON (Boat.id = Trip.BoatID)
-                       INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
+                       INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
                        WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
                          AND DATE(Trip.OutTime) < '" . $to_cut . "'
                          AND BoatType.Category=2
@@ -686,17 +685,16 @@ $step = 'usage';
 $res[$table] = [ 'boattypes' => [], 'triptypes' => [], 'boats' => []];
 
 $s = "SELECT Boat.Name AS boat,
-             BoatType.Name AS boattype,
+             Boat.boat_type AS boat_type,
              Sum(Meter)/1000 AS distance,
              COUNT(Trip.id) AS trips,
              TripType.Name AS triptype
-      FROM BoatType
-      INNER JOIN Boat ON (BoatType.id = Boat.BoatType)
+      FROM Boat
       LEFT OUTER JOIN Trip ON Boat.id = Trip.BoatID
       LEFT OUTER JOIN TripType ON (TripType.id = Trip.TripTypeID)
       WHERE DATE(Trip.OutTime) >= '" . $from_cut . "'
         AND DATE(Trip.OutTime) < '"  . $to_cut . "'
-      GROUP BY Boat.Name, Boat.id, BoatType.Name, triptype";
+      GROUP BY Boat.Name, Boat.id, Boat.boat_type, triptype";
 
 $messages[] = $s;
 $r = $rodb->query($s);
@@ -706,31 +704,31 @@ if ($r) {
     if (! isset($res[$table]['triptypes'][ $row['triptype']])) {
       $res[$table]['triptypes'][ $row['triptype']] = [ 'distance' => 0, 'trips'=> 0, 'boattypes' => [] ];
     } 
-    if (! isset($res[$table]['boattypes'][ $row['boattype']])) {
-      $res[$table]['boattypes'][ $row['boattype']] = [ 'distance' => 0, 'trips' => 0, 'boats' => [], 'triptypes' => [] ];
+    if (! isset($res[$table]['boattypes'][ $row['boat_type']])) {
+      $res[$table]['boattypes'][ $row['boat_type']] = [ 'distance' => 0, 'trips' => 0, 'boats' => [], 'triptypes' => [] ];
     } 
     if (! isset($res[$table]['boats'][ $row['boat']])) {
       $res[$table]['boats'][ $row['boat']] = [ 'distance' => 0, 'trips' => 0, 'triptypes' => [] ];
     } 
 
-    if (! isset($res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boattype']])) {
-      $res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boattype']] = ['distance' => 0, 'trips' => 0];
+    if (! isset($res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boat_type']])) {
+      $res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boat_type']] = ['distance' => 0, 'trips' => 0];
     }
-    if (! isset($res[$table]['boattypes'][ $row['boattype']]['triptypes'][$row['triptype']])) {
-      $res[$table]['boattypes'][ $row['boattype']]['triptypes'][$row['triptype']] = ['distance' => 0, 'trips' => 0];
+    if (! isset($res[$table]['boattypes'][ $row['boat_type']]['triptypes'][$row['triptype']])) {
+      $res[$table]['boattypes'][ $row['boat_type']]['triptypes'][$row['triptype']] = ['distance' => 0, 'trips' => 0];
     }
 
 
     $res[$table]['triptypes'][ $row['triptype']]['distance'] += $row['distance'];
     $res[$table]['triptypes'][ $row['triptype']]['trips'] += $row['trips'];
-    $res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boattype']]['distance'] += $row['distance'];
-    $res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boattype']]['trips'] += $row['trips'];
+    $res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boat_type']]['distance'] += $row['distance'];
+    $res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boat_type']]['trips'] += $row['trips'];
 
 
-    $res[$table]['boattypes'][ $row['boattype']]['distance'] += $row['distance'];
-    $res[$table]['boattypes'][ $row['boattype']]['trips'] += $row['trips'];
-    $res[$table]['boattypes'][ $row['boattype']]['triptypes'][$row['triptype']]['distance'] += $row['distance'];
-    $res[$table]['boattypes'][ $row['boattype']]['triptypes'][$row['triptype']]['trips'] += $row['trips'];
+    $res[$table]['boattypes'][ $row['boat_type']]['distance'] += $row['distance'];
+    $res[$table]['boattypes'][ $row['boat_type']]['trips'] += $row['trips'];
+    $res[$table]['boattypes'][ $row['boat_type']]['triptypes'][$row['triptype']]['distance'] += $row['distance'];
+    $res[$table]['boattypes'][ $row['boat_type']]['triptypes'][$row['triptype']]['trips'] += $row['trips'];
 
 
     if (! isset($res[$table]['boats'][ $row['boat']]['triptypes'][$row['triptype']])) {
@@ -738,7 +736,7 @@ if ($r) {
     }
 
     $res[$table]['boats'][ $row['boat']]['distance'] += $row['distance'];
-    $res[$table]['boats'][ $row['boat']]['boattype'] = $row['boattype'];
+    $res[$table]['boats'][ $row['boat']]['boat_type'] = $row['boat_type'];
     $res[$table]['boats'][ $row['boat']]['trips'] += $row['trips'];
     $res[$table]['boats'][ $row['boat']]['triptypes'][$row['triptype']]['distance'] += $row['distance'];
     $res[$table]['boats'][ $row['boat']]['triptypes'][$row['triptype']]['trips'] += $row['trips'];
@@ -746,7 +744,7 @@ if ($r) {
     $res[$table]['total']['distance'] += $row['distance'];
     $res[$table]['total']['trips'] += $row['trips'];
 
-    $res[$table]['boattypes'][ $row['boattype']]['boats'][ $row['boat']]  = 1;
+    $res[$table]['boattypes'][$row['boat_type']]['boats'][ $row['boat']]  = 1;
   }
  
   foreach ($res[$table]['boattypes'] as $bt => $row) {
@@ -771,31 +769,30 @@ $step = 'unused';
 $res[$table][$step] = [ 'types' => [], 'boats' => []];
 
 $s = "SELECT b.Name AS boat,
-             BoatType.Name AS boattype
-       FROM BoatType
-       INNER JOIN Boat b ON (BoatType.id = b.BoatType)
+             b.boat_type AS boat_type
+       FROM Boat b 
        WHERE b.Decommissioned IS NULL
          AND NOT EXISTS (
        	   SELECT 1
-	   FROM Trip
-	   WHERE b.id = BoatID
+	       FROM Trip
+	       WHERE b.id = BoatID
              AND DATE(Trip.OutTime) >= '" . $from_cut . "'
              AND DATE(Trip.OutTime) < '" . $to_cut . "'
        )
-   ORDER BY BoatType.Name, b.Name";
+   ORDER BY boat_type, b.Name";
 
 $r = $rodb->query($s);
 if ($r) {
   while ($row = $r->fetch_assoc()) {
-    if (! isset($res[$table][$step]['types'][$row['boattype']]) ) {
-      $res[$table][$step]['types'][$row['boattype']] = ['count' => 0, 'boats' => []];
+    if (! isset($res[$table][$step]['types'][$row['boat_type']]) ) {
+      $res[$table][$step]['types'][$row['boat_type']] = ['count' => 0, 'boats' => []];
     }
     $res[$table][$step]['boats'][] = $row;
-    $res[$table][$step]['types'][$row['boattype']]['count']++;
-    $res[$table][$step]['types'][$row['boattype']]['boats'][] = $row['boat'];
+    $res[$table][$step]['types'][$row['boat_type']]['count']++;
+    $res[$table][$step]['types'][$row['boat_type']]['boats'][] = $row['boat'];
   }
 } else {
-  make_error();
+  make_error($s);
   goto end;
 }
 

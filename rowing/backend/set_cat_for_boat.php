@@ -9,15 +9,11 @@ $data=json_decode($data);
 
 $location = $data->location;
 $rodb->begin_transaction();
-error_log("set cat ".json_encode($data));
-error_log("set cat for ". $data->category." -- ".$data->id);
 
-if ($stmt = $rodb->prepare("UPDATE Boat set BoatType=(SELECT id FROM BoatType WHERE Name=?) Where id=?")) { 
-    $stmt->bind_param('si', $data->category,$data->id);
-    $stmt->execute();
-} 
+$stmt = $rodb->prepare("UPDATE Boat set boat_type=? WHERE id=?") or dbErr($rodb,$res,"set cat for boat (Prepare)");
+$stmt->bind_param('ss', $data->category,$data->id) or dbErr($rodb,$res,"set cat for boat (bind)");
+$stmt->execute() or dbErr($rodb,$res,"set cat for boat");
 $rodb->commit();
 $rodb->close();
 invalidate('boat');
 echo json_encode($res);
-?> 

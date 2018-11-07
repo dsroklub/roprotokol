@@ -608,7 +608,7 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
     <th class="left">Båd</th>
   </tr>
   <tr ng-repeat="b in stats.boats.unused.boats">
-    <td rowspan="{{stats.boats.unused.types[b.boattype].count}}" ng-if="stats.boats.unused.types[b.boattype].boats[0] === b.boat" class="top">{{b.boattype}}</td>
+    <td rowspan="{{stats.boats.unused.types[b.boat_type].count}}" ng-if="stats.boats.unused.types[b.boat_type].boats[0] === b.boat" class="top">{{b.boat_type}}</td>
     <td>{{b.boat}}</td>
   </tr>
 </table>

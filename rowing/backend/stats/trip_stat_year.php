@@ -18,7 +18,7 @@ if (isset($_GET["km"])) {
 
 $s="SELECT YEAR(Trip.OutTime) as year,TripType.tripstat_name as name,CAST(Sum(Meter)$km AS UNSIGNED) AS distance, COUNT('x') as trips 
     FROM Trip,TripType,Boat,BoatType
-    WHERE Trip.TripTypeID=TripType.id AND Trip.BoatID=Boat.id $qboats AND Boat.BoatType=BoatType.id 
+    WHERE Trip.TripTypeID=TripType.id AND Trip.BoatID=Boat.id $qboats AND Boat.boat_type=BoatType.Name
     AND Trip.OutTime IS NOT NULL
     GROUP BY TripType.name, year,TripType.tripstat_name
     ORDER BY year,TripType.tripstat_name";
@@ -34,4 +34,3 @@ if ($stmt = $rodb->prepare($s)) {
      $stmt->close(); 
  } 
 $rodb->close();
-?> 

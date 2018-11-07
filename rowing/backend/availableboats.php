@@ -10,16 +10,15 @@ if (isset($_GET["location"])) {
     exit(1);
 }
 
-$s="SELECT BoatType.id AS boattypeid, BoatType.name as boattype,Count('q') as amount, GROUP_CONCAT(Boat.name SEPARATOR ', ') AS boats ".
-  " From Boat,BoatType ".
+$s="SELECT boat_type as boat_type,Count('q') as amount, GROUP_CONCAT(Boat.name SEPARATOR ', ') AS boats ".
+  " From Boat ".
   " WHERE ".
-  " Boat.BoatType=BoatType.id AND ".
   " Boat.Location=? AND " .
   " NOT EXISTs (SELECT 'x' FROM Trip WHERE InTime IS NULL AND Trip.BoatID=Boat.id) AND ".
   " NOT EXISTS (SELECT 'x' FROM Damage WHERE Damage.Boat=Boat.id and Degree>2 AND REPAIRED IS NULL) AND ".
   " Boat.Name NOT LIKE '%Lånt%' AND" .
   " Boat.Name NOT LIKE '%privat%' AND" .
-  " NOT EXISTS (SELECT 'x' FROM reservation WHERE Boat.BoatType=BoatType.id AND reservation.dayofweek>0 && reservation.Boat=Boat.id AND reservation.start_time<=Now() AND reservation.end_time>=Now()) GROUP BY BoatType";
+  " NOT EXISTS (SELECT 'x' FROM reservation WHERE reservation.dayofweek>0 && reservation.Boat=Boat.id AND reservation.start_time<=Now() AND reservation.end_time>=Now()) GROUP BY Boat.boat_type";
 
 if ($sqldebug) {
  echo $s;
@@ -35,7 +34,7 @@ if ($stmt = $rodb->prepare($s)) {
      $first=1;
      while ($row = $result->fetch_assoc()) {
        if ($first) $first=0; else echo ',';
-       echo '"'.$row["boattype"].'":'. json_encode($row,JSON_PRETTY_PRINT);
+       echo '"'.$row["boat_type"].'":'. json_encode($row,JSON_PRETTY_PRINT);
      }
      echo '}';
 } else  {

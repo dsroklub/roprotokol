@@ -73,7 +73,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.currentrower=null;
     $scope.do="events";
     $scope.newboat={};
-    $scope.newboattype={};
+    $scope.newboattype={'rights':[]};
     $scope.DB=DatabaseService.getDB;
     $scope.current_rower=DatabaseService.getCurrentRower();
     $scope.isadmin=false;
@@ -139,8 +139,12 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
 
     $scope.errorhandler = function(error) {
       $log.error(error);
-      $route.reload();
-      alert("du skal logge ind");
+      if (error.status==400 || error.status=="notauthorized") {
+        $route.reload();
+        alert("du skal logge ind");
+      } else {
+        alert("DB fejl " + error.data.error);
+      }
     }
     
     $scope.getRowerByName = function (val) {
@@ -157,7 +161,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.create_boattype = function(bt) {
       var exeres=DatabaseService.updateDB('create_boattype',bt,$scope.config,$scope.errorhandler);
       $scope.DB('boattypes').push(bt);
-      $scope.newboattype={};
+      $scope.newboattype={'rights':[]};
     }
 
     $scope.create_destination = function(dest) {
@@ -305,7 +309,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
     
     $scope.remove_boattype_requirement = function(rt,ix) {
-      var data={boattype:$scope.currentboattype,'right':rt};
+      var data={"boat_type":$scope.currentboattype,'right':rt};
       var exeres=DatabaseService.updateDB('remove_boattype_right',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
           $scope.requiredboatrights.splice(ix,1);
@@ -314,7 +318,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
 
     $scope.add_boattype_requirement = function(data,existing_rights) {
-      data.boattype=$scope.currentboattype;
+      data.boat_type=$scope.currentboattype;
       var exeres=DatabaseService.updateDB('add_boattype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
           existing_rights.push({"requirement":data.subject, "required_right":data.right});

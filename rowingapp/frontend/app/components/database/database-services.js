@@ -170,9 +170,6 @@ function dbservice($http, $q, $log) {
         if (!boatstatistics[y]) {
           boatstatistics[y]={'rowboat':[],'kayak':[],'any':[]};
         }
-        for (var bi=0; bi<boatmaintypes.length; bi++) {
-          var boattype= boatmaintypes[bi];
-        }
         currentyear=false;
       }
     }
@@ -219,9 +216,9 @@ function dbservice($http, $q, $log) {
     defaultLocation = 'DSR';
     cachedepend={
       'status':['status'],
-      'admin':['memberrighttypes','rights_subtype'],
+      'admin':['memberrighttypes','rights_subtype','errortrips','locations'],
       'reservation':['reservation','boat','get_reservations'],
-      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater'],
+      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],
@@ -587,8 +584,7 @@ function dbservice($http, $q, $log) {
     $http.post('../../backend/'+op+".php", data,config).then(function(r) {
       qup.resolve(r.data)
     },function(r) {
-      $log.error(r.status);
-      qup.resolve(false);
+      qup.resolve(r);
     });
     datastatus['trip']=null;
     datastatus['boat']=null;
@@ -601,8 +597,8 @@ function dbservice($http, $q, $log) {
     var ar=this.updateDB_async(op,data,config);
      var at=ar.then(function (res) {
        $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
-       if (!res||res.status=="notauthorized") {
-         $log.error("auth error "+op+JSON.stringify(data));
+       if (!res||(res.status !="ok" && (!res.data||res.data.status=="error"||res.data.status=="notauthorized"))) {
+         $log.error("up DB error "+op+JSON.stringify(data));
          if (eh) {
            eh(res);
          }

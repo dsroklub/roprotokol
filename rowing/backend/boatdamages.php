@@ -2,10 +2,10 @@
 include("inc/common.php");
 header('Content-type: application/json');
 
-$s="SELECT Damage.id,Damage.Boat as boat_id,BoatType.name as boattype,Boat.Name as boat,Damage.Description as description,Degree as degree,Damage.ResponsibleMember,RepairerMember,Repaired as repaired, Damage.Created AS created, CONCAT(FirstName,' ',LastName) as reporter ".
-    " FROM Boat, BoatType, Damage
+$s="SELECT Damage.id,Damage.Boat AS boat_id,Boat.boat_type AS boat_type,Boat.Name AS boat,Damage.Description as description,Degree AS degree,Damage.ResponsibleMember,RepairerMember,Repaired AS repaired, Damage.Created AS created, CONCAT(FirstName,' ',LastName) AS reporter ".
+    " FROM Boat,Damage
       LEFT OUTER JOIN Member ON Member.id=Damage.ResponsibleMember
-      WHERE Damage.Boat=Boat.id AND Boat.BoatType=BoatType.id AND Repaired IS NULL ORDER BY Boat,degree DESC
+      WHERE Damage.Boat=Boat.id AND Repaired IS NULL ORDER BY Boat,degree DESC
  ";
 
 # echo $s;

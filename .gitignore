@@ -1,6 +1,8 @@
 /nbproject/private/
 public/inc/gitrevision.php
 public/js/gitrevision.js
+public/eventbasetag.html
+public/rowbasetag.html
 *.mdb
 *.accdb
 /v2/roprotokol/nbproject/private/

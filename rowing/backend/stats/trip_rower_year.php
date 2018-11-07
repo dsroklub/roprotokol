@@ -16,10 +16,10 @@ if (isset($_GET["km"])) {
 
 $s="SELECT YEAR(Trip.OutTime) as year,TripType.tripstat_name as name,COUNT(DISTINCT Trip.id),COUNT(Member.id),COUNT(DISTINCT Member.id)
     FROM Trip,TripType,Boat,BoatType,TripMember,Member
-    WHERE Trip.TripTypeID=TripType.id AND Trip.BoatID=Boat.id $qboats AND Boat.BoatType=BoatType.id 
-    AND Trip.OutTime IS NOT NULL
-    AND TripMember.TripID=Trip.id
-    AND TripMember.member_id=Member.id
+    WHERE Trip.TripTypeID=TripType.id AND Trip.BoatID=Boat.id $qboats AND Boat.boat_type=BoatType.Name AND
+      Trip.OutTime IS NOT NULL AND 
+      TripMember.TripID=Trip.id AND 
+      TripMember.member_id=Member.id
     GROUP BY TripType.name, year,TripType.tripstat_name
     ORDER BY year,TripType.tripstat_name";
 

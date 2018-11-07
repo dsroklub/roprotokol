@@ -26,7 +26,7 @@ if (isset($_GET["boattype"])) {
       Trip.id = TripMember.TripID AND
       mm.id = TripMember.member_id AND
       Boat.id = Trip.BoatID AND
-      BoatType.id = Boat.BoatType AND
+      BoatType.Name = Boat.boat_type AND
       season.season=Year(OutTime) AND
       (((Year(OutTime))=?) " . $boatclause .")".
     " GROUP BY mm.id,mm.MemberID, firstname, lastname

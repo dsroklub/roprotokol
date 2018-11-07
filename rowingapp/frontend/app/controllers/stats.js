@@ -19,7 +19,7 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
   }
   $scope.statseason=""+$scope.statseason; // hack, because JS mixes strings and numbers
 
-  $scope.boattype="any";
+  $scope.boat_type="any";
   
   $scope.isObjectAndHasId = function (val) {
     return typeof(val) === 'string' && val.length > 3;
@@ -30,7 +30,7 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
     $scope.tableParams.sorting({});
     $scope.tableParams.filter({'id':''});
     $scope.boattableParams.sorting({});
-    $scope.boattype='any';
+    $scope.boat_type='any';
     $scope.rowcategory='any';
     $scope.statseason=''+$scope.currentseason;
   }
@@ -38,7 +38,7 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
   $scope.getBoatData = function getBoatData(params) {
     var $bdefer=$q.defer();
     var filterInfo = params.filter();
-    DatabaseService.getBoatStatistics($scope.boattype,$scope.statseason).then(function (rawdata) {
+    DatabaseService.getBoatStatistics($scope.boat_type,$scope.statseason).then(function (rawdata) {
       var filteredData=filterInfo ? $filter('filter')(rawdata, filterInfo) : rawdata;	
       var orderedData = params.sorting() ?
 	  $filter('orderBy')(filteredData, params.orderBy()) :
@@ -55,7 +55,7 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
   $scope.getRowerData = function getRowerData(params) {
     var $rdefer=$q.defer();
     var filterInfo = params.filter();
-    DatabaseService.getRowerStatistics($scope.boattype,$scope.statseason).then(
+    DatabaseService.getRowerStatistics($scope.boat_type,$scope.statseason).then(
       function (rawData) {
         var filteredData=filterInfo ? $filter('filter')(rawData, filterInfo) : rawData;	
         var orderedData = params.sorting() ?  $filter('orderBy')(filteredData, params.orderBy()) :  filteredData;
@@ -148,10 +148,10 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
     $scope.rowcategory=val;
     if (val=='kaniner') {
       $scope.tableParams.filter({'id':'k'});
-      $scope.boattype='any';
+      $scope.boat_type='any';
     } else {
       $scope.tableParams.filter({'id':''});
-      $scope.boattype=val;
+      $scope.boat_type=val;
       $scope.tableParams.reload();
       $scope.boattableParams.reload();
     }

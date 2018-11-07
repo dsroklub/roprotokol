@@ -23,7 +23,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   };
 
   $scope.newdamage={};
-  $scope.boattype=null;
+  $scope.boat_type=null;
   DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
     // Load Category Overview
     var reservations=DatabaseService.getDB('get_reservations');
@@ -322,15 +322,15 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     }
   };
 
-  $scope.matchType = function(boat,boattype) {
+  $scope.matchType = function(boat,boat_type) {
     return function(matchboat) {
-      return (matchboat.boat_type && (!boattype || matchboat.boat_type==boattype.name));
+      return (matchboat.boat_type && (!boat_type || matchboat.boat_type==boat_type.name));
     }
   };
 
-  $scope.matchBoatAndType = function(boat,boattype) {
+  $scope.matchBoatAndType = function(boat,boat_type) {
     return function(matchboat) {
-      return (matchboat.id && (boat==null || matchboat.boat_id==boat.id) && (!boattype || matchboat.boattype==boattype.name));
+      return (matchboat.id && (boat==null || matchboat.boat_id==boat.id) && (!boat_type || matchboat.boat_type==boat_type.name));
     }
   };
   $scope.matchBoatId = function(boat,onwater) {
@@ -349,11 +349,11 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     return result;
   };
 
-  $scope.getMatchingBoatsWithType = function (vv,boattype) {
+  $scope.getMatchingBoatsWithType = function (vv,boat_type) {
     var bts=DatabaseService.getBoats();
     var result = bts
         .filter(function(boat) {
-          return ( boat['name'].toLowerCase().indexOf(vv.toLowerCase()) == 0  && (!boattype || boattype.name==boat.category));
+          return ( boat['name'].toLowerCase().indexOf(vv.toLowerCase()) == 0  && (!boat_type || boat_type.name==boat.category));
         });
     return result;
   };

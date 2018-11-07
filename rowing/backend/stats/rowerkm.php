@@ -57,7 +57,7 @@ $s = "SELECT tm.member_id as member, bc.Name as category, ROUND(SUM(t.Meter)/100
       FROM TripMember tm
       JOIN Trip t ON (t.id = tm.TripID)
       JOIN Boat b ON (b.id = t.BoatID)
-      JOIN BoatType bt ON (b.BoatType = bt.id)
+      JOIN BoatType bt ON (b.boat_type = bt.Name)
       JOIN BoatCategory bc ON (bt.Category = bc.id)
       WHERE YEAR(t.OutTime)= " . $year . "
       GROUP BY tm.member_id, bc.id";
@@ -74,7 +74,7 @@ if ($separate_instruction) {
         FROM TripMember tm
         JOIN Trip t ON (t.id = tm.TripID)
         JOIN Boat b ON (b.id = t.BoatID)
-        JOIN BoatType bt ON (b.BoatType = bt.id)
+        JOIN BoatType bt ON (b.boat_type = bt.Name)
         JOIN BoatCategory bc ON (bt.Category = bc.id)
         WHERE YEAR(t.OutTime)=" . $year . "
         AND t.TripTypeID NOT IN (SELECT id

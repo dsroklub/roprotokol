@@ -19,10 +19,10 @@ if (isset($_GET["boattype"])) {
 }
 
 
-$s="SELECT Boat.id,Boat.Name AS boatname, BoatType.Name AS boat_type, CAST(Sum(Meter) AS UNSIGNED) AS distance, Count(Trip.id) AS num_trips
-FROM (BoatType INNER JOIN Boat ON BoatType.id = Boat.BoatType) LEFT JOIN Trip ON Boat.id = Trip.BoatID
+$s="SELECT Boat.id,Boat.Name AS boatname, Boat.boat_type, CAST(Sum(Meter) AS UNSIGNED) AS distance, Count(Trip.id) AS num_trips
+FROM (BoatType INNER JOIN Boat ON BoatType.name = Boat.boat_type) LEFT JOIN Trip ON Boat.id = Trip.BoatID
 WHERE Year(OutTime)=? ". $boatclause .
-    " GROUP BY Boat.Name, BoatType.Name, Boat.id
+    " GROUP BY Boat.Name, Boat.boat_type, Boat.id
     ORDER BY distance desc";
     
 if ($sqldebug) echo $s;
