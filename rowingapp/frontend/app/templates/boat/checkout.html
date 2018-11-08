@@ -9,7 +9,7 @@
       <!--li ng-click="selectedBoatCategory=null">Alle Bådtyper</li FIXME requires that we iterator over allboats and filter instead of using categories-->
     </ul>
   </div>
-  
+
   <div class="boatlist">
     <table>
       <thead>
@@ -24,9 +24,9 @@
             ng-class="{selected: boat == checkout.boat}"
             >
           <td class="boatname"><div >
-	      {{boat.name}}
-	    </div>
-	  </td>
+              {{boat.name}}
+            </div>
+          </td>
           <td>{{boat.location|nodsr}}  <small uib-tooltip="port {{boat.placement_aisle}}" ng-show="boat.placement_aisle">p{{boat.placement_aisle}}</small>
             <i uib-tooltip="på hylde" ng-show="boat.placement_level" class="fa fa-level-up"></i>
           </td>
@@ -36,21 +36,21 @@
             {{boat.boatusage}}
             <span ng-show="boat.reserved_to && !(boat.reserved_to==checkout.triptype.name)" class="warn" uib-tooltip="reserveret {{boat.reserved_to }} indenfor to timer" >&#x23F3;</span>
           </td>
-          <td ng-click="damagesForBoat=boat"><span ng-show="{{boat.trip}}">På vandet</span> 
+          <td ng-click="damagesForBoat=boat"><span ng-show="{{boat.trip}}">På vandet</span>
             <span>{{boat.damage|damagedegreedk}}</span>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+
   <script type="text/ng-template" id="rowersTemplate.html">
     <a>
       <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
       {{match.model.name}} <i>({{match.model.id}})</i>
     </a>
   </script>
-  
+
   <script type="text/ng-template" id="reportdamage.html">
     <h1>Meld Skade</h1>
     <ng-form novalidate>
@@ -69,37 +69,37 @@
       <form name="checkoutForm" novalidate autocomplete="off" noautocomplete>
         <table>
           <caption>Udskrivning af: {{checkout.boat.name}}</caption>
-	  <tbody>	  
-	    <tr ng-repeat="rower in checkout.rowers track by $index">
+          <tbody>
+            <tr ng-repeat="rower in checkout.rowers track by $index">
               <td>
                 <label for="checkout_rower{{$index}}">{{$first ? 'Styrmand' : 'Roer'}}</label>
                 <label for="checkout_rower{{$index}}">{{rower.id}}</label>
               </td>
               <td>
                 <ng-form name="rowerFieldForm">
-		  <input  typeahead-no-results="norower[$index]"
-		          typeahead-select-on-exact="true"
-		          typeahead-is-open="checkout_open[$index]"
-		          ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }"
-		          autocomplete="off"
-		          id="checkout_rower{{$index}}"
-		          typeahead-on-select="boatSync()"
-		          name="dhrepwifhp3 Chrome Sucks"
-		          type="text"
-		          ng-model="checkout.rowers[$index]"
+                  <input  typeahead-no-results="norower[$index]"
+                          typeahead-select-on-exact="true"
+                          typeahead-is-open="checkout_open[$index]"
+                          ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }"
+                          autocomplete="off"
+                          id="checkout_rower{{$index}}"
+                          typeahead-on-select="boatSync()"
+                          name="dhrepwifhp3 Chrome Sucks"
+                          type="text"
+                          ng-model="checkout.rowers[$index]"
                           ng-blur="co_rower_leave($index)"
-		          uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)"
-		          typeahead-template-url="rowersTemplate.html"
-		          required >
-		  <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
+                          uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)"
+                          typeahead-template-url="rowersTemplate.html"
+                          required >
+                  <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
                   <br>
-		  <div class="guestpenguin" ng-show="isName(checkout.rowers[$index]) && norower[$index]">
-		    <button ng-click="createRower(checkout.rowers, $index,'rabbit')" tabindex="-1">Opret kaninroer</button>
-		    <button ng-click="createRower(checkout.rowers, $index,'guest')" tabindex="-1">Gæst</button>
-		  </div>
+                  <div class="guestpenguin" ng-show="isName(checkout.rowers[$index]) && norower[$index]">
+                    <button ng-click="createRower(checkout.rowers, $index,'rabbit')" tabindex="-1">Opret kaninroer</button>
+                    <button ng-click="createRower(checkout.rowers, $index,'guest')" tabindex="-1">Gæst</button>
+                  </div>
                 </ng-form>
               </td>
-	    </tr>	  
+            </tr>
             <tr>
               <td>
                 <label for="checkout_destination">Destination</label>
@@ -108,28 +108,28 @@
                 <ui-select
                   class="checkout_destination"
                   name="checkout_destination"
-		  ng-model="checkout.destination"
-		  on-select="updateCheckout($item)"
+                  ng-model="checkout.destination"
+                  on-select="updateCheckout($item)"
                   ng-class="{uiselected: !checkout.destination}"
                   >
-		  <ui-select-match placeholder="Vælg Destination">
+                  <ui-select-match placeholder="Vælg Destination">
                     {{$select.selected.name||"vælg destination"}}
                   </ui-select-match>
-		  <ui-select-choices repeat="destination in destinations | filter: $select.search ">
+                  <ui-select-choices repeat="destination in destinations | filter: $select.search ">
                     <span ng-bind-html="destination.name | highlight: $select.search"></span>
                     (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km ,
-		    <small ng-bind-html="destination.duration | totime"></small>t)
-		  </ui-select-choices>
+                    <small ng-bind-html="destination.duration | totime"></small>t)
+                  </ui-select-choices>
                 </ui-select>
-                <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="checkout.distance" required ></input>km
+                <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="checkout.distance" required >km
               </td>
             </tr>
             <tr>
               <td>
-	        <label for="checkout_starttime">Ud</label>
-	      </td>	  
+                <label for="checkout_starttime">Ud</label>
+              </td>
               <td>
-	        <datetimepicker
+                <datetimepicker
                   date-format="dd-MMM-yyyy"
                   show-spinners="false"
                   current-text="i dag"
@@ -138,17 +138,17 @@
                   date-options="dateOptions"
                   show-meridian="false"
                   data-ng-model="checkout.starttime"
-		  ng-change="newStartTime()"
+                  ng-change="newStartTime()"
                    >
                 </datetimepicker>
               </td>
-	    </tr>
-	    <tr>
+            </tr>
+            <tr>
               <td>
-	        <label for="checkout_expectedtime">Forventet ind</label>
-	      </td>
+                <label for="checkout_expectedtime">Forventet ind</label>
+              </td>
               <td>
-	        <datetimepicker
+                <datetimepicker
                   date-format="dd-MMM-yyyy"
                   show-spinners="false"
                   date-options="expectedOptions"
@@ -157,33 +157,33 @@
                   clear-text="Rens"
                   show-meridian="false"
                   ng-model="checkout.expectedtime"
-		  ng-click="set_expected()"
+                  ng-click="set_expected()"
 
                    >
                 </datetimepicker>
-	      </td>
-	    </tr>
-	    <tr>
+              </td>
+            </tr>
+            <tr>
               <td>
                 <label for="checkout_triptype">Turtype</label>
               </td>
               <td>
                 <select name="triptypechooser" id="checkout_triptype" ng-model="checkout.triptype"
                         ng-options="item as item.name for item in triptypes|filter: {active:1} : true"
-                        ng-change="updateExpectedTime(checkout.destination)" required>
+                        ng-change="updateExpectedTime()" required>
                 </select>
-              </td>    
-	    </tr>	
+              </td>
+            </tr>
 
-	    <tr ng-if='checkout.triptype.name=="Styrmandsinstruktion"'>
+            <tr ng-if='checkout.triptype.name=="Styrmandsinstruktion"'>
               <td>
                 <label for="checkout_triptype">Hold</label>
               </td>
               <td>
                 <select name="trip_team" id="checkout_trip_team" ng-model="checkout.trip_team" ng-options="coxteam.name for coxteam in coxteams" required>
                 </select>
-              </td>    
-	    </tr>	
+              </td>
+            </tr>
             <tr>
               <td>
                 <label for="checkout_comments">Bemærkninger</label>
@@ -191,8 +191,8 @@
               <td>
                 <textarea id="checkout_comments" type="text" ng-model="checkout.comments" name="efjwjli"></textarea>
                 <span class="error" ng-show="!checkout.comments && !(checkout.destination.duration>0)">Krævet</span>
-              </td>    
-	    </tr>		
+              </td>
+            </tr>
             <tr><td>
                 <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?"
                         confirm-ok="Udskriv båd"
@@ -202,10 +202,10 @@
                         ng-if="checkout.distance >0 && checkout.starttime && checkout.expectedtime && checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')"
                         ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
 </td></tr>
-	  </tbody>
-          
+          </tbody>
+
         </table>
-      </form>    
+      </form>
       <button class="alert minor" ng-hide="checkout.expectedtime">husk at angive forventet ankomst</button>
       <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name || !checkout.rowers[0]">husk at vælge båd</button>
       <button class="alert minor" ng-hide="checkout.triptype || !checkout.destination.name || !checkout.rowers[0]">husk turtype</button>
@@ -241,15 +241,15 @@
               <div ng-show="rv.dayofweek==0">{{rv.start_date}}
               </div>
             </td>
-            <td>{{rv.end_time}}</td>          
+            <td>{{rv.end_time}}</td>
             <td>
               <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div></td>
-            <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>        
+            <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>
             <td>{{rv.purpose}}</td>
             </td>
           </tr>
         </tbody>
-      </table>    
+      </table>
     </div>
 
 
@@ -260,7 +260,7 @@
           <!--button class="green" ng-click="reportFixDamage(damage,boatdamages,$index)" class="fa fa-check">Klarmeld</button-->
           {{damage.description}}
         </li>
-      </ul>   
+      </ul>
     </div>
   </div>
   <!--img class="farvand" ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" -->

@@ -16,5 +16,5 @@ $stmt->execute() || dbErr($rodb,$res,"cannot set duration");
 $rodb->commit();
 $rodb->close();
 invalidate('destination');
+invalidate('boat');
 echo json_encode($res);
-

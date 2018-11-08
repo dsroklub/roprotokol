@@ -11,7 +11,7 @@ $location = $data->location;
 $rodb->begin_transaction();
 error_log("set dist ".json_encode($data));
 
-if ($stmt = $rodb->prepare("UPDATE Destination SET Meter=? WHERE Name=? AND Location=?")) { 
+if ($stmt = $rodb->prepare("UPDATE Destination SET Meter=? WHERE Name=? AND Location=?")) {
     $stmt->bind_param('dss', $data->distance,$data->name,$data->location);
     $stmt->execute() || error_log('set dist '.$rodb->error);
 } else {
@@ -19,5 +19,5 @@ if ($stmt = $rodb->prepare("UPDATE Destination SET Meter=? WHERE Name=? AND Loca
 }
 $rodb->commit();
 $rodb->close();
-invalidate('destination');
+invalidate('boat');
 echo json_encode($res);

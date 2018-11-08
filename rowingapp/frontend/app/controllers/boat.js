@@ -89,6 +89,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       'distance':0,
       'comments':''
     };
+    $scope.starttime_clean= now;
     $scope.destinations = DatabaseService.getDestinations(DatabaseService.defaultLocation);
     if ($scope.reuse) {
       var reusetrip=DatabaseService.closeForm('trip/reuseopentrip',{'reusetrip':$scope.reuse},'trip');
@@ -111,7 +112,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
           }
                          );
           // $scope.updateExpectedTime();
-	}
+        }
       });
     }
     var boat_id = $routeParams.boat_id;
@@ -184,7 +185,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
-	      norights.push($scope.checkout.rowers[ri].name +" har Ikke "+$filter('righttodk')([rq]));
+              norights.push($scope.checkout.rowers[ri].name +" har Ikke "+$filter('righttodk')([rq]));
             }
           }
         }
@@ -193,7 +194,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if ((has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
-	      ok=true;
+              ok=true;
             }
           }
         }
@@ -205,7 +206,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (has_right(rq,arg,$scope.checkout.rowers[ri].rights)) {
-	      ok=false;
+              ok=false;
             }
           }
         }
@@ -382,7 +383,6 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       var duration=($scope.checkout.triptype && $scope.checkout.triptype.name === 'Instruktion' && $scope.checkout.destination.duration_instruction)?
           $scope.checkout.destination.duration_instruction:
           $scope.checkout.destination.duration;
-
       if (duration>0) {
         $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + duration * 3600 * 1000);
       } else {
@@ -403,7 +403,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       }
       if (DatabaseService.fixDamage(data)) {
         damagelist.splice(damagelist.indexOf(bd),1);
-	$scope.newdamage.reporter=DatabaseService.getCurrentRower();
+        $scope.newdamage.reporter=DatabaseService.getCurrentRower();
         $scope.allboatdamages = DatabaseService.getDamages();
         $scope.damagesnewstatus="klarmeldt";
       } else {
@@ -422,7 +422,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
           if (data.status=="ok") {
             $scope.allboatdamages.splice(0,0,data.damage);
             $scope.newdamage={};
-	    $scope.newdamage.reporter=DatabaseService.getCurrentRower();
+            $scope.newdamage.reporter=DatabaseService.getCurrentRower();
           }
         }
       )
@@ -446,12 +446,18 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
   $scope.newStartTime = function () {
     if ($scope.checkout && $scope.checkout.starttime && ($scope.checkout.exptectedtime < $scope.checkout.starttime   || !$scope.checkout.expectedtime_dirty)) {
-      var tdiff=3600000;
-      if ($scope.checkout.destination && $scope.checkout.destination.duration) {
-	tdiff=$scope.checkout.destination.duration*3600000;
+      if ($scope.checkout.destination) {
+        if ($scope.checkout.destination.duration) {
+          var tdiff=$scope.checkout.destination.duration*3600000;
+          $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+tdiff);
+        } else if ($scope.checkout.destination.distance) {
+          var speed=6.0; //km/h
+          $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+  3600*(0.2+ $scope.checkout.destination.distance/speed));
+        } else {
+          $scope.checkout.expectedtime=null;
+        }
       }
       $scope.expectedOptions.minDate=$scope.checkout.starttime;
-      $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+tdiff);
     }
   }
   $scope.togglecheckout = function (tm) {
@@ -573,8 +579,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     },function() {alert("error")}, function() {alert("notify")}
                         )
   };
-  $scope.boatSync = function (data) {
-    if (!$scope.checkout.starttime || $scope.checkouttime_clean==$scope.checkout.starttime) {
+  $scope.boatSync = function () {
+    if (!$scope.checkout.starttime || ($scope.checkout.starttime-$scope.checkouttime_clean)<60000) {
       var now = new Date();
       $scope.checkout.starttime=now;
       $scope.checkouttime_clean=$scope.checkout.starttime;
@@ -589,10 +595,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
             $log.debug("update selected boats");
             $scope.checkout.boat=DatabaseService.getBoatWithId($scope.checkout.boat.id);
             if ($scope.checkout.boat.trip) {
-	      $log.debug("selected boat was taken");
-	      $scope.checkouterrormessage="For sent: "+$scope.checkout.boat.name+" blev taget";
-	      $scope.checkout.boat.trip=null;
-	      $scope.checkout.boat=null;
+              $log.debug("selected boat was taken");
+              $scope.checkouterrormessage="For sent: "+$scope.checkout.boat.name+" blev taget";
+              $scope.checkout.boat.trip=null;
+              $scope.checkout.boat=null;
             }
           }
         }
