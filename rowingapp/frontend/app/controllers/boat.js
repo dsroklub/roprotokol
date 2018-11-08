@@ -129,7 +129,6 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     $scope.checkin = {
       'boat' : null,
     }
-    $scope.checkouttime_clean=$scope.checkout.starttime;
     if ($scope.cico==2) {
       $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
     }
@@ -298,7 +297,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     $scope.checkout.boat=boat;
     $scope.destinations = DatabaseService.getDestinations(boat.location);
     $scope.boatdamages = DatabaseService.getDamagesWithBoatId(boat.id);
-    if ($scope.destinations.length==1) {
+    if ($scope.destinations && $scope.destinations.length==1) {
       $scope.checkout.destination=$scope.destinations[0];
       if (!$scope.checkout.destination.duration) {
         $scope.checkout.starttime=null;
@@ -308,6 +307,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       var now = new Date();
       if (!$scope.checkout.starttime || $scope.checkout.starttime<now) {
         $scope.checkout.starttime=now;
+        $scope.starttime_clean= now;
       }
       if ( (!oldboat && boat.location!=DatabaseService.defaultLocation)  || (oldboat &&  oldboat.location!=boat.location)) {
       // Distance have changed, and we do not know if user overrode and accounted for location
@@ -580,10 +580,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
                         )
   };
   $scope.boatSync = function () {
-    if (!$scope.checkout.starttime || ($scope.checkout.starttime-$scope.checkouttime_clean)<60000) {
+    if (!$scope.checkout.starttime || ($scope.checkout.starttime==$scope.starttime_clean)) {
       var now = new Date();
       $scope.checkout.starttime=now;
-      $scope.checkouttime_clean=$scope.checkout.starttime;
+      $scope.starttime_clean=now;
       $scope.updateExpectedTime();
     }
     var ds=DatabaseService.reload(['boat'])
