@@ -17,7 +17,8 @@ INSERT INTO team_participation (team, dayofweek,timeofday,member_id, start_time,
     );
     if (!$stmt->execute()) {
         error_log("OOOPe ".$rodb->error."reg ".print_r($reg,true));
-        $res['status']=$rodb->error;
+        $res['status']="error";
+        $res['message']=$rodb->error;
     }
     invalidate("gym");
     $rodb->close();
