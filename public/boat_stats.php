@@ -32,7 +32,7 @@ FROM (BoatType INNER JOIN Boat ON BoatType.id = Boat.BoatType) LEFT JOIN Trip ON
 WHERE Year(OutTime)=Year(NOW()) AND (BoatType.Category=2) GROUP BY Boat.Name, BoatType.Name, Boat.id ORDER BY distance desc";
 
 
-         error_log("SQL :\n".$s."\n");
+//         error_log("SQL :\n".$s."\n");
          if ($stmt = $rodb->prepare($s)) { 
       $result=$rodb->query($s) or die("Error in instruktion stat query: " . mysqli_error($rodb));;
       while ($row = $result->fetch_assoc()) {

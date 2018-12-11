@@ -3,11 +3,8 @@ set_include_path(get_include_path().':..');
 include("inc/common.php");
 
 $data = file_get_contents("php://input");
-error_log($data);
+//error_log($data);
 $reg=json_decode($data);
-error_log($reg->team->name);
-error_log($reg->member->id);
-
 $res=array ("status" => "ok");
 
 if ($stmt = $rodb->prepare("

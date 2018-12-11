@@ -6,8 +6,6 @@ $res=array ("status" => "ok");
 $message="";
 $data = file_get_contents("php://input");
 $correction=json_decode($data);
-error_log('new correction '. json_encode($correction));
-
 $rodb->begin_transaction();
 
 if ($correction->deleterequest) {
@@ -18,7 +16,7 @@ if ($correction->deleterequest) {
         error_log("EC Del error: ".$rodb->error);
     }
 } else {
-    error_log(" times: ".$correction->outtime." , ". $correction->intime);
+//    error_log(" times: ".$correction->outtime." , ". $correction->intime);
     if ($stmt = $rodb->prepare(
         "INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter,Comment,Fixed) 
                 VALUES(?,?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,0)")) {
@@ -34,7 +32,6 @@ if ($correction->deleterequest) {
         $correction->reporter,
         $correction->comment
         );
-        error_log('now EXE '. json_encode($correction));
         if (!$stmt->execute()) {
             $error="new correction exe ERROR: ".$rodb->error;
             $message=$message."\n"."create trip correction insert error";
@@ -43,13 +40,12 @@ if ($correction->deleterequest) {
         $error=mysqli_error($rodb);
         error_log("DB prep error: ".$error);            
     }    
-    error_log("\n\nnow all rowers ".json_encode($correction->rowers));
+//    error_log("\n\nnow all rowers ".json_encode($correction->rowers));
     
     if (empty($error)  and $stmt = $rodb->prepare("INSERT INTO Error_TripMember(ErrorTripID,Seat,member_id,MemberName) ".
     "SELECT LAST_INSERT_ID(),?,Member.id,? FROM Member Where MemberID=?"
     )) {
         $seat=1;
-        error_log("ROWERS");
         foreach ($correction->rowers as $rower) {
             error_log("SEAT".$seat);
             error_log("DO trip correction mb ".$rower->name . " ID=".$rower->id);

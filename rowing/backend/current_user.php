@@ -7,7 +7,7 @@ include("utils.php");
 if (isset($_SERVER['PHP_AUTH_USER'])) {
 
     $cuser=$_SERVER['PHP_AUTH_USER'];
-    error_log("CU=$cuser");
+    //error_log("CU=$cuser");
     
     $s="SELECT 
        sha1(CONCAT(authentication.password,?)) as token,
@@ -46,5 +46,3 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 } else {
     echo '{"id":"0","name":"Ikke logget ind"}';
 }
-
-?>
