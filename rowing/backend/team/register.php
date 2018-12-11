@@ -19,14 +19,12 @@ INSERT INTO team_participation (team, dayofweek,timeofday,member_id, start_time,
     $reg->member->id
     );
     if (!$stmt->execute()) {
-        error_log("OOOP ".$rodb->error);
+        error_log("OOOPe ".$rodb->error."reg ".print_r($reg,true));
         $res['status']=$rodb->error;
     }
-    error_log("did exe");
     invalidate("gym");
     $rodb->close();
 } else {
-    error_log("OOOP ".$rodb->error);
+    error_log("OOOPrep ".$rodb->error);
 }
 echo json_encode($res);
-?> 
