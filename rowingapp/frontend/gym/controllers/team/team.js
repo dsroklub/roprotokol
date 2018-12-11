@@ -87,7 +87,7 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
   }
 
   $scope.attend = function() {
-    if ($scope.currentteam && $scope.attendee) {
+    if ($scope.currentteam && $scope.attendee  && $scope.attendee.id) {
       $scope.checkout = {
         'member' : $scope.attendee,
         'team' : $scope.currentteam,
@@ -109,6 +109,10 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
           }
         }
       )
+    } else {
+      if ($scope.attendee  && !$scope.attendee.id) {
+        $scope.attendee=null;
+      }
     }
   }
 }
