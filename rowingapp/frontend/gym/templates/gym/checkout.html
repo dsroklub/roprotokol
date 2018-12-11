@@ -5,7 +5,7 @@
   </a>
 </script>
 
-<form ng-submit="attend()" name="gymParticipant">
+<form name="gymParticipant">
 
   <h2>Registerer deltager på gymnastikhold</h2>
   <table class="listbox">
@@ -27,7 +27,7 @@
   <br>
 
   <input type="submit"  style="display:none">
-  <button class="klar" ng-click="attend()">Registrer</button>
+  <button ng-disabled="!currentteam || !attendee.id" class="klar" ng-click="attend()">Registrer</button>
 
   <div>
     <h2>{{(attendance | filter:{'team':currentteam.name, 'timeofday':currentteam.timeofday } ).length}} tilmeldte til {{currentteam.name}} {{currentteam.dayofweek}} {{currentteam.timeofday}} </h2>
