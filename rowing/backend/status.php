@@ -5,6 +5,7 @@ header('Content-type: application/json');
 
 $st=[];
 $s="SELECT sculler_open FROM status";
+$cuser=$_SERVER['PHP_AUTH_USER'];
 
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
@@ -16,5 +17,6 @@ if ($stmt = $rodb->prepare($s)) {
 $rodb->close();
 $pf=explode('.',$_SERVER['REMOTE_ADDR'])[0];
 $st["local"]=( $pf=="127" || $pf=="10");
+$st["user"]=$cuser;
 echo json_encode($st);
 
