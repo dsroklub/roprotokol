@@ -87,7 +87,7 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
   }
 
   $scope.attend = function() {
-    if ($scope.currentteam) {
+    if ($scope.currentteam && $scope.attendee  && $scope.attendee.id) {
       $scope.checkout = {
         'member' : $scope.attendee,
         'team' : $scope.currentteam,
@@ -104,11 +104,15 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
                                            timeofday:$scope.currentteam.timeofday
                                           });
             $scope.attendee=null;
-          } else if (st.status.search("Duplicate entry")) {
+          } else if (st.message && st.message.search("Duplicate entry")) {
             $scope.message="Allerede tilmeldt";
           }
         }
       )
+    } else {
+      if ($scope.attendee  && !$scope.attendee.id) {
+        $scope.attendee=null;
+      }
     }
   }
 }

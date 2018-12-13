@@ -746,7 +746,7 @@ CREATE TABLE team_participation (
   classdate       date,
   dayofweek       varchar(20),
   timeofday       char(5),
-  PRIMARY KEY (team, member_id, classdate)
+  PRIMARY KEY (team, member_id, classdate,dayofweek)
 );
 
 DROP TABLE IF EXISTS weekday;

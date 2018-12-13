@@ -11,7 +11,7 @@ $error=null;
 
 $rodb->begin_transaction();
 
-error_log("COL BOAT=".print_r($newtrip->boat->location,true)."DD");
+//error_log("COL BOAT=".print_r($newtrip->boat->location,true)."DD");
 if ($newtrip->boat->location != "Andre") {
     if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) {
         $stmt->bind_param('i', $newtrip->boat->id);

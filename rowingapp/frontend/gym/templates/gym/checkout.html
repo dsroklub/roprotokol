@@ -27,7 +27,7 @@
   <br>
 
   <input type="submit"  style="display:none">
-  <button class="klar" ng-click="attend()">Registrer</button>
+  <button type="button" ng-disabled="!currentteam || !attendee.id" class="klar" ng-click="attend()">Registrer</button>
 
   <div>
     <h2>{{(attendance | filter:{'team':currentteam.name, 'timeofday':currentteam.timeofday } ).length}} tilmeldte til {{currentteam.name}} {{currentteam.dayofweek}} {{currentteam.timeofday}} </h2>

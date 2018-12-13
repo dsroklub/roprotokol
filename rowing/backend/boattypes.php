@@ -21,7 +21,6 @@ $s="SELECT JSON_MERGE(
     ";
 //echo $s;
 $result=$rodb->query($s) or dbErr($rodb,$res,"boattype query");
-error_log(print_r($result,true));
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {

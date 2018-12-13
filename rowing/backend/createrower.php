@@ -56,4 +56,4 @@ $res['search']=$newid." ".$res['name'];
 invalidate("member");
 $rodb->close();
 echo json_encode($res);
-?> 
+

@@ -3,16 +3,10 @@ set_include_path(get_include_path().':..');
 include("inc/common.php");
 
 error_log("add new team ");
-
 $data = file_get_contents("php://input");
 error_log($data);
 $reg=json_decode($data);
-
-
 $res=array ("status" => "ok");
-
-//    $reg->teamkey not used
-
 if ($stmt = $rodb->prepare("INSERT INTO team (name, description, dayofweek, timeofday, teacher) VALUES(?,?,?,?,?)")) {
     $stmt->bind_param('sssss',
     $reg->name,
@@ -31,4 +25,4 @@ if ($stmt = $rodb->prepare("INSERT INTO team (name, description, dayofweek, time
     error_log("OOOP2 ".$rodb->error);
 }
 echo json_encode($res);
-?> 
+

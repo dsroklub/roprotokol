@@ -20,4 +20,4 @@ eventLog($fix->reporter->name." klarmeldte skaden: ".$fix->damage->description."
 $rodb->query("END TRANSACTION");
 $rodb->close();
 invalidate("boat");
-?> 
+

@@ -2,12 +2,11 @@
 include("inc/common.php");
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
-error_log("new damage");
 $newdamage=json_decode($data);
 
 $rodb->query("BEGIN TRANSACTION");
-error_log(json_encode($newdamage));
-error_log("rep ".json_encode($newdamage->reporter->id));
+//error_log(json_encode($newdamage));
+//error_log("rep ".json_encode($newdamage->reporter->id));
 if (empty($cuser)) {
     $reporter=$newdamage->reporter->id;
 } else {
@@ -29,7 +28,7 @@ From Member WHERE MemberID=?")) {
 eventLog($newdamage->reporter->name." meldte skaden: ".$newdamage->description. " grad ".$newdamage->degree." på båden ".$newdamage->boat->name);
 $result=$rodb->query("SELECT LAST_INSERT_ID() AS id FROM DUAL") or die ("Error in new id query: " . mysqli_error($rodb));
 $nid = $result->fetch_assoc();
-error_log("nid ".$nid['id']);
+//error_log("nid ".$nid['id']);
 $newdamage->id=$nid['id'];
 $newdamage->boat_id=$newdamage->boat->id;
 $newdamage->boat=$newdamage->boat->name;
@@ -41,4 +40,4 @@ $rodb->query("END TRANSACTION");
 invalidate('boat');
 $rodb->close();
 echo json_encode($res);
-?> 
+

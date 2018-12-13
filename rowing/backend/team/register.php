@@ -3,11 +3,8 @@ set_include_path(get_include_path().':..');
 include("inc/common.php");
 
 $data = file_get_contents("php://input");
-error_log($data);
+//error_log($data);
 $reg=json_decode($data);
-error_log($reg->team->name);
-error_log($reg->member->id);
-
 $res=array ("status" => "ok");
 
 if ($stmt = $rodb->prepare("
@@ -19,14 +16,13 @@ INSERT INTO team_participation (team, dayofweek,timeofday,member_id, start_time,
     $reg->member->id
     );
     if (!$stmt->execute()) {
-        error_log("OOOP ".$rodb->error);
-        $res['status']=$rodb->error;
+        error_log("OOOPe ".$rodb->error."reg ".print_r($reg,true));
+        $res['status']="error";
+        $res['message']=$rodb->error;
     }
-    error_log("did exe");
     invalidate("gym");
     $rodb->close();
 } else {
-    error_log("OOOP ".$rodb->error);
+    error_log("OOOPrep ".$rodb->error);
 }
 echo json_encode($res);
-?> 

@@ -8,11 +8,8 @@ $jsondata = file_get_contents("php://input");
 $data=json_decode($jsondata);
 
 $rodb->begin_transaction();
-error_log("new boat $jsondata");
-
 $stmt = $rodb->prepare("INSERT INTO Boat (Name,boat_type,Location,Created) VALUES(?,?,?,NOW())") or dbErr($rodb,$res,"create boat (Prepare)");
 $stmt->bind_param('sss', $data->name,$data->boat_type->name,$data->location) or dbErr($rodb,$res,"create boat (Bind)");
-error_log("now create ". print_r($data,true));
 $stmt->execute() or dbErr($rodb,$res,"create boat");
 
 if ($stmt = $rodb->prepare("SELECT LAST_INSERT_ID() as boat_id FROM DUAL")) {
@@ -22,7 +19,6 @@ if ($stmt = $rodb->prepare("SELECT LAST_INSERT_ID() as boat_id FROM DUAL")) {
 } else {
     error_log($rodb->error);
 }
-
 $rodb->commit();
 $rodb->close();
 invalidate('boat');

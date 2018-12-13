@@ -105,7 +105,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     $joindate_where = "JoinDate >= '" . $from_cut . "' AND JoinDate < '" . $to_cut . "'";
 
     $step = 'stats';
-    $s = "select Gender as gender, count(*) as count, avg(datediff(JoinDate, Birthday)/365) as age FROM Member WHERE " . $joindate_where . " GROUP BY gender";
+    $s = "select Gender as gender, count(*) as count, avg(datediff(JoinDate, Birthday)/365) as age FROM Member WHERE " . $joindate_where . " AND Gender IS NOT NULL GROUP BY gender";
     $r = $rodb->query($s);
     if ($r) {
        $res[$table][$y]['total'] = ['count' => 0]; 

@@ -8,8 +8,6 @@ $data = file_get_contents("php://input");
 $data=json_decode($data);
 
 $rodb->begin_transaction();
-error_log("cancel reservation ".json_encode($data));
-
 if ($stmt = $rodb->prepare("DELETE FROM reservation
    WHERE boat=? AND start_time=? AND start_date=? AND dayofweek=?")) { 
     $stmt->bind_param("issi", $data->boat_id,$data->start_time,$data->start_date,$data->dayofweek);
@@ -23,4 +21,4 @@ $rodb->commit();
 $rodb->close();
 invalidate("reservation");
 echo json_encode($res);
-?> 
+
