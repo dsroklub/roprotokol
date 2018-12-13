@@ -47,6 +47,7 @@
           ng-click="reportDamageForBoat(newdamage)">
     <i class="fa fa-thumbs-down"></i>Meld ny skade
   </button>
+  <div class="message" ng-show="newdamage.degree && newdamage.boat && !newdamage.description">HUSK AT BESKRIVE SKADEN</div>
   <label class="alert" ng-show="newdamage.description && !newdamage.reporter">Skriv dit navn som skademelder</label>
   </div>
 </ng-form>

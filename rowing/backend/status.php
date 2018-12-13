@@ -3,14 +3,18 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$s="SELECT JSON_OBJECT('sculler_open',sculler_open) as json FROM status";
+$st=[];
+$s="SELECT sculler_open FROM status";
 
 if ($stmt = $rodb->prepare($s)) {
      $stmt->execute(); 
      $result= $stmt->get_result() or die("Error in status query: " . mysqli_error($rodb));
      if ($row = $result->fetch_assoc()) {
-         echo $row["json"];
+         $st["sculler_open"]=$row["sculler_open"];
      }
 }
 $rodb->close();
-?>
+$pf=explode('.',$_SERVER['REMOTE_ADDR'])[0];
+$st["local"]=( $pf=="127" || $pf=="10");
+echo json_encode($st);
+
