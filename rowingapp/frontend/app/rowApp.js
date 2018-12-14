@@ -4,6 +4,7 @@ angular.
   module('rowApp', [
     'ngRoute',
     'rowApp.database',
+    'rowApp.status-service',
     'dsrcommon.utilities.onlynumber',
     'dsrcommon.utilities.transformkm',
     'dsrcommon.utilities.mtokm',

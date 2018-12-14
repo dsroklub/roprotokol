@@ -43,6 +43,7 @@
   <script src="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
   <script src="../../public/js/gitrevision.js"></script>
   <script src="components/database/database.js"></script>
+  <script src="components/status.js"></script>
   <script src="../dsrcommon/components/utilities/onlynumber.js"></script>
   <script src="../dsrcommon/components/utilities/transformkm.js"></script>
   <script src="../dsrcommon/components/utilities/safefilename.js"></script>
@@ -64,6 +65,7 @@
   <script src="components/utilities/rightreqs.js"></script>
   <script src="components/utilities/righttodk.js"></script>
   <script src="components/utilities/argrighttodk.js"></script>
+  <script src="components/database/database-services.js"></script>
 
   <script src="rowApp.js"></script>
   <script src="controllers/boat.js"></script>
@@ -80,7 +82,6 @@
   <script src="components/range/range.js"></script>
   <script>var dbmode='real';
   </script>
-  <script src="components/database/database-services.js"></script>
   <script src="components/database/database-directives.js"></script>
   <script src="bower_components/Chart.js/Chart.js"></script>
   <script type='text/javascript' src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
@@ -109,6 +110,7 @@
       <li ng-class="{topsel:activePath=='/rowers/'}"><a href="rowers"><i class="fa fa-flag-checkered"></i> Ture</a></li>
       <li ng-class="{topsel:activePath=='/damages/'}"><a href="damages"><i class="fa fa-exclamation-triangle"></i> Skader</a></li>
       <li ng-class="{topsel:activePath=='/admin/'}"><a href="admin"><i class="fa fa-wrench"></i> Admin</a></li>
+      <li ng-hide="userStatus.local"><a href="https://aftaler.danskestudentersroklub.dk"><i class="fa fa-calendar"></i>Aftaler/login</a></li>
       <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
       </li>
     </ul>
