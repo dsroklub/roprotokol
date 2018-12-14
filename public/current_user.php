@@ -2,11 +2,13 @@
 
 include("../rowing/backend/inc/common.php");
 include("utils.php");
-
+$r=["id"=>"0","name"=>"Ikke logget ind"];
+$pf=explode('.',$_SERVER['REMOTE_ADDR'])[0];
+$r["local"]=( $pf=="127" || $pf=="10");
 
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
-    error_log("CU public c=$cuser");
+    // error_log("CU public c=$cuser");
     
     $s="SELECT Member.MemberId as member_id, CONCAT(Member.FirstName,' ', Member.LastName) as name, Member.Email as member_email 
     FROM Member 
@@ -26,13 +28,11 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     }
     if ($result) {
         $row = $result->fetch_assoc();
-        echo json_encode($row);
+        $r["id"]=$row["id"];
+        $r["name"]=$row["name"];
     } else {
         error_log("user not found in DB");
         http_response_code(500);
     }
-} else {
-    echo '{"id":"0","name":"Ikke logget ind"}';
 }
-    
-?>
+echo json_encode($r);
