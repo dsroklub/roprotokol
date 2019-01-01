@@ -68,7 +68,7 @@
         <td ng-class="{datealert: critical_time(boattrip.expectedintime)}">{{boattrip.expectedintime| txttotime | date :"HH:mm d. MMM"}}</td>
         <td class="rnum" ng-bind-html="boattrip.distance|mtokm">km</td>
         <td class="colinput">
-          <input  autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boat.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm
+          <input  autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boattrip.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm
                   name="kminput">
         </td>
         <td class="colinput">
@@ -77,7 +77,7 @@
         <td class="colinput">
           <div class="checkinactions">
             <button uib-tooltip="indskriv turen" ng-click="closetrip(boattrip,$index,item.km)" class="big"
-                    ng-disabled="boat.corrected_distance===0"
+                    ng-disabled="boattrip.corrected_distance===0"
                     confirm-if="date_diff(boat.outtime)<10"
                     confirm="Er du sikker på, at du vil indskrive denne tur. Den er meget kort ({{date_diff(boat.outtime)}} minutter). Slet turen, hvis båden ikke har været på vandet"
                     confirm-ok="Ja, indskriv turen"

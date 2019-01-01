@@ -8,8 +8,8 @@ $data = file_get_contents("php://input");
 $closedtrip=json_decode($data);
 
 $distance = $closedtrip->distance;
-if (!empty($closedtrip->boat->corrected_distance)) {
-    $distance=$closedtrip->boat->corrected_distance;
+if (!empty($closedtrip->corrected_distance)) {
+    $distance=$closedtrip->corrected_distance;
 }
 
 $rodb->begin_transaction();
@@ -90,4 +90,3 @@ if ($stmt = $rodb->prepare(
 
 $rodb->close();
 echo json_encode($res);
-?> 
