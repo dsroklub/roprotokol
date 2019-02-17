@@ -28,7 +28,7 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
   DatabaseService.init({"boat":true,"member":true, trip:true}).then(function () {
     $scope.boatcategories = DatabaseService.getBoatTypes();
     $scope.triptypes = DatabaseService.getTripTypes();
-    $scope.destinations = DatabaseService.getDestinations('DSR');                                     
+    $scope.destinations = DatabaseService.getDestinations('DSR');
     if ($routeParams.rower) {
       $scope.updateRowerTrips(DatabaseService.getRower($routeParams.rower));
     }
@@ -38,7 +38,7 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
   }
                                                                    );
   $scope.DB=DatabaseService.getDB;
-  
+
   $scope.tripselect= function(trip) {
     $scope.currenttrip=trip;
     DatabaseService.getTripMembers(trip.id,function (res) {
@@ -47,7 +47,7 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
         if (trip.intime) {
           $scope.start_correct();
         }
-      }                      
+      }
     });
   }
 
@@ -60,15 +60,15 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
         });
     return result;
   };
-  
+
   $scope.updateBoatTrips = function(item) {
     $scope.correction=null;
     $scope.currenttrip=null;
     $scope.currentboat=item;
     $scope.rower = '';
-    $scope.currentrower = null;       
+    $scope.currentrower = null;
     $scope.tripdate = null;
-    
+
     DatabaseService.getBoatTrips($scope.currentboat,function (res) {
       if (res.data.length>0) {
         $scope.tripselect(res.data[0]);
@@ -94,7 +94,7 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
 
     $scope.mk_chart();
   }
-  
+
   $scope.updateRowerTrips = function(item) {
     $scope.correction=null;
     $scope.currenttrip=null;
@@ -120,7 +120,7 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
       $scope.rowertriptypes=res.data;
     }
                               );
-    
+
     DatabaseService.getRowerTrips($scope.currentrower,function (res) {
       if (res.data.length>0) {
         $scope.tripselect(res.data[0]);
@@ -132,22 +132,22 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
       $scope.rowertripsaggregated=res.data;
     }
                                            );
-    
+
     DatabaseService.getRowerTripsAggregatedAllTime($scope.currentrower,function (res) {
       $scope.rowertripsaggregatedalltime=res.data;
     }
                                                   );
     $scope.mk_chart();
   }
-  
+
   $scope.getTripMembers = function (trip) {
     return DatabaseService.getTripMembers(trip);
   }
-  
+
   $scope.getRowerByName = function (val) {
     return DatabaseService.getRowersByNameOrId(val, undefined);
   };
-  
+
   $scope.closeCorrection = function (deleterequest) {
     $log.debug("close correction");
     if (deleterequest) {
@@ -156,28 +156,28 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
       $scope.correction.deleterequest=false;
     }
     var closeCorrection=DatabaseService.closeForm('newcorrection',$scope.correction,'trip');
-    closeCorrection.promise.then(function(status) {                   
+    closeCorrection.promise.then(function(status) {
       $scope.correction=null;
     })
-  }  
-  
+  }
+
   $scope.updatecorrect = function (boat_type) {
     if (boat_type) {
       $scope.correction.boat=null;
     }
-    
+
     $scope.correction.rowers=[];
     $scope.correction.outtime=new Date( $scope.correction.outtime);
     $scope.correction.intime=new Date( $scope.correction.intime);
     for (var i=0; $scope.correction.boat_type && i< $scope.correction.boat_type.seatcount;i++) {
       if (i< $scope.tripmembers.length) {
-	$scope.correction.rowers.push($scope.tripmembers[i]);
+        $scope.correction.rowers.push($scope.tripmembers[i]);
       } else {
-	$scope.correction.rowers.push(null);
+        $scope.correction.rowers.push(null);
       }
     }
   };
-  
+
   $scope.start_correct = function () {
     $scope.correction=angular.copy($scope.currenttrip);
     $scope.correction.boat=DatabaseService.getBoatWithId($scope.currenttrip.boat_id);
@@ -194,7 +194,7 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
       $scope.rower = "";
       $scope.currentrower = null;
       $scope.currentboat=null;
-      
+
       DatabaseService.getDateTrips(tripdate.getFullYear()+'-'+(tripdate.getMonth()+1)+'-'+tripdate.getDate(),function (res) {
         if (res.data.length>0) {
           $scope.tripselect(res.data[0]);
@@ -204,12 +204,12 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
                                   );
     }
   }
-		, true);   
-  
+                , true);
+
   $scope.datetrips = function() {
     alert("datetrips");
   }
-  
+
   $scope.mk_chart = function() {
     $scope.mo={};
     if ($scope.currentrower) {
@@ -227,7 +227,7 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
             $scope.mo.series.push(""+y);
             for (var wn=0;wn<53;wn++) {
               $scope.mo.data[y-$scope.mo.fy][wn]=0;
-            }             
+            }
           }
           angular.forEach(d.data, function(w) {
             if (w.year) {

@@ -11,27 +11,26 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
 # Installation
 
-    apt-get install npm python-mysqldb memcached php-memcached php-mysql libapache2-mod-php nodejs nodejs-legacy mysql-server php-mail composer php-cli
+    apt-get install composer npm python-mysqldb memcached php-memcached php-mysql libapache2-mod-php nodejs  mysql-server php-mail composer php-cli
     # or mariadb
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
     apt-get install  libaprutil1-dbd-mysql pkg-php-tools
     # Remember to restart your web server.
 
-   a2enmod dbd  rewrite include authn_dbd  php7.2
+   a2enmod dbd  rewrite include authn_dbd  php7.X
    sudo npm install -g bower karma
 
    # for debug scripts
    cd rowingapp/phplib; composer update
+
    cd rowingapp/frontend; npm install
 
 Create database:
 
-   sudo mysqladmin  --default-character-set=utf8 create roprotokol 
-    CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol';
-    CREATE USER 'apacheauth'@'localhost' IDENTIFIED BY 'XXXX';
-    GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost';
-    GRANT ALL PRIVILEGES ON roprotokol.authentification TO 'apacheauth'@'localhost';
-    FLUSH PRIVILEGES;
+   sudo mysqladmin  --default-character-set=utf8 create roprotokol
+    sudo "echo "CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol'; CREATE USER 'apacheauth'@'localhost' IDENTIFIED BY 'XXXX';"|mysql
+    sudo echo "GRANT ALL PRIVILEGES ON roprotokol.authentication TO 'apacheauth'@'localhost';GRANT ALL PRIVILEGES ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql
+    sudo echo "GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql
 
 
 Import schema:
@@ -49,5 +48,3 @@ Run
    cd rowingapp/
    php -S localhost:8080
 </code>
-
-

@@ -220,7 +220,7 @@
 
     <div ng-if="checkout.boat && (reservations | filter : {boat_id : checkout.boat.id}:true).length>0" class="reservations">
       <table class="reservationlist" >
-        <caption>Resevationer af {{checkout.boat.name}}</caption>
+        <caption>Reservationer af {{checkout.boat.name}} ({{status.reservation_configuration}})</caption>
         <thead>
           <tr>
             <th>ugedag</th>
@@ -234,7 +234,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations | filter : {boat_id : checkout.boat.id}:true">
+          <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations | filter: reservation_current() | filter : {boat_id : checkout.boat.id}:true">
             <td>{{weekdays[rv.dayofweek].day}}</td>
             <td>{{rv.start_time}}</td>
             <td>
