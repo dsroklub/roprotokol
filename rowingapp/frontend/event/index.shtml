@@ -14,9 +14,9 @@
   <link rel="icon" type="image/png"  href="media/ico.png" />
   <script>
    if (window.location.pathname.startsWith('/frontend/')) {
-     var frontend=document.getElementsByTagName('base')[0].href.split('/')[3];    
+     var frontend=document.getElementsByTagName('base')[0].href.split('/')[3];
      window.location.pathname=window.location.pathname.replace('/frontend/','/'+frontend+'/');
-   }    
+   }
   </script>
 
   <link rel="stylesheet" href="../app/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -70,7 +70,7 @@
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  
+
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
@@ -78,7 +78,7 @@
   <div class="menuholder" >
     <ul class="menu" ng-controller="menuCtrl as menu">
       <li class="logo">
-        <img src="../app/assets/dsrlogo.svg">  
+        <img src="../app/assets/dsrlogo.svg">
       </li>
       <li ng-show="ccurrentuser.user.member_id>0" ng-class="{topsel: activePath=='/login/'}">
         <a href="login/"><i class="fa fa-sign-in"></i>Ud/pw</a>
@@ -93,8 +93,8 @@
       <li ng-hide="ccurrentuser.user.member_id=='baadhal'" ng-class="{topsel: activePath=='/admin/'}"><a href="admin/"><i class="fa fa-bank"></i>Admin</a></li>
       <li ng-class="{topsel: activePath=='/overview/'}"><a href="overview/"><i class="fa fa-binoculars"></i>Oversigt</a></li>
       <li ng-hide="ccurrentuser.user.member_id=='baadhal'" ng-class="{topsel: activePath=='/public/'}"><a href="public/"><i class="fa fa-user"></i>Min side</a></li>
-      <li ng-class="{topsel: activePath=='/about/'}"><a href="about/"><i class="fa fa-info-circle"></i>Om</a></li>      
-      <li ng-class="{topsel: activePath=='/member/'}"><a href="member/"><i class="fa fa-female"></i><i class="fa fa-male"></i>Medlem</a></li>      
+      <li ng-class="{topsel: activePath=='/about/'}"><a href="about/"><i class="fa fa-info-circle"></i>Om</a></li>
+      <li ng-class="{topsel: activePath=='/member/'}"><a href="member/"><i class="fa fa-female"></i><i class="fa fa-male"></i>Medlem</a></li>
     </ul>
   </div>
 <div class="main">
