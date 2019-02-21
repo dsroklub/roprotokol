@@ -436,7 +436,10 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
         function(newreservation) {
           if (newreservation.status=="ok") {
             $log.info("reservation made");
+            console.log("Reservation made");
+            r.configuration=$scope.config.reservation_configuration;
             $scope.reservations.push(r);
+            $scope.reservation.boat_id=null;
           }
         }
       )            }

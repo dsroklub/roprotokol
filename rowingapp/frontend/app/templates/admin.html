@@ -8,7 +8,7 @@
 
       Reservations conf:
 
-      <select ng-change="set_reservation_configuration(config.reservation_configuration)" ng-model="config.reservation_configuration" ng-options="op.id as op.n for op in [{'n':'Sommer',id:'sommer'},{n:'Vinter',id:'vinter'},{n:'Efterår',id:'efterår'},]">
+      <select ng-change="set_reservation_configuration(config.reservation_configuration)" ng-model="config.reservation_configuration" ng-options="op.id as op.n for op in [{'n':'Sommer',id:'sommer'},{n:'Vinter',id:'vinter'},{n:'Ydersæson',id:'ydersæson'},]">
       </select>
 
     </form>
@@ -471,7 +471,10 @@
           <td><button ng-click="cancel_reservation(rv)" class="reject">slet reservation</button></td>
         </tr>
         <tr>
-          <td><select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required></select></td>
+          <td>
+            <select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required>
+            </select>
+          </td>
           <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
                       uib-tooltip="hvis det er en reservation på en fast ugedag. Ellers udfyld start- og slutdato"
                       ></select></td>
