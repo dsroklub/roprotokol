@@ -3,7 +3,6 @@ header('Content-Type: application/json; charset=utf-8');
 ini_set('default_charset', 'utf-8');
 ini_set('display_errors', 'Off');
 error_reporting(E_ALL);
-
 date_default_timezone_set("Europe/Copenhagen");
 
 define( 'ROOT_DIR', dirname(__FILE__) );
@@ -109,3 +108,4 @@ function eventLog($entry) {
         error_log($rodb->error);
     }    
 }
+$res=array ("status" => "ok");

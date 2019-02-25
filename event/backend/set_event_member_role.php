@@ -51,4 +51,3 @@ if ($error) {
 invalidate("event");
 error_log(print_r($res,true));
 echo json_encode($res);
-?> 

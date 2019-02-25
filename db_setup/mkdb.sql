@@ -443,6 +443,17 @@ CREATE TABLE volunteerwork (
   worktype varchar(100)
 );
 
+DROP TABLE IF EXISTS worklog;
+CREATE TABLE worklog (
+  member_id        int REFERENCES Member(id) ON DELETE SET NULL,
+  created          datetime NOT NULL default NOW(),
+  workdate         datetime NOT NULL,
+  work             varchar(1000),
+  hours            NUMERIC(6,2) NOT NULL,
+  forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
+  created_by       int REFERENCES Member(id) ON DELETE SET NULL
+);
+
 DROP TABLE IF EXISTS Configuration;
 CREATE TABLE Configuration (
   id varchar(50) NOT NULL PRIMARY KEY,

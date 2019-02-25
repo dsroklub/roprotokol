@@ -6,7 +6,6 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
     $cuser=$_SERVER['PHP_AUTH_USER'];
     error_log("CU=$cuser");
-    
     $s="SELECT 
        sha1(CONCAT(authentication.password,?)) as token,
        IFNULL(mrc.MemberRight,'') as is_cox,

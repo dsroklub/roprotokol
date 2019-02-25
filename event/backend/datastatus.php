@@ -20,6 +20,7 @@ $tsa=array(
     'file' =>  dv($mem->get('file')),
     'stats' =>  dv($mem->get('stats')),
     'fora' =>  dv($mem->get('fora')),
+    'work' =>  dv($mem->get('work')),
     'message' =>  dv($mem->get('message')),
     'event' =>  dv($mem->get('event')),
     'gitrevision' => $gitrevision

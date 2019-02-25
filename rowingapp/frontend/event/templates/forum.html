@@ -1,3 +1,4 @@
+
 <script type="text/ng-template" id="memberTemplate.html">
   <a>
     <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
@@ -86,8 +87,12 @@
     </td>
     <td>{{forummember.value}}</td>
     <td ng-show="current_forum.owner==current_user.member_id">
-      <input type="number" size="4" value="{{forummember.value}}" ng-model="forummemberval"> </input>
-      <button ng-click="update_forummembervalue(forummember,forummemberval)">update</button>
+      <div ng-show="forummember.hours"> {{forummember.hours}} timer </div>
+    </td>
+    <td ng-show="current_forum.owner==current_user.member_id || current_user.member_id==forummember.member_id">
+      <input type="number" size="4" value="0" ng-model="work.hours"> </input>
+      <input type="text" placeholder="udført"  size="10"  ng-model="work.done"> </input>
+        <button ng-click="add_forummemberwork(forummember,work)">registrer</button>
     </td>
   </tr>
 </table>
@@ -95,6 +100,7 @@
 
 
 <!--pre>
+      <button ng-click="update_forummembervalue(forummember,forummemberval)">update</button>
   upe {{upform.$error|json}}
   foruma {{fora|json}}
   userfora {{userfora|json}}

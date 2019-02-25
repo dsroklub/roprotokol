@@ -22,7 +22,7 @@ $resconf=$status["reservation_configuration"];
 // error_log("conf = $resconf");
 $stmt = $rodb->prepare("INSERT INTO reservation (boat,start_time,start_date,end_time,end_date,dayofweek,description,triptype,purpose,configuration) VALUES (?,?,?,?,?,?,?,?,?,?)") or dbErr($rodb,$res,"make reservation");
 
-$stmt->bind_param('issssisiss', $data->boat_id,$data->start_time,$start_date,$data->end_time,$end_date,$dow,$data->description,$data->triptype_id,$data->purpose,$resconf ) or dbErr($rodb,$res,"make reservation (Exe)");;
+$stmt->bind_param('issssisiss', $data->boat_id,$data->start_time,$start_date,$data->end_time,$end_date,$dow,$data->description,$data->triptype_id,$data->purpose,$resconf ) or dbErr($rodb,$res,"make reservation (Exe)");
 $stmt->execute() or dbErr($rodb,$res,"make reservation (Exe)");
 $rodb->commit();
 $rodb->close();

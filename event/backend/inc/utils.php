@@ -23,3 +23,17 @@ function verify_real_user($action="gøre dette") {
         exit(-1);
     }
 }
+
+function verify_forum_owner($forum) {
+    global $rodb;
+    global $res;
+    if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        return false;
+    }
+    $cuser=$_SERVER['PHP_AUTH_USER'];
+    $stmt=$rodb->prepare("SELECT 'x' FROM forum, Member owner WHERE owner.MemberId=? and forum.owner=owner.id AND forum.name=?") or dbErr($rodb,$res,"verify forum owner");
+    $stmt->bind_param("ss", $cuser,$forum) or dbErr($rodb,$res,"owner verify bind");
+    $stmt->execute() or dbErr($rodb,$res,"forum owner verify");
+    $result= $stmt->get_result() or dbErr($rodb,$res,"owner verify res");
+    if (empty($result->fetch_assoc())) die "not forum owner";
+}
