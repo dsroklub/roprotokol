@@ -27,9 +27,11 @@ $s="SELECT MAX(hours) as h,JSON_MERGE(
    ) AS json
    FROM Member LEFT JOIN worklog on worklog.member_id=Member.id  
    WHERE Member.MemberID!='0' AND Member.id>=0 AND workdate > ?
-   GROUP BY Member.id,forum HAVING h is NOT NULL;
+   GROUP BY Member.id,forum HAVING h IS NOT NULL;
 ";
 
+// use: json->>'$.hours' IS NOT NULL from mariadb 10.3
+    
 if ($sqldebug) {
     echo "f=$from s=$s\n";
 }
@@ -51,4 +53,3 @@ while ($row = $result->fetch_assoc()) {
     echo $row['json'];
 }
 echo ']';
-

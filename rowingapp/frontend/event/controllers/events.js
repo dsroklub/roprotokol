@@ -530,7 +530,10 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     var sr=DatabaseService.createSubmit("forummember_addwork",d);
     sr.promise.then(function(status) {
       if (status.status =='ok') {
-        $log.debug("member value updated");        
+        $log.debug("member value updated");
+        member.hours += work.hours;
+        var d=new Date();
+        member.log.push({'work':work.done, 'hours':work.hours,'workdate':d.toISOString()});
       } else {
         alert(status.error);
       }

@@ -17,13 +17,14 @@ SELECT JSON_MERGE(
    'hours',SUM(worklog.hours)
    ),
     CONCAT('{', JSON_QUOTE('log'),': [',
-     GROUP_CONCAT(JSON_OBJECT(
-      'workdate',worklog.workdate,
+     IF(SUM(worklog.hours),
+       GROUP_CONCAT(JSON_OBJECT(
+      'workdate',DATE_FORMAT(worklog.workdate,'%Y-%m-%d'),
       'hours',worklog.hours,
       'work',worklog.work,
       'by',worklog.created_by,
       'created',worklog.created 
-      )),
+      )),''),
    ']}')
   )
      as json
@@ -45,7 +46,7 @@ if ($result) {
     echo '[';
     $first=1;
     while ($row = $result->fetch_assoc()) {
-        if ($first) $first=0; else echo ',';	  
+        if ($first) $first=0; else echo ",\n";
         echo $row["json"];
     }
     echo ']';
