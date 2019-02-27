@@ -18,7 +18,7 @@ $stmt->bind_param("ssss",$boatName,$forumName,$forumDescription,$boatName)  or d
 $stmt->execute() or dbErr($rodb,$res,"vinterteam exe");
 
 $stmt = $rodb->prepare("INSERT INTO forum_subscription(member,forum,role)  
-   SELECT Member.id, ?,'member' FROM dsrvinter.baad,dsrvinter.person,Member WHERE Member.MemberID=CAST(person.ID AS CHAR) AND person.baad=dsrvinter.baad.id AND baad.navn=?")  or dbErr($rodb,$res,"vinterteam members");
+   SELECT Member.id, ?,IF(baadformand.formand IS NULL,'member','owner') FROM dsrvinter.baad,dsrvinter.person LEFT JOIN dsrvinter.baadformand ON baadformand.formand=person.ID,Member WHERE Member.MemberID=CAST(person.ID AS CHAR) AND person.baad=dsrvinter.baad.id AND baad.navn=?")  or dbErr($rodb,$res,"vinterteam members");
 $stmt->bind_param("ss",$forumName,$boatName)  or dbErr($rodb,$res,"vinterteam mem bind");
 $stmt->execute() or dbErr($rodb,$res,"vinterteam memb exe");
 

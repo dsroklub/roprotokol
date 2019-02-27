@@ -51,13 +51,13 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     $scope.neweventmember={};
   }
   
-  $scope.init();
   $scope.dbready=false;
+  $scope.init();
   $scope.dbgrace=true;
   $timeout(function() { $scope.dbgrace = false;}, 2000);
   
   $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-  DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
+  DatabaseService.init({"fora":true,"file":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
     $scope.boatcategories=
       [{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
@@ -94,6 +94,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     });
     $scope.member_path=$location.protocol()+"://"+ $location.host()+"/backend/event/";
     $scope.site_path=$location.protocol()+"://"+ $location.host();
+    $log.debug("DB READY");
     $scope.dbready=true;
 
     if ($scope.eventarg) {
@@ -459,11 +460,13 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     sr.promise.then(function(status) {
       if (status.status =='ok') {
         $log.debug("winter boatforum created");
+        var boatname=$scope.newboatforum.boat.name;
         $scope.newboatforum.owner=$scope.current_user.member_id;
-        $scope.newboatforum["role"]=null;
-        $scope.newboatforum.forum=$scope.newboatforum.boat.name+" vintervedligehold";
-        $scope.newboatforum.description=$scope.newboatforum.boat.name+" vintervedligehold";
+        $scope.newboatforum.forum=boatname+" vintervedligehold";
+        $scope.newboatforum.description=boatname+" vintervedligehold";
         $scope.newboatforum.is_public=true;
+        $scope.newboatforum.boat.forum=$scope.newboatforum.forum;
+        $scope.newboatforum.boat=boatname;
         $scope.newboatforum.is_open=true;
         $scope.fora.push($scope.newboatforum);
         $scope.newboatforum={"is_public":true,"is_open":true,"owner_subscribe":true};

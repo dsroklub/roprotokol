@@ -123,6 +123,7 @@ function dbservice($http, $q, $log) {
     'gitrevision':null,
     'member':null,
     'message':null,
+    'boat':null,
     'event':null,
     'fora':null,
     'destination':null,
@@ -178,6 +179,8 @@ function dbservice($http, $q, $log) {
       } else {
 	sq.resolve("nothing to do");
       }
+    }, function (e) {
+      console.log(e);
     });
     return sq.promise;
   }

@@ -41,7 +41,7 @@
     <tbody class="tbody">
       <tr>
 	<td>
-          <select name="forum" id="vinterforum" ng-model="newboatforum.boat" ng-options="boat.name for boat in boats">
+          <select name="forum" id="vinterforum" ng-model="newboatforum.boat" ng-options="boat.name for boat in boats | filter: {forum:null} |filter: {formand:''}">
           </select>
 	</td>
       </tr>
