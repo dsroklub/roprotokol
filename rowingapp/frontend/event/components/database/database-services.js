@@ -2,7 +2,7 @@
 
 function dbservice($http, $q, $log) {
   var valid={};
-  var db={};
+  var db={'boats':[],'boatsById':{}};
   var tx=null;
   var debug=3;
     
@@ -51,6 +51,7 @@ function dbservice($http, $q, $log) {
     this.getData('event/memberrighttypes',promises);
     this.getData('event/forum_files_list',promises);
     this.getData('event/event_category',promises);
+    this.getData('event/vinter_persons',promises); // FIXME: We cannot do caching for this one. Must refresh browser. Or use time limit.
     this.getData('event/messages',promises);
     this.getData('event/member_setting',promises);
     this.getData('event/worklog',promises);
@@ -75,6 +76,36 @@ function dbservice($http, $q, $log) {
       });
     }
 
+    if(!valid['event/rowers']) {
+      var rq=$q.defer();
+      promises.push(rq.promise);
+      $http.get(toURL('event/rowers.php')).then(function(response) {
+        db['event/rowers'] = [];
+        angular.forEach(response.data, function(rower, index) {
+          rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
+          this.push(rower);
+        }, db['event/rowers']);
+	valid['event/rowers']=true;
+        rq.resolve(true);
+      });
+    }
+
+    if(!valid['boatsById']) {
+      var rq=$q.defer();
+      promises.push(rq.promise);
+      $http.get(toURL('event/boats.php')).then(function(response) {
+        db['boatsByID'] = {};
+        db['boats'] = [];
+        for (var di=0; di<response.data.length;di++) {
+          db['boatsById'][response.data[di].id]=response.data[di];
+          db['boats'].push(response.data[di]);
+        }
+	valid['boatsById']=true;
+        rq.resolve(true);
+      });
+    }
+
+    
     var qll=$q.all(promises);
     tx=qll;
     return qll;
@@ -103,6 +134,7 @@ function dbservice($http, $q, $log) {
       'member':['event/rowers','event/events_participants'],
       'event':['event/events','event/event_category','event/userfora','event/events_participants'],
       'message':['event/messages'],
+      'boat':['boatsByID'],
       'work':['event/worklog'],
       'fora':['event/messages','event/userfora','event/fora'],
       'file':['event/forum_files_list']

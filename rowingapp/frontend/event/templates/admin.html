@@ -33,6 +33,27 @@
   </table>
 </form>
 
+<form name="newboatforumform"  class="newforum">
+  <table>
+    <caption>Nyt Vintervedlighold</caption>
+    <thead>
+    </thead>
+    <tbody class="tbody">
+      <tr>
+	<td>
+          <select name="forum" id="vinterforum" ng-model="newboatforum.boat" ng-options="boat.name for boat in boats">
+          </select>
+	</td>
+      </tr>
+	<td>
+          <button class="green" ng-disabled="!newboatforum.boat" ng-click="winterforumcreate()">Opret nyt vinterhold</button>
+	</td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+
+
 <table>
   <caption>Eksisterende fora mm</caption>
   <tbody class="tbody">

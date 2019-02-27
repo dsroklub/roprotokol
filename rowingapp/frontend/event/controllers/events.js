@@ -14,6 +14,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.signup={act:[]};
   $scope.messages=[];
   $scope.message={};
+  $scope.boatsById={};
   $scope.selectedforum={};
   $scope.forumfile={"filefolder":"/"};	 
   $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
@@ -27,7 +28,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.min_time=new Date();
   $scope.current_forum={"forum":null};
   $scope.current_boat_type={'id':null,'name':null};
-
+  $scope.forumhours=null;
   $scope.dateOptions = {
     showWeeks: false,
     minDate: $scope.min_time
@@ -60,6 +61,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       [{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
     $scope.fora=DatabaseService.getDB('event/fora');
+    $scope.boatsById=DatabaseService.getDB('boatsById');
+    $scope.boats=DatabaseService.getDB('boats');
     $scope.events=DatabaseService.getDB('event/events_participants');
     $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
     $scope.userfora=DatabaseService.getDB('event/userfora');
@@ -450,6 +453,25 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     });
   }               
 
+  $scope.winterforumcreate = function() {
+    var sr=DatabaseService.createSubmit("create_winter_team",$scope.newboatforum);
+    sr.promise.then(function(status) {
+      if (status.status =='ok') {
+        $log.debug("winter boatforum created");
+        $scope.newboatforum.owner=$scope.current_user.member_id;
+        $scope.newboatforum["role"]=null;
+        $scope.newboatforum.forum=$scope.newboatforum.boat.name+" vintervedligehold";
+        $scope.newboatforum.description=$scope.newboatforum.boat.name+" vintervedligehold";
+        $scope.newboatforum.is_public=true;
+        $scope.newboatforum.is_open=true;
+        $scope.fora.push($scope.newboatforum);
+        $scope.newboatforum={"is_public":true,"is_open":true,"owner_subscribe":true};
+      } else {
+        alert(status.error);
+      }
+    });
+  }               
+
   $scope.forumdelete = function(forum) {
     var sr=DatabaseService.createSubmit("forum_delete",forum);
     sr.promise.then(function(status) {
@@ -531,9 +553,13 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     sr.promise.then(function(status) {
       if (status.status =='ok') {
         $log.debug("member value updated");
-        member.hours += work.hours;
+        if (!member.hours) {
+          member.hours=0.0;
+        }
+        member.hours = 1.0*member.hours+1.*work.hours;
         var d=new Date();
         member.log.push({'work':work.done, 'hours':work.hours,'workdate':d.toISOString()});
+        $scope.updateForumHours($scope.current_forum);
       } else {
         alert(status.error);
       }
@@ -559,10 +585,19 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     return DatabaseService.getRowersByNameOrId(val);
   }
 
+  $scope.updateForumHours = function (forum) {
+    $scope.forumhours=0;
+//FIXME    for (var mi=0; mi< forum.members.length; mi++) {
+//      $scope.forumhours += forum.members[mi].hours
+//    }
+  }
+
   $scope.setCurrentForum = function (forum) {
     $scope.current_forum=forum;
-
-    //       if (!$scope.forumfile.forum) {
+    if (forum.boat) {
+      var boatObj=$scope.boatsById[forum.boat];
+    }
+    $scope.updateForumHours(forum);
     for (var f=0; f<$scope.fora.length; f++) {
       if ($scope.fora[f].forum==forum.forum) {
         $scope.forumfile.forum=$scope.fora[f];

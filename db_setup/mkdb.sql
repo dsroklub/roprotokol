@@ -646,6 +646,9 @@ CREATE TABLE forum (
   owner     INTEGER,
   is_open      BOOLEAN DEFAULT TRUE,
   is_public     BOOLEAN DEFAULT TRUE,
+  boat          VARCHAR(30) REFERENCES Boat(Name) ON DELETE SET NULL,
+  created_by int REFERENCES Member(id),
+  forumtype       VARCHAR(50) DEFAULT "generic",  // generic, vedligehold, tur
   FOREIGN KEY (owner) REFERENCES Member(id) NOT NULL
 );
 

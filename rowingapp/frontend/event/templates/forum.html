@@ -70,7 +70,7 @@
 
 <table>
   <thead>
-    <caption>{{current_forum.forum}} medlemmer</caption>
+    <caption>{{current_forum.forum}} medlemmer <div ng-show="forumhours">{{forumhours}} timer</div></caption>
   </thead>
   <tr ng-repeat="forummember in forummembers"  class="forummember" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
