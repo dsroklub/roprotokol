@@ -13,6 +13,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.todpattern="[0-2]\\d:[0-5]\\d";
   $scope.signup={act:[]};
   $scope.messages=[];
+  $scope.forummembers=[];
   $scope.message={};
   $scope.boatsById={};
   $scope.selectedforum={};
@@ -586,10 +587,10 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   }
 
   $scope.updateForumHours = function (forum) {
-    $scope.forumhours=0;
-//FIXME    for (var mi=0; mi< forum.members.length; mi++) {
-//      $scope.forumhours += forum.members[mi].hours
-//    }
+    $scope.forumhours=0.0;
+    for (var mi=0; mi< $scope.forummembers.length; mi++) {
+      $scope.forumhours += $scope.forummembers[mi].hours
+    }
   }
 
   $scope.setCurrentForum = function (forum) {
@@ -597,7 +598,6 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     if (forum.boat) {
       var boatObj=$scope.boatsById[forum.boat];
     }
-    $scope.updateForumHours(forum);
     for (var f=0; f<$scope.fora.length; f++) {
       if ($scope.fora[f].forum==forum.forum) {
         $scope.forumfile.forum=$scope.fora[f];
@@ -607,8 +607,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     //       }
     DatabaseService.simpleGet('event/forum_members',{"forum":forum.forum}).then(function (d) {
       $scope.forummembers=d.data;
-    }
-                                                                               );
+      $scope.updateForumHours(forum);
+    }                                                                               );
   }
   
   $scope.setCurrentEvent = function (ev) {
