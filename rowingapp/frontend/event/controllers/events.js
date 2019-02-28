@@ -603,7 +603,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.updateForumHours = function (forum) {
     $scope.forumhours=0.0;
     for (var mi=0; mi< $scope.forummembers.length; mi++) {
-      $scope.forumhours += $scope.forummembers[mi].hours
+      $scope.forumhours += 1.0*$scope.forummembers[mi].hours;
     }
     if ($scope.boatObj && $scope.boatObj.max_hours) {
       $scope.pctHours=(100*$scope.forumhours/$scope.boatObj.max_hours).toFixed(1);
