@@ -27,6 +27,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.memberarg=$routeParams.memberid;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
+  $scope.work={'workdate':$scope.min_time};
   $scope.current_forum={"forum":null};
   $scope.current_boat_type={'id':null,'name':null};
   $scope.forumhours=null;
@@ -551,7 +552,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.burl=$location.$$absUrl.split("message/")[0]; // FIXME
  // $log.debug("burl="+$scope.burl);
 
-  $scope.add_forummemberwork = function(member,work) {
+  $scope.add_forummemberwork = function(member) {
+    var work=member.work;
     var d={"forummember":member,"forum":$scope.current_forum,"work":work};
     var sr=DatabaseService.createSubmit("forummember_addwork",d);
     sr.promise.then(function(status) {
@@ -561,8 +563,11 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           member.hours=0.0;
         }
         member.hours = 1.0*member.hours+1.*work.hours;
-        var d=new Date();
-        member.log.push({'work':work.done, 'hours':work.hours,'workdate':d.toISOString()});
+        if (!work.workdate) {
+          var wd=new Date();
+          work.workdate=wd.toISOString();
+        }
+        member.log.push({'work':work.done, 'hours':work.hours,'workdate':work.workdate});
         $scope.updateForumHours($scope.current_forum);
       } else {
         alert(status.error);
