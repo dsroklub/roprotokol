@@ -60,7 +60,9 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $timeout(function() { $scope.dbgrace = false;}, 2000);
   
   $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-  DatabaseService.init({"fora":true,"file":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
+  DatabaseService.init({"fora":true,"file":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
+    function (ok) {
+    $log.debug("evt db init done");
     $scope.boatcategories=
       [{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
@@ -124,7 +126,10 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
     // $log.debug("events set user " + $scope.current_user);
     LoginService.set_user($scope.current_user);
-  });
+    },
+    function(err) {$log.debug("db init err "+err)},
+    function(pg) {$log.debug("db init progress  "+pg)}
+  );
   
   $scope.subscribe = function() {
     var sr=DatabaseService.createSubmit("forum_subscribe",$scope.subscription);
@@ -138,7 +143,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });       
+    },function(err) {console.log("forum subscribe err"+err)});
   }
 
   $scope.accept_forum_supplicant = function() {
@@ -149,7 +154,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });       
+    },function(err) {console.log("forum accept err"+err)});       
   }
   
   $scope.set_role = function(forum,role) {
@@ -174,7 +179,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    },function(err) {console.log("forum unsub err"+err)});
   }
 
   $scope.forum_add_member = function(arg) {
@@ -194,7 +199,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    }
+    },function(err) {
+      console.log("forum owner subt err "+err);}
                    );
   }
 
@@ -233,7 +239,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    }
+    }, function(err) {console.log("event owner sub err: "+err);}
                    );
   }
   // EVENT CREATION
@@ -251,7 +257,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert("Fejl: "+status.message);
       }
-    });
+    },function(err) {console.log("event create err: "+err)});
   }
 
   $scope.set_event_status = function(event) {
@@ -264,7 +270,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           alert(status.error);
         }
       }
-    });
+    },function(err) {console.log("set event status err: "+err)});
   }
 
   $scope.set_event_openness = function(event) {
@@ -277,7 +283,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           alert("fejl "+status.error);
         }
       }
-    });
+    },function(err) {console.log("evt openness err: "+err)});
   }
 
 
@@ -292,7 +298,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });       
+    },function(err) {console.log("evt accept p err: "+err)});       
   }
 
   $scope.include_member = function(eventmember) {
@@ -305,7 +311,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    })
+    }, function(err) {console.log("evt member err: "+err)})
   }
 
   $scope.eventmessage = function() {
@@ -357,7 +363,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    })
+    },function(err) {console.log("evt join err: "+err)})
   }
 
   $scope.event_remove_participant = function(em) {
@@ -370,7 +376,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });       
+    },function(err) {console.log("evt rm p err: "+err)});       
   }
 
 
@@ -398,7 +404,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    })
+    }, function(err) {console.log("evt leave err: "+err)})
   }
   
   $scope.messagesend = function() {
@@ -420,7 +426,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
         alert(status.warning);
       }
-    });
+    },function(err) {console.log("forum msg err: "+err)});
   }
 
     $scope.privatemessagesend = function() {
@@ -435,7 +441,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       if (status.status == 'warning') {
         alert(status.warning);
       }
-    });
+    }, function(err) {console.log("priv msg err: "+err)});
   }
 
   $scope.emailflush = function() {
@@ -456,7 +462,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    }, function(err) {console.log("forum create submit error: "+err)});
   }               
 
   $scope.winterforumcreate = function() {
@@ -477,7 +483,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    },function(err) {console.log("vinter team submit error"+err)});
   }               
 
   $scope.forumdelete = function(forum) {
@@ -491,7 +497,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    },function(err) {console.log("forum del error: "+err)});
   }
   
   $scope.uploadFile = function(file) {
@@ -535,7 +541,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       }, function (evt) {
         // Math.min is to fix IE which reports 200% sometimes
         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-      });
+      },function(err) {console.log("file up error: "+err)});
   }
   
   $scope.file_selected = function() {
@@ -578,7 +584,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    }
+    }, function(err) {console.log("forum mem add work err: "+err)}
                    );
   }
     
@@ -592,7 +598,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    }, function(err) {console.log("member setting upd error: "+err)});
   }
   
   $scope.getRowerByName = function (val) {
@@ -622,10 +628,12 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       }
     }
     //       }
-    DatabaseService.simpleGet('event/forum_members',{"forum":forum.forum}).then(function (d) {
-      $scope.forummembers=d.data;
-      $scope.updateForumHours(forum);
-    }                                                                               );
+    DatabaseService.simpleGet('event/forum_members',{"forum":forum.forum}).then(
+      function (d) {
+        $scope.forummembers=d.data;
+        $scope.updateForumHours(forum);
+      },function(err) {console.log("forum member error: "+err)}
+    );
   }
   
   $scope.setCurrentEvent = function (ev) {
@@ -653,7 +661,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    },function(err) {console.log("msg unlink error: "+err)});
   }
 
   $scope.addInvitee = function () {
@@ -670,7 +678,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
 	alert(status.error);
       }
-    });
+    },function(err) {console.log("toggle forum vis"+err)});
   }
 
   $scope.toggle_forummember_role = function (forummember) {
@@ -686,7 +694,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         forummember.role=forummember.old_role;
 	alert(status.error);
       }
-    });
+    }, function(err) {console.log("set forum member role error: "+err)});
   }
 
   $scope.filematch = function (filefilter) {
