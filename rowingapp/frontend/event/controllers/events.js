@@ -569,6 +569,9 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         }
         member.log.push({'work':work.done, 'hours':work.hours,'workdate':work.workdate});
         $scope.updateForumHours($scope.current_forum);
+        work.workdate=null;
+        work.done=null;
+        work.hours=null;
       } else {
         alert(status.error);
       }
