@@ -70,7 +70,7 @@
 
 <table>
   <thead>
-    <caption>{{current_forum.forum}} medlemmer <div ng-show="forumhours">{{forumhours}} timer</div></caption>
+    <caption>{{current_forum.forum}} medlemmer <div ng-show="forumhours">{{forumhours}} / {{boatObj.max_hours}} timer {{pctHours}} %</div></caption>
   </thead>
   <tr ng-repeat="forummember in forummembers"  class="forummember" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
@@ -91,7 +91,7 @@
     </td>
     <td ng-show="current_forum.owner==current_user.member_id || current_user.member_id==forummember.member_id">
       <input  class="numin" type="text" onlynumber size="3" value="1"  min="0" ng-model="forummember.work.hours" required > </input>
-      <input type="date" placeholder="dag"    ng-model="forummember.work.workdate"> </input>
+      <input type="date" tooltip="YYYY-MM-dd" placeholder="dag"    ng-model="forummember.work.workdate"> </input>
       <input type="text" placeholder="udført"  size="10"  ng-model="forummember.work.done"> </input>
       <button ng-click="add_forummemberwork(forummember,work)" uib-tooltip="registrer timer"><i class="fa fa-thumbs-up"></i></button>
     </td>
@@ -113,12 +113,3 @@
     </td>
   </tr>
 </table>
-
-
-
-<!--pre>
-      <button ng-click="update_forummembervalue(forummember,forummemberval)">update</button>
-  upe {{upform.$error|json}}
-  foruma {{fora|json}}
-  userfora {{userfora|json}}
-</pre-->

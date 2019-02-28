@@ -16,6 +16,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.forummembers=[];
   $scope.message={};
   $scope.boatsById={};
+  $scope.boatsByName={};
+  $scope.forumBoat=null;
   $scope.selectedforum={};
   $scope.forumfile={"filefolder":"/"};	 
   $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
@@ -64,6 +66,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
     $scope.fora=DatabaseService.getDB('event/fora');
     $scope.boatsById=DatabaseService.getDB('boatsById');
+    $scope.boatsByName=DatabaseService.getDB('boatsByName');
     $scope.boats=DatabaseService.getDB('boats');
     $scope.events=DatabaseService.getDB('event/events_participants');
     $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
@@ -602,12 +605,15 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     for (var mi=0; mi< $scope.forummembers.length; mi++) {
       $scope.forumhours += $scope.forummembers[mi].hours
     }
+    if ($scope.boatObj && $scope.boatObj.max_hours) {
+      $scope.pctHours=(100*$scope.forumhours/$scope.boatObj.max_hours).toFixed(1);
+    }
   }
 
   $scope.setCurrentForum = function (forum) {
     $scope.current_forum=forum;
     if (forum.boat) {
-      var boatObj=$scope.boatsById[forum.boat];
+      $scope.boatObj=$scope.boatsByName[forum.boat];
     }
     for (var f=0; f<$scope.fora.length; f++) {
       if ($scope.fora[f].forum==forum.forum) {

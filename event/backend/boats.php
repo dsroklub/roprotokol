@@ -11,6 +11,7 @@ $s="SELECT JSON_OBJECT(
            'description', Boat.Description,
            'category',BoatType.Name,
            'boat_type', Boat.boat_type,
+           'max_hours', baad.max_timer,
            'location', Boat.Location,
            'brand',Boat.brand,
            'forum',MAX(forum.name),
@@ -23,7 +24,7 @@ $s="SELECT JSON_OBJECT(
            LEFT JOIN forum ON forum.boat=Boat.name AND forum.forumtype='maintenance'
     WHERE 
          Boat.Decommissioned IS NULL
-    GROUP BY Boat.id
+    GROUP BY Boat.id,baad.max_timer
     ORDER by Boat.name
     ";
 //echo $s;

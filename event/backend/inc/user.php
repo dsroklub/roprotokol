@@ -2,7 +2,7 @@
 
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $currentuser=$_SERVER['PHP_AUTH_USER'];
-}//$currentuser="7843";
+}
 
 error_log("Current User $currentuser");
 
