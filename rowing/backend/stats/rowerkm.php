@@ -107,7 +107,3 @@ foreach ($rower_list as $rower_id) {
   }
   echo "\n";
 }
-
-
-?> 
-

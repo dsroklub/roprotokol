@@ -43,7 +43,3 @@ echo "Båd;Rang;Medlem;Navn;km\n";
 while ($row = $result->fetch_row()) {
   echo join(";", $row) . "\n";
 }
-
-
-?> 
-

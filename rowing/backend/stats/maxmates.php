@@ -18,5 +18,3 @@ $result=$rodb->query($s) or die("Error in ld query: " . mysqli_error($rodb));;
  while ($row = $result->fetch_assoc()) {
 	  echo $row["name"].",".$row["nummates"]."\n";
  }
-?> 
-
