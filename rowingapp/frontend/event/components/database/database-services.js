@@ -2,7 +2,7 @@
 
 function dbservice($http, $q, $log) {
   var valid={};
-  var db={'boats':[],'boatsById':{}};
+  var db={'boats':[],'boatsById':{},'boatsByName':{}};
   var tx=null;
   var debug=3;
     
@@ -95,16 +95,18 @@ function dbservice($http, $q, $log) {
       promises.push(rq.promise);
       $http.get(toURL('event/boats.php')).then(function(response) {
         db['boatsByID'] = {};
+        db['boatsByName'] = {};
         db['boats'] = [];
         for (var di=0; di<response.data.length;di++) {
           db['boatsById'][response.data[di].id]=response.data[di];
+          db['boatsByName'][response.data[di].name]=response.data[di];
           db['boats'].push(response.data[di]);
         }
 	valid['boatsById']=true;
+        valid['boatsByname']=true;
         rq.resolve(true);
       });
     }
-
     
     var qll=$q.all(promises);
     tx=qll;
@@ -135,7 +137,7 @@ function dbservice($http, $q, $log) {
       'member':['event/rowers','event/events_participants'],
       'event':['event/events','event/event_category','event/userfora','event/events_participants'],
       'message':['event/messages'],
-      'boat':['boatsByID'],
+      'boat':['boatsByID','boatsByName'],
       'work':['event/worklog'],
       'fora':['event/messages','event/userfora','event/fora'],
       'file':['event/forum_files_list']

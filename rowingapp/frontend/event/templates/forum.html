@@ -1,4 +1,3 @@
-
 <script type="text/ng-template" id="memberTemplate.html">
   <a>
     <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
@@ -91,7 +90,7 @@
     </td>
     <td ng-show="current_forum.owner==current_user.member_id || current_user.member_id==forummember.member_id">
       <input  class="numin" type="text" onlynumber size="3" value="1"  min="0" ng-model="forummember.work.hours" required > </input>
-      <input type="date" tooltip="YYYY-MM-dd" placeholder="dag"    ng-model="forummember.work.workdate"> </input>
+      <input type="date" uib-tooltip="safari: YYYY-MM-dd" placeholder="dag"    ng-model="forummember.work.workdate"> </input>
       <input type="text" placeholder="udført"  size="10"  ng-model="forummember.work.done"> </input>
       <button ng-click="add_forummemberwork(forummember,work)" uib-tooltip="registrer timer"><i class="fa fa-thumbs-up"></i></button>
     </td>
