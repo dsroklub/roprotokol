@@ -10,6 +10,7 @@ angular.module('eventApp').controller(
 function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
   $anchorScroll.yOffset = 50;
   $scope.teams=[];
+  $scope.boatObj=null;
   $scope.todpattern="[0-2]\\d:[0-5]\\d";
   $scope.signup={act:[]};
   $scope.messages=[];
