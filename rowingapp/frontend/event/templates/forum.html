@@ -85,7 +85,7 @@
       </i> 
     </td>
     <td> <!-- ng-show="current_forum.owner==current_user.member_id" -->
-      <div ng-show="forummember.hours"> {{forummember.hours| number:1}} <span ng-show="forummember.work">/{{forummember.work}}</span> timer </div>
+      <div ng-show="forummember.hours"> {{forummember.hours| number:1}} <span ng-show="forummember.work">/{{forummember.work_todo}}</span> timer </div>
     </td>
     <td ng-show="current_forum.owner==current_user.member_id || current_user.member_id==forummember.member_id">
       <input  class="numin" type="text" onlynumber size="3" value="1"  min="0" ng-model="forummember.work.hours" required > </input>

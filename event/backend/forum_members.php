@@ -13,7 +13,7 @@ SELECT JSON_MERGE(
    'member_id',Member.MemberId, 
    'name',CONCAT(Member.FirstName,' ',Member.LastName),
    'role', role,
-   'work', forum_subscription.work,
+   'work_todo', forum_subscription.work,
    'comment',forum_subscription.comment,
    'hours',SUM(worklog.hours)
    ),
