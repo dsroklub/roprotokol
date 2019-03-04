@@ -115,8 +115,10 @@ function post_event_message($eventId,$subject,$message) {
 
     $toEmails=array();
     while ($rower = $result->fetch_assoc()) {
-        error_log(print_r($rower,true));
-        $toEmails[] = $rower['email'];
+        if (!empty($rower['email'])) {
+           $toEmails[] = $rower['email'];
+        }
+        error_log("Email to " . $rower[email]);
     }
     $result->free();
 
@@ -177,8 +179,10 @@ function post_forum_message($forum,$subject,$message) {
 
     $toEmails=array();
     while ($rower = $result->fetch_assoc()) {
-        error_log("pfmail -> " . print_r($rower,true));
+      if (!empty($rower['email'])) {
+        error_log("pfmail forum -> " . print_r($rower,true));
         $toEmails[] = $rower['email'];
+	}
     }
     $result->free();
 

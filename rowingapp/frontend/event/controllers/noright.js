@@ -28,7 +28,7 @@ function noRight ($scope, $routeParams, LoginService, filter, ngDialog, orderBy,
   $scope.userlogin = function(){
     LoginService.check_user().promise.then(function(u) {         
       $scope.current_user=u;
-      ccurrentuser.member_id=u.member_id;
+      $scope.ccurrentuser.member_id=u.member_id;
     });
   }    
 }   

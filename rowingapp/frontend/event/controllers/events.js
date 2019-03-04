@@ -723,6 +723,13 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
   };
 
+  $scope.forum_show_member = function () {
+      return function(m) {
+	  console.log("fshow " + m.member_id)
+      return (m.member_id != "baadhal");
+    }
+  };
+
   $scope.event_boat_type_match = function () {
     return function (event) {
       if (!($scope.current_boat_type && $scope.current_boat_type.name)) {
