@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS Boat;
 CREATE TABLE Boat (
   id int(11) NOT NULL AUTO_INCREMENT,
-  Name varchar(100),
+  Name varchar(100)  UNIQUE,
   BoatType int(11),
   rights_subtype CHAR(20),
   brand varchar(30),
@@ -661,7 +661,7 @@ CREATE TABLE forum_subscription (
   forum      VARCHAR(255),
   role       VARCHAR(255) NOT NULL, -- waiting, cox, any, leader, admin
   comment    VARCHAR(4096),
-  value      FLOAT,
+  work      FLOAT,
   FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,forum)
