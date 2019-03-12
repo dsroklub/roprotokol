@@ -871,10 +871,9 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         var mf=messagefilter.toLowerCase();
       }
       return (
-        (
-          !$scope.current_forum.forum || message.source == $scope.current_forum.forum
-        ) &&(
-          !messagefilter ||
+          (!$scope.current_forum.forum || message.source == $scope.current_forum.forum ) &&
+          (!$scope.message||!$scope.message.forum || message.source == $scope.message.forum.forum ) &&
+	      (!messagefilter ||
 	    message.subject.toLowerCase().indexOf(mf)>-1 ||
 	    (message.sender && message.sender.toLowerCase().indexOf(mf)>-1) ||
 	    message.body.toLowerCase().indexOf(mf)>-1
