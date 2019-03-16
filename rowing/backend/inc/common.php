@@ -64,7 +64,7 @@ function dbfetch($db,$table, $columns=['*'], $orderby=null) {
     echo '[';
     $first=1;
     while ($row = $result->fetch_assoc()) {
-        if ($first) $first=0; else echo ',';	  
+        if ($first) $first=0; else echo ',';
         echo json_encode($row,	JSON_PRETTY_PRINT);
     }
     echo ']';
@@ -106,6 +106,6 @@ function eventLog($entry) {
         $stmt->execute();
     } else {
         error_log($rodb->error);
-    }    
+    }
 }
 $res=array ("status" => "ok");

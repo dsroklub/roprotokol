@@ -23,15 +23,15 @@ function post_message($toEmails,$subject,$message) {
         'X-Mailer'                  => "PHP-Custom",
         'Subject'                   => "$subject"
     );
-    
+
 
     error_log("now send mail");
     $mail_status = $smtp->send($toEmails, $mail_headers, $message);
-    
+
     if (PEAR::isError($mail_status)) {
         $warning="Kunne ikke sende besked som email: " . $mail_status->getMessage();
     }
-        
+
     if ($error) {
         error_log("messagelib: $error");
         $res['message']=$message;
@@ -64,21 +64,21 @@ function post_private_message($memberId,$subject,$message) {
         "INSERT INTO private_message(member_from, created, subject, message)
          SELECT MAX(Member.id),NOW(),?,?
          FROM Member
-         WHERE 
-           Member.MemberId=?")) {        
+         WHERE
+           Member.MemberId=?")) {
         $stmt->bind_param(
             'sss',
             $subject,
             $message,
             $cuser) ||  die("create forum message BIND errro ".mysqli_error($rodb));
-        
+
         error_log("NOW EXE");
         if ($stmt->execute()) {
             error_log("sent private message $subject");
         } else {
             $error=" pricatemessage error ".mysqli_error($rodb);
             error_log($error);
-        } 
+        }
     } else {
         error_log("ppm error" .$rodb->error);
     }
@@ -89,12 +89,12 @@ function post_private_message($memberId,$subject,$message) {
              WHERE Member.MemberId=?")) {
         $stmt->bind_param(
             's',
-            $memberId) ||  die("create event message BIND errro ".mysqli_error($rodb));        
+            $memberId) ||  die("create event message BIND errro ".mysqli_error($rodb));
         if (!$stmt->execute()) {
             $error=" message membererror ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."private messagelib member DB error: ".mysqli_error($rodb);
-        } 
+        }
     } else {
         error_log("ppmm error" .$rodb->error);
     }
@@ -105,10 +105,10 @@ function post_event_message($eventId,$subject,$message) {
     global $rodb;
     global $cuser;
     $stmt = $rodb->prepare(
-        "SELECT DISTINCT email 
+        "SELECT DISTINCT email
      FROM Member,event_member
      WHERE Member.id=event_member.member AND event_member.event=?");
-    
+
     $stmt->bind_param('i',$eventId) or die("{\"status\":\"Error in evet message query bind: " . mysqli_error($rodb) ."\"}");
     $stmt->execute() or die("{\"status\":'Error in event message exe query: " . mysqli_error($rodb) ."\"}");
     $result= $stmt->get_result() or die("{\"status\":'Error in event message query: " . mysqli_error($rodb) ."\"}");
@@ -128,14 +128,14 @@ function post_event_message($eventId,$subject,$message) {
         "INSERT INTO event_message(member_from, event, created, subject, message)
          SELECT mf.id,?,NOW(),?,?
          FROM Member mf
-         WHERE 
-           mf.MemberId=?")) {        
+         WHERE
+           mf.MemberId=?")) {
         $stmt->bind_param(
             'ssss',
             $eventId,
             $subject,
             $message,
-            $cuser) ||  die("create event message BIND errro ".mysqli_error($rodb));        
+            $cuser) ||  die("create event message BIND errro ".mysqli_error($rodb));
         if (!$stmt->execute()) {
             $error=" message event error ".mysqli_error($rodb);
             error_log($error);
@@ -143,7 +143,7 @@ function post_event_message($eventId,$subject,$message) {
         } else {
             $error=$rodb->error;
             error_log("event send insert db $error");
-        } 
+        }
     }
 
     if ($stmt = $rodb->prepare(
@@ -153,15 +153,15 @@ function post_event_message($eventId,$subject,$message) {
              WHERE Member.id=event_member.member AND event_member.event=?")) {
         $stmt->bind_param(
             's',
-            $eventId) ||  die("create event message BIND errro ".mysqli_error($rodb));        
+            $eventId) ||  die("create event message BIND errro ".mysqli_error($rodb));
         if (!$stmt->execute()) {
             $error=" message event membererror ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."event messagelib member DB error: ".mysqli_error($rodb);
-        } 
+        }
     }
     return $res;
-    invalidate("message");   
+    invalidate("message");
 }
 
 function post_forum_message($forum,$subject,$message) {
@@ -169,10 +169,10 @@ function post_forum_message($forum,$subject,$message) {
     global $rodb;
     global $cuser;
     $stmt = $rodb->prepare(
-        "SELECT DISTINCT email 
+        "SELECT DISTINCT email
      FROM Member,forum_subscription
      WHERE Member.id=forum_subscription.member AND forum_subscription.forum=?");
-    
+
     $stmt->bind_param('s',$forum) or die("{\"status\":\"Error in message query bind: " . mysqli_error($rodb) ."\"}");
     $stmt->execute() or die("{\"status\":'Error in message exe query: " . mysqli_error($rodb) ."\"}");
     $result= $stmt->get_result() or die("{\"status\":'Error in message query: " . mysqli_error($rodb) ."\"}");
@@ -192,23 +192,23 @@ function post_forum_message($forum,$subject,$message) {
         "INSERT INTO forum_message(member_from, forum, created, subject, message)
          SELECT mf.id,?,NOW(),?,?
          FROM Member mf
-         WHERE 
-           mf.MemberId=?")) {        
+         WHERE
+           mf.MemberId=?")) {
         $stmt->bind_param(
             'ssss',
             $forum,
             $subject,
             $message,
             $cuser) ||  die("create forum message BIND errro ".mysqli_error($rodb));
-        
+
         error_log("NOW EXE");
-        if ($stmt->execute()) {            
-            $msgid=$rodb->query("SELECT LAST_INSERT_ID() AS msgid")->fetch_assoc()["msgid"];                
+        if ($stmt->execute()) {
+            $msgid=$rodb->query("SELECT LAST_INSERT_ID() AS msgid")->fetch_assoc()["msgid"];
         } else {
             $error=" message forum error ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."forum message DB error: ".mysqli_error($rodb);
-        } 
+        }
     }
 
     $cuser=$_SERVER['PHP_AUTH_USER'];
@@ -219,6 +219,6 @@ function post_forum_message($forum,$subject,$message) {
         "Fra $fromUser ($cuser)\n\n". $message .
         "\n\nSendt fra DSR aftaler\nhttps://aftaler.danskestudentersroklub.dk/\nForum: $forum\nhttps://aftaler.danskestudentersroklub.dk/frontend/event/#!message/?message=f$msgid"
     );
-    invalidate("message");   
-    return $res;    
+    invalidate("message");
+    return $res;
 }
