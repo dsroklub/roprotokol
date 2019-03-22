@@ -13,16 +13,10 @@ while (!feof($fd)) {
 fclose($fd);
 
 
-//echo "email: \n$email\n\n";
-//echo "GOT EMAIL $email";
-
-//require_once 'Mail/mimeDecode.php';
-//$md=new Mail_mimeDecode($email);
-//$p=$md->decode();
+//echo "email: \n$email\n\n";echo "GOT EMAIL $email";
 
 $mime = mailparse_msg_create();
 $mp=mailparse_msg_parse($mime,$email);
-
 
 $headers=mailparse_msg_get_part_data($mime)["headers"];
 
@@ -45,6 +39,8 @@ $to=$tos[0]["address"];
 $from=filter_var($from, FILTER_SANITIZE_EMAIL);
 echo "SFROM $from\n";
 $to=filter_var($to, FILTER_SANITIZE_EMAIL);
+
+$to=str_replace("_"," ",$to); // FIXME handle this
 
 echo "$subject, $from ==> $to";
 // verify from
@@ -87,19 +83,26 @@ foreach ($sts as $st) {
 $forum=explode("@",$to)[0];
 echo "from $from to forum=$forum\n";
 $stmt = $rodb->prepare(
-    'SELECT 42 FROM forum_subscription, Member WHERE Member.id=forum_subscription.member AND Member.Email=? AND forum_subscription.forum=?') or die("DB erR $rodb->error \n");
-echo "ME:".print_r($stmt);
+    'SELECT Member.id, Member.MemberID as member_id, forum.email as forum_email
+     FROM forum,forum_subscription, Member
+     WHERE forum.name=forum_subscription.forum AND Member.id=forum_subscription.member AND Member.Email=? AND forum_subscription.forum=?') or die("DB erR $rodb->error \n");
 
 $stmt->bind_param("ss",$from,$forum);
 $stmt->execute() or dbErr($rodb,"email member check DB error");
 
-$result= $stmt->get_result() or die("incoming res: " . mysqli_error($rodb));
+$memberResult= $stmt->get_result() or die("incoming res: " . mysqli_error($rodb));
 
-if ($result->fetch_assoc()) {
+if ($mr=$memberResult->fetch_assoc()) {
     echo "forum and subs exist\n";
+    require_once("event/backend/messagelib.php");
+
+    // TODO rm quotes
+    post_forum_message($forum,$subject,$body,$mr["member_id"],$mr["forum_email"]);
+
 } else {
     echo "\nFORUM/SUB invalid\n";
 }
 echo "\nDONE\n";
 
 mailparse_msg_free($mime);
+$text = preg_replace('#(^\w.+:\n)?(^>.*(\n|$))+#mi', "", $text);

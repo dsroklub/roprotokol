@@ -6,7 +6,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-function post_message($toEmails,$subject,$message) {
+function post_message($toEmails,$subject,$message,$replyTo) {
     global $rodb;
 //    error_log("post message $toEmail, $subject\n$message");
     $res=array ("status" => "ok");
@@ -23,9 +23,11 @@ function post_message($toEmails,$subject,$message) {
         'X-Mailer'                  => "PHP-Custom",
         'Subject'                   => "$subject"
     );
+    if ($replyTo) {
+        $mail_headers["Reply-To"]=$replyTo;
+        $mail_headers["From"]=$replyTo;
+    }
 
-
-    error_log("now send mail");
     $mail_status = $smtp->send($toEmails, $mail_headers, $message);
 
     if (PEAR::isError($mail_status)) {
@@ -41,7 +43,6 @@ function post_message($toEmails,$subject,$message) {
         $res["status"]="warning";
         $res['warning']=$warning;
     }
-    error_log("now RES ".print_r($res,true));
     return $res;
 }
 
@@ -72,7 +73,6 @@ function post_private_message($memberId,$subject,$message) {
             $message,
             $cuser) ||  die("create forum message BIND errro ".mysqli_error($rodb));
 
-        error_log("NOW EXE");
         if ($stmt->execute()) {
             error_log("sent private message $subject");
         } else {
@@ -168,24 +168,39 @@ function post_forum_message($forum,$subject,$message) {
     $res=array ("status" => "ok");
     global $rodb;
     global $cuser;
+    global $config;
+    if (!$from) {
+        $from=$cuser;
+    }
+
+
+    $stmt = $rodb->prepare("SELECT email_local FROM forum WHERE name=?");
+    $stmt->bind_param('s',$forum) or dbErr($rodb,"Error in msg forum bind: ");
+    $stmt->execute() or dbErr($rodb,"Error in mesg forum exe query: " );
+    $forumres= $stmt->get_result() or dbErr($rodb,"Error in msg forum");
+    if ($theForum = $result->fetch_assoc()) {
+        $forumEmailLocal=$theForum["email_local"];
+        $forumFrom=$forumEmailLocal."@".$config["forumdomain"];
+    } else {
+        dbErr($rodb,"forum not found");
+    }
     $stmt = $rodb->prepare(
         "SELECT DISTINCT email
      FROM Member,forum_subscription
      WHERE Member.id=forum_subscription.member AND forum_subscription.forum=?");
 
-    $stmt->bind_param('s',$forum) or die("{\"status\":\"Error in message query bind: " . mysqli_error($rodb) ."\"}");
-    $stmt->execute() or die("{\"status\":'Error in message exe query: " . mysqli_error($rodb) ."\"}");
-    $result= $stmt->get_result() or die("{\"status\":'Error in message query: " . mysqli_error($rodb) ."\"}");
+    $stmt->bind_param('s',$forum) or dbErr($rodb,"Error in message query bind: ");
+    $stmt->execute() or dbErr($rodb,"Error in message exe query: ");
+    $result= $stmt->get_result() or dbErr($rodbm,"Error in message query");
 
     $toEmails=array();
     while ($rower = $result->fetch_assoc()) {
-      if (!empty($rower['email'])) {
-        error_log("pfmail forum -> " . print_r($rower,true));
-        $toEmails[] = $rower['email'];
-	}
+        if (!empty($rower['email'])) {
+            error_log("pfmail forum -> " . print_r($rower,true));
+            $toEmails[] = $rower['email'];
+        }
     }
     $result->free();
-
 
     $msgid="error";
     if ($stmt = $rodb->prepare(
@@ -193,31 +208,34 @@ function post_forum_message($forum,$subject,$message) {
          SELECT mf.id,?,NOW(),?,?
          FROM Member mf
          WHERE
-           mf.MemberId=?")) {
+           mf.MemberID=?;")) {
         $stmt->bind_param(
             'ssss',
             $forum,
             $subject,
             $message,
-            $cuser) ||  die("create forum message BIND errro ".mysqli_error($rodb));
+            $from) ||  die("create forum message BIND errro ".mysqli_error($rodb));
 
-        error_log("NOW EXE");
         if ($stmt->execute()) {
             $msgid=$rodb->query("SELECT LAST_INSERT_ID() AS msgid")->fetch_assoc()["msgid"];
+            error_log("LSQ ID=$msgid");
         } else {
             $error=" message forum error ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."forum message DB error: ".mysqli_error($rodb);
         }
     }
-
-    $cuser=$_SERVER['PHP_AUTH_USER'];
-    $fromUser=$rodb->query("SELECT CONCAT(FirstName,' ',LastName) as name FROM Member WHERE MemberId=$cuser")->fetch_assoc()["name"];
+    error_log("ML FROM $from");
+    $userstmt = $rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name FROM Member WHERE MemberID=?") or dbErr($rodb,"get forum user p");
+    $userstmt->bind_param("s",$from) or dbErr($rodb,"get forum user b");
+    $userstmt->execute() or dbErr($rodb,"get from name E");
+    $fromUser=$userstmt->get_result()->fetch_assoc()["name"];
     $res=post_message(
         $toEmails,
         $subject,
-        "Fra $fromUser ($cuser)\n\n". $message .
-        "\n\nSendt fra DSR aftaler\nhttps://aftaler.danskestudentersroklub.dk/\nForum: $forum\nhttps://aftaler.danskestudentersroklub.dk/frontend/event/#!message/?message=f$msgid"
+        "Fra $fromUser ($from)\n\n". $message .
+        "\n\nSendt fra DSR aftaler\nhttps://aftaler.danskestudentersroklub.dk/\nForum: $forum\nhttps://aftaler.danskestudentersroklub.dk/frontend/event/#!message/?message=f$msgid",
+        $forumFrom
     );
     invalidate("message");
     return $res;

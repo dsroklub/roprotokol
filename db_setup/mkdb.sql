@@ -643,6 +643,7 @@ CREATE TABLE event_invitees (
 CREATE TABLE forum (
   name   VARCHAR(255) PRIMARY KEY NOT NULL,
   description VARCHAR(255),
+  email_local     VARCHAR(255) UNIQUE,
   owner     INTEGER,
   is_open      BOOLEAN DEFAULT TRUE,
   is_public     BOOLEAN DEFAULT TRUE,
