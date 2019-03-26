@@ -20,10 +20,12 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 /*    MemberRights.member_id=Member.id AND */
 /*    MemberRights.MemberRight='event' AND */
 /*    MemberRights.argument='fora' LIMIT 1 */
-    
+
+
+$forumEmail=sanestring($newforum->forum);
 if ($stmt = $rodb->prepare(
-    "INSERT INTO forum (name,description,is_open,is_public,owner) 
-   SELECT ?,?,?,?,Member.id FROM Member WHERE 
+    "INSERT INTO forum (name,email_local,description,is_open,is_public,owner)
+   SELECT ?,?,?,?,?,Member.id FROM Member WHERE
    Member.MemberId=?"
 )) {
 
@@ -33,6 +35,7 @@ if ($stmt = $rodb->prepare(
     $stmt->bind_param(
         'ssiis',
         $newforum->forum,
+        $forumEmail,
         $newforum->description,
         $isopen,
         $ispublic,
@@ -54,7 +57,7 @@ if ($newforum->owner_subscribe) {
         "INSERT INTO forum_subscription(member,forum,role)
          SELECT Member.id ,forum.name, 'owner'
          FROM Member, forum
-         WHERE 
+         WHERE
            forum.name=? AND
            MemberId=?
          ")) {
@@ -65,12 +68,12 @@ if ($newforum->owner_subscribe) {
         if (!$stmt->execute()) {
             $error=" forum create sub exe ".mysqli_error($rodb);
             $message=$message."\n"."forum create owner subscribe error: ".mysqli_error($rodb);
-        } 
+        }
     } else {
         $error=" forum sub prep ".mysqli_error($rodb);
     }
 }
-    
+
 if ($error) {
     error_log($error);
     $res['message']=$message;

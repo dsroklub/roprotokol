@@ -2,9 +2,18 @@
   <div>
     <form>
       <input ng-hide="isadmin" placeholder="admin kodeord" autocomplete="off" class="adminpw" type="password" ng-model="config.headers.password">
-      Scullerskilt: <select ng-change="set_sculler_open(sculler_open)" ng-model="sculler_open" ng-options="op.id as op.n for op in [{n:'Lukket',id:0},{n:'Åbent',id:1}]"></select>
+      Scullerskilt:
+      <select ng-change="set_sculler_open(sculler_open)" ng-model="sculler_open" ng-options="op.id as op.n for op in [{n:'Lukket',id:0},{n:'Åbent',id:1}]">
+      </select>
+
+      Reservations conf:
+
+      <select ng-change="set_reservation_configuration(config.reservation_configuration)" ng-model="config.reservation_configuration" ng-options="op.id as op.n for op in [{'n':'Sommer',id:'sommer'},{n:'Vinter',id:'vinter'},{n:'Ydersæson',id:'ydersæson'},]">
+      </select>
+
     </form>
   </div>
+
   <button class="adminbut" ng-class="{selected: do=='boat'}" ng-click="do='boat'">Både</button>
   <button class="adminbut" ng-class="{selected: do=='user'}" ng-click="do='user'">Roere</button>
   <button class="adminbut" ng-class="{selected: do=='trip'}" ng-click="do='trip'">Ture</button>
@@ -429,7 +438,7 @@
 <div ng-show="do=='reservations'">
   <form name="resv">
     <table class="genericlist" >
-      <caption>Resevationer</caption>
+      <caption>Reservationer</caption>
       <thead>
         <tr>
           <th>Båd</th>
@@ -445,7 +454,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations">
+        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations |filter: reservation_current()" >
           <td>{{iboats[rv.boat_id].name}}</td>
           <td>{{weekdays[rv.dayofweek].day}}</td>
           <td>{{rv.start_time}}</td>
@@ -459,10 +468,13 @@
           <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>
           <td>{{rv.purpose}}</td>
           <!--td>{{rv.description}}</td-->
-          <td><button ng-click="cancel_reservation($index)" class="reject">slet reservation</button></td>
+          <td><button ng-click="cancel_reservation(rv)" class="reject">slet reservation</button></td>
         </tr>
         <tr>
-          <td><select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required></select></td>
+          <td>
+            <select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required>
+            </select>
+          </td>
           <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
                       uib-tooltip="hvis det er en reservation på en fast ugedag. Ellers udfyld start- og slutdato"
                       ></select></td>

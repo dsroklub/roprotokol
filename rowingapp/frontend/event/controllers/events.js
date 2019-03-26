@@ -10,10 +10,15 @@ angular.module('eventApp').controller(
 function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
   $anchorScroll.yOffset = 50;
   $scope.teams=[];
+  $scope.boatObj=null;
   $scope.todpattern="[0-2]\\d:[0-5]\\d";
   $scope.signup={act:[]};
   $scope.messages=[];
+  $scope.forummembers=[];
   $scope.message={};
+  $scope.boatsById={};
+  $scope.boatsByName={};
+  $scope.forumBoat=null;
   $scope.selectedforum={};
   $scope.forumfile={"filefolder":"/"};	 
   $scope.public_path=$location.protocol()+"://"+$location.host()+"/public/user.php";
@@ -25,9 +30,10 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.memberarg=$routeParams.memberid;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
+  $scope.work={'workdate':$scope.min_time};
   $scope.current_forum={"forum":null};
   $scope.current_boat_type={'id':null,'name':null};
-
+  $scope.forumhours=null;
   $scope.dateOptions = {
     showWeeks: false,
     minDate: $scope.min_time
@@ -49,17 +55,22 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     $scope.neweventmember={};
   }
   
-  $scope.init();
   $scope.dbready=false;
+  $scope.init();
   $scope.dbgrace=true;
   $timeout(function() { $scope.dbgrace = false;}, 2000);
   
   $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-  DatabaseService.init({"file":true,"message":true,"event":true,"member":true,"user":true}).then(function () {
+  DatabaseService.init({"fora":true,"file":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
+    function (ok) {
+    $log.debug("evt db init done");
     $scope.boatcategories=
       [{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
     $scope.fora=DatabaseService.getDB('event/fora');
+    $scope.boatsById=DatabaseService.getDB('boatsById');
+    $scope.boatsByName=DatabaseService.getDB('boatsByName');
+    $scope.boats=DatabaseService.getDB('boats');
     $scope.events=DatabaseService.getDB('event/events_participants');
     $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
     $scope.userfora=DatabaseService.getDB('event/userfora');
@@ -90,6 +101,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     });
     $scope.member_path=$location.protocol()+"://"+ $location.host()+"/backend/event/";
     $scope.site_path=$location.protocol()+"://"+ $location.host();
+    $log.debug("DB READY");
     $scope.dbready=true;
 
     if ($scope.eventarg) {
@@ -115,7 +127,10 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
     // $log.debug("events set user " + $scope.current_user);
     LoginService.set_user($scope.current_user);
-  });
+    },
+    function(err) {$log.debug("db init err "+err)},
+    function(pg) {$log.debug("db init progress  "+pg)}
+  );
   
   $scope.subscribe = function() {
     var sr=DatabaseService.createSubmit("forum_subscribe",$scope.subscription);
@@ -129,7 +144,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });       
+    },function(err) {console.log("forum subscribe err"+err)});
   }
 
   $scope.accept_forum_supplicant = function() {
@@ -140,7 +155,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });       
+    },function(err) {console.log("forum accept err"+err)});       
   }
   
   $scope.set_role = function(forum,role) {
@@ -165,7 +180,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    },function(err) {console.log("forum unsub err"+err)});
   }
 
   $scope.forum_add_member = function(arg) {
@@ -185,7 +200,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    }
+    },function(err) {
+      console.log("forum owner subt err "+err);}
                    );
   }
 
@@ -224,7 +240,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    }
+    }, function(err) {console.log("event owner sub err: "+err);}
                    );
   }
   // EVENT CREATION
@@ -242,7 +258,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert("Fejl: "+status.message);
       }
-    });
+    },function(err) {console.log("event create err: "+err)});
   }
 
   $scope.set_event_status = function(event) {
@@ -255,7 +271,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           alert(status.error);
         }
       }
-    });
+    },function(err) {console.log("set event status err: "+err)});
   }
 
   $scope.set_event_openness = function(event) {
@@ -268,7 +284,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           alert("fejl "+status.error);
         }
       }
-    });
+    },function(err) {console.log("evt openness err: "+err)});
   }
 
 
@@ -283,7 +299,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });       
+    },function(err) {console.log("evt accept p err: "+err)});       
   }
 
   $scope.include_member = function(eventmember) {
@@ -296,7 +312,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    })
+    }, function(err) {console.log("evt member err: "+err)})
   }
 
   $scope.eventmessage = function() {
@@ -348,7 +364,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    })
+    },function(err) {console.log("evt join err: "+err)})
   }
 
   $scope.event_remove_participant = function(em) {
@@ -361,7 +377,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });       
+    },function(err) {console.log("evt rm p err: "+err)});       
   }
 
 
@@ -389,7 +405,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    })
+    }, function(err) {console.log("evt leave err: "+err)})
   }
   
   $scope.messagesend = function() {
@@ -411,7 +427,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
         alert(status.warning);
       }
-    });
+    },function(err) {console.log("forum msg err: "+err)});
   }
 
     $scope.privatemessagesend = function() {
@@ -426,7 +442,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       if (status.status == 'warning') {
         alert(status.warning);
       }
-    });
+    }, function(err) {console.log("priv msg err: "+err)});
   }
 
   $scope.emailflush = function() {
@@ -447,7 +463,28 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    }, function(err) {console.log("forum create submit error: "+err)});
+  }               
+
+  $scope.winterforumcreate = function() {
+    var sr=DatabaseService.createSubmit("create_winter_team",$scope.newboatforum);
+    sr.promise.then(function(status) {
+      if (status.status =='ok') {
+        $log.debug("winter boatforum created");
+        var boatname=$scope.newboatforum.boat.name;
+        $scope.newboatforum.owner=$scope.current_user.member_id;
+        $scope.newboatforum.forum=boatname+" vintervedligehold";
+        $scope.newboatforum.description=boatname+" vintervedligehold";
+        $scope.newboatforum.is_public=true;
+        $scope.newboatforum.boat.forum=$scope.newboatforum.forum;
+        $scope.newboatforum.boat=boatname;
+        $scope.newboatforum.is_open=true;
+        $scope.fora.push($scope.newboatforum);
+        $scope.newboatforum={"is_public":true,"is_open":true,"owner_subscribe":true};
+      } else {
+        alert(status.error);
+      }
+    },function(err) {console.log("vinter team submit error"+err)});
   }               
 
   $scope.forumdelete = function(forum) {
@@ -461,7 +498,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    },function(err) {console.log("forum del error: "+err)});
   }
   
   $scope.uploadFile = function(file) {
@@ -505,7 +542,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       }, function (evt) {
         // Math.min is to fix IE which reports 200% sometimes
         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-      });
+      },function(err) {console.log("file up error: "+err)});
   }
   
   $scope.file_selected = function() {
@@ -525,16 +562,30 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.burl=$location.$$absUrl.split("message/")[0]; // FIXME
  // $log.debug("burl="+$scope.burl);
 
-  $scope.update_forummembervalue = function(member,val) {
-    var d={"forummember":member,"value":val};
-    var sr=DatabaseService.createSubmit("forummember_value_update",d);
+  $scope.add_forummemberwork = function(member) {
+    var work=member.work;
+    var d={"forummember":member,"forum":$scope.current_forum,"work":work};
+    var sr=DatabaseService.createSubmit("forummember_addwork",d);
     sr.promise.then(function(status) {
       if (status.status =='ok') {
-        $log.debug("member value updated");        
+        $log.debug("member value updated");
+        if (!member.hours) {
+          member.hours=0.0;
+        }
+        member.hours = 1.0*member.hours+1.*work.hours;
+        if (!work.workdate) {
+          var wd=new Date();
+          work.workdate=wd.toISOString();
+        }
+        member.log.push({'work':work.done, 'hours':work.hours,'workdate':work.workdate});
+        $scope.updateForumHours($scope.current_forum);
+        work.workdate=null;
+        work.done=null;
+        work.hours=null;
       } else {
         alert(status.error);
       }
-    }
+    }, function(err) {console.log("forum mem add work err: "+err)}
                    );
   }
     
@@ -548,7 +599,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    }, function(err) {console.log("member setting upd error: "+err)});
   }
   
   $scope.getRowerByName = function (val) {
@@ -556,10 +607,21 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     return DatabaseService.getRowersByNameOrId(val);
   }
 
+  $scope.updateForumHours = function (forum) {
+    $scope.forumhours=0.0;
+    for (var mi=0; mi< $scope.forummembers.length; mi++) {
+      $scope.forumhours += 1.0*$scope.forummembers[mi].hours;
+    }
+    if ($scope.boatObj && $scope.boatObj.max_hours) {
+      $scope.pctHours=(100*$scope.forumhours/$scope.boatObj.max_hours).toFixed(1);
+    }
+  }
+
   $scope.setCurrentForum = function (forum) {
     $scope.current_forum=forum;
-
-    //       if (!$scope.forumfile.forum) {
+    if (forum.boat) {
+      $scope.boatObj=$scope.boatsByName[forum.boat];
+    }
     for (var f=0; f<$scope.fora.length; f++) {
       if ($scope.fora[f].forum==forum.forum) {
         $scope.forumfile.forum=$scope.fora[f];
@@ -567,10 +629,12 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       }
     }
     //       }
-    DatabaseService.simpleGet('event/forum_members',{"forum":forum.forum}).then(function (d) {
-      $scope.forummembers=d.data;
-    }
-                                                                               );
+    DatabaseService.simpleGet('event/forum_members',{"forum":forum.forum}).then(
+      function (d) {
+        $scope.forummembers=d.data;
+        $scope.updateForumHours(forum);
+      },function(err) {console.log("forum member error: "+err)}
+    );
   }
   
   $scope.setCurrentEvent = function (ev) {
@@ -598,7 +662,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    });
+    },function(err) {console.log("msg unlink error: "+err)});
   }
 
   $scope.addInvitee = function () {
@@ -615,7 +679,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
 	alert(status.error);
       }
-    });
+    },function(err) {console.log("toggle forum vis"+err)});
   }
 
   $scope.toggle_forummember_role = function (forummember) {
@@ -631,7 +695,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         forummember.role=forummember.old_role;
 	alert(status.error);
       }
-    });
+    }, function(err) {console.log("set forum member role error: "+err)});
   }
 
   $scope.filematch = function (filefilter) {
@@ -656,6 +720,13 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 	return true
       }
       return (forum.forum.match( new RegExp(forumfilter, 'i')));
+    }
+  };
+
+  $scope.forum_show_member = function () {
+      return function(m) {
+	  console.log("fshow " + m.member_id)
+      return (m.member_id != "baadhal");
     }
   };
 
@@ -800,10 +871,9 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         var mf=messagefilter.toLowerCase();
       }
       return (
-        (
-          !$scope.current_forum.forum || message.source == $scope.current_forum.forum
-        ) &&(
-          !messagefilter ||
+          (!$scope.current_forum.forum || message.source == $scope.current_forum.forum ) &&
+          (!$scope.message||!$scope.message.forum || message.source == $scope.message.forum.forum ) &&
+	      (!messagefilter ||
 	    message.subject.toLowerCase().indexOf(mf)>-1 ||
 	    (message.sender && message.sender.toLowerCase().indexOf(mf)>-1) ||
 	    message.body.toLowerCase().indexOf(mf)>-1

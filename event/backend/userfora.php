@@ -1,10 +1,7 @@
 <?php
 include("../../rowing/backend/inc/common.php");
-if (isset($_SERVER['PHP_AUTH_USER'])) {
-    $cuser=$_SERVER['PHP_AUTH_USER'];
-}
 
-$s="SELECT Member.MemberId as member_id, forum.name as forum, owner.MemberId as owner, forum.description, forum_subscription.role
+$s="SELECT Member.MemberId as member_id, forum.name as forum, forum.boat, owner.MemberId as owner, forum.description, forum_subscription.role
     FROM Member, forum_subscription, forum LEFT JOIN Member owner ON owner.id=forum.owner
     WHERE forum.name=forum_subscription.forum AND
       forum_subscription.member=Member.id AND

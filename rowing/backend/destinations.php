@@ -23,4 +23,3 @@ if ($stmt = $rodb->prepare($s)) {
      echo json_encode($d);
 }
 $rodb->close();
-?> 

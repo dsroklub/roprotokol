@@ -3,7 +3,6 @@ header('Content-Type: application/json; charset=utf-8');
 ini_set('default_charset', 'utf-8');
 ini_set('display_errors', 'Off');
 error_reporting(E_ALL);
-
 date_default_timezone_set("Europe/Copenhagen");
 
 define( 'ROOT_DIR', dirname(__FILE__) );
@@ -65,7 +64,7 @@ function dbfetch($db,$table, $columns=['*'], $orderby=null) {
     echo '[';
     $first=1;
     while ($row = $result->fetch_assoc()) {
-        if ($first) $first=0; else echo ',';	  
+        if ($first) $first=0; else echo ',';
         echo json_encode($row,	JSON_PRETTY_PRINT);
     }
     echo ']';
@@ -107,5 +106,6 @@ function eventLog($entry) {
         $stmt->execute();
     } else {
         error_log($rodb->error);
-    }    
+    }
 }
+$res=array ("status" => "ok");

@@ -107,4 +107,3 @@ angular.module('eventApp', [
   }])
 //  .config(['http', function(httpConfig) {  httpConfig.headers.common['Content-Type'] = 'application/json; charset=utf-8'; }])
 ;
-

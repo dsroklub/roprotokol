@@ -69,9 +69,9 @@
 
 <table>
   <thead>
-    <caption>{{current_forum.forum}} medlemmer</caption>
+    <caption>{{current_forum.forum}} medlemmer <div ng-show="forumhours">{{forumhours}} / {{boatObj.max_hours}} timer {{pctHours}} %</div></caption>
   </thead>
-  <tr ng-repeat="forummember in forummembers"  class="forummember" ng-class-odd="'odd'" ng-class-even="'even'">
+  <tr ng-repeat="forummember in forummembers | filter:forum_show_member()"  class="forummember" ng-class-odd="'odd'" ng-class-even="'even'">
     <td>
       {{forummember.name}}
     </td>
@@ -84,18 +84,30 @@
       <i ng-hide="forummember.member_id==current_user.member_id"  ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus">
       </i> 
     </td>
-    <td>{{forummember.value}}</td>
-    <td ng-show="current_forum.owner==current_user.member_id">
-      <input type="number" size="4" value="{{forummember.value}}" ng-model="forummemberval"> </input>
-      <button ng-click="update_forummembervalue(forummember,forummemberval)">update</button>
+    <td> <!-- ng-show="current_forum.owner==current_user.member_id" -->
+      <div ng-show="forummember.hours"> {{forummember.hours| number:1}} <span ng-show="forummember.work_todo">/{{forummember.work_todo}}</span> timer </div>
+    </td>
+    <td ng-show="current_forum.owner==current_user.member_id || current_user.member_id==forummember.member_id">
+      <input  class="numin" type="text" onlynumber size="3" value="1"  min="0" ng-model="forummember.work.hours" required > </input>
+      <input type="date" uib-tooltip="safari: YYYY-MM-dd" placeholder="dag"    ng-model="forummember.work.workdate"> </input>
+      <input type="text" placeholder="udført"  size="10"  ng-model="forummember.work.done"> </input>
+      <button ng-click="add_forummemberwork(forummember,work)" uib-tooltip="registrer timer"><i class="fa fa-thumbs-up"></i></button>
+    </td>
+    <td ng-if="forummember.log[0]">
+      <table >
+        <thead>
+          <tr>
+            <th>dag</th>
+            <th>tid</th>
+            <th>udført</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr ng-repeat="wl in forummember.log">
+            <td>{{wl.workdate| date:'d/M yyyy'}}</td><td class="rnum">{{wl.hours}}</td><td>{{wl.work}}</td>
+          </tr>
+        </tbody>
+      </table>
     </td>
   </tr>
 </table>
-
-
-
-<!--pre>
-  upe {{upform.$error|json}}
-  foruma {{fora|json}}
-  userfora {{userfora|json}}
-</pre-->

@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS Boat;
 CREATE TABLE Boat (
   id int(11) NOT NULL AUTO_INCREMENT,
-  Name varchar(100),
+  Name varchar(100)  UNIQUE,
   BoatType int(11),
   rights_subtype CHAR(20),
   brand varchar(30),
@@ -121,7 +121,7 @@ CREATE TABLE Destination (
   Updated datetime,
   ExpectedDurationNormal float,
   ExpectedDurationInstruction float,
-  FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL, 
+  FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL,
   PRIMARY KEY (`Name`,Location)
 );
 
@@ -212,7 +212,7 @@ CREATE TABLE MemberRights (
   Acquired datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   argument varchar(100) NOT NULL DEFAULT '',
   FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL,
-  FOREIGN KEY (member_id) REFERENCES Member(id) ON DELETE CASCADE, 
+  FOREIGN KEY (member_id) REFERENCES Member(id) ON DELETE CASCADE,
   PRIMARY KEY (member_id,MemberRight,Acquired,argument)
 );
 
@@ -232,8 +232,9 @@ CREATE TABLE reservation (
   Created datetime,
   Updated datetime,
   created_by int,
-  FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE NO ACTION, 
-  PRIMARY KEY (boat,start_time,start_date,dayofweek)
+  configuration VARCHAR(20) NOT NULL DEFAULT "sommer",
+  FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE NO ACTION,
+  PRIMARY KEY (boat,start_time,start_date,dayofweek,configuration)
 );
 
 DROP TABLE IF EXISTS Trip;
@@ -267,7 +268,7 @@ CREATE TABLE TripMember (
   CreatedDate date,
   EditDate date,
   FOREIGN KEY (member_id) REFERENCES Member(id) ON DELETE RESTRICT,
-  FOREIGN KEY (TripID) REFERENCES Trip(id) ON DELETE CASCADE, 
+  FOREIGN KEY (TripID) REFERENCES Trip(id) ON DELETE CASCADE,
   PRIMARY KEY (TripID,Seat)
 );
 
@@ -332,14 +333,14 @@ CREATE TABLE event_log (
 
 DROP TABLE IF EXISTS tblMembersToRoprotokol;
 CREATE TABLE tblMembersToRoprotokol (
-  MemberID           varchar(10), 
-  LastName           Text (50), 
-  FirstName          Text (50), 
-  E_mail             Text (100), 
-  MemberType         Integer, 
-  JoinDate           DateTime, 
-  RemoveDate         DateTime, 
-  OnAddressList      Boolean NOT NULL, 
+  MemberID           varchar(10),
+  LastName           Text (50),
+  FirstName          Text (50),
+  E_mail             Text (100),
+  MemberType         Integer,
+  JoinDate           DateTime,
+  RemoveDate         DateTime,
+  OnAddressList      Boolean NOT NULL,
   Danish             Boolean NOT NULL
 );
 
@@ -442,6 +443,17 @@ CREATE TABLE volunteerwork (
   worktype varchar(100)
 );
 
+DROP TABLE IF EXISTS worklog;
+CREATE TABLE worklog (
+  member_id        int REFERENCES Member(id) ON DELETE SET NULL,
+  created          datetime NOT NULL default NOW(),
+  workdate         datetime NOT NULL,
+  work             varchar(1000),
+  hours            NUMERIC(6,2) NOT NULL,
+  forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
+  created_by       int REFERENCES Member(id) ON DELETE SET NULL
+);
+
 DROP TABLE IF EXISTS Configuration;
 CREATE TABLE Configuration (
   id varchar(50) NOT NULL PRIMARY KEY,
@@ -453,6 +465,7 @@ INSERT INTO Configuration (id, value) VALUES ('db_version', '1');
 DROP TABLE IF EXISTS status;
 CREATE TABLE status (
   sculler_open INTEGER NOT NULL DEFAULT 0
+  reservation_configuration VARCHAR(20) NOT NULL DEFAULT "sommer";
 );
 INSERT INTO status (sculler_open) VALUES (0);
 
@@ -473,7 +486,7 @@ CREATE INDEX membername ON Member(FirstName,LastName);
 
 -- Styrmandinstruktion
 CREATE TABLE instruction_team (
-  name            VARCHAR(30) PRIMARY KEY, 
+  name            VARCHAR(30) PRIMARY KEY,
   description      VARCHAR(2000),
   instructor      INTEGER,
   FOREIGN KEY (instructor) REFERENCES Member(id)
@@ -501,7 +514,7 @@ CREATE TABLE team_requests (
   preferred_intensity   varchar(300),
   comment               varchar(5000),
   phone                 varchar(40),
-  email                 varchar(500),    
+  email                 varchar(500),
   FOREIGN KEY (member_id) REFERENCES Member(id)
 
 );
@@ -541,10 +554,10 @@ CREATE TABLE authentication (
 CREATE TABLE cox_log (
   timestamp             DATETIME,
   member_id           VARCHAR(10),
-  action              VARCHAR(255),                      
+  action              VARCHAR(255),
  entry               VARCHAR(20000) NOT NULL
  );
-  
+
 
 --INSERT INTO authentication(6270,"hest","coxaspirant");
 
@@ -581,7 +594,7 @@ CREATE TABLE event (
   category               VARCHAR(255),
   preferred_intensity    VARCHAR(300),
   comment                VARCHAR(5000),
-  FOREIGN KEY (owner) REFERENCES Member(id), 
+  FOREIGN KEY (owner) REFERENCES Member(id),
   FOREIGN KEY (trip_type) REFERENCES TripType(id),
   PRIMARY KEY(id)
 );
@@ -591,7 +604,7 @@ CREATE TABLE event_role (
   description VARCHAR(5000),
   can_post   BOOLEAN,
   is_leader  BOOLEAN,
-  is_cox     BOOLEAN  
+  is_cox     BOOLEAN
 );
 
 INSERT INTO event_role (name, description,can_post,is_leader,is_cox) VALUE ('member','deltager',1,0,0);
@@ -630,9 +643,13 @@ CREATE TABLE event_invitees (
 CREATE TABLE forum (
   name   VARCHAR(255) PRIMARY KEY NOT NULL,
   description VARCHAR(255),
+  email_local     VARCHAR(255) UNIQUE,
   owner     INTEGER,
   is_open      BOOLEAN DEFAULT TRUE,
   is_public     BOOLEAN DEFAULT TRUE,
+  boat          VARCHAR(30) REFERENCES Boat(Name) ON DELETE SET NULL,
+  created_by int REFERENCES Member(id),
+  forumtype       VARCHAR(50) DEFAULT "generic",  // generic, vedligehold, tur
   FOREIGN KEY (owner) REFERENCES Member(id) NOT NULL
 );
 
@@ -645,7 +662,7 @@ CREATE TABLE forum_subscription (
   forum      VARCHAR(255),
   role       VARCHAR(255) NOT NULL, -- waiting, cox, any, leader, admin
   comment    VARCHAR(4096),
-  value      FLOAT,
+  work      FLOAT,
   FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,forum)
@@ -755,8 +772,8 @@ CREATE TABLE weekday (
   no   INTEGER,
   language CHAR(2)
   );
-  
-INSERT INTO weekday (name,no,language) VALUES 
+
+INSERT INTO weekday (name,no,language) VALUES
   ("Mandag","1","da"),
   ("Tirsdag","2","da"),
   ("Onsdag","3","da"),
@@ -773,7 +790,7 @@ CREATE TABLE season (
 );
 
 DELETE FROM season;
-INSERT INTO season (season,summer_start,summer_end) VALUES 
+INSERT INTO season (season,summer_start,summer_end) VALUES
  (2006,"2006-03-26","2006-10-29"),
  (2007,"2007-03-25","2007-10-28"),
  (2008,"2008-03-30","2008-10-26"),

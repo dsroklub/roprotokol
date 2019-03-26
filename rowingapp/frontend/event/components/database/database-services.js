@@ -1,20 +1,19 @@
 'use strict';
 
-function dbservice($http, $q, $log) {
+function dbservice($http, $q, $log, $timeout) {
   var valid={};
-  var db={};
+  var db={'boats':[],'boatsById':{},'boatsByName':{}};
   var tx=null;
   var debug=3;
     
   var cachedepend;
   var datastatus={};
-
-  
   function toURL(service){
       return '/backend/'+service;
   }
-  
+
   this.onDBerror = function (err) {
+    $log.debug(" db service err: "+err);
     alert(err);
   };
 
@@ -26,12 +25,16 @@ function dbservice($http, $q, $log) {
     if(!valid[dataid] || !db[dataid]) {
       var dq=$q.defer();
       promises.push(dq.promise);
-      //      $http.get(toURL(dataid+'.php'),{headers:{"X-Force-Content-Type":"application/json; charset=UTF-8"}}).then(function onSuccess (response) {
       $http.get(toURL(dataid+'.php'),{}).then(function onSuccess (response) {
         db[dataid] = response.data;
 	valid[dataid]=true;
+        $log.debug(" resolve "+dataid);
         dq.resolve(dataid);
-      });
+      },
+       function  (e) {
+         $log.debug("getData Fail "+e);
+       }
+                                             )
     }
   }
   
@@ -51,8 +54,10 @@ function dbservice($http, $q, $log) {
     this.getData('event/memberrighttypes',promises);
     this.getData('event/forum_files_list',promises);
     this.getData('event/event_category',promises);
+    this.getData('event/vinter_persons',promises); // FIXME: We cannot do caching for this one. Must refresh browser. Or use time limit.
     this.getData('event/messages',promises);
     this.getData('event/member_setting',promises);
+    this.getData('event/worklog',promises);
     this.getData('event/boat_category',promises);
     this.getData('event/current_user',promises);
     this.getData('event/fora',promises);
@@ -70,10 +75,47 @@ function dbservice($http, $q, $log) {
           this.push(rower);
         }, db['event/rowers']);
 	valid['event/rowers']=true;
+        $log.debug(" resolve event/rowers");
         rq.resolve(true);
-      });
+      },this.onDBerror);
+    }
+    $log.debug("DB fetch rowers");
+
+    if(!valid['event/rowers']) {
+      var eq=$q.defer();
+      promises.push(eq.promise);
+      $http.get(toURL('event/rowers.php')).then(function(response) {
+        db['event/rowers'] = [];
+        angular.forEach(response.data, function(rower, index) {
+          rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
+          this.push(rower);
+        }, db['event/rowers']);
+	valid['event/rowers']=true;
+        $log.debug(" resolve events/rowers");
+        eq.resolve(true);
+      },this.onDBerror);
     }
 
+    $log.debug("DB boatById");
+    if(!valid['boatsById']) {
+      var bq=$q.defer();
+      promises.push(bq.promise);
+      $http.get(toURL('event/boats.php')).then(function(response) {
+        db['boatsByID'] = {};
+        db['boatsByName'] = {};
+        db['boats'] = [];
+        for (var di=0; di<response.data.length;di++) {
+          db['boatsById'][response.data[di].id]=response.data[di];
+          db['boatsByName'][response.data[di].name]=response.data[di];
+          db['boats'].push(response.data[di]);
+        }
+	valid['boatsById']=true;
+        valid['boatsByname']=true;
+        $log.debug(" resolve boatsById");
+        bq.resolve(true);
+      },this.onDBerror);
+    }    
+    $log.debug("DB Q #p="+promises.length);
     var qll=$q.all(promises);
     tx=qll;
     return qll;
@@ -91,6 +133,7 @@ function dbservice($http, $q, $log) {
     'gitrevision':null,
     'member':null,
     'message':null,
+    'boat':null,
     'event':null,
     'fora':null,
     'destination':null,
@@ -102,6 +145,8 @@ function dbservice($http, $q, $log) {
       'member':['event/rowers','event/events_participants'],
       'event':['event/events','event/event_category','event/userfora','event/events_participants'],
       'message':['event/messages'],
+      'boat':['boatsByID','boatsByName'],
+      'work':['event/worklog'],
       'fora':['event/messages','event/userfora','event/fora'],
       'file':['event/forum_files_list']
     };
@@ -130,7 +175,7 @@ function dbservice($http, $q, $log) {
       }
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-          $log.debug("  doinvalidate "+tp);
+          //$log.debug("  doinvalidate "+tp);
 	  dbservice.invalidate_dependencies(tp);
 	  doreload=true;
 	  datastatus[tp]=ds[tp];
@@ -144,6 +189,8 @@ function dbservice($http, $q, $log) {
       } else {
 	sq.resolve("nothing to do");
       }
+    }, function (e) {
+      $log.debug(e);
     });
     return sq.promise;
   }
@@ -175,7 +222,7 @@ function dbservice($http, $q, $log) {
     if (arg) {
       a="?"+arg;
     }
-    $http.get(toURL(dataid+'.php'+a)).then(onSuccess);
+    $http.get(toURL(dataid+'.php'+a)).then(onSuccess,this.onDBerror);
   }
   
   this.getRower = function(val) {
@@ -204,6 +251,7 @@ function dbservice($http, $q, $log) {
     $http.post('/backend/'+op+".php", data,config).then(function(r) {
       qup.resolve(r.data)
     },function(r) {
+      $log.debug("db err for "+op);
       $log.error(r.status);
       qup.resolve(false);
     });
@@ -211,6 +259,9 @@ function dbservice($http, $q, $log) {
     datastatus['event']=null;
     datastatus['boat']=null;
     datastatus['member']=null;
+    datastatus['fora']=null;
+    datastatus['file']=null;
+    datastatus['destination']=null;
     return qup.promise;
   }
   
@@ -226,7 +277,7 @@ function dbservice($http, $q, $log) {
          }         
        }
        return res;
-     }                                    
+     },this.onDBerror                                    
                    );
     return at;
   }
@@ -272,4 +323,4 @@ function dbservice($http, $q, $log) {
   }
 }
 
-angular.module('eventApp.database.database-services', []).service('DatabaseService', ['$http','$q','$log',dbservice]);
+angular.module('eventApp.database.database-services', []).service('DatabaseService', ['$http','$q','$log','$timeout',dbservice]);

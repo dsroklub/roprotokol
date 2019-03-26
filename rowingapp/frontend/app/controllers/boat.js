@@ -22,12 +22,20 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     return false;
   };
 
+  $scope.reservation_current = function() {
+    return function(reservation) {
+      return (reservation.dayofweek<1 || reservation.configuration==$scope.status.reservation_configuration);
+    }
+  };
+
   $scope.newdamage={};
+  $scope.status={};
   $scope.boat_type=null;
   DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
     // Load Category Overview
     var reservations=DatabaseService.getDB('get_reservations');
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
+    $scope.status.reservation_configuration=DatabaseService.getDB('status').reservation_configuration;
     $scope.boatcategories = DatabaseService.getBoatTypes();
     $scope.nowtime=new Date();
     var endofday=new Date();
@@ -336,7 +344,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   };
   $scope.matchBoatId = function(boat,onwater) {
     return function(matchboat) {
-      return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip|| matchboat.location=='Andre')) || (onwater && matchboat.trip)) && (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
+      return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip|| matchboat.location=='Andre')) || (onwater && matchboat.trip)) &&
+              (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
     }
   };
 
@@ -445,14 +454,14 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   }
 
   $scope.newStartTime = function () {
-    if ($scope.checkout && $scope.checkout.starttime && ($scope.checkout.exptectedtime < $scope.checkout.starttime   || !$scope.checkout.expectedtime_dirty)) {
+    if ($scope.checkout && $scope.checkout.starttime && ($scope.checkout.exptectedtime < $scope.checkout.starttime|| !$scope.checkout.expectedtime_dirty)) {
       if ($scope.checkout.destination) {
         if ($scope.checkout.destination.duration) {
           var tdiff=$scope.checkout.destination.duration*3600000;
           $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+tdiff);
         } else if ($scope.checkout.destination.distance) {
           var speed=6.0; //km/h
-          $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+  3600*(0.2+ $scope.checkout.destination.distance/speed));
+          $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+ 3600*(0.2+ $scope.checkout.destination.distance/speed));
         } else {
           $scope.checkout.expectedtime=null;
         }

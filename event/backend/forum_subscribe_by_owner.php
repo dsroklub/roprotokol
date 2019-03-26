@@ -48,8 +48,6 @@ if ($stmt = $rodb->prepare(
     $error=" forummember by owner ".mysqli_error($rodb);
 }
 
-
-
 if ($error) {
     error_log($error);
     $res['message']=$message;
@@ -58,4 +56,3 @@ if ($error) {
 }
 invalidate("fora");
 echo json_encode($res);
-?> 

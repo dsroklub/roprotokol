@@ -310,7 +310,9 @@ function dbservice($http, $q, $log) {
             if (!reservationsByBoat[reservations[ri].boat_id]) {
               reservationsByBoat[reservations[ri].boat_id]=[];
             }
-            reservationsByBoat[reservations[ri].boat_id].push(reservations[ri]);
+            if (reservations[ri].configuration.dayofweek<1 || reservations[ri].configuration==status.reservertion_configuration) {
+              reservationsByBoat[reservations[ri].boat_id].push(reservations[ri]);
+            }
           }
           db['reservationsByBoat']=reservationsByBoat;
           sq.resolve("sync done");
