@@ -42,6 +42,7 @@ $to=filter_var($to, FILTER_SANITIZE_EMAIL);
 
 $to=str_replace("_"," ",$to); // FIXME handle this
 
+
 echo "$subject, $from ==> $to";
 // verify from
 // verify forum
@@ -83,9 +84,9 @@ foreach ($sts as $st) {
 $forum=explode("@",$to)[0];
 echo "from $from to forum=$forum\n";
 $stmt = $rodb->prepare(
-    'SELECT Member.id, Member.MemberID as member_id, forum.email as forum_email
+    'SELECT Member.id, Member.MemberID as member_id, forum.email_local as forum_email
      FROM forum,forum_subscription, Member
-     WHERE forum.name=forum_subscription.forum AND Member.id=forum_subscription.member AND Member.Email=? AND forum_subscription.forum=?') or die("DB erR $rodb->error \n");
+     WHERE forum.name=forum_subscription.forum AND Member.id=forum_subscription.member AND Member.Email=? AND forum.email_local=?') or die("DB erR $rodb->error \n");
 
 $stmt->bind_param("ss",$from,$forum);
 $stmt->execute() or dbErr($rodb,"email member check DB error");
@@ -105,4 +106,4 @@ if ($mr=$memberResult->fetch_assoc()) {
 echo "\nDONE\n";
 
 mailparse_msg_free($mime);
-$text = preg_replace('#(^\w.+:\n)?(^>.*(\n|$))+#mi', "", $text);
+//$text = preg_replace('#(^\w.+:\n)?(^>.*(\n|$))+#mi', "", $text);

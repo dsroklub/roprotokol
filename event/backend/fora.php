@@ -1,13 +1,24 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
-$cuser="nouser";
-if (isset($_SERVER['PHP_AUTH_USER'])) {
-    $cuser=$_SERVER['PHP_AUTH_USER'];
-}
 
 
-$s="SELECT forum.name as forum,forum.boat,forum.forumtype,forum.description, owner.MemberId as owner, is_open, is_public, forum_subscription.role,GROUP_CONCAT(DISTINCT forum_file.folder  SEPARATOR '££') as folders
+$s="SELECT is_public,forum_subscription.role,JSON_MERGE(
+   JSON_OBJECT(
+    'forum', forum.name,
+     'boat',forum.boat,
+     'forumtype',forum.forumtype,
+     'description',forum.description, 
+     'owner',owner.MemberId, 
+     'is_open',is_open,
+     'is_public',is_public, 
+     'role',forum_subscription.role
+     ),
+     CONCAT(
+     '{', JSON_QUOTE('folders'),': [',
+        IFNULL(GROUP_CONCAT(DISTINCT CONCAT(JSON_QUOTE(forum_file.folder)) SEPARATOR ','),''),
+   ']}')
+   ) AS json
     FROM Member owner, forum JOIN Member m LEFT JOIN forum_subscription ON (forum.name=forum_subscription.forum AND forum_subscription.member=m.id)
       LEFT JOIN forum_file on forum_file.forum=forum.name
     WHERE owner.id=forum.owner and m.MemberId=?
@@ -17,24 +28,19 @@ HAVING is_public OR role IS NOT NULL;
 
 
 if ($sqldebug) {
-    echo $s;
+    echo "$s<br>\n";
 }
-if ($stmt = $rodb->prepare($s)) {
-    $stmt->bind_param("s", $cuser);
-    $stmt->execute();
-     $result= $stmt->get_result() or die("Error in fora query: " . mysqli_error($rodb));
+
+$stmt = $rodb->prepare($s) or dbErr($rodb,$res,"fora Q $s");
+$stmt->bind_param("s", $cuser)  or dbErr($rodb,$res,"fora B");
+$stmt->execute() or dbErr($rodb,$res,"fora Exe");
+$result= $stmt->get_result() or dbErr($rodb,$res,"Error in fora query: " );
      
-     echo '[';
-     $first=1;
-     while ($row = $result->fetch_assoc()) {
-         if ($first) $first=0; else echo ',';
-         error_log(print_r($row,true));
-         $row['folders']=explode('££',$row['folders']);
-         echo json_encode($row,JSON_PRETTY_PRINT);
-     }
-     echo ']';
-} else {
-    dbErr($rodb,$res);
-    echo json_encode($res,JSON_PRETTY_PRINT);
+echo '[';  
+$first=1;
+while ($row = $result->fetch_assoc()) {
+    if ($first) $first=0; else echo ',';
+    echo $row["json"];
 }
+echo ']';
 $rodb->close();

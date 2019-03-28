@@ -1,20 +1,15 @@
 <?php
 require("inc/utils.php");
 include("../../rowing/backend/inc/common.php");
-include("inc/forummail.php");
-
-$res=array ("status" => "ok");
-
 verify_real_user();
 $data = file_get_contents("php://input");
+error_log("create $data");
 $newforum=json_decode($data);
 $message='';
 error_log("NEW FORUM: ".print_r($newforum,true));
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
-// $cuser="7854"; // FIXME
-
 
 /*,MemberRights AND */
 /*    MemberRights.member_id=Member.id AND */
@@ -22,63 +17,43 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 /*    MemberRights.argument='fora' LIMIT 1 */
 
 
-$forumEmail=sanestring($newforum->forum);
-if ($stmt = $rodb->prepare(
+$forumEmail=saneEmail($newforum->forum);
+$forumName=sanestring($newforum->forum);
+
+$stmt = $rodb->prepare(
     "INSERT INTO forum (name,email_local,description,is_open,is_public,owner)
    SELECT ?,?,?,?,?,Member.id FROM Member WHERE
    Member.MemberId=?"
-)) {
+) or dbErr($rodb,$res,"Forum create b $forumEmail");
 
-    $triptype="NULL";
-    $isopen=empty($newforum->is_open)?0:1;
-    $ispublic=empty($newforum->is_public)?0:1;
-    $stmt->bind_param(
-        'ssiis',
-        $newforum->forum,
-        $forumEmail,
-        $newforum->description,
-        $isopen,
-        $ispublic,
-        $cuser
-    ) ||  die("create forum BIND errro ".mysqli_error($rodb));
+$triptype="NULL";
+$isopen=empty($newforum->is_open)?0:1;
+$ispublic=empty($newforum->is_public)?0:1;
+$stmt->bind_param(
+    'sssiis',
+    $newforum->forum,
+    $forumEmail,
+    $newforum->description,
+    $isopen,
+    $ispublic,
+    $cuser
+) or  dbErr($rodb,$res,"create forum BIND errro ");
 
-    if (!$stmt->execute()) {
-        $error=" forum exe error " . mysqli_error($rodb) . " \nnewforum=".print_r($newforum,true);
-        error_log($error);
-        $message=$message."\n"."create forum insert error: ".mysqli_error($rodb);
-    }
-} else {
-    $error=" forum db error ".mysqli_error($rodb);
-    error_log($error);
-}
+$stmt->execute() || dbErr($rodb,$res," forum exe error newforum=".print_r($newforum,true));
 
 if ($newforum->owner_subscribe) {
-    if ($stmt = $rodb->prepare(
+    $stmt = $rodb->prepare(
         "INSERT INTO forum_subscription(member,forum,role)
          SELECT Member.id ,forum.name, 'owner'
          FROM Member, forum
          WHERE
            forum.name=? AND
-           MemberId=?
-         ")) {
-        $stmt->bind_param(
+           MemberId=?") or dbErr($rodb,$res,"forum sub prep");
+    $stmt->bind_param(
             'ss',
-            $newforum->forum,
-            $cuser) ||  die("create forum owner subscribe BIND errro ".mysqli_error($rodb));
-        if (!$stmt->execute()) {
-            $error=" forum create sub exe ".mysqli_error($rodb);
-            $message=$message."\n"."forum create owner subscribe error: ".mysqli_error($rodb);
-        }
-    } else {
-        $error=" forum sub prep ".mysqli_error($rodb);
-    }
-}
-
-if ($error) {
-    error_log($error);
-    $res['message']=$message;
-    $res['status']='error';
-    $res['error']=$error;
+            $forumName,
+            $cuser) or dbErr($rodb,$res,"create forum owner subscribe BIND ");
+    $stmt->execute() or dbErr($rodb,$res, "forum create owner subscription ");
 }
 invalidate("event");
 invalidate("fora");

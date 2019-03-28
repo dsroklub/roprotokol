@@ -135,7 +135,7 @@ function post_event_message($eventId,$subject,$message) {
             $eventId,
             $subject,
             $message,
-            $cuser) ||  die("create event message BIND errro ".mysqli_error($rodb));
+            $cuser) ||  die("create event message BIND errro ".mysqli_e5Arror($rodb));
         if (!$stmt->execute()) {
             $error=" message event error ".mysqli_error($rodb);
             error_log($error);
@@ -164,7 +164,7 @@ function post_event_message($eventId,$subject,$message) {
     invalidate("message");
 }
 
-function post_forum_message($forum,$subject,$message) {
+function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null) {
     $res=array ("status" => "ok");
     global $rodb;
     global $cuser;
@@ -173,25 +173,30 @@ function post_forum_message($forum,$subject,$message) {
         $from=$cuser;
     }
 
-
-    $stmt = $rodb->prepare("SELECT email_local FROM forum WHERE name=?");
-    $stmt->bind_param('s',$forum) or dbErr($rodb,"Error in msg forum bind: ");
+    if ($forumEmail) {
+        $stmt = $rodb->prepare("SELECT name,email_local FROM forum WHERE email_local=?");
+        $stmt->bind_param('s',$forumEmail) or dbErr($rodb,$res,"Error in msg forum bind: ");
+    } else {
+        $stmt = $rodb->prepare("SELECT email_local FROM forum WHERE name=?");
+        $stmt->bind_param('s',$forum) or dbErr($rodb,$res,"Error in msg forum bind: ");
+    }
     $stmt->execute() or dbErr($rodb,"Error in mesg forum exe query: " );
-    $forumres= $stmt->get_result() or dbErr($rodb,"Error in msg forum");
-    if ($theForum = $result->fetch_assoc()) {
+    $forumres= $stmt->get_result() or dbErr($rodb,$res,"Error in msg forum");
+    if ($theForum = $forumres->fetch_assoc()) {
         $forumEmailLocal=$theForum["email_local"];
+        $forum=$theForum["name"];
         $forumFrom=$forumEmailLocal."@".$config["forumdomain"];
     } else {
-        dbErr($rodb,"forum not found");
+        dbErr($rodb,$res,"forum $forum not found");
     }
     $stmt = $rodb->prepare(
         "SELECT DISTINCT email
      FROM Member,forum_subscription
      WHERE Member.id=forum_subscription.member AND forum_subscription.forum=?");
 
-    $stmt->bind_param('s',$forum) or dbErr($rodb,"Error in message query bind: ");
+    $stmt->bind_param('s',$forum) or dbErr($rodb,$res,"Error in message query bind: ");
     $stmt->execute() or dbErr($rodb,"Error in message exe query: ");
-    $result= $stmt->get_result() or dbErr($rodbm,"Error in message query");
+    $result= $stmt->get_result() or dbErr($rodb,$res,"Error in message query");
 
     $toEmails=array();
     while ($rower = $result->fetch_assoc()) {
@@ -203,12 +208,13 @@ function post_forum_message($forum,$subject,$message) {
     $result->free();
 
     $msgid="error";
+    $message="xx";
     if ($stmt = $rodb->prepare(
         "INSERT INTO forum_message(member_from, forum, created, subject, message)
          SELECT mf.id,?,NOW(),?,?
          FROM Member mf
          WHERE
-           mf.MemberID=?;")) {
+           mf.MemberID=?")) {
         $stmt->bind_param(
             'ssss',
             $forum,
@@ -220,15 +226,15 @@ function post_forum_message($forum,$subject,$message) {
             $msgid=$rodb->query("SELECT LAST_INSERT_ID() AS msgid")->fetch_assoc()["msgid"];
             error_log("LSQ ID=$msgid");
         } else {
-            $error=" message forum error ".mysqli_error($rodb);
+            $error=" message forum error: forum=$forum, s=$subject, f=$from ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."forum message DB error: ".mysqli_error($rodb);
         }
     }
     error_log("ML FROM $from");
-    $userstmt = $rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name FROM Member WHERE MemberID=?") or dbErr($rodb,"get forum user p");
-    $userstmt->bind_param("s",$from) or dbErr($rodb,"get forum user b");
-    $userstmt->execute() or dbErr($rodb,"get from name E");
+    $userstmt = $rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name FROM Member WHERE MemberID=?") or dbErr($rodb,$res,"get forum user p");
+    $userstmt->bind_param("s",$from) or dbErr($rodb,$res,"get forum user b");
+    $userstmt->execute() or dbErr($rodb,$res,"get from name E");
     $fromUser=$userstmt->get_result()->fetch_assoc()["name"];
     $res=post_message(
         $toEmails,
