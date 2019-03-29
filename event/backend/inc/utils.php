@@ -8,7 +8,7 @@ function sanestring($s,$slash=false,$allowedchars=".:;@abcdefghijklmnopqrstuvwxy
         $c=$s[$i];
         if (strpos($allowedchars,$c)>=0){
             $r.=$c;
-        }        
+        }
     }
     return $r;
 }
