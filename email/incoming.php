@@ -25,6 +25,7 @@ if (empty($headers["subject"]) || empty($headers["from"])) {
 }
 
 $subject=sanestring($headers["subject"]);
+$subject=mb_decode_mimeheader($subject);
 
 $froms=mailparse_rfc822_parse_addresses($headers["from"]);
 $tos=mailparse_rfc822_parse_addresses($headers["to"]);
@@ -47,7 +48,7 @@ echo "$subject, $from ==> $to";
 // verify from
 // verify forum
 
-file_put_contents ("/tmp/ie.log",$email);
+//file_put_contents ("/tmp/ie.log",$email);
 
 $sts=mailparse_msg_get_structure($mime);
 foreach ($sts as $st) {

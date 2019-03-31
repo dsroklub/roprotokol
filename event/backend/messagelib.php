@@ -13,6 +13,7 @@ function post_message($toEmails,$subject,$message,$replyTo) {
     $error=null;
     $warning=null;
     $smtp = Mail::factory('sendmail', array ());
+    $subject=mb_encode_mimeheader($subject);
     $mail_headers = array(
         'From'                      => "Roaftaler i Danske Studenters Roklub <aftaler_noreply@danskestudentersroklub.dk>",
         'Content-Transfer-Encoding' => "8bit",
@@ -177,7 +178,7 @@ function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null
         $stmt = $rodb->prepare("SELECT name,email_local FROM forum WHERE email_local=?");
         $stmt->bind_param('s',$forumEmail) or dbErr($rodb,$res,"Error in msg forum bind: ");
     } else {
-        $stmt = $rodb->prepare("SELECT email_local FROM forum WHERE name=?");
+        $stmt = $rodb->prepare("SELECT name,email_local FROM forum WHERE name=?");
         $stmt->bind_param('s',$forum) or dbErr($rodb,$res,"Error in msg forum bind: ");
     }
     $stmt->execute() or dbErr($rodb,"Error in mesg forum exe query: " );
@@ -208,7 +209,6 @@ function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null
     $result->free();
 
     $msgid="error";
-    $message="xx";
     if ($stmt = $rodb->prepare(
         "INSERT INTO forum_message(member_from, forum, created, subject, message)
          SELECT mf.id,?,NOW(),?,?
