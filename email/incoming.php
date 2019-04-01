@@ -1,7 +1,8 @@
 #!/usr/bin/php
 <?php
 date_default_timezone_set("Europe/Copenhagen");
-
+$debug=false;
+$debug=(count($argv)>1 && $argv[1]=="debug");
 require_once 'eutils.php';
 
 $fd = fopen("php://stdin", "r");
@@ -38,39 +39,31 @@ if (count($froms)!=1 || empty($froms[0]["address"])) {
 $from=$froms[0]["address"];
 $to=$tos[0]["address"];
 $from=filter_var($from, FILTER_SANITIZE_EMAIL);
-echo "SFROM $from\n";
 $to=filter_var($to, FILTER_SANITIZE_EMAIL);
 
 $to=str_replace("_"," ",$to); // FIXME handle this
 
 
-echo "$subject, $from ==> $to";
-// verify from
-// verify forum
-
+//echo "$subject, $from ==> $to";
 //file_put_contents ("/tmp/ie.log",$email);
 
 $sts=mailparse_msg_get_structure($mime);
 foreach ($sts as $st) {
     $part=mailparse_msg_get_part($mime,$st);
     $pd=mailparse_msg_get_part_data($part);
-    print_r($pd);
-    echo "\n\nPART $part\n\n";
     $ph=$pd["headers"];
     $body="";
     if ($pd["content-type"]=='text/plain') {
         $body=substr($email, $pd["starting-pos-body"], $pd["ending-pos-body"]-$pd["starting-pos-body"]);
         $body=quoted_printable_decode($body);
-        echo "\n\nBODY:\n$body\n===\n";
         break;
     } else if ($pd["content-type"]=='text/html') {
         $body=strip_tags(str_replace("<br>","\n",quoted_printable_decode(substr($email, $pd["starting-pos-body"], $pd["ending-pos-body"]-$pd["starting-pos-body"]))),"");
         $body=html_entity_decode($body);
-        echo "\n\nHTMLBODY:\n$body\n===\n";
     }
 
     $charset=strtoupper($pd["charset"]);
-    echo "charset=$charset\n";
+    //echo "charset=$charset\n";
     if ($charset !="UTF-8x" && $charset !="utf-8x" &&  $charset !="ISO-8859-x1" &&  $charset !="us-asciix") {
         $encodings=mb_list_encodings() ;
         if (in_array($charset,$encodings)) {
@@ -79,8 +72,13 @@ foreach ($sts as $st) {
             $body = mb_convert_encoding($body, 'UTF-8', 'UTF-8');
         }
     }
+}
+$body = preg_replace('#(^\w.+:\n)?(^>.*(\n|$))+#mi', "citat fjernet", $body);
 
-    print_r($pd);
+if ($debug) {
+    echo "from $from to $to BODY=$body\n";
+    mailparse_msg_free($mime);
+    exit(0);
 }
 $forum=explode("@",$to)[0];
 echo "from $from to forum=$forum\n";
@@ -107,4 +105,3 @@ if ($mr=$memberResult->fetch_assoc()) {
 echo "\nDONE\n";
 
 mailparse_msg_free($mime);
-//$text = preg_replace('#(^\w.+:\n)?(^>.*(\n|$))+#mi', "", $text);
