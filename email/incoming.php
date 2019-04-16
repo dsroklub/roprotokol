@@ -73,7 +73,7 @@ foreach ($sts as $st) {
         }
     }
 }
-$body = preg_replace('#(^\w.+:\n)?(^>.*(\n|$))+#mi', "citat fjernet", $body);
+$body = preg_replace('#(^\w.+:\n)?(^>.*(\n|$))+#mi', "[citat fjernet]", $body);
 
 if ($debug) {
     echo "from $from to $to BODY=$body\n";
