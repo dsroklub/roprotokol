@@ -69,7 +69,7 @@ if ($stmt = $rodb->prepare(
 
   while ($row = $result->fetch_assoc()) {
       $email=$row['email'];
-      $mail_headers['Subject'] = $row['rower']." er gået i land";
+      $mail_headers['Subject'] = mb_encode_mimeheader($row['rower']." er gået i land");
       $body=$row['rower'] . " er kommet tilbage fra ". $row['destination'];
 
       if (!empty($closedtrip->boat->comment)) {
