@@ -12,11 +12,11 @@
       {{match.model.name}} <i>({{match.model.category}})</i>
     </a>
   </script>
-  
-  <div class="lefts">  
-  <div class="toppane">  
+
+  <div class="lefts">
+  <div class="toppane">
     <h3 class="prompt">Søg efter:</h3>
-    
+
     <ng-form name="rowerFieldForm">
       <input placeholder="roer"
              autocomplete="off"
@@ -29,8 +29,8 @@
              uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
              typeahead-template-url="taTemplate.html"
              class="trip-search-field" />
-      
-      
+
+
       <input placeholder="båd"
              ng-change="boat_type=null"
              autocomplete="off"
@@ -48,14 +48,14 @@
               ng-options="boatcategory.name for boatcategory in boatcategories">
         <option value="">alle typer</option>
       </select>
-      
-      
+
+
       <datetimepicker
              date-format="d-MMM-yyyy"
              close-text="Vælg"
              clear-text="Rens"
              current-text="i dag"
-             placeholder="turdato" 
+             placeholder="turdato"
              show-spinners="false"
              date-options="dateOptions"
              hidden-time="true"
@@ -82,7 +82,7 @@
              <td>{{rr.arg}}</td>
              <td>{{rr.acquired | txttotime | date:'d/M yyyy' }}</td>
           </tr>
-        </tbody> 
+        </tbody>
       </table>
     </div>
     <div class="turoversigt" ng-show="currentrower">
@@ -127,8 +127,8 @@
         <tr ng-repeat="rower in crew">
           <td>{{rower.rowername}}</td>
           <td class="rnum">{{rower.dist|mtokm}}</td>
-        </tr>      
-      </tbody> 
+        </tr>
+      </tbody>
     </table>
 
       <table class="genericlist statbox">
@@ -140,8 +140,8 @@
         <tr ng-repeat="triptype in boat_triptypes">
           <td>{{triptype.triptype}}</td>
           <td class="rnum">{{triptype.numtrips}}</td>
-        </tr>      
-      </tbody> 
+        </tr>
+      </tbody>
       </table>
     </div>
     <div class="turoversigt" ng-if="tripdate">
@@ -161,7 +161,7 @@
       </table>
     </div>
 
-    
+
     <div ng-show="currentrower" class="triptypeview">
       <table class="genericlist">
         <caption>Sæsonoversigt for {{currentrower.name}} fordelt på turtyper</caption>
@@ -177,7 +177,7 @@
           </tr>
         </tbody>
       </table>
-    </div>    
+    </div>
 
     <div ng-show="currentrower" class="triptypeview">
       <table class="genericlist">
@@ -194,12 +194,12 @@
         </tr>
         </tbody>
       </table>
-    </div>    
+    </div>
   </div>
- 
+
 
 </div>
-      
+
   <div class="tripview" ng-show="currenttrip">
     <table class="genericlist"  ng-hide="correction">
       <caption>Tur: {{currenttrip.destination}}</caption>
@@ -216,11 +216,11 @@
         <tr>
           <td><button class="big" ng-show="tripmembers.length>0 && currenttrip.intime" ng-click="start_correct()">meld rettelser</button></td>
         </tr>
-        <tr ng-hide="currenttrip.intime">        
+        <tr ng-hide="currenttrip.intime">
           <td colspan=2 class="error" >på vandet, indskriv turen før du kan rette den.<br> Eller slet den. </td>
         </tr>
     </table>
-    
+
     <div class="correction" ng-show="correction">
       <form name="correctionForm" novalidate noautocomplete>
         <table>
@@ -228,7 +228,7 @@
 	    <img ng-click="correction=null"  width="40px" src="media/popclose.svg" >
 
 	  </caption>
-          <tbody>	  
+          <tbody>
             <tr>
 	      <td>Bådtype</td>
 	      <td>
@@ -248,7 +248,7 @@
 	        </ui-select>
 	      </td>
             </tr>
-	    
+
             <tr ng-repeat="rower in correction.rowers track by $index">
 	      <td>
 	        <label for="correction_rower{{$index}}">{{$first ? 'Styrmand' : 'Roer'}}</label>
@@ -263,11 +263,11 @@
                           uibTypeahead-template-url="taTemplate.html" required >
 		  <span ng-if="isObjectAndHasId(correction.rowers[$index])">
 	          </span>
-	          <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>	  
+	          <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
 	        </ng-form>
 	      </td>
             </tr>
-	    
+
             <tr>
 	      <td>
 	        <label for="correction_destination">Destination</label>
@@ -284,9 +284,9 @@
 	        <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" min="0.5" step="0.5" name="input" transformkm ng-model="correction.distance" required >km
 	      </td>
             </tr>
-	    
+
             <tr>
-	      <td><label for="correction_starttime">Ud</label></td>	  
+	      <td><label for="correction_starttime">Ud</label></td>
 	      <td>
                 <div class="toppopup">
 	          <datetimepicker
@@ -298,13 +298,13 @@
                      date-options="dateOptions"
                      show-meridian="false"
                      ng-model="correction.outtime" required>
-                  </datetimepicker>                                  
+                  </datetimepicker>
                 </div>
 	      </td>
             </tr>
 
             <tr>
-	      <td><label for="correction_endtime">Ind</label></td>              
+	      <td><label for="correction_endtime">Ind</label></td>
 	      <td>
 	        <datetimepicker
                    class="toppopup"
@@ -317,25 +317,25 @@
                    show-meridian="false"
                    ng-model="correction.intime"/
                    required>
-                </datetimepicker>                
+                </datetimepicker>
 	      </td>
             </tr>
-	    
+
             <tr>
 	      <td><label for="correction_triptype">Tur type</label></td>
 	      <td>
 	        <select id="correction_triptype" type="text" ng-model="correction.triptype" ng-options="item as item.name for item in triptypes" required>
 	        </select>
-	      </td>    
+	      </td>
             </tr>
             <tr>
 	      <td><label for="correction_comment">Kommentar</label></td>
 	      <td>
 	        <input placeholder="ny kommentar" autocomplete="off" id="correction.comment" name="comment" type="text"
                        ng-model="correction.comment">
-	      </td>    
+	      </td>
             </tr>
-	    
+
 	    <tr>
 	      <td>
 	        <label for="correction.reason">Begrundelse</label>
@@ -362,13 +362,13 @@
                 <label ng-hide="correction.reason && correction.reporter" class="alert notready">angiv begrundelse og dit navn</label>
                 <label ng-hide="correction.distance" class="alert notready">Distance skal være positiv</label>
 	      </td>
-	    </tr>	    	    
+	    </tr>
           </tbody>
         </table>
       </form>
-    </div>    
+    </div>
   </div>
-  
+
   <div ng-if="currentrower" class="boxes">
     <div>
     <table class="genericlist statbox">
@@ -380,8 +380,8 @@
         <tr ng-if="currentrower" ng-repeat="mate in mates">
           <td>{{mate.mate}}</td>
           <td class="rnum">{{mate.dist|mtokm}}</td>
-        </tr>      
-      </tbody> 
+        </tr>
+      </tbody>
     </table>
     </div>
 
@@ -395,8 +395,8 @@
         <tr ng-if="currentrower" ng-repeat="rowerboat in rowerboats">
           <td>{{rowerboat.boatname}}</td>
           <td class="rnum">{{rowerboat.dist|mtokm}}</td>
-        </tr>      
-      </tbody> 
+        </tr>
+      </tbody>
     </table>
     </div>
 
@@ -410,8 +410,8 @@
         <tr ng-if="currentrower" ng-repeat="rowerdest in rowerdests">
           <td>{{rowerdest.destination}}</td>
           <td class="rnum">{{rowerdest.numtrips}}</td>
-        </tr>      
-      </tbody> 
+        </tr>
+      </tbody>
     </table>
     </div>
 
@@ -425,19 +425,18 @@
         <tr ng-if="currentrower" ng-repeat="rowertriptype in rowertriptypes">
           <td>{{rowertriptype.triptype}}</td>
           <td class="rnum">{{rowertriptype.numtrips}}</td>
-        </tr>      
-      </tbody> 
+        </tr>
+      </tbody>
     </table>
     </div>
   </div>
-  
+
 </div>
 
 <div class="seasonschart" ng-if="currentrower">
   <h2>Sæsonoversigt for {{currentrower.name}}</h2>
   <canvas id="roweractivity" class="chart chart-bar"
           chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
-  </canvas>         
+  </canvas>
   </div>
 </div>
-

@@ -176,6 +176,9 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.create_destination = function(dest) {
       $log.info("new destination");
       var exeres=DatabaseService.updateDB('create_destination',dest,$scope.config,$scope.errorhandler);
+      if (!$scope.DB('destinations')[dest.location]) {
+        $scope.DB('destinations')[dest.location]=[];
+      }
       $scope.DB('destinations')[dest.location].push(dest);
       $scope.newdestination={};
     }
