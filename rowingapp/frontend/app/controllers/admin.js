@@ -86,6 +86,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.DB=DatabaseService.getDB;
     $scope.current_rower=DatabaseService.getCurrentRower();
     $scope.isadmin=false;
+    $scope.isremote=!!$scope.current_rower;
     $scope.sculler_open=DatabaseService.getDB('status').sculler_open;
     $scope.config.reservation_configuration=DatabaseService.getDB('status').reservation_configuration;
     if ($scope.current_rower) {
