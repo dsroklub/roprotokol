@@ -52,4 +52,3 @@ if ($stmt = $rodb->prepare($s)) {
  } 
 
 $rodb->close();
-?> 
