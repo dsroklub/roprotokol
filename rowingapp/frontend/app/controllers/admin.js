@@ -301,7 +301,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
 
     $scope.set_client_name =function(name) {
       if (localStorage) {
-        $scope.clientname=localStorage.setItem("roprotokol.client.name",$scope.clientname);
+        localStorage.setItem("roprotokol.client.name",name);
       }
     }
 
