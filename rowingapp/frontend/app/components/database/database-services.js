@@ -529,6 +529,13 @@ function dbservice($http, $q, $log) {
     return rs[0];
   }
 
+  this.removeRower = function(rower) {
+    var ri = db['rowers'].indexOf(rower);
+    if (ri > -1) {
+      db['rowers'].splice(ri, 1);
+    }
+  }
+
   this.getRowerByMemberId = function(member_id) {
     var rowers=db['rowers'];
     if (!rowers) {
