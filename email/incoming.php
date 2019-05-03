@@ -41,9 +41,6 @@ $to=$tos[0]["address"];
 $from=filter_var($from, FILTER_SANITIZE_EMAIL);
 $to=filter_var($to, FILTER_SANITIZE_EMAIL);
 
-$to=str_replace("_"," ",$to); // FIXME handle this
-
-
 //echo "$subject, $from ==> $to";
 //file_put_contents ("/tmp/ie.log",$email);
 
@@ -63,7 +60,6 @@ foreach ($sts as $st) {
     }
 
     $charset=strtoupper($pd["charset"]);
-    //echo "charset=$charset\n";
     if ($charset !="UTF-8x" && $charset !="utf-8x" &&  $charset !="ISO-8859-x1" &&  $charset !="us-asciix") {
         $encodings=mb_list_encodings() ;
         if (in_array($charset,$encodings)) {
@@ -80,28 +76,50 @@ if ($debug) {
     mailparse_msg_free($mime);
     exit(0);
 }
-$forum=explode("@",$to)[0];
-echo "from $from to forum=$forum\n";
-$stmt = $rodb->prepare(
-    'SELECT Member.id, Member.MemberID as member_id, forum.email_local as forum_email
-     FROM forum,forum_subscription, Member
-     WHERE forum.name=forum_subscription.forum AND Member.id=forum_subscription.member AND Member.Email=? AND forum.email_local=?') or die("DB erR $rodb->error \n");
+$localTo=explode("@",$to)[0];
 
-$stmt->bind_param("ss",$from,$forum);
-$stmt->execute() or dbErr($rodb,"email member check DB error");
-
-$memberResult= $stmt->get_result() or die("incoming res: " . mysqli_error($rodb));
-
-if ($mr=$memberResult->fetch_assoc()) {
-    echo "forum and subs exist\n";
-    require_once("event/backend/messagelib.php");
-
-    // TODO rm quotes
-    post_forum_message($forum,$subject,$body,$mr["member_id"],$mr["forum_email"]);
-
+$us=explode("_",$localTo);
+require_once("event/backend/messagelib.php");
+if (count($us==2) && $us[0]=="member") {
+    $toPrivate=$us[1];
+    $toPrivate=(filter_var($toPrivate, FILTER_VALIDATE_REGEXP,["options"=>["regexp"=>"/^([gk]?[0-9]+|baadhal)$/"]]));
+    if (empty($toPrivate)) {
+        die("invalid recipient");
+    } else {
+        $fromstmt = $rodb->prepare(
+            'SELECT Member.id, Member.MemberID as member_id, Email as member_email, CONCAT(FirstName," ",LastName) as from_name
+     FROM Member
+     WHERE Member.RemoveDate IS NULL AND Member.Email=?') or die("DB Prv err $rodb->error \n");
+        $fromstmt->bind_param("s",$from);
+        $fromstmt->execute() or dbErr($rodb,"private email member check DB error");
+        $memberPrivateResult= $fromstmt->get_result() or die("incoming private res: " . mysqli_error($rodb));
+        if ($fromMember=$memberPrivateResult->fetch_assoc()) {
+            $fromName=$fromMember["from_name"];
+            $fromName=mb_encode_mimeheader(preg_replace('/[^-a-zA-Z0-9 æøåÆØÅ]/', '', $fromName));
+            post_private_message(
+                $toPrivate,$subject,$body,
+                " $fromName <member_".$fromMember["member_id"]."@aftaler.danskestudentersroklub.dk>",$fromMember["member_id"]
+            );
+        } else {
+            die("unknown member");
+        }
+    }
 } else {
-    echo "\nFORUM/SUB invalid\n";
+    $forum=str_replace("_"," ",$localTo); // FIXME handle this
+    echo "from $from to forum=$forum\n";
+    $stmt = $rodb->prepare(
+        'SELECT Member.id, Member.MemberID as member_id, forum.email_local as forum_email
+     FROM forum,forum_subscription, Member
+     WHERE forum.name=forum_subscription.forum AND Member.id=forum_subscription.member AND RemoveDate IS NULL AND Member.Email=? AND forum.email_local=?') or die("DB erR $rodb->error \n");
+    $stmt->bind_param("ss",$from,$forum);
+    $stmt->execute() or dbErr($rodb,"email member check DB error");
+    $memberResult= $stmt->get_result() or die("incoming res: " . mysqli_error($rodb));
+    if ($mr=$memberResult->fetch_assoc()) {
+        echo "forum and subs exist\n";
+        post_forum_message($forum,$subject,$body,$mr["member_id"],$mr["forum_email"]);
+    } else {
+        echo "\nFORUM/SUB Unvalid LT=$localTo\n";
+    }
+    echo "\nincoming to $forum DONE\n";
 }
-echo "\nDONE\n";
-
 mailparse_msg_free($mime);

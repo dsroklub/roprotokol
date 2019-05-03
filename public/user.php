@@ -48,7 +48,7 @@ if ($is_public) {
       DATE_FORMAT(InTime,'%Y-%m-%d %H:%i') as intime, 
       Trip.Destination as destination, 
       Trip.id as tripid,
-      CAST(Meter/1000 AS DECIMAL(10,2) as km
+      CAST(Meter/1000 AS DECIMAL(10,2)) as km,
       TripType.Name AS triptype
       FROM Member,TripMember,TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID 
       WHERE Trip.id=TripMember.TripID AND TripMember.member_id=Member.id AND Member.MemberId=?)
@@ -87,7 +87,7 @@ UNION
                  } else {
                      echo "<td>". $row['intime'].  "</td>";
                  }
-                 echo "<td>". $row['km']."</td>";
+                 echo '<td class="nr">'. $row['km']."</td>";
                  echo "</tr>";
              }
              echo "</table>";

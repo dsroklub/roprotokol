@@ -6,9 +6,9 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-function post_message($toEmails,$subject,$message,$replyTo) {
+function post_message($toEmails,$subject,$message,$replyTo,$to="medlemmer@aftaler.danskestudentersroklub.dk") {
     global $rodb;
-//    error_log("post message $toEmail, $subject\n$message");
+    //error_log("post message " . print_r($toEmails,true).", $subject\n$message, replyto=$replyTo");
     $res=array ("status" => "ok");
     $error=null;
     $warning=null;
@@ -21,7 +21,8 @@ function post_message($toEmails,$subject,$message,$replyTo) {
         'Date'                      => date('r'),
         'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
         'MIME-Version'              => "1.0",
-        'X-Mailer'                  => "PHP-Custom",
+        'X-Mailer'                  => "DSRaftaler",
+        'To'                        => $to,
         'Subject'                   => "$subject"
     );
     if ($replyTo) {
@@ -48,20 +49,23 @@ function post_message($toEmails,$subject,$message,$replyTo) {
 }
 
 
-function post_private_message($memberId,$subject,$message) {
+function post_private_message($memberId,$subject,$message,$replyTo="noreply",$fromUser=null) {
     global $rodb;
     global $cuser;
+    if (empty($fromUser)) {
+        $fromUser=$cuser;
+    }
     $res=array ("status" => "init");
-    $stmt = $rodb->prepare("SELECT email FROM Member WHERE Member.MemberId=?");
-    $stmt->bind_param('s',$memberId) or die("{\"status\":\"Error in event private message query bind: " . mysqli_error($rodb) ."\"}");
+    $stmt = $rodb->prepare("SELECT Email as email FROM Member WHERE Member.MemberId=? AND RemoveDate IS NULL");
+    $stmt->bind_param('s', $memberId) or die("{\"status\":\"Error in event private message query bind: " . mysqli_error($rodb) ."\"}");
     $stmt->execute() or die("{\"status\":'Error in private message exe query: " . mysqli_error($rodb) ."\"}");
     $result= $stmt->get_result() or die("{\"status\":'Error in private message query: " . mysqli_error($rodb) ."\"}");
     if ($email=$result->fetch_assoc()) {
-        $res=post_message([$email["email"]],$subject,$message);
+        // echo "email from $fromUser =".print_r($email,true);
+        $res=post_message([$email["email"]],$subject,$message,$replyTo,$to=$email["email"]);
     } else {
-        error_log("member not found");
+        error_log("to member not found");
     }
-    error_log("PPM");
     if ($stmt = $rodb->prepare(
         "INSERT INTO private_message(member_from, created, subject, message)
          SELECT MAX(Member.id),NOW(),?,?
@@ -72,12 +76,12 @@ function post_private_message($memberId,$subject,$message) {
             'sss',
             $subject,
             $message,
-            $cuser) ||  die("create forum message BIND errro ".mysqli_error($rodb));
-
+            $fromUser) ||  die("create forum message BIND errro ".mysqli_error($rodb)
+            );
         if ($stmt->execute()) {
             error_log("sent private message $subject");
         } else {
-            $error=" pricatemessage error ".mysqli_error($rodb);
+            $error=" privatemessage error ".mysqli_error($rodb);
             error_log($error);
         }
     } else {
@@ -92,7 +96,7 @@ function post_private_message($memberId,$subject,$message) {
             's',
             $memberId) ||  die("create event message BIND errro ".mysqli_error($rodb));
         if (!$stmt->execute()) {
-            $error=" message membererror ".mysqli_error($rodb);
+            $error=" message membererror: ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."private messagelib member DB error: ".mysqli_error($rodb);
         }
@@ -102,9 +106,12 @@ function post_private_message($memberId,$subject,$message) {
     return $res;
 }
 
-function post_event_message($eventId,$subject,$message) {
+function post_event_message($eventId,$subject,$message,$fromUser=null) {
     global $rodb;
     global $cuser;
+    if (!$fromUser) {
+        $fromUser=$cuser;
+    }
     $stmt = $rodb->prepare(
         "SELECT DISTINCT email
      FROM Member,event_member
@@ -124,7 +131,7 @@ function post_event_message($eventId,$subject,$message) {
     $result->free();
 
     $res=post_message($toEmails,$subject,$message);
-    error_log("INSERT EVE MESSAGE $eventId, $subject, $message, $cuser");
+    error_log("INSERT EVE MESSAGE $eventId, $subject, $message, $fromUser");
     if ($stmt = $rodb->prepare(
         "INSERT INTO event_message(member_from, event, created, subject, message)
          SELECT mf.id,?,NOW(),?,?
@@ -136,7 +143,7 @@ function post_event_message($eventId,$subject,$message) {
             $eventId,
             $subject,
             $message,
-            $cuser) ||  die("create event message BIND errro ".mysqli_e5Arror($rodb));
+            $fromUser) ||  die("create event message BIND errro ".mysqli_e5Arror($rodb));
         if (!$stmt->execute()) {
             $error=" message event error ".mysqli_error($rodb);
             error_log($error);
@@ -161,8 +168,8 @@ function post_event_message($eventId,$subject,$message) {
             $message=$message."\n"."event messagelib member DB error: ".mysqli_error($rodb);
         }
     }
-    return $res;
     invalidate("message");
+    return $res;
 }
 
 function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null) {
@@ -207,7 +214,6 @@ function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null
         }
     }
     $result->free();
-
     $msgid="error";
     if ($stmt = $rodb->prepare(
         "INSERT INTO forum_message(member_from, forum, created, subject, message)
@@ -231,7 +237,6 @@ function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null
             $message=$message."\n"."forum message DB error: ".mysqli_error($rodb);
         }
     }
-    error_log("ML FROM $from");
     $userstmt = $rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name FROM Member WHERE MemberID=?") or dbErr($rodb,$res,"get forum user p");
     $userstmt->bind_param("s",$from) or dbErr($rodb,$res,"get forum user b");
     $userstmt->execute() or dbErr($rodb,$res,"get from name E");

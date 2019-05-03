@@ -51,4 +51,4 @@ if ($error) {
 
 $rodb->close();
 echo json_encode($res);
-?> 
+

@@ -56,7 +56,6 @@ if ($rodb->connect_errno) {
 }
 
 function sanestring($s) {
-   $allowedchars=".;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890=:_-#";
    $s1=filter_var(str_replace(">","",str_replace("<","",$s)), FILTER_SANITIZE_STRING,FILTER_FLAG_STRIP_BACKTICK|FILTER_FLAG_STRIP_LOW|FILTER_FLAG_ENCODE_AMP);
    $r=preg_replace('/&#\d+;/',"",$s1);
    return $r;
@@ -67,7 +66,7 @@ if (!$rodb->set_charset("utf8")) {
 }
 
 function saneEmail($s) {
-    $sm=["xø"=>"oe","Ø"=>"Oe","æ"=>"ae","Æ"=>"Ae","å"=>"aa","Å"=>"Aa"];
+    $sm=["ø"=>"oe","Ø"=>"Oe","æ"=>"ae","Æ"=>"Ae","å"=>"aa","Å"=>"Aa"];
     $allowedchars=".abcdefghijklmnopqrstuvwxyz01234567890=:_-#";
     $r=$s;
     foreach ($sm as $s => $p) {
