@@ -387,6 +387,8 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
             .then(function(status){
               if (status.status=="ok") {
                 $scope.converttorower=null;
+                $scope.currentrower=null;
+                DatabaseService.removeRower(fromrower);
                 alert("Konverteringen lykkedes");
               }
             });

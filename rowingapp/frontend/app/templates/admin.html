@@ -367,11 +367,12 @@
     </div>
   </div>
   <div class="adminconvertrower" ng-show="currentrower.id">
-    <button  class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer {{currentrower.name}} ({{currentrower.id}}) til denne</button>
+    <button  ng-disabled="!converttorower" class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer </button>
+    {{currentrower.id}} {{currentrower.name}} (forsvinder) forsvinder til 
     <input autocomplete="off" id="findrowerforconvert" name="name" type="text"
            typeahead-on-select="alert($item)" ng-model="converttorower"
            uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
-           typeahead-template-url="taTemplate.html" required />
+           typeahead-template-url="taTemplate.html" required /> (bevares)
   </div>
 </div>
 
