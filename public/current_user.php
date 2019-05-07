@@ -28,7 +28,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     }
     if ($result) {
         $row = $result->fetch_assoc();
-        $r["id"]=$row["id"];
+        $r["id"]=$row["member_id"];
         $r["name"]=$row["name"];
     } else {
         error_log("user not found in DB");

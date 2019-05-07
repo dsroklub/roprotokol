@@ -68,12 +68,46 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
     return $rdefer.promise
   }
   
-  $scope.triptypestat={};
-  $scope.triptypestat.labels=[];
-  $scope.triptypestat.series=[];
-  $scope.triptypestat.labelmap={};
-  $scope.triptypestat.distance=[];
-  $scope.triptypestat.numtrips=[];
+
+  function make_tables(cat) {
+    console.log("make table "+cat + " sel= "+ $scope.boat_type);
+    $scope.triptypestat={};
+    $scope.triptypestat.labels=[];
+    $scope.triptypestat.series=[];
+    $scope.triptypestat.labelmap={};
+    $scope.triptypestat.distance=[];
+    $scope.triptypestat.numtrips=[];
+    $scope.triptypestat.fy=$scope.ddata[0].year;
+    if (!$scope.triptypestat.fy) {
+      $scope.triptypestat.fy=2010;
+    }
+    for (var y=$scope.triptypestat.fy;y<=$scope.ddata[$scope.ddata.length-1].year;y++) {
+      $scope.triptypestat.series.push('sæson '+y);
+      $scope.triptypestat.distance.push([]);
+      $scope.triptypestat.numtrips.push([]);
+    }
+
+    for (var di=0;di<$scope.ddata.length; di++) {
+      if (($scope.triptypestat.labelmap[$scope.ddata[di].name] === undefined)) {
+        var lix=$scope.triptypestat.labels.length;
+        $scope.triptypestat.labelmap[$scope.ddata[di].name]=lix;
+        $scope.triptypestat.labels.push($scope.ddata[di].name);
+      }
+    }
+    for (var y=0; y<$scope.triptypestat.distance.length;y++) {
+      for (var l=0;l<$scope.triptypestat.labels.length;l++) {
+        $scope.triptypestat.distance[y][l]=0.0;
+        $scope.triptypestat.numtrips[y][l]=0.0;
+      }
+    }
+    angular.forEach($scope.ddata, function(tt) {
+      if (cat=="any" || cat==tt.category) {
+        $scope.triptypestat.distance[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]+=tt.distance/1000.0;
+        $scope.triptypestat.numtrips[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]+=tt.trips;
+      }
+      //$scope.triptypestat.data[1].push(tt.trips);
+    },this);
+  }
   
   DatabaseService.init({"stats":true, "boat":true,"member":true, "trip":true, }).then(function () {
     $scope.boatcat2dk=DatabaseService.boatcat2dk;
@@ -112,49 +146,25 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
     
     // TODO: Stacked Barchart - Instructions per finished rabbit       
 
-    var ddata = DatabaseService.getDB('stats/trip_stat_year');
-    $scope.triptypestat.fy=ddata[0].year;
-    if (!$scope.triptypestat.fy) {
-      $scope.triptypestat.fy=2010;
-    }
-    for (var y=$scope.triptypestat.fy;y<=ddata[ddata.length-1].year;y++) {
-      $scope.triptypestat.series.push('sæson '+y);
-      $scope.triptypestat.distance.push([]);
-      $scope.triptypestat.numtrips.push([]);
-    }
-    angular.forEach(ddata, function(tt) {
-      if (($scope.triptypestat.labelmap[tt.name] === undefined)) {
-        $scope.triptypestat.labelmap[tt.name]=$scope.triptypestat.labels.length;
-        $scope.triptypestat.labels.push(tt.name);
-      }
-      $scope.triptypestat.distance[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]=tt.distance/1000.0;
-      $scope.triptypestat.numtrips[tt.year-$scope.triptypestat.fy][$scope.triptypestat.labelmap[tt.name]]=tt.trips;
-      //$scope.triptypestat.data[1].push(tt.trips);      
-    },this);
-    for (var y=0; y<$scope.triptypestat.distance.length;y++) {
-      var ya=$scope.triptypestat.distance[y];
-      var yt=$scope.triptypestat.numtrips[y];
-      for (var l=0;l<$scope.triptypestat.labels.length;l++) {
-        if (!ya[l]) {
-          ya[l]=0.0;
-          yt[l]=0.0;
-        }
-      }
-    }
+    $scope.ddata = DatabaseService.getDB('stats/trip_stat_year');
+    make_tables("any");
   }
                                                                                      );
-
   $scope.docats = function (val) {
     $scope.rowcategory=val;
+    var catfilter={'id':''};
     if (val=='kaniner') {
       $scope.tableParams.filter({'id':'k'});
       $scope.boat_type='any';
     } else {
       $scope.tableParams.filter({'id':''});
       $scope.boat_type=val;
-      $scope.tableParams.reload();
-      $scope.boattableParams.reload();
     }
+    make_tables(val);
+    console.log("cat");
+    $scope.tableParams.filter(catfilter);
+    $scope.boattableParams.reload();
+    $scope.tableParams.reload();
   };
 
   $scope.tableParams = new NgTableParams({

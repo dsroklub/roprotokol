@@ -73,6 +73,7 @@
             <tr ng-repeat="rower in checkout.rowers track by $index">
               <td>
                 <label for="checkout_rower{{$index}}">{{$first ? 'Styrmand' : 'Roer'}}</label>
+                <label class="warn" ng-hide="rower.status=='ok'" for="checkout_rower{{$index}}">{{rower.status}}</label>
                 <label for="checkout_rower{{$index}}">{{rower.id}}</label>
               </td>
               <td>

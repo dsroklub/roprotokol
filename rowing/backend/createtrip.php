@@ -4,9 +4,11 @@ include("inc/common.php");
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $newtrip=json_decode($data);
+$tripDescription=$newtrip->triptype->name ." til ". $newtrip->destination->name." i ".$newtrip->boat->name;
+
 $message="createtrip  ".json_encode($newtrip);
 $error=null;
-
+$logevents=[];
 // error_log(" Create trip $data");
 
 $rodb->begin_transaction();
@@ -101,7 +103,7 @@ if (!$error) {
 
 if (isset($newtrip->event)) {
     if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
-        $ev=$newtrip->triptype->name ." til ". $newtrip->destination->name." i ".$newtrip->boat->name .": ". $newtrip->event;
+        $ev= "$tripDescription : ". $newtrip->event;
         $stmt->bind_param('s', $ev);
         $stmt->execute();
     } else {
@@ -117,6 +119,26 @@ if ($error) {
     $rodb->rollback();
 } else {
     $rodb->commit();
+}
+
+error_log("check udmeldt");
+foreach ($newtrip->rowers as $rower) {
+  error_log("check ".$rower->id);
+    if ($stmt = $rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name, MemberID, member_type From Member WHERE Member.MemberID=? AND (member_type=1 OR RemoveDate IS NOT NULL)")) {
+        $stmt->bind_param('s', $rower->id);
+        $stmt->execute();
+        $result= $stmt->get_result();
+        if ($r=$result->fetch_assoc()) {
+            if (!empty($r["RemoveDate"])) {
+                eventLog("$tripDescription : roer ".$r["name"] ." udmeldt " . $r["RemoveDate"]);
+            }
+            if (($r["member_type"]==1)) {
+                eventLog("$tripDescription : roer ".$r["name"] ." er passivt medlem");
+            }
+        }
+    } else {
+        error_log(mysqli_error($rodb));
+    }
 }
 
 

@@ -191,7 +191,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
-              this.push($scope.checkout.rowers[ri].name +" har Ikke "+$filter('righttodk')([rq]));
+              this.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
             }
           }
         }
@@ -212,6 +212,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (has_right(rq,arg,$scope.checkout.rowers[ri].rights)) {
+              this.push($scope.checkout.rowers[ri].name +" "+$filter('righttodk')([rq]));
               noneok=false;
             }
           }
