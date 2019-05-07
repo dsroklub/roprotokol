@@ -192,6 +192,7 @@ CREATE TABLE Member (
   Gender       INTEGER,
   KommuneKode INTEGER,
   CprNo Boolean,
+  member_type INTEGER,
   PRIMARY KEY (id),
   KEY medlemnrix (MemberID)
 );

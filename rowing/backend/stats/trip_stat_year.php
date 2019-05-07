@@ -14,6 +14,7 @@ if (isset($_GET["km"])) {
 } else {
     $km=" ";
 }
+//$qboats=" AND Category=2 ";
 
 
 $s="SELECT YEAR(Trip.OutTime) as year,TripType.tripstat_name as name,CAST(Sum(Meter)$km AS UNSIGNED) AS distance, COUNT('x') as trips 
