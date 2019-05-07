@@ -21,7 +21,7 @@ $s="SELECT YEAR(Trip.OutTime) as year,CASE WHEN category=2 THEN 'rowboat' WHEN c
     FROM Trip,TripType,Boat,BoatType
     WHERE Trip.TripTypeID=TripType.id AND Trip.BoatID=Boat.id $qboats AND Boat.boat_type=BoatType.Name
     AND Trip.OutTime IS NOT NULL
-    GROUP BY TripType.name, year,TripType.tripstat_name,BoatType.category
+    GROUP BY year,TripType.tripstat_name,BoatType.category
     ORDER BY year,TripType.tripstat_name,BoatType.category";
 
 if ($sqldebug) {

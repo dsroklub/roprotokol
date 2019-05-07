@@ -28,7 +28,7 @@ $currentid=-1;
 $rower="";
 
 
-echo "Navn,medlemsnummer,".join(",",$cols)."\n";
+echo "Navn,MemberID,".join(",",$cols);
 $result=$rodb->query($s) or die("Error in ld query: " . mysqli_error($rodb));;
  while ($row = $result->fetch_assoc()) {
      $mid=$row["MemberID"];
@@ -46,4 +46,4 @@ $result=$rodb->query($s) or die("Error in ld query: " . mysqli_error($rodb));;
      }
      $rr[$row["mr"]]=$row["Acquired"];
  }
-?> 
+
