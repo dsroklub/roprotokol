@@ -30,8 +30,6 @@ $s="SELECT Boat.id,
          LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
          LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
          LEFT JOIN boat_usage ON Boat.boat_usage=boat_usage.id
-    WHERE 
-         Boat.Decommissioned IS NULL
     GROUP BY
        Boat.id,
        Boat.Name,

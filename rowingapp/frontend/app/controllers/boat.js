@@ -345,7 +345,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.matchBoatId = function(boat,onwater) {
     return function(matchboat) {
       return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip|| matchboat.location=='Andre')) || (onwater && matchboat.trip)) &&
-              (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
+              (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category) && matchboat.location);
     }
   };
 
