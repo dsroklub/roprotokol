@@ -121,9 +121,8 @@ if ($error) {
     $rodb->commit();
 }
 
-error_log("check udmeldt");
 foreach ($newtrip->rowers as $rower) {
-  error_log("check ".$rower->id);
+  //error_log("check ".$rower->id);
     if ($stmt = $rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name, MemberID, member_type From Member WHERE Member.MemberID=? AND (member_type=1 OR RemoveDate IS NOT NULL)")) {
         $stmt->bind_param('s', $rower->id);
         $stmt->execute();

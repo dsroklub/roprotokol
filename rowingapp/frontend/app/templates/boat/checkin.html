@@ -47,12 +47,11 @@
     </thead>
     <tbody>
       <tr  ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="boattrip in onwater | filter: matchType(selectedboat,selectedBoatCategory)" ng-model="item"  >
-        <td><div>
+        <td class="boat">
             {{boattrip.boat}}
-          </div>
         </td>
         <td>{{boattrip.boat_type}}</td>
-        <td>{{boattrip.rowers[0].name}}</td>
+        <td class="cox">{{boattrip.rowers[0].name}}</td>
         <td>
           {{boattrip.location|nodsr}} <i uib-tooltip="på hylde" ng-show="boattrip.boat_placement_level" class="fa fa-level-up"></i> <small uib-tooltip="port {{boattrip.boat_placement_aisle}}" ng-show="boattrip.boat_placement_aisle">p{{boattrip.boat_placement_aisle}}</small>
         </td>
@@ -61,7 +60,7 @@
           <span ng-show="{{boattrip.damage==2}}">Middel skadet</span>
           <span ng-show="{{boattrip.damage==1}}">Let skadet</span>
         </td>
-        <td ng-click="checkin.update_destination_for=boattrip">
+        <td class="destination" ng-click="checkin.update_destination_for=boattrip">
           <i class="fa fa-pencil"></i>
           {{boattrip.destination}}
         </td>
@@ -87,9 +86,8 @@
             </button>
             <button uib-tooltip="slet turen hvis båden ikke kom på vandet" ng-click="deleteopentrip(boattrip,$index)" class="minor">Slet</button>
             <a href="{{burl}}#!ud?reuse={{boattrip}}">
-              <button uib-tooltip="genbrug turoplysinger fx til at skriv en anden båd ud med samme roere og destination" ng-click="reusetrip(boat,$index)" class="minor">
-                <i class="fa fa-recycle"></i>Slet+Genbrug
-              </button>
+              <button uib-tooltip="genbrug turoplysinger fx til at skrive en anden båd ud med samme roere og destination" ng-click="reusetrip(boat,$index)" class="minor">
+                <i class="fa fa-recycle"></i></button>
             </a>
           </div>
         </td>

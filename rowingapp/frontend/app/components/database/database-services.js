@@ -93,8 +93,8 @@ function dbservice($http, $q, $log) {
       }
 
       if (!valid['boatdamages']) {
-        var bdq=$q.defer();
-        promises.push(bdq.promise);
+        var boatdamageq=$q.defer();
+        promises.push(boatdamageq.promise);
         $http.get(toURL('boatdamages.php')).then(function onSuccess(response) {
           var boatdamages={};
           db['boatdamages_flat'] = response.data;
@@ -106,11 +106,30 @@ function dbservice($http, $q, $log) {
           }, boatdamages);
           db['boatdamages'] = boatdamages;
           valid['boatdamages']=true;
-          bdq.resolve(true);
+          boatdamageq.resolve(true);
         });
       }
     }
-
+    if (!valid['get_reservations']) {
+      var reservationq=$q.defer();
+      promises.push(reservationq.promise);
+      $http.get(toURL('get_reservations.php')).then(function onSuccess (response) {
+        db["get_reservations"] = response.data;
+        var reservationsByBoat=[];
+        var reservations=db['get_reservations'];
+        for (var ri=0; ri<reservations.length;ri++) {
+          if (!reservationsByBoat[reservations[ri].boat_id]) {
+            reservationsByBoat[reservations[ri].boat_id]=[];
+          }
+          if (reservations[ri].configuration.dayofweek<1 || reservations[ri].configuration==status.reservertion_configuration) {
+            reservationsByBoat[reservations[ri].boat_id].push(reservations[ri]);
+          }
+        }
+        db['reservationsByBoat']=reservationsByBoat;
+        valid["get_reservations"]=true;
+        reservationq.resolve("get_reservations");
+      });
+    }
     this.getData('destinations',"",promises);
     this.getData('get_reservations',"",promises);
     this.getData('get_events',"",promises);
@@ -127,7 +146,8 @@ function dbservice($http, $q, $log) {
     this.getData('stats/trip_stat_year',"",promises);
 
     if(!valid['memberrighttypes']) {
-      var rq=$q.defer();
+      var mrq=$q.defer();
+      promises.push(mrq.promise);
       $http.get(toURL('memberrighttypes.php')).then(function(response) {
         var rights=response.data;
         right2dk = {};
@@ -139,13 +159,13 @@ function dbservice($http, $q, $log) {
           right2dkm[r.member_right] = r.predicate;
         }
         valid['memberrighttypes']=true;
-        rq.resolve(true);
+        mrq.resolve(true);
       });
     }
 
     if(!valid['rowers']) {
-      var rq=$q.defer();
-      promises.push(rq.promise);
+      var rowerq=$q.defer();
+      promises.push(rowerq.promise);
       $http.get(toURL('rowers.php')).then(function(response) {
         var rowers = [];
         angular.forEach(response.data, function(rower, index) {
@@ -154,7 +174,7 @@ function dbservice($http, $q, $log) {
         }, rowers);
         db['rowers']=rowers;
         valid['rowers']=true;
-        rq.resolve(true);
+        rowerq.resolve(true);
       });
     }
 
@@ -215,8 +235,8 @@ function dbservice($http, $q, $log) {
     }
     defaultLocation = 'DSR';
     cachedepend={
-      'status':['status'],
-      'admin':['memberrighttypes','rights_subtype','errortrips','locations'],
+      'status':['status','reservation'],
+      'admin':['memberrighttypes','rights_subtype','errortrips','locations','get_events'],
       'reservation':['reservation','boat','get_reservations'],
       'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
@@ -303,18 +323,6 @@ function dbservice($http, $q, $log) {
       if (doreload) {
         $log.log(" do reload " + JSON.stringify(valid));
         dbservice.fetch(subscriptions).then(function() {
-
-          var reservationsByBoat=[];
-          var reservations=db['get_reservations'];
-          for (var ri=0; ri<reservations.length;ri++) {
-            if (!reservationsByBoat[reservations[ri].boat_id]) {
-              reservationsByBoat[reservations[ri].boat_id]=[];
-            }
-            if (reservations[ri].configuration.dayofweek<1 || reservations[ri].configuration==status.reservertion_configuration) {
-              reservationsByBoat[reservations[ri].boat_id].push(reservations[ri]);
-            }
-          }
-          db['reservationsByBoat']=reservationsByBoat;
           sq.resolve("sync done");
         });
       } else {

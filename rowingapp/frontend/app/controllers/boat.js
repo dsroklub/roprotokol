@@ -254,8 +254,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
                 (etime > et && otime > et)
             )
                ) {
-              this.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + ": "+
-                            rv.purpose+" "+ rv.start_time+" til "+rv.end_time);
+              this.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + " "+
+                        (rv.purpose==DatabaseService.getTriptypeWithID(rv.triptype_id).name?"": rv.purpose+" ")+ rv.start_time+" til "+rv.end_time);
             }
           }
         } else {
@@ -279,7 +279,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       norights.push(" Båden er svært skadet og må derfor ikke komme på vandet !!!");
     }
 
-    $scope.rightsmessage=norights.join(",");
+    $scope.rightsmessage=norights.join(", ");
     return norights.length<1;
   }
   $scope.selectBoatCategory = function(cat) {

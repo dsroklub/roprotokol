@@ -229,6 +229,17 @@ button.statcat, button.adminbut {
     min-width : 200px;
 }
 
+td.destination {
+                 max-width : 5em;
+                 word-break: break-all;
+               } 
+td.cox {
+   max-width : 12em;
+} 
+td.boat {
+   max-width : 7em;
+} 
+
 .checkout-form {
     display: inline-block;
     vertical-align: top;

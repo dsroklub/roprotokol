@@ -217,6 +217,16 @@ CREATE TABLE MemberRights (
   PRIMARY KEY (member_id,MemberRight,Acquired,argument)
 );
 
+
+CREATE TABLE meta_right(
+  member_right  VARCHAR(50) NOT NULL REFERENCES MemberRightType (member_right) ON DELETE CASCADE ON UPDATE CASCADE,
+  meta VARCHAR(50) NOT NULL,
+  PRIMARY KEY(member_right,meta)
+);
+
+INSERT INTO  meta_right(member_right,meta) VALUES('svava','svava/sculler');
+INSERT INTO  meta_right(member_right,meta) VALUES('sculler','svava/sculler');
+
 DROP TABLE IF EXISTS reservation;
 CREATE TABLE reservation (
   boat INT REFERENCES Boat(id) ON DELETE RESTRICT ON UPDATE CASCADE,
