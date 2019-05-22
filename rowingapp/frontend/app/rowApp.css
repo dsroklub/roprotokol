@@ -820,8 +820,9 @@ max-width: 70%;
     background: #f00;
 }
 .boatnote {
-            background: #D2F8D7;
-            min-width: 80em;
+   background: #D2F8D7;
+   min-width: 80em;
+   min-height: 12em;         
 }
 
 .toppopup .uib-datepicker-popup {
