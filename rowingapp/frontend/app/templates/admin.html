@@ -71,14 +71,16 @@
       </caption>
       <thead>
         <tr>
+          <th></th>
           <th>Båd</th><th>Kategori</th><th>Lokalitet</th><th>Port</th><th>Inderst/Yderst</th><th>Hylde</th><th>Side</th>
           <th>Niveau</th><th>Fabrikat</th><th>Særligt</th><th></th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="boat in boats.allboats | filter: matchBoatType(boat_type)">
+        <tr ng-repeat-start="boat in boats.allboats | filter: matchBoatType(boat_type)">
+          <td ng-click="boat.expand=!boat.expand"><i class="fa fa-chevron-circle-down"></td>
           <td>
-            <input type="text" ng-model="boat.name" ng_change="set_name_for_boat(boat)" ng-model-options="{updateOn:'blur'}">
+            <input class="boatname" type="text" ng-model="boat.name" ng_change="set_name_for_boat(boat)" ng-model-options="{updateOn:'blur'}">
           </td>
           <td><select ng-change="set_cat_for_boat(boat)" ng-model="boat.category" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
           <td><select ng-show="boat.location" ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations"></select>
@@ -112,6 +114,12 @@
             </button>
           </td>
         </tr>
+        <tr ng-repeat-end ng-show="boat.expand">
+          <td></td><td class="popdown" colspan="10">
+            <textarea class="boatnote" placeholder="bådnoter" type="text" ng-model="boat.note" ng_change="set_boat_note(boat)" ng-model-options="{updateOn:'blur'}"></textarea>
+          </td>
+        </tr>
+
       </tbody>
     </table>
 
@@ -440,6 +448,7 @@
       <caption>Reservationer</caption>
       <thead>
         <tr>
+          <th></th>
           <th>Båd</th>
           <th>ugedag</th>
           <th>start</th>

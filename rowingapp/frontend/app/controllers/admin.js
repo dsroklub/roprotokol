@@ -281,6 +281,9 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.set_side_for_boat = function(boat) {
       var exeres=DatabaseService.updateDB('set_side_for_boat',boat,$scope.config,$scope.errorhandler);
     }
+    $scope.set_boat_note = function(boat) {
+      var exeres=DatabaseService.updateDB('set_boat_note',boat,$scope.config,$scope.errorhandler);
+    }
 
     $scope.retire_boat = function(boat) {
       var exeres=DatabaseService.updateDB('retire_boat',boat,$scope.config,$scope.errorhandler).then(function(status) {

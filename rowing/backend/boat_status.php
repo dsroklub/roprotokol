@@ -23,6 +23,11 @@ $s="SELECT Boat.id,
            MAX(Trip.Comment) as comment,
            boat_usage.name as boatusage,
            Boat.brand,
+           Boat.note,
+           Boat.oar_pitch,
+           Boat.oar_height,
+           Boat.oar_type,
+           Boat.rig_height,
            Boat.level
     FROM Boat
          INNER JOIN BoatType ON (BoatType.Name=Boat.boat_type)

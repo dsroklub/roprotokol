@@ -100,6 +100,10 @@ td.usage {
 td.boatname {
     max-width:6em;
 }
+input.boatname {
+   max-width: 8em;
+   word-break: break-all;
+}
 
 button.big,button.action,input.big {
     background: #D6FFB6; !important;
@@ -814,6 +818,10 @@ max-width: 70%;
 
 .datealert {
     background: #f00;
+}
+.boatnote {
+            background: #D2F8D7;
+            min-width: 80em;
 }
 
 .toppopup .uib-datepicker-popup {
