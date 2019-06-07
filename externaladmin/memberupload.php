@@ -90,7 +90,7 @@ SET m.FirstName = tm.FirstName,
     echo "<br>Indsætter eventuelle nye medlemmer i roprotokollen<br>";
 
     $s="
-INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, KommuneKode,CprNo,Gender )
+INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, KommuneKode,CprNo,Gender,member_type)
   SELECT DISTINCTROW 
   tMem.MemberID AS mid,
   tMem.LastName,
@@ -102,7 +102,8 @@ INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, S
   tMem.Birthdate,
   tMem.KommuneKode,
   tMem.CprNo,
-  CASE tMem.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END
+  CASE tMem.Sex WHEN 'm' THEN 0 WHEN 'f' THEN 1 ELSE NULL END,
+  tMem.MemberType
   FROM tblMembersToRoprotokol tMem
   WHERE (((tMem.RemoveDate) IS NULL) AND MemberID NOT IN (SELECT MemberID From Member))
   ORDER BY mid;
@@ -122,7 +123,8 @@ INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, S
 UPDATE Member,tblMembersToRoprotokol
 SET
 Member.KommuneKode=tblMembersToRoprotokol.KommuneKode,
-Member.CprNo=tblMembersToRoprotokol.CprNo
+Member.CprNo=tblMembersToRoprotokol.CprNo,
+Member.member_type=tblMembersToRoprotokol.MemberType
     WHERE tblMembersToRoprotokol.MemberID=Member.MemberID;
 ')){ 
         $stmt->execute() || die($rodb->error);

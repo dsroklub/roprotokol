@@ -63,12 +63,13 @@ if ($stmt = $rodb->prepare(
       'Date'                      => date('r'),
       'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
       'MIME-Version'              => "1.0",
-      'X-Mailer'                  => "PHP-Custom",
+      'X-Mailer'                  => "DSRroprotokol",
     );
 
   while ($row = $result->fetch_assoc()) {
       $email=$row['email'];
       $mail_headers['Subject'] = mb_encode_mimeheader($row['rower']." er gået i land");
+      $mail_headers['To']=$email;
       $body=$row['rower'] . " er kommet tilbage fra ". $row['destination'].", " .number_format($distance/1000,1,",","")." km";
 
       if (!empty($closedtrip->boat->comment)) {

@@ -6,7 +6,8 @@ header('Content-type: application/json');
 // TODO when we can use Mysql 8 replace with JSON_ARRAYAGG etc
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
-      'id',Member.MemberID, 
+      'id',Member.MemberID,
+      'status', IF(RemoveDate,'ikke medlem',IF(member_type=1,'passiv','ok')),
       'name', CONCAT(FirstName,' ',LastName) 
    ),
    CONCAT(

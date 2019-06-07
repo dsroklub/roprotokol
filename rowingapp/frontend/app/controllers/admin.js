@@ -281,11 +281,25 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.set_side_for_boat = function(boat) {
       var exeres=DatabaseService.updateDB('set_side_for_boat',boat,$scope.config,$scope.errorhandler);
     }
+    $scope.set_boat_note = function(boat) {
+      var exeres=DatabaseService.updateDB('set_boat_note',boat,$scope.config,$scope.errorhandler);
+    }
 
     $scope.retire_boat = function(boat) {
       var exeres=DatabaseService.updateDB('retire_boat',boat,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          $scope.boats.allboats.splice($scope.boats.allboats.indexOf(boat),1);
+          boat.location=null;
+          boat.placement_aisle=null;
+          boat.placement_level=null;
+          boat.placement_row=null;
+          boat.placement_side=null;
+        }
+      });
+    }
+    $scope.unretire_boat = function(boat) {
+      var exeres=DatabaseService.updateDB('unretire_boat',boat,$scope.config,$scope.errorhandler).then(function(status) {
+        if (status.status=="ok") {
+          boat.location="DSR";
         }
       });
     }
@@ -387,6 +401,8 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
             .then(function(status){
               if (status.status=="ok") {
                 $scope.converttorower=null;
+                $scope.currentrower=null;
+                DatabaseService.removeRower(fromrower);
                 alert("Konverteringen lykkedes");
               }
             });

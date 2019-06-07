@@ -191,7 +191,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
-              this.push($scope.checkout.rowers[ri].name +" har Ikke "+$filter('righttodk')([rq]));
+              this.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
             }
           }
         }
@@ -212,6 +212,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (has_right(rq,arg,$scope.checkout.rowers[ri].rights)) {
+              this.push($scope.checkout.rowers[ri].name +" "+$filter('righttodk')([rq]));
               noneok=false;
             }
           }
@@ -253,8 +254,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
                 (etime > et && otime > et)
             )
                ) {
-              this.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + ": "+
-                            rv.purpose+" "+ rv.start_time+" til "+rv.end_time);
+              this.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + " "+
+                        (rv.purpose==DatabaseService.getTriptypeWithID(rv.triptype_id).name?"": rv.purpose+" ")+ rv.start_time+" til "+rv.end_time);
             }
           }
         } else {
@@ -278,7 +279,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       norights.push(" Båden er svært skadet og må derfor ikke komme på vandet !!!");
     }
 
-    $scope.rightsmessage=norights.join(",");
+    $scope.rightsmessage=norights.join(", ");
     return norights.length<1;
   }
   $scope.selectBoatCategory = function(cat) {
@@ -344,7 +345,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.matchBoatId = function(boat,onwater) {
     return function(matchboat) {
       return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip || matchboat.location=='Andre' || ($scope.checkout.expectedtime && new Date(matchboat.outtime) > $scope.checkout.expectedtime) )) || (onwater && matchboat.trip)) &&
-              (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
+              (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category) && matchboat.location);
     }
   };
 
@@ -552,6 +553,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       // DatabaseService.reload(['trip']);
       if (status.status =='ok') {
         data.boat.trip=status.tripid;
+        data.boat.outtime=data.boat.outtime;
 
         if (status.notification){
           $scope.checkoutnotification=status.notification;
