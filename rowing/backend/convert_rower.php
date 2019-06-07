@@ -14,27 +14,27 @@ $rodb->begin_transaction();
 $updates = [
    "UPDATE TripMember, Member as fm, Member as tm Set TripMember.member_id = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND TripMember.member_id=fm.id",
    "UPDATE Damage, Member as fm, Member as tm Set Damage.ResponsibleMember = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND Damage.ResponsibleMember=fm.id",
-   "UPDATE Damage, Member as fm, Member as tm Set Damage.RepairerMember = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND Damage.RepairerMember=fm.id",   
+   "UPDATE Damage, Member as fm, Member as tm Set Damage.RepairerMember = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND Damage.RepairerMember=fm.id",
    "UPDATE IGNORE MemberRights as fmr, Member as fm, Member as tm SET fmr.member_id = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND fmr.member_id=fm.id",
    "UPDATE reservation as r, Member as fm, Member as tm Set r.Member = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND r.member=fm.id",
    "UPDATE reservation as r, Member as fm, Member as tm Set r.CancelledBy = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND r.CancelledBy=fm.id",
-   "DELETE FROM Member where MemberID <> ? AND MemberID = ?"  
+   "DELETE FROM Member where MemberID <> ? AND MemberID = ?"
 ];
 
 
 foreach ($updates as $sql) {
-	$stmt = $rodb->prepare($sql);
-	if (!$stmt) {
-		$error = "Prepare error: " . $rodb->error;
-	} else if (! $stmt->bind_param('ss', $fromto->to->id,$fromto->from->id) ) {
-		$error = "Bind error: " . $rodb->error;
-	} else if (!$stmt->execute()) {
-       	$error= "Execute error: " . $rodb->error;
-	}
-	if ($error) {
-		$error .= " <<< $sql >>>";
-	    break;
-	}
+    $stmt = $rodb->prepare($sql);
+    if (!$stmt) {
+        $error = "Prepare error: " . $rodb->error;
+    } else if (! $stmt->bind_param('ss', $fromto->to->id,$fromto->from->id) ) {
+        $error = "Bind error: " . $rodb->error;
+    } else if (!$stmt->execute()) {
+           $error= "Execute error: " . $rodb->error;
+    }
+    if ($error) {
+        $error .= " <<< $sql >>>";
+        break;
+    }
 }
 
 
@@ -51,4 +51,3 @@ if ($error) {
 
 $rodb->close();
 echo json_encode($res);
-?> 
