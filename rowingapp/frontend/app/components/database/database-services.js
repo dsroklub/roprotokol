@@ -1,7 +1,7 @@
 'use strict';
 function dbservice($http, $q, $log) {
   var valid={};
-  var db={};
+  var db={'boatsA':[]};
   var rowerstatistics=[];
   var boatstatistics=[];
   var databasesource=dbmode;

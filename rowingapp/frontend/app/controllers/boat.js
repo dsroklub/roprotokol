@@ -344,7 +344,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   };
   $scope.matchBoatId = function(boat,onwater) {
     return function(matchboat) {
-      return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip|| matchboat.location=='Andre')) || (onwater && matchboat.trip)) &&
+      return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip || matchboat.location=='Andre' || ($scope.checkout.expectedtime && new Date(matchboat.outtime) > $scope.checkout.expectedtime) )) || (onwater && matchboat.trip)) &&
               (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category) && matchboat.location);
     }
   };
@@ -553,6 +553,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       // DatabaseService.reload(['trip']);
       if (status.status =='ok') {
         data.boat.trip=status.tripid;
+        data.boat.outtime=data.boat.outtime;
 
         if (status.notification){
           $scope.checkoutnotification=status.notification;

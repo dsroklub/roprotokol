@@ -6,7 +6,7 @@ $data = file_get_contents("php://input");
 $newtrip=json_decode($data);
 $tripDescription=$newtrip->triptype->name ." til ". $newtrip->destination->name." i ".$newtrip->boat->name;
 
-$message="createtrip  ".json_encode($newtrip);
+$message="createtrip  "; //.json_encode($newtrip);
 $error=null;
 $logevents=[];
 // error_log(" Create trip $data");
@@ -15,8 +15,8 @@ $rodb->begin_transaction();
 
 //error_log("COL BOAT=".print_r($newtrip->boat->location,true)."DD");
 if ($newtrip->boat->location != "Andre") {
-    if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL")) {
-        $stmt->bind_param('i', $newtrip->boat->id);
+    if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL AND OutTime<?")) {
+        $stmt->bind_param('is', $newtrip->boat->id,mysdate($newtrip->expectedtime));
         $stmt->execute();
         $result= $stmt->get_result();
         if ($result->fetch_assoc()) {
@@ -46,12 +46,12 @@ $teamName=null;
 if (!empty($newtrip->trip_team)) {
     $teamName=$newtrip->trip_team->name;
 }
-$expectedtime=mysdate($newtrip->expectedtime);    
+$expectedtime=mysdate($newtrip->expectedtime);
 if (!$error) {
     $starttime=mysdate($newtrip->starttime);
     // error_log('now new trip'. json_encode($newtrip));
     if ($stmt = $rodb->prepare(
-        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team) 
+        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team)
                 VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?)")) {
         $info="client: ".$newtrip->client_name;
         $stmt->bind_param('isississs',
@@ -80,12 +80,12 @@ if (!$error) {
         $res['tripid']= $result->fetch_assoc()['tripid'];
     } else {
         error_log($rodb->error);
-    }    
-    
+    }
+
     if ($stmt = $rodb->prepare(
-        "INSERT INTO TripMember(TripID,Seat,member_id,CreatedDate,EditDate) 
-         SELECT LAST_INSERT_ID(),?,Member.id,NOW(),NOW() 
-           FROM Member 
+        "INSERT INTO TripMember(TripID,Seat,member_id,CreatedDate,EditDate)
+         SELECT LAST_INSERT_ID(),?,Member.id,NOW(),NOW()
+           FROM Member
            WHERE MemberId=?"
     )) {
         // error_log("Create trip insert tripmembers");
@@ -108,7 +108,7 @@ if (isset($newtrip->event)) {
         $stmt->execute();
     } else {
         error_log("create trip: log failed");
-    }     
+    }
 }
 
 if ($error) {
@@ -154,7 +154,7 @@ if ($iswinter) {
         $res['notification']='det er mørkt og vinter, I skal ikke ro nu';
     } else if ($sunset < strtotime($newtrip->expectedtime)) {
         $res['notification']='Solen går ned klokken ' . date('H:i',$sunset) . '. I skal være i land kl '.date('H:i',$sunset-1800).'. Er du sikker på, at I kan nå at komme ind i tide?';
-    }    
+    }
 } else {
     if ($sunset < $now or $now<$sunrise) {
         $res['notification']='det er mørkt, husk en lygte';
