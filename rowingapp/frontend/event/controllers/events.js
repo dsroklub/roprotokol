@@ -9,6 +9,7 @@ angular.module('eventApp').controller(
 
 function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
   $anchorScroll.yOffset = 50;
+  $scope.mate_trips=[];
   $scope.teams=[];
   $scope.boatObj=null;
   $scope.todpattern="[0-2]\\d:[0-5]\\d";
@@ -861,6 +862,18 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.show_member = function (memberid) {
     $location.url("/member/");
     $location.search({"memberid":memberid});
+  }
+
+  $scope.update_mate = function (otherid) {
+    console.log("update mate "+$scope.othermember.id);
+    if ($scope.othermember.id) {
+      DatabaseService.getDataNow('event/common_trips','otherrower='+$scope.othermember.id, function (res) {
+        $scope.mate_trips=res.data;
+      }
+                                );
+    } else {
+      $scope.mate_trips=[];
+    }
   }
 
   $scope.messagematch = function (messagefilter) {

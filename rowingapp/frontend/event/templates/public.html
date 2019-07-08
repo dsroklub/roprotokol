@@ -76,3 +76,40 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
   </table>
 </form>
 
+
+<h2>Ro information </h2>
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<form>
+  Jeg har roet med
+  <input placeholder="vælg medlem" autocomplete="off" id="othermemberinput" name="othermember" type="text"
+         ng-model="othermember" typeahead-on-select="update_mate(othermember.id)"
+         typeahead-select-on-exact="true"
+         ng-model-options="{updateOn:'blur default',debounce: { 'default': 20, 'blur': 0 } }"
+         typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+         typeahead-template-url="memberTemplate.html" />
+</form>
+
+      <table class="genericlist">
+        <caption>jeg har roet med {{othermember.name}} <i>({{othermember.id}})</i></caption>
+        <thead>
+          <tr><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
+        </thead>
+        <tbody class="tbody">
+        <tr ng-repeat="trip in mate_trips" >
+          <td>{{trip.boat}}</td>
+          <td>{{trip.triptype}}</td>
+          <td>{{trip.destination}}</td>
+          <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
+          <td class="rnum" >{{trip.distance|mtokm}}</td>
+          <td> <ul><li ng-repeat="rower in trip.rowers">{{rower.name}} </li></ul></td>
+        </tr>
+        </tbody>
+      </table>
+
+

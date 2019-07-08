@@ -34,7 +34,7 @@ $newid=$prefix.$maxid;
 
 if ($stmt = $rodb->prepare("INSERT INTO Member (MemberID,FirstName, LastName, Created) VALUES (?,?,?,NOW())" )) { 
     $stmt->bind_param('sss', $newid,$rower->firstName,$rower->lastName);
-    $stmt->execute() |  error_log($rodb->error);
+    $stmt->execute() || dbErr($rodb,$res,"create rower exe");
 } else {
     error_log("ERROR in INSERT ".$rodb->error);
 }
