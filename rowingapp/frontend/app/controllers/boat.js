@@ -511,6 +511,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       if (status.status =='ok') {
         $scope.checkinmessage=status.boat+" er nu ledig, turen er slettet";
         $scope.checkin.boat=null;
+        $scope.onwater.splice($scope.onwater.indexOf(boattrip),1);
       } else {
         $log.error("error "+status.message);
         $scope.checkoutmessage="Fejl: "+closetrip;
