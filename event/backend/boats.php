@@ -22,7 +22,7 @@ $s="SELECT JSON_OBJECT(
            INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
            LEFT JOIN (dsrvinter.baad JOIN dsrvinter.baadformand ON baadformand.baad=baad.id) ON baad.navn=Boat.name
            LEFT JOIN forum ON forum.boat=Boat.name AND forum.forumtype='maintenance'
-    WHERE 
+    WHERE
          Boat.Decommissioned IS NULL
     GROUP BY Boat.id,baad.max_timer
     ORDER by Boat.name
@@ -32,8 +32,8 @@ $result=$rodb->query($s) or die("Error in boats query: " . mysqli_error($rodb));
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
-	  if ($first) $first=0; else echo ",\n";	  
-	  echo $row['json'];
+     if ($first) $first=0; else echo ",\n";
+     echo $row['json'];
 }
 echo ']';
 $rodb->close();

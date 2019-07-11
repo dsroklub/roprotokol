@@ -9,7 +9,6 @@ angular.module('rowApp').controller(
   ]);
 
 function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log, $location) {
-  var vm=this;
   $scope.allboatdamages=[];
   $scope.burl=$location.$$absUrl.split("ind/")[0];
   $scope.isName = function(n) {
@@ -185,43 +184,44 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       } else if (subject=='cox') {
         if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
           if (!(has_right(rq,arg,$scope.checkout.rowers[0].rights))) {
-            norights.push("styrmand "+$scope.checkout.rowers[0].name+" Har ikke "+ $filter('righttodk')([rq]));
+            this.push("styrmand "+$scope.checkout.rowers[0].name+" Har ikke "+ $filter('righttodk')([rq]));
           }
         }
       } else if (subject=='all') {
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
-              norights.push($scope.checkout.rowers[ri].name +" har Ikke "+$filter('righttodk')([rq]));
+              this.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
             }
           }
         }
       } else if (subject=='any') {
-        var ok=false;
+        var anyok=false;
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if ((has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
-              ok=true;
+              anyok=true;
             }
           }
         }
-        if (!ok) {
-          norights.push(" der skal være mindst een roer med "+ $filter('righttodk')([rq]));
+        if (!anyok) {
+          this.push(" der skal være mindst een roer med "+ $filter('righttodk')([rq]));
         }
       } else if (subject=='none') {
-        var ok=true;
+        var noneok=true;
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (has_right(rq,arg,$scope.checkout.rowers[ri].rights)) {
-              ok=false;
+              this.push($scope.checkout.rowers[ri].name +" "+$filter('righttodk')([rq]));
+              noneok=false;
             }
           }
         }
-        if (!ok) {
-          norights.push(" der må ikke være nogen "+$filter('righttodk')([rq])+" i båden");
+        if (!noneok) {
+          this.push(" der må ikke være nogen "+$filter('righttodk')([rq])+" i båden");
         }
       }
-    },vm);
+    },norights);
     // Check reservation
     // WIP, works for daytrips
     angular.forEach($scope.reservations, function(rv) {
@@ -254,8 +254,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
                 (etime > et && otime > et)
             )
                ) {
-              norights.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + ": "+
-                            rv.purpose+" "+ rv.start_time+" til "+rv.end_time);
+              this.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + " "+
+                        (rv.purpose==DatabaseService.getTriptypeWithID(rv.triptype_id).name?"": rv.purpose+" ")+ rv.start_time+" til "+rv.end_time);
             }
           }
         } else {
@@ -269,17 +269,17 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
           )
              )
           {
-            norights.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + " :"+rv.purpose+
+            this.push(rv.boat+" er reserveret til "+ DatabaseService.getTriptypeWithID(rv.triptype_id).name + " :"+rv.purpose+
                          " "+ pp_timediff(st,et));
           }
         }
       }
-    },vm);
+    },norights);
     if ($scope.checkout.boat && $scope.checkout.boat.damage > 2) {
       norights.push(" Båden er svært skadet og må derfor ikke komme på vandet !!!");
     }
 
-    $scope.rightsmessage=norights.join(",");
+    $scope.rightsmessage=norights.join(", ");
     return norights.length<1;
   }
   $scope.selectBoatCategory = function(cat) {
@@ -344,8 +344,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   };
   $scope.matchBoatId = function(boat,onwater) {
     return function(matchboat) {
-      return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip|| matchboat.location=='Andre')) || (onwater && matchboat.trip)) &&
-              (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category));
+      return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip || matchboat.location=='Andre' || ($scope.checkout.expectedtime && new Date(matchboat.outtime) > $scope.checkout.expectedtime) )) || (onwater && matchboat.trip)) &&
+              (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category) && matchboat.location);
     }
   };
 
@@ -553,6 +553,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       // DatabaseService.reload(['trip']);
       if (status.status =='ok') {
         data.boat.trip=status.tripid;
+        data.boat.outtime=data.boat.outtime;
 
         if (status.notification){
           $scope.checkoutnotification=status.notification;

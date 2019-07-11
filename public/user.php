@@ -47,7 +47,8 @@ if ($is_public) {
       DATE_FORMAT(ExpectedIn,'%Y-%m-%d %H:%i') as expectedintime, 
       DATE_FORMAT(InTime,'%Y-%m-%d %H:%i') as intime, 
       Trip.Destination as destination, 
-      Trip.id as tripid, 
+      Trip.id as tripid,
+      CAST(Meter/1000 AS DECIMAL(10,2)) as km,
       TripType.Name AS triptype
       FROM Member,TripMember,TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID 
       WHERE Trip.id=TripMember.TripID AND TripMember.member_id=Member.id AND Member.MemberId=?)
@@ -59,6 +60,7 @@ UNION
       '' as intime,
       '' as destination,
       0 as tripid,
+      '' as km,
       team as triptype
       FROM Member,team_participation
       WHERE team_participation.member_id=Member.id AND Member.MemberId=?)
@@ -71,7 +73,7 @@ UNION
              $result= $stmt->get_result() or die("Error in user query: " . mysqli_error($rodb));
              echo "<table>";
              echo "<tr>
-               <th>destination</th><th>Turtype</th><th>Båd</th><th>Ud</th><th>Ind</th>
+               <th>destination</th><th>Turtype</th><th>Båd</th><th>Ud</th><th>Ind</th><th>km</th>
               </tr>";
              while ($row = $result->fetch_assoc()) {
                  echo "<tr>";
@@ -85,6 +87,7 @@ UNION
                  } else {
                      echo "<td>". $row['intime'].  "</td>";
                  }
+                 echo '<td class="nr">'. $row['km']."</td>";
                  echo "</tr>";
              }
              echo "</table>";

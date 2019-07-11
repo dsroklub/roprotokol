@@ -22,14 +22,13 @@ function noRight ($scope, $routeParams, LoginService, filter, ngDialog, orderBy,
       LoginService.setpw($scope.login);
     }
   }
-  
+
   $scope.ccurrentuser = LoginService.get_cuser();
-  
+
   $scope.userlogin = function(){
-    LoginService.check_user().promise.then(function(u) {         
+    LoginService.check_user().promise.then(function(u) {
       $scope.current_user=u;
       $scope.ccurrentuser.member_id=u.member_id;
     });
-  }    
-}   
-  
+  }
+}

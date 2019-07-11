@@ -25,7 +25,7 @@ SELECT JSON_MERGE(
       'work',worklog.work,
       'by',worklog.created_by,
       'created',worklog.created 
-      )),''),
+      ) ORDER BY workdate),''),
    ']}')
   )
      as json

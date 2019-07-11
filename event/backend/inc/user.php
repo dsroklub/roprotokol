@@ -1,5 +1,6 @@
 <?php
 
+$currentuser=null;
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $currentuser=$_SERVER['PHP_AUTH_USER'];
 }
@@ -14,19 +15,19 @@ function check_event_owner($eventId) {
          FROM event, Member
          WHERE event.id=? AND MemberId=? AND event.owner=Member.id")
     ) {
-        
+
         $stmt->bind_param(
             'ss',
             $eventId,
             $currentuser
         ) ||  die("set event stautsBIND errro ".mysqli_error($rodb));
-        
+
         if ($stmt->execute()) {
             error_log("set evt status set OK");
             $result= $stmt->get_result() or die("Error in event owner check: " . mysqli_error($rodb));
             if (count($result)==1) {
                 return true;
-            }        
+            }
         } else {
             $error=" evt status set exe ".mysqli_error($rodb);
             $message=$message."\n"."role update error: ".mysqli_error($rodb);
@@ -45,13 +46,13 @@ function check_forum_owner($forumName) {
     if ($stmt = $rodb->prepare(
         "SELECT Member.id
          FROM forum_subscription, Member
-         WHERE 
+         WHERE
            forum_subscription.forum=? AND MemberId=? AND forum_subscription.member=Member.id AND forum_subscription.role='admin'
-         UNION 
+         UNION
             SELECT Member.id FROM forum,Member where forum.owner=Member.id AND Member.MemberID=? AND forum.name=?
             "
     )
-    ) {        
+    ) {
         $stmt->bind_param(
             'ssss',
             $forumName,
@@ -59,13 +60,13 @@ function check_forum_owner($forumName) {
             $currentuser,
             $forumName
         ) ||  die("check forum owner errro ".mysqli_error($rodb));
-        
+
         if ($stmt->execute()) {
             $result= $stmt->get_result() or die("Error in forum owner check: " . mysqli_error($rodb));
             if (count($result->fetch_assoc())==1) {
                 // error_log("check forum TRUE ".print_r($result,true));
                 return true;
-            }        
+            }
         } else {
             $error=" forum status set exe ".mysqli_error($rodb);
             $message=$message."\n"."role update error: ".mysqli_error($rodb);

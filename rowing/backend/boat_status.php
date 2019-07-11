@@ -23,6 +23,11 @@ $s="SELECT Boat.id,
            MAX(Trip.Comment) as comment,
            boat_usage.name as boatusage,
            Boat.brand,
+           Boat.note,
+           Boat.oar_pitch,
+           Boat.oar_height,
+           Boat.oar_type,
+           Boat.rig_height,
            Boat.level
     FROM Boat
          INNER JOIN BoatType ON (BoatType.Name=Boat.boat_type)
@@ -30,8 +35,6 @@ $s="SELECT Boat.id,
          LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
          LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
          LEFT JOIN boat_usage ON Boat.boat_usage=boat_usage.id
-    WHERE 
-         Boat.Decommissioned IS NULL
     GROUP BY
        Boat.id,
        Boat.Name,

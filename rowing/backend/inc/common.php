@@ -95,6 +95,20 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
         while ($row = $result->fetch_assoc()) {
             echo implode(",",$row)."\n";
         }
+    }  else if ($output=="text") {
+        header('Content-type: text/html');
+        echo " <link rel=\"stylesheet\" href=\"/public/stat.css\">\n<table>\n";
+        if ($captions) {
+            echo "<tr>\n<th>";
+            echo implode("</th><th>",$captions)."\n";
+            echo "</th></tr>\n";
+        }
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr><td>";
+            echo implode("</td><td>",$row)."\n";
+            echo "</td></tr>\n";
+        }
+        echo "</table>\n";
     }
 }
 

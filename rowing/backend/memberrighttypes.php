@@ -17,4 +17,3 @@ if ($stmt = $rodb->prepare($s)) {
      echo ']';
 }
 $rodb->close();
-?>

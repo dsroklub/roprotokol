@@ -10,6 +10,8 @@ if ($stmt = $rodb->prepare("UPDATE status SET sculler_open=?")) {
     $stmt->bind_param('i', $sculler_open);
     $stmt->execute();
 } 
+eventLog("Scullerskilt ". ($sculler_open?"åbnet":"lukket")." af $cuser");
 $rodb->close();
 invalidate('status');
+invalidate('admin');
 echo json_encode($res);

@@ -18,11 +18,18 @@ if ($cuser!=$d->forummember) {
 }
 $stmt=$rodb->prepare("INSERT INTO worklog (forum,workdate,work,hours,member_id,created_by) SELECT ?,?,?,?,mm.id,mc.id FROM Member mc,Member mm WHERE mm.MemberId=? AND mc.MemberId=?")
      or dbErr($rodb,$res,"addwork q");
-$workdate=isset($d->workdate)?$d->workdate:"2019-02-22";
-$work=$d->work->done;
+if (isset($d->work->workdate)) {
+  $workdate=date("Y-m-d", strtotime($d->work->workdate));
+  } else {
+  $workdate=date('Y-m-d');
+}
+$work="";
+if (isset($d->work->done)) {
+  $work=$d->work->done;
+}
 $hours=$d->work->hours;
 $forummember=$d->forummember->member_id;
-error_log("VALS $forum, $workdate, $work, $hours,$forummember,$cuser");
+error_log("VALS $forum, wd=$workdate, w=$work, h=$hours,m=$forummember,u=$cuser");
 $stmt->bind_param("sssdss", $forum, $workdate, $work, $hours,$forummember,$cuser)  or dbErr($rodb,$res,"addwork b");
 
 $stmt->execute() or dbErr($rodb,$res,"addwork exe");

@@ -9,7 +9,9 @@ if ($stmt = $rodb->prepare("UPDATE status SET reservation_configuration=?")) {
     $stmt->bind_param('s', $configuration);
     $stmt->execute();
 }
+eventLog("Reservationskonfiguration sat til $configuration af $cuser");
 $rodb->close();
 invalidate('status');
+invalidate('admin');
 invalidate('reservation');
 echo json_encode($res);

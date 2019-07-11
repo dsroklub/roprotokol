@@ -17,8 +17,10 @@ if ($correction->deleterequest) {
     }
 } else {
 //    error_log(" times: ".$correction->outtime." , ". $correction->intime);
+    $mouttime=mysdate($correction->outtime);
+    $mintime=mysdate($correction->intime);
     if ($stmt = $rodb->prepare(
-        "INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter,Comment,Fixed) 
+        "INSERT INTO Error_Trip(Trip,ReasonForCorrection,BoatID,Destination,TripTypeID,CreatedDate,EditDate,TimeOut,TimeIn,Distance,Reporter,Comment,Fixed)
                 VALUES(?,?,?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,0)")) {
         $stmt->bind_param('isisississ',
         $correction->id,
@@ -26,8 +28,8 @@ if ($correction->deleterequest) {
         $correction->boat->id,
         $correction->destination->name,
         $correction->triptype->id,
-        mysdate($correction->outtime),
-        mysdate($correction->intime),
+        $mouttime,
+        $mintime,
         $correction->distance,
         $correction->reporter,
         $correction->comment
@@ -38,10 +40,10 @@ if ($correction->deleterequest) {
         }
     } else {
         $error=mysqli_error($rodb);
-        error_log("DB prep error: ".$error);            
-    }    
+        error_log("DB prep error: ".$error);
+    }
 //    error_log("\n\nnow all rowers ".json_encode($correction->rowers));
-    
+
     if (empty($error)  and $stmt = $rodb->prepare("INSERT INTO Error_TripMember(ErrorTripID,Seat,member_id,MemberName) ".
     "SELECT LAST_INSERT_ID(),?,Member.id,? FROM Member Where MemberID=?"
     )) {
@@ -66,7 +68,7 @@ if ($error) {
     $res['error']=$error;
     $rodb->rollback();
 } else {
-    error_log("committing");    
+    error_log("committing");
     $rodb->commit();
 }
 
@@ -74,4 +76,3 @@ $res['message']=$message;
 invalidate("trip");
 $rodb->close();
 echo json_encode($res);
-?> 

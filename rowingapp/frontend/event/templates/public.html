@@ -37,10 +37,10 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
 
 <h2>Vælg hvad andre kan se på din offentlige side:</h2>
 <form name="publicsetting">
-  <table>    
+  <table>
     <tr><th>Offentlig profil</th>
       <td><input type="checkbox" id="public" ng-model="member_setting.is_public" ng-true-value="1" ng-false-value="0" ></td></tr>
-    
+
     <tr ng-show="member_setting.is_public">
       <th>Vis min rostatus</th>
       <td> <input type="checkbox" id="status" ng-model="member_setting.show_status" ng-true-value="1" ng-false-value="0" ></td></tr>
@@ -48,7 +48,7 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
     <tr ng-show="member_setting.is_public">
       <th>Vis mine aktiviteter i DSR</th>
       <td> <input type="checkbox" id="status" ng-model="member_setting.show_activities" ng-true-value="1" ng-false-value="0" ></td></tr>
-    
+
     <tr>
 
     <tr>
@@ -65,7 +65,7 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
       <th>Email som kan ses af andre DSR-medlemmer og som vises i bådhallen</th>
       <td> <input  type="email" id="email_shared" ng-model="member_setting.email_shared"></td>
     </tr>
-    <tr>      
+    <tr>
       <td>
         <button ng-disabled="publicsetting.$pristine || publicsetting.$invalid" class="green"  ng-click="member_setting_update()">Opdater</button>
         <!--pre>
@@ -76,3 +76,39 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
   </table>
 </form>
 
+
+<h2>Ro information </h2>
+<script type="text/ng-template" id="memberTemplate.html">
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+<form>
+  Jeg har roet med
+  <input placeholder="vælg medlem" autocomplete="off" id="othermemberinput" name="othermember" type="text"
+         ng-model="othermember" typeahead-on-select="update_mate(othermember.id)"
+         typeahead-select-on-exact="true"
+         ng-model-options="{updateOn:'blur default',debounce: { 'default': 20, 'blur': 0 } }"
+         typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+         typeahead-template-url="memberTemplate.html" />
+</form>
+
+<div ng-show="othermember">
+  <table  class="genericlist">
+    <caption>Roture med {{othermember.name}} <i>({{othermember.id}})</i></caption>
+    <thead>
+      <tr ><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>Roere</th></tr>
+    </thead>
+    <tbody class="tbody">
+      <tr ng-class-even="'even'" ng-class-odd="'odd'" ng-repeat="trip in mate_trips" >
+        <td>{{trip.boat}}</td>
+        <td>{{trip.triptype}}</td>
+        <td>{{trip.destination}}</td>
+        <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
+        <td class="rnum" >{{trip.distance|mtokm}}</td>
+        <td> <ul><li ng-repeat="rower in trip.rowers">{{rower.name}} </li></ul></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

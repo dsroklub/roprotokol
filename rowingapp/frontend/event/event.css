@@ -16,7 +16,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
   width: auto;
   color: #0088C0;
-  background:white;                     
+  background:white;
   display:table;
   border-radius: 5px;
   padding: 2px;
@@ -48,14 +48,14 @@ button i {
   margin-right: 5pt;
 }
 
-button.red {   
+button.red {
   border: 1px solid #FF6C60;
   color: #FF6C60;
   background: #171717;
   font-size: 16pt;
 }
 
-button.submit, button.green, button.login {   
+button.submit, button.green, button.login {
   border: 1px solid #3ECBBF;
   background: #028000;
   color: #FFFFFF;
@@ -75,13 +75,13 @@ button.bodycopy {
     font-size: 12pt;
 }
 
-button.chooser {   
+button.chooser {
   border: 1px solid #3ECBBF;
   background: #5dff5a;
   color: black;
 }
 
-button.header, tr.header {   
+button.header, tr.header {
   border: 1px solid #000000;
   color: #FFFFFF;
   background: #75c1be;
@@ -180,7 +180,7 @@ input.big {
 }
 
 .main {
-  margin: 0;   
+  margin: 0;
   padding: 4pt 6pt;
 }
 
@@ -193,19 +193,24 @@ input.big {
   cursor: pointer;
 }
 
-
-caption {
-  min-width: 20em;
+caption{
+  border-radius: 7px 7px 0 0;
+  text-align: center;
+  min-width: 21em;
+  caption-side: top;
+  background:#2f5869;
+  color: white;
 }
 
 table {
   margin-top: 2em;
 }
 
-table caption {
+table.caption {
   background:#2f5869;
   color: white;
   font-size: 12pt;
+  caption-side: top;
   border-radius: 7px 7px 0 0;
   text-align: center;
 }
@@ -244,7 +249,7 @@ li.selected,button.selected {
 
 .numin  {
   max-width: 5em;
-  text-align: right!important;  
+  text-align: right!important;
 }
 
 /* input[type=number]::-webkit-inner-spin-button {   */
@@ -259,7 +264,7 @@ select  {
   border-radius: 5px;
 }
 
-button.deletealert {   
+button.deletealert {
   border: 1px solid #3ECBBF;
   background: red;
   color: black;
@@ -407,7 +412,7 @@ tr td {
 #messagesubject {
   vertical-align: text-bottom;
   font-size: x-large;
-  max-width: 100%;                  
+  max-width: 100%;
  }
 
 .messagelist {
@@ -422,8 +427,8 @@ tr td {
   border-bottom: 2px;
   border-left: 2px;
   border-right: 2px;
-  border-top: 0px;                 
-  border-radius:0.3em;         
+  border-top: 0px;
+  border-radius:0.3em;
   background: #d0f8d5;
   color: black;
   white-space: pre-wrap;
@@ -451,9 +456,9 @@ tr td {
   background: #c6efd7;
   vertical-align: top;
 }
- 
+
 .subscriptions {
-  cursor: pointer;    
+  cursor: pointer;
   border-radius: 1em;
   display:inline-block;
 }
@@ -464,7 +469,7 @@ tr td {
 
 .user {
   background:#d2f6d2;
-} 
+}
 
 .forowner {
   background:#9ae4b6;

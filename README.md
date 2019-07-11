@@ -30,7 +30,9 @@ Create database:
    sudo mysqladmin  --default-character-set=utf8 create roprotokol
     sudo "echo "CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol'; CREATE USER 'apacheauth'@'localhost' IDENTIFIED BY 'XXXX';"|mysql
     sudo echo "GRANT ALL PRIVILEGES ON roprotokol.authentication TO 'apacheauth'@'localhost';GRANT ALL PRIVILEGES ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql
-    sudo echo "GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql
+    sudo echo "GRANT SELECT ON roprotokol.MemberRights TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql
+    sudo echo "GRANT SELECT ON dsrvinter.* TO 'roprotokol'@'localhost';"|mysql
+    sudo echo "GRANT SELECT ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql
 
 
 Import schema:

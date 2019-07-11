@@ -56,10 +56,9 @@ if ($rodb->connect_errno) {
 }
 
 function sanestring($s) {
-   $allowedchars=".;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890=:_-#";
    $s1=filter_var(str_replace(">","",str_replace("<","",$s)), FILTER_SANITIZE_STRING,FILTER_FLAG_STRIP_BACKTICK|FILTER_FLAG_STRIP_LOW|FILTER_FLAG_ENCODE_AMP);
    $r=preg_replace('/&#\d+;/',"",$s1);
-    return $r;
+   return $r;
 }
 
 if (!$rodb->set_charset("utf8")) {
@@ -67,15 +66,14 @@ if (!$rodb->set_charset("utf8")) {
 }
 
 function saneEmail($s) {
-    $sm=["xø"=>"oe","Ø"=>"Oe","æ"=>"ae","Æ"=>"Ae","å"=>"aa","Å"=>"Aa","X"=>"xxx"];
-    $allowedchars=".abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890=:_-#";
+    $sm=["ø"=>"oe","Ø"=>"Oe","æ"=>"ae","Æ"=>"Ae","å"=>"aa","Å"=>"Aa"];
+    $allowedchars=".abcdefghijklmnopqrstuvwxyz01234567890=:_-#";
     $r=$s;
     foreach ($sm as $s => $p) {
         $r=str_replace($s,$p,$r);
     }
-    $s=mb_convert_encoding($r,"ascii");
+    $s=strtolower(mb_convert_encoding($r,"ascii"));
     $r="";
-    echo "\ns=$s\n";
     for ($i=0; $i < strlen($s);$i++) {
         $c=$s[$i];
         if (is_numeric(strpos($allowedchars,$c))){

@@ -18,12 +18,13 @@ $s=
   LEFT JOIN team on team_participation.team=team.name 
         AND team_participation.dayofweek=team.dayofweek
         AND team_participation.timeofday=team.timeofday
-  WHERE  Member.id=team_participation.member_id AND QUARTER(classdate)=? 
-        AND (YEAR(classdate)=YEAR(NOW()) OR YEAR(classdate)=YEAR(NOW())-1)
+  WHERE  Member.id=team_participation.member_id AND 
+        QUARTER(classdate)=? AND 
+        (YEAR(classdate)=YEAR(NOW()) AND QUARTER(NOW())>=?) OR (YEAR(classdate)=YEAR(NOW())-1 AND QUARTER(NOW())<?)
   ';
 
 if ($stmt = $rodb->prepare($s)) {
-    $stmt->bind_param("i", $quarter);
+    $stmt->bind_param("iii", $quarter,$quarter,$quarter);
     $stmt->execute();
      $result= $stmt->get_result() or die("Error in quarterly query: " . mysqli_error($rodb));     
      $out = fopen('php://output', 'w');
@@ -36,4 +37,3 @@ if ($stmt = $rodb->prepare($s)) {
 } else {
     error_log(mysqli_error($rodb));
 }
-?> 

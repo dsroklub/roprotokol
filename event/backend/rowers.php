@@ -8,6 +8,7 @@ $s="SELECT JSON_MERGE(
       'id',Member.MemberID, 
       'phone',member_setting.phone,
       'email_shared',member_setting.email_shared,
+      'status', IF(RemoveDate,'ikke medlem',IF(member_type=1,'passiv','ok')),
       'name', CONCAT(FirstName,' ',LastName) 
    ),
    CONCAT('{\"rights\" : [',

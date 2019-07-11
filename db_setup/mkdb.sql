@@ -8,17 +8,22 @@ CREATE TABLE Boat (
   modelid int(11),
   Description varchar(1000),
   Created datetime,
+  note   TEXT,
   Updated datetime,
   MotionPlus varchar(100),
   boat_usage int(11),
   level int(11),
+  oar_angle float,
+  oar_length float,
+  rig_height float,
+  oar_type CHAR(20),
   Location varchar(100),
   placement_aisle INT, -- doors in DSR, Containers from left in Nordhavn
   placement_row INT, -- 1 is toward port, 2 is torwards Strandvænget
   placement_level INT, -- 0=ground, 1 .. shelves
   placement_side Char(6), -- -left, right,center
   Decommissioned datetime,
-  -- TODO FOREIGN KEY (BoatType) REFERENCES BoatTypes(Name) ON DELETE Restrict ON UPDATE CASCADE,
+  FOREIGN KEY (BoatType) REFERENCES BoatType(Name) ON DELETE Restrict ON UPDATE CASCADE,
   PRIMARY KEY (id)
 );
 
@@ -39,12 +44,11 @@ CREATE TABLE rights_subtype (
   Description VARCHAR(1000)
 );
 
-DROP TABLE IF EXISTS BoatConfiguration;
-CREATE TABLE BoatConfiguration (
+DROP TABLE IF EXISTS boat_configuration;
+CREATE TABLE boat_configuration (
   BådID int(11),
   Navn varchar(100) NOT NULL,
   Plads int(11),
-  Åretype varchar(100),
   Righøjde float,
   Svirvelafstand float,
   Svirveltype varchar(100),
@@ -64,10 +68,7 @@ CREATE TABLE BoatConfiguration (
   ØnsketOmsætningsforhold float,
   ØnsketGearingsforhold float,
   NyÅrelængde float,
-  NyIndvendiglængde float,
-  OprettetDato datetime,
-  RedigeretDato datetime,
-  Kommentar varchar(1000),
+  NyIndvendiglængde float
 );
 
 DROP TABLE IF EXISTS BoatRights;
@@ -192,6 +193,7 @@ CREATE TABLE Member (
   Gender       INTEGER,
   KommuneKode INTEGER,
   CprNo Boolean,
+  member_type INTEGER,
   PRIMARY KEY (id),
   KEY medlemnrix (MemberID)
 );
@@ -215,6 +217,16 @@ CREATE TABLE MemberRights (
   FOREIGN KEY (member_id) REFERENCES Member(id) ON DELETE CASCADE,
   PRIMARY KEY (member_id,MemberRight,Acquired,argument)
 );
+
+
+CREATE TABLE meta_right(
+  member_right  VARCHAR(50) NOT NULL REFERENCES MemberRightType (member_right) ON DELETE CASCADE ON UPDATE CASCADE,
+  meta VARCHAR(50) NOT NULL,
+  PRIMARY KEY(member_right,meta)
+);
+
+INSERT INTO  meta_right(member_right,meta) VALUES('svava','svava/sculler');
+INSERT INTO  meta_right(member_right,meta) VALUES('sculler','svava/sculler');
 
 DROP TABLE IF EXISTS reservation;
 CREATE TABLE reservation (
