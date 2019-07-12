@@ -8,7 +8,6 @@ $res=array ("status" => "ok");
 $s="SELECT * FROM member_setting
    WHERE member IN (SELECT id FROM Member WHERE MemberId=?)";
 
-
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("s", $cuser);
     $stmt->execute();
@@ -16,7 +15,7 @@ if ($stmt = $rodb->prepare($s)) {
      if ($row = $result->fetch_assoc()) {
          echo json_encode($row,	JSON_PRETTY_PRINT,JSON_FORCE_OBJECT );
      } else {
-         echo '{}';             
+         echo '{}';
      }
 } else {
     $error=" member setting ".mysqli_error($rodb);
@@ -29,5 +28,3 @@ if ($stmt = $rodb->prepare($s)) {
     }
 }
 invalidate("settings");
-
-?> 

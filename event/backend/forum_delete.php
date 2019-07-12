@@ -2,7 +2,6 @@
 include("../../rowing/backend/inc/common.php");
 include("inc/forummail.php");
 
-
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $forum=json_decode($data);
@@ -33,7 +32,7 @@ if ($stmt = $rodb->prepare(
     $error=" forum db error ".mysqli_error($rodb);
     error_log($error);
 }
-    
+
 if ($error) {
     error_log($error);
     $res['message']=$message;
@@ -42,4 +41,3 @@ if ($error) {
 }
 invalidate("fora");
 echo json_encode($res);
-?> 

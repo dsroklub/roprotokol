@@ -20,13 +20,13 @@ if (check_event_owner($event->event_id)) {
          SET open=?
          WHERE id=?"
     )
-    ) {        
+    ) {
         $stmt->bind_param(
             'is',
             $event->open,
             $event->event_id
         ) ||  die("set event openness BIND errro ".mysqli_error($rodb));
-        
+
         if ($stmt->execute()) {
             error_log("set evt openness set OK " .print_r($event,true));
         } else {
@@ -35,7 +35,7 @@ if (check_event_owner($event->event_id)) {
     } else {
         $error=" event status set ".mysqli_error($rodb);
         error_log($error);
-    }    
+    }
 } else {
     $error=" ikke ejer af begivenhed ";
 }
@@ -51,4 +51,3 @@ invalidate("event");
 error_log(print_r($res,true));
 error_log("return res");
 echo json_encode($res);
-?> 

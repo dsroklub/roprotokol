@@ -9,7 +9,7 @@ error_log("FM val ".print_r($update,true));
 if ($stmt = $rodb->prepare("
  UPDATE forum_subscription
  SET forum_subscription.value=?
- WHERE 
+ WHERE
   forum_subscription.forum=? AND
  forum_subscription.member IN (SELECT ms.id from Member ms, Member mo,forum WHERE ms.MemberId=? AND mo.MemberId=? AND mo.id=forum.owner AND forum.name=forum_subscription.forum)
    ")
@@ -24,7 +24,7 @@ if ($stmt = $rodb->prepare("
         $error=" forummember upd exe ".mysqli_error($rodb);
         error_log($error);
         $message=$message."\n"."create setting insert error: ".mysqli_error($rodb);
-    } 
+    }
 } else {
         $error=" forummember update exe ".mysqli_error($rodb);
 }
@@ -38,5 +38,3 @@ if ($error) {
 invalidate("fora");
 invalidate("member");
 echo json_encode($res);
-?> 
-

@@ -1,16 +1,16 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
- 
+
 $forum=sanestring($_REQUEST['forum']);
 $filename=sanestring($_REQUEST['file']);
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-$s="SELECT mime_type as mt,filename,file 
+$s="SELECT mime_type as mt,filename,file
     FROM forum_file, Member, forum_subscription
-    WHERE 
+    WHERE
     Member.MemberID=? AND forum_subscription.member=Member.id AND forum_subscription.forum=forum_file.forum AND
     forum_file.forum=? AND filename=? AND expire>NOW()";
 
@@ -32,4 +32,3 @@ if ($stmt = $rodb->prepare($s)) {
 } else {
     dbErr($rodb,$res,"forum file");
 }
-

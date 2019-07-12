@@ -8,7 +8,7 @@ $s="SELECT Destination.Location as location, Destination.Name as name, Meter as 
    ORDER BY Location,name";
 
 if ($stmt = $rodb->prepare($s)) {
-     $stmt->execute(); 
+     $stmt->execute();
      $result= $stmt->get_result() or die("Error in destinations query: " . mysqli_error($rodb));
      $first=1;
      $d=[];
@@ -22,4 +22,3 @@ if ($stmt = $rodb->prepare($s)) {
      echo json_encode($d);
 }
 $rodb->close();
-?> 

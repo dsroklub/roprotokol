@@ -20,7 +20,7 @@ if ($stmt = $rodb->prepare(
     "INSERT INTO event_member(member,event,role,enter_time)
          SELECT Member.id, ?,?,NOW()
          FROM Member
-         WHERE 
+         WHERE
            MemberId=?
           AND EXISTS (
             SELECT 'x' FROM event, Member owner WHERE owner.MemberId=? and event.owner=owner.id AND event.id=?
@@ -35,16 +35,15 @@ if ($stmt = $rodb->prepare(
         'isssi',
         $subscription->event->event_id,
         $role,
-        $subscription->member->id,        
+        $subscription->member->id,
         $cuser,
         $subscription->event->event_id
-        
     ) ||  die("event member by owner BIND errro ".mysqli_error($rodb));
 
     if (!$stmt->execute()) {
         $error=" eventmember by owner exe ".mysqli_error($rodb);
         $message=$message."\n"."owner eventmember error: ".mysqli_error($rodb);
-    } 
+    }
 } else {
     $error=" eventmember by owner ".mysqli_error($rodb);
 }
@@ -57,4 +56,3 @@ if ($error) {
 }
 invalidate("event");
 echo json_encode($res);
-?> 

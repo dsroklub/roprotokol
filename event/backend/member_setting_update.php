@@ -13,9 +13,9 @@ if ($stmt = $rodb->prepare(
         "INSERT INTO member_setting(member,is_public,show_status,show_activities,notification_email,phone,email_shared)
          SELECT Member.id, ?,?,?,?,?,?
          FROM Member
-         WHERE 
+         WHERE
            MemberId=?
-         ON DUPLICATE KEY 
+         ON DUPLICATE KEY
   UPDATE is_public=VALUES(is_public),show_status=VALUES(show_status),show_activities=VALUES(show_activities),notification_email=VALUES(notification_email),phone=VALUES(phone),email_shared=VALUES(email_shared)
          "))  {
     $notification_email=null;
@@ -44,7 +44,7 @@ if ($stmt = $rodb->prepare(
     $stmt->bind_param(
         'sssssss',
         $is_public,
-        $show_status,        
+        $show_status,
         $show_activities,
         $notification_email,
         $phone,
@@ -54,7 +54,7 @@ if ($stmt = $rodb->prepare(
         $error=" member setting exe ".mysqli_error($rodb);
         error_log($error);
         $message=$message."\n"."create setting insert error: ".mysqli_error($rodb);
-    } 
+    }
 } else {
         $error=" mem setting update exe ".mysqli_error($rodb);
 }
@@ -68,5 +68,3 @@ if ($error) {
 invalidate("fora");
 invalidate("member");
 echo json_encode($res);
-?> 
-

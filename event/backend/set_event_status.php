@@ -3,7 +3,6 @@ include("../../rowing/backend/inc/common.php");
 require_once("inc/user.php");
 include("messagelib.php");
 
-
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 error_log("SET event status $data\n");
@@ -21,13 +20,12 @@ if (check_event_owner($event->event_id)) {
          SET status=?
          WHERE id=?"
     )
-    ) {        
+    ) {
         $stmt->bind_param(
             'ss',
             $event->status,
             $event->event_id
         ) ||  die("set event stauts BIND errro ".mysqli_error($rodb));
-        
         if ($stmt->execute()) {
             error_log("set evt status set OK " .print_r($event,true));
             $res=post_event_message($event->event_id, $event->name . " " .$event->status,  "ny status for begivenhed $event->name");
@@ -38,7 +36,7 @@ if (check_event_owner($event->event_id)) {
     } else {
         $error=" event status set ".mysqli_error($rodb);
         error_log($error);
-    }    
+    }
 } else {
     $error=" ikke ejer af begivenhed ";
 }
@@ -54,4 +52,3 @@ invalidate("event");
 error_log(print_r($res,true));
 error_log("return res");
 echo json_encode($res);
-?> 
