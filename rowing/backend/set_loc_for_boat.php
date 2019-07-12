@@ -10,12 +10,11 @@ $data=json_decode($data);
 $location = $data->location;
 $rodb->begin_transaction();
 
-if ($stmt = $rodb->prepare("UPDATE Boat set Location=? Where id=?")) { 
+if ($stmt = $rodb->prepare("UPDATE Boat set Location=? Where id=?")) {
     $stmt->bind_param('si', $data->location,$data->id);
     $stmt->execute();
-} 
+}
 $rodb->commit();
 $rodb->close();
 invalidate('boat');
 echo json_encode($res);
-?> 

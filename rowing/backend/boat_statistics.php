@@ -24,11 +24,11 @@ FROM (BoatType INNER JOIN Boat ON BoatType.name = Boat.boat_type) LEFT JOIN Trip
 WHERE Year(OutTime)=? ". $boatclause .
     " GROUP BY Boat.Name, Boat.boat_type, Boat.id
     ORDER BY distance desc";
-    
+
 if ($sqldebug) echo $s;
 if ($stmt = $rodb->prepare($s)) {
      $stmt->bind_param("s", $season);
-     $stmt->execute(); 
+     $stmt->execute();
      $result= $stmt->get_result();
      echo '[';
      $rn=1;
@@ -38,8 +38,7 @@ if ($stmt = $rodb->prepare($s)) {
          echo json_encode($row);
          $rn=$rn+1;
      }
-     echo ']';     
-     $stmt->close(); 
- } 
+     echo ']';
+     $stmt->close();
+ }
 $rodb->close();
-?> 

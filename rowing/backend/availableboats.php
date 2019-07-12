@@ -28,7 +28,7 @@ if ($sqldebug) {
 # echo $s."<br>";
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("s", $location);
-     $stmt->execute(); 
+     $stmt->execute();
      $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
      echo '{';
      $first=1;
@@ -41,4 +41,3 @@ if ($stmt = $rodb->prepare($s)) {
     error_log("available boats prepare failed: " .$rodb->error);
 }
 $rodb->close();
-?> 

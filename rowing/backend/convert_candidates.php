@@ -71,15 +71,9 @@ if ($r) {
 } else {
   $error = 'Could not find candidates: ' . $rodb->error;
 }
-
-
 if ($error) {
   $res['error'] = $error;
   $res['status'] = 'error';
 }
-
 header('Content-type: application/json;charset=utf-8');
-
 echo json_encode($res);
-
-?>

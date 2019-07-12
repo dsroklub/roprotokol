@@ -21,4 +21,3 @@ $rodb->commit();
 $rodb->close();
 invalidate('trip');
 echo json_encode($res);
-?> 

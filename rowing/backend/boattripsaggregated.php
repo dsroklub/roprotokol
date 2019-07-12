@@ -22,10 +22,9 @@ if ($stmt = $rodb->prepare($sql)) {
      echo '[';
      $first=1;
      while ($row = $result->fetch_assoc()) {
-         if ($first) $first=0; else echo ',';	  
+         if ($first) $first=0; else echo ',';
          echo json_encode($row);
      }
      echo ']';
 }
 $rodb->close();
-?> 

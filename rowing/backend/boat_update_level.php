@@ -10,7 +10,7 @@ $boat=json_decode($data);
 $rodb->begin_transaction();
 error_log("update_level ".json_encode($boat));
 
-if ($stmt = $rodb->prepare("UPDATE Boat SET level=? WHERE id=?")) { 
+if ($stmt = $rodb->prepare("UPDATE Boat SET level=? WHERE id=?")) {
     $stmt->bind_param('ii', $boat->level,$boat->id);
     $stmt->execute() || $rodb->dump_debug_info();
 } else {
@@ -20,4 +20,3 @@ $rodb->commit();
 $rodb->close();
 invalidate('boat');
 echo json_encode($res);
-?> 

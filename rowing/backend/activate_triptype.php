@@ -11,9 +11,8 @@ $rodb->begin_transaction();
 if ($stmt = $rodb->prepare("UPDATE TripType SET Active=? WHERE id=?")) {
     $stmt->bind_param('ii', $data->active,$data->id);
     $stmt->execute();
-} 
+}
 $rodb->commit();
 $rodb->close();
 invalidate('trip');
 echo json_encode($res);
-

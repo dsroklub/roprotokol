@@ -10,12 +10,11 @@ error_log("set row ".json_encode($data));
 
 $rodb->begin_transaction();
 
-if ($stmt = $rodb->prepare("UPDATE Boat set placement_row=? Where id=?")) { 
+if ($stmt = $rodb->prepare("UPDATE Boat set placement_row=? Where id=?")) {
     $stmt->bind_param('ii', $data->placement_row,$data->id);
     $stmt->execute();
-} 
+}
 $rodb->commit();
 $rodb->close();
 invalidate('boat');
 echo json_encode($res);
-?> 

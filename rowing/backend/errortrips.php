@@ -2,7 +2,7 @@
 include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
-  
+
 $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
     JSON_OBJECT(
      'reason',ReasonForCorrection,
@@ -34,7 +34,7 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
        WHERE Fixed=0
        GROUP BY Error_Trip.id, TripType.Name
 )
-  UNION 
+  UNION
     (SELECT Trip.id as Trip, NULL as error_id, JSON_MERGE(
     JSON_OBJECT(
       'reason','',
@@ -63,7 +63,7 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
              LEFT JOIN TripMember on Trip.id=TripMember.TripID
              LEFT JOIN Member on member_id=Member.id,
            Error_Trip,
-           TripType 
+           TripType
      WHERE Boat.id=Trip.BoatID
        AND Error_Trip.Trip=Trip.id
        AND TripType.id=Trip.TripTypeID
@@ -71,7 +71,7 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
      GROUP BY Error_Trip.id,TripType.Name
     ) ORDER BY Trip,error_id" ;
 
- 
+
 if ($sqldebug) echo $sql."\n\n";
 
 if ($stmt = $rodb->prepare($sql)) {
@@ -85,9 +85,8 @@ if ($stmt = $rodb->prepare($sql)) {
 echo '[';
 $first=1;
 while ($row = $result->fetch_assoc()) {
-    if ($first) $first=0; else echo ",\n";	  
+    if ($first) $first=0; else echo ",\n";
     echo $row['json'];
 }
 echo ']';
 $rodb->close();
-?> 

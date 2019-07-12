@@ -27,4 +27,3 @@ if ($stmt = $rodb->prepare("DELETE FROM team WHERE name=? AND dayofweek=? AND ti
     error_log("OOOP2 ".$rodb->error);
 }
 echo json_encode($res);
-?> 
