@@ -3,12 +3,12 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-// TODO when we can use Mysql 8 replace with JSON_ARRAYAGG etc
+// TODO when we can use Mariadb 10.5 replace with JSON_ARRAYAGG etc
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
       'id',Member.MemberID,
       'status', IF(RemoveDate,'ikke medlem',IF(member_type=1,'passiv','ok')),
-      'name', CONCAT(FirstName,' ',LastName) 
+      'name', CONCAT(FirstName,' ',LastName)
    ),
    CONCAT(
   '{', JSON_QUOTE('rights'),': [',
@@ -16,8 +16,9 @@ $s="SELECT JSON_MERGE(
       'member_right',MemberRight,'arg',argument,'acquired',Acquired)),
    ']}')
    ) AS json
-   FROM Member LEFT JOIN MemberRights on MemberRights.member_id=Member.id  
-   WHERE Member.MemberID!='0' AND Member.id>=0
+   FROM Member LEFT JOIN MemberRights ON MemberRights.member_id=Member.id
+   WHERE Member.MemberID!='0' AND Member.id>=0 AND
+     (member_type <> -1 OR member_type IS NULL)
    GROUP BY Member.id";
 
 if ($sqldebug) {
@@ -32,9 +33,9 @@ if (!$result) {
 
 echo '[';
  $first=1;
- while ($row = $result->fetch_assoc()) {
-	  if ($first) $first=0; else echo ",\n";
-	  echo $row['json'];
+while ($row = $result->fetch_assoc()) {
+    if ($first) $first=0; else echo ",\n";
+    echo $row['json'];
 }
 echo ']';
 $rodb->close();
