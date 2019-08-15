@@ -1,7 +1,6 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 
-
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $participation=json_decode($data);
@@ -15,8 +14,8 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
 if ($stmt = $rodb->prepare(
     "DELETE FROM event_member
-         WHERE event=? AND 
-           (event_member.member IN (SELECT Member.id FROM Member WHERE MemberId=?) AND 
+         WHERE event=? AND
+           (event_member.member IN (SELECT Member.id FROM Member WHERE MemberId=?) AND
              EXISTS (SELECT 'x' FROM event, Member owner WHERE owner.id=event.owner AND owner.MemberId=?))"
       )
      ) {
@@ -46,4 +45,3 @@ if ($error) {
 }
 invalidate("fora");
 echo json_encode($res);
-?> 

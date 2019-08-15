@@ -19,9 +19,6 @@ $mail_headers = array(
     'Subject'                   => $data->subject
 );
 
-
-
-// require("inc/db.php");
 require("../../public/inc/mail_sender.php");
 
 $toEmails=array();
@@ -39,7 +36,5 @@ if (PEAR::isError($mail_status)) {
     $res["status"]="error";
     $res["message"] = "Kunne ikke sende invitationer til $toEmails: " . $mail_status->getMessage();
 }
-
 return $res;
 echo json_encode($r);
-?> 

@@ -40,7 +40,7 @@ if ($fp) {
         "INSERT INTO forum_file(member_from,created,forum,filename,folder,mime_type,file,expire)
          SELECT Member.id, NOW(), ?, ?,?,?,?, CONVERT_TZ(?,'+00:00','SYSTEM')
          FROM Member
-         WHERE 
+         WHERE
            MemberId=?
          ")) {
 
@@ -54,14 +54,14 @@ if ($fp) {
             $content,
             $expire,
             $cuser) ||  die("forum file BIND errro ".mysqli_error($rodb));
-        
+
         if (!$stmt->execute()) {
             $error=" event forumfileexe error ".mysqli_error($rodb);
             error_log($error);
             $message=$message."\n"."forumfile upload error: ".mysqli_error($rodb);
         } else {
             error_log($rodb->error);
-        } 
+        }
     } else {
         $error="file upload insert error: $rodb->error";
     }
@@ -79,4 +79,3 @@ invalidate("fora");
 invalidate("file");
 invalidate("message");
 echo json_encode($res);
-?> 

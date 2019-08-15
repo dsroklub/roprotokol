@@ -9,12 +9,11 @@ $data=json_decode($data);
 
 $rodb->begin_transaction();
 
-if ($stmt = $rodb->prepare("UPDATE Boat set placement_aisle=? Where id=?")) { 
+if ($stmt = $rodb->prepare("UPDATE Boat set placement_aisle=? Where id=?")) {
     $stmt->bind_param('ii', $data->placement_aisle,$data->id);
     $stmt->execute();
-} 
+}
 $rodb->commit();
 $rodb->close();
 invalidate('boat');
 echo json_encode($res);
-?> 

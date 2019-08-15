@@ -2,7 +2,6 @@
 error_log("ROLE\n");
 include("../../rowing/backend/inc/common.php");
 
-
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 error_log("SET forum member role $data\n");
@@ -21,7 +20,6 @@ if ($stmt = $rodb->prepare(
 "
 )
 ) {
-
     $stmt->bind_param(
         'ssss',
         $forummember->role,
@@ -51,4 +49,3 @@ invalidate("fora");
 invalidate("message");
 error_log(print_r($res,true));
 echo json_encode($res);
-?> 

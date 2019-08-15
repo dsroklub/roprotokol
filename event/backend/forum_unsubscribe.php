@@ -2,24 +2,21 @@
 include("../../rowing/backend/inc/common.php");
 require_once("inc/user.php");
 
-
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $subscription=json_decode($data);
 $message='';
-
 error_log(print_r($subscription,true));
 
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-
 if ($cuser==$subscription->member_id) {
     error_log("self unsubscribe $subscription->forum $cuser");
     if ($stmt = $rodb->prepare(
         "DELETE FROM forum_subscription
-         WHERE forum=? AND 
+         WHERE forum=? AND
            member IN (SELECT Member.id FROM Member WHERE MemberId=?)"
       )
      ) {
@@ -39,7 +36,7 @@ if ($cuser==$subscription->member_id) {
     if (check_forum_owner($subscription->forum)) {
         if ($stmt = $rodb->prepare(
             "DELETE FROM forum_subscription
-         WHERE forum=? AND 
+         WHERE forum=? AND
            forum_subscription.member IN (SELECT Member.id FROM Member WHERE MemberId=?)"
         )
      ) {
@@ -48,7 +45,7 @@ if ($cuser==$subscription->member_id) {
                 $subscription->forum,
                 $subscription->member_id
             ) ||  die("forum unsubscribe BIND errro ".mysqli_error($rodb));
-        }    
+        }
         if ($stmt) {
             if ($stmt->execute()) {
                 $res['status']='ok';
@@ -72,4 +69,3 @@ if ($error) {
 }
 invalidate("fora");
 echo json_encode($res);
-?> 

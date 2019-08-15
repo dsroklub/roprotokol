@@ -16,8 +16,8 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 if ($stmt = $rodb->prepare(
     "UPDATE event_member
      SET role='member'
-         WHERE event=? AND 
-           (event_member.member IN (SELECT Member.id FROM Member WHERE MemberId=?) AND 
+         WHERE event=? AND
+           (event_member.member IN (SELECT Member.id FROM Member WHERE MemberId=?) AND
              EXISTS (SELECT 'x' FROM event, Member owner WHERE owner.id=event.owner AND owner.MemberId=?))"
       )
      ) {
@@ -47,4 +47,3 @@ if ($error) {
 }
 invalidate("fora");
 echo json_encode($res);
-?> 

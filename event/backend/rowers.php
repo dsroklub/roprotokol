@@ -5,11 +5,11 @@ header('Content-type: application/json');
 
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
-      'id',Member.MemberID, 
+      'id',Member.MemberID,
       'phone',member_setting.phone,
       'email_shared',member_setting.email_shared,
       'status', IF(RemoveDate,'ikke medlem',IF(member_type=1,'passiv','ok')),
-      'name', CONCAT(FirstName,' ',LastName) 
+      'name', CONCAT(FirstName,' ',LastName)
    ),
    CONCAT('{\"rights\" : [',
      GROUP_CONCAT(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired)),
@@ -28,8 +28,8 @@ $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
-	  if ($first) $first=0; else echo ',';	  
-	  echo $row['json'];
+     if ($first) $first=0; else echo ',';
+     echo $row['json'];
 }
 echo ']';
 $rodb->close();

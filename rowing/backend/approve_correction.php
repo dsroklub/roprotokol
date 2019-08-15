@@ -21,7 +21,7 @@ if ($data->correction->DeleteTrip) {
         exit(1);
     }
 } else {
-    if ($stmt = $rodb->prepare("UPDATE Trip,Error_Trip SET Trip.BoatID=Error_Trip.BoatID, Trip.InTime=Error_Trip.TimeIn, Trip.OutTime=Error_Trip.TimeOut,Trip.Destination=Error_Trip.Destination,Trip.Meter=Error_Trip.Distance,Trip.TripTypeID=Error_Trip.TripTypeID,Trip.Comment=Error_Trip.Comment 
+    if ($stmt = $rodb->prepare("UPDATE Trip,Error_Trip SET Trip.BoatID=Error_Trip.BoatID, Trip.InTime=Error_Trip.TimeIn, Trip.OutTime=Error_Trip.TimeOut,Trip.Destination=Error_Trip.Destination,Trip.Meter=Error_Trip.Distance,Trip.TripTypeID=Error_Trip.TripTypeID,Trip.Comment=Error_Trip.Comment
                                 WHERE Error_Trip.id=? AND Trip.id=Error_Trip.Trip")) {
         $stmt->bind_param('i', $data->correction->id);
         $stmt->execute() || error_log(' UPDATE exe failed'.$rodb->error);
@@ -30,7 +30,7 @@ if ($data->correction->DeleteTrip) {
         $rodb->rollback();
         exit(2);
     }
-    
+
     if ($stmt = $rodb->prepare("DELETE From TripMember WHERE TripID=?")) {
         $stmt->bind_param('i', $data->correction->Trip);
         $stmt->execute() || error_log(' DELETE exe failed'.$rodb->error);
@@ -55,10 +55,9 @@ if ($stmt = $rodb->prepare("UPDATE Error_Trip SET Fixed=1 WHERE id=?")) {
     $stmt->execute() || error_log(' Error trip fix '.$rodb->error);
 } else {
     error_log('OOOP update error fixed correction'.$rodb->error);
-}    
+}
 
 $rodb->commit();
 $rodb->close();
 invalidate('trip');
 echo json_encode($res);
-?> 

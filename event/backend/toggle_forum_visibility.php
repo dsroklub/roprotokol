@@ -21,12 +21,12 @@ if (check_forum_owner($forum->forum)) {
          SET is_public= NOT is_public
          WHERE forum.name=?"
     )
-    ) {        
+    ) {
         $stmt->bind_param(
             's',
             $forum->forum
         ) ||  die("toggle forum visibility " . mysqli_error($rodb));
-        
+
         if ($stmt->execute()) {
             error_log("toggle forum visibility " .print_r($forum,true));
         } else {
@@ -36,7 +36,7 @@ if (check_forum_owner($forum->forum)) {
     } else {
         $error=" forum visibility set ".mysqli_error($rodb);
         error_log($error);
-    }    
+    }
 } else {
     $error=" $cuser ikke ejer af forum $forum->forum ";
 }
@@ -50,4 +50,3 @@ if ($error) {
 
 invalidate("fora");
 echo json_encode($res);
-?> 

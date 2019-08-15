@@ -9,7 +9,7 @@ $usage=json_decode($data);
 error_log("new usage ".$data);
 $newusage=array("name"=>$usage->name,"description"=>$usage->description);
 $rodb->begin_transaction();
-if ($stmt = $rodb->prepare("INSERT INTO boat_usage(name,Description) VALUES (?,?)")) { 
+if ($stmt = $rodb->prepare("INSERT INTO boat_usage(name,Description) VALUES (?,?)")) {
     $stmt->bind_param('ss', $usage->name,$usage->description);
     $stmt->execute() |  error_log("usage create exe error :".$rodb->error);
 
@@ -27,4 +27,3 @@ $rodb->commit();
 $rodb->close();
 invalidate("boat");
 echo json_encode($res);
-?> 
