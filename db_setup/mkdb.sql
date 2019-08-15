@@ -684,6 +684,7 @@ CREATE TABLE forum_message (
   id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
   member_from  INTEGER,
   created    DATETIME,
+  sticky     int,
   forum      VARCHAR(255),
   subject    VARCHAR(1000),
   message    VARCHAR(10000),
@@ -840,3 +841,6 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
 
 
 INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");
+
+CREATE VIEW right_name AS SELECT DISTINCT member_right, showname,predicate FROM MemberRightType;
+

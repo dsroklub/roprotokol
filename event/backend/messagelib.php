@@ -172,7 +172,7 @@ function post_event_message($eventId,$subject,$message,$fromUser=null) {
     return $res;
 }
 
-function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null) {
+function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null,$sticky=null) {
     $res=array ("status" => "ok");
     global $rodb;
     global $cuser;
@@ -183,10 +183,10 @@ function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null
 
     if ($forumEmail) {
         $stmt = $rodb->prepare("SELECT name,email_local FROM forum WHERE email_local=?");
-        $stmt->bind_param('s',$forumEmail) or dbErr($rodb,$res,"Error in msg forum bind: ");
+        $stmt->bind_param('s',$forumEmail) || dbErr($rodb,$res,"Error in msg forum bind: ");
     } else {
         $stmt = $rodb->prepare("SELECT name,email_local FROM forum WHERE name=?");
-        $stmt->bind_param('s',$forum) or dbErr($rodb,$res,"Error in msg forum bind: ");
+        $stmt->bind_param('s',$forum) || dbErr($rodb,$res,"Error in msg forum bind: ");
     }
     $stmt->execute() or dbErr($rodb,"Error in mesg forum exe query: " );
     $forumres= $stmt->get_result() or dbErr($rodb,$res,"Error in msg forum");
@@ -215,28 +215,25 @@ function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null
     }
     $result->free();
     $msgid="error";
-    if ($stmt = $rodb->prepare(
-        "INSERT INTO forum_message(member_from, forum, created, subject, message)
-         SELECT mf.id,?,NOW(),?,?
+    $stmt = $rodb->prepare(
+        "INSERT INTO forum_message(member_from, forum, created, subject, message,sticky)
+         SELECT mf.id,?,NOW(),?,?,?
          FROM Member mf
          WHERE
-           mf.MemberID=?")) {
-        $stmt->bind_param(
-            'ssss',
-            $forum,
-            $subject,
-            $message,
-            $from) ||  die("create forum message BIND errro ".mysqli_error($rodb));
-
-        if ($stmt->execute()) {
-            $msgid=$rodb->query("SELECT LAST_INSERT_ID() AS msgid")->fetch_assoc()["msgid"];
-            error_log("LSQ ID=$msgid");
-        } else {
-            $error=" message forum error: forum=$forum, s=$subject, f=$from ".mysqli_error($rodb);
-            error_log($error);
-            $message=$message."\n"."forum message DB error: ".mysqli_error($rodb);
-        }
-    }
+           mf.MemberID=?") or dbErr($rodb,$res,"Error in msg forum prepare ");
+    
+    $stmt->bind_param(
+        'sssis',
+        $forum,
+        $subject,
+        $message,            
+        $sticky,
+        $from)  || dbErr($rodb,$res,"Error in msg forum bind: ");
+    
+    $stmt->execute() || dbErr($rodb,$res," message forum Error: forum=$forum, s=$subject, f=$from ");
+    $msgid=$rodb->query("SELECT LAST_INSERT_ID() AS msgid")->fetch_assoc()["msgid"];
+    error_log("LSQ ID=$msgid");
+    
     $userstmt = $rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name FROM Member WHERE MemberID=?") or dbErr($rodb,$res,"get forum user p");
     $userstmt->bind_param("s",$from) or dbErr($rodb,$res,"get forum user b");
     $userstmt->execute() or dbErr($rodb,$res,"get from name E");

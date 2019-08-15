@@ -125,7 +125,7 @@ SET
 Member.KommuneKode=tblMembersToRoprotokol.KommuneKode,
 Member.CprNo=tblMembersToRoprotokol.CprNo,
 Member.member_type=tblMembersToRoprotokol.MemberType
-    WHERE tblMembersToRoprotokol.MemberID=Member.MemberID;
+    WHERE tblMembersToRoprotokol.MemberID=Member.MemberID AND Member.member_type!=-1;
 ')){ 
         $stmt->execute() || die($rodb->error);
     }  else {

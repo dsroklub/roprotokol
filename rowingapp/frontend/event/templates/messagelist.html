@@ -18,7 +18,8 @@
             ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >          
           <td>
             <div ng-show="message.type=='forum'" >
-              <i class="fa fa-reply" ng-click=forum_reply(message)></i>
+              <i ng-hide="message.sticky" class="fa fa-reply" ng-click=forum_reply(message)></i>
+              <i ng-show="message.sticky"  ng-click="stickydelete(message)" confirm="Slet noten?" class="fa fa-trash"></i>
               {{message.subject}}
             </div>
             <div ng-show="message.type=='private'" >

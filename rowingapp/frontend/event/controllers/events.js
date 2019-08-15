@@ -409,7 +409,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }, function(err) {console.log("evt leave err: "+err)})
   }
 
-  $scope.messagesend = function() {
+  $scope.messagesend = function(is_sticky) {
+    $scope.message.sticky=is_sticky;
     var sr=DatabaseService.createSubmit("send_forum_message",$scope.message);
     sr.promise.then(function(status) {
       if (status.status == 'error') {
@@ -664,6 +665,18 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         alert(status.error);
       }
     },function(err) {console.log("msg unlink error: "+err)});
+  }
+
+    $scope.stickydelete = function (message) {
+    var sr=DatabaseService.createSubmit("sticky_unlink",message);
+    sr.promise.then(function(status) {
+      if (status.status =='ok') {
+        var ix=$scope.messages.indexOf(message);
+        $scope.messages.splice(ix,1);
+      } else {
+        alert(status.error);
+      }
+    },function(err) {console.log("sticky unlink error: "+err)});
   }
 
   $scope.addInvitee = function () {

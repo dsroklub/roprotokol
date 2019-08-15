@@ -9,6 +9,5 @@ $msg=json_decode($data);
 
 $toEmails=array();
 error_log("send forum message: " . $msg->forum->forum);
-
-$res=post_forum_message($msg->forum->forum, $msg->subject,  $msg->body);
+$res=post_forum_message($msg->forum->forum, $msg->subject,  $msg->body,$from=null,$forumEmail=null,$msg->sticky ?? null);
 echo json_encode($res);

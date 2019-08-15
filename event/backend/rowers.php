@@ -18,8 +18,7 @@ $s="SELECT JSON_MERGE(
    FROM Member 
      LEFT JOIN member_setting ON member_setting.member=Member.id 
      LEFT JOIN MemberRights on MemberRights.member_id=Member.id  
-   WHERE Member.MemberID!='0'
-   
+   WHERE Member.MemberID!='0' AND RemoveDate IS NULL   
    GROUP BY Member.id";
 
 if ($sqldebug) {
@@ -34,4 +33,3 @@ echo '[';
 }
 echo ']';
 $rodb->close();
-?> 

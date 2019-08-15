@@ -37,4 +37,3 @@ while ($row = $result->fetch_assoc()) {
 }
 echo ']';
 $rodb->close();
-?> 
