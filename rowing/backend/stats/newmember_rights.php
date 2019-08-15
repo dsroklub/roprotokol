@@ -13,4 +13,4 @@ SELECT Concat(Member.FirstName," ",Member.LastName) as name,Member.MemberID,Memb
 ';
 
 $result=$rodb->query($s) or die("Error in ld query: " . mysqli_error($rodb));
-process($result,"csv","roere",["navn","medlemsnnummer","indmeldt","rettighed","extra","tildelt","tildeler"]);
+process($result,"csv","nye_roeres_rettigheder",["navn","medlemsnnummer","indmeldt","rettighed","extra","tildelt","tildeler"]);
