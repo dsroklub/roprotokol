@@ -230,7 +230,6 @@ li.selected,button.selected {
 .selected td {
     background: #50E663;
 }
-
 .even {
   background: #ffffaa;
   color: #0088C0;
@@ -518,4 +517,26 @@ datetimepicker.ng-empty ng-form div input {
     background: #ddffe4;
     font-size: 10pt;
 
+}
+
+.sticky {
+    background: #FFA7A7;
+    border: 2px solid #ccc;
+    color: black;
+    border-radius: 5px;
+}
+
+.fade {
+￼    opacity: 1 !important;
+}
+
+
+.modal.fade {
+  opacity: 1;
+}
+
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
 }
