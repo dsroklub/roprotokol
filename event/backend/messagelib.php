@@ -221,19 +221,19 @@ function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null
          FROM Member mf
          WHERE
            mf.MemberID=?") or dbErr($rodb,$res,"Error in msg forum prepare ");
-    
+
     $stmt->bind_param(
         'sssis',
         $forum,
         $subject,
-        $message,            
+        $message,
         $sticky,
         $from)  || dbErr($rodb,$res,"Error in msg forum bind: ");
-    
+
     $stmt->execute() || dbErr($rodb,$res," message forum Error: forum=$forum, s=$subject, f=$from ");
     $msgid=$rodb->query("SELECT LAST_INSERT_ID() AS msgid")->fetch_assoc()["msgid"];
     error_log("LSQ ID=$msgid");
-    
+
     $userstmt = $rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name FROM Member WHERE MemberID=?") or dbErr($rodb,$res,"get forum user p");
     $userstmt->bind_param("s",$from) or dbErr($rodb,$res,"get forum user b");
     $userstmt->execute() or dbErr($rodb,$res,"get from name E");

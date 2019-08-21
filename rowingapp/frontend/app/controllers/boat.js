@@ -10,6 +10,7 @@ angular.module('rowApp').controller(
 
 function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log, $location) {
   $scope.allboatdamages=[];
+  $scope.destinations=[];
   $scope.burl=$location.$$absUrl.split("ind/")[0];
   $scope.isName = function(n) {
     if (!n) {
@@ -30,6 +31,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.newdamage={};
   $scope.status={};
   $scope.boat_type=null;
+  $scope.boatcategories=[];
   DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
     // Load Category Overview
     var reservations=DatabaseService.getDB('get_reservations');
@@ -43,6 +45,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     // Load selected boats based on boat category
     $scope.reservations = DatabaseService.getDB('get_reservations');
     $scope.onwater = DatabaseService.getDB('onwater');
+    $scope.boat_notes = DatabaseService.getDB('boat_notes');
     $scope.checkin={update_destination_for:null};
     $scope.critical_time = function (tx) {
       if (tx) {
@@ -180,7 +183,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       var subject=r.requirement;
       var arg=rq=='instructor'?subright:null;
       if (rq == null) {
-        // Skip, we are waiting for Mysql Json AGG in MariaDB 10.3
+        // Skip, we are waiting for Mysql Json AGG in MariaDB 10.5
       } else if (subject=='cox') {
         if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
           if (!(has_right(rq,arg,$scope.checkout.rowers[0].rights))) {
@@ -190,8 +193,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       } else if (subject=='all') {
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-            if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
-              this.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
+            if (!($scope.checkout.rowers[ri].id.charAt(0)=='g')) { // we do not know the rights of guests
+                if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
+                  this.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
+              }
             }
           }
         }

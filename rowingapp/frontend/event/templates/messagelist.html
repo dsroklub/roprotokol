@@ -10,42 +10,46 @@
           <th>Forum</th>
           <th>Tid</th>
           <th>Besked</th>
-        </tr> 
+        </tr>
      </thead>
       <tbody>
         <tr ng-repeat-start="message in messages |filter:messagematch(messagefilter)"
-            ng-class="{selected: currentmessage == message}"
-            ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >          
+            ng-class="{sticky: message.sticky>0}" ng-class="{selected: currentmessage == message}"
+            ng-click="setCurrentMessage(message)" class="message" ng-class-even="'even'" ng-class-odd="'odd'" >
           <td>
             <div ng-show="message.type=='forum'" >
-              <i ng-hide="message.sticky" class="fa fa-reply" ng-click=forum_reply(message)></i>
-              <i ng-show="message.sticky"  ng-click="stickydelete(message)" confirm="Slet noten?" class="fa fa-trash"></i>
+              <i ng-hide="message.sticky" class="fa fa-reply" ng-click="forum_reply(message,false)"></i>
               {{message.subject}}
             </div>
             <div ng-show="message.type=='private'" >
               <!--i class="fa fa-reply" ng-click=private_reply(message)></i FIXME -->
               {{message.subject}}
             </div>
-
-	    <div ng-show="message.type=='event'">
+            <div ng-show="message.type=='event'">
               <a ng-show="message.current>0" href="{{burl}}#!timeline?event={{message.event}}" >
               <i class="fa fa-link" ></i>
             </a>
               <i uib-tooltip="allerede afholdt" ng-show="message.current<1" class="fa fa-ban" ></i>
-	      {{message.subject}}
-	    </div>
+              {{message.subject}}
+            </div>
           </td>
           <td>{{message.sender}}</td>
           <td>
             <i ng-show="message.type=='event'" uib-tooltip="en tur" class="fa fa-anchor" ></i>
-	    {{message.source}}
-	  </td>
+            {{message.source}}
+          </td>
           <td>{{message.created |date:"d. MMM yyyy"}}</td>
           <td>{{message.body |limitTo :20}}...</td>
           <td ng-if="message.type=='private'"><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
         </tr>
         <tr ng-repeat-end ng-if="currentmessage == message">
-          <td class="popempty"></td><td class="popdown" colspan="4"> <div class="popdown" ng-bind=message.body></div> </td>
+          <td class="popempty">
+            <span>
+              <button ng-click="sticky_delete(message)" noanimate confirm="Slet noten?" ng-show="message.sticky"><i class="fa fa-trash"></i></button>
+              <button ng-click="forum_reply(message,true)"  noanimate  ng-show="message.sticky"><i class="fa fa-edit"></i></button>
+            </span>
+          </td><td class="popdown" colspan="4"> <div class="popdown" ng-bind=message.body></div>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -9,6 +9,7 @@ $s="
 SELECT CONCAT(mf.FirstName,' ',mf.LastName) as sender, DATE_FORMAT(forum_message.created,'%Y-%m-%dT%T') as created, forum_message.forum as source, 0 as event, 'forum' as type, CONCAT('f',forum_message.id) as msgid, forum_message.id, subject, forum_message.message as body, 1 as current,sticky
   FROM Member mf, Member,forum_message,forum_subscription
   WHERE
+    forum_message.deleted IS NULL AND
     forum_message.forum=forum_subscription.forum AND
     forum_subscription.member=Member.id AND
     mf.id=member_from AND

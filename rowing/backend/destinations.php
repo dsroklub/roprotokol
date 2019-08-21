@@ -9,9 +9,8 @@ $s="SELECT Destination.Location as location, Destination.Name as name,Destinatio
 
 // echo $s;
 if ($stmt = $rodb->prepare($s)) {
-     $stmt->execute(); 
+     $stmt->execute();
      $result= $stmt->get_result() or die("Error in destinations query: " . mysqli_error($rodb));
-     $first=1;
      $d=[];
      while ($row = $result->fetch_assoc()) {
        $loc=$row['location'];

@@ -26,7 +26,10 @@ angular.module('eventApp', [
   '$locationProvider', function($locationProvider) {
     $locationProvider.html5Mode(true);
   }])
-
+.config([
+  '$animateProvider', function($animateProvider) {
+    $animateProvider.classNameFilter("XXX");
+  }])
 .config([
   '$routeProvider', function($routeProvider) {
     $routeProvider.when('/eventsubscribe/', {
@@ -36,39 +39,39 @@ angular.module('eventApp', [
     $routeProvider.when('/forumsubscribe/', {
       templateUrl: 'templates/forum.html',
       controller: 'eventCtrl'
-	});
+  });
     $routeProvider.when('/overview/', {
       templateUrl: 'templates/overview.html',
       controller: 'eventCtrl'
-	});
+  });
     $routeProvider.when('/eventcreate/!#forum/:forum', {
       templateUrl: 'templates/eventcreate.html',
       controller: 'eventCtrl'
-	});
+  });
     $routeProvider.when('/eventcreate/', {
       templateUrl: 'templates/eventcreate.html',
       controller: 'eventCtrl'
-	});
+  });
     $routeProvider.when('/!#message/:message', {
       templateUrl: 'templates/message.html',
       controller: 'eventCtrl'
-	});
+  });
     $routeProvider.when('/message/', {
       templateUrl: 'templates/message.html',
       controller: 'eventCtrl'
-	});
+  });
     $routeProvider.when('/admin/', {
       templateUrl: 'templates/admin.html',
       controller: 'eventCtrl'
-	});
+  });
     $routeProvider.when('/public/', {
       templateUrl: 'templates/public.html',
       controller: 'eventCtrl'
-	});
+  });
     $routeProvider.when('/about/', {
       templateUrl: 'templates/about.html',
       controller: 'noRight'
-	});
+  });
     $routeProvider.when('/!#timeline/:event', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
@@ -92,11 +95,11 @@ angular.module('eventApp', [
     $routeProvider.when('/forcelogin/', {
       templateUrl: 'templates/login.html',
       controller: 'eventCtrl'
-	});
+  });
     $routeProvider.when('/login/', {
       templateUrl: 'templates/login.html',
       controller: 'noRight'
-	});
+  });
     $routeProvider.when('/', {redirectTo: '/login'});
     $routeProvider.otherwise({
       templateUrl: 'templates/notimplementet.html',

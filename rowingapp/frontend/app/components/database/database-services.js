@@ -47,7 +47,9 @@ function dbservice($http, $q, $log) {
         valid[dataid]=true;
         dq.resolve(dataid);
       });
+      return true;
     }
+    return false;
   }
 
 
@@ -143,6 +145,7 @@ function dbservice($http, $q, $log) {
     this.getData('boat_usages',"",promises);
     this.getData('rights_subtype',"",promises);
     this.getData('status',"",promises);
+    this.getData('boat_notes',"",promises);
     this.getData('stats/trip_stat_year',"",promises);
 
     if(!valid['memberrighttypes']) {
@@ -243,6 +246,7 @@ function dbservice($http, $q, $log) {
       'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],
       'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat','stats/trip_stat_year'],
+      'messages':["boat_notes"],
       'archivestats':[]
     };
     return this.sync(subscriptions);

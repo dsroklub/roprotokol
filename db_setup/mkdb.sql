@@ -688,6 +688,7 @@ CREATE TABLE forum_message (
   forum      VARCHAR(255),
   subject    VARCHAR(1000),
   message    VARCHAR(10000),
+  deleted    DATETIME,
   FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (member_from) REFERENCES Member(id)
 );
@@ -843,4 +844,3 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
 INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");
 
 CREATE VIEW right_name AS SELECT DISTINCT member_right, showname,predicate FROM MemberRightType;
-

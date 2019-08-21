@@ -19,7 +19,7 @@
     </td>
   </tr>
   <tr>
-    <td ng-show="subscription.forum.is_open"> <button class="green" ng-click="subscribe()">Abonner</button></td>    
+    <td ng-show="subscription.forum.is_open"> <button class="green" ng-click="subscribe()">Abonner</button></td>
     <td ng-hide="subscription.forum.is_open">
       <button ng-show="subscription.forum" class="green" ng-click="subscribe()">Anmod on deltagelse</button>
     </td>
@@ -63,7 +63,7 @@
          ng-model="newforummember.member"
          typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
          typeahead-template-url="memberTemplate.html" required />
-  
+
   <i ng-show="newforummember.member" ng-click="forum_add_member()" class="fa fa-plus"></i>
 </div>
 
@@ -82,7 +82,7 @@
     <td ng-show="current_forum.owner==current_user.member_id || current_forum.role=='admin'">
       <i ng-click="accept_forum_supplicant(forummember)" ng-show="forummember.role=='supplicant'" uib-tooltip="godkend roer" class="fa fa-plus"></i>
       <i ng-hide="forummember.member_id==current_user.member_id"  ng-click="unsubscribe(forummember)" uib-tooltip="fjern roer" class="remove fa fa-minus">
-      </i> 
+      </i>
     </td>
     <td> <!-- ng-show="current_forum.owner==current_user.member_id" -->
       <div ng-show="forummember.hours"> {{forummember.hours| number:1}} <span ng-show="forummember.work_todo">/{{forummember.work_todo}}</span> timer </div>
@@ -100,7 +100,7 @@
             <th>dag</th>
             <th>tid</th>
             <th>udført</th>
-          </tr> 
+          </tr>
         </thead>
         <tbody>
           <tr ng-repeat="wl in forummember.log">
