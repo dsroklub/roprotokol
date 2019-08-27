@@ -51,15 +51,6 @@
     </a>
   </script>
 
-  <script type="text/ng-template" id="reportdamage.html">
-    <h1>Meld Skade</h1>
-    <ng-form novalidate>
-      <label for="damage_comments">Bemærkninger</label>
-      <textarea id="damage_comments" type="text" ng-model="damagetext"></textarea>
-      <button class="yellow" ng-click="savedamage(selectedboat.id,damagetext,1)"><i class="fa fa-exclamation-triangle"></i> Gem skade</button>
-    </ng-form>
-  </script>
-
   <div class="checkoutBoat">
     <div class="big message checkoutmessage">{{checkoutmessage}}</div>
     <div class="big message checkoutnotification">{{checkoutnotification}}</div>
@@ -106,23 +97,17 @@
                 <label for="checkout_destination">Destination</label>
               </td>
               <td>
-                <ui-select
-                  class="checkout_destination"
-                  name="checkout_destination"
-                  ng-model="checkout.destination"
-                  on-select="updateCheckout($item)"
-                  ng-class="{uiselected: !checkout.destination}"
-                  >
-                  <ui-select-match placeholder="Vælg Destination">
-                    {{$select.selected.name||"vælg destination"}}
-                  </ui-select-match>
+                <ui-select  name="checkout_destination" class="checkout_destination" ng-model="checkout.destination" on-select="updateCheckout($item)" >
+                  <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
                   <ui-select-choices repeat="destination in destinations | filter: $select.search ">
                     <span ng-bind-html="destination.name | highlight: $select.search"></span>
                     (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km ,
                     <small ng-bind-html="destination.duration | totime"></small>t)
                   </ui-select-choices>
                 </ui-select>
-                <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1" class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="checkout.distance" required >km
+
+                <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1"
+                        class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="checkout.distance" required >km
               </td>
             </tr>
             <tr>
@@ -231,7 +216,6 @@
             <th>(dato)</th>
             <th>turtype</th>
             <th>formål</th>
-            <!--th>bemærkninger</th-->
           </tr>
         </thead>
         <tbody>
@@ -244,10 +228,10 @@
             </td>
             <td>{{rv.end_time}}</td>
             <td>
-              <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div></td>
+              <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div>
+            </td>
             <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>
             <td>{{rv.purpose}}</td>
-            </td>
           </tr>
         </tbody>
       </table>
@@ -258,11 +242,19 @@
       <h2>Skader på {{checkout.boat.name}}</h2>
       <ul>
         <li ng-repeat="damage in boatdamages" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-          <!--button class="green" ng-click="reportFixDamage(damage,boatdamages,$index)" class="fa fa-check">Klarmeld</button-->
           {{damage.description}}
         </li>
       </ul>
     </div>
+
+    <div class="damageslist">
+      <ul>
+        <li ng-repeat="note in boat_notes[checkout.boat.name]" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+          {{note.subject}} :  {{note.message}}
+        </li>
+      </ul>
+    </div>
+
   </div>
   <!--img class="farvand" ng-src="media/DSRrofarvand.png"  alt="DSR rofarvand" height="800" width="500" align="right" -->
 </div>

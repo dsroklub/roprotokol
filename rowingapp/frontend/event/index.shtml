@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="../app/bower_components/angular-ui-select/dist/select.min.css">
   <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog.min.css">
   <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog-theme-default.css">
-  <link rel="stylesheet" href="../app/bower_components/fontawesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../app/bower_components/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
   <link rel="stylesheet" href="event.css"/>
   <script src="../app/bower_components/angular/angular.min.js"></script>
@@ -32,11 +32,12 @@
   <script src="../app/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
   <script src="../app/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
   <!--script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script-->
+  <!--script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script-->
   <script src="../app/bower_components_modifications/ui-bootstrap-tpls-elgaard.js"></script>
   <script src="../app/bower_components/angular-ui-select/dist/select.min.js"></script>
   <script src="../app/bower_components/ngDialog/js/ngDialog.min.js"></script>
   <script src="../app/bower_components/ng-table/dist/ng-table.js"></script>
-  <script src="../app/bower_components/angular-confirm-modal/angular-confirm.min.js"></script>
+  <script src="../app/bower_components/angular-confirm-modal/angular-confirm.js"></script>
   <script src="../app/bower_components/checklist-model/checklist-model.js"></script>
 
   <script src="../app/bower_components/moment/moment.js"></script>

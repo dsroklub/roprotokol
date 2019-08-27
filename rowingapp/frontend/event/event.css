@@ -31,6 +31,7 @@ pre.ng-binding {
 }
 
 button {
+  color: black;
   background: #bcffbd;
   border-radius: 5px;
   border: 0;
@@ -230,7 +231,6 @@ li.selected,button.selected {
 .selected td {
     background: #50E663;
 }
-
 .even {
   background: #ffffaa;
   color: #0088C0;
@@ -434,9 +434,9 @@ tr td {
   white-space: pre-wrap;
 }
 
-.popempty {
-  background: white;
-  background: #50E663;
+.popbuttons {
+  background: #E9D994;
+  padding: 2em;  
 }
 
 .generate {
@@ -517,5 +517,33 @@ datetimepicker.ng-empty ng-form div input {
     border: 1px solid #000000;
     background: #ddffe4;
     font-size: 10pt;
+
+}
+
+.sticky {
+    background: #FFA7A7;
+    border: 2px solid #000;
+    color: black;
+    border-radius: 5px;
+}
+
+.fade {
+￼    opacity: 1 !important;
+}
+
+
+.modal.fade {
+  opacity: 1;
+}
+
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+
+.msgexpand {
+             background:white;
+    padding-left: 3em;
 
 }

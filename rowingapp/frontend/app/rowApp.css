@@ -236,13 +236,13 @@ button.statcat, button.adminbut {
 td.destination {
                  max-width : 5em;
                  word-break: break-all;
-               } 
+               }
 td.cox {
    max-width : 12em;
-} 
+}
 td.boat {
    max-width : 7em;
-} 
+}
 
 .checkout-form {
     display: inline-block;
@@ -822,7 +822,7 @@ max-width: 70%;
 .boatnote {
    background: #D2F8D7;
    min-width: 80em;
-   min-height: 12em;         
+   min-height: 12em;
 }
 
 .toppopup .uib-datepicker-popup {
@@ -1177,13 +1177,13 @@ textarea.signuptext {
       font-weight: bold;
       border: 3px solid #003;
   }
-	#year_report th.supercat {
-	  border: 3px solid #003;
-	}
+  #year_report th.supercat {
+    border: 3px solid #003;
+  }
 
-	#year_report th.subcat-left {
-	  border-left: 3px solid #003;
-	}
+  #year_report th.subcat-left {
+    border-left: 3px solid #003;
+  }
 
 
     #year_report tr.header > th.slanted,
@@ -1191,19 +1191,19 @@ textarea.signuptext {
       border: none;
     }
 
-	#year_report tr.header > th.slanted > div {
-	  background: #fff;
-	}
+  #year_report tr.header > th.slanted > div {
+    background: #fff;
+  }
 
-	#year_report tr.header > th.slanted > div > span {
-	  border-bottom: 2px solid #003;
-	  background: #fff;
-	}
+  #year_report tr.header > th.slanted > div > span {
+  border-bottom: 2px solid #003;
+  background: #fff;
+}
 
-	#year_report tr.header > th.slanted > div > span {
-	  background: #fff;
-	  color: #003;
-	}
+#year_report tr.header > th.slanted > div > span {
+  background: #fff;
+  color: #003;
+}
 
 }
 
@@ -1214,7 +1214,7 @@ img.wrench {
 }
 
 .nottoday {
-	  background: #bbbbaa;
+  background: #bbbbaa;
 }
 
 @media screen {
@@ -1225,11 +1225,12 @@ img.wrench {
   }
 }
 
-.ui-select-bootstrap .ui-select-choices {
-    position: absolute;
-    top: -10em !important;
-    max-height: 800px;
-}
+/* .ui-select-bootstrap .ui-select-choices { */
+/*     position: absolute; */
+/*     top: -10em !important; */
+/*     max-height: 800px; */
+/* } */
+
 
 .statbox {
 /*    display: inline-block;
@@ -1246,4 +1247,18 @@ img.wrench {
 }
 .warn {
     background: yellow;
+}
+
+.dropdown-menu {
+  display:block;
+}
+
+.modal.fade {
+  opacity: 1;
+}
+
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
 }

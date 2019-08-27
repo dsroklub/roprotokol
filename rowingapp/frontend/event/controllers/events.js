@@ -422,6 +422,14 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         $scope.message.current=1;
         $scope.message.source=$scope.message.forum.forum;
         $scope.message.created=new Date().toISOString();
+        if ($scope.message.replace) {
+          for (var mi=0;mi<$scope.messages.length;mi++) {
+            if ($scope.messages[mi].id==$scope.message.replace) {
+              $scope.messages.splice(mi,1);
+              break;
+            }
+          }
+        }
         $scope.messages.splice(0,0,$scope.message);
         $scope.message={};
       }
@@ -429,7 +437,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
         alert(status.warning);
       }
-    },function(err) {console.log("forum msg err: "+err)});
+    },function(err) {$log.debug("forum msg err: "+err)});
   }
 
     $scope.privatemessagesend = function() {
@@ -444,7 +452,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       if (status.status == 'warning') {
         alert(status.warning);
       }
-    }, function(err) {console.log("priv msg err: "+err)});
+    }, function(err) {$log.debug("priv msg err: "+err)});
   }
 
   $scope.emailflush = function() {
@@ -664,19 +672,21 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       } else {
         alert(status.error);
       }
-    },function(err) {console.log("msg unlink error: "+err)});
+    },function(err) {$log.debug("msg unlink error: "+err)});
   }
 
-    $scope.stickydelete = function (message) {
+  $scope.sticky_delete = function (message) {
     var sr=DatabaseService.createSubmit("sticky_unlink",message);
-    sr.promise.then(function(status) {
-      if (status.status =='ok') {
-        var ix=$scope.messages.indexOf(message);
-        $scope.messages.splice(ix,1);
-      } else {
-        alert(status.error);
-      }
-    },function(err) {console.log("sticky unlink error: "+err)});
+    sr.promise.then(
+      function(status) {
+        if (status.status =='ok') {
+          var ix=$scope.messages.indexOf(message);
+          $scope.messages.splice(ix,1);
+        } else {
+          alert(status.error);
+          }
+        },
+      function(err) {$log.debug("sticky unlink error: "+err)});
   }
 
   $scope.addInvitee = function () {
@@ -768,18 +778,21 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   };
 
 
-  $scope.forum_reply = function (message) {
+  $scope.forum_reply = function (message,edit) {
     $scope.message.forum = $scope.fora.filter (function(f) {
       return (f['forum']==message.source );
     })[0];
-
     $scope.message.subject = message.subject;
-
-    if ($scope.message.subject.indexOf("re:")!=0) {
-      $scope.message.subject = "re: "+$scope.message.subject;
+    if (edit) {
+      $scope.message.body = message.body;
+      $scope.message.replace=message.id;
+    } else {
+      $scope.message.body = message.sender + ":\n";
+      $scope.message.old_body = message.sender + ":\n==\n"+message.body+"\n==\n";
+      if ($scope.message.subject.indexOf("re:")!=0) {
+        $scope.message.subject = "re: "+$scope.message.subject;
+      }
     }
-    $scope.message.old_body = message.sender + ":\n==\n"+message.body+"\n==\n";
-    $scope.message.body = message.sender + ":\n";
     $anchorScroll('forum');
   }
 
