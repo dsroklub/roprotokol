@@ -69,7 +69,7 @@ function dbservice($http, $q, $log) {
     if (subscriptions.boat) {
       if(!valid['boats']) {
         //Build indexes and lists for use by API
-        $log.debug("  boats not valid");
+        // $log.debug("  boats not valid");
         var bq=$q.defer();
         promises.push(bq.promise);
         $http.get(toURL('boat_status.php'), { headers: headers } ).then(function (response) {
@@ -305,7 +305,7 @@ function dbservice($http, $q, $log) {
       var ds=response.data;
       db['current_user']=ds.uid;
       if (gitrevision != ds.gitrevision) {
-        $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
+        //$log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
 //        window.location="/frontend/app/index.shtml";
         window.location.reload(true);
           // $angularCacheFactory.clearAll();
@@ -318,14 +318,14 @@ function dbservice($http, $q, $log) {
       // $log.log("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
         if ((ds[tp]==null ||  !(tp in datastatus) || datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-          $log.log("  inval "+tp); // NEL
+          //$log.log("  inval "+tp); // NEL
           dbservice.invalidate_dependencies(tp);
           doreload=true;
           datastatus[tp]=ds[tp];
         }
       }
       if (doreload) {
-        $log.log(" do reload " + JSON.stringify(valid));
+        //$log.log(" do reload " + JSON.stringify(valid));
         dbservice.fetch(subscriptions).then(function() {
           sq.resolve("sync done");
         });
@@ -614,10 +614,9 @@ function dbservice($http, $q, $log) {
     return qup.promise;
   }
   this.updateDB = function(op,data,config,eh) {
-    $log.debug(' do '+op);
     var ar=this.updateDB_async(op,data,config);
      var at=ar.then(function (res) {
-       $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
+       // $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
        if (!res||(res.status !="ok" && (!res.data||res.data.status=="error"||res.data.status=="notauthorized"))) {
          $log.error("up DB error "+op+JSON.stringify(data));
          if (eh) {
