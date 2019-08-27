@@ -21,8 +21,8 @@ $forumEmail=saneEmail($newforum->forum);
 $forumName=sanestring($newforum->forum);
 
 $stmt = $rodb->prepare(
-    "INSERT INTO forum (name,email_local,description,is_open,is_public,owner)
-   SELECT ?,?,?,?,?,Member.id FROM Member WHERE
+    "INSERT INTO forum (name,email_local,description,is_open,is_public,owner,created_by)
+   SELECT ?,?,?,?,?,Member.id,Member.id FROM Member WHERE
    Member.MemberId=?"
 ) or dbErr($rodb,$res,"Forum create b $forumEmail");
 

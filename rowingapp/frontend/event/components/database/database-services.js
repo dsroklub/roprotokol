@@ -260,6 +260,7 @@ function dbservice($http, $q, $log, $timeout) {
     datastatus['boat']=null;
     datastatus['member']=null;
     datastatus['fora']=null;
+    datastatus['notes']=null;
     datastatus['file']=null;
     datastatus['destination']=null;
     return qup.promise;

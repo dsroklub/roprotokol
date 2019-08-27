@@ -19,7 +19,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
        LEFT JOIN MemberRights mrf ON mrf.member_id=Member.id AND mrf.MemberRight='event' AND mrf.argument='fora'
        LEFT JOIN MemberRights mrr ON mrr.member_id=Member.id AND mrr.MemberRight='remote_access' AND mrr.argument='roprotokol',
      authentication 
-    WHERE Member.MemberId=? AND authentication.member_id=Member.id
+    WHERE Member.MemberId=? AND authentication.member_id=Member.id AND Member.RemoveDate IS NULL and member_type>=0;
   ";
     if ($stmt = $rodb->prepare($s)) {
         $stmt->bind_param('ss',
