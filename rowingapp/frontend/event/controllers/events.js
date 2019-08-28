@@ -420,6 +420,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         $scope.message.sender="Mig";
         $scope.message.type="forum";
         $scope.message.current=1;
+        $scope.message.id=status.message_id;
         $scope.message.source=$scope.message.forum.forum;
         $scope.message.created=new Date().toISOString();
         if ($scope.message.replace) {
