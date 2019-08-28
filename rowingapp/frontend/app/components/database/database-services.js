@@ -246,7 +246,7 @@ function dbservice($http, $q, $log) {
       'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],
       'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat','stats/trip_stat_year'],
-      'messages':["boat_notes"],
+      'message':["boat_notes"],
       'archivestats':[]
     };
     return this.sync(subscriptions);

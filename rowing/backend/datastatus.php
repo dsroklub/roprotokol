@@ -15,6 +15,7 @@ $tsa=array(
     'member' =>  $mem->get('member'),
     'trip' =>  $mem->get('trip'),
     'stats' =>  $mem->get('stats'),
+    'message' =>  $mem->get('message'),
     'status' =>  $mem->get('status'),
     'reservation' =>  $mem->get('reservation'),
     'uid' => $uid,
