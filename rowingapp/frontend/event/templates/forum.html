@@ -85,12 +85,15 @@
       </i>
     </td>
     <td> <!-- ng-show="current_forum.owner==current_user.member_id" -->
+      <div ng-show="current_forum.owner==current_user.member_id || current_forum.role=='admin'"> <input type="number" maxlength="5" ng-model="forummember.work_todo" ng_change="set_work_todo(forummember)" ng-model-options="{updateOn:'blur default'}"> timer </div>
+
       <div ng-show="forummember.hours"> {{forummember.hours| number:1}} <span ng-show="forummember.work_todo">/{{forummember.work_todo}}</span> timer </div>
     </td>
     <td ng-show="current_forum.owner==current_user.member_id || current_user.member_id==forummember.member_id">
       <input  class="numin" type="text" onlynumber size="3" value="1"  min="0" ng-model="forummember.work.hours" required > </input>
       <input type="date" uib-tooltip="safari: YYYY-MM-dd" placeholder="dag"    ng-model="forummember.work.workdate"> </input>
       <input type="text" placeholder="udført"  size="10"  ng-model="forummember.work.done"> </input>
+      <select name="maintenance_boat" id="mboat" ng-model="forummember.work.boat" ng-options="boat.name for boat in maintenance_boats"> <option value="" disabled selected>evt båd</option> </select>
       <button ng-click="add_forummemberwork(forummember,work)" uib-tooltip="registrer timer"><i class="fa fa-thumbs-up"></i></button>
     </td>
     <td ng-if="forummember.log[0]">
@@ -100,11 +103,12 @@
             <th>dag</th>
             <th>tid</th>
             <th>udført</th>
+            <th>båd</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="wl in forummember.log">
-            <td>{{wl.workdate| date:'d/M yyyy'}}</td><td class="rnum">{{wl.hours}}</td><td>{{wl.work}}</td>
+            <td>{{wl.workdate| date:'d/M yyyy'}}</td><td class="rnum">{{wl.hours}}</td><td>{{wl.work}}</td><td>{{wl.boat}}</td>
           </tr>
         </tbody>
       </table>

@@ -123,3 +123,14 @@ function eventLog($entry) {
     }
 }
 $res=array ("status" => "ok");
+$damageMaintenance=4;
+
+function output_json(&$rl) {
+    echo '[';
+    $first=1;
+    while ($row = $rl->fetch_assoc()) {
+        if ($first) $first=0; else echo ",\n";
+        echo $row['json'];
+    }
+    echo ']';
+}
