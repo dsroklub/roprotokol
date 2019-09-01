@@ -2,8 +2,6 @@
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
-$res=array ("status" => "ok");
-
 $from="1857-01-01";
 
 if (isset($_GET["from"])) {
@@ -22,6 +20,7 @@ $s="SELECT MAX(hours) as h,JSON_MERGE(
       'workdate',workdate,
       'hours',hours,
       'by',created_by,
+      'boat', boat,
       'created',worklog.created )),
    ']}')
    ) AS json
@@ -44,12 +43,4 @@ $stmt->bind_param('s',$from) or dbErr($rodb,$res,"worklog bind");
 
 $stmt->execute() or dbErr($rodb,$res,"worklog (Exe)");
 $result= $stmt->get_result();
-
-
-echo '[';
-$first=1;
-while ($row = $result->fetch_assoc()) {
-    if ($first) $first=0; else echo "\n,";	  
-    echo $row['json'];
-}
-echo ']';
+output_json($result);

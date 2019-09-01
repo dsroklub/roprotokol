@@ -463,6 +463,7 @@ CREATE TABLE worklog (
   work             varchar(1000),
   hours            NUMERIC(6,2) NOT NULL,
   forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
+  boat             VARCHAR(100) REFERENCES Boat(Name) ON DELETE SET NULL ON UPDATE CASCADE,
   created_by       int REFERENCES Member(id) ON DELETE SET NULL
 );
 
@@ -674,7 +675,7 @@ CREATE TABLE forum_subscription (
   forum      VARCHAR(255),
   role       VARCHAR(255) NOT NULL, -- waiting, cox, any, leader, admin
   comment    VARCHAR(4096),
-  work      FLOAT,
+  work       FLOAT,
   FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,forum)

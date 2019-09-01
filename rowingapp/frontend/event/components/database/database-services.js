@@ -59,6 +59,7 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/member_setting',promises);
     this.getData('event/worklog',promises);
     this.getData('event/boat_category',promises);
+    this.getData('event/maintenance_boats',promises);
     this.getData('event/current_user',promises);
     this.getData('event/fora',promises);
     //    this.getData('event/events',promises);

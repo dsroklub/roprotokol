@@ -71,7 +71,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     $scope.fora=DatabaseService.getDB('event/fora');
     $scope.boatsById=DatabaseService.getDB('boatsById');
     $scope.boatsByName=DatabaseService.getDB('boatsByName');
-    $scope.boats=DatabaseService.getDB('boats');
+    $scope.boats=DatabaseService.getDB('event/boats');
+    $scope.maintenance_boats=DatabaseService.getDB('event/maintenance_boats');
     $scope.events=DatabaseService.getDB('event/events_participants');
     $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
     $scope.userfora=DatabaseService.getDB('event/userfora');
@@ -275,6 +276,19 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     },function(err) {console.log("set event status err: "+err)});
   }
 
+  $scope.set_work_todo = function(forum_member) {
+    var sr=DatabaseService.createSubmit("set_forum_member_hours",forum_member);
+    sr.promise.then(function(status) {
+      if (status.status !='ok') {
+        if (status.status =='warning') {
+          alert(status.warning);
+        } else {
+          alert(status.error);
+        }
+      }
+    },function(err) {console.log("set forum member work hours: "+err)});
+  }
+  
   $scope.set_event_openness = function(event) {
     var sr=DatabaseService.createSubmit("set_event_openness",event);
     sr.promise.then(function(status) {
