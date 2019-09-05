@@ -134,3 +134,13 @@ function output_json(&$rl) {
     }
     echo ']';
 }
+
+function output_rows(&$rl) {
+echo '[';
+$first=1;
+while ($row = $rl->fetch_assoc()) {
+    if ($first) $first=0; else echo ',';
+    echo json_encode($row);
+}
+echo ']';
+}

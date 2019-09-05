@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog-theme-default.css">
   <link rel="stylesheet" href="../app/bower_components/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
+  <link rel="stylesheet" href="../app/bower_components/angular-chart.js/dist/angular-chart.css">
   <link rel="stylesheet" href="event.css"/>
   <script src="../app/bower_components/angular/angular.min.js"></script>
   <script src="components/angular-locale_da-dk.js"></script>
@@ -64,6 +65,8 @@
   <script src="controllers/menu.js"></script>
   <script src="components/database/database-directives.js"></script>
   <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
+  <script src="../app/bower_components/Chart.js/Chart.js"></script>
+  <script type='text/javascript' src="../app/bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
   <!--script src="../dsrcommon/controllers/main.js"></script-->
 </head>
 <body>
