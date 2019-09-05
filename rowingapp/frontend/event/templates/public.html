@@ -81,6 +81,7 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
 
 Vis
 <label class="switch">  <input type="checkbox" ng-model="show.mytrips" ng-change="toggle_personal('mytrips')">mine ture</label>,
+<label class="switch">  <input type="checkbox" ng-model="show.mystatsrights" ng-change="toggle_personal('mystats','rights')">rettigheder</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mytripsaggregated" ng-change="toggle_personal('mytripsaggregated')">sæsonoversigt</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mystatsdestinations" ng-change="toggle_personal('mystats','destinations')">destinationer</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mystatsmates" ng-change="toggle_personal('mystats','mates')">rokammerater</label>
@@ -102,13 +103,36 @@ Vis
          typeahead-template-url="memberTemplate.html" />
 </form>
 
-<div ng-if="mystatsmates">
-  <table class="genericlist statbox">
+
+<div ng-show="othermember" class="statbox">
+  <table  class="genericlist">
+    <caption>Roture med {{othermember.name}} <i>({{othermember.id}})</i></caption>
+    <thead>
+      <tr ><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>Roere</th></tr>
+    </thead>
+    <tbody>
+      <tr ng-class-even="'even'" ng-class-odd="'odd'" ng-repeat="trip in mate_trips" >
+        <td>{{trip.boat}}</td>
+        <td>{{trip.triptype}}</td>
+        <td>{{trip.destination}}</td>
+        <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
+        <td class="rnum" >{{trip.distance|mtokm}}</td>
+        <td> <ul><li ng-repeat="rower in trip.rowers">{{rower.name}} </li></ul></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div ng-if="mystatsmates" class="statbox">
+  <table class="genericlist">
     <caption>Mine Rokammerater</caption>
     <thead>
-      <tr><th>rokammerater</th><th>km roet</th></tr>
+      <tr>
+        <th>rokammerater</th>
+        <th>km roet</th>
+      </tr>
     </thead>
-    <tbody class="tbody">
+    <tbody>
       <tr ng-repeat="mate in mystatsmates">
         <td>{{mate.mate}}</td>
         <td class="rnum">{{mate.dist|mtokm}}</td>
@@ -117,9 +141,9 @@ Vis
   </table>
 </div>
 
-<div ng-show="show.rights">
+<div ng-if="mystatsrights" class="statbox">
   <table class="genericlist">
-    <caption>My rights</i></caption>
+    <caption>Mine rettigheder</caption>
     <thead>
       <tr>
         <th>Rettighed</th>
@@ -128,42 +152,22 @@ Vis
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="rr in userrights">
-        <td>{{rr.member_right|righttodk}}</td>
+      <tr ng-repeat="rr in mystatsrights">
+        <td>{{rr.member_right}}</td>
         <td>{{rr.arg}}</td>
-        <td>{{rr.acquired | txttotime | date:'d/M yyyy' }}</td>
+        <td>{{rr.acquired | date:'d/M yyyy' }}</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-
-<div class="turoversigt" ng-show="mytrips">
-  <table class="genericlist">
-    <caption>Mine roture</i></caption>
-<thead>
-  <tr><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>kommentar</th></tr>
-</thead>
-<tbody class="tbody">
-  <tr ng-repeat="trip in mytrips" >
-    <td>{{trip.boat}}</td>
-    <td>{{trip.triptype}}</td>
-    <td>{{trip.destination}}</td>
-    <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
-    <td class="rnum" >{{trip.distance|mtokm}}</td>
-    <td class="comment">{{trip.comment}}</td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-<div ng-show="mytripsaggregated" class="triptypeview">
+<div ng-show="mytripsaggregated" class="statbox">
   <table class="genericlist">
     <caption>Sæsonoversigt fordelt på turtyper</caption>
     <thead>
       <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
     </thead>
-    <tbody class="tbody">
+    <tbody>
       <tr ng-repeat="ta in mytripsaggregated">
         <td>{{ta.triptype}}</td>
         <td class="rnum">{{ta.trip_count}}</td>
@@ -174,17 +178,36 @@ Vis
       </table>
 </div>
 
-<div ng-show="mystatsdestinations">
-  <table class="genericlist statbox">
+<div ng-show="mystatsdestinations" class="statbox">
+  <table class="genericlist">
     <caption>Mine destinationer</caption>
     <thead>
       <tr><th>Sted</th><th>gange</th></tr>
     </thead>
-    <tbody class="tbody">
+    <tbody>
         <tr  ng-repeat="rowerdest in mystatsdestinations">
           <td>{{rowerdest.destination}}</td>
           <td class="rnum">{{rowerdest.numtrips}}</td>
         </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="statbox" ng-show="mytrips">
+  <table class="genericlist">
+    <caption>Mine roture</caption>
+    <thead>
+      <tr><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>kommentar</th></tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="trip in mytrips" >
+        <td>{{trip.boat}}</td>
+        <td>{{trip.triptype}}</td>
+        <td>{{trip.destination}}</td>
+        <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
+        <td class="rnum" >{{trip.distance|mtokm}}</td>
+        <td class="comment">{{trip.comment}}</td>
+      </tr>
     </tbody>
   </table>
 </div>
@@ -198,21 +221,3 @@ Vis
 </div>
 
 
-<div ng-show="othermember">
-  <table  class="genericlist">
-    <caption>Roture med {{othermember.name}} <i>({{othermember.id}})</i></caption>
-    <thead>
-      <tr ><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>Roere</th></tr>
-    </thead>
-    <tbody class="tbody">
-      <tr ng-class-even="'even'" ng-class-odd="'odd'" ng-repeat="trip in mate_trips" >
-        <td>{{trip.boat}}</td>
-        <td>{{trip.triptype}}</td>
-        <td>{{trip.destination}}</td>
-        <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
-        <td class="rnum" >{{trip.distance|mtokm}}</td>
-        <td> <ul><li ng-repeat="rower in trip.rowers">{{rower.name}} </li></ul></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
