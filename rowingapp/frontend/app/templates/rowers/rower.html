@@ -347,20 +347,19 @@
 
   <div ng-if="currentrower" class="boxes">
     <div>
-    <table class="genericlist statbox">
-      <caption>{{currentrower.name}}'s Rokammerater</caption>
-      <thead>
-        <tr><th>rokammerater</th><th>km roet</th></tr>
-      </thead>
-      <tbody class="tbody">
-        <tr ng-if="currentrower" ng-repeat="mate in mates">
-          <td>{{mate.mate}}</td>
-          <td class="rnum">{{mate.dist|mtokm}}</td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="genericlist statbox">
+        <caption>{{currentrower.name}}'s Rokammerater</caption>
+        <thead>
+          <tr><th>rokammerater</th><th>km roet</th></tr>
+        </thead>
+        <tbody class="tbody">
+          <tr ng-if="currentrower" ng-repeat="mate in mates">
+            <td>{{mate.mate}}</td>
+            <td class="rnum">{{mate.dist|mtokm}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
     <div>
     <table class="genericlist statbox">
       <caption>{{currentrower.name}}'s Robåde</caption>

@@ -78,6 +78,13 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
 
 
 <h2>Ro information </h2>
+
+Vis
+<label class="switch">  <input type="checkbox" ng-model="show.mytrips" ng-change="toggle_personal('mytrips')">mine ture</label>,
+<label class="switch">  <input type="checkbox" ng-model="show.mytripsaggregated" ng-change="toggle_personal('mytripsaggregated')">sæsonoversigt</label>
+<label class="switch">  <input type="checkbox" ng-model="show.mystatsdestinations" ng-change="toggle_personal('mystats','destinations')">destinationer</label>
+<label class="switch">  <input type="checkbox" ng-model="show.mychart" ng-change="toggle_chart()">aktivitetsgraf</label>
+
 <script type="text/ng-template" id="memberTemplate.html">
   <a>
     <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
@@ -93,6 +100,81 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
          typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
          typeahead-template-url="memberTemplate.html" />
 </form>
+
+<div ng-if="mates">
+  <table class="genericlist statbox">
+    <caption>{{currentrower.name}}'s Rokammerater</caption>
+    <thead>
+      <tr><th>rokammerater</th><th>km roet</th></tr>
+    </thead>
+    <tbody class="tbody">
+      <tr ng-if="currentrower" ng-repeat="mate in mates">
+        <td>{{mate.mate}}</td>
+        <td class="rnum">{{mate.dist|mtokm}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="turoversigt" ng-show="mytrips">
+  <table class="genericlist">
+    <caption>Mine roture</i></caption>
+<thead>
+  <tr><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>kommentar</th></tr>
+</thead>
+<tbody class="tbody">
+  <tr ng-repeat="trip in mytrips" >
+    <td>{{trip.boat}}</td>
+    <td>{{trip.triptype}}</td>
+    <td>{{trip.destination}}</td>
+    <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
+    <td class="rnum" >{{trip.distance|mtokm}}</td>
+    <td class="comment">{{trip.comment}}</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div ng-show="mytripsaggregated" class="triptypeview">
+  <table class="genericlist">
+    <caption>Sæsonoversigt fordelt på turtyper</caption>
+    <thead>
+      <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
+    </thead>
+    <tbody class="tbody">
+      <tr ng-repeat="ta in mytripsaggregated">
+        <td>{{ta.triptype}}</td>
+        <td class="rnum">{{ta.trip_count}}</td>
+        <td class="rnum">{{ta.distance|mtokm}}</td>
+        <td class="rnum">{{ta.average |mtokm}}</td>
+      </tr>
+    </tbody>
+      </table>
+</div>
+
+<div ng-show="mystatsdestinations">
+  <table class="genericlist statbox">
+    <caption>Mine destinationer</caption>
+    <thead>
+      <tr><th>Sted</th><th>gange</th></tr>
+    </thead>
+    <tbody class="tbody">
+        <tr  ng-repeat="rowerdest in mystatsdestinations">
+          <td>{{rowerdest.destination}}</td>
+          <td class="rnum">{{rowerdest.numtrips}}</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+<div ng-if="mo" class="seasonschart">
+  <h2>Sæsonoversigt</h2>
+  <canvas id="roweractivity" class="chart chart-bar"
+          chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
+  </canvas>
+  </div>
+</div>
+
 
 <div ng-show="othermember">
   <table  class="genericlist">

@@ -10,6 +10,10 @@ angular.module('eventApp').controller(
 function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
   $anchorScroll.yOffset = 50;
   $scope.mate_trips=[];
+  $scope.mytrips=null;
+  $scope.mytriptypes=null;
+  $scope.mates=null;
+  $scope.mytripsaggregated=null;
   $scope.teams=[];
   $scope.boatObj=null;
   $scope.todpattern="[0-2]\\d:[0-5]\\d";
@@ -917,6 +921,50 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
   }
 
+  $scope.toggle_personal = function (fid,arg) {
+    console.log("toggle "+fid+" arg="+arg);
+    var sid=fid+(arg?arg:"");
+    if ($scope.show[sid]) {
+      DatabaseService.getDataNow('event/stats/'+fid,arg?("q="+arg):null,function (res) {
+        $scope[sid]=res.data;
+      }
+                                );
+    } else {
+      $scope[sid]=null;
+    }
+  }
+
+  $scope.toggle_chart = function() {
+    if ($scope.mo) {
+      $scope.mo=null;
+    } else {
+      $scope.mo={};
+      $scope.mo.labels=[];
+      $scope.mo.series=[];
+      $scope.mo.data=[];
+      DatabaseService.getDataNow('event/stats/mystatmonth',null,function(d) {
+        for (var wn=0;wn<53;wn++) {
+          $scope.mo.labels[wn]="uge "+wn;
+        }
+        if (d.data.length>0) {
+          $scope.mo.fy=Math.max(d.data[0].year,2000); // Sanity to avoid year zero for null value
+          for (var y=$scope.mo.fy;y<=d.data[d.data.length-1].year;y++) {
+            $scope.mo.data.push([]);
+            $scope.mo.series.push(""+y);
+            for (var wn=0;wn<53;wn++) {
+              $scope.mo.data[y-$scope.mo.fy][wn]=0;
+            }
+          }
+          angular.forEach(d.data, function(w) {
+            if (w.year) {
+              $scope.mo.data[w.year-$scope.mo.fy][w.week]=w.distance/1000.0;
+            }
+          },this);
+        }
+      });
+    }
+  }
+
   $scope.messagematch = function (messagefilter) {
     return function(message) {
       if (!messagefilter) {
@@ -935,4 +983,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       );
     }
   };
+
+
+
+
 }
