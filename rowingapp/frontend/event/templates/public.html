@@ -83,6 +83,7 @@ Vis
 <label class="switch">  <input type="checkbox" ng-model="show.mytrips" ng-change="toggle_personal('mytrips')">mine ture</label>,
 <label class="switch">  <input type="checkbox" ng-model="show.mytripsaggregated" ng-change="toggle_personal('mytripsaggregated')">sæsonoversigt</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mystatsdestinations" ng-change="toggle_personal('mystats','destinations')">destinationer</label>
+<label class="switch">  <input type="checkbox" ng-model="show.mystatsmates" ng-change="toggle_personal('mystats','mates')">rokammerater</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mychart" ng-change="toggle_chart()">aktivitetsgraf</label>
 
 <script type="text/ng-template" id="memberTemplate.html">
@@ -101,20 +102,41 @@ Vis
          typeahead-template-url="memberTemplate.html" />
 </form>
 
-<div ng-if="mates">
+<div ng-if="mystatsmates">
   <table class="genericlist statbox">
-    <caption>{{currentrower.name}}'s Rokammerater</caption>
+    <caption>Mine Rokammerater</caption>
     <thead>
       <tr><th>rokammerater</th><th>km roet</th></tr>
     </thead>
     <tbody class="tbody">
-      <tr ng-if="currentrower" ng-repeat="mate in mates">
+      <tr ng-repeat="mate in mystatsmates">
         <td>{{mate.mate}}</td>
         <td class="rnum">{{mate.dist|mtokm}}</td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<div ng-show="show.rights">
+  <table class="genericlist">
+    <caption>My rights</i></caption>
+    <thead>
+      <tr>
+        <th>Rettighed</th>
+        <th>Detaljer</th>
+        <th>Tildelt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="rr in userrights">
+        <td>{{rr.member_right|righttodk}}</td>
+        <td>{{rr.arg}}</td>
+        <td>{{rr.acquired | txttotime | date:'d/M yyyy' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
 <div class="turoversigt" ng-show="mytrips">
   <table class="genericlist">
