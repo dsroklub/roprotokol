@@ -91,7 +91,7 @@
     </td>
     <td ng-show="current_forum.owner==current_user.member_id || current_user.member_id==forummember.member_id">
       <input  class="numin" type="text" onlynumber size="3" value="1"  min="0" ng-model="forummember.work.hours" required > </input>
-      <input type="date" uib-tooltip="safari: YYYY-MM-dd" placeholder="dag"    ng-model="forummember.work.workdate"> </input>
+      <input type="date" uib-tooltip="safari: YYYY-MM-dd" placeholder="dag"    ng-model="forummember.work.start_time"> </input>
       <input type="text" placeholder="udført"  size="10"  ng-model="forummember.work.done"> </input>
       <select name="maintenance_boat" id="mboat" ng-model="forummember.work.boat" ng-options="boat.name for boat in maintenance_boats"> <option value="" disabled selected>evt båd</option> </select>
       <button ng-click="add_forummemberwork(forummember,work)" uib-tooltip="registrer timer"><i class="fa fa-thumbs-up"></i></button>
@@ -108,7 +108,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="wl in forummember.log">
-            <td>{{wl.workdate| date:'d/M yyyy'}}</td><td class="rnum">{{wl.hours}}</td><td>{{wl.work}}</td><td>{{wl.boat}}</td>
+            <td>{{wl.start_time| date:'d/M yyyy'}}</td><td class="rnum">{{wl.hours}}</td><td>{{wl.work}}</td><td>{{wl.boat}}</td>
           </tr>
         </tbody>
       </table>

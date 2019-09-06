@@ -10,9 +10,15 @@ if (isset($_GET["q"])) {
 switch ($q) {
 case "rights":
     $s="SELECT showname as member_right,argument as arg,DATE_FORMAT(acquired,'%Y-%m-%dT%T') as acquired
-    FROM MemberRights, Member, right_name
-    WHERE Member.MembeRID=? AND Member.id=MemberRights.member_id AND right_name.member_right=MemberRight
+    FROM MemberRights, Member,right_name
+    WHERE Member.MemberID=? AND Member.id=MemberRights.member_id AND right_name.member_right=MemberRight
     ORDER BY acquired";
+    break;
+case "work":
+    $s="SELECT DATE_FORMAT(start_time,'%Y-%m-%dT%T') as start_time,DATE_FORMAT(end_time,'%Y-%m-%dT%T') as end_time,hours,task,boat,worklog.created,work
+    FROM worklog, Member
+    WHERE Member.MemberID=? AND Member.id=worklog.member_id
+    ORDER BY start_time";
     break;
 case "mates":
     $s="SELECT CONCAT(them.FirstName,' ',them.LastName) as mate, SUM(Meter) as dist 
@@ -53,16 +59,9 @@ default:
 }
 
 $stmt = $rodb->prepare($s) or dbErr($rodb,$res,"mystats $q");
-    $stmt->bind_param("s",$cuser);
-     $stmt->execute(); 
-     $result= $stmt->get_result();
-     echo '[';
-     $rn=1;
-     while ($row = $result->fetch_assoc()) {
-         if ($rn>1) echo ',';
-         echo json_encode($row);
-         $rn=$rn+1;
-     }
-     echo ']';     
-     $stmt->close(); 
+$stmt->bind_param("s",$cuser);
+$stmt->execute() ||  dbErr($rodb,$res,"mystats Exe $q"); 
+$result= $stmt->get_result();
+output_rows($result);
+$stmt->close(); 
 $rodb->close();

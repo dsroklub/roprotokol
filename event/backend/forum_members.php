@@ -20,13 +20,13 @@ SELECT JSON_MERGE(
     CONCAT('{', JSON_QUOTE('log'),': [',
      IF(SUM(worklog.hours),
        GROUP_CONCAT(JSON_OBJECT(
-      'workdate',DATE_FORMAT(worklog.workdate,'%Y-%m-%d'),
+      'start_time',DATE_FORMAT(worklog.start_time,'%Y-%m-%d'),
       'hours',worklog.hours,
       'work',worklog.work,
       'boat',worklog.boat,
       'by',worklog.created_by,
       'created',worklog.created 
-      ) ORDER BY workdate),''),
+      ) ORDER BY start_time),''),
    ']}')
   )
      as json

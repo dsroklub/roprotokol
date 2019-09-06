@@ -89,6 +89,10 @@ angular.module('eventApp', [
       templateUrl: 'templates/member.html',
       controller: 'eventCtrl'
     });
+    $routeProvider.when('/work/', {
+      templateUrl: 'templates/work.html',
+      controller: 'workCtrl'
+    });
     $routeProvider.when('/showevent/:event', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'

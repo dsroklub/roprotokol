@@ -80,6 +80,7 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
 <h2>Ro information </h2>
 
 Vis
+<label class="switch">  <input type="checkbox" ng-model="show.mystatswork" ng-change="toggle_personal('mystats','work')">arbejde</label>,
 <label class="switch">  <input type="checkbox" ng-model="show.mytrips" ng-change="toggle_personal('mytrips')">mine ture</label>,
 <label class="switch">  <input type="checkbox" ng-model="show.mystatsrights" ng-change="toggle_personal('mystats','rights')">rettigheder</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mytripsaggregated" ng-change="toggle_personal('mytripsaggregated')">sæsonoversigt</label>
@@ -118,6 +119,28 @@ Vis
         <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
         <td class="rnum" >{{trip.distance|mtokm}}</td>
         <td> <ul><li ng-repeat="rower in trip.rowers">{{rower.name}} </li></ul></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div ng-if="mystatswork" class="statbox">
+  <table class="genericlist">
+    <caption>Udført arbejde</caption>
+    <thead>
+      <tr>
+        <th>dato</th>
+        <th>timer</th>
+        <th>arbejde</th>
+        <th>båd</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="work in mystatswork">
+        <td>{{work.start_time | date:'d/M yyyy'}}</td>
+        <td class="rnum">{{work.hours}}</td>
+        <td>{{work.task}} {{work.work}}</td>
+        <td>{{work.boat}}</td>
       </tr>
     </tbody>
   </table>

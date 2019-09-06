@@ -459,13 +459,25 @@ DROP TABLE IF EXISTS worklog;
 CREATE TABLE worklog (
   member_id        int REFERENCES Member(id) ON DELETE SET NULL,
   created          datetime NOT NULL default NOW(),
-  workdate         datetime NOT NULL,
+  start_time       datetime NOT NULL,
+  end_time         datetime,
   work             varchar(1000),
-  hours            NUMERIC(6,2) NOT NULL,
+  hours            NUMERIC(6,2),
+  task             VARCHAR(32),
   forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
   boat             VARCHAR(100) REFERENCES Boat(Name) ON DELETE SET NULL ON UPDATE CASCADE,
   created_by       int REFERENCES Member(id) ON DELETE SET NULL
 );
+
+DROP TABLE IF EXISTS worktasks;
+CREATE TABLE worktasks (
+  name VARCHAR(32) PRIMARY KEY,
+  description VARCHAR(1000)
+);
+
+INSERT INTO worktasks (name,description) VALUES ("klargøring","vask, tæthedsprøve"),("1. slib","1. slibning"),("2. slib","slibning"),("1. lak","første lakering"),("2. lak","anden lakering"),("3. lak","tredie lakering");
+
+
 
 DROP TABLE IF EXISTS Configuration;
 CREATE TABLE Configuration (

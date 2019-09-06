@@ -35,7 +35,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.memberarg=$routeParams.memberid;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
-  $scope.work={'workdate':$scope.min_time};
+  $scope.work={'start_time':$scope.min_time};
   $scope.current_forum={"forum":null};
   $scope.current_boat_type={'id':null,'name':null};
   $scope.forumhours=null;
@@ -66,8 +66,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $timeout(function() { $scope.dbgrace = false;}, 2000);
 
   $scope.weekdays=["mandag","tirsdag","onsdag","torsdag","fredag","lørdag","søndag"];
-  DatabaseService.init({"fora":true,"file":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
-    function (ok) {
+
+  var wait_for_db = function (ok) {
     $log.debug("evt db init done");
     $scope.boatcategories=
       [{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
@@ -133,7 +133,10 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
     // $log.debug("events set user " + $scope.current_user);
     LoginService.set_user($scope.current_user);
-    },
+  };
+  
+  DatabaseService.init({"fora":true,"file":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
+    wait_for_db,
     function(err) {$log.debug("db init err "+err)},
     function(pg) {$log.debug("db init progress  "+pg)}
   );
@@ -602,13 +605,13 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           member.hours=0.0;
         }
         member.hours = 1.0*member.hours+1.*work.hours;
-        if (!work.workdate) {
+        if (!work.start_time) {
           var wd=new Date();
-          work.workdate=wd.toISOString();
+          work.start_time=wd.toISOString();
         }
-        member.log.push({'work':work.done, 'hours':work.hours,'workdate':work.workdate});
+        member.log.push({'work':work.done, 'hours':work.hours,'start_time':work.start_time});
         $scope.updateForumHours($scope.current_forum);
-        work.workdate=null;
+        work.start_time=null;
         work.done=null;
         work.hours=null;
       } else {
