@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS Boat;
 CREATE TABLE Boat (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100)  UNIQUE,
@@ -27,7 +26,6 @@ CREATE TABLE Boat (
   PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS BoatCategory;
 CREATE TABLE BoatCategory (
   id int(11) NOT NULL,
   Name varchar(100),
@@ -38,7 +36,6 @@ CREATE TABLE BoatCategory (
   UNIQUE KEY Navn (`Name`)
 );
 
-DROP TABLE IF EXISTS rights_subtype;
 CREATE TABLE rights_subtype (
   name VARCHAR(100) KEY,
   Description VARCHAR(1000)
@@ -71,7 +68,6 @@ CREATE TABLE boat_configuration (
   NyIndvendiglængde float
 );
 
-DROP TABLE IF EXISTS BoatRights;
 CREATE TABLE BoatRights (
   boat_type int(11) NOT NULL,
   required_right varchar(30) NOT NULL,
@@ -80,7 +76,6 @@ CREATE TABLE BoatRights (
   PRIMARY KEY (boat_type,required_right)
 );
 
-DROP TABLE IF EXISTS BoatType;
 CREATE TABLE BoatType (
   Name varchar(100),
   Seatcount int(11),
@@ -93,7 +88,6 @@ CREATE TABLE BoatType (
 );
 
 
-DROP TABLE IF EXISTS Damage;
 CREATE TABLE Damage (
   id int(11) NOT NULL AUTO_INCREMENT,
   Boat int(11),
@@ -110,7 +104,6 @@ CREATE TABLE Damage (
   PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS Destination;
 CREATE TABLE Destination (
   id int(11),
   created_by int,
@@ -126,7 +119,6 @@ CREATE TABLE Destination (
   PRIMARY KEY (`Name`,Location)
 );
 
-DROP TABLE IF EXISTS Error_Trip;
 CREATE TABLE Error_Trip (
   id int(11) NOT NULL AUTO_INCREMENT,
   DeleteTrip int(11),
@@ -151,7 +143,6 @@ CREATE TABLE Error_Trip (
   PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS Error_TripMember;
 CREATE TABLE Error_TripMember (
   ErrorTripID int(11) NOT NULL,
   Seat int(11) NOT NULL,
@@ -160,7 +151,6 @@ CREATE TABLE Error_TripMember (
   PRIMARY KEY (ErrorTripID,Seat)
 );
 
-DROP TABLE IF EXISTS Locations;
 CREATE TABLE Locations (
   `name` varchar(30) NOT NULL,
   lat                DOUBLE,
@@ -170,7 +160,6 @@ CREATE TABLE Locations (
 );
 
 
-DROP TABLE IF EXISTS Member;
 CREATE TABLE Member (
   id int(11) NOT NULL AUTO_INCREMENT,
   MemberID varchar(10) UNIQUE,
@@ -198,7 +187,6 @@ CREATE TABLE Member (
   KEY medlemnrix (MemberID)
 );
 
-DROP TABLE IF EXISTS MemberRightType;
 CREATE TABLE MemberRightType (
   member_right varchar(50) NOT NULL,
   arg varchar(200) NOT NULL DEFAULT "",
@@ -206,7 +194,6 @@ CREATE TABLE MemberRightType (
   PRIMARY KEY (member_right,arg)
 );
 
-DROP TABLE IF EXISTS MemberRights;
 CREATE TABLE MemberRights (
   member_id int(11) NOT NULL,
   created_by int,
@@ -228,7 +215,6 @@ CREATE TABLE meta_right(
 INSERT INTO  meta_right(member_right,meta) VALUES('svava','svava/sculler');
 INSERT INTO  meta_right(member_right,meta) VALUES('sculler','svava/sculler');
 
-DROP TABLE IF EXISTS reservation;
 CREATE TABLE reservation (
   boat INT REFERENCES Boat(id) ON DELETE RESTRICT ON UPDATE CASCADE,
   start_time time,
@@ -249,7 +235,6 @@ CREATE TABLE reservation (
   PRIMARY KEY (boat,start_time,start_date,dayofweek,configuration)
 );
 
-DROP TABLE IF EXISTS Trip;
 CREATE TABLE Trip (
   id int(11) NOT NULL AUTO_INCREMENT,
   BoatID int(11) NOT NULL,
@@ -272,7 +257,6 @@ CREATE TABLE Trip (
   KEY tripout (OutTime)
 );
 
-DROP TABLE IF EXISTS TripMember;
 CREATE TABLE TripMember (
   TripID int(11) NOT NULL,
   Seat int(11) NOT NULL,
@@ -284,7 +268,6 @@ CREATE TABLE TripMember (
   PRIMARY KEY (TripID,Seat)
 );
 
-DROP TABLE IF EXISTS TripRights;
 CREATE TABLE TripRights (
   trip_type int(11) NOT NULL,
   required_right varchar(30) REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
@@ -292,7 +275,6 @@ CREATE TABLE TripRights (
   PRIMARY KEY (trip_type,required_right)
 );
 
-DROP TABLE IF EXISTS TripType;
 CREATE TABLE TripType (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100),
@@ -305,18 +287,6 @@ CREATE TABLE TripType (
   UNIQUE KEY Navn (`Name`)
 );
 
-DROP TABLE IF EXISTS Vintervedligehold;
-CREATE TABLE Vintervedligehold (
-  Id int(11) NOT NULL,
-  Medlemsnr varchar(8),
-  Season int(11),
-  HasRedKey int(11),
-  DeletedReason varchar(100),
-  PRIMARY KEY (Id),
-  KEY vintermedlem (Medlemsnr)
-);
-
-DROP TABLE IF EXISTS boat_brand;
 CREATE TABLE boat_brand (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100),
@@ -324,7 +294,6 @@ CREATE TABLE boat_brand (
   UNIQUE KEY Typenavn (`name`)
 );
 
-DROP TABLE IF EXISTS boat_usage;
 CREATE TABLE boat_usage (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100),
@@ -334,13 +303,11 @@ CREATE TABLE boat_usage (
 );
 
 
-DROP TABLE IF EXISTS event_log;
 CREATE TABLE event_log (
   event varchar(500),
   event_time datetime,
   KEY eventtime (event_time)
 );
-
 
 
 DROP TABLE IF EXISTS tblMembersToRoprotokol;
@@ -448,12 +415,6 @@ CREATE TABLE tblMembersSportData (
   diverse2 varchar(140)
 );
 
-DROP TABLE IF EXISTS volunteerwork;
-CREATE TABLE volunteerwork (
-  Medlemsnr varchar(8),
-  Season int(11),
-  worktype varchar(100)
-);
 
 DROP TABLE IF EXISTS worklog;
 CREATE TABLE worklog (
@@ -468,6 +429,21 @@ CREATE TABLE worklog (
   boat             VARCHAR(100) REFERENCES Boat(Name) ON DELETE SET NULL ON UPDATE CASCADE,
   created_by       int REFERENCES Member(id) ON DELETE SET NULL
 );
+
+DROP TABLE IF EXISTS worker;
+CREATE TABLE worker (
+  member_id        int REFERENCES Member(id) ON DELETE SET NULL,
+  assigner         CHAR(30) DEFAULT 'vedlighold',
+  created          datetime NOT NULL default NOW(),
+  end_time         datetime,
+  requirement      NUMERIC(6,2), -- hours
+  description      VARCHAR(1000),
+  forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE SET NULL,
+  created_by       int REFERENCES Member(id) ON DELETE SET NULL,
+  PRIMARY KEY(member_id,assigner)
+);
+
+
 
 DROP TABLE IF EXISTS worktasks;
 CREATE TABLE worktasks (
