@@ -31,6 +31,7 @@ pre.ng-binding {
 }
 
 button {
+  color: black;
   background: #bcffbd;
   border-radius: 5px;
   border: 0;
@@ -196,7 +197,7 @@ input.big {
 caption{
   border-radius: 7px 7px 0 0;
   text-align: center;
-  min-width: 21em;
+  min-width: 10em;
   caption-side: top;
   background:#2f5869;
   color: white;
@@ -312,9 +313,17 @@ textarea {
   padding: 0px;
 }
 
-.tbody {
-  background : #FFD;
+table.genericlist tbody {
+   background : #FFD;
+   width: 100%;                             
 }
+
+table.genericlist thead {
+   background : #d5f2dc;
+   color:black;                       
+   width: 100%;
+}
+
 select.ng-invalid, input.ng-invalid, textarea.ng-invalid {
   background: #FCC;
 }
@@ -433,9 +442,18 @@ tr td {
   white-space: pre-wrap;
 }
 
-.popempty {
-  background: white;
-  background: #50E663;
+.popbuttons {
+  background: #E9D994;
+  padding: 2em;  
+}
+
+.genericlist {
+    border-radius: 5px;
+    overflow: visible;
+    float:left;
+    margin-bottom: 1em;
+    margin-right: 0.8em;
+
 }
 
 .generate {
@@ -521,7 +539,7 @@ datetimepicker.ng-empty ng-form div input {
 
 .sticky {
     background: #FFA7A7;
-    border: 2px solid #ccc;
+    border: 2px solid #000;
     color: black;
     border-radius: 5px;
 }
@@ -530,13 +548,28 @@ datetimepicker.ng-empty ng-form div input {
 ￼    opacity: 1 !important;
 }
 
-
 .modal.fade {
   opacity: 1;
+}
+
+.statbox {
+  margin: 0.5em;
+}
+
+.seasonschart {
+    display:inline-block;
+    float:left;
+    width:100%;
 }
 
 .modal.fade .modal-dialog, .modal.in .modal-dialog {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
+}
+
+.msgexpand {
+             background:white;
+    padding-left: 3em;
+
 }

@@ -39,11 +39,10 @@ function check_event_owner($eventId) {
     return false;
 }
 
-
 function check_forum_owner($forumName) {
     global $currentuser;
     global $rodb;
-    if ($stmt = $rodb->prepare(
+    $stmt = $rodb->prepare(
         "SELECT Member.id
          FROM forum_subscription, Member
          WHERE
@@ -51,29 +50,21 @@ function check_forum_owner($forumName) {
          UNION
             SELECT Member.id FROM forum,Member where forum.owner=Member.id AND Member.MemberID=? AND forum.name=?
             "
-    )
-    ) {
-        $stmt->bind_param(
-            'ssss',
-            $forumName,
-            $currentuser,
-            $currentuser,
-            $forumName
-        ) ||  die("check forum owner errro ".mysqli_error($rodb));
+    ) or dbErr($rodb,$res,"check forum owner/admin");
+    $stmt->bind_param(
+        'ssss',
+        $forumName,
+        $currentuser,
+        $currentuser,
+        $forumName
+    ) ||  dbErr($rodb,$res,"check forum owner");
 
-        if ($stmt->execute()) {
-            $result= $stmt->get_result() or die("Error in forum owner check: " . mysqli_error($rodb));
-            if (count($result->fetch_assoc())==1) {
-                // error_log("check forum TRUE ".print_r($result,true));
-                return true;
-            }
-        } else {
-            $error=" forum status set exe ".mysqli_error($rodb);
-            $message=$message."\n"."role update error: ".mysqli_error($rodb);
-        }
-    } else {
-        $error=" forum check user ".mysqli_error($rodb);
-        error_log($error);
+    $stmt->execute() ||  dbErr($rodb,$res,"check forum owner exe");
+
+    $result= $stmt->get_result() or die("Error in forum owner check: " . mysqli_error($rodb));
+    if (count($result->fetch_assoc())==1) {
+        // error_log("check forum TRUE ".print_r($result,true));
+        return true;
     }
     return false;
 }

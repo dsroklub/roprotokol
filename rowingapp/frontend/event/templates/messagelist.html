@@ -43,11 +43,11 @@
           <td ng-if="message.type=='private'"><i ng-click="messagedelete(message)" confirm="Vil du slette beskeden?" class="fa fa-trash"></i></td>
         </tr>
         <tr ng-repeat-end ng-if="currentmessage == message">
-          <td class="popempty">
-            <span ng-if="message.sticky>0">
-              <button ng-click="sticky_delete(message)" noanimate confirm="Slet noten?" ng-show="message.sticky"><i class="fa fa-trash"></i></button>
-              <button ng-click="forum_reply(message,true)"  noanimate  ng-show="message.sticky"><i class="fa fa-edit"></i></button>
-            </span>
+          <td  class="msgexpand">
+            <div class="popbuttons" ng-show="message.sticky>0">
+              <button ng-click="sticky_delete(message)" noanimate confirm="Slet noten?" <i class="fa fa-trash"></i></button>
+              <button ng-click="forum_reply(message,true)" noanimate ><i class="fa fa-edit"></i></button>
+            </div>
           </td><td class="popdown" colspan="4"> <div class="popdown" ng-bind=message.body></div>
           </td>
         </tr>

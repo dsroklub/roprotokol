@@ -2,12 +2,14 @@
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
-$res=array ("status" => "ok");
-
 $from="1857-01-01";
 
 if (isset($_GET["from"])) {
     $from=$_GET["from"];
+}
+$limit="";
+if (isset($_GET["active"])) {
+    $limit=" AND worklog.end_time IS NULL ";
 }
 
 $s="SELECT MAX(hours) as h,JSON_MERGE(
@@ -19,17 +21,19 @@ $s="SELECT MAX(hours) as h,JSON_MERGE(
    ),
    CONCAT( '{', JSON_QUOTE('log'),': [',
      GROUP_CONCAT(JSON_OBJECT(
-      'workdate',workdate,
+      'start_time',start_time,
+      'end_time',end_time,
       'hours',hours,
       'by',created_by,
+      'boat', boat,
       'created',worklog.created )),
    ']}')
    ) AS json
    FROM Member LEFT JOIN worklog on worklog.member_id=Member.id  
-   WHERE Member.MemberID!='0' AND Member.id>=0 AND workdate > ?
-   GROUP BY Member.id,forum HAVING h IS NOT NULL;
+   WHERE Member.MemberID!='0' AND Member.id>=0 AND start_time > ? $limit
+   GROUP BY Member.id,forum ;
 ";
-
+// HAVING h IS NOT NULL
 // use: json->>'$.hours' IS NOT NULL from mariadb 10.3
     
 if ($sqldebug) {
@@ -41,15 +45,6 @@ if ($sqldebug) {
     echo "f=$from s=$s\n";
 }
 $stmt->bind_param('s',$from) or dbErr($rodb,$res,"worklog bind");
-
 $stmt->execute() or dbErr($rodb,$res,"worklog (Exe)");
 $result= $stmt->get_result();
-
-
-echo '[';
-$first=1;
-while ($row = $result->fetch_assoc()) {
-    if ($first) $first=0; else echo "\n,";	  
-    echo $row['json'];
-}
-echo ']';
+output_json($result);

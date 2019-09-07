@@ -13,6 +13,7 @@ MONTH(Trip.OutTime) > 3 AND
 MONTH(Trip.OutTime) < MONTH(NOW()) AND
 Boat.id=Trip.BoatID AND Boat.boat_type=BoatType.Name AND
 BoatType.Category=2 AND
+STRCMP(MemberID,\"=\") <0 AND
 TripMember.TripID=Trip.id AND Member.id=TripMember.member_id") or dbErr($rodb,$res,"motion");
 echo "<h1>Motionsturneringsstatistik</h1>\n";
 process($res,"text",null,["km","aktive roere","gennemsnit","til og med"]);
@@ -48,6 +49,7 @@ WHERE
   MONTH(Trip.OutTime) < MONTH(NOW()) AND
   Boat.id=Trip.BoatID AND Boat.boat_type=BoatType.Name AND
   BoatType.Category=2 AND
+  STRCMP(MemberID,\"=\") <0 AND
   TripMember.TripID=Trip.id AND Member.id=TripMember.member_id
   GROUP BY maaned";
 $res=$rodb->query($s) or die("Error ".$rodb->error);

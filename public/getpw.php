@@ -5,14 +5,14 @@ error_log("mid=$memberId");
 
 require("inc/db.php");
 require("inc/mail_sender.php");
-$res = $link->query("SELECT * FROM Member WHERE MemberId = '" . (int) $memberId."'");
+$res = $link->query("SELECT * FROM Member WHERE RemoveDate IS NULL AND MemberId = '" . (int) $memberId."'");
 if ($res) {
     error_log("got member");
     $person = $res->fetch_assoc();
-    if ($person) {
+    if ($person or $memberId='kajakskur') {
         $pw=null;
         if ($stmt = $link->prepare("SELECT newpassword FROM authentication,Member WHERE member_id=Member.id AND Member.MemberId=?")) {
-            $stmt->bind_param('i', $memberId);
+            $stmt->bind_param('s', $memberId);
             $stmt->execute();
             $result= $stmt->get_result();
             if ($result) {

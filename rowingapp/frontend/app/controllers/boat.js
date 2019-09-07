@@ -32,7 +32,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.status={};
   $scope.boat_type=null;
   $scope.boatcategories=[];
-  DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true}).then(function () {
+    DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true,"message":true}).then(function () {
     // Load Category Overview
     var reservations=DatabaseService.getDB('get_reservations');
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();

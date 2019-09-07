@@ -20,12 +20,13 @@ SELECT JSON_MERGE(
     CONCAT('{', JSON_QUOTE('log'),': [',
      IF(SUM(worklog.hours),
        GROUP_CONCAT(JSON_OBJECT(
-      'workdate',DATE_FORMAT(worklog.workdate,'%Y-%m-%d'),
+      'start_time',DATE_FORMAT(worklog.start_time,'%Y-%m-%d'),
       'hours',worklog.hours,
       'work',worklog.work,
+      'boat',worklog.boat,
       'by',worklog.created_by,
       'created',worklog.created 
-      ) ORDER BY workdate),''),
+      ) ORDER BY start_time),''),
    ']}')
   )
      as json
@@ -43,14 +44,4 @@ $stmt->bind_param("s", $forum) or dbErr($rodb,$res,"forummember bind");
 $stmt->execute() or dbErr($rodb,$res,"forummember exe");
 
 $result= $stmt->get_result() or dbErr($rodb,$res,"forummember r");
-if ($result) {
-    echo '[';
-    $first=1;
-    while ($row = $result->fetch_assoc()) {
-        if ($first) $first=0; else echo ",\n";
-        echo $row["json"];
-    }
-    echo ']';
-} else {
-    error_log("no forum members");
-}
+output_json($result);

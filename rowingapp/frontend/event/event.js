@@ -16,6 +16,7 @@ angular.module('eventApp', [
   'eventApp.version',
   'eventApp.database',
   'angular-confirm',
+  'chart.js',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
   'angular.filter',
@@ -88,6 +89,10 @@ angular.module('eventApp', [
       templateUrl: 'templates/member.html',
       controller: 'eventCtrl'
     });
+    $routeProvider.when('/work/', {
+      templateUrl: 'templates/work.html',
+      controller: 'workCtrl'
+    });
     $routeProvider.when('/showevent/:event', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
@@ -107,6 +112,16 @@ angular.module('eventApp', [
     });
   }]).config(['uiSelectConfig', function(uiSelectConfig) {
     uiSelectConfig.theme = 'bootstrap';
-  }])
+  }])  .config(['ChartJsProvider', function (ChartJsProvider) {
+    // Configure all charts
+    ChartJsProvider.setOptions({
+      colours: ['#FF5252', '#FF8A80'],
+      animation: false
+    });
+    // Configure all line charts
+    ChartJsProvider.setOptions('Line', {
+      datasetFill: true
+    });
+  }]);
 //  .config(['http', function(httpConfig) {  httpConfig.headers.common['Content-Type'] = 'application/json; charset=utf-8'; }])
 ;

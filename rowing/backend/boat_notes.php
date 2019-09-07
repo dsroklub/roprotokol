@@ -8,15 +8,15 @@ SELECT JSON_QUOTE(Boat.Name) as boat,
   )
  as json
  FROM Boat,forum,forum_message
-WHERE forum.boat=Boat.Name and forum_message.forum=forum.name AND sticky>0
+WHERE forum.boat=Boat.Name and forum_message.forum=forum.name AND sticky>0 AND deleted IS NULL
 GROUP BY Boat.Name
 ";
 $result=$rodb->query($sql) or dbErr($rodb,$res,"boat notes");
 echo '{';
 $first=false;
  while ($row = $result->fetch_assoc()) {
-     echo $row["boat"].":". $row["json"];
-     if (!$first) echo ",\n";$first=true;
+     if ($first) {echo ",\n";$first=true;}
+     echo $row["boat"].":". $row["json"]."\n";
 }
 echo '}';
 $rodb->close();

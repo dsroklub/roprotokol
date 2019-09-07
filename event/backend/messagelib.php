@@ -180,7 +180,6 @@ function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null
     if (!$from) {
         $from=$cuser;
     }
-
     if ($forumEmail) {
         $stmt = $rodb->prepare("SELECT name,email_local FROM forum WHERE email_local=?");
         $stmt->bind_param('s',$forumEmail) || dbErr($rodb,$res,"Error in msg forum bind: ");
@@ -246,5 +245,6 @@ function post_forum_message($forum,$subject,$message,$from=null,$forumEmail=null
         $forumFrom
     );
     invalidate("message");
+    $res["message_id"]=$msgid;
     return $res;
 }

@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog-theme-default.css">
   <link rel="stylesheet" href="../app/bower_components/components-font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
+  <link rel="stylesheet" href="../app/bower_components/angular-chart.js/dist/angular-chart.css">
   <link rel="stylesheet" href="event.css"/>
   <script src="../app/bower_components/angular/angular.min.js"></script>
   <script src="components/angular-locale_da-dk.js"></script>
@@ -60,10 +61,13 @@
   <script src="components/database/login-services.js"></script>
   <script src="event.js"></script>
   <script src="controllers/events.js"></script>
+  <script src="controllers/work.js"></script>
   <script src="controllers/noright.js"></script>
   <script src="controllers/menu.js"></script>
   <script src="components/database/database-directives.js"></script>
   <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
+  <script src="../app/bower_components/Chart.js/Chart.js"></script>
+  <script type='text/javascript' src="../app/bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
   <!--script src="../dsrcommon/controllers/main.js"></script-->
 </head>
 <body>
@@ -96,6 +100,7 @@
       <li ng-hide="ccurrentuser.user.member_id=='baadhal'" ng-class="{topsel: activePath=='/public/'}"><a href="public/"><i class="fa fa-user"></i>Min side</a></li>
       <li ng-class="{topsel: activePath=='/about/'}"><a href="about/"><i class="fa fa-info-circle"></i>Om</a></li>
       <li ng-class="{topsel: activePath=='/member/'}"><a href="member/"><i class="fa fa-female"></i><i class="fa fa-male"></i>Medlem</a></li>
+      <li ng-class="{topsel: activePath=='/work/'}"><a href="work/"><i class="fa fa-hourglass"></i>Arbejde</a></li>
     </ul>
   </div>
 <div class="main">

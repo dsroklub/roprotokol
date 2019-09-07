@@ -28,7 +28,7 @@ $s="SELECT JSON_OBJECT(
     ORDER by Boat.name
     ";
 //echo $s;
-$result=$rodb->query($s) or die("Error in boats query: " . mysqli_error($rodb));;
+$result=$rodb->query($s) or dbErr($db,$res,"Error in boats query");
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {

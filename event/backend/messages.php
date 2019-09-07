@@ -31,22 +31,14 @@ SELECT CONCAT(mf.FirstName,' ',mf.LastName) as sender, DATE_FORMAT(private_messa
     Member.MemberId=?
 ORDER BY sticky DESC,created DESC
 ";
-if ($stmt = $rodb->prepare($s)) {
-    $stmt->bind_param("sss", $cuser,$cuser,$cuser);
-    $stmt->execute();
-    $result= $stmt->get_result() or die("Error in stat query: " . mysqli_error($rodb));
-    if ($result) {
-        echo '[';
-        $first=1;
-        while ($row = $result->fetch_assoc()) {
-            if ($first) $first=0; else echo ',';
-            echo json_encode($row,JSON_PRETTY_PRINT);
-        }
-        echo ']';
-    } else {
-        dbErr($rodb,$res,"messages");
-        echo json_encode($res,JSON_PRETTY_PRINT);
-    }
-} else {
-    dbErr($rodb,$res,"messages query");
+$stmt = $rodb->prepare($s) or dbErr($rodb,$res,"messages query");
+$stmt->bind_param("sss", $cuser,$cuser,$cuser);
+$stmt->execute();
+$result= $stmt->get_result() or dbErr($rodb,$res,"messages");
+echo '[';
+$first=1;
+while ($row = $result->fetch_assoc()) {
+    if ($first) $first=0; else echo ',';
+    echo json_encode($row,JSON_PRETTY_PRINT);
 }
+echo ']';

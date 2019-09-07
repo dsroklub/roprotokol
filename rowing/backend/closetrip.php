@@ -72,8 +72,8 @@ if ($stmt = $rodb->prepare(
       $mail_headers['To']=$email;
       $body=$row['rower'] . " er kommet tilbage fra ". $row['destination'].", " .number_format($distance/1000,1,",","")." km";
 
-      if (!empty($closedtrip->boat->comment)) {
-          $body .= "\r\n\r\nKommentar til turen: ".$closedtrip->boat->comment;
+      if (!empty($closedtrip->comment)) {
+          $body .= "\r\n\r\nKommentar til turen: ".$closedtrip->comment;
       }
       $mail_status = $smtp->send(array($email), $mail_headers, $body);
 
