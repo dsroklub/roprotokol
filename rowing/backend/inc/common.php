@@ -46,8 +46,8 @@ function invalidate($tp) {
 }
 function dbErr(&$db, &$res, $err="") {
     $res["status"]="error";
-    $res["error"]="DB ". $err . ": " .$db->error;
-    error_log("Database error: $db->error $err");
+    $res["error"]="DB ". $err . ": " .$db->error. " FILE: ". $_SERVER['PHP_SELF'];
+    error_log("Database error: $db->error $err :". $_SERVER['PHP_SELF']);
     http_response_code(500);
     echo json_encode($res);
     $db->rollback();
@@ -125,17 +125,27 @@ function eventLog($entry) {
 $res=array ("status" => "ok");
 $damageMaintenance=4;
 
-function output_json(&$rl) {
-    echo '[';
-    $first=1;
-    while ($row = $rl->fetch_assoc()) {
-        if ($first) $first=0; else echo ",\n";
-        echo $row['json'];
+function output_json(&$rl,$keyname=null) {
+    if ($keyname) {
+        echo "{\n";
+        $first=1;
+        while ($row = $rl->fetch_assoc()) {
+            if ($first) $first=0; else echo ",\n";
+            echo '"'.$row[$keyname].'":'.$row['json'];
+        }
+        echo "\n}";
+    } else {
+        echo '[';
+        $first=1;
+        while ($row = $rl->fetch_assoc()) {
+            if ($first) $first=0; else echo ",\n";
+            echo $row['json'];
+        }
+        echo ']';
     }
-    echo ']';
 }
 
-function output_rows(&$rl) {
+function output_rows(&$rl,$keyname=null) {
 echo '[';
 $first=1;
 while ($row = $rl->fetch_assoc()) {

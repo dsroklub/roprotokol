@@ -7,52 +7,31 @@
     </thead>
     <tbody class="tbody">
       <tr>
-	<td>
+    <td>
           <input type="text" placeholder="navn på forum" class="forum" size="20" maxlength="20" autocomplete="off" ng-model="newforum.forum" required>
-	</td>
+    </td>
       </tr>
       <tr>
-	<td><input type="checkbox" ng-model="newforum.is_open" value="true"> Åben tilmelding</td>
+    <td><input type="checkbox" ng-model="newforum.is_open" value="true"> Åben tilmelding</td>
       <tr>
-	<td><input type="checkbox" ng-model="newforum.is_public"> Synligt for alle</td>
+    <td><input type="checkbox" ng-model="newforum.is_public"> Synligt for alle</td>
       </tr>
       <tr>
-	<td><input type="checkbox" ng-model="newforum.owner_subscribe">Jeg vil selv abbonnere på det</td>
+    <td><input type="checkbox" ng-model="newforum.owner_subscribe">Jeg vil selv abbonnere på det</td>
       </tr>
       <tr>
-	<td colspan="2">
+    <td colspan="2">
           <input type="text" class="description" placeholder="beskrivelse af forum" class="forum" autocomplete="off" ng-model="newforum.description">
-	</td>
+    </td>
       </tr>
       <tr>
-	<td>
-          <button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
-	</td>
+    <td>
+      <button class="green" ng-disabled="!newforumform.$valid" ng-click="forumcreate()">Opret nyt forum</button>
+    </td>
       </tr>
     </tbody>
   </table>
 </form>
-
-<form name="newboatforumform"  class="newforum">
-  <table>
-    <caption>Nyt Vintervedlighold</caption>
-    <thead>
-    </thead>
-    <tbody class="tbody">
-      <tr>
-	<td>
-          <select name="forum" id="vinterforum" ng-model="newboatforum.boat" ng-options="boat.name for boat in boats | filter: {forum:null} |filter: {formand:''}">
-          </select>
-	</td>
-      </tr>
-	<td>
-          <button class="green" ng-disabled="!newboatforum.boat" ng-click="winterforumcreate()">Opret nyt vinterhold</button>
-	</td>
-      </tr>
-    </tbody>
-  </table>
-</form>
-
 
 <table>
   <caption>Eksisterende fora mm</caption>

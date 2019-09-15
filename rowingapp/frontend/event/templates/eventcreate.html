@@ -21,7 +21,7 @@
 
     <tr><th>Turen hedder</th><td> <input type="text" id="owner_in" ng-model="newevent.name" required></td></tr>
     <tr><th>Turen starter</th><td> <input type="text" id="owner_in" ng-model="newevent.location" required></td></tr>
-    
+
     <tr>
       <th>Skal selv med</th>
       <td> <input type="checkbox" id="owner_in" ng-model="newevent.owner_in" ng-true-value="1" ng-false-value="0" ></td>
@@ -37,19 +37,15 @@
       <td> <input type="checkbox" id="owner_in" ng-model="newevent.automatic" ng-true-value="1" ng-false-value="0" >
       </td>
     </tr>
-
     <tr>
-      <th>Inviter fora</th><td>        
-        <ui-select multiple class="chosenforum"
-          name="forum" id="forum" ng-model="newevent.fora"
-          >
+      <th>Inviter fora</th><td>
+        <ui-select multiple class="chosenforum" name="forum" id="forum" ng-model="newevent.fora" >
           <ui-select-match  placeholder="fora du vil invitere">
             {{$item.forum}}
           </ui-select-match>
-          
           <ui-select-choices repeat="forum in fora">
             {{forum.forum}}
-	  </ui-select-choices>
+          </ui-select-choices>
         </ui-select>
       </td>
     </tr>
@@ -74,7 +70,7 @@
     </tr>
 
     <tr><th>(max deltg)</th><td>
-	<input type="number" class="number" size="5" maxlength="5" autocomplete="off" ng-model="newevent.max_participants"></td>
+        <input type="number" class="number" size="5" maxlength="5" autocomplete="off" ng-model="newevent.max_participants"></td>
     </tr>
     <tr ng-show="newevent.category.name =='rotur' || newevent.category.name=='langtur'">
       <th>(bådtype)</th><td>
@@ -100,12 +96,11 @@
           date-options="dateOptions"
           show-meridian="false"
           data-ng-model="newevent.starttime"
-	  ng-change="set_event_start()"
+          ng-change="set_event_start()"
           >
         </datetimepicker>
       </td>
     </tr>
-
 
     <tr>
       <th>(evt slut)</th>
@@ -119,8 +114,7 @@
         date-options="enddateOptions"
         show-meridian="false"
         data-ng-model="newevent.endtime"
-	ng-click="set_event_end()"
-	
+        ng-click="set_event_end()"
          >
         </datetimepicker>
     </td>
@@ -148,7 +142,7 @@
         </textarea>
       </td>
     </tr>
-       
+
 </table>
   <button class="green" ng-show="newevent.starttime && neweventform.$valid" ng-click="eventcreate()">Opret begivenhed</button>
   <button class="red" ng-hide="neweventform.$valid">Udfyld navn</button>

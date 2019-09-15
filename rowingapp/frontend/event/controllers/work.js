@@ -53,5 +53,11 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     }, function(err) {console.log("forum mem add work err: "+err)}
                    )
   }
-  
+
+  $scope.generate_work = function () {
+      DatabaseService.getDataNow('event/workers','generate', function (res) {
+        $scope.workers=res.data;
+      }
+                                )
+  }
 }

@@ -1,11 +1,5 @@
 <h1>Tidsregistrering</h1>
 
-<script type="text/ng-template" id="memberTemplate.html">
-  <a>
-    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
-    {{match.model.name}} <i>({{match.model.id}})</i>
-  </a>
-</script>
 
 <div>
   <table class="tlist">
@@ -13,6 +7,7 @@
     <thead>
       <tr>
         <th>Navn</th>
+        <th>krav</th>
         <th>påbegyndt</th>
         <th>arbejdsopgave</th>
         <th>Beskrivelse</th>
@@ -23,11 +18,12 @@
     <tbody>
       <tr ng-repeat="wk in workers">
         <td>{{wk.worker.name}} ({{wk.worker.id}})</td>
+        <td>{{wk.requirement | number: 2.1}}</td>
         <td>{{wk.start_time | date: "HH:mm d. MMM"}}   <span ng-if="wk.end_time">{{wk.end_time | date: "HH:mm d. MMM"}} = {{wk.hours | number: 2.1 }} h</span></td>
         <td><select ng-model="wk.task" ng-options="task.name for task in worktasks" ></select> </td>
         <td><input class="description" ng-model="wk.work" type="text"></td>
         <td><select ng-model="wk.boat" ng-options="bt.name for bt in maintenance_boats"></select></td>
-        <td><button ng-hide="wk.end_time" ng-click="checkin_worker(wk)" uib-tooltip="registrer timer"><i class="fa fa-thumbs-up"></i></button></td>
+        <td><button ng-hide="wk.end_time" ng-click="checkin_worker(wk)" uib-tooltip="registrer timer">Check ud<i class="fa fa-thumbs-up"></i></button></td>
       </tr>
     </tbody>
   </table>
@@ -38,9 +34,27 @@
 <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xyxyxmber" type="text"
            ng-model="work.worker"
            typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
-           typeahead-template-url="memberTemplate.html" typeahead-on-select="select_worker()" required />
+           typeahead-template-url="templates/memberTemplate.html" typeahead-on-select="select_worker()" required />
 </form>
 
 <h2>info</h2>
 
 Se alt dit arbejde under fanebladet: min side.
+
+<div ng-if="true">
+  <h1>Administration</h1>
+
+  <button ng-click="generate_work()">Generer arbejdstimer</button>
+<form>
+<input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="asxyxmber" type="text"
+           ng-model="workadmin.worker"
+           typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+           typeahead-template-url="templates/memberTemplate.html" typeahead-on-select="select_worker()" required />
+</form>
+
+  <td ><input type="number" class="rnum" size="5" maxlength="5" autocomplete="off" ng-model="wordadmin.worker.requirement" ng-change="workadmin.changed=true"></td>
+
+
+
+
+</div>

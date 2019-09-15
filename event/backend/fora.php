@@ -37,11 +37,5 @@ $stmt->bind_param("s", $cuser)  or dbErr($rodb,$res,"fora B");
 $stmt->execute() or dbErr($rodb,$res,"fora Exe");
 $result= $stmt->get_result() or dbErr($rodb,$res,"Error in fora query: " );
 
-echo '[';
-$first=1;
-while ($row = $result->fetch_assoc()) {
-    if ($first) $first=0; else echo ',';
-    echo $row["json"];
-}
-echo ']';
+output_json($result);
 $rodb->close();

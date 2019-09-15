@@ -24,7 +24,7 @@
 <div ng-include="'templates/eventlist.html'" class="leftlist"></div>
 
 <br>
-<button ng-show="current_forum.forum" ng-click="do_event_create()">Opret ny begivenhed for {{current_forum.forum}} 
+<button ng-show="current_forum.forum" ng-click="do_event_create()">Opret ny begivenhed for {{current_forum.forum}}
 </button>
 
 <div ng-if='message.body'>
@@ -103,12 +103,12 @@
         </td>
         <td>
           <ui-select
-            reset-search-input="false"           
-            ng-model="forumfile.filefolder" 
+            reset-search-input="false"
+            ng-model="forumfile.filefolder"
             pattern="[.a-zA-Z0-9_æøåÆØÅ# \-@/]{1,100}"
             taggingLabel=false
             >
-            
+
 	    <ui-select-match placeholder="bogstaver, tal, #,-,_ kan ikke begynde med /">
               {{forumfile.filefolder||"angiv folder"}}
             </ui-select-match>
@@ -124,7 +124,7 @@
         </td>
         <td>
           <input type="checkbox" ng-model="forumfile.notexpire" value="true"> Aldrig
-          <datetimepicker               
+          <datetimepicker
             uib-tooltip="Udløbsdato"
             popup="d MMM yyyy"
             current-text="i dag"

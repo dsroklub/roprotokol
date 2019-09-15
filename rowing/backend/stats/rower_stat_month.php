@@ -11,13 +11,12 @@ if (isset($_GET["rower"])) {
 }
 
 
-$s="select Week(OutTime) as week, YEAR(OutTime) AS year,CAST(SUM(Meter) AS UNSIGNED) as distance From Trip,TripMember,Member WHERE TripMember.TripID=Trip.id AND Member.id=TripMember.member_id AND Member.MemberID=? 
+$s="SELECT Week(OutTime) AS week, YEAR(OutTime) AS year,CAST(SUM(Meter) AS UNSIGNED) as distance From Trip,TripMember,Member WHERE TripMember.TripID=Trip.id AND Member.id=TripMember.member_id AND Member.MemberID=?
 GROUP BY year,week ORDER BY year,week";
-
 #echo $s;
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("s",$rowerid);
-     $stmt->execute(); 
+     $stmt->execute();
      $result= $stmt->get_result();
      echo '[';
      $rn=1;
@@ -26,8 +25,7 @@ if ($stmt = $rodb->prepare($s)) {
          echo json_encode($row);
          $rn=$rn+1;
      }
-     echo ']';     
-     $stmt->close(); 
- } 
+     echo ']';
+     $stmt->close();
+ }
 $rodb->close();
-

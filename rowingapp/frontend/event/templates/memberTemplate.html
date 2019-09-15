@@ -1,0 +1,6 @@
+<script type="text/ng-template" id="templates/memberTemplate.html">
+<a>
+   <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+</a>
+</script>

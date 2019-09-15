@@ -72,7 +72,6 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     $scope.boatcategories=
       [{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
     $scope.forum_files=DatabaseService.getDB('event/forum_files_list');
-    $scope.fora=DatabaseService.getDB('event/fora');
     $scope.boatsById=DatabaseService.getDB('boatsById');
     $scope.boatsByName=DatabaseService.getDB('boatsByName');
     $scope.boats=DatabaseService.getDB('event/boats');
@@ -134,7 +133,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     // $log.debug("events set user " + $scope.current_user);
     LoginService.set_user($scope.current_user);
   };
-  
+
   DatabaseService.init({"fora":true,"file":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
     wait_for_db,
     function(err) {$log.debug("db init err "+err)},
@@ -295,7 +294,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       }
     },function(err) {console.log("set forum member work hours: "+err)});
   }
-  
+
   $scope.set_event_openness = function(event) {
     var sr=DatabaseService.createSubmit("set_event_openness",event);
     sr.promise.then(function(status) {
@@ -967,6 +966,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       });
     }
   }
+
 
   $scope.messagematch = function (messagefilter) {
     return function(message) {
