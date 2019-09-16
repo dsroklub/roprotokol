@@ -166,6 +166,7 @@ CREATE TABLE Member (
   FirstName varchar(100),
   LastName varchar(100),
   Address varchar(100),
+  club varchar(50),
   FK_Postnr int(11),
   phone1 char(20),
   phone2 char(20),

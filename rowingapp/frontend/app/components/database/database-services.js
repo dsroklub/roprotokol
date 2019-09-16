@@ -575,7 +575,7 @@ function dbservice($http, $q, $log) {
       return [];
     }
 
-    if (isNaN(val)) {
+    if (isNaN(val.substring(1))) {
       var re=new RegExp("\\b"+val,'i');
         var result = rowers.filter(function(element) {
           return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
