@@ -8,17 +8,9 @@ $s="SELECT Destination.Location as location, Destination.Name as name,Destinatio
    ORDER BY Location,name";
 
 // echo $s;
-if ($stmt = $rodb->prepare($s)) {
-     $stmt->execute();
-     $result= $stmt->get_result() or die("Error in destinations query: " . mysqli_error($rodb));
-     $d=[];
-     while ($row = $result->fetch_assoc()) {
-       $loc=$row['location'];
-       if (!isset($d[$loc])) {
-         $d[$loc]=array();
-       }
-       array_push($d[$loc],$row);
-     }
-     echo json_encode($d);
-}
+$stmt = $rodb->prepare($s) or dbErr($rodb,$res,"prep");
+$stmt->execute();
+$result= $stmt->get_result() or dbErr($rodb,$res,"Error in destinations query: ");
+$d=[];
+output_rows($result);
 $rodb->close();

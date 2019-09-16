@@ -576,8 +576,9 @@ function dbservice($http, $q, $log) {
     }
 
     if (isNaN(val)) {
+      var re=new RegExp("\\b"+val,'i');
         var result = rowers.filter(function(element) {
-          return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
+          return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
         });
       return result;
     } else {

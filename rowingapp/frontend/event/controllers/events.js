@@ -525,7 +525,6 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         $log.debug("forum deleted");
         var ix=$scope.fora.indexOf(forum);
         $scope.fora.splice(ix,1);
-
       } else {
         alert(status.error);
       }

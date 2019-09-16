@@ -5,7 +5,7 @@ function dbservice($http, $q, $log, $timeout) {
   var db={'boats':[],'boatsById':{},'boatsByName':{}};
   var tx=null;
   var debug=3;
-    
+
   var cachedepend;
   var datastatus={};
   function toURL(service){
@@ -13,6 +13,11 @@ function dbservice($http, $q, $log, $timeout) {
   }
 
   this.onDBerror = function (err) {
+    if (err.data && err.data.status && err.data.status=="error") {
+      alert(err.data.error);
+    } else if (err.statusText) {
+      alert(err.statusText);
+    }
     $log.debug(" db service err: "+err);
     alert(err);
   };
@@ -27,7 +32,7 @@ function dbservice($http, $q, $log, $timeout) {
       promises.push(dq.promise);
       $http.get(toURL(dataid+'.php'),{}).then(function onSuccess (response) {
         db[dataid] = response.data;
-	valid[dataid]=true;
+        valid[dataid]=true;
         $log.debug(" resolve "+dataid);
         dq.resolve(dataid);
       },
@@ -37,7 +42,7 @@ function dbservice($http, $q, $log, $timeout) {
                                              )
     }
   }
-  
+
   this.simpleGet = function (service, args) {
     var conf = {};
     if (args) {
@@ -49,7 +54,7 @@ function dbservice($http, $q, $log, $timeout) {
   this.fetch = function (subscriptions) {
     $log.debug("DB fetch "+Date());
     var headers = {};
-    var promises=[];    
+    var promises=[];
     this.getData('event/roles',promises);
     this.getData('event/memberrighttypes',promises);
     this.getData('event/forum_files_list',promises);
@@ -59,6 +64,7 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/member_setting',promises);
     this.getData('event/worklog',promises);
     this.getData('event/workers',promises);
+    this.getData('event/rowers',promises);
     this.getData('event/worktasks',promises);
     this.getData('event/boat_category',promises);
     this.getData('event/maintenance_boats',promises);
@@ -68,36 +74,7 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/events_participants',promises);
     this.getData('event/destinations',promises);
     this.getData('event/userfora',promises);
-    if(!valid['event/rowers']) {
-      var rq=$q.defer();
-      promises.push(rq.promise);
-      $http.get(toURL('event/rowers.php')).then(function(response) {
-        db['event/rowers'] = [];
-        angular.forEach(response.data, function(rower, index) {
-          rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
-          this.push(rower);
-        }, db['event/rowers']);
-	valid['event/rowers']=true;
-        $log.debug(" resolve event/rowers");
-        rq.resolve(true);
-      },this.onDBerror);
-    }
     $log.debug("DB fetch rowers");
-
-    if(!valid['event/rowers']) {
-      var eq=$q.defer();
-      promises.push(eq.promise);
-      $http.get(toURL('event/rowers.php')).then(function(response) {
-        db['event/rowers'] = [];
-        angular.forEach(response.data, function(rower, index) {
-          rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
-          this.push(rower);
-        }, db['event/rowers']);
-	valid['event/rowers']=true;
-        $log.debug(" resolve events/rowers");
-        eq.resolve(true);
-      },this.onDBerror);
-    }
 
     $log.debug("DB boatById");
     if(!valid['boatsById']) {
@@ -112,19 +89,19 @@ function dbservice($http, $q, $log, $timeout) {
           db['boatsByName'][response.data[di].name]=response.data[di];
           db['boats'].push(response.data[di]);
         }
-	valid['boatsById']=true;
+        valid['boatsById']=true;
         valid['boatsByname']=true;
         $log.debug(" resolve boatsById");
         bq.resolve(true);
       },this.onDBerror);
-    }    
+    }
     $log.debug("DB Q #p="+promises.length);
     var qll=$q.all(promises);
     tx=qll;
     return qll;
   };
 
-  
+
   this.invalidate_dependencies=function(tp) {
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
@@ -155,7 +132,7 @@ function dbservice($http, $q, $log, $timeout) {
     };
     return this.sync(subscriptions);
   }
-  
+
   this.noinit = function(subscriptions) {
     $log.debug("DB init now sync "+subscriptions);
     return this.sync(subscriptions);
@@ -177,34 +154,34 @@ function dbservice($http, $q, $log, $timeout) {
         window.location.reload(true);
       }
       for (var tp in ds) {
-	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
+    if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
           //$log.debug("  doinvalidate "+tp);
-	  dbservice.invalidate_dependencies(tp);
-	  doreload=true;
-	  datastatus[tp]=ds[tp];
-	}
+      dbservice.invalidate_dependencies(tp);
+      doreload=true;
+      datastatus[tp]=ds[tp];
+    }
       }
       if (doreload) {
-	$log.debug(" do reload " + JSON.stringify(valid));
-	dbservice.fetch(subscriptions).then(function() {
-	  sq.resolve("sync done");
-	});
+        $log.debug(" do reload " + JSON.stringify(valid));
+        dbservice.fetch(subscriptions).then(function() {
+      sq.resolve("sync done");
+    });
       } else {
-	sq.resolve("nothing to do");
+        sq.resolve("nothing to do");
       }
     }, function (e) {
       $log.debug(e);
     });
     return sq.promise;
   }
-  
+
   this.reload=function (tps) {
     for (var ti=0; ti<tps.length; ti++) {
       this.invalidate_dependencies(tps[ti]);
     }
     this.init();
   }
- 
+
   this.lookup = function (resource,key,value) {
     for (var i=0;i<db[resource].length;i++) {
       if (db[resource][i][key]==value) return db[resource][i];
@@ -227,7 +204,7 @@ function dbservice($http, $q, $log, $timeout) {
     }
     $http.get(toURL(dataid+'.php'+a)).then(onSuccess,this.onDBerror);
   }
-  
+
   this.getRower = function(val) {
     var rs=db['event/rowers'].filter(function(element) {
       return element['id']==val;
@@ -236,18 +213,28 @@ function dbservice($http, $q, $log, $timeout) {
   }
 
   this.getRowersByNameOrId = function(nameorid, preselectedids) {
-    var val = nameorid.toLowerCase();
+    var val = nameorid.trim().toLowerCase();
+    if (val.length<3 && isNaN(val)) {
+      return [];
+    }
     var rowers=db['event/rowers'];
-    if (rowers) {
+    if (!rowers) {
+      return [];
+    }
+    if (isNaN(val)) {
+      var re=new RegExp("\\b"+val,'i');
       var result = rowers.filter(function(element) {
-        return (preselectedids === undefined || !(element.id in preselectedids)) && element['search'].indexOf(val) > -1;
+        return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
       });
       return result;
     } else {
-      return [];
-    }    
+      var result = rowers.filter(function(element) {
+          return (preselectedids === undefined || !(element.id in preselectedids)) && element.id==val;
+        });
+      return result;
+    }
   };
-    
+
   this.updateDB_async = function(op,data,config) {
     var qup=$q.defer();
     var res=undefined;
@@ -268,7 +255,7 @@ function dbservice($http, $q, $log, $timeout) {
     datastatus['destination']=null;
     return qup.promise;
   }
-  
+
   this.updateDB = function(op,data,config,eh) {
     $log.debug(' do '+op);
     var ar=this.updateDB_async(op,data,config);
@@ -278,10 +265,10 @@ function dbservice($http, $q, $log, $timeout) {
          $log.error("auth error "+op+JSON.stringify(data));
          if (eh) {
            eh(res);
-         }         
+         }
        }
        return res;
-     },this.onDBerror                                    
+     },this.onDBerror
                    );
     return at;
   }
@@ -297,11 +284,11 @@ function dbservice($http, $q, $log, $timeout) {
     datastatus['event']=null;
     return entityCreated;
   };
-  
+
   this.client_name =function () {
     var clientname="terminal";
     if (localStorage) {
-      clientname=localStorage.getItem("roprotokol.client.name");                    
+      clientname=localStorage.getItem("roprotokol.client.name");
     }
     return(clientname?clientname:"noname");
   }
@@ -316,7 +303,7 @@ function dbservice($http, $q, $log, $timeout) {
       alert("det mislykkedes at sende nyt password");
     });
   }
-  
+
   /// The rest is just for testing
   this.test = function(src) {
     var boats = db['boatcategories']["Inrigger 2+"];

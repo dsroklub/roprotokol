@@ -14,10 +14,10 @@ if (isset($_GET["active"])) {
 
 $s="SELECT MAX(hours) as h,JSON_MERGE(
     JSON_OBJECT(
-      'member_id',Member.MemberID, 
+      'member_id',Member.MemberID,
       'name', CONCAT(FirstName,' ',LastName),
       'forum', forum,
-      'hours', SUM(hours) 
+      'hours', SUM(hours)
    ),
    CONCAT( '{', JSON_QUOTE('log'),': [',
      GROUP_CONCAT(JSON_OBJECT(
@@ -29,13 +29,13 @@ $s="SELECT MAX(hours) as h,JSON_MERGE(
       'created',worklog.created )),
    ']}')
    ) AS json
-   FROM Member LEFT JOIN worklog on worklog.member_id=Member.id  
+   FROM Member LEFT JOIN worklog on worklog.member_id=Member.id
    WHERE Member.MemberID!='0' AND Member.id>=0 AND start_time > ? $limit
    GROUP BY Member.id,forum ;
 ";
 // HAVING h IS NOT NULL
 // use: json->>'$.hours' IS NOT NULL from mariadb 10.3
-    
+
 if ($sqldebug) {
     echo "f=$from s=$s\n";
 }

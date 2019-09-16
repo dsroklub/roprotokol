@@ -7,6 +7,14 @@ angular.module('eventApp').controller(
 
 function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout) {
   $scope.workers=[];
+  $scope.workadmin={};
+  var dberr=function(err) {
+    $log.debug("db init err "+err);
+    if (err['error']) {
+      alert('DB fejl '+err['error']);
+    }
+  }
+
   var dbready=function (ok) {
     $scope.worktasks=DatabaseService.getDB('event/worktasks');
     $scope.workers=DatabaseService.getDB('event/workers');
@@ -18,12 +26,42 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     function(pg) {$log.debug("db init progress  "+pg)}
   );
 
-  $scope.getRowerByName = function (val) {
-    return DatabaseService.getRowersByNameOrId(val);
+  $scope.getWorkersByName = function(nameorid, rowers, preselectedids) {
+    var val = nameorid.trim().toLowerCase();
+    if (val.length<3 && isNaN(val)) {
+      return [];
+    }
+    if (!rowers) {
+      return [];
+    }
+    if (isNaN(val)) {
+      var re=new RegExp("\\b"+val,'i');
+      var result = rowers.filter(function(element) {
+        return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
+      });
+      return result;
+    } else {
+      var result = rowers.filter(function(element) {
+          return (preselectedids === undefined || !(element.id in preselectedids)) && element.id==val;
+        });
+      return result;
+    }
+  };
+
+  $scope.update_work_req = function () {
+    var sr=DatabaseService.createSubmit("set_work_req",$scope.workadmin);
+    sr.promise.then(function(status) {
+      if (status.status =='ok') {
+        $scope.workadmin={};
+      } else {
+        alert(status.error);
+      }
+    })}
+
+  $scope.edit_worker = function () {
   }
 
   $scope.select_worker = function (work) {
-    $scope.work.worker.start_time=new Date();
     var sr=DatabaseService.createSubmit("add_work",$scope.work.worker);
     sr.promise.then(function(status) {
       if (status.status =='ok') {
@@ -33,6 +71,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
         $scope.work.end_time=null;
         $scope.work.hours=null;
         $scope.workers.push($scope.work);
+        $scope.work={};
       } else {
         alert(status.error);
       }
@@ -57,7 +96,13 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.generate_work = function () {
       DatabaseService.getDataNow('event/workers','generate', function (res) {
         $scope.workers=res.data;
-      }
+      },dberr
                                 )
-  }
+  };
+  $scope.delete_work = function () {
+    DatabaseService.getDataNow('event/workers','delete', function (res) {
+      $scope.workers=[];
+    },dberr
+                              )
+  };
 }
