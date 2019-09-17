@@ -1,12 +1,36 @@
-<script type="text/ng-template" id="templates/memberTemplate.html">
+<script type="text/ng-template" id="memberTemplate.html">
 <a>
    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
-    {{match.model.name}} <i>({{match.model.id}})</i>
+    {{match.model.name}} <i>({{match.model.worker_id}})</i> {{match.model.requirement}}t
 </a>
 </script>
-<h1>Tidsregistrering</h1>
 
+<h1>Tidsregistrering</h1>
 <div>
+  <table class="tlist">
+    <caption>Dagens udførte arbejde</caption>
+    <thead>
+      <tr>
+        <th>Navn</th>
+        <th>tid</th>
+        <th>arbejdsopgave</th>
+        <th>beskrivelse</th>
+        <th>båd</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="wk in work_today" ng-if="wk.start_time && wk.end_time">
+        <td>{{wk.name}}</td>
+        <td>{{wk.start_time | date: "HH:mm"}}-{{wk.end_time | date: "HH:mm "}}
+          <span ng-if="wk.end_time">{{wk.end_time | date: "HH:mm"}} = {{wk.hours | number:1 }} h</span>
+        </td>
+        <td>{{wk.task}}</td>
+        <td>{{wk.work}}</td>
+        <td>{{wk.boat}}</td>
+      </tr>
+    </tbody>
+  </table>
+
   <table class="tlist">
     <caption>På arbejde</caption>
     <thead>
@@ -15,21 +39,21 @@
         <th>krav</th>
         <th>påbegyndt</th>
         <th>arbejdsopgave</th>
-        <th>Beskrivelse</th>
+        <th>beskrivelse</th>
         <th>båd</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="wk in workers" ng-if="wk.start_time && !wk.end_time">
-        <td>{{wk.worker.name}} ({{wk.worker.id}})</td>
-        <td>{{wk.requirement | number: 2.1}}</td>
-        <td>{{wk.start_time | date: "HH:mm d. MMM"}}   <span ng-if="wk.end_time">{{wk.end_time | date: "HH:mm d. MMM"}} = {{wk.hours | number: 2.1 }} h</span></td>
-        <td><select ng-model="wk.task" ng-options="task.name for task in worktasks" ></select> </td>
+      <tr ng-repeat="wk in work_today" ng-if="wk.start_time && !wk.end_time">
+        <td>{{wk.name}} ({{wk.worker_id}})</td>
+        <td>{{wk.requirement | number:1}}</td>
+        <td>{{wk.start_time | date: "HH:mm d. MMM"}}   <span ng-if="wk.end_time">{{wk.end_time | date: "HH:mm d. MMM"}} = {{wk.hours | number:1 }} h</span></td>
+        <td><select ng-model="wk.task" ng-options="task.name as task.name for task in worktasks" ></select> </td>
         <td><input class="description" ng-model="wk.work" type="text"></td>
-        <td><select ng-model="wk.boat" ng-options="bt.name for bt in maintenance_boats"></select></td>
+        <td><select ng-model="wk.boat" ng-options="bt.name as bt.name for bt in maintenance_boats"></select></td>
         <td><button ng-disabled="!wk.task || !wk.work" ng-hide="wk.end_time"
-                    ng-click="checkin_worker(wk)" uib-tooltip="registrer timer">færdig <i class="fa fa-thumbs-up"></i>
+                    ng-click="end_work(wk)" uib-tooltip="registrer timer">færdig <i class="fa fa-thumbs-up"></i>
           </button>
         </td>
       </tr>
@@ -41,8 +65,8 @@
 <form>
 <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xyxyxmber" type="text"
            ng-model="work.worker"
-           typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers)"
-           typeahead-template-url="templates/memberTemplate.html" typeahead-on-select="select_worker()" required />
+           typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers) | filter: {start_time: 'x'}"
+           typeahead-template-url="memberTemplate.html" typeahead-on-select="select_worker()" required />
 </form>
 
 <h2>info</h2>
@@ -53,15 +77,15 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
   <h1>Administration</h1>
   <button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
   <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button>
-  <form>
-    <h2>rediger deltager<h2>
+  <h2>Rediger deltager<h2>
+      <form>
         <input placeholder="vælg medlem" autocomplete="off" id="workeradmininput" name="asxyxmber" type="text"
                ng-model="workadmin.worker"
                typeahead-min-length="2" typeahead-select-on-exact="true"
                uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers)"
-               typeahead-template-url="templates/memberTemplate.html" typeahead-on-select="edit_worker()" required />
+               typeahead-template-url="memberTemplate.html" typeahead-on-select="edit_worker()" required />
         <input type="number" class="rnum" size="5" step="0.1" maxlength="5" autocomplete="off" ng-model="workadmin.worker.requirement"
                ng-change="workadmin.changed=true">
         <button ng-show="workadmin.changed && workadmin.worker.requirement" ng-click="update_work_req()">Opdater timer</button>
-  </form>
+      </form>
 </div>

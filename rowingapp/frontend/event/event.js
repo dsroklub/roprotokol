@@ -2,6 +2,7 @@
 
 angular.module('eventApp', [
   'ngRoute',
+  'event.utilities.sumWork',
   'dsrcommon.utilities.onlynumber',
   'dsrcommon.utilities.transformkm',
   'dsrcommon.utilities.safefilename',

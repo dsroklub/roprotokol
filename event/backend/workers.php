@@ -27,11 +27,10 @@ HAVING SUM(Meter)/1000>100
     $stmt->execute() ||  dbErr($rodb,$res,"rower work set");
 }
 
-
 // FIXME validate
 $sql="
-SELECT CONCAT(FirstName,' ',LastName) as name, Member.MemberId as id,requirement, worklog.end_time, description, CAST(requirement as FLOAT) as requirement
-FROM Member LEFT JOIN worker on Member.id=worker.member_id LEFT JOIN worklog ON worklog.member_id=worker.member_id AND worklog.end_time IS NULL
+SELECT DISTINCT CONCAT(FirstName,' ',LastName) as name, Member.MemberId as worker_id,requirement, requirement,'x' as start_time
+FROM Member LEFT JOIN worker on Member.id=worker.member_id 
 WHERE Member.id=worker.member_id AND worker.assigner='vedligehold'";
 $stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"worker");
 $stmt->execute() ||  dbErr($rodb,$res,"rower workers");

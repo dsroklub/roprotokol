@@ -10,6 +10,8 @@ angular.module('eventApp').controller(
 function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
   $anchorScroll.yOffset = 50;
   $scope.mate_trips=[];
+  $scope.required_work=0;
+  $scope.total_work=0;
   $scope.mytrips=null;
   $scope.mytriptypes=null;
   $scope.mates=null;
@@ -936,6 +938,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   }
 
   $scope.toggle_chart = function() {
+    var month_names=["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
     if ($scope.mo) {
       $scope.mo=null;
     } else {
@@ -944,8 +947,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       $scope.mo.series=[];
       $scope.mo.data=[];
       DatabaseService.getDataNow('event/stats/mystatmonth',null,function(d) {
-        for (var wn=0;wn<53;wn++) {
-          $scope.mo.labels[wn]="uge "+wn;
+        for (var wn=1;wn<13;wn++) {
+          $scope.mo.labels[wn]=month_names[wn-1];
         }
         if (d.data.length>0) {
           $scope.mo.fy=Math.max(d.data[0].year,2000); // Sanity to avoid year zero for null value
@@ -958,7 +961,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           }
           angular.forEach(d.data, function(w) {
             if (w.year) {
-              $scope.mo.data[w.year-$scope.mo.fy][w.week]=w.distance/1000.0;
+              $scope.mo.data[w.year-$scope.mo.fy][w.month]=w.distance/1000.0;
             }
           },this);
         }
@@ -985,8 +988,4 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       );
     }
   };
-
-
-
-
 }

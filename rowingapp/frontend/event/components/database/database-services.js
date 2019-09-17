@@ -64,6 +64,7 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/member_setting',promises);
     this.getData('event/worklog',promises);
     this.getData('event/workers',promises);
+    this.getData('event/work_today',promises);
     this.getData('event/rowers',promises);
     this.getData('event/worktasks',promises);
     this.getData('event/boat_category',promises);
@@ -126,7 +127,7 @@ function dbservice($http, $q, $log, $timeout) {
       'event':['event/events','event/event_category','event/userfora','event/events_participants'],
       'message':['event/messages'],
       'boat':['boatsByID','boatsByName'],
-      'work':['event/workers','event/worklog','event/worktasks','event/maintenance_boats'],
+      'work':['event/work_today','event/workers','event/worklog','event/worktasks','event/maintenance_boats'],
       'fora':['event/messages','event/userfora','event/fora'],
       'file':['event/forum_files_list']
     };

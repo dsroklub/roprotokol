@@ -1,3 +1,13 @@
+DELIMITER$$
+CREATE FUNCTION jsontm(tm DATETIME)
+  RETURNS VARCHAR(100)
+  DETERMINISTIC
+  NO SQL
+  BEGIN
+    RETURN DATE_FORMAT(tm,'%Y-%m-%dT%T');
+  END$$
+DELIMITER;
+
 CREATE TABLE Boat (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100)  UNIQUE,
@@ -437,7 +447,7 @@ CREATE TABLE worker (
   assigner         CHAR(30) DEFAULT 'vedlighold',
   created          datetime NOT NULL default NOW(),
   end_time         datetime,
-  requirement      NUMERIC(6,2), -- hours
+  requirement      FLOAT, -- hours
   description      VARCHAR(1000),
   forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE SET NULL,
   created_by       int REFERENCES Member(id) ON DELETE SET NULL,

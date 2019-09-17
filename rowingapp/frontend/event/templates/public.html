@@ -126,7 +126,7 @@ Vis
 
 <div ng-if="mystatswork" class="statbox">
   <table class="genericlist">
-    <caption>Udført arbejde</caption>
+    <caption>Udført arbejde:  {{mystatswork|sumWork|number:1}} timer</caption>
     <thead>
       <tr>
         <th>dato</th>
@@ -138,8 +138,8 @@ Vis
     <tbody>
       <tr ng-repeat="work in mystatswork">
         <td>{{work.start_time | date:'d/M yyyy'}}</td>
-        <td class="rnum">{{work.hours}}</td>
-        <td>{{work.task}} {{work.work}}</td>
+        <td  class="rnum">{{work.hours}}</td>
+        <td >{{work.task}} {{work.work}}</td>
         <td>{{work.boat}}</td>
       </tr>
     </tbody>

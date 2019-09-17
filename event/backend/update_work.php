@@ -22,8 +22,9 @@ $hours=(strtotime($d->end_time)-strtotime($d->start_time))/3600;
 if ($hours>3){
     $hours=3;
 }
+$res["hours"]=$hours;
 //error_log("XXX $d->work, $d->boat, $hours,$d->id");
-$stmt->bind_param("sssdss", $end_time,$d->work, $d->boat->name, $hours,$task,$d->worker->id) || dbErr($rodb,$res,"update work e");
+$stmt->bind_param("sssdss", $end_time,$d->work, $d->boat, $hours,$task,$d->worker->id) || dbErr($rodb,$res,"update work e");
 $stmt->execute() or dbErr($rodb,$res,"updwork EXE");
 invalidate("work");
 echo json_encode($res);

@@ -1,6 +1,6 @@
 html, body {
   margin: 0;
-  padding: 0;
+  padding: 2px;
   font-family: 'Open Sans', sans-serif;
   font-size: 10pt;
   background: #FFFFFF;
@@ -403,8 +403,8 @@ datetimepicker.trip-search-field ng-form div input {
   display:inline-block;
 }
 
-tr td {
-  padding: 0.2em;
+th,td {
+  padding: 0.3em;
 }
 
 .msgbody {
@@ -572,4 +572,8 @@ datetimepicker.ng-empty ng-form div input {
              background:white;
     padding-left: 3em;
 
+}
+
+.tlist tr {
+  padding: 0.3em;            
 }
