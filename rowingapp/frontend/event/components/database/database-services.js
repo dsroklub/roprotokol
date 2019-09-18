@@ -152,11 +152,10 @@ function dbservice($http, $q, $log, $timeout) {
       if (gitrevision != ds.gitrevision) {
         $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
         window.location="/front"+ds.gitrevision+"/event/index.shtml";
-        window.location.reload(true);
       }
       for (var tp in ds) {
     if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-          //$log.debug("  doinvalidate "+tp);
+      $log.debug("  doinvalidate "+tp+ " ds[rp]="+ds[tp]+" datastatus[tp]="+datastatus[tp]);
       dbservice.invalidate_dependencies(tp);
       doreload=true;
       datastatus[tp]=ds[tp];
