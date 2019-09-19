@@ -244,7 +244,7 @@ Vis
     <caption>km år og dag</caption>
     <thead>
       <tr>
-        <th>måned</th>
+        <th>måned/år</th>
         <th ng-repeat="y in km_years">{{y}}</th>
         <th>&Sigma;</th>
       </tr>
@@ -252,12 +252,13 @@ Vis
     <tbody>
       <tr ng-repeat="motbl in kmtbl" >
         <th>{{$index+1}}</th>
-        <td ng-repeat="mkm in motbl">{{mkm}}</td>
-        <td>{{monthsum[$index]}}</td>
+        <td ng-repeat="mkm in motbl" class="rnum">{{mkm|number:1}}</td>
+        <td class="sum vsum">{{monthsum[$index]|number:1}}</td>
       </tr>
       <tr>
         <th>&Sigma;</th>
-        <th ng-repeat="y in km_years">{{yearsum[y]|number:1}}</th>
+        <th class="sum hsum" ng-repeat="y in km_years">{{yearsum[y]|number:1}}</th>
+        <th class="total hsum">{{totalyearsum|number:1}}</th>
       </tr>
     </tbody>
   </table>

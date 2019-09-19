@@ -577,3 +577,22 @@ datetimepicker.ng-empty ng-form div input {
 .tlist tr {
   padding: 0.3em;            
 }
+
+.sum {
+       background: #ececec;
+       text-align: right;
+       }
+
+
+.hsum{
+       border-top: solid 2px;
+       }
+.vsum{
+       border-left: solid 2px;
+       }
+
+.total{
+        text-decoration: underline;
+        background:#e3ffe6;
+        border-left: solid 2px;
+        }

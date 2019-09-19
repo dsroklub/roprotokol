@@ -951,6 +951,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       $scope.kmtbl=[];
       $scope.km_years=[];
       $scope.yearsum={};
+      $scope.totalyearsum=0.0;
       $scope.monthsum={};
       DatabaseService.getDataNow('event/stats/mystatmonth',null,function(d) {
         if (d.data.length>0) {
@@ -977,6 +978,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
               $scope.kmtbl[w.month][w.year]=w.distance/1000.0;
               $scope.yearsum[w.year]+=w.distance/1000.0;
               $scope.monthsum[w.month]+=w.distance/1000.0;
+              $scope.totalyearsum +=w.distance/1000.0;
             }
           },this);
         }
