@@ -948,10 +948,23 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
       $scope.mo.labels=["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
       $scope.mo.series=[];
       $scope.mo.data=[];
+      $scope.kmtbl=[];
+      $scope.km_years=[];
+      $scope.yearsum={};
+      $scope.monthsum={};
       DatabaseService.getDataNow('event/stats/mystatmonth',null,function(d) {
         if (d.data.length>0) {
           $scope.mo.fy=Math.max(d.data[0].year,2000); // Sanity to avoid year zero for null value
+          for (var tm=0;tm<12;tm++) {
+            $scope.kmtbl[tm]={};
+            $scope.monthsum[tm]=0.0;
+            for (var y=$scope.mo.fy;y<=d.data[d.data.length-1].year;y++) {
+              $scope.kmtbl[tm][y]=0.0;
+            }
+          }
           for (var y=$scope.mo.fy;y<=d.data[d.data.length-1].year;y++) {
+            $scope.km_years.push(y);
+            $scope.yearsum[y]=0.0;
             $scope.mo.data.push([]);
             $scope.mo.series.push(""+y);
             for (var wn=0;wn<12;wn++) {
@@ -961,6 +974,9 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           angular.forEach(d.data, function(w) {
             if (w.year) {
               $scope.mo.data[w.year-$scope.mo.fy][w.month]=w.distance/1000.0;
+              $scope.kmtbl[w.month][w.year]=w.distance/1000.0;
+              $scope.yearsum[w.year]+=w.distance/1000.0;
+              $scope.monthsum[w.month]+=w.distance/1000.0;
             }
           },this);
         }

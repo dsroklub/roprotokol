@@ -240,8 +240,27 @@ Vis
   <canvas id="roweractivity" class="chart chart-bar"
           chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
   </canvas>
-
-  </div>
+  <table class="genericlist">
+    <caption>km år og dag</caption>
+    <thead>
+      <tr>
+        <th>måned</th>
+        <th ng-repeat="y in km_years">{{y}}</th>
+        <th>&Sigma;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="motbl in kmtbl" >
+        <th>{{$index+1}}</th>
+        <td ng-repeat="mkm in motbl">{{mkm}}</td>
+        <td>{{monthsum[$index]}}</td>
+      </tr>
+      <tr>
+        <th>&Sigma;</th>
+        <th ng-repeat="y in km_years">{{yearsum[y]|number:1}}</th>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 

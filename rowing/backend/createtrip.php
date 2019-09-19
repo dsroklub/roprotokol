@@ -16,7 +16,8 @@ $rodb->begin_transaction();
 //error_log("COL BOAT=".print_r($newtrip->boat->location,true)."DD");
 if ($newtrip->boat->location != "Andre") {
     if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL AND OutTime<?")) {
-        $stmt->bind_param('is', $newtrip->boat->id,mysdate($newtrip->expectedtime));
+        $expectedTime=mysdate($newtrip->expectedtime);
+        $stmt->bind_param('is', $newtrip->boat->id,$expectedTime);
         $stmt->execute();
         $result= $stmt->get_result();
         if ($result->fetch_assoc()) {

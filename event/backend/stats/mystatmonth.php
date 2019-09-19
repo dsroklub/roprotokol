@@ -3,7 +3,6 @@ set_include_path(get_include_path().':..');
 include("../../../rowing/backend/inc/common.php");
 
 $boatclause="";
-
 $s="select  YEAR(OutTime) AS year,MONTH(OutTime)-1 as month,CAST(SUM(Meter) AS UNSIGNED) as distance 
 FROM Trip,TripMember,Member WHERE TripMember.TripID=Trip.id AND Member.id=TripMember.member_id AND Member.MemberID=? 
 GROUP BY year,month ORDER BY year,month";
