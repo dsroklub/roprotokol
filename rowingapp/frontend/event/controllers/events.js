@@ -10,6 +10,7 @@ angular.module('eventApp').controller(
 function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
   $anchorScroll.yOffset = 50;
   $scope.mate_trips=[];
+  $scope.currentevent=null;
   $scope.required_work=0;
   $scope.total_work=0;
   $scope.mytrips=null;
@@ -263,7 +264,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         alert("Advarsel: "+status.message);
         $scope.init();
       } else if (status.status =='error') {
-        alert("Fejl: "+status.message);
+        //console.log("fejl");
+        alert("fejl: "+status.message);
         $scope.init();
       } else {
         alert("Fejl: "+status.message);
@@ -297,13 +299,14 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     },function(err) {console.log("set forum member work hours: "+err)});
   }
 
-  $scope.set_event_openness = function(event) {
-    var sr=DatabaseService.createSubmit("set_event_openness",event);
-    sr.promise.then(function(status) {
+  $scope.set_event_openness = function(ev) {
+    var sreo=DatabaseService.createSubmit("set_event_openness",ev);
+    sreo.promise.then(function(status) {
       if (status.status !='ok') {
         if (status.status =='warning') {
           alert("advarsel: "+status.warning);
         } else {
+          //console.log("set openness err");
           alert("fejl "+status.error);
         }
       }
@@ -313,8 +316,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
   $scope.accept_event_participant = function(em) {
     em.event_id=$scope.currentevent.event_id;
-    var sr=DatabaseService.createSubmit("event_accept_participant",em);
-    sr.promise.then(function(status) {
+    var srep=DatabaseService.createSubmit("event_accept_participant",em);
+    srep.promise.then(function(status) {
       if (status.status =='ok') {
         em.role="member";
         $scope.do_participants($scope.currentevent.participants,null);
@@ -328,8 +331,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.include_member = function(eventmember) {
     eventmember.event=$scope.currentevent.event_id;
     eventmember.new_role="member";
-    var sr=DatabaseService.createSubmit("set_event_member_role",eventmember);
-    sr.promise.then(function(status) {
+    var srim=DatabaseService.createSubmit("set_event_member_role",eventmember);
+    srim.promise.then(function(status) {
       if (status.status =='ok') {
         eventmember.role="member";
       } else {
@@ -376,8 +379,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   }
   $scope.eventjoin = function(role) {
     $scope.currentevent.new_role=role;
-    var sr=DatabaseService.createSubmit("event_join",$scope.currentevent);
-    sr.promise.then(function(status) {
+    var srej=DatabaseService.createSubmit("event_join",$scope.currentevent);
+    srej.promise.then(function(status) {
       if (status.status =='ok') {
         var p=angular.copy($scope.current_user);
         p.role=status.role;
@@ -392,8 +395,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
   $scope.event_remove_participant = function(em) {
     em.event_id=$scope.currentevent.event_id;
-    var sr=DatabaseService.createSubmit("event_remove_participant",em);
-    sr.promise.then(function(status) {
+    var srrp=DatabaseService.createSubmit("event_remove_participant",em);
+    srrp.promise.then(function(status) {
       if (status.status =='ok') {
         var ix=$scope.currentevent.participants.indexOf(em);
         $scope.currentevent.participants.splice(ix,1)
@@ -406,8 +409,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
   $scope.eventleave = function() {
     $log.debug("leave");
-    var sr=DatabaseService.createSubmit("event_leave",$scope.currentevent);
-    sr.promise.then(function(status) {
+    var srel=DatabaseService.createSubmit("event_leave",$scope.currentevent);
+    srel.promise.then(function(status) {
       if (status.status =='ok') {
         for (var i=0; i<$scope.currentevent.participants.length; i++) {
           if ($scope.currentevent.participants[i].member_id==$scope.current_user.member_id ) {
@@ -433,8 +436,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
   $scope.messagesend = function(is_sticky) {
     $scope.message.sticky=is_sticky;
-    var sr=DatabaseService.createSubmit("send_forum_message",$scope.message);
-    sr.promise.then(function(status) {
+    var srms=DatabaseService.createSubmit("send_forum_message",$scope.message);
+    srms.promise.then(function(status) {
       if (status.status == 'error') {
         alert(status.error);
       } else {
@@ -938,24 +941,20 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   }
 
   $scope.toggle_chart = function() {
-    var month_names=["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
     if ($scope.mo) {
       $scope.mo=null;
     } else {
       $scope.mo={};
-      $scope.mo.labels=[];
+      $scope.mo.labels=["jan","feb","mar","apr","maj","jun","jul","aug","sep","okt","nov","dec"];
       $scope.mo.series=[];
       $scope.mo.data=[];
       DatabaseService.getDataNow('event/stats/mystatmonth',null,function(d) {
-        for (var wn=1;wn<13;wn++) {
-          $scope.mo.labels[wn]=month_names[wn-1];
-        }
         if (d.data.length>0) {
           $scope.mo.fy=Math.max(d.data[0].year,2000); // Sanity to avoid year zero for null value
           for (var y=$scope.mo.fy;y<=d.data[d.data.length-1].year;y++) {
             $scope.mo.data.push([]);
             $scope.mo.series.push(""+y);
-            for (var wn=0;wn<53;wn++) {
+            for (var wn=0;wn<12;wn++) {
               $scope.mo.data[y-$scope.mo.fy][wn]=0;
             }
           }

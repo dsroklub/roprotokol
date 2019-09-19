@@ -5,8 +5,6 @@ include("../../rowing/backend/inc/common.php");
 //verify_real_user("registrere timer");
 $data = file_get_contents("php://input");
 $d=json_decode($data);
-
-
 $stmt=$rodb->prepare("UPDATE worklog 
     SET end_time=?, work=?, boat=?, hours=?, task=?
     WHERE end_time IS NULL AND member_id IN (SELECT id from Member WHERE MemberID=?)"

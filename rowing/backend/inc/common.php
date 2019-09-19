@@ -149,7 +149,7 @@ function output_rows(&$rl,$keyname=null) {
 echo '[';
 $first=1;
 while ($row = $rl->fetch_assoc()) {
-    if ($first) $first=0; else echo ',';
+    if ($first) $first=0; else echo ",\n";
     echo json_encode($row);
 }
 echo ']';
