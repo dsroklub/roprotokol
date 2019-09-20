@@ -33,16 +33,14 @@ case "boats":
     FROM Member me, Boat,Trip,TripMember tm
     WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID AND Trip.BoatID=Boat.id
     GROUP By Boat.id 
-    ORDER BY dist DESC 
-    LIMIT 10";
+    ORDER BY dist DESC";
     break;
 case "destinations":
-    $s="SELECT Trip.Destination AS destination, COUNT(Trip.id) as numtrips
+    $s="SELECT Trip.Destination AS destination, COUNT(Trip.id) as numtrips,SUM(Trip.Meter) as distance
     FROM Member me,Trip,TripMember tm
     WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID 
     GROUP By Trip.Destination 
-    ORDER BY numtrips DESC 
-    LIMIT 10";
+    ORDER BY numtrips DESC";
     break;
 case "triptypes":
     $s="SELECT TripType.Name AS triptype, COUNT(Trip.id) as numtrips

@@ -17,4 +17,3 @@ $mem->increment("fora", 1, time());
 $mem->increment("message", 1, time());
 $mem->increment("member", 1, time());
 $mem->increment("destination", 1, time());
-?> 
