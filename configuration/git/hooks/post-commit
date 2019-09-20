@@ -4,3 +4,4 @@ git rev-parse HEAD | awk  'END { print "<?php\n$gitrevision=\"" $1 "\";\n"}' > p
 git rev-parse HEAD | awk  'END { print "var gitrevision=\"" $1 "\";\n"}' > public/js/gitrevision.js
 git rev-parse --short HEAD | awk  'END { print "  <base href=\"/front"$1"/app/\">"}'> public/rowbasetag.html
 git rev-parse --short HEAD | awk  'END { print "  <base href=\"/front"$1"/event/\">"}'> public/eventbasetag.html
+./utils/invalidate.php
