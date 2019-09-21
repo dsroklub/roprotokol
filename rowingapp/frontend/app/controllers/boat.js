@@ -400,7 +400,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       if (duration>0) {
         $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + duration * 3600 * 1000);
       } else {
-        $scope.checkout.expectedtime = null;
+        if ($scope.destinations.length>1) {
+          $scope.checkout.expectedtime = null;
+        }
       }
     }
   }

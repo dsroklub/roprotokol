@@ -928,7 +928,6 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   }
 
   $scope.toggle_personal = function (fid,arg) {
-    console.log("toggle "+fid+" arg="+arg);
     var sid=fid+(arg?arg:"");
     if ($scope.show[sid]) {
       DatabaseService.getDataNow('event/stats/'+fid,arg?("q="+arg):null,function (res) {
