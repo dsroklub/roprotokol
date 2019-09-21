@@ -7,7 +7,7 @@ $rodb=new mysqli("localhost",$config["dbuser"],$config["dbpassword"],$config["da
 echo 'graph "DSR roture" {';
         echo
 'edge [
-color = "black"
+color = "red"
 ]
 ';        
 
@@ -16,13 +16,12 @@ shape = "ellipse"
 width = "0.400000"
 height = "0.400000"
 color = "black"
-bgcolor = "yellow"
 	]
 ';
 
 
 $result = $rodb->query('
-SELECT Boat.Name as boat,Trip.Meter as distance,TripType.Name as trip_type,Trip.id as tid
+SELECT Boat.Name as boat,Trip.Meter as distance,TripType.Name as trip_type,Trip.id as tid,Destination as destination
 FROM  Boat,Trip,TripType
 WHERE Boat.id=Trip.BoatID AND
 YEAR(OutTime)=YEAR(NOW()) AND MONTH(OutTime)=MONTH(NOW()) AND
@@ -31,7 +30,7 @@ ORDER BY Trip.id
 ') or exit("dot gen trips\n". $rodb->error);
 
 foreach ($result as $tr) {
-    echo "t".$tr["tid"] . ' [label="'. $tr["boat"] .'"];'."\n";
+    echo "t".$tr["tid"] . ' [label="'. $tr["boat"]."-" .$tr["destination"] .'"];'."\n";
 }
 
 $result = $rodb->query('
@@ -48,7 +47,6 @@ shape = "box"
 width = "0.400000"
 height = "0.400000"
 color = "blue"
-bgcolor = "pink"
 	]
 ';
 foreach ($result as $tr) {
@@ -69,6 +67,7 @@ foreach ($result as $rt) {
     $tid=$rt["tid"];
     $tripl=$rt["boat"].$tid;
     $mid=$rt["mid"];
-    echo " t$tid -- r$mid [len = 1]\n";
+    $len=0.2+10000/(1000 +$rt["distance"]);
+    echo " t$tid -- r$mid [len = $len] [label=\"". round($rt["distance"]/1000)."\"]\n";
 }
 echo '}';
