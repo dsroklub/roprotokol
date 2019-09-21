@@ -25,8 +25,7 @@ case "mates":
     FROM Member me, Member them,Trip,TripMember tm, TripMember ttm 
     WHERE me.MemberID=? AND tm.TripID=Trip.id AND tm.member_id=me.id AND them.id=ttm.member_id and ttm.TripID=Trip.id AND me.id!=them.id 
     GROUP By mate 
-    ORDER BY dist DESC 
-    LIMIT 10";
+    ORDER BY dist DESC";
     break;
 case "boats":
     $s="SELECT Boat.Name as boatname, SUM(Meter) as dist 
