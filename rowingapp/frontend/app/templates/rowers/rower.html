@@ -263,7 +263,7 @@
                     <small ng-bind-html="destination.duration | totime"></small>t)
                   </ui-select-choices>
                 </ui-select>
-                <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" min="0.5" step="0.5" name="input" transformkm ng-model="correction.distance" required >km
+                <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" min="0.5" step="0.5" name="input" transformkm ng-model="correction.distance">km
               </td>
             </tr>
             <tr>
@@ -333,7 +333,7 @@
                 <button ng-show="correctionForm.$valid" class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
               </td>
               <td>
-                <button class="big" ng-show="correctionForm.$valid" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse
+                <button class="big" ng-show="correctionForm.$valid && correction.distance" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse
                 </button>
                 <label ng-hide="correction.reason && correction.reporter" class="alert notready">angiv begrundelse og dit navn</label>
                 <label ng-hide="correction.distance" class="alert notready">Distance skal være positiv</label>
