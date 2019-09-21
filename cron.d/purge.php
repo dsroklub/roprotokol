@@ -13,4 +13,4 @@ WHERE DATE_ADD(RemoveDate,INTERVAL 3 YEAR) < CURDATE()
 ') or exit("purge sql error ". $rodb->error);
 
 $stmt->execute();
-echo "DONE\n";
+echo " PURGE DONE\n";
