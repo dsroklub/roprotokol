@@ -10,6 +10,7 @@ angular.module('eventApp').controller(
 function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,UploadBase) {
   $anchorScroll.yOffset = 50;
   $scope.mate_trips=[];
+  $scope.graph_message=null;
   $scope.currentevent=null;
   $scope.required_work=0;
   $scope.total_work=0;
@@ -985,7 +986,14 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
   }
 
-
+  $scope.render_graph= function() {
+    $scope.graph_message="laver graf over roere.";
+    DatabaseService.getDataNow('event/stats/sumgraph',null, function (res) {
+      var graphviz = d3.select("#sumgraph").graphviz().logEvents(true).tweenShapes(false).tweenPaths(false) ;
+      graphviz.engine('fdp').dot(res.data).render(function() {$scope.graph_message=null});
+    }
+                              );
+  }
   $scope.messagematch = function (messagefilter) {
     return function(message) {
       if (!messagefilter) {

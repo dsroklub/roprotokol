@@ -236,7 +236,6 @@ Vis
     </tbody>
   </table>
 </div>
-
 <div ng-if="mo" class="seasonschart">
   <h2>Sæsonoversigt</h2>
   <canvas id="roweractivity" class="chart chart-bar"
@@ -252,9 +251,11 @@ Vis
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="motbl in kmtbl" >
+      <tr ng-repeat="motbl in kmtbl">
         <th>{{$index+1}}</th>
-        <td ng-repeat="mkm in motbl" class="rnum"><span ng-if="mkm>0">{{mkm|number:1}}</span></td>
+        <td ng-repeat="mkm in motbl" class="rnum">
+          <span ng-if="mkm>0" > {{mkm |number:1}}</span>
+        </td>
         <td class="sum vsum">{{monthsum[$index]|number:1}}</td>
       </tr>
       <tr>
@@ -266,4 +267,10 @@ Vis
   </table>
 </div>
 
+
+<div>
+<button ng-click="render_graph()">månedsgraf over roforbindelser</button>
+{{graph_message}}
+  <div id="sumgraph" style="text-align: center;"></div>
+</div>
 
