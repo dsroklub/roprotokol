@@ -61,6 +61,9 @@
   <script src="../../public/js/gitrevision.js"></script>
   <script src="components/database/login-services.js"></script>
   <script src="event.js"></script>
+  <script src="../node_modules/viz.js/viz.js" type="application/javascript"></script>
+  <script src="../node_modules/d3/dist/d3.js"></script>
+  <script src="../node_modules/d3-graphviz/build/d3-graphviz.js"></script>
   <script src="controllers/events.js"></script>
   <script src="controllers/work.js"></script>
   <script src="controllers/noright.js"></script>
