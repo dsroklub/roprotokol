@@ -58,7 +58,7 @@ foreach ($result as $rt) {
         $c=$triptypecolors[$tooltip]??$triptypecolors["blandet"];
         $dist=round($rt["distance"]/1000);
         $len=0.2+10000/(300 +$rt["distance"]);
-        echo " r$rower1 -- r$rower2 [weight=\"$dist\"] [color=\"$c\"] [len = \"$len\"] [label=\"$dist\"] [tooltip=\"$tooltip\"]\n";
+        echo " r$rower1 -- r$rower2 [weight=\"$dist\"] [color=\"$c\"] [len = \"$len\"] [label=\"$dist\"] [tooltip=\"$tooltip\"] [labeltooltip=\"$tooltip\"];\n";
     }
 }
 

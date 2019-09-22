@@ -986,11 +986,14 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
   }
 
-  $scope.render_graph= function() {
-    $scope.graph_message="laver graf over roere.";
+  $scope.render_graph=function() {
+    $scope.graph_message="laver graf over roere. VENT!";
     DatabaseService.getDataNow('event/stats/sumgraph',null, function (res) {
-      var graphviz = d3.select("#sumgraph").graphviz().logEvents(true).tweenShapes(false).tweenPaths(false) ;
-      graphviz.engine('fdp').dot(res.data).render(function() {$scope.graph_message=null});
+      var graphviz = d3.select("#sumgraph").graphviz().logEvents(true).tweenShapes(false).tweenPaths(false);
+      graphviz.engine('fdp').dot(res.data).render().on('end',function() {
+        $scope.graph_message="";
+        $scope.$apply();
+      });
     }
                               );
   }
