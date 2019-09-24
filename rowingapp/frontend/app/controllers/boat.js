@@ -403,7 +403,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       if (duration>0) {
         $scope.checkout.expectedtime = new Date($scope.checkout.starttime.getTime() + duration * 3600 * 1000);
       } else {
-        $scope.checkout.expectedtime = null;
+        if ($scope.destinations.length>1) {
+          $scope.checkout.expectedtime = null;
+        }
       }
     }
   }
@@ -494,7 +496,23 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   }
   $scope.boatcat2dk=DatabaseService.boatcat2dk;
   $scope.createRower = function (rowers, index,temptype) {
-    var tmpnames=rowers[index].trim().split(" ");
+    var inputname=rowers[index];
+    if (inputname.toLowerCase().indexOf("gæst")>=0) {
+      rowers[index]="";
+      alert("Roeren hedder ikke gæst. Brug " + (temptype=="guest"?"gæstens":"kaninens")  +  " rigtige navn");
+      return;
+    }
+    if (inputname.toLowerCase().indexOf("kanin")>=0) {
+      rowers[index]="";
+      alert("Roeren hedder ikke kanin. Brug " + (temptype=="guest"?"gæstens":"kaninens")  +  " rigtige navn");
+      return;
+    }
+    if (/\d/.test(inputname)) {
+      rowers[index]="";
+      alert("navnet indeholder tal. Brug " + (temptype=="guest"?"gæstens":"kaninens")  +  " rigtige navn");
+      return;
+    }
+    var tmpnames=inputname.trim().split(" ");
     var last=tmpnames.splice(-1,2)[0];
     var first=tmpnames.join(" ");
     var rowerreq={

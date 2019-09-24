@@ -12,5 +12,12 @@ $stmt = $rodb->prepare($s) or dbErr($rodb,$res,"prep");
 $stmt->execute();
 $result= $stmt->get_result() or dbErr($rodb,$res,"Error in destinations query: ");
 $d=[];
-output_rows($result);
+while ($row = $result->fetch_assoc()) {
+    $loc=$row['location'];
+    if (!isset($d[$loc])) {
+        $d[$loc]=array();
+    }
+    array_push($d[$loc],$row);
+}
+echo json_encode($d);
 $rodb->close();

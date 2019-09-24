@@ -51,6 +51,7 @@
   <script src="../app/bower_components/ng-file-upload/ng-file-upload.js"></script>
 
   <script src="components/database/database.js"></script>
+    <script src="components/sumWork.js"></script>
   <script src="components/database/database-services.js"></script>
   <script src="../dsrcommon/components/utilities/onlynumber.js"></script>
   <script src="../dsrcommon/components/utilities/transformkm.js"></script>
@@ -60,8 +61,13 @@
   <script src="../../public/js/gitrevision.js"></script>
   <script src="components/database/login-services.js"></script>
   <script src="event.js"></script>
+  <script src="/frontend/node_modules/viz.js/viz.js" type="application/javascript"></script>
+  <script src="/frontend/node_modules/webcola/WebCola/cola.js"></script>
+  <script src="/frontend/node_modules/d3/dist/d3.js"></script>
+  <script src="/frontend/node_modules/d3-graphviz/build/d3-graphviz.js"></script>
   <script src="controllers/events.js"></script>
   <script src="controllers/work.js"></script>
+  <script src="controllers/club.js"></script>
   <script src="controllers/noright.js"></script>
   <script src="controllers/menu.js"></script>
   <script src="components/database/database-directives.js"></script>
@@ -101,6 +107,7 @@
       <li ng-class="{topsel: activePath=='/about/'}"><a href="about/"><i class="fa fa-info-circle"></i>Om</a></li>
       <li ng-class="{topsel: activePath=='/member/'}"><a href="member/"><i class="fa fa-female"></i><i class="fa fa-male"></i>Medlem</a></li>
       <li ng-class="{topsel: activePath=='/work/'}"><a href="work/"><i class="fa fa-hourglass"></i>Arbejde</a></li>
+      <li ng-class="{topsel: activePath=='/club/'}"><a href="club/"><i class="fa fa-chart-bar"></i>Klub</a></li>
     </ul>
   </div>
 <div class="main">

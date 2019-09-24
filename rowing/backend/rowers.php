@@ -24,18 +24,6 @@ $s="SELECT JSON_MERGE(
 if ($sqldebug) {
     echo $s."<br>\n";
 }
-$result=$rodb->query($s);
-
-if (!$result) {
-    http_response_code(500);
-    die("Error in rowers query: " . mysqli_error($rodb));;
-}
-
-echo '[';
- $first=1;
-while ($row = $result->fetch_assoc()) {
-    if ($first) $first=0; else echo ",\n";
-    echo $row['json'];
-}
-echo ']';
+$result=$rodb->query($s) or dbErr($rodb,$res,"get rowers");
+output_json($result);
 $rodb->close();

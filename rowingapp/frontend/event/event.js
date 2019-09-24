@@ -2,6 +2,7 @@
 
 angular.module('eventApp', [
   'ngRoute',
+  'event.utilities.sumWork',
   'dsrcommon.utilities.onlynumber',
   'dsrcommon.utilities.transformkm',
   'dsrcommon.utilities.safefilename',
@@ -92,6 +93,10 @@ angular.module('eventApp', [
     $routeProvider.when('/work/', {
       templateUrl: 'templates/work.html',
       controller: 'workCtrl'
+    });
+    $routeProvider.when('/club/', {
+      templateUrl: 'templates/club.html',
+      controller: 'clubCtrl'
     });
     $routeProvider.when('/showevent/:event', {
       templateUrl: 'templates/timeline.html',

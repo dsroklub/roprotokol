@@ -15,7 +15,7 @@ if (isset($d->start_time)) {
 }
 $hours=$d->hours ?? null;
 $forum=$d->forum ?? null;
-$stmt->bind_param("sssdss", $d->boat->name,$forum, $d->work, $hours,$d->id,$cuser) || dbErr($rodb,$res,"addwork e");
+$stmt->bind_param("sssdss", $d->boat,$forum, $d->work, $hours,$d->worker_id,$cuser) || dbErr($rodb,$res,"addwork e");
 $stmt->execute() or dbErr($rodb,$res,"addwork exe");
 invalidate("work");
 echo json_encode($res);

@@ -18,6 +18,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   var dbready=function (ok) {
     $scope.worktasks=DatabaseService.getDB('event/worktasks');
     $scope.workers=DatabaseService.getDB('event/workers');
+    $scope.work_today=DatabaseService.getDB('event/work_today');
     $scope.maintenance_boats=DatabaseService.getDB('event/maintenance_boats');
   }
   DatabaseService.init({"fora":true,"work":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
@@ -42,7 +43,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
       return result;
     } else {
       var result = rowers.filter(function(element) {
-          return (preselectedids === undefined || !(element.id in preselectedids)) && element.id==val;
+          return (preselectedids === undefined || !(element.id in preselectedids)) && element.worker_id==val;
         });
       return result;
     }
@@ -70,7 +71,10 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
         $scope.work.start_time=wd.toISOString();
         $scope.work.end_time=null;
         $scope.work.hours=null;
-        $scope.workers.push($scope.work);
+        $scope.work.name=$scope.work.worker.name;
+        $scope.work.worker_id=$scope.work.worker.worker_id;
+        $scope.work.worker.start_time=$scope.work.start_time;
+        $scope.work_today.push($scope.work);
         $scope.work={};
       } else {
         alert(status.error);
@@ -79,10 +83,10 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
                    )
   }
 
-  $scope.checkin_worker = function (worker) {
-    worker.end_time=new Date().toISOString();
-    worker.hours=(new Date(worker.end_time)-new Date(worker.start_time))/3600/1000;
-    var sr=DatabaseService.createSubmit("update_work",worker);
+  $scope.end_work = function (work) {
+    work.end_time=new Date().toISOString();
+    work.hours=(new Date(work.end_time)-new Date(work.start_time))/3600/1000;
+    var sr=DatabaseService.createSubmit("update_work",work);
     sr.promise.then(function(status) {
       if (status.status =='ok') {
         $log.debug("worker");

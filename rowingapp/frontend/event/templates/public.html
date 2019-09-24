@@ -107,9 +107,9 @@ Vis
 
 <div ng-show="othermember" class="statbox">
   <table  class="genericlist">
-    <caption>Roture med {{othermember.name}} <i>({{othermember.id}})</i></caption>
+    <caption>Roture med {{othermember.name}} <i>({{othermember.id}}), {{mate_trips.length}} ture, {{mate_trips |sumDistance|number:1}} km</i></caption>
     <thead>
-      <tr ><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>Roere</th></tr>
+      <tr ><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>Roere</th><th></th></tr>
     </thead>
     <tbody>
       <tr ng-class-even="'even'" ng-class-odd="'odd'" ng-repeat="trip in mate_trips" >
@@ -119,6 +119,7 @@ Vis
         <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
         <td class="rnum" >{{trip.distance|mtokm}}</td>
         <td> <ul><li ng-repeat="rower in trip.rowers">{{rower.name}} </li></ul></td>
+        <td>{{trip.comment}}</td>
       </tr>
     </tbody>
   </table>
@@ -126,7 +127,7 @@ Vis
 
 <div ng-if="mystatswork" class="statbox">
   <table class="genericlist">
-    <caption>Udført arbejde</caption>
+    <caption>Udført arbejde:  {{mystatswork|sumWork|number:1}} timer</caption>
     <thead>
       <tr>
         <th>dato</th>
@@ -138,8 +139,8 @@ Vis
     <tbody>
       <tr ng-repeat="work in mystatswork">
         <td>{{work.start_time | date:'d/M yyyy'}}</td>
-        <td class="rnum">{{work.hours}}</td>
-        <td>{{work.task}} {{work.work}}</td>
+        <td  class="rnum">{{work.hours}}</td>
+        <td >{{work.task}} {{work.work}}</td>
         <td>{{work.boat}}</td>
       </tr>
     </tbody>
@@ -186,7 +187,7 @@ Vis
 
 <div ng-show="mytripsaggregated" class="statbox">
   <table class="genericlist">
-    <caption>Sæsonoversigt fordelt på turtyper</caption>
+    <caption>Sæsonoversigt fordelt på turtyper, i alt: {{mytripsaggregated|sumDistance|number:1}}</caption>
     <thead>
       <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
     </thead>
@@ -205,12 +206,13 @@ Vis
   <table class="genericlist">
     <caption>Mine destinationer</caption>
     <thead>
-      <tr><th>Sted</th><th>gange</th></tr>
+      <tr><th>Sted</th><th>gange</th><th>km></th></tr>
     </thead>
     <tbody>
         <tr  ng-repeat="rowerdest in mystatsdestinations">
           <td>{{rowerdest.destination}}</td>
           <td class="rnum">{{rowerdest.numtrips}}</td>
+          <td class="rnum">{{rowerdest.distance/1000|number:1}}</td>
         </tr>
     </tbody>
   </table>
@@ -218,7 +220,7 @@ Vis
 
 <div class="statbox" ng-show="mytrips">
   <table class="genericlist">
-    <caption>Mine roture</caption>
+    <caption>Mine {{mytrips.length}} roture alle år: {{mytrips|sumDistance|number:1}} km</caption>
     <thead>
       <tr><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>kommentar</th></tr>
     </thead>
@@ -234,13 +236,41 @@ Vis
     </tbody>
   </table>
 </div>
-
 <div ng-if="mo" class="seasonschart">
   <h2>Sæsonoversigt</h2>
   <canvas id="roweractivity" class="chart chart-bar"
           chart-data="mo.data" chart-labels="mo.labels" chart-series="mo.series" chart-legend="true">
   </canvas>
-  </div>
+  <table class="genericlist">
+    <caption>km år og dag</caption>
+    <thead>
+      <tr>
+        <th>måned/år</th>
+        <th ng-repeat="y in km_years">{{y}}</th>
+        <th>&Sigma;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="motbl in kmtbl">
+        <th>{{$index+1}}</th>
+        <td ng-repeat="mkm in motbl" class="rnum">
+          <span ng-if="mkm>0" > {{mkm |number:1}}</span>
+        </td>
+        <td class="sum vsum">{{monthsum[$index]|number:1}}</td>
+      </tr>
+      <tr>
+        <th>&Sigma;</th>
+        <th class="sum hsum" ng-repeat="y in km_years">{{yearsum[y]|number:1}}</th>
+        <th class="total hsum">{{totalyearsum|number:1}}</th>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
+
+<div>
+<button ng-click="render_graph()">månedsgraf over roforbindelser</button>
+{{graph_message}}
+  <div id="sumgraph" style="text-align: center;"></div>
+</div>
 

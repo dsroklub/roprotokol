@@ -306,8 +306,9 @@ function dbservice($http, $q, $log) {
       db['current_user']=ds.uid;
       if (gitrevision != ds.gitrevision) {
         //$log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
-//        window.location="/frontend/app/index.shtml";
-        window.location.reload(true);
+        //        window.location="/frontend/app/index.shtml";
+        window.location.pathname="/front"+ds.gitrevision+"/app/";
+        // window.location.reload(true);
           // $angularCacheFactory.clearAll();
         //    var cache = $cacheFactory.get('$http');
         //    cache.removeAll();
@@ -575,7 +576,7 @@ function dbservice($http, $q, $log) {
       return [];
     }
 
-    if (isNaN(val)) {
+    if (isNaN(val.substring(1))) {
       var re=new RegExp("\\b"+val,'i');
         var result = rowers.filter(function(element) {
           return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
