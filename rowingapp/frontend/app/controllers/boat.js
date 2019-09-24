@@ -143,7 +143,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       $scope.do_boat_category(DatabaseService.lookup('boattypes','name','Inrigger 4+'));
     }
   });
-  var has_right = function(required_right,arg,rightlist) {
+  var miss_right = function(required_right,arg,rightlist) {
     for (var ri=0; ri<rightlist.length; ri++) {
       // DSR Hack here
       if (
@@ -151,11 +151,13 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
           && (!arg || !rightlist[ri].arg || arg==rightlist[ri].arg)
       ) {
         if (!$scope.sculler_open || rightlist[ri].arg!='sommer') {
-          return true;
+          return null;
+        } else {
+          return " : scullerskilt ÅBENT";
         }
       }
     }
-    return false;
+    return null;
   }
 
   $scope.get_destination = function(destination) {
@@ -181,21 +183,22 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     angular.forEach(reqs, function(r,k) {
       var rq=r.required_right;
       var subject=r.requirement;
+      var rerr="";
       var arg=rq=='instructor'?subright:null;
       if (rq == null) {
         // Skip, we are waiting for Mysql Json AGG in MariaDB 10.5
       } else if (subject=='cox') {
         if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
-          if (!(has_right(rq,arg,$scope.checkout.rowers[0].rights))) {
-            this.push("styrmand "+$scope.checkout.rowers[0].name+" Har ikke "+ $filter('righttodk')([rq]));
+          if (rerr=miss_right(rq,arg,$scope.checkout.rowers[0].rights)) {
+            this.push("styrmand "+$scope.checkout.rowers[0].name+" Har ikke "+ $filter('righttodk')([rq])+rerr);
           }
         }
       } else if (subject=='all') {
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
             if (!($scope.checkout.rowers[ri].id.charAt(0)=='g')) { // we do not know the rights of guests
-                if (!(has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
-                  this.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq]));
+                if (rerr=miss_right(rq,arg,$scope.checkout.rowers[ri].rights)) {
+                  this.push($scope.checkout.rowers[ri].name +" har ikke "+$filter('righttodk')([rq])+rerr);
               }
             }
           }
@@ -204,19 +207,19 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         var anyok=false;
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-            if ((has_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
+            if (!(rerr=miss_right(rq,arg,$scope.checkout.rowers[ri].rights))) {
               anyok=true;
             }
           }
         }
         if (!anyok) {
-          this.push(" der skal være mindst een roer med "+ $filter('righttodk')([rq]));
+          this.push(" der skal være mindst een roer med "+ $filter('righttodk')([rq])+rerr);
         }
       } else if (subject=='none') {
         var noneok=true;
         for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
           if ($scope.checkout.rowers[ri] && $scope.checkout.rowers[ri].rights) {
-            if (has_right(rq,arg,$scope.checkout.rowers[ri].rights)) {
+            if (!miss_right(rq,arg,$scope.checkout.rowers[ri].rights)) {
               this.push($scope.checkout.rowers[ri].name +" "+$filter('righttodk')([rq]));
               noneok=false;
             }
