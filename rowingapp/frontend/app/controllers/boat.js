@@ -144,6 +144,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     }
   });
   var miss_right = function(required_right,arg,rightlist) {
+    var rerr=" ";
     for (var ri=0; ri<rightlist.length; ri++) {
       // DSR Hack here
       if (
@@ -153,11 +154,11 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         if (!$scope.sculler_open || rightlist[ri].arg!='sommer') {
           return null;
         } else {
-          return " : scullerskilt ÅBENT";
+          rerr=" : scullerskilt ÅBENT";
         }
       }
     }
-    return null;
+    return rerr;
   }
 
   $scope.get_destination = function(destination) {
