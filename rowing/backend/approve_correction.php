@@ -60,4 +60,5 @@ if ($stmt = $rodb->prepare("UPDATE Error_Trip SET Fixed=1 WHERE id=?")) {
 $rodb->commit();
 $rodb->close();
 invalidate('trip');
+invalidate('stats');
 echo json_encode($res);
