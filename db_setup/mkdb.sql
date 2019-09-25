@@ -843,4 +843,6 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
 
 INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");
 
-CREATE VIEW right_name AS SELECT DISTINCT member_right, showname,predicate FROM MemberRightType;
+
+DROP VIEW IF EXISTS right_name;
+CREATE VIEW right_name AS SELECT DISTINCT member_right, MAX(showname),MAX(predicate) FROM MemberRightType GROUP BY member_right;
