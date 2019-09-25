@@ -10,8 +10,8 @@ if (isset($_GET["q"])) {
 switch ($q) {
 case "rights":
     $s="SELECT showname as member_right,argument as arg,DATE_FORMAT(acquired,'%Y-%m-%dT%T') as acquired
-    FROM MemberRights, Member,right_name
-    WHERE Member.MemberID=? AND Member.id=MemberRights.member_id AND right_name.member_right=MemberRight
+    FROM MemberRights, Member,MemberRightType
+    WHERE Member.MemberID=? AND Member.id=MemberRights.member_id AND member_right=MemberRight AND NOT (MemberRightType.arg <> MemberRights.argument)
     ORDER BY acquired";
     break;
 case "work":
