@@ -21,24 +21,24 @@ case "work":
     ORDER BY start_time";
     break;
 case "mates":
-    $s="SELECT CONCAT(them.FirstName,' ',them.LastName) as mate, SUM(Meter) as dist 
-    FROM Member me, Member them,Trip,TripMember tm, TripMember ttm 
-    WHERE me.MemberID=? AND tm.TripID=Trip.id AND tm.member_id=me.id AND them.id=ttm.member_id and ttm.TripID=Trip.id AND me.id!=them.id 
-    GROUP By mate 
+    $s="SELECT CONCAT(them.FirstName,' ',them.LastName) as mate, SUM(Meter) as dist
+    FROM Member me, Member them,Trip,TripMember tm, TripMember ttm
+    WHERE me.MemberID=? AND tm.TripID=Trip.id AND tm.member_id=me.id AND them.id=ttm.member_id and ttm.TripID=Trip.id AND me.id!=them.id
+    GROUP By mate
     ORDER BY dist DESC";
     break;
 case "boats":
-    $s="SELECT Boat.Name as boatname, SUM(Meter) as dist 
+    $s="SELECT Boat.Name as boatname, SUM(Meter) as dist
     FROM Member me, Boat,Trip,TripMember tm
     WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID AND Trip.BoatID=Boat.id
-    GROUP By Boat.id 
+    GROUP By Boat.id
     ORDER BY dist DESC";
     break;
 case "destinations":
     $s="SELECT Trip.Destination AS destination, COUNT(Trip.id) as numtrips,SUM(Trip.Meter) as distance
     FROM Member me,Trip,TripMember tm
-    WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID 
-    GROUP By Trip.Destination 
+    WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID
+    GROUP By Trip.Destination
     ORDER BY numtrips DESC";
     break;
 case "triptypes":
@@ -46,10 +46,10 @@ case "triptypes":
     FROM Member me,Trip,TripMember tm,TripType
     WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID AND TripType.id=Trip.TripTypeID
     GROUP By TripType.id
-    ORDER BY numtrips DESC 
+    ORDER BY numtrips DESC
     LIMIT 20";
     break;
-default:    
+default:
     $res=["status" => "error", "error"=>"invalid query' .$q"];
     echo json_encode($res);
     exit(0);
@@ -57,8 +57,8 @@ default:
 
 $stmt = $rodb->prepare($s) or dbErr($rodb,$res,"mystats $q");
 $stmt->bind_param("s",$cuser);
-$stmt->execute() ||  dbErr($rodb,$res,"mystats Exe $q"); 
+$stmt->execute() ||  dbErr($rodb,$res,"mystats Exe $q");
 $result= $stmt->get_result();
 output_rows($result);
-$stmt->close(); 
+$stmt->close();
 $rodb->close();

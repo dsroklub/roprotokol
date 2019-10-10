@@ -1,7 +1,7 @@
 angular.module('dsrcommon.utilities.transformkm', []).directive('transformkm',transformkm);
 
 function transformkm () {
-  return { 
+  return {
     restrict: 'A',
     require: 'ngModel',
     link: function(scope, element, attrs, ngModel) {
