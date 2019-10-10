@@ -61,7 +61,7 @@
             <td><select  ng-model="newboattype.category" ng-options="bk.id as bk.name for bk in boatkayakcategories"></select></td>
             <td><button class="big" ng-show="newboattype.name && newboattype.seatcount && newboattype.category" ng-click="create_boattype(newboattype)">Opret ny bådtype </button></td>
           </tr>
-          </tbody>
+        </tbody>
       </table>
     </form>
 
@@ -182,19 +182,19 @@
   <div class="iblok">
     <table class="genericlist">
       <caption>Fabrikater</caption>
-        <tbody class="tbody">
-          <tr ng-repeat="brand in brands">
-            <td>{{brand.name}}</td>
-          </tr>
-          <tr>
-            <td>
-              <input type="text" placeholder="nyt fabrikat" ng-model="newbrand.name">
-            </td>
-            <td>
-              <button ng-click="create_boat_brand(newbrand)" ng-model="newbrand.name" class="big" ng-show="newbrand.name && newbrand.name.length">Opret nyt fabrikat</button>
-            </td>
-          </tr>
-        </tbody>
+      <tbody class="tbody">
+        <tr ng-repeat="brand in brands">
+          <td>{{brand.name}}</td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" placeholder="nyt fabrikat" ng-model="newbrand.name">
+          </td>
+          <td>
+            <button ng-click="create_boat_brand(newbrand)" ng-model="newbrand.name" class="big" ng-show="newbrand.name && newbrand.name.length">Opret nyt fabrikat</button>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </div>
@@ -290,30 +290,29 @@
     </table>
   </div>
 
-    <table ng-repeat="showdest in showDestinations" class="boatlist" >
-      <caption>Destinationer fra {{showdest}}</caption>
-      <thead>
-        <tr>
-          <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="ds in DB('destinations')[showdest]" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
-          <td><input ng-model="ds.name" ng-model-options="{updateOn:'blur'}" ng-change="set_destination_name(ds)">
-          </td>
-          <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
-          <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration" ng-model-options="{allowInvalid:true}"></td>
-          <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction" ng-model-options="{allowInvalid:true}"></td>
-        </tr>
-      </tbody>
-    </table>
+  <table ng-repeat="showdest in showDestinations" class="boatlist" >
+    <caption>Destinationer fra {{showdest}}</caption>
+    <thead>
+      <tr>
+        <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="ds in DB('destinations')[showdest]" ng-class-odd="'oddboat'" ng-class-even="'evenboat'">
+        <td><input ng-model="ds.name" ng-model-options="{updateOn:'blur'}" ng-change="set_destination_name(ds)">
+        </td>
+        <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
+        <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration" ng-model-options="{allowInvalid:true}"></td>
+        <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction" ng-model-options="{allowInvalid:true}"></td>
+      </tr>
+    </tbody>
+  </table>
 
-  </div>
   <table class="boatlist" >
     <caption>Ny destination</caption>
     <thead>
       <tr>
-      <th>Destination</th><th>Beskrivelse</th><th>Fra Lokation</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
+        <th>Destination</th><th>Beskrivelse</th><th>Fra Lokation</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
       </tr>
     </thead>
     <form name="newdestinationForm" validate>
@@ -400,15 +399,15 @@
             <tbody>
               <tr><td>Båd</td><td>{{et.current.boat}}</td></tr>
               <tr><td>Tur</td><td>{{et.trip}}</td></tr>
-               <tr><td>Destination</td><td>{{et.current.destination}}</td></tr>
-               <tr><td>Distance</td><td>{{et.current.distance}}</td></tr>
-               <tr><td>Ud</td><td>{{et.current.outtime}}</td></tr>
-               <tr><td>Ind</td><td>{{et.current.intime}}</td></tr>
-               <tr><td>Oprettet</td><td>{{et.current.created}}</td></tr>
+              <tr><td>Destination</td><td>{{et.current.destination}}</td></tr>
+              <tr><td>Distance</td><td>{{et.current.distance}}</td></tr>
+              <tr><td>Ud</td><td>{{et.current.outtime}}</td></tr>
+              <tr><td>Ind</td><td>{{et.current.intime}}</td></tr>
+              <tr><td>Oprettet</td><td>{{et.current.created}}</td></tr>
               <tr><td style="vertical-align: top">Roere</td><td>
-                <ul>
-                  <li ng-repeat="rower in et.current.rowers">{{rower.name}} ({{rower.id}}) </li>
-                </ul>
+                  <ul>
+                    <li ng-repeat="rower in et.current.rowers">{{rower.name}} ({{rower.id}}) </li>
+                  </ul>
               </td></tr>
             </tbody>
           </table>
@@ -418,7 +417,7 @@
           <ul>
             <li ng-repeat="(tg,dff) in et.diffs.diff"><strong>{{tg|dk_tags}}: </strong>
               {{dff.from}} &rarr; {{dff.to}}
-              </li>
+            </li>
           </ul>
           <div ng-if="et.diffs.rowerdiff"><strong>Roere</strong>:
             <div class="rowerdiff">
@@ -458,107 +457,107 @@
           <th>turtype</th>
           <th>formål</th>
           <!--th>bemærkninger</th-->
-          <th>gør</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations |filter: reservation_current()" >
-          <td>{{iboats[rv.boat_id].name}}</td>
-          <td>{{weekdays[rv.dayofweek].day}}</td>
-          <td>{{rv.start_time}}</td>
-          <td>
-            <div ng-show="rv.dayofweek==0">{{rv.start_date}}</div>
-          </td>
-          <td>{{rv.end_time}}</td>
-          <td>
-            <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div>
-          </td>
-          <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>
-          <td>{{rv.purpose}}</td>
-          <!--td>{{rv.description}}</td-->
-          <td><button ng-click="cancel_reservation(rv)" class="reject">slet reservation</button></td>
-        </tr>
-        <tr>
-          <td>
-            <select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required>
-            </select>
-          </td>
-          <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
-                      uib-tooltip="hvis det er en reservation på en fast ugedag. Ellers udfyld start- og slutdato"
-                      ></select></td>
-          <td>
-            <uib-timepicker
-               ng-model="reservation.start_time"
-               show-spinners="false"
-               show-meridian="false"
-               required
-               />
-          </td>
-          <td>
-            <fieldset ng-hide="reservation.dayofweek">
-              <datetimepicker
-                 uib-tooltip="startdato hvis det ikke er en fast ugedag"
-                 popup="d MMM yyyy"
-                 current-text="i dag"
-                 close-text="vælg"
-                 clear-text="rens"
-                 date-format="yyyy-MM-dd"
-                 hidden-time="true"
-                 show-spinners="false"
-                 date-options="dateOptions"
-                 show-meridian="false"
-                 ng-model="reservation.start_date"
-                 >
-                </datetimepicker>
-              </fieldset>
-          </td>
-          <td>
-            <uib-timepicker
-               ng-model="reservation.end_time"
-               show-spinners="false"
-               show-meridian="false"
-               required
-               />
-          </td>
+<th>gør</th>
+</tr>
+</thead>
+<tbody>
+  <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations |filter: reservation_current()" >
+    <td>{{iboats[rv.boat_id].name}}</td>
+    <td>{{weekdays[rv.dayofweek].day}}</td>
+    <td>{{rv.start_time}}</td>
+    <td>
+      <div ng-show="rv.dayofweek==0">{{rv.start_date}}</div>
+    </td>
+    <td>{{rv.end_time}}</td>
+    <td>
+      <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div>
+    </td>
+    <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>
+    <td>{{rv.purpose}}</td>
+    <!--td>{{rv.description}}</td-->
+<td><button ng-click="cancel_reservation(rv)" class="reject">slet reservation</button></td>
+</tr>
+<tr>
+  <td>
+    <select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required>
+    </select>
+  </td>
+  <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
+              uib-tooltip="hvis det er en reservation på en fast ugedag. Ellers udfyld start- og slutdato"
+              ></select></td>
+  <td>
+    <uib-timepicker
+      ng-model="reservation.start_time"
+      show-spinners="false"
+      show-meridian="false"
+      required
+      />
+  </td>
+  <td>
+    <fieldset ng-hide="reservation.dayofweek">
+      <datetimepicker
+        uib-tooltip="startdato hvis det ikke er en fast ugedag"
+        popup="d MMM yyyy"
+        current-text="i dag"
+        close-text="vælg"
+        clear-text="rens"
+        date-format="yyyy-MM-dd"
+        hidden-time="true"
+        show-spinners="false"
+        date-options="dateOptions"
+        show-meridian="false"
+        ng-model="reservation.start_date"
+        >
+      </datetimepicker>
+    </fieldset>
+  </td>
+  <td>
+    <uib-timepicker
+      ng-model="reservation.end_time"
+      show-spinners="false"
+      show-meridian="false"
+      required
+      />
+  </td>
 
-          <td>
-            <fieldset ng-hide="reservation.dayofweek">
-              <datetimepicker
-                uib-tooltip="slutdato hvis det ikke er en fast ugedag"
-                popup="d MMM yyyy"
-                 close-text="vælg"
-                 clear-text="rens"
-                 current-text="i dag"
-                 date-format="yyyy-MM-dd"
-                 hidden-time="true"
-                 show-spinners="false"
-                 date-options="dateOptions"
-                 show-meridian="false"
-                 ng-model="reservation.end_date"
-                 >
-              </datetimepicker>
-              </fieldset>
-          </td>
-          <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"
-                       uib-tooltip="turtypen" required>
-             </select></td>
-          <td><input type="text" ng-model="reservation.purpose" required
-                     uib-tooltip="Reservationsformål. Fx træning, navn på langtur, vedligehold"
-                     ></td>
-          <!--td><input type="text" ng-model="reservation.description"></td-->
-          <td><button ng-click="make_reservation(reservation)" class="green"
-                      ng-disabled="resv.$invalid || (!reservation.dayofweek && !(reservation.start_date && reservation.end_date))"
-                      >
-              ny reservation</button></td>
-        </tr>
-        <tr><td colspan=8>en reservation skal have et start- og sluttidspunkt.
-            Og <strong>enten</strong> en fast ugedag eller start og slutdatoer. Turtype og formål <strong>skal</strong> udfyldes
-          </td>
-        </tr>
+  <td>
+    <fieldset ng-hide="reservation.dayofweek">
+      <datetimepicker
+        uib-tooltip="slutdato hvis det ikke er en fast ugedag"
+        popup="d MMM yyyy"
+        close-text="vælg"
+        clear-text="rens"
+        current-text="i dag"
+        date-format="yyyy-MM-dd"
+        hidden-time="true"
+        show-spinners="false"
+        date-options="dateOptions"
+        show-meridian="false"
+        ng-model="reservation.end_date"
+        >
+      </datetimepicker>
+    </fieldset>
+  </td>
+  <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"
+               uib-tooltip="turtypen" required>
+  </select></td>
+  <td><input type="text" ng-model="reservation.purpose" required
+             uib-tooltip="Reservationsformål. Fx træning, navn på langtur, vedligehold"
+             ></td>
+  <!--td><input type="text" ng-model="reservation.description"></td-->
+<td><button ng-click="make_reservation(reservation)" class="green"
+            ng-disabled="resv.$invalid || (!reservation.dayofweek && !(reservation.start_date && reservation.end_date))"
+            >
+    ny reservation</button></td>
+</tr>
+<tr><td colspan=8>en reservation skal have et start- og sluttidspunkt.
+    Og <strong>enten</strong> en fast ugedag eller start og slutdatoer. Turtype og formål <strong>skal</strong> udfyldes
+  </td>
+</tr>
 
-      </tbody>
-    </table>
-  </form>
+</tbody>
+</table>
+</form>
 </div>
 
 <div ng-if="do=='events'">
@@ -591,21 +590,21 @@
          >
 
 
-<!--  <h2>Denne terminal håndterer både for disse lokationer</h2> -->
+  <!--  <h2>Denne terminal håndterer både for disse lokationer</h2> -->
 
 
 
   <h2>andre sider</h2>
 
-<p>  Her er sider til oversigter og eksport af data.</p>
+  <p>  Her er sider til oversigter og eksport af data.</p>
 
-<p> CSV filerne burde man kunne åbne og så gemme som regneark.</p>
-<p>
-  Reservationer og statistik for instruktion er offentlig tilgængeligt, så man ikke behøver at gå ned i klubben for at hente dem.
-<p>
-  De andre sider skal man enten bruge et password til eller man kan hente dem på en USB-stick fra terminalerne i bådhallen.
+  <p> CSV filerne burde man kunne åbne og så gemme som regneark.</p>
+  <p>
+    Reservationer og statistik for instruktion er offentlig tilgængeligt, så man ikke behøver at gå ned i klubben for at hente dem.
+  <p>
+    De andre sider skal man enten bruge et password til eller man kan hente dem på en USB-stick fra terminalerne i bådhallen.
   </p>
-</p>
+  </p>
 
   <ul class="tools">
     <li><a href="/backend/basic/current.php?returnlink">Dagens Ture.</a>
@@ -620,18 +619,18 @@
     <li><a href="/backend/stats/racerkaniner.php">Statistik for årets racerkaniner som CSV</a></li>
     <li ng-show="isremote"><a href="/backend/stats/motionsturnering.php" target="motionsturneringsstatus">Motionsturneringstatus</a></li>
     <li><a href="/backend/stats/rowerkm.php?include_trips={{rowerkm_include_trips?1:0}}&separate_instruction={{rowerkm_separate_instruction?1:0}}&force_email={{rowerkm_force_email?1:0}}&only_members={{rowerkm_only_members?1:0}}&year={{rowerkm_year}}">Kilometerstatistik for roere  som CSV</a>
-        (år <input type="text" ng-model="rowerkm_year" size="4"/>,
-         <input type="checkbox" ng-model="rowerkm_include_trips"/> ture,
-         <input type="checkbox" ng-model="rowerkm_separate_instruction"/> med/uden instruktion,
-         <input type="checkbox" ng-model="rowerkm_only_members"/> kun nuværende medlemmer,
-         <input type="checkbox" ng-model="rowerkm_force_email"/> inkluder fortrolig email)</li>
+      (år <input type="text" ng-model="rowerkm_year" size="4"/>,
+      <input type="checkbox" ng-model="rowerkm_include_trips"/> ture,
+      <input type="checkbox" ng-model="rowerkm_separate_instruction"/> med/uden instruktion,
+      <input type="checkbox" ng-model="rowerkm_only_members"/> kun nuværende medlemmer,
+      <input type="checkbox" ng-model="rowerkm_force_email"/> inkluder fortrolig email)</li>
     <li><a href="/backend/stats/boatrowerkm.php">Årets 10 mest aktive roere i hver båd som CSV</a></li>
     <li><a href="/backend/stats/maxmates.php">Årets 10 roere med flest rokammerater som CSV</a></li>
     <li><a href="/backend/stats/longdistancecoxes.php">Langdistancestyrmænd som CSV</a></li>
     <li><a href="/backend/stats/newrights_year.php">Årets nye rettigheder</a></li>
     <li><a href="/backend/stats/newmember_rights.php">Rettigheder for nye medlemmer</a></li>
     <li><a href="https://roprotokol.danskestudentersroklub.dk/public/instruction_stat.php?returnlink=history">Antal instruktører, kaniner og både brugt til inrigger instruktion (eksternt link, offentlig adgang)</a></li>
-        <li><a href="https://roprotokol.danskestudentersroklub.dk/public/instruction_stat.php?category=1&returnlink=history">Antal instruktører, kaniner og både brugt til kajakinstruktion (eksternt link, offentlig adgang)</a></li>
+    <li><a href="https://roprotokol.danskestudentersroklub.dk/public/instruction_stat.php?category=1&returnlink=history">Antal instruktører, kaniner og både brugt til kajakinstruktion (eksternt link, offentlig adgang)</a></li>
     <li><a href="https://roprotokol.danskestudentersroklub.dk/public/reservations.php">Bådreservationer, som CVS, ekstern offentlig adgang</a></li>
     <li><a href="https://roprotokol.danskestudentersroklub.dk/public/reservationdays.php">Ugeskema for bådreservationer som CVS, ekstern offentlig adgang</a></li>
     <li><a href="/backend/stats/trip_stat_year.php?output=csv&allboats=1&km=1">CSV km statistik for turtyper mm (robåde, kajakker)</a></li>
