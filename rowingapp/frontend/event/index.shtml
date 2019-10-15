@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
   <link rel="stylesheet" href="../app/bower_components/angular-chart.js/dist/angular-chart.css">
   <link rel="stylesheet" href="event.css"/>
+  <link rel="stylesheet" href="local.css"/>
   <script src="../app/bower_components/angular/angular.min.js"></script>
   <script src="components/angular-locale_da-dk.js"></script>
   <script src="../app/bower_components/angular-route/angular-route.min.js"></script>
