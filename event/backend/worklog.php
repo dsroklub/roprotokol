@@ -21,12 +21,12 @@ $s="SELECT MAX(hours) as h,JSON_MERGE(
    ),
    CONCAT( '{', JSON_QUOTE('log'),': [',
      GROUP_CONCAT(JSON_OBJECT(
-      'start_time',start_time,
-      'end_time',end_time,
+      'start_time',DATE_FORMAT(start_time,'%Y-%m-%dT%T'),
+      'end_time',DATE_FORMAT(end_time,'%Y-%m-%dT%T'),
       'hours',hours,
       'by',created_by,
       'boat', boat,
-      'created',worklog.created )),
+      'created',DATE_FORMAT(worklog.created,'%Y-%m-%dT%T'))),
    ']}')
    ) AS json
    FROM Member LEFT JOIN worklog on worklog.member_id=Member.id

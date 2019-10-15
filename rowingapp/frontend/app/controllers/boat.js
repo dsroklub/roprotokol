@@ -581,7 +581,6 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       if (status.status =='ok') {
         data.boat.trip=status.tripid;
         data.boat.outtime=data.boat.outtime;
-
         if (status.notification){
           $scope.checkoutnotification=status.notification;
         }

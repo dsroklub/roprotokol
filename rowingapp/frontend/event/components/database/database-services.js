@@ -33,7 +33,7 @@ function dbservice($http, $q, $log, $timeout) {
       $http.get(toURL(dataid+'.php'),{}).then(function onSuccess (response) {
         db[dataid] = response.data;
         valid[dataid]=true;
-        $log.debug(" resolve "+dataid);
+        // $log.debug(" resolve "+dataid);
         dq.resolve(dataid);
       },
        function  (e) {
@@ -59,7 +59,7 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/memberrighttypes',promises);
     this.getData('event/forum_files_list',promises);
     this.getData('event/event_category',promises);
-    this.getData('event/vinter_persons',promises); // FIXME: We cannot do caching for this one. Must refresh browser. Or use time limit.
+    // this.getData('event/vinter_persons',promises); // FIXME: We cannot do caching for this one. Must refresh browser. Or use time limit.
     this.getData('event/messages',promises);
     this.getData('event/member_setting',promises);
     this.getData('event/worklog',promises);
@@ -155,7 +155,7 @@ function dbservice($http, $q, $log, $timeout) {
       }
       for (var tp in ds) {
     if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
-      $log.debug("  doinvalidate "+tp+ " ds[rp]="+ds[tp]+" datastatus[tp]="+datastatus[tp]);
+      //$log.debug("  doinvalidate "+tp+ " ds[rp]="+ds[tp]+" datastatus[tp]="+datastatus[tp]);
       dbservice.invalidate_dependencies(tp);
       doreload=true;
       datastatus[tp]=ds[tp];

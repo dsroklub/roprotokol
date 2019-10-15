@@ -7,7 +7,7 @@ SELECT CONCAT(FirstName,' ',LastName) as name, Member.MemberId as worker_id,requ
 FROM Member, worker, worklog 
 WHERE 
   Member.id=worker.member_id AND worker.assigner='vedligehold' AND
-  worklog.member_id=worker.member_id AND (worklog.end_time IS NULL OR DATE(worklog.end_time)=DATE(NOW()))
+  worklog.member_id=worker.member_id AND (worklog.end_time IS NULL OR DATE(worklog.start_time)=DATE(NOW()))
 ";
 $stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"worker");
 $stmt->execute() ||  dbErr($rodb,$res,"rower workers");
