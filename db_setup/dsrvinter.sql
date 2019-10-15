@@ -1,7 +1,6 @@
 
 CREATE DATABASE IF NOT EXISTS dsrvinter;
 
-
 CREATE TABLE IF NOT EXISTS dsrvinter.baad (
   ID int(10) unsigned NOT NULL AUTO_INCREMENT,
   navn varchar(135) NOT NULL,
@@ -12,17 +11,17 @@ CREATE TABLE IF NOT EXISTS dsrvinter.baad (
   hidden tinyint(3)  NOT NULL DEFAULT 0,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `navn` (`navn`),
-  KEY `type` (`type`),
+  KEY `type` (`type`)
 );
 
-CREATE TABLE IF NOT EXITS baadformand(
+CREATE TABLE IF NOT EXISTS dsrvinter.baadformand(
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   baad int(10) unsigned NOT NULL,
   formand int(10) unsigned NOT NULL,
   PRIMARY KEY (id),
   KEY baad (baad),
-  KEY formand (formand),
-)
+  KEY formand (formand)
+);
 
 
 GRANT SELECT ON dsrvinter.person TO 'roprotokol'@'localhost';
