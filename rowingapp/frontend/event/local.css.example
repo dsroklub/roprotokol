@@ -1,0 +1,7 @@
+
+/* copy to local.css */
+/* DO NOT commit local.css to git */
+/* This is just to make develop instances visually different, so we avoid mistakes*/
+.menu {
+    background: #771e5f;
+}

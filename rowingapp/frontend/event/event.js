@@ -4,6 +4,8 @@ angular.module('eventApp', [
   'ngRoute',
   'event.utilities.sumWork',
   'dsrcommon.utilities.onlynumber',
+  'dsrcommon.utilities.dsrtime',
+  'dsrcommon.utilities.dsrinterval',
   'dsrcommon.utilities.transformkm',
   'dsrcommon.utilities.safefilename',
   'dsrcommon.utilities.mtokm',

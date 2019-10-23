@@ -315,12 +315,12 @@ textarea {
 
 table.genericlist tbody {
    background : #FFD;
-   width: 100%;                             
+   width: 100%;
 }
 
 table.genericlist thead {
    background : #d5f2dc;
-   color:black;                       
+   color:black;
    width: 100%;
 }
 
@@ -444,7 +444,7 @@ th,td {
 
 .popbuttons {
   background: #E9D994;
-  padding: 2em;  
+  padding: 2em;
 }
 
 .genericlist {
@@ -575,7 +575,7 @@ datetimepicker.ng-empty ng-form div input {
 }
 
 .tlist tr {
-  padding: 0.3em;            
+  padding: 0.3em;
 }
 
 .sum {
@@ -610,7 +610,6 @@ datetimepicker.ng-empty ng-form div input {
   stroke-width: 1px;
   opacity: 0.7;
 }
-
 
 .label {
     fill: green;
