@@ -99,6 +99,14 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
                    )
   }
 
+  $scope.show_worker = function () {
+    console.log("ww");
+    DatabaseService.getDataNow('event/stats/worker',"worker="+$scope.work.selectedworker.worker_id,function (res) {
+      $scope.mystatswork=res.data;
+    }
+                              );
+  }
+  
   $scope.end_work = function (work) {
     work.end_time=new Date();
     work.hours=(new Date(work.end_time)-new Date(work.start_time))/3600/1000;

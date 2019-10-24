@@ -21,7 +21,7 @@ case "boat":
     break;
 case "resterende":
     $s="
-SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,Member.MemberId as medlemsnummer,requirement as krævet,h as lagt, requirement-h as mangler 
+SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,h as lagt, requirement-h as mangler 
 FROM Member,worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w
     WHERE Member.id=w.member_id AND worker.member_id=Member.id;
 ";

@@ -75,8 +75,35 @@
 <h2>info</h2>
 
 Se alt dit arbejde under fanebladet: min side på din egen computer.
+<h2>Roeropslag</h2>
 
-<div ng-if="true">
+<input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xzzxyxmber" type="text"
+           ng-model="work.selectedworker"
+           typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers) | filter: {start_time: 'x'}"
+           typeahead-template-url="memberTemplate.html" typeahead-on-select="show_worker()" required />
+<div ng-if="mystatswork && work.selectedworker" class="worklist">
+  <table class="genericlist">
+    <caption> Udført arbejde af {{work.selectedworker.name}}:  {{mystatswork|sumWork|number:1}} timer af {{work.selectedworker.requirement}}</caption>
+    <thead>
+      <tr>
+        <th>dato</th>
+        <th>timer</th>
+        <th>arbejde</th>
+        <th>båd</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="work in mystatswork">
+        <td>{{work.start_time | date:'d/M yyyy'}}</td>
+        <td  class="rnum">{{work.hours}}</td>
+        <td >{{work.task}} {{work.work}}</td>
+        <td>{{work.boat}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div ng-if="false">
   <h1>Administration</h1>
   <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
   <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button-->
@@ -97,5 +124,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
   <li><a href="/backend/event/stats/workstats.php?q=all">Timer på vintervedligehold</a></li>
   <li><a href="/backend/event/stats/workstats.php?q=day">Timer pr dag vintervedligehold</a></li>
   <li><a href="/backend/event/stats/workstats.php?q=boat">Timer pr båd vintervedligehold</a></li>
+  <li><a href="/backend/event/stats/workstats.php?q=resterende">Timer roer</a></li>
   <li><a href="/backend/event/stats/workstats.php?q=overview">Oversigt</a></li>
 </ul>
+

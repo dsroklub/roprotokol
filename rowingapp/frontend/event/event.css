@@ -456,6 +456,10 @@ th,td {
 
 }
 
+.worklist {
+            display:table;
+            }
+
 .generate {
   background: #43d4eb;
 }

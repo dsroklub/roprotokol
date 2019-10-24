@@ -3,6 +3,7 @@
 angular.module('eventApp', [
   'ngRoute',
   'event.utilities.sumWork',
+  'event.utilities.sumDistance',
   'dsrcommon.utilities.onlynumber',
   'dsrcommon.utilities.dsrtime',
   'dsrcommon.utilities.dsrinterval',

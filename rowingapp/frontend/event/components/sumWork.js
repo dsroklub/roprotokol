@@ -11,7 +11,7 @@ function sw() {
   };
 }
 
-angular.module('event.utilities.sumWork', []).filter('sumDistance',sd);
+angular.module('event.utilities.sumDistance', []).filter('sumDistance',sd);
 function sd() {
   return function( arr, start, len) {
     var tot=0;
