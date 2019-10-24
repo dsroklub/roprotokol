@@ -11,20 +11,18 @@
     <caption>Dagens udførte arbejde</caption>
     <thead>
       <tr>
-        <th>Navn</th>
+        <th>navn</th>
         <th>tid</th>
-        <th>arbejdsopgave</th>
         <th>beskrivelse</th>
         <th>båd</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="wk in work_today" ng-if="wk.start_time && wk.end_time">
+      <tr ng-repeat="wk in work_today" ng-if="wk.start_time && wk.hours">
         <td>{{wk.name}}</td>
-        <td>{{wk.start_time | date: "HH:mm"}}-{{wk.end_time | date: "HH:mm "}}
+        <td>{{wk.start_time | date: "HH:mm"}} &mdash;
           <span ng-if="wk.end_time">{{wk.end_time | date: "HH:mm"}} = {{wk.hours | number:1 }} h</span>
         </td>
-        <td>{{wk.task}}</td>
         <td>{{wk.work}}</td>
         <td>{{wk.boat}}</td>
       </tr>
@@ -38,21 +36,26 @@
         <th>Navn</th>
         <th>krav</th>
         <th>påbegyndt</th>
-        <th>arbejdsopgave</th>
         <th>beskrivelse</th>
         <th>båd</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="wk in work_today" ng-if="wk.start_time && !wk.end_time">
+      <tr ng-repeat="wk in work_today" ng-if="!wk.hours">
         <td>{{wk.name}} ({{wk.worker_id}})</td>
         <td>{{wk.requirement | number:1}}</td>
-        <td>{{wk.start_time | date: "HH:mm d. MMM"}}   <span ng-if="wk.end_time">{{wk.end_time | date: "HH:mm d. MMM"}} = {{wk.hours | number:1 }} h</span></td>
-        <td><select ng-model="wk.task" ng-options="task.name as task.name for task in worktasks" ></select> </td>
+        <td>
+          <dsrinterval ng-model="wk">
+            {{(wk.end_time-wk.start_time)/3600000 | number:1 }} timer</td>
         <td><input class="description" ng-model="wk.work" type="text"></td>
-        <td><select ng-model="wk.boat" ng-options="bt.name as bt.name for bt in maintenance_boats"></select></td>
-        <td><button ng-disabled="!wk.task || !wk.work" ng-hide="wk.end_time"
+        <td>
+          <SELECT ng-model="wk.boat"><OPTION ng-repeat="bt in maintenance_boats">{{bt.name}}</OPTION>
+          <OPTION>Bådhal</OPTION>
+          <OPTION>Klargøring</OPTION>
+          </SELECT>
+        </td>
+        <td><button ng-disabled="!wk.work"
                     ng-click="end_work(wk)" uib-tooltip="registrer timer">færdig <i class="fa fa-thumbs-up"></i>
           </button>
         </td>
@@ -75,8 +78,8 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
 
 <div ng-if="true">
   <h1>Administration</h1>
-  <button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
-  <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button>
+  <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
+  <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button-->
   <h2>Rediger deltager<h2>
       <form>
         <input placeholder="vælg medlem" autocomplete="off" id="workeradmininput" name="asxyxmber" type="text"
@@ -89,3 +92,10 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         <button ng-show="workadmin.changed && workadmin.worker.requirement" ng-click="update_work_req()">Opdater timer</button>
       </form>
 </div>
+<h2>Rapporter</h2>
+<ul>
+  <li><a href="/backend/event/stats/workstats.php?q=all">Timer på vintervedligehold</a></li>
+  <li><a href="/backend/event/stats/workstats.php?q=day">Timer pr dag vintervedligehold</a></li>
+  <li><a href="/backend/event/stats/workstats.php?q=boat">Timer pr båd vintervedligehold</a></li>
+  <li><a href="/backend/event/stats/workstats.php?q=overview">Oversigt</a></li>
+</ul>

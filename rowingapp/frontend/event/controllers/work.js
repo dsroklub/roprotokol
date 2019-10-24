@@ -5,6 +5,12 @@ angular.module('eventApp').controller(
    workCtrl
   ]);
 
+function parseDateTime(s) {
+  var b = s.split(/\D/);
+  return new Date(b[0], b[1]-1, b[2], b[3], b[4], b[5]);
+}
+
+
 function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout) {
   $scope.workers=[];
   $scope.workadmin={};
@@ -19,6 +25,15 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     $scope.worktasks=DatabaseService.getDB('event/worktasks');
     $scope.workers=DatabaseService.getDB('event/workers');
     $scope.work_today=DatabaseService.getDB('event/work_today');
+    for (var ti=0; ti<$scope.work_today.length;ti++) {
+      var td=$scope.work_today[ti];
+      td.start_time=new Date(td.start_time);
+      td.start_time.setSeconds(0);
+      if (td.end_time) {
+        td.end_time=new Date(td.end_time);
+        td.end_time.setSeconds(0);
+      }
+    }
     $scope.maintenance_boats=DatabaseService.getDB('event/maintenance_boats');
   }
   DatabaseService.init({"fora":true,"work":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
@@ -68,9 +83,10 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
       if (status.status =='ok') {
         $log.debug("member value updated");
         var wd=new Date();
-        $scope.work.start_time=wd.toISOString();
+        $scope.work.start_time=wd;
         $scope.work.end_time=null;
         $scope.work.hours=null;
+        $scope.work.open=true;
         $scope.work.name=$scope.work.worker.name;
         $scope.work.worker_id=$scope.work.worker.worker_id;
         $scope.work.worker.start_time=$scope.work.start_time;
@@ -84,8 +100,9 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
 
   $scope.end_work = function (work) {
-    work.end_time=new Date().toISOString();
+    work.end_time=new Date();
     work.hours=(new Date(work.end_time)-new Date(work.start_time))/3600/1000;
+    work.open=false;
     var sr=DatabaseService.createSubmit("update_work",work);
     sr.promise.then(function(status) {
       if (status.status =='ok') {

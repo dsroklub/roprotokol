@@ -12,14 +12,12 @@ $s="SELECT JSON_OBJECT(
            'location', Boat.Location,
            'brand',Boat.brand,
            'level',Boat.level) as json
-    FROM Damage,Boat
+    FROM Boat
          INNER JOIN BoatType ON (BoatType.Name=Boat.boat_type)
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
     WHERE
          Boat.Decommissioned IS NULL AND
-         Damage.boat=Boat.id AND
-         Damage.Repaired IS NULL AND
-         Damage.Degree=$damageMaintenance
+         EXISTS (SELECT 'x' FROM Damage WHERE Damage.boat=Boat.id AND Damage.Repaired IS NULL AND Damage.Degree=$damageMaintenance)
     ORDER by Boat.name
     ";
 $result=$rodb->query($s) or dbErr($rodb,$res,"Error in boats query");

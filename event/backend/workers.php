@@ -13,21 +13,21 @@ WHERE assigner='vedligehold'
 }
 
 
-if (isset($_GET["generate"])) {
-    $gsql="
-INSERT INTO worker(member_id,assigner,requirement,description)
-SELECT Member.id,'vedligehold',LEAST(SUM(Meter)/1000/20,25) as req, 'bådvedligehold' as description
-FROM Member,Trip,TripMember
-WHERE Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND YEAR(OutTime)=YEAR(NOW())
-GROUP BY Member.id
-HAVING SUM(Meter)/1000>100
-";
+// if (isset($_GET["generate"])) {
+//     $gsql="
+// INSERT INTO worker(member_id,assigner,requirement,description)
+// SELECT Member.id,'vedligehold',LEAST(SUM(Meter)/1000/20,25) as req, 'bådvedligehold' as description
+// FROM Member,Trip,TripMember
+// WHERE Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND YEAR(OutTime)=YEAR(NOW())
+// GROUP BY Member.id
+// HAVING SUM(Meter)/1000>100
+// ";
 
-    $stmt = $rodb->prepare($gsql) or dbErr($rodb,$res,"worker set");
-    $stmt->execute() ||  dbErr($rodb,$res,"rower work set");
-}
-
+//     $stmt = $rodb->prepare($gsql) or dbErr($rodb,$res,"worker set");
+//     $stmt->execute() ||  dbErr($rodb,$res,"rower work set");
+// }
 // FIXME validate
+
 $sql="
 SELECT DISTINCT CONCAT(FirstName,' ',LastName) as name, Member.MemberId as worker_id,requirement, requirement,'x' as start_time
 FROM Member LEFT JOIN worker on Member.id=worker.member_id 

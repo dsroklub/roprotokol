@@ -437,7 +437,7 @@ CREATE TABLE worklog (
   hours            NUMERIC(6,2),
   task             VARCHAR(32),
   forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
-  boat             VARCHAR(100) REFERENCES Boat(Name) ON DELETE SET NULL ON UPDATE CASCADE,
+  boat             VARCHAR(100),-- REFERENCES Boat(Name) ON DELETE SET NULL ON UPDATE CASCADE,
   created_by       int REFERENCES Member(id) ON DELETE SET NULL
 );
 
@@ -843,4 +843,19 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
 
 INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");
 
-CREATE VIEW right_name AS SELECT DISTINCT member_right, showname,predicate FROM MemberRightType;
+
+DROP VIEW IF EXISTS right_name;
+CREATE VIEW right_name AS SELECT DISTINCT member_right, MAX(showname),MAX(predicate) FROM MemberRightType GROUP BY member_right;
+
+
+DROP TABLE workimport IF EXISTS;
+CREATE TABLE workimport (
+vtype CHAR(20),
+koordinator CHAR(1),
+vagt CHAR(1),
+member_id CHAR(20),
+navn     VARCHAR(100),
+email     VARCHAR(100),
+tel       VARCHAR(20),
+hours     INTEGER
+);

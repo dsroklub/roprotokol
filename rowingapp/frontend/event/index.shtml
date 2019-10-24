@@ -27,14 +27,15 @@
   <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
   <link rel="stylesheet" href="../app/bower_components/angular-chart.js/dist/angular-chart.css">
   <link rel="stylesheet" href="event.css"/>
+  <link rel="stylesheet" href="local.css"/>
   <script src="../app/bower_components/angular/angular.min.js"></script>
   <script src="components/angular-locale_da-dk.js"></script>
   <script src="../app/bower_components/angular-route/angular-route.min.js"></script>
   <script src="../app/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
   <script src="../app/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
   <!--script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script-->
-  <!--script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script-->
-  <script src="../app/bower_components_modifications/ui-bootstrap-tpls-elgaard.js"></script>
+  <script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <!--script src="../app/bower_components_modifications/ui-bootstrap-tpls-elgaard.js"></script-->
   <script src="../app/bower_components/angular-ui-select/dist/select.min.js"></script>
   <script src="../app/bower_components/ngDialog/js/ngDialog.min.js"></script>
   <script src="../app/bower_components/ng-table/dist/ng-table.js"></script>
@@ -51,9 +52,11 @@
   <script src="../app/bower_components/ng-file-upload/ng-file-upload.js"></script>
 
   <script src="components/database/database.js"></script>
-    <script src="components/sumWork.js"></script>
+  <script src="components/sumWork.js"></script>
   <script src="components/database/database-services.js"></script>
   <script src="../dsrcommon/components/utilities/onlynumber.js"></script>
+  <script src="../dsrcommon/components/utilities/time.js"></script>
+  <script src="../dsrcommon/components/utilities/interval.js"></script>
   <script src="../dsrcommon/components/utilities/transformkm.js"></script>
   <script src="../dsrcommon/components/utilities/safefilename.js"></script>
   <script src="../dsrcommon/components/utilities/mtokm.js"></script>

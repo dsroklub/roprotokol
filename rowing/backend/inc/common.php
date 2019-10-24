@@ -89,6 +89,13 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
     } else if ($output=="csv") {
         header('Content-type: text/csv');
         header('Content-Disposition: filename="'.$name.'.csv"');
+        if ($captions=="_auto") {
+            $captions=[];
+            foreach ($result->fetch_fields() as $fl) {
+                error_log(print_r($fl,true));
+                $captions[]=$fl->name;
+            }
+        }
         if ($captions) {
             echo implode(",",$captions)."\n";
         }
