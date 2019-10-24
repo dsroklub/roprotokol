@@ -86,6 +86,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
         $scope.work.start_time=wd;
         $scope.work.end_time=null;
         $scope.work.hours=null;
+        $scope.work.open=true;
         $scope.work.name=$scope.work.worker.name;
         $scope.work.worker_id=$scope.work.worker.worker_id;
         $scope.work.worker.start_time=$scope.work.start_time;
@@ -101,6 +102,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.end_work = function (work) {
     work.end_time=new Date();
     work.hours=(new Date(work.end_time)-new Date(work.start_time))/3600/1000;
+    work.open=false;
     var sr=DatabaseService.createSubmit("update_work",work);
     sr.promise.then(function(status) {
       if (status.status =='ok') {

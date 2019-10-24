@@ -18,9 +18,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="wk in work_today" ng-if="wk.start_time && wk.end_time">
+      <tr ng-repeat="wk in work_today" ng-if="wk.start_time && wk.hours">
         <td>{{wk.name}}</td>
-        <td>INT{{wk.start_time}}:=:{{wk.end_time}}=<dsrinterval dsrfrom="wk.start_time" dsrto="wk.end_time">
+        <td>{{wk.start_time | date: "HH:mm"}} &mdash;
           <span ng-if="wk.end_time">{{wk.end_time | date: "HH:mm"}} = {{wk.hours | number:1 }} h</span>
         </td>
         <td>{{wk.work}}</td>
@@ -42,14 +42,21 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="wk in work_today"> <!-- ng-if="wk.start_time && !wk.end_time"-->
-        <td>{{wk.name}} ({{wk.worker_id}}) </td>
+      <tr ng-repeat="wk in work_today" ng-if="!wk.hours">
+        <td>{{wk.name}} ({{wk.worker_id}})</td>
         <td>{{wk.requirement | number:1}}</td>
-        <td>{{wk.start_time}} to {{wk.end_time}}
-          <input type="time" ng-model="wk.start_time" ng-model-options="timezone=cet"  >&mdash;
-          <input type="time" ng-model="wk.end_time" ng-model-options="timezone=cet"> = <span ng-if="wk.end_time">{{(wk.end_time-wk.start_time)/3600000 | number:1 }} timer</span></td>
+        <td>
+          <dsrinterval ng-model="wk">
+            {{(wk.end_time-wk.start_time)/3600000 | number:1 }} timer</td>
         <td><input class="description" ng-model="wk.work" type="text"></td>
-        <td><select ng-model="wk.boat" ng-options="bt.name as bt.name for bt in maintenance_boats"></select></td>
+        <td>
+          <SELECT ng-model="wk.boat">
+            <OPTION ng-repeat="bt in maintenance_boats">{{bt.name}}
+            </OPTION>
+          <OPTION>Bådhal</OPTION>
+          <OPTION>Klargøring</OPTION>
+          </SELECT>
+        </td>
         <td><button ng-disabled="!wk.work"
                     ng-click="end_work(wk)" uib-tooltip="registrer timer">færdig <i class="fa fa-thumbs-up"></i>
           </button>
@@ -73,8 +80,8 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
 
 <div ng-if="true">
   <h1>Administration</h1>
-  <button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
-  <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button>
+  <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
+  <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button-->
   <h2>Rediger deltager<h2>
       <form>
         <input placeholder="vælg medlem" autocomplete="off" id="workeradmininput" name="asxyxmber" type="text"
