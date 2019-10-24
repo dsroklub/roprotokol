@@ -4,7 +4,7 @@
 require("../../rowing/backend/inc/common.php");
 header('Content-type: application/json');
 
-$s="SELECT JSON_OBJECT(
+$s="SELECT DISTINCT Boat.Name,JSON_OBJECT(
            'id', Boat.id,
            'name', Boat.Name,
            'spaces',BoatType.Seatcount,
@@ -25,15 +25,9 @@ $s="SELECT JSON_OBJECT(
     WHERE
          Boat.Decommissioned IS NULL
     GROUP BY Boat.id,baad.max_timer
-    ORDER by Boat.name
+    ORDER by Boat.Name
     ";
 //echo $s;
-$result=$rodb->query($s) or dbErr($db,$res,"Error in boats query");
-echo '[';
- $first=1;
- while ($row = $result->fetch_assoc()) {
-     if ($first) $first=0; else echo ",\n";
-     echo $row['json'];
-}
-echo ']';
+$result=$rodb->query($s) or dbErr($rodb,$res,"Error in boats query");
+output_json($result);
 $rodb->close();

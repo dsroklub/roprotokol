@@ -52,10 +52,11 @@
   <script src="../app/bower_components/ng-file-upload/ng-file-upload.js"></script>
 
   <script src="components/database/database.js"></script>
-    <script src="components/sumWork.js"></script>
+  <script src="components/sumWork.js"></script>
   <script src="components/database/database-services.js"></script>
   <script src="../dsrcommon/components/utilities/onlynumber.js"></script>
   <script src="../dsrcommon/components/utilities/time.js"></script>
+  <script src="../dsrcommon/components/utilities/interval.js"></script>
   <script src="../dsrcommon/components/utilities/transformkm.js"></script>
   <script src="../dsrcommon/components/utilities/safefilename.js"></script>
   <script src="../dsrcommon/components/utilities/mtokm.js"></script>
