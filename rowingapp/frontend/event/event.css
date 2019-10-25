@@ -223,6 +223,11 @@ li.selected,button.selected {
   text-align: right!important;
   padding-right: 6px;
 }
+.hours {
+  text-align: right!important;
+  padding-right: 6px;
+}
+
 .togg {
   text-align: center;
   padding: 2px;

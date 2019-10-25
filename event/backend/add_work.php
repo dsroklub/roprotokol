@@ -2,6 +2,9 @@
 include("../../rowing/backend/inc/common.php");
 require("inc/utils.php");
 
+if ($cuser!='baadhal') {
+    roErr("man kan kun skrive sig i bådhallen ved kontoret");
+}
 //verify_real_user("registrere timer");
 $data = file_get_contents("php://input");
 $d=json_decode($data);

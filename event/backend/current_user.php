@@ -12,14 +12,16 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
        IFNULL(mrlc.MemberRight,'') as is_long_cox,
        IFNULL(mrf.MemberRight,'') as is_fora_admin,
        IFNULL(mrr.MemberRight,'') as has_remote_access,
+       IFNULL(mrw.argument,'x') as is_winter_admin,
        Member.MemberId as member_id, CONCAT(Member.FirstName,' ', Member.LastName) as name, Member.Email as member_email 
     FROM Member  
        LEFT JOIN MemberRights mrc ON mrc.member_id=Member.id AND mrc.MemberRight='cox'
        LEFT JOIN MemberRights mrlc ON mrlc.member_id=Member.id AND mrlc.MemberRight='longdistance'
        LEFT JOIN MemberRights mrf ON mrf.member_id=Member.id AND mrf.MemberRight='event' AND mrf.argument='fora'
-       LEFT JOIN MemberRights mrr ON mrr.member_id=Member.id AND mrr.MemberRight='remote_access' AND mrr.argument='roprotokol',
+       LEFT JOIN MemberRights mrr ON mrr.member_id=Member.id AND mrr.MemberRight='remote_access' AND mrr.argument='roprotokol'
+       LEFT JOIN MemberRights mrw ON mrw.member_id=Member.id AND mrw.MemberRight='admin' AND mrw.argument='vedligehold',
      authentication 
-    WHERE Member.MemberId=? AND authentication.member_id=Member.id AND Member.RemoveDate IS NULL and member_type>=0;
+    WHERE Member.MemberId=? AND authentication.member_id=Member.id AND Member.RemoveDate IS NULL and member_type >= 0;
   ";
     if ($stmt = $rodb->prepare($s)) {
         $stmt->bind_param('ss',

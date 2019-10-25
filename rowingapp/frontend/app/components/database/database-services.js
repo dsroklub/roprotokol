@@ -156,8 +156,8 @@ function dbservice($http, $q, $log) {
         right2dk = {};
         right2dkm = {};
         db['memberrighttypes']= rights;
-        for (var i=0;i<rights.length;i++) {
-          var r=rights[i];
+        for (var mri=0;mri<rights.length;mri++) {
+          var r=rights[mri];
           right2dk[r.member_right] = r.showname;
           right2dkm[r.member_right] = r.predicate;
         }
@@ -352,9 +352,9 @@ function dbservice($http, $q, $log) {
   };
 
   this.getBoatTypeWithName = function (name) {
-    for (var i=0;i<db['boattypes'].length;i++) {
-      if (db['boattypes'][i].name==name) {
-        return (db['boattypes'][i]);
+    for (var bti=0;bti<db['boattypes'].length;bti++) {
+      if (db['boattypes'][bti].name==name) {
+        return (db['boattypes'][bti]);
       }
     }
   };
@@ -394,15 +394,15 @@ function dbservice($http, $q, $log) {
     if (!db[resource]) {
       return null;
     }
-    for (var i=0;i<db[resource].length;i++) {
-      if (db[resource][i][key]==value) return db[resource][i];
+    for (var rsi=0;rsi<db[resource].length;rsi++) {
+      if (db[resource][rsi][key]==value) return db[resource][rsi];
     }
     return null;
   }
 
   this.nameSearch = function (list,name) {
-    for (var i=0;list && (i<list.length);i++) {
-      if (list[i].name==name) return list[i];
+    for (var nsi=0;list && (nsi<list.length);nsi++) {
+      if (list[nsi].name==name) return list[nsi];
     }
     return null;
   }
@@ -421,8 +421,8 @@ function dbservice($http, $q, $log) {
 
 
   this.getDestinationWithName = function(name,location) {
-    for (var i=0; i<this.getDestinations(location).length;i++) {
-      var dc=this.getDestinations(location)[i];
+    for (var dwni=0; dwni<this.getDestinations(location).length;dwni++) {
+      var dc=this.getDestinations(location)[dwni];
       if (angular.equals(dc.name,name)) {
         return dc;
       }
@@ -543,9 +543,9 @@ function dbservice($http, $q, $log) {
   }
 
   this.removeRower = function(rower) {
-    var ri = db['rowers'].indexOf(rower);
-    if (ri > -1) {
-      db['rowers'].splice(ri, 1);
+    var roi = db['rowers'].indexOf(rower);
+    if (roi > -1) {
+      db['rowers'].splice(roi, 1);
     }
   }
 
@@ -554,9 +554,9 @@ function dbservice($http, $q, $log) {
     if (!rowers) {
       return null;
     }
-    for (var ri=0; ri<rowers.length; ri++) {
-      if (rowers[ri].id==member_id) {
-        return rowers[ri];
+    for (var rmi=0; rmi<rowers.length; rmi++) {
+      if (rowers[rmi].id==member_id) {
+        return rowers[rmi];
       }
     }
   }

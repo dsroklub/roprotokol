@@ -21,6 +21,10 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     }
   }
 
+  LoginService.check_user().promise.then(function(u) {
+    $scope.current_user=u;
+  });
+
   var dbready=function (ok) {
     $scope.worktasks=DatabaseService.getDB('event/worktasks');
     $scope.workers=DatabaseService.getDB('event/workers');
@@ -93,6 +97,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
         $scope.work_today.push($scope.work);
         $scope.work={};
       } else {
+        $scope.work={};
         alert(status.error);
       }
     }, function(err) {console.log("forum mem add work err: "+err)}
@@ -121,6 +126,15 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     }, function(err) {console.log("forum mem add work err: "+err)}
                    )
   }
+
+  $scope.get_report = function (report) {
+    console.log("getreport "+report);
+    DatabaseService.getDataNow('event/stats/workstats','format=tablejson&q='+report,
+                               function (res) {
+        $scope.workreport=res.data;
+      },dberr
+                                )
+  };
 
   $scope.generate_work = function () {
       DatabaseService.getDataNow('event/workers','generate', function (res) {

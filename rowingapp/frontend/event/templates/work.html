@@ -63,14 +63,15 @@
     </tbody>
   </table>
 </div>
-
-<h2>check ind</h2>
-<form>
-<input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xyxyxmber" type="text"
+<div ng-if="current_user.member_id=='7843x' || current_user.member_id=='baadhal'">
+  <h2 >check ind</h2>
+  <form>
+    <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xyxyxmber" type="text"
            ng-model="work.worker"
            typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers) | filter: {start_time: 'x'}"
            typeahead-template-url="memberTemplate.html" typeahead-on-select="select_worker()" required />
-</form>
+  </form>
+</div>
 
 <h2>info</h2>
 
@@ -103,7 +104,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
   </table>
 </div>
 
-<div ng-if="false">
+<div ng-if="current_user.is_winter_admin">
   <h1>Administration</h1>
   <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
   <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button-->
@@ -116,15 +117,30 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
                typeahead-template-url="memberTemplate.html" typeahead-on-select="edit_worker()" required />
         <input type="number" class="rnum" size="5" step="0.1" maxlength="5" autocomplete="off" ng-model="workadmin.worker.requirement"
                ng-change="workadmin.changed=true">
-        <button ng-show="workadmin.changed && workadmin.worker.requirement" ng-click="update_work_req()">Opdater timer</button>
+        <button ng-show="workadmin.changed && workadmin.worker.requirement!=null" ng-click="update_work_req()">Opdater timer</button>
       </form>
+      <h2>Rapporter</h2>
+      <ul>
+        <li><button ng-click="get_report('all')">Timer på vintervedligehold</button><a href="/backend/event/stats/workstats.php?q=all">download</a></li>
+        <li><button ng-click="get_report('day')">Timer pr dag vintervedligehold</button><a href="/backend/event/stats/workstats.php?q=day">download</a></li>
+        <li><button ng-click="get_report('boat')">Timer pr båd vintervedligehold</button><a href="/backend/event/stats/workstats.php?q=boat">download</a></li>
+        <li><button ng-click="get_report('resterende')">Timer roer</button><a href="/backend/event/stats/workstats.php?q=resterende">download</a></li>
+        <li><button ng-click="get_report('overview')">Oversigt</button><a href="/backend/event/stats/workstats.php?q=overview">download</a></li>
+      </ul>
+      <div ng-if="workreport">
+        <table class="tlist">
+          <caption>{{workreport.name}}</caption>
+          <thead>
+            <tr>
+              <th ng-repeat="caption in workreport.captions">{{caption.name}}</th>
+            </tr>
+            <tbody>
+              <tr ng-repeat="row in workreport.body" ng-class-odd="'odd'" ng-class-even="'even'">
+                <td ng-repeat="fl in row"  ng-class="{rnum:workreport.captions[$index].type=='d',hours:workreport.captions[$index].name=='timer'}"> {{fl}}</td>
+              </tr>
+            </tbody>
+    </thead>
+        </table>
+      </div>
 </div>
-<h2>Rapporter</h2>
-<ul>
-  <li><a href="/backend/event/stats/workstats.php?q=all">Timer på vintervedligehold</a></li>
-  <li><a href="/backend/event/stats/workstats.php?q=day">Timer pr dag vintervedligehold</a></li>
-  <li><a href="/backend/event/stats/workstats.php?q=boat">Timer pr båd vintervedligehold</a></li>
-  <li><a href="/backend/event/stats/workstats.php?q=resterende">Timer roer</a></li>
-  <li><a href="/backend/event/stats/workstats.php?q=overview">Oversigt</a></li>
-</ul>
 

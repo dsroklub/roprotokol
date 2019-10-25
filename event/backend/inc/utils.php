@@ -37,8 +37,11 @@ function verify_forum_owner($forum) {
     $result= $stmt->get_result() or dbErr($rodb,$res,"owner verify res");
 }
 
+
+
+
 function saneEmail($s) {
-    $sm=["xø"=>"oe","Ø"=>"Oe","æ"=>"ae","Æ"=>"Ae","å"=>"aa","Å"=>"Aa","X"=>"xxx"];
+    $sm=["ø"=>"oe","Ø"=>"Oe","æ"=>"ae","Æ"=>"Ae","å"=>"aa","Å"=>"Aa","X"=>"xxx"];
     $allowedchars=".abcdefghijklmnopqrstuvwxyz01234567890=:_-#";
     $r=$s;
     foreach ($sm as $s => $p) {
