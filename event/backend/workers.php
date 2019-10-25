@@ -2,18 +2,19 @@
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
-if (isset($_GET["delete"])) {
+if (false && isset($_GET["delete"])) {
+    verify_right("admin","vedligehold");
     $dsql="
 DELETE FROM worker
 WHERE assigner='vedligehold'
 ";
-
     $stmt = $rodb->prepare($dsql) or dbErr($rodb,$res,"worker del");
     $stmt->execute() ||  dbErr($rodb,$res,"rower work delete");
 }
 
 
 // if (isset($_GET["generate"])) {
+//    verify_right("admin","vedligehold");
 //     $gsql="
 // INSERT INTO worker(member_id,assigner,requirement,description)
 // SELECT Member.id,'vedligehold',LEAST(SUM(Meter)/1000/20,25) as req, 'bådvedligehold' as description
@@ -29,8 +30,8 @@ WHERE assigner='vedligehold'
 // FIXME validate
 
 $sql="
-SELECT DISTINCT CONCAT(FirstName,' ',LastName) as name, Member.MemberId as worker_id,requirement, requirement,'x' as start_time
-FROM Member LEFT JOIN worker on Member.id=worker.member_id 
+SELECT DISTINCT CONCAT(FirstName,' ',LastName) as name, argument as winteradmin,Member.MemberId as worker_id,requirement, requirement,'x' as start_time
+FROM Member LEFT JOIN worker on Member.id=worker.member_id LEFT JOIN MemberRights ON MemberRights.member_id=Member.id AND MemberRight='admin' AND argument='vedligehold'
 WHERE Member.id=worker.member_id AND worker.assigner='vedligehold'";
 $stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"worker");
 $stmt->execute() ||  dbErr($rodb,$res,"rower workers");

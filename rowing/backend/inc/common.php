@@ -44,6 +44,16 @@ function invalidate($tp) {
     $mem->increment($tp, 1, time());
 
 }
+function roErr($err="fejl") {
+    $res["status"]="error";
+    $res["error"]="Fejl: ". $err;
+    $res["context"]="FILE: ". $_SERVER['PHP_SELF'];
+    error_log("$err, Fejl". $_SERVER['PHP_SELF']);
+    http_response_code(500);
+    echo json_encode($res);
+    exit(1);
+}
+
 function dbErr(&$db, &$res, $err="") {
     $res["status"]="error";
     $res["error"]="DB ". $err . ": " .$db->error. " FILE: ". $_SERVER['PHP_SELF'];
@@ -76,6 +86,14 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 
 function process ($result,$output="json",$name="cvsfile",$captions=null) {
+    $mariaType=[ MYSQLI_TYPE_NEWDECIMAL=>"d", MYSQLI_TYPE_DECIMAL=>"d",MYSQLI_TYPE_FLOAT=>"f",MYSQLI_TYPE_DOUBLE=>"f",MYSQLI_TYPE_VAR_STRING=>"s",MYSQLI_TYPE_STRING=>"s",MYSQLI_TYPE_DATETIME=>"t"];
+    if ($captions=="_auto") {
+        $captions=[];
+        foreach ($result->fetch_fields() as $fl) {
+            $captions[]=$fl->name;
+            //echo print_r($fl,true)."\n<br>";
+        }
+    }
     if ($output=="json") {
         header('Content-type: application/json;charset=utf-8');
         echo '[';
@@ -86,16 +104,27 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
             $rn=$rn+1;
         }
         echo ']';
+    } else if ($output=="tablejson") {
+        header('Content-type: application/json;charset=utf-8');
+        echo '{"name":'. json_encode($name) .  ','  ."\n";
+        $fcaptions=[];
+        foreach ($result->fetch_fields() as $fl) {
+            $fcaptions[]=["name"=>$fl->name, "type" => $mariaType[$fl->type] ?? "s"];
+            $captions[]=$fl->name;
+            //            echo print_r($fl,true)."\n<br>";
+        }
+        echo '"captions":' .json_encode($fcaptions);
+        echo ',"body":[';
+        $rn=1;
+        while ($row = $result->fetch_assoc()) {
+            if ($rn>1) echo ',';
+            echo json_encode(array_values($row),JSON_PRETTY_PRINT);
+            $rn=$rn+1;
+        }
+        echo ']}';
     } else if ($output=="csv") {
         header('Content-type: text/csv');
         header('Content-Disposition: filename="'.$name.'.csv"');
-        if ($captions=="_auto") {
-            $captions=[];
-            foreach ($result->fetch_fields() as $fl) {
-                error_log(print_r($fl,true));
-                $captions[]=$fl->name;
-            }
-        }
         if ($captions) {
             echo implode(",",$captions)."\n";
         }
@@ -153,11 +182,11 @@ function output_json(&$rl,$keyname=null) {
 }
 
 function output_rows(&$rl,$keyname=null) {
-echo '[';
-$first=1;
-while ($row = $rl->fetch_assoc()) {
-    if ($first) $first=0; else echo ",\n";
-    echo json_encode($row);
-}
-echo ']';
+    echo '[';
+    $first=1;
+    while ($row = $rl->fetch_assoc()) {
+        if ($first) $first=0; else echo ",\n";
+        echo json_encode($row);
+    }
+    echo ']';
 }

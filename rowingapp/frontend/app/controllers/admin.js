@@ -425,7 +425,13 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
 
     $scope.noright= function() {
       return function(rtt) {
-        return (rtt&&$scope.currentrower && typeof($scope.currentrower.rights[rtt.member_right])!=="string");
+        for (var ri=0;ri<$scope.currentrower.rights.length;ri++) {
+          var rr=$scope.currentrower.rights[ri];
+          if (rr.arg==rtt.arg && rr.arg==rtt.arg) {
+            return false;
+          }
+        }
+        return true;
       }
     }
 

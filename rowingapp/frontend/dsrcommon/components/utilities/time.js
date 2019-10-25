@@ -49,9 +49,12 @@ function timeCtrl() {
     this.onUpdate();
   };
 
+  this.setHours = function() {
+    this.fixdate();
+  }
+  
   this.setMinutes = function() {
     if (!this.ngModel.time) {
-      console.log("DATE");
       this.ngModel["time"]=new Date();
     }
     if (!this.minutes) {
@@ -63,11 +66,11 @@ function timeCtrl() {
     }
     this.ngModel.time.setMinutes(this.minutes);
     this.onUpdate();
+    this.fixdate();
   }
 
   this.updateMinutes = function() {
     if (!this.ngModel.time) {
-      console.log("dDATE");
       this.ngModel["time"]=new Date();
     }
     if (isNaN(this.minutes) || !this.minutes || this.minutes.length>2) {
@@ -91,9 +94,10 @@ angular.module('dsrcommon.utilities.dsrtime',[]).
   component('dsrtime',{
     replace:true,
     template:
-    '<span ng-style="$ctrl.hmstyle"><input  type="text" style="max-width:2em;" pattern="(1[0-3])|([0-1][0-9])?" size="2" ng-model="$ctrl.hours" ng-change="$ctrl.updateHours()">:<input type="text" style="max-width:2em;" size="2" pattern="[0-5][0-9]?" ng-model="$ctrl.minutes" ng-change="$ctrl.updateMinutes()" ng-blur="$ctrl.setMinutes()"></span>',
+    '<span ng-style="$ctrl.hmstyle"><input  type="text" style="max-width:2em;" pattern="(1[0-3])|([0-1][0-9])?" size="2" ng-model="$ctrl.hours" ng-blur="$ctrl.setHours()" ng-change="$ctrl.updateHours()">:<input type="text" style="max-width:2em;" size="2" pattern="[0-5][0-9]?" ng-model="$ctrl.minutes" ng-change="$ctrl.updateMinutes()" ng-blur="$ctrl.setMinutes()"></span>',
     bindings: {
       ngModel: "=",
+      fixdate: '&',
       onUpdate: '&',
     },
     controller: timeCtrl

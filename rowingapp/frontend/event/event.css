@@ -223,6 +223,11 @@ li.selected,button.selected {
   text-align: right!important;
   padding-right: 6px;
 }
+.hours {
+  text-align: right!important;
+  padding-right: 6px;
+}
+
 .togg {
   text-align: center;
   padding: 2px;
@@ -455,6 +460,10 @@ th,td {
     margin-right: 0.8em;
 
 }
+
+.worklist {
+            display:table;
+            }
 
 .generate {
   background: #43d4eb;

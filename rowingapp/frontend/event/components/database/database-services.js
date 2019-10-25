@@ -42,7 +42,6 @@ function dbservice($http, $q, $log, $timeout) {
                                              )
     }
   }
-
   this.simpleGet = function (service, args) {
     var conf = {};
     if (args) {
@@ -279,7 +278,11 @@ function dbservice($http, $q, $log, $timeout) {
     $http.post('/backend/event/'+entity+'.php', data).then(function(r) {
       entityCreated.resolve(r.data);
     },function(r) {
-      entityCreated.resolve({"error":entity+"  fejl"});
+      var err=entity+"  fejl";
+      if (r.data.error) {
+        err=r.data.error;
+      }
+      entityCreated.resolve({"error":err});
     });
     datastatus['event']=null;
     return entityCreated;

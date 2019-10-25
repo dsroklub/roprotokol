@@ -449,6 +449,7 @@ CREATE TABLE worker (
   end_time         datetime,
   requirement      FLOAT, -- hours
   description      VARCHAR(1000),
+  workertype       VARCHAR(100),  
   forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE SET NULL,
   created_by       int REFERENCES Member(id) ON DELETE SET NULL,
   PRIMARY KEY(member_id,assigner)
