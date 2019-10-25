@@ -70,7 +70,6 @@ angular.module('eventApp.database.login-services', []).service('LoginService', f
         alert("logget ud problem");
       }
     });
-    
+
   }
-  
 });

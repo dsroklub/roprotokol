@@ -6,13 +6,13 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
     $cuser=$_SERVER['PHP_AUTH_USER'];
     error_log("CU=$cuser");
-    $s="SELECT 
+    $s="SELECT
        sha1(CONCAT(authentication.password,?)) as token,
        IFNULL(mrc.MemberRight,'') as is_cox,
        IFNULL(mrlc.MemberRight,'') as is_long_cox,
        IFNULL(mrf.MemberRight,'') as is_fora_admin,
        IFNULL(mrr.MemberRight,'') as has_remote_access,
-       IFNULL(mrw.argument,'x') as is_winter_admin,
+       IFNULL(mrw.argument,'') as is_winter_admin,
        Member.MemberId as member_id, CONCAT(Member.FirstName,' ', Member.LastName) as name, Member.Email as member_email 
     FROM Member  
        LEFT JOIN MemberRights mrc ON mrc.member_id=Member.id AND mrc.MemberRight='cox'
