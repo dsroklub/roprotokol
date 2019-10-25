@@ -6,19 +6,19 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
     $cuser=$_SERVER['PHP_AUTH_USER'];
     error_log("CU=$cuser");
-    $s="SELECT 
+    $s="SELECT
        sha1(CONCAT(authentication.password,?)) as token,
        IFNULL(mrc.MemberRight,'') as is_cox,
        IFNULL(mrlc.MemberRight,'') as is_long_cox,
        IFNULL(mrf.MemberRight,'') as is_fora_admin,
        IFNULL(mrr.MemberRight,'') as has_remote_access,
-       Member.MemberId as member_id, CONCAT(Member.FirstName,' ', Member.LastName) as name, Member.Email as member_email 
-    FROM Member  
+       Member.MemberId as member_id, CONCAT(Member.FirstName,' ', Member.LastName) as name, Member.Email as member_email
+    FROM Member
        LEFT JOIN MemberRights mrc ON mrc.member_id=Member.id AND mrc.MemberRight='cox'
        LEFT JOIN MemberRights mrlc ON mrlc.member_id=Member.id AND mrlc.MemberRight='longdistance'
        LEFT JOIN MemberRights mrf ON mrf.member_id=Member.id AND mrf.MemberRight='event' AND mrf.argument='fora'
        LEFT JOIN MemberRights mrr ON mrr.member_id=Member.id AND mrr.MemberRight='remote_access' AND mrr.argument='roprotokol',
-     authentication 
+     authentication
     WHERE Member.MemberId=? AND authentication.member_id=Member.id AND Member.RemoveDate IS NULL and member_type>=0;
   ";
     if ($stmt = $rodb->prepare($s)) {
