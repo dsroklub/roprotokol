@@ -114,7 +114,9 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
   
   $scope.end_work = function (work) {
-    work.end_time=new Date();
+    if (! work.end_time) {
+      work.end_time=new Date();
+    }
     work.hours=(new Date(work.end_time)-new Date(work.start_time))/3600/1000;
     work.open=false;
     var sr=DatabaseService.createSubmit("update_work",work);
