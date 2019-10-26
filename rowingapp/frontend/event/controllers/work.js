@@ -12,14 +12,15 @@ function parseDateTime(s) {
 
 
 function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout) {
-  $scope.workers=[];
-  $scope.workadmin={};
-  var dberr=function(err) {
-    $log.debug("db init err "+err);
-    if (err['error']) {
-      alert('DB fejl '+err['error']);
+    $scope.work={};
+    $scope.workers=[];
+    $scope.workadmin={};
+    var dberr=function(err) {
+	$log.debug("db init err "+err);
+	if (err['error']) {
+	    alert('DB fejl '+err['error']);
+	}
     }
-  }
 
   LoginService.check_user().promise.then(function(u) {
     $scope.current_user=u;
