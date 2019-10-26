@@ -37,7 +37,7 @@ case "overview":
     $s="
 SELECT 'total',SUM(requirement) AS 'timer' FROM worker WHERE assigner='vedligehold' UNION
       SELECT 'udført',SUM(hours) as 'timer'  FROM worklog UNION
-      SELECT 'resterende',ROUND(SUM(GREATEST(0,requirement-h)),1) as tilbage  FROM worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w  WHERE worker.member_id=w.member_id UNION
+SELECT 'resterende',ROUND(SUM(GREATEST(0,requirement-IFNULL(h,0))),1) as tilbage  FROM worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id UNION
       SELECT 'overskud',ROUND(SUM(GREATEST(0.0,h-requirement)),1) as tilbage  FROM worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w  WHERE worker.member_id=w.member_id 
       "
 ;
