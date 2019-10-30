@@ -4,7 +4,6 @@
     {{match.model.name}} <i>({{match.model.worker_id}})</i> {{match.model.requirement}}t
 </a>
 </script>
-
 <h1>Tidsregistrering</h1>
 <div>
   <table class="tlist">
@@ -81,7 +80,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
 
 <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xzzxyxmber" type="text"
            ng-model="work.selectedworker"
-           typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers) | filter: {start_time: 'x'}"
+           typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers)"
            typeahead-template-url="memberTemplate.html" typeahead-on-select="show_worker()" required />
 <div ng-if="mystatswork && work.selectedworker" class="worklist">
   <table class="genericlist">
@@ -144,4 +143,3 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         </table>
       </div>
 </div>
-
