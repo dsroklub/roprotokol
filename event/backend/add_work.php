@@ -23,5 +23,11 @@ $forum=$d->forum ?? null;
 $boatName=trim($d->boat);
 $stmt->bind_param("sssdss", $boatName,$forum, $d->work, $hours,$d->worker_id,$cuser) || dbErr($rodb,$res,"addwork e");
 $stmt->execute() or dbErr($rodb,$res,"addwork exe");
+
+
+$rd=$rodb->query("SELECT LAST_INSERT_ID() as work_id FROM DUAL")->fetch_assoc() or dbErr($rodb,$res,"work last id");
+$work_id=$rd["work_id"];
+$res["work_id"]=$work_id;
+$res["hours"]=$hours;
 invalidate("work");
 echo json_encode($res);

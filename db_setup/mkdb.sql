@@ -429,6 +429,7 @@ CREATE TABLE tblMembersSportData (
 
 DROP TABLE IF EXISTS worklog;
 CREATE TABLE worklog (
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   member_id        int REFERENCES Member(id) ON DELETE SET NULL,
   created          datetime NOT NULL default NOW(),
   start_time       datetime NOT NULL,

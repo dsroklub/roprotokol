@@ -20,11 +20,12 @@
     <tbody>
       <tr ng-repeat="wk in work_today" ng-if="wk.start_time && wk.hours">
         <td>{{wk.name}}</td>
-        <td>{{wk.start_time | date: "HH:mm"}} &mdash;
-          <span ng-if="wk.end_time">{{wk.end_time | date: "HH:mm"}} = {{wk.hours | number:1 }} h</span>
+        <td>{{wk.start_time | dsrtimeformat}} &mdash;
+          <span ng-if="wk.end_time">{{wk.end_time | dsrtimeformat}} = {{wk.hours | number:1 }} h</span>
         </td>
         <td>{{wk.work}}</td>
         <td>{{wk.boat}}</td>
+        <td><i class="fa fa-trash" ng-click="rm_work(wk)"></i></td>
       </tr>
     </tbody>
   </table>
@@ -46,7 +47,7 @@
         <td>{{wk.name}} ({{wk.worker_id}})</td>
         <td>{{wk.requirement | number:1}}</td>
         <td>
-          <dsrinterval ng-model="wk">
+          <dsrinterval usestartdate="current_user.is_winter_admin" ng-model="wk">
             {{(wk.end_time-wk.start_time)/3600000 | number:1 }} timer</td>
         <td><input class="description" ng-model="wk.work" type="text"></td>
         <td>
@@ -63,7 +64,7 @@
     </tbody>
   </table>
 </div>
-<div ng-if="current_user.member_id=='7843' || current_user.member_id=='baadhal' || current_user.member_id==null">
+<div ng-if="current_user.member_id=='7843' || current_user.member_id=='baadhal'">
   <h2 >check ind</h2>
   <form>
     <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xyxyxmber" type="text"

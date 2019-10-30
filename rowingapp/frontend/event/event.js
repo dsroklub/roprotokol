@@ -6,6 +6,7 @@ angular.module('eventApp', [
   'event.utilities.sumDistance',
   'dsrcommon.utilities.onlynumber',
   'dsrcommon.utilities.dsrtime',
+  'dsrcommon.utilities.dsrtimeformat',
   'dsrcommon.utilities.dsrinterval',
   'dsrcommon.utilities.transformkm',
   'dsrcommon.utilities.safefilename',
@@ -25,6 +26,7 @@ angular.module('eventApp', [
   'ui.bootstrap.datetimepicker',
   'angular.filter',
   'checklist-model',
+  '720kb.datepicker',
   'ngFileUpload'
 ])
 .config([

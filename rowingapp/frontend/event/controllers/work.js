@@ -10,6 +10,10 @@ function parseDateTime(s) {
   return new Date(b[0], b[1]-1, b[2], b[3], b[4], b[5]);
 }
 
+function toDateTime(w) {
+  return new Date(w.year,w.month+1,w.day,w.hour,w.minute);
+}
+
 
 function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout) {
     $scope.work={};
@@ -30,15 +34,6 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     $scope.worktasks=DatabaseService.getDB('event/worktasks');
     $scope.workers=DatabaseService.getDB('event/workers');
     $scope.work_today=DatabaseService.getDB('event/work_today');
-    for (var ti=0; ti<$scope.work_today.length;ti++) {
-      var td=$scope.work_today[ti];
-      td.start_time=new Date(td.start_time);
-      td.start_time.setSeconds(0);
-      if (td.end_time) {
-        td.end_time=new Date(td.end_time);
-        td.end_time.setSeconds(0);
-      }
-    }
     $scope.maintenance_boats=DatabaseService.getDB('event/maintenance_boats');
   }
   DatabaseService.init({"fora":true,"work":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
@@ -69,6 +64,18 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     }
   };
 
+  $scope.rm_work = function (wk) {
+    var sr=DatabaseService.createSubmit("rm_work",wk);
+    sr.promise.then(function(status) {
+      if (status.status =='ok') {
+        var ix=$scope.work_today.indexOf(wk);
+        $scope.work_today.splice(ix,1);
+      } else {
+        alert(status.error);
+      }
+    })
+  }
+  
   $scope.update_work_req = function () {
     var sr=DatabaseService.createSubmit("set_work_req",$scope.workadmin);
     sr.promise.then(function(status) {
@@ -82,19 +89,22 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.edit_worker = function () {
   }
 
-  $scope.select_worker = function (work) {
+  function js_to_date (d) {
+    return {"year":d.getFullYear(),"month":d.getMonth()+1,"day":d.getDate(),"hour":d.getHours(),"minute":d.getMinutes()};
+  }
+  $scope.select_worker = function(work) {
     var sr=DatabaseService.createSubmit("add_work",$scope.work.worker);
     sr.promise.then(function(status) {
       if (status.status =='ok') {
         $log.debug("member value updated");
         var wd=new Date();
-        $scope.work.start_time=wd;
-        $scope.work.end_time=null;
-        $scope.work.hours=null;
+        $scope.work.start_time=js_to_date(wd);
+        $scope.work.end_time={"hour":null};
+        $scope.work.hours=status.hours;
+        $scope.work.id=status.work_id;
         $scope.work.open=true;
         $scope.work.name=$scope.work.worker.name;
         $scope.work.worker_id=$scope.work.worker.worker_id;
-        $scope.work.worker.start_time=$scope.work.start_time;
         $scope.work_today.push($scope.work);
         $scope.work={};
       } else {
@@ -114,10 +124,17 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
   
   $scope.end_work = function (work) {
-    if (! work.end_time) {
-      work.end_time=new Date();
+    if (!work.end_time.hour) {
+      var now=new Date();
+      work.end_time={
+        'year':now.getFullYear(),
+        'month':now.getMonth()+1,
+        'day':now.getDate(),
+        'hour':now.getHours(),
+        'minute':now.getMinutes()
+      }
     }
-    work.hours=(new Date(work.end_time)-new Date(work.start_time))/3600/1000;
+    work.hours=(toDateTime(work.end_time)-toDateTime(work.start_time))/3600/1000;
     work.open=false;
     var sr=DatabaseService.createSubmit("update_work",work);
     sr.promise.then(function(status) {
