@@ -11,7 +11,7 @@ function parseDateTime(s) {
 }
 
 function toDateTime(w) {
-  return new Date(w.year,w.month+1,w.day,w.hour,w.minute);
+  return new Date(w.year,w.month-1,w.day,w.hour,w.minute);
 }
 
 

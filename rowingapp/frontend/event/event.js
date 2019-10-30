@@ -26,7 +26,6 @@ angular.module('eventApp', [
   'ui.bootstrap.datetimepicker',
   'angular.filter',
   'checklist-model',
-  '720kb.datepicker',
   'ngFileUpload'
 ])
 .config([
