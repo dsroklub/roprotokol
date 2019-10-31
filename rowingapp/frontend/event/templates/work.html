@@ -87,7 +87,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
     <caption> Udført arbejde af {{work.selectedworker.name}}:  {{mystatswork|sumWork|number:1}} timer af {{work.selectedworker.requirement}}</caption>
     <thead>
       <tr>
-        <th>dato</th>
+        <th>tidsrum</th>
         <th>timer</th>
         <th>arbejde</th>
         <th>båd</th>
@@ -95,7 +95,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
     </thead>
     <tbody>
       <tr ng-repeat="work in mystatswork">
-        <td>{{work.start_time | date:'d/M yyyy'}}</td>
+        <td>{{work.start_time | date:'d/M yyyy HH:mm'}}&mdash;{{work.end_time | date:'HH:mm'}} </td>
         <td  class="rnum">{{work.hours}}</td>
         <td >{{work.task}} {{work.work}}</td>
         <td>{{work.boat}}</td>

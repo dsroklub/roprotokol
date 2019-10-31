@@ -13,7 +13,7 @@ $report_name="Rapport";
 switch ($q) {
 case "all":
     $report_name="alt arbejde";
-    $s="SELECT CONCAT(FirstName,' ',Lastname) as name,MemberID AS medlemsnummer,DATE_FORMAT(start_time,'%Y-%m-%d') AS dato,hours AS timer, work AS arbejde FROM worklog,Member WHERE Member.id=worklog.member_id ORDER BY name,start_time";
+    $s="SELECT CONCAT(FirstName,' ',Lastname) as name,MemberID AS medlemsnummer,DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') AS fra, DATE_FORMAT(end_time,'%H:%i') AS til, hours AS timer, work AS arbejde FROM worklog,Member WHERE Member.id=worklog.member_id ORDER BY name,start_time";
     break;
 case "day":
     $report_name="arbejde per dag";
