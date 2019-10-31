@@ -17,7 +17,7 @@ function clubCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     $scope.graph=res.data;    
     var width = 2200, height = 1400;
     var dcola = cola.d3adaptor(d3).linkDistance(20).symmetricDiffLinkLengths(5). size([width, height]);
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#clubgraph").append("svg")
         .attr("width", width)
         .attr("height", height);
     $scope.triptypecolors={"blandet":"blue","Inriggerkaproning":"red","Motionsroning":"green","Puls og program":"brown","Langtur":"pink","Racerkanin":"grey","Costalroning" : "cyan3","Instruktion":"bisque","Kajakmotionsroning":"darkorange"};

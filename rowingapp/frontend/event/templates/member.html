@@ -1,8 +1,8 @@
 <script type="text/ng-template" id="templates/memberTemplate.html">
-<a>
-   <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+  <a>
+    <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
     {{match.model.name}} <i>({{match.model.id}})</i>
-</a>
+  </a>
 </script>
 <form>
   <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="membermember" type="text"
@@ -18,7 +18,8 @@
   <input class="forumselect " type="text" placeholder="emne" id="messagesubject" ng-model="privatemessage.subject" required>
   <br>
   <textarea class="forumselect msgbody" placeholder="besked" id="privatemessage_body" type="text" ng-model="privatemessage.body" required>
-  </textarea><br>
+  </textarea>
+  <br>
   <button class="green forumselect" ng-disabled="!privatemessageform.$valid" ng-click="privatemessagesend()">Send privat besked til {{privatemessage.member.name}}
   </button>
 </form>
