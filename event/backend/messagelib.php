@@ -56,7 +56,7 @@ function post_private_message($memberId,$subject,$message,$replyTo="noreply",$fr
         $fromUser=$cuser;
     }
     $res=array ("status" => "init");
-    $stmt = $rodb->prepare("SELECT Email as email FROM Member WHERE Member.MemberId=? AND RemoveDate IS NULL");
+    $stmt = $rodb->prepare("SELECT Email as email FROM Member WHERE Member.MemberId=? AND RemoveDate IS NULL AND Member.id>0 AND Email IS NOT NULL");
     $stmt->bind_param('s', $memberId) or die("{\"status\":\"Error in event private message query bind: " . mysqli_error($rodb) ."\"}");
     $stmt->execute() or die("{\"status\":'Error in private message exe query: " . mysqli_error($rodb) ."\"}");
     $result= $stmt->get_result() or die("{\"status\":'Error in private message query: " . mysqli_error($rodb) ."\"}");

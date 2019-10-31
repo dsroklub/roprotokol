@@ -38,7 +38,11 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     }
     if ($result) {
         $row = $result->fetch_assoc();
+        if ($row) {
         echo json_encode($row);
+        }  else {
+            echo '{"member_id":"baadhal","name":"Baadhal"}';
+        }
     } else {
         error_log("user not found in DB");
         http_response_code(500);
