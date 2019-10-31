@@ -3,10 +3,10 @@
     return ""+n;
   }
 angular.module('dsrcommon.utilities.dsrtimeformat', []).filter('dsrtimeformat', function () {
-  return function(tm) {
-    var showdate=false;
+  return function(tm,showdate) {
+//    var showdate=false;
     if (showdate) {
-      return pad(tm.hour) + ":" + pad(tm.minute) + " "+ pad(tm.day) + "/" + pad(tm.month)+" "+pad(tm.year);
+      return pad(tm.day)+ "/" + pad(tm.month)+" "+pad(tm.year)+ " "+pad(tm.hour) + ":" + pad(tm.minute);
     } else {
       return pad(tm.hour) + ":" + pad(tm.minute);
     }

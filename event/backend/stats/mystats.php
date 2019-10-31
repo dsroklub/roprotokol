@@ -15,7 +15,7 @@ case "rights":
     ORDER BY acquired";
     break;
 case "work":
-    $s="SELECT DATE_FORMAT(start_time,'%Y-%m-%dT%T') as start_time,DATE_FORMAT(end_time,'%Y-%m-%dT%T') as end_time,hours,task,boat,worklog.created,work
+    $s="SELECT worklog.id,DATE_FORMAT(start_time,'%Y-%m-%dT%T') as start_time,DATE_FORMAT(end_time,'%Y-%m-%dT%T') as end_time,hours,task,boat,worklog.created,work
     FROM worklog, Member
     WHERE Member.MemberID=? AND Member.id=worklog.member_id
     ORDER BY start_time";

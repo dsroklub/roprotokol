@@ -168,4 +168,14 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     },dberr
                               )
   };
+
+    
+  $scope.update_work = function (work) {
+    var sr=DatabaseService.createSubmit("update_work",work);
+    sr.promise.then(function(status) {
+      if (status.status !='ok') {
+        work.dirty=false;
+        alert(status.error);
+      }
+    })  }
 }

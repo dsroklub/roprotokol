@@ -90,15 +90,24 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         <th>tidsrum</th>
         <th>timer</th>
         <th>arbejde</th>
-        <th>båd</th>
+        <th>arbejdet på</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody ng-if="!current_user.is_winter_admin">
       <tr ng-repeat="work in mystatswork">
-        <td>{{work.start_time | date:'d/M yyyy HH:mm'}}&mdash;{{work.end_time | date:'HH:mm'}} </td>
+        <td>{{work.start_time | dsrtimeformat:true}}&mdash;{{work.end_time | dsrtimeformat}} </td>
         <td  class="rnum">{{work.hours}}</td>
         <td >{{work.task}} {{work.work}}</td>
         <td>{{work.boat}}</td>
+      </tr>
+    </tbody>
+    <tbody ng-if="current_user.is_winter_admin">
+      <tr ng-repeat="work in mystatswork">
+        <td><dsrinterval usestartdate=true ng-model="work" ng-change="work.dirty=true"></td>
+        <td class="rnum"><input type="number" ng-model="work.hours" ng-change="work.dirty=true"></td>
+        <td>{{work.task}} <input ng-model="work.work" ng-change="work.dirty=true"></td>
+        <td><input ng-model="work.boat" ng-change="work.dirty=4747"></td>
+        <td><button ng-show="work.dirty" ng-click="update_work(work)">opdater</button></td>
       </tr>
     </tbody>
   </table>
