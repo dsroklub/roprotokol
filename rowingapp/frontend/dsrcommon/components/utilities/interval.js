@@ -28,6 +28,8 @@ function iCtrl() {
         this.ngModel.start_time.month=fd[1];
         this.ngModel.start_time.day=fd[2];
       }
+      this.onUpdate();
+      this.ngChange();
     }
   }
   
@@ -39,6 +41,7 @@ function iCtrl() {
       this.ngModel.end_time.year=tt.getFullYear();
       this.ngModel.end_time.month=tt.getMonth()+1;
       this.ngModel.end_time.day=tt.getDate();
+      this.onUpdate();
     }
     if (todate(this.ngModel.end_time.year)>now) {
       this.ngModel.end_time.year=(now.getHour());
@@ -46,7 +49,9 @@ function iCtrl() {
       this.ngModel.end_time.day=(now.getDate());
       this.ngModel.end_time.hour=(now.getHours());
       this.ngModel.end_time.minute=(now.getMinutes());
+      this.onUpdate();
     }
+    this.ngChange();
   }
 }
 
@@ -58,7 +63,8 @@ angular.module('dsrcommon.utilities.dsrinterval',[]).
     bindings: {
       ngModel: "=",
       usestartdate: "<",
-      onUpdate: '&'
+      onUpdate: '&',
+      ngChange: '&'
     },
     controller:iCtrl
   }

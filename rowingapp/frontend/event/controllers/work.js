@@ -64,12 +64,12 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     }
   };
 
-  $scope.rm_work = function (wk) {
+  $scope.rm_work = function (works,wk) {
     var sr=DatabaseService.createSubmit("rm_work",wk);
     sr.promise.then(function(status) {
       if (status.status =='ok') {
-        var ix=$scope.work_today.indexOf(wk);
-        $scope.work_today.splice(ix,1);
+        var ix=works.indexOf(wk);
+        works.splice(ix,1);
       } else {
         alert(status.error);
       }
@@ -173,9 +173,11 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.update_work = function (work) {
     var sr=DatabaseService.createSubmit("update_work",work);
     sr.promise.then(function(status) {
-      if (status.status !='ok') {
+      if (status.status =='ok') {
         work.dirty=false;
+      } else {
         alert(status.error);
       }
-    })  }
+    })
+  }
 }
