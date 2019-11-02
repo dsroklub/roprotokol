@@ -24,9 +24,13 @@ if (isset($d->end_time->hour)) {
     $end_time=date("Y-m-d H:i:s");
 }
 $work="";
-$hours=(strtotime($end_time)-strtotime($start_time))/3600;
-if ($hours>3){
-    $hours=3;
+if (isset($d->hours)) {
+    $hours=$d->hours;
+} else {
+    $hours=(strtotime($end_time)-strtotime($start_time))/3600;
+    if ($hours>3){
+        $hours=3;
+    }
 }
 $res["hours"]=$hours;
 error_log("XXX $d->work, $d->boat, $hours,$d->id");

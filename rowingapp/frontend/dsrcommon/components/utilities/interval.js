@@ -35,7 +35,15 @@ function iCtrl() {
   
   this.fixdate=function() {
     var now=new Date();
-    if (this.ngModel.end_time.hour && this.ngModel.start_time && todate(this.ngModel.end_time)<todate(this.ngModel.start_time)) {
+    if (!(this.ngModel.end_time.hour &&this.ngModel.start_time)) {
+      return;
+    }
+    var et=todate(this.ngModel.end_time);
+    var st=todate(this.ngModel.start_time);
+    this.ngModel.end_time.year=this.ngModel.start_time.year;
+    this.ngModel.end_time.month=this.ngModel.start_time.month;
+    this.ngModel.end_time.day=this.ngModel.start_time.day;
+    if (st>et) {
       this.ngModel.end_time.day=1*this.ngModel.end_time.day+1;
       tt=todate(this.ngModel.end_time);
       this.ngModel.end_time.year=tt.getFullYear();
@@ -50,6 +58,9 @@ function iCtrl() {
       this.ngModel.end_time.hour=(now.getHours());
       this.ngModel.end_time.minute=(now.getMinutes());
       this.onUpdate();
+    }
+    if (this.ngModel.hours) {
+      this.ngModel.hours=Math.round((et-st)/360000)/10;
     }
     this.ngChange();
   }
