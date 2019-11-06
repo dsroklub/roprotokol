@@ -42,6 +42,11 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     function(pg) {$log.debug("db init progress  "+pg)}
   );
 
+  $scope.getRowerByName = function (val) {
+    // Generate list of ids that we already have added
+    return DatabaseService.getRowersByNameOrId(val);
+  }
+
   $scope.getWorkersByName = function(nameorid, rowers, preselectedids) {
     var val = nameorid.trim().toLowerCase();
     if (val.length<3 && isNaN(val)) {
@@ -169,7 +174,20 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
                               )
   };
 
-    
+
+  $scope.create_worker = function (worker) {
+    var sr=DatabaseService.createSubmit("create_worker",worker);
+    sr.promise.then(function(status) {
+      $scope.workers.push(worker);
+      if (status.status =='ok') {
+        $scope.workadmin.new=false;
+        $scope.workadmin.newworker={};
+      } else {
+        alert(status.error);
+      }
+    })
+    }
+  
   $scope.update_work = function (work) {
     var sr=DatabaseService.createSubmit("update_work",work);
     sr.promise.then(function(status) {
@@ -180,4 +198,10 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
       }
     })
   }
+
+  $scope.onNewWorkerSelect = function (item,model,label) {
+    $scope.workadmin.newworker=item;
+  }
+  
 }
+

@@ -427,7 +427,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       return function(rtt) {
         for (var ri=0;ri<$scope.currentrower.rights.length;ri++) {
           var rr=$scope.currentrower.rights[ri];
-          if (rr.arg==rtt.arg && rr.arg==rtt.arg) {
+          if (rr.member_right==rtt.member_right && rr.arg==rtt.arg) {
             return false;
           }
         }

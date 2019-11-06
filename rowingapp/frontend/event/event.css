@@ -628,3 +628,7 @@ datetimepicker.ng-empty ng-form div input {
     opacity: 0.7;
     cursor: move;
 }
+
+input[type="number"] {
+   width:3em;
+}

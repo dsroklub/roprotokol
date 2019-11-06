@@ -7,7 +7,9 @@
 <form>
   <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="membermember" type="text"
          ng-model="privatemessage.member"
-         typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+         typeahead-editable="false"
+         typeahead-select-on-blur="true"
+         typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-select-on-exact="true"
          typeahead-template-url="templates/memberTemplate.html" required />
 </form>
 <h3 ng-show="privatemessage.member.phone"><i class="fa fa-phone"></i>&nbsp; <a href="tel:{{privatemessage.member.phone}}">{{privatemessage.member.phone}}</a></h3>

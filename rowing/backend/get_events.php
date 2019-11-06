@@ -2,7 +2,7 @@
 require("inc/common.php");
 include("inc/utils.php");
 
-$s="SELECT event, event_time FROM event_log ORDER BY event_time DESC LIMIT 200";
+$s="SELECT event, event_time FROM event_log ORDER BY event_time DESC LIMIT 500";
 $result=$rodb->query($s) or die("Error in event query: " . mysqli_error($rodb));;
 echo '[';
  $first=1;

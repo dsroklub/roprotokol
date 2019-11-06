@@ -4,6 +4,12 @@
     {{match.model.name}} <i>({{match.model.worker_id}})</i> {{match.model.requirement}}t
 </a>
 </script>
+<script type="text/ng-template" id="allmemberTemplate.html">
+<a>
+   <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+    {{match.model.name}} <i>({{match.model.id}})</i>
+</a>
+</script>
 <h1>Tidsregistrering</h1>
 <div>
   <table class="tlist">
@@ -117,10 +123,33 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
   <h1>Administration</h1>
   <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
   <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button-->
+  <h2>Tilføj ny roer til vintervedligehold<h2>
+      <form>
+        <input placeholder="vælg medlem" autocomplete="off" id="workeradmininput" name="aseexmber" type="text"
+               ng-model="workadmin.newworker"
+               typeahead-editable="false"
+               typeahead-select-on-blur="true"
+               ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }"
+               typeahead-min-length="2" typeahead-select-on-exact="true"
+               uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+               typeahead-on-select='onNewWorkerSelect($item, $model, $label)'
+               typeahead-template-url="allmemberTemplate.html" required />
+        <SELECT ng-model="workadmin.newworker.workertype" ng-show="workadmin.newworker.id">
+          <option>Inrigger</option>
+          <option>Kajakker</option>
+          <option>Morgenroerne</option>
+          <option>Coastal</option>
+        </SELECT>
+        <input type="number" class="rnum" size="5" step="0.1" maxlength="5" autocomplete="off" ng-model="workadmin.newworker.requirement"
+               ng-change="workadmin.new=true">
+        <button ng-show="workadmin.new && workadmin.newworker.requirement!=null" ng-click="create_worker(workadmin.newworker)">Sæt til arbejde</button>
+      </form>
   <h2>Rediger deltager<h2>
       <form>
         <input placeholder="vælg medlem" autocomplete="off" id="workeradmininput" name="asxyxmber" type="text"
                ng-model="workadmin.worker"
+               typeahead-editable="false"
+               typeahead-select-on-blur="true"
                typeahead-min-length="2" typeahead-select-on-exact="true"
                uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers)"
                typeahead-template-url="memberTemplate.html" typeahead-on-select="edit_worker()" required />
