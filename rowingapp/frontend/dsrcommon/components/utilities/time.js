@@ -49,7 +49,7 @@ function timeCtrl() {
   this.setHours = function() {
     this.fixdate();
   }
-  
+
   this.setMinutes = function() {
     if (!this.ngModel.minute) {
       this.ngModel.minute="00";
@@ -71,7 +71,7 @@ function timeCtrl() {
     this.ngModel.hour=pad(now.getHours());
     this.ngModel.minute=pad(now.getMinutes());
   }
-  
+
   this.updateMinutes = function() {
     if (isNaN(this.ngModel.minute) || !this.ngModel.minute || this.ngModel.minute.length>2) {
       this.ngModel.minute="";
@@ -80,7 +80,7 @@ function timeCtrl() {
     if (this.ngModel.minute<0) {
       this.ngModel.minute="00";
     } else if (this.ngModel.minute>59) {
-      this.ngModel.minutes="59";
+      this.ngModel.minute="59";
     }
     this.onUpdate();
   }
