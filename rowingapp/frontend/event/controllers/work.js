@@ -20,14 +20,15 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     $scope.workers=[];
     $scope.workadmin={};
     var dberr=function(err) {
-	$log.debug("db init err "+err);
-	if (err['error']) {
-	    alert('DB fejl '+err['error']);
-	}
+      $log.debug("db init err "+err);
+      if (err['error']) {
+        alert('DB fejl '+err['error']);
+      }
     }
 
   LoginService.check_user().promise.then(function(u) {
     $scope.current_user=u;
+    // $scope.current_user.is_winter_admin=null;// FIXME REMOVE
   });
 
   var dbready=function (ok) {
@@ -36,6 +37,9 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     $scope.work_today=DatabaseService.getDB('event/work_today');
     $scope.maintenance_boats=DatabaseService.getDB('event/maintenance_boats');
   }
+    DatabaseService.getDataNow('event/stats/week',"",function (res) {
+      $scope.weekwork=res.data;
+    });
   DatabaseService.init({"fora":true,"work":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
     dbready,
     function(err) {$log.debug("db init err "+err)},
@@ -80,7 +84,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
       }
     })
   }
-  
+
   $scope.update_work_req = function () {
     var sr=DatabaseService.createSubmit("set_work_req",$scope.workadmin);
     sr.promise.then(function(status) {
@@ -127,7 +131,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     }
                               );
   }
-  
+
   $scope.end_work = function (work) {
     if (!work.end_time.hour) {
       var now=new Date();
@@ -187,7 +191,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
       }
     })
     }
-  
+
   $scope.update_work = function (work) {
     var sr=DatabaseService.createSubmit("update_work",work);
     sr.promise.then(function(status) {
@@ -202,6 +206,5 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.onNewWorkerSelect = function (item,model,label) {
     $scope.workadmin.newworker=item;
   }
-  
-}
 
+}

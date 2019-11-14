@@ -92,6 +92,12 @@ td.usage {
   max-width:14pt;
 }
 
+
+.weekbar {
+  height:50em;
+  width:50em;
+}
+
 input {
   max-width:50em;
   //        background: ghostwhite;

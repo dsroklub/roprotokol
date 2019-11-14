@@ -13,7 +13,7 @@
 <h1>Tidsregistrering</h1>
 <div>
   <table class="tlist">
-    <caption>Dagens udførte arbejde</caption>
+    <caption>Dagens udførte arbejde: {{workedtoday.length}} har arbejet</caption>
     <thead>
       <tr>
         <th>navn</th>
@@ -23,7 +23,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="wk in work_today" ng-if="wk.start_time && wk.hours">
+      <tr ng-repeat="wk in workedtoday=(work_today| filter: {'hours':''})">
         <td>{{wk.name}}</td>
         <td>{{wk.start_time | dsrtimeformat}} &mdash;
           <span ng-if="wk.end_time">{{wk.end_time | dsrtimeformat}} = {{wk.hours | number:1 }} h</span>
@@ -36,7 +36,7 @@
   </table>
 
   <table class="tlist">
-    <caption>På arbejde</caption>
+    <caption>På arbejde, {{wtd.length}} i dag</caption>
     <thead>
       <tr>
         <th>Navn</th>
@@ -48,7 +48,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="wk in work_today" ng-if="!wk.hours">
+      <tr ng-repeat="wk in wtd=(work_today | filter: {'hours':null})">
         <td>{{wk.name}} ({{wk.worker_id}})</td>
         <td>{{wk.requirement | number:1}}</td>
         <td>
@@ -157,11 +157,18 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
                ng-change="workadmin.changed=true">
         <button ng-show="workadmin.changed && workadmin.worker.requirement!=null" ng-click="update_work_req()">Opdater timer</button>
       </form>
+
+
       <h2>Rapporter</h2>
+      <canvas id="bar" class="chart chart-bar weekbar" width="30em"
+              chart-data="weekwork.data" chart-labels="weekwork.labels" chart-series="weekwork.series" chart-colors="[green,blue]">
+      </canvas>
+
       <ul>
         <li><button ng-click="get_report('all')">Timer på vintervedligehold</button><a href="/backend/event/stats/workstats.php?q=all">download</a></li>
         <li><button ng-click="get_report('day')">Timer pr dag vintervedligehold</button><a href="/backend/event/stats/workstats.php?q=day">download</a></li>
         <li><button ng-click="get_report('boat')">Timer pr båd vintervedligehold</button><a href="/backend/event/stats/workstats.php?q=boat">download</a></li>
+        <li><button ng-click="get_report('weeks')">Timer pr uge</button><a href="/backend/event/stats/workstats.php?q=week">download</a></li>
         <li><button ng-click="get_report('resterende')">Timer roer</button><a href="/backend/event/stats/workstats.php?q=resterende">download</a></li>
         <li><button ng-click="get_report('overview')">Oversigt</button><a href="/backend/event/stats/workstats.php?q=overview">download</a></li>
       </ul>
@@ -173,8 +180,8 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
               <th ng-repeat="caption in workreport.captions">{{caption.name}}</th>
             </tr>
             <tbody>
-              <tr ng-repeat="row in workreport.body" ng-class-odd="'odd'" ng-class-even="'even'">
-                <td ng-repeat="fl in row"  ng-class="{rnum:workreport.captions[$index].type=='d',hours:workreport.captions[$index].name=='timer'}"> {{fl}}</td>
+              <tr ng-repeat="row in workreport.body" ng-class-odd="'odd'" ng-class-even="'even'" >
+                <td ng-repeat="fl in row track by $index"  ng-class="{rnum:workreport.captions[$index].type=='d',hours:workreport.captions[$index].name=='timer'}"> {{fl}}</td>
               </tr>
             </tbody>
     </thead>
