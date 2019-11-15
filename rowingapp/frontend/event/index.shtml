@@ -76,8 +76,8 @@
   <script src="controllers/menu.js"></script>
   <script src="components/database/database-directives.js"></script>
   <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
-  <script type='text/javascript' src="../node_modules/chart.js/dist/Chart.js"></script>
-  <script type='text/javascript' src="../node_modules/angular-chart.js/dist/angular-chart.js"></script>
+  <script type='text/javascript' src="node_modules/chart.js/dist/Chart.js"></script>
+  <script type='text/javascript' src="node_modules/angular-chart.js/dist/angular-chart.js"></script>
 
   <!--script src="../dsrcommon/controllers/main.js"></script-->
 </head>
