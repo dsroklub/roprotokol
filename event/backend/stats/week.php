@@ -52,8 +52,8 @@ $wd=[
     "options"=>[
         "scales"=>[
             "yAxes"=>[
-                ["id"=>"y1","position"=>"left","type"=>"linear"],
-                ["id"=>"y2","position"=>"right","type"=>"linear","display"=>true]
+                ["id"=>"y1","position"=>"left","type"=>"linear","scaleLabel"=>["labelString"=>"ugetimer","display"=>true]],
+                ["id"=>"y2","position"=>"right","type"=>"linear", "scaleLabel"=>["labelString"=>"sæsontimer","display"=>true]]
             ]
         ]
     ]
