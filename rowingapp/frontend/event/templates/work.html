@@ -160,9 +160,15 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
 
 
       <h2>Rapporter</h2>
-      <canvas id="bar" class="chart chart-bar weekbar" width="30em"
-              chart-data="weekwork.data" chart-labels="weekwork.labels" chart-series="weekwork.series" chart-colors="[green,blue]">
+      <div  class="weekbar">
+      <canvas id="bar" class="chart chart-bar"
+              chart-dataset-override="weekwork.override"
+              chart-data="weekwork.data"
+              chart-labels="weekwork.labels"
+              chart-series="weekwork.series"
+              chart-options="weekwork.options" maintainAspectRatio="false">
       </canvas>
+      </div>
 
       <ul>
         <li><button ng-click="get_report('all')">Timer på vintervedligehold</button><a href="/backend/event/stats/workstats.php?q=all">download</a></li>
@@ -184,7 +190,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
                 <td ng-repeat="fl in row track by $index"  ng-class="{rnum:workreport.captions[$index].type=='d',hours:workreport.captions[$index].name=='timer'}"> {{fl}}</td>
               </tr>
             </tbody>
-    </thead>
+          </thead>
         </table>
       </div>
 </div>
