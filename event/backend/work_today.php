@@ -2,6 +2,12 @@
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
+$timeclause="(worklog.end_time IS NULL OR DATE(worklog.start_time)=DATE(NOW()))";
+
+if (isset($_GET["days"])) {
+    $timeclause="DATE_ADD(start_time,INTERVAL 1 WEEK) < NOW() ";
+    }
+        
 $sql="
 SELECT JSON_OBJECT(
   'id',worklog.id,
@@ -18,7 +24,7 @@ SELECT JSON_OBJECT(
 FROM Member, worker, worklog 
 WHERE 
   Member.id=worker.member_id AND worker.assigner='vedligehold' AND
-  worklog.member_id=worker.member_id AND (worklog.end_time IS NULL OR DATE(worklog.start_time)=DATE(NOW()))
+  worklog.member_id=worker.member_id AND $timeclause
 ";
 $stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"worker");
 $stmt->execute() ||  dbErr($rodb,$res,"rower workers");
