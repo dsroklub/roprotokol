@@ -38,10 +38,10 @@ if (isset($d->hours)) {
 
 if ($cuser=="baadhal"  && $hours>3){
     $hours=3;
-    $message = "$cuser afkortet til 3 timer";
+    $message = "$d->name afkortet til 3 timer";
     $forum = "materieludvalg";
     error_log($message);
-    post_forum_message($forum,"$cuser over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
+    post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
 }
 $res["hours"]=$hours;
 error_log("XXX $d->work, $d->boat, $hours,$d->id");
@@ -49,10 +49,10 @@ $stmt->bind_param("ssssdss", $start_time,$end_time,$d->work, $d->boat, $hours,$d
 $stmt->execute() or dbErr($rodb,$res,"updwork EXE");
 invalidate("work");
 if ($now-strtotime($start_time)>20) {
-    $message = "$cuser check ind i fortiden $start_time";
+    $message = "$d->name check ind i fortiden $start_time";
     $forum = "materieludvalg";
     error_log($message);
-    post_forum_message($forum,"$cuser check ind i fortid",$message,$from=null,$forumEmail=null,$sticky=false);
+    post_forum_message($forum,"$d->name check ind i fortid",$message,$from=null,$forumEmail=null,$sticky=false);
 }
 
 echo json_encode($res);

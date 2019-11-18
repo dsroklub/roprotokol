@@ -7,7 +7,7 @@ $report_name="ugegraf";
 
 $l = $rodb->query("SELECT SUM(requirement) AS 'timer' FROM worker WHERE assigner='vedligehold'")->fetch_assoc()["timer"] or dbErr($rodb,$res,"weeksum $q");
 
-$s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge ORDER BY start_time";
+$s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge ORDER BY uge";
 
 $result = $rodb->query($s) or dbErr($rodb,$res,"week $q");
 $data=[];
