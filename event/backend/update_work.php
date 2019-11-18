@@ -2,6 +2,7 @@
 include("../../rowing/backend/inc/common.php");
 require("utils.php");
 include("messagelib.php");
+$forum = "materieludvalg";
 
 //verify_real_user("registrere timer");
 $data = file_get_contents("php://input");
@@ -15,10 +16,6 @@ function parse_time($t) {
 if ($cuser != "baadhal" ) {
     verify_right("admin","vedligehold");
 }
-$stmt=$rodb->prepare("UPDATE worklog
-    SET start_time=?,end_time=?, work=?, boat=?, hours=?, task=?
-    WHERE id=?"
-)  or dbErr($rodb,$res,"updatework q");
 if (isset($d->start_time)) {
     $start_time=parse_time($d->start_time);
 } else {
@@ -36,23 +33,31 @@ if (isset($d->hours)) {
     $hours=(strtotime($end_time)-strtotime($start_time))/3600;
 }
 
-if ($cuser=="baadhal"  && $hours>3){
+if ($cuser=="baadhal" && $hours>3){
     $hours=3;
     $message = "$d->name afkortet til 3 timer";
-    $forum = "materieludvalg";
     error_log($message);
     post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
 }
+
+if ($cuser=="baadhal" && $now-strtotime($start_time)>20) {
+    $oldworkstmt = $rodb->prepare("SELECT start_time FROM worklog WHERE id=?") or dbErr($rodb,$res,"upd work check sttime");
+    $oldworkstmt->bind_param("s", $d->id) || dbErr($rodb,$res,"ck stt e");
+    $oldworkstmt->execute() ||  dbErr($rodb,$res,"ck st");
+    $oldtime= $oldworkstmt->get_result()->fetch_assoc()["start_time"];
+    if ((strtotime($oldtime)-strtotime($start_time))  > 15*60) {
+        $message = "$d->name check ind i fortiden fra $oldtime ændret til $start_time";
+        error_log($message);
+        post_forum_message($forum,"$d->name check ind i fortid",$message,$from=null,$forumEmail=null,$sticky=false);
+    }
+}
+
+
+
+$stmt=$rodb->prepare("UPDATE worklog SET start_time=?,end_time=?, work=?, boat=?, hours=?, task=?  WHERE id=?")  or dbErr($rodb,$res,"updatework q");
 $res["hours"]=$hours;
-error_log("XXX $d->work, $d->boat, $hours,$d->id");
 $stmt->bind_param("ssssdss", $start_time,$end_time,$d->work, $d->boat, $hours,$d->task,$d->id) || dbErr($rodb,$res,"update work e");
 $stmt->execute() or dbErr($rodb,$res,"updwork EXE");
 invalidate("work");
-if ($now-strtotime($start_time)>20) {
-    $message = "$d->name check ind i fortiden $start_time";
-    $forum = "materieludvalg";
-    error_log($message);
-    post_forum_message($forum,"$d->name check ind i fortid",$message,$from=null,$forumEmail=null,$sticky=false);
-}
 
 echo json_encode($res);
