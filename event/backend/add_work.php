@@ -1,8 +1,7 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 require("inc/utils.php");
-
-
+include("messagelib.php");
 error_log("addwork cuser $cuser");
 //if ($cuser!='baadhal') {
 //    roErr("man kan kun skrive sig i bådhallen ved kontoret");
@@ -20,14 +19,13 @@ if (isset($d->start_time)) {
 }
 $hours=$d->hours ?? null;
 $forum=$d->forum ?? null;
-$boatName=trim($d->boat);
+$boatName=null;
 $stmt->bind_param("sssdss", $boatName,$forum, $d->work, $hours,$d->worker_id,$cuser) || dbErr($rodb,$res,"addwork e");
 $stmt->execute() or dbErr($rodb,$res,"addwork exe");
-
-
 $rd=$rodb->query("SELECT LAST_INSERT_ID() as work_id FROM DUAL")->fetch_assoc() or dbErr($rodb,$res,"work last id");
 $work_id=$rd["work_id"];
 $res["work_id"]=$work_id;
 $res["hours"]=$hours;
 invalidate("work");
+
 echo json_encode($res);
