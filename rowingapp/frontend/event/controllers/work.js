@@ -114,6 +114,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
         $scope.work.open=true;
         $scope.work.name=$scope.work.worker.name;
         $scope.work.worker_id=$scope.work.worker.worker_id;
+        $scope.work.worker.start_time='js_to_date(wd)'
         $scope.work_today.push($scope.work);
         $scope.work={};
       } else {
