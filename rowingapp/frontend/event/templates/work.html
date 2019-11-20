@@ -52,7 +52,7 @@
         <td>{{wk.name}} ({{wk.worker_id}})</td>
         <td>{{wk.requirement | number:1}}</td>
         <td>
-          <dsrinterval usestartdate="current_user.is_winter_admin" ng-model="wk">
+          <dsrinterval usestartdate="current_user.is_winter_admin" editstartime="current_user.is_winter_admin" ng-model="wk">
             {{(wk.end_time-wk.start_time)/3600000 | number:1 }} timer</td>
         <td><input class="description" ng-model="wk.work" type="text"></td>
         <td>
