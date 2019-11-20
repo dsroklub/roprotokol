@@ -77,6 +77,12 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     var sr=DatabaseService.createSubmit("rm_work",wk);
     sr.promise.then(function(status) {
       if (status.status =='ok') {
+        for (var wi=0; wi< $scope.workers.length; wi++) {
+          if ($scope.workers[wi].worker_id==wk.worker_id) {
+            $scope.workers[wi].start_time='x';
+            break;
+          }
+        }
         var ix=works.indexOf(wk);
         works.splice(ix,1);
       } else {
