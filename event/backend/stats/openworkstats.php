@@ -10,11 +10,11 @@ $seasonclause="YEAR(start_time)=YEAR(NOW()) OR (YEAR(start_time)=YEAR(NOW())-1 A
 $report_name="Rapport";
 switch ($q) {
 case "rank":
-    $report_name="timer tilbage for roere";
+    $report_name="overskudsroere";
     $s="
-SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlNr,requirement as krævet,ROUND(h,1) as lagt, ROUND(requirement-h,1) as mangler, IF((requirement-h)<0,'***','') as status
+SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlNr,requirement as krævet,ROUND(h,1) as lagt, ROUND(h-requirement,1) as overskud, IF((requirement-h)<0,'***','') as status
 FROM Member,worker,(SELECT member_id,IFNULL(SUM(hours),0) as h from worklog GROUP BY worklog.member_id) as w
-    WHERE Member.id=w.member_id AND worker.member_id=Member.id AND requirement>0 ORDER by mangler ASC;
+    WHERE Member.id=w.member_id AND worker.member_id=Member.id AND requirement>0 HAVING overskud>0 ORDER by overskud DESC
 ";
     break;
 default:
