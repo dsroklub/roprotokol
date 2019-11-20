@@ -40,16 +40,18 @@ if ($cuser=="baadhal" && $hours>3){
     post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
 }
 
-if ($cuser=="baadhal" && $now-strtotime($start_time)>20) {
-    $oldworkstmt = $rodb->prepare("SELECT start_time FROM worklog WHERE id=?") or dbErr($rodb,$res,"upd work check sttime");
-    $oldworkstmt->bind_param("s", $d->id) || dbErr($rodb,$res,"ck stt e");
-    $oldworkstmt->execute() ||  dbErr($rodb,$res,"ck st");
-    $oldtime= $oldworkstmt->get_result()->fetch_assoc()["start_time"];
-    if ((strtotime($oldtime)-strtotime($start_time))  > 15*60) {
-        $message = "$d->name check ind i fortiden fra $oldtime ændret til $start_time";
-        error_log($message);
-        post_forum_message($forum,"$d->name check ind i fortid",$message,$from=null,$forumEmail=null,$sticky=false);
-    }
+if ($cuser=="baadhal" && $now-strtotime($start_time)>60) {
+    roErr("man kan ikke ændre starttidspunkt fra bådhallen");
+
+    // $oldworkstmt = $rodb->prepare("SELECT start_time FROM worklog WHERE id=?") or dbErr($rodb,$res,"upd work check sttime");
+    // $oldworkstmt->bind_param("s", $d->id) || dbErr($rodb,$res,"ck stt e");
+    // $oldworkstmt->execute() ||  dbErr($rodb,$res,"ck st");
+    // $oldtime= $oldworkstmt->get_result()->fetch_assoc()["start_time"];
+    // if ((strtotime($oldtime)-strtotime($start_time))  > 15*60) {
+    //     $message = "$d->name check ind i fortiden fra $oldtime ændret til $start_time";
+    //     error_log($message);
+    //     post_forum_message($forum,"$d->name check ind i fortid",$message,$from=null,$forumEmail=null,$sticky=false);
+    // }
 }
 
 

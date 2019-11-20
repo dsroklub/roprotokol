@@ -119,6 +119,10 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
   </table>
 </div>
 
+<ul>
+  <li><button ng-click="get_report('rank')">statistik</button></li>
+</ul>
+
 <div ng-if="current_user.is_winter_admin">
   <h1>Administration</h1>
   <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
@@ -178,6 +182,8 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         <li><button ng-click="get_report('resterende')">Timer roer</button><a href="/backend/event/stats/workstats.php?q=resterende">download</a></li>
         <li><button ng-click="get_report('overview')">Oversigt</button><a href="/backend/event/stats/workstats.php?q=overview">download</a></li>
       </ul>
+</div>
+
       <div ng-if="workreport">
         <table class="tlist">
           <caption>{{workreport.name}}</caption>
@@ -193,4 +199,3 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
           </thead>
         </table>
       </div>
-</div>

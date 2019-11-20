@@ -29,6 +29,14 @@ case "weeks":
     $report_name="ugefordeling";
     $s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge ORDER BY uge";
     break;
+case "rank":
+    $report_name="timer tilbage for roere";
+    $s="
+SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(h,1) as lagt, ROUND(requirement-h,1) as mangler
+FROM Member,worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w
+    WHERE Member.id=w.member_id AND worker.member_id=Member.id ORDER by mangler ASC;
+";
+    break;
 case "resterende":
     $report_name="resterende arbejde";
     $s="
