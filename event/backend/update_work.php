@@ -41,7 +41,7 @@ if ($cuser=="baadhal" && $hours>3){
 }
 
 if ($cuser=="baadhal" && $now-strtotime($start_time)>60) {
-    roErr("man kan ikke ændre starttidspunkt fra bådhallen");
+    // roErr("man kan ikke ændre starttidspunkt fra bådhallen");
 
     // $oldworkstmt = $rodb->prepare("SELECT start_time FROM worklog WHERE id=?") or dbErr($rodb,$res,"upd work check sttime");
     // $oldworkstmt->bind_param("s", $d->id) || dbErr($rodb,$res,"ck stt e");
