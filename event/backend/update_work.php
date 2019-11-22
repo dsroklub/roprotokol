@@ -33,11 +33,16 @@ if (isset($d->hours)) {
     $hours=(strtotime($end_time)-strtotime($start_time))/3600;
 }
 
-if ($cuser=="baadhal" && $hours>3){
-    $hours=3;
-    $message = "$d->name afkortet til 3 timer";
-    error_log($message);
-    post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
+if ($cuser=="baadhal" || true){
+    if (strtotime($end_time) > now)  {
+        $end_time=date("Y-m-d H:i:s");
+    }
+    if ($hours>3) {
+        $hours=3;
+        $message = "$d->name afkortet til 3 timer";
+        error_log($message);
+        post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
+    }
 }
 
 if ($cuser=="baadhal" && $now-strtotime($start_time)>60) {

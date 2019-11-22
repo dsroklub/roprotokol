@@ -52,7 +52,7 @@
         <td>{{wk.name}} ({{wk.worker_id}})</td>
         <td>{{wk.requirement | number:1}}</td>
         <td>
-          <dsrinterval usestartdate="current_user.is_winter_admin" editstartime="current_user.is_winter_admin" ng-model="wk">
+          <dsrinterval usestartdate="current_user.is_winter_admin" editstarttime="current_user.is_winter_admin" ng-model="wk">
             {{(wk.end_time-wk.start_time)/3600000 | number:1 }} timer</td>
         <td><input class="description" ng-model="wk.work" type="text"></td>
         <td>
@@ -109,7 +109,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
     </tbody>
     <tbody ng-if="current_user.is_winter_admin">
       <tr ng-repeat="work in mystatswork">
-        <td><dsrinterval usestartdate=true ng-model="work" ng-change="work.dirty=true"></td>
+        <td><dsrinterval editstarttime="true" usestartdate="true" ng-model="work" ng-change="work.dirty=true"></td>
         <td class="rnum"><input type="number" ng-model="work.hours" ng-change="work.dirty=true"></td>
         <td>{{work.task}} <input ng-model="work.work" ng-change="work.dirty=true"></td>
         <td><input ng-model="work.boat" ng-change="work.dirty=4747"></td>

@@ -70,10 +70,11 @@ angular.module('dsrcommon.utilities.dsrinterval',[]).
   component('dsrinterval',{
     replace:true,
     template:
-    '<span ng-style="$ctrl.hmstyle"><input ng-if="$ctrl.usestartdate" "type=date" ng-model="$ctrl.sdate" ng-blur="$ctrl.updateStartDate()" placeholder="YYYY-MM-DD" size="10" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><span ng-if="!$ctrl.usestarttime">&nbsp;{{$ctrl.st|dsrtimeformat}}</span><dsrtime ng-if="$ctrl.usestarttime" ng-model="$ctrl.st" fixdate="$ctrl.fixdate()"></dsrtime>&mdash;<dsrtime ng-model="$ctrl.et"  fixdate="$ctrl.fixdate()"></dsrtime> </span>',
+    '<span ng-style="$ctrl.hmstyle"><input ng-if="$ctrl.usestartdate" "type=date" ng-model="$ctrl.sdate" ng-blur="$ctrl.updateStartDate()" placeholder="YYYY-MM-DD" size="10" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"><span ng-if="!$ctrl.editstarttime">&nbsp;{{$ctrl.st|dsrtimeformat}}</span><dsrtime ng-if="$ctrl.editstarttime" ng-model="$ctrl.st" fixdate="$ctrl.fixdate()"></dsrtime>&mdash;<dsrtime ng-model="$ctrl.et"  fixdate="$ctrl.fixdate()"></dsrtime> </span>',
     bindings: {
       ngModel: "=",
       usestartdate: "<",
+      editstarttime: "<",
       onUpdate: '&',
       ngChange: '&'
     },

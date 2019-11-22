@@ -140,8 +140,12 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
 
   $scope.end_work = function (work) {
-    if (!work.end_time.hour) {
       var now=new Date();
+    var end=toDateTime(work.end_time);
+    if (end>now) {
+      work.end_time.hour=null;
+    }
+    if (!work.end_time.hour) {
       work.end_time={
         'year':now.getFullYear(),
         'month':now.getMonth()+1,
@@ -150,7 +154,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
         'minute':now.getMinutes()
       }
     }
-    work.hours=(toDateTime(work.end_time)-toDateTime(work.start_time))/3600/1000;
+    work.hours=(end-toDateTime(work.start_time))/3600/1000;
     work.open=false;
     var sr=DatabaseService.createSubmit("update_work",work);
     sr.promise.then(function(status) {
