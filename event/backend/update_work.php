@@ -33,7 +33,7 @@ if (isset($d->hours)) {
     $hours=(strtotime($end_time)-strtotime($start_time))/3600;
 }
 
-if ($cuser=="baadhal" || true){
+if ($cuser=="baadhal"){
     if (strtotime($end_time) > now)  {
         $end_time=date("Y-m-d H:i:s");
     }
