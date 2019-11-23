@@ -140,7 +140,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
 
   $scope.end_work = function (work) {
-      var now=new Date();
+    var now=new Date();
     var end=toDateTime(work.end_time);
     if (end>now) {
       work.end_time.hour=null;
@@ -153,6 +153,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
         'hour':now.getHours(),
         'minute':now.getMinutes()
       }
+      end=toDateTime(work.end_time);
     }
     work.hours=(end-toDateTime(work.start_time))/3600/1000;
     work.open=false;
