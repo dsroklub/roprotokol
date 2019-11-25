@@ -160,7 +160,8 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     var sr=DatabaseService.createSubmit("update_work",work);
     sr.promise.then(function(status) {
       if (status.status =='ok') {
-        $log.debug("worker");
+        work.hours=status.hours;
+        //console.log("worker");
       } else {
         alert(status.error);
       }

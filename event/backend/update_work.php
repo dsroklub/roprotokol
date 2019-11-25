@@ -27,16 +27,9 @@ if (isset($d->end_time->hour)) {
     $end_time=date("Y-m-d H:i:s");
 }
 $work="";
-
 if ($cuser=="baadhal"){
     if (strtotime($end_time) > now)  {
         $end_time=date("Y-m-d H:i:s");
-    }
-    if ($hours>3) {
-        $hours=3;
-        $message = "$d->name afkortet til 3 timer";
-        error_log($message);
-        post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
     }
 }
 
@@ -45,6 +38,16 @@ if (isset($d->hours) && $cuser != "baadhal") {
 } else {
     $hours=(strtotime($end_time)-strtotime($start_time))/3600;
 }
+
+if ($cuser=="baadhal"){
+    if ($hours>3) {
+        $hours=3;
+        $message = "$d->name afkortet til 3 timer";
+        error_log($message);
+        post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
+    }
+}
+
 
 if ($cuser=="baadhal" && $now-strtotime($start_time)>60) {
     // roErr("man kan ikke ændre starttidspunkt fra bådhallen");
