@@ -90,7 +90,7 @@ angular.module('dsrcommon.utilities.dsrtime',[]).
   component('dsrtime',{
     replace:true,
     template:
-    '<span ng-style="$ctrl.hmstyle"><input  type="text" style="max-width:2em;" pattern="(1[0-3])|([0-1][0-9])?" size="2" ng-focus="$ctrl.initEnd()" ng-model="$ctrl.ngModel.hour" ng-blur="$ctrl.setHours()" ng-change="$ctrl.updateHours()">:<input type="text" style="max-width:2em;" size="2" pattern="[0-9][0-9]?" ng-model="$ctrl.ngModel.minute" ng-change="$ctrl.updateMinutes()" ng-blur="$ctrl.setMinutes()"></span>',
+    '<span ng-style="$ctrl.hmstyle"><input  size="2" type="text"  pattern="(1[0-3])|([0-1][0-9])?" ng-focus="$ctrl.initEnd()" ng-model="$ctrl.ngModel.hour" ng-blur="$ctrl.setHours()" ng-change="$ctrl.updateHours()">:<input type="text" size="2" pattern="[0-9][0-9]?" ng-model="$ctrl.ngModel.minute" ng-change="$ctrl.updateMinutes()" ng-blur="$ctrl.setMinutes()"></span>',
     bindings: {
       ngModel: "=",
       fixdate: '&',
