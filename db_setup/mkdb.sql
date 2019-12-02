@@ -1,17 +1,56 @@
-DELIMITER$$
-CREATE FUNCTION jsontm(tm DATETIME)
-  RETURNS VARCHAR(100)
-  DETERMINISTIC
-  NO SQL
-  BEGIN
-    RETURN DATE_FORMAT(tm,'%Y-%m-%dT%T');
-  END$$
-DELIMITER;
+-- DELIMITER$$
+-- CREATE FUNCTION jsontm(tm DATETIME)
+--   RETURNS VARCHAR(100)
+--   DETERMINISTIC
+--   NO SQL
+--   BEGIN
+--     RETURN DATE_FORMAT(tm,'%Y-%m-%dT%T');
+--   END$$
+-- DELIMITER;
 
-CREATE TABLE Boat (
+CREATE TABLE IF NOT EXISTS Member (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  MemberID varchar(10) UNIQUE,
+  FirstName varchar(100),
+  LastName varchar(100),
+  Address varchar(100),
+  club varchar(50),
+  FK_Postnr int(11),
+  phone1 char(20),
+  phone2 char(20),
+  Birthday datetime,
+  `Password` varchar(100),
+  Aktiv int(11),
+  Created datetime,
+  Updated datetime,
+  log varchar(2000),
+  JoinDate DateTime,
+  RemoveDate DateTime,
+  Email VARCHAR(255),
+  ShowEmail VARCHAR(255),
+  Gender       INTEGER,
+  KommuneKode INTEGER,
+  CprNo Boolean,
+  member_type INTEGER,
+  PRIMARY KEY (id),
+  KEY medlemnrix (MemberID)
+);
+
+CREATE TABLE IF NOT EXISTS BoatType (
+  Name varchar(100),
+  Seatcount int(11),
+  Description varchar(1000),
+  Category int(11),
+  Created datetime,
+  Updated datetime,
+  rights_subtype CHAR(20),
+  PRIMARY KEY (`Name`)
+);
+
+CREATE TABLE IF NOT EXISTS Boat (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100)  UNIQUE,
-  BoatType int(11),
+  BoatType VARCHAR(100),
   rights_subtype CHAR(20),
   brand varchar(30),
   modelid int(11),
@@ -32,11 +71,11 @@ CREATE TABLE Boat (
   placement_level INT, -- 0=ground, 1 .. shelves
   placement_side Char(6), -- -left, right,center
   Decommissioned datetime,
-  FOREIGN KEY (BoatType) REFERENCES BoatType(Name) ON DELETE Restrict ON UPDATE CASCADE,
+  CONSTRAINT FOREIGN KEY bt (`BoatType`) REFERENCES BoatType(`Name`) ON DELETE RESTRICT ON UPDATE CASCADE,
   PRIMARY KEY (id)
 );
 
-CREATE TABLE BoatCategory (
+CREATE TABLE IF NOT EXISTS BoatCategory (
   id int(11) NOT NULL,
   Name varchar(100),
   Description varchar(1000),
@@ -46,7 +85,7 @@ CREATE TABLE BoatCategory (
   UNIQUE KEY Navn (`Name`)
 );
 
-CREATE TABLE rights_subtype (
+CREATE TABLE IF NOT EXISTS rights_subtype (
   name VARCHAR(100) KEY,
   Description VARCHAR(1000)
 );
@@ -78,27 +117,22 @@ CREATE TABLE boat_configuration (
   NyIndvendiglængde float
 );
 
-CREATE TABLE BoatRights (
+CREATE TABLE IF NOT EXISTS MemberRightType (
+  member_right varchar(50) NOT NULL,
+  arg varchar(200) NOT NULL DEFAULT "",
+  description varchar(200),
+  PRIMARY KEY (member_right,arg)
+);
+
+CREATE TABLE IF NOT EXISTS BoatRights (
   boat_type int(11) NOT NULL,
-  required_right varchar(30) NOT NULL,
+  required_right varchar(50) NOT NULL,
   requirement varchar(10),
   FOREIGN KEY (required_right) REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (boat_type,required_right)
 );
 
-CREATE TABLE BoatType (
-  Name varchar(100),
-  Seatcount int(11),
-  Description varchar(1000),
-  Category int(11),
-  Created datetime,
-  Updated datetime,
-  rights_subtype CHAR(20),
-  PRIMARY KEY (`Name`)
-);
-
-
-CREATE TABLE Damage (
+CREATE TABLE IF NOT EXISTS Damage (
   id int(11) NOT NULL AUTO_INCREMENT,
   Boat int(11),
   ResponsibleMember int(11),
@@ -114,7 +148,7 @@ CREATE TABLE Damage (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE Destination (
+CREATE TABLE IF NOT EXISTS Destination (
   id int(11),
   created_by int,
   Location varchar(10) NOT NULL DEFAULT 'DSR',
@@ -129,7 +163,7 @@ CREATE TABLE Destination (
   PRIMARY KEY (`Name`,Location)
 );
 
-CREATE TABLE Error_Trip (
+CREATE TABLE IF NOT EXISTS Error_Trip (
   id int(11) NOT NULL AUTO_INCREMENT,
   DeleteTrip int(11),
   CreatedDate date,
@@ -153,7 +187,7 @@ CREATE TABLE Error_Trip (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE Error_TripMember (
+CREATE TABLE IF NOT EXISTS Error_TripMember (
   ErrorTripID int(11) NOT NULL,
   Seat int(11) NOT NULL,
   member_id int(11),
@@ -161,7 +195,7 @@ CREATE TABLE Error_TripMember (
   PRIMARY KEY (ErrorTripID,Seat)
 );
 
-CREATE TABLE Locations (
+CREATE TABLE IF NOT EXISTS Locations (
   `name` varchar(30) NOT NULL,
   lat                DOUBLE,
   lon                DOUBLE,
@@ -170,42 +204,7 @@ CREATE TABLE Locations (
 );
 
 
-CREATE TABLE Member (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  MemberID varchar(10) UNIQUE,
-  FirstName varchar(100),
-  LastName varchar(100),
-  Address varchar(100),
-  club varchar(50),
-  FK_Postnr int(11),
-  phone1 char(20),
-  phone2 char(20),
-  Birthday datetime,
-  `Password` varchar(100),
-  Aktiv int(11),
-  Created datetime,
-  Updated datetime,
-  log varchar(2000),
-  JoinDate DateTime,
-  RemoveDate DateTime,
-  Email VARCHAR(255),
-  ShowEmail VARCHAR(255),
-  Gender       INTEGER,
-  KommuneKode INTEGER,
-  CprNo Boolean,
-  member_type INTEGER,
-  PRIMARY KEY (id),
-  KEY medlemnrix (MemberID)
-);
-
-CREATE TABLE MemberRightType (
-  member_right varchar(50) NOT NULL,
-  arg varchar(200) NOT NULL DEFAULT "",
-  description varchar(200),
-  PRIMARY KEY (member_right,arg)
-);
-
-CREATE TABLE MemberRights (
+CREATE TABLE IF NOT EXISTS MemberRights (
   member_id int(11) NOT NULL,
   created_by int,
   MemberRight varchar(50) NOT NULL REFERENCES MemberRightType (member_right) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -217,16 +216,16 @@ CREATE TABLE MemberRights (
 );
 
 
-CREATE TABLE meta_right(
+CREATE TABLE IF NOT EXISTS meta_right(
   member_right  VARCHAR(50) NOT NULL REFERENCES MemberRightType (member_right) ON DELETE CASCADE ON UPDATE CASCADE,
   meta VARCHAR(50) NOT NULL,
   PRIMARY KEY(member_right,meta)
 );
 
-INSERT INTO  meta_right(member_right,meta) VALUES('svava','svava/sculler');
-INSERT INTO  meta_right(member_right,meta) VALUES('sculler','svava/sculler');
+-- INSERT INTO  meta_right(member_right,meta) VALUES('svava','svava/sculler');
+-- INSERT INTO  meta_right(member_right,meta) VALUES('sculler','svava/sculler');
 
-CREATE TABLE reservation (
+CREATE TABLE IF NOT EXISTS reservation (
   boat INT REFERENCES Boat(id) ON DELETE RESTRICT ON UPDATE CASCADE,
   start_time time,
   end_time time,
@@ -246,7 +245,7 @@ CREATE TABLE reservation (
   PRIMARY KEY (boat,start_time,start_date,dayofweek,configuration)
 );
 
-CREATE TABLE Trip (
+CREATE TABLE IF NOT EXISTS Trip (
   id int(11) NOT NULL AUTO_INCREMENT,
   BoatID int(11) NOT NULL,
   OutTime datetime,
@@ -268,7 +267,7 @@ CREATE TABLE Trip (
   KEY tripout (OutTime)
 );
 
-CREATE TABLE TripMember (
+CREATE TABLE IF NOT EXISTS TripMember (
   TripID int(11) NOT NULL,
   Seat int(11) NOT NULL,
   member_id int(11) REFERENCES Member(id),
@@ -279,14 +278,14 @@ CREATE TABLE TripMember (
   PRIMARY KEY (TripID,Seat)
 );
 
-CREATE TABLE TripRights (
+CREATE TABLE IF NOT EXISTS TripRights (
   trip_type int(11) NOT NULL,
-  required_right varchar(30) REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+  required_right varchar(30) NOT NULL REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE,
   requirement varchar(10),
   PRIMARY KEY (trip_type,required_right)
 );
 
-CREATE TABLE TripType (
+CREATE TABLE IF NOT EXISTS TripType (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100),
   tripstat_name VARCHAR(20),
@@ -298,14 +297,14 @@ CREATE TABLE TripType (
   UNIQUE KEY Navn (`Name`)
 );
 
-CREATE TABLE boat_brand (
+CREATE TABLE IF NOT EXISTS boat_brand (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100),
   PRIMARY KEY (id),
   UNIQUE KEY Typenavn (`name`)
 );
 
-CREATE TABLE boat_usage (
+CREATE TABLE IF NOT EXISTS boat_usage (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100),
   Description varchar(1000),
@@ -313,8 +312,7 @@ CREATE TABLE boat_usage (
   UNIQUE KEY Anvendelse (`name`)
 );
 
-
-CREATE TABLE event_log (
+CREATE TABLE IF NOT EXISTS event_log (
   event varchar(500),
   event_time datetime,
   KEY eventtime (event_time)
@@ -450,7 +448,7 @@ CREATE TABLE worker (
   end_time         datetime,
   requirement      FLOAT, -- hours
   description      VARCHAR(1000),
-  workertype       VARCHAR(100),  
+  workertype       VARCHAR(100),
   forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE SET NULL,
   created_by       int REFERENCES Member(id) ON DELETE SET NULL,
   PRIMARY KEY(member_id,assigner)
@@ -478,28 +476,28 @@ INSERT INTO Configuration (id, value) VALUES ('db_version', '1');
 
 DROP TABLE IF EXISTS status;
 CREATE TABLE status (
-  sculler_open INTEGER NOT NULL DEFAULT 0
-  reservation_configuration VARCHAR(20) NOT NULL DEFAULT "sommer";
+  sculler_open INTEGER NOT NULL DEFAULT 0,
+  reservation_configuration VARCHAR(20) NOT NULL DEFAULT "sommer"
 );
 INSERT INTO status (sculler_open) VALUES (0);
 
 
-CREATE INDEX tripmembermemberix ON TripMember(member_id);
+CREATE INDEX IF NOT EXISTS tripmembermemberix ON TripMember(member_id);
 
-CREATE INDEX damageresponsible ON Damage(ResponsibleMember);
+CREATE INDEX IF NOT EXISTS damageresponsible ON Damage(ResponsibleMember);
 
-CREATE INDEX damagerepairer ON Damage(RepairerMember);
+CREATE INDEX IF NOT EXISTS damagerepairer ON Damage(RepairerMember);
 
-CREATE INDEX reservationmember ON reservation(member);
+CREATE INDEX IF NOT EXISTS reservationmember ON reservation(member);
 
-CREATE INDEX rightsmember ON MemberRights(member_id);
+CREATE INDEX IF NOT EXISTS rightsmember ON MemberRights(member_id);
 
-CREATE INDEX membername ON Member(FirstName,LastName);
+CREATE INDEX IF NOT EXISTS membername ON Member(FirstName,LastName);
 
 
 
 -- Styrmandinstruktion
-CREATE TABLE instruction_team (
+CREATE TABLE IF NOT EXISTS instruction_team (
   name            VARCHAR(30) PRIMARY KEY,
   description      VARCHAR(2000),
   instructor      INTEGER,
@@ -507,12 +505,12 @@ CREATE TABLE instruction_team (
 );
 
 
-CREATE TABLE instruction_team_member (
+CREATE TABLE IF NOT EXISTS instruction_team_member (
   team varchar(30),
   member_id       INTEGER
 );
 
-CREATE TABLE instruction_team_participation (
+CREATE TABLE IF NOT EXISTS instruction_team_participation (
   team varchar(30),
   member_id       INTEGER
 );
@@ -557,7 +555,7 @@ CREATE TABLE course_requirement_pass (
 
 -- INSERT INTO course_requirement_pass VALUE ('landgang',6784,'2017-03-31');
 
-CREATE TABLE authentication (
+CREATE TABLE IF NOT EXISTS authentication (
   member_id             INTEGER NOT NULL PRIMARY KEY,
   password              VARCHAR(255) NOT NULL,
   newpassword           VARCHAR(255),
@@ -565,11 +563,11 @@ CREATE TABLE authentication (
   FOREIGN KEY (member_id) REFERENCES Member(id)
 );
 
-CREATE TABLE cox_log (
+CREATE TABLE IF NOT EXISTS cox_log (
   timestamp             DATETIME,
   member_id           VARCHAR(10),
   action              VARCHAR(255),
- entry               VARCHAR(20000) NOT NULL
+ entry               VARCHAR(10000) NOT NULL
  );
 
 
@@ -577,22 +575,23 @@ CREATE TABLE cox_log (
 
 --- Events
 
-CREATE TABLE event_category (
+CREATE TABLE IF NOT EXISTS event_category (
   name                   VARCHAR(255) PRIMARY KEY,
   description            VARCHAR(255),
   priority               INTEGER
 );
 
+DELETE FROM event_category WHERE name ='rotur' OR name='langtur' OR name='fest';
 INSERT INTO event_category VALUE('rotur','rotur',1);
 INSERT INTO event_category VALUE('langtur','langtur i Danmark eller udlandet',2);
 INSERT INTO event_category VALUE('fest','vilde fester i DSR',10);
 
 --    DROP TABLE event;
-CREATE TABLE event (
+CREATE TABLE IF NOT EXISTS event (
   id                     INTEGER  NOT NULL AUTO_INCREMENT,
   owner                  INTEGER,
   auto_administer        BOOLEAN default false,
-  boat_category          INTGER,
+  boat_category          INTEGER,
   boats                  VARCHAR(255),
   start_time             DATETIME,
   end_time               DATETIME,
@@ -613,7 +612,7 @@ CREATE TABLE event (
   PRIMARY KEY(id)
 );
 
-CREATE TABLE event_role (
+CREATE TABLE IF NOT EXISTS event_role (
   name       VARCHAR(255) PRIMARY KEY,
   description VARCHAR(5000),
   can_post   BOOLEAN,
@@ -621,18 +620,20 @@ CREATE TABLE event_role (
   is_cox     BOOLEAN
 );
 
+DELETE FROM event_role;
 INSERT INTO event_role (name, description,can_post,is_leader,is_cox) VALUE ('member','deltager',1,0,0);
 INSERT INTO event_role (name, description,can_post,is_leader,is_cox) VALUE ('owner','ejer',1,1,0);
 INSERT INTO event_role (name, description,can_post,is_leader,is_cox) VALUE ('wait','venteliste',0,0,0);
 INSERT INTO event_role (name, description,can_post,is_leader,is_cox) VALUE ('supplicant','ansøger',0,0,0);
 
-CREATE TABLE event_boat_type (
+CREATE TABLE IF NOT EXISTS event_boat_type (
   event      INTEGER,
-  boat_type  INTEGER,
-  FOREIGN KEY (boat_type) REFERENCES BoatType(id)
+  boat_type  VARCHAR(100),
+  FOREIGN KEY (event) REFERENCES event(id) ON DELETE CASCADE,
+  FOREIGN KEY (boat_type) REFERENCES BoatType(Name) ON UPDATE CASCADE ON DELETE CASCADE -- FIXME ALTER
 );
 
-CREATE TABLE event_member (
+CREATE TABLE IF NOT EXISTS event_member (
   member     INTEGER,
   event      INTEGER,
   comment    VARCHAR(4096),
@@ -644,7 +645,7 @@ CREATE TABLE event_member (
   PRIMARY KEY (member,event)
 );
 
-CREATE TABLE event_invitees (
+CREATE TABLE IF NOT EXISTS event_invitees (
   member     INTEGER,
   event      INTEGER,
   comment    VARCHAR(255),
@@ -654,24 +655,24 @@ CREATE TABLE event_invitees (
 );
 
 
-CREATE TABLE forum (
+CREATE TABLE IF NOT EXISTS forum (
   name   VARCHAR(255) PRIMARY KEY NOT NULL,
   description VARCHAR(255),
   email_local     VARCHAR(255) UNIQUE,
-  owner     INTEGER,
+  owner     INTEGER NOT NULL,
   is_open      BOOLEAN DEFAULT TRUE,
   is_public     BOOLEAN DEFAULT TRUE,
   boat          VARCHAR(30) REFERENCES Boat(Name) ON DELETE SET NULL,
   created_by int REFERENCES Member(id),
-  forumtype       VARCHAR(50) DEFAULT "generic",  // generic, vedligehold, tur
-  FOREIGN KEY (owner) REFERENCES Member(id) NOT NULL
+  forumtype       VARCHAR(50) DEFAULT "generic",  -- generic, vedligehold, tur
+  FOREIGN KEY (owner) REFERENCES Member(id)
 );
 
 -- INSERT INTO forum VALUE('roaftaler','generelle roaftaler');
 -- INSERT INTO forum VALUE('kaproning','for kaproere');
 
 
-CREATE TABLE forum_subscription (
+CREATE TABLE IF NOT EXISTS forum_subscription (
   member     INTEGER,
   forum      VARCHAR(255),
   role       VARCHAR(255) NOT NULL, -- waiting, cox, any, leader, admin
@@ -682,7 +683,7 @@ CREATE TABLE forum_subscription (
   PRIMARY KEY(member,forum)
 );
 
-CREATE TABLE forum_message (
+CREATE TABLE IF NOT EXISTS forum_message (
   id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
   member_from  INTEGER,
   created    DATETIME,
@@ -695,7 +696,7 @@ CREATE TABLE forum_message (
   FOREIGN KEY (member_from) REFERENCES Member(id)
 );
 
-CREATE TABLE forum_file (
+CREATE TABLE IF NOT EXISTS forum_file (
   member_from     INTEGER,
   created         DATETIME,
   forum           VARCHAR(255) NOT NULL,
@@ -708,7 +709,7 @@ CREATE TABLE forum_file (
   CONSTRAINT forum_file_fk FOREIGN KEY (member_from) REFERENCES Member (id)
 );
 
-CREATE TABLE event_message (
+CREATE TABLE IF NOT EXISTS event_message (
   id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
   member_from  INTEGER,
   created    DATETIME,
@@ -716,11 +717,10 @@ CREATE TABLE event_message (
   subject    VARCHAR(1000),
   message    VARCHAR(10000),
   FOREIGN KEY (member_from) REFERENCES Member(id),
-  FOREIGN KEY (event)       REFERENCES event(id),
---  PRIMARY KEY (id)
+  FOREIGN KEY (event)       REFERENCES event(id)
 );
 
-CREATE TABLE private_message (
+CREATE TABLE IF NOT EXISTS private_message (
   id         INTEGER  NOT NULL AUTO_INCREMENT PRIMARY KEY,
   member_from  INTEGER,
   created    DATETIME,
@@ -729,7 +729,7 @@ CREATE TABLE private_message (
   FOREIGN KEY (member_from) REFERENCES Member(id)
 );
 
-CREATE TABLE event_forum (
+CREATE TABLE IF NOT EXISTS event_forum (
   event      INTEGER,
   forum      VARCHAR(255) NOT NULL,
   FOREIGN KEY (forum)       REFERENCES forum(name) ON UPDATE CASCADE,
@@ -738,17 +738,17 @@ CREATE TABLE event_forum (
 );
 
 
-CREATE TABLE member_message (
- member  INTEGER,
- message INTEGER,
+CREATE TABLE IF NOT EXISTS member_message (
+  member  INTEGER,
+  message INTEGER,
   FOREIGN KEY (message) REFERENCES event_message(id),
   FOREIGN KEY (member) REFERENCES Member(id),
   PRIMARY KEY(member,message)
  );
 
 
-CREATE TABLE member_setting (
- member  INTEGER,
+CREATE TABLE IF NOT EXISTS member_setting (
+  member  INTEGER,
   is_public BOOLEAN NOT NULL DEFAULT FALSE,
   show_status BOOLEAN NOT NULL DEFAULT FALSE,
   show_activities BOOLEAN NOT NULL DEFAULT FALSE,
@@ -759,10 +759,9 @@ CREATE TABLE member_setting (
   PRIMARY KEY(member)
  );
 
-
 -- GYM
 
-CREATE TABLE team (
+CREATE TABLE IF NOT EXISTS team (
   name varchar(30),
   description varchar(200),
   dayofweek     varchar(20),
@@ -772,7 +771,7 @@ CREATE TABLE team (
   PRIMARY KEY (name,dayofweek,timeofday)
 );
 
-CREATE TABLE team_participation (
+CREATE TABLE IF NOT EXISTS team_participation (
   team            varchar(30),
   member_id       int(11),
   start_time      datetime,
@@ -789,6 +788,7 @@ CREATE TABLE weekday (
   language CHAR(2)
   );
 
+DELETE FROM weekday;
 INSERT INTO weekday (name,no,language) VALUES
   ("Mandag","1","da"),
   ("Tirsdag","2","da"),
@@ -799,7 +799,7 @@ INSERT INTO weekday (name,no,language) VALUES
   ("Søndag","7","da");
 
 
-CREATE TABLE season (
+CREATE TABLE IF NOT EXISTS season (
    season       INTEGER,
    summer_start DATETIME,
    summer_end   DATETIME
@@ -846,11 +846,11 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
 INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");
 
 
-DROP VIEW IF EXISTS right_name;
-CREATE VIEW right_name AS SELECT DISTINCT member_right, MAX(showname),MAX(predicate) FROM MemberRightType GROUP BY member_right;
+-- DROP VIEW IF EXISTS right_name;
+-- CREATE VIEW right_name AS SELECT DISTINCT member_right, MAX(showname),MAX(predicate) FROM MemberRightType GROUP BY member_right;
 
 
-DROP TABLE workimport IF EXISTS;
+DROP TABLE IF EXISTS workimport ;
 CREATE TABLE workimport (
 vtype CHAR(20),
 koordinator CHAR(1),
