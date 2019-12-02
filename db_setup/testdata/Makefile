@@ -8,3 +8,6 @@ import:
 
 clean:
 	echo "delete from Boat;delete from reservation;delete from BoatCategory;delete from BoatRights;delete from BoatType;Delete FROM Damage;Delete from Destination;DELETE FROM Locations;DELETE FROM MemberRightType;"|mysql -u fake -p fake fakeprotokol
+
+fakedata:
+	./fakedata.py
