@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS BoatType (
 CREATE TABLE IF NOT EXISTS Boat (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100)  UNIQUE,
-  BoatType VARCHAR(100),
+  boat_type VARCHAR(100),
   rights_subtype CHAR(20),
   brand varchar(30),
   modelid int(11),
@@ -63,6 +63,8 @@ CREATE TABLE IF NOT EXISTS Boat (
   level int(11),
   oar_angle float,
   oar_length float,
+  oar_pitch float,
+  oar_height float,
   rig_height float,
   oar_type CHAR(20),
   Location varchar(100),
@@ -121,14 +123,18 @@ CREATE TABLE IF NOT EXISTS MemberRightType (
   member_right varchar(50) NOT NULL,
   arg varchar(200) NOT NULL DEFAULT "",
   description varchar(200),
+  showname VARCHAR(255),
+  predicate VARCHAR(255),
+  active  INTEGER,
   PRIMARY KEY (member_right,arg)
 );
 
 CREATE TABLE IF NOT EXISTS BoatRights (
-  boat_type int(11) NOT NULL,
+  boat_type VARCHAR(100) NOT NULL,
   required_right varchar(50) NOT NULL,
   requirement varchar(10),
   FOREIGN KEY (required_right) REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (boat_type) REFERENCES BoatType(Name), -- ALTER
   PRIMARY KEY (boat_type,required_right)
 );
 

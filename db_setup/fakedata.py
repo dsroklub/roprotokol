@@ -7,8 +7,13 @@ import os.path
 import sys
 
 numrowers=1000
+if len(sys.argv)>1:
+    rodb=sys.argv[1]
+    dbuser=roprotokol
+else:
+    rodb="fakeprotokol"
+    dbuser="fake"
 
-rodb=sys.argv[1]
 print "using db: "+rodb
 
 random.seed(42)
@@ -19,12 +24,12 @@ print "checking db pw file "+pwfile
 if os.path.exists(pwfile):
     # FIXME, do not assume line 2, check for left side dbpassword
     dbpw=(open(pwfile).readlines()[1].split('='))[1].strip()
-    print "using PASSWORD #"+dbpw+"#" 
-    db= MySQLdb.connect(host="localhost",  user="roprotokol", passwd=dbpw,charset='utf8', db=rodb)
+    print "using PASSWORD #"+dbpw+"#"
+    db= MySQLdb.connect(host="localhost",  user=dbuser, passwd=dbpw,charset='utf8', db=rodb)
 else:
-    db= MySQLdb.connect(host="localhost",  user="roprotokol", charset='utf8', db=rodb)
+    db= MySQLdb.connect(host="localhost",  user="fake", charset='utf8', db=rodb)
 
-cur = db.cursor() 
+cur = db.cursor()
 
 #cur.execute("SELECT * FROM Member")
 
@@ -49,6 +54,7 @@ for fid in range(1, 1000) :
     mid=str(fid+2000)
     if (rndrights<10):
         mid='k'+str(fid)
+    print("INSERT INTO Member (id, MemberID, FirstName, LastName) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
     cur.execute("INSERT INTO Member (id, MemberID, FirstName, LastName) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
     if (rndrights>15):
         print "INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2015-12-24","");'
@@ -72,9 +78,9 @@ for fid in range(1, 1000) :
         cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"competition","2014-12-24","");')
     if (rndrights>90):
         cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"notes","2014-12-24","der er noget lumsk med ham");')
-        
+
     m[fid]=fname+' A. '+lname
-    cur.execute("SELECT Boat.id, Seatcount FROM Boat,BoatType Where BoatType.id=Boat.BoatType;")
+    cur.execute("SELECT Boat.id, Seatcount FROM Boat,BoatType Where BoatType.Name=Boat.BoatType;")
 
 boats=cur.fetchall()
 
