@@ -5,6 +5,7 @@ require_once("utils.php");
 verify_right("admin","vedligehold");
 
 $q=$_GET["q"] ?? "none";
+$a=$_GET["a"] ?? "";
 $format=$_GET["format"] ?? "csv";
 
 $captions="_auto";
@@ -30,19 +31,23 @@ case "weeks":
     $s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge ORDER BY uge";
     break;
 case "rank":
-    $report_name="timer tilbage for roere";
+    $report_name="timer tilbage for roere $a";
+    $limit="";
+    if ($a) {
+        $limit=" HAVING mangler>".intval($a)." ";
+    }
     $s="
-SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(h,1) as lagt, ROUND(requirement-h,1) as mangler
+SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w
-    WHERE Member.id=w.member_id AND worker.member_id=Member.id ORDER by mangler ASC;
+    WHERE Member.id=w.member_id AND worker.member_id=Member.id $limit ORDER by mangler DESC;
 ";
     break;
 case "resterende":
-    $report_name="resterende arbejde";
+    $report_name="gjort arbejde";
     $s="
-SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(h,1) as lagt, ROUND(requirement-h,1) as mangler
+SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w
-    WHERE Member.id=w.member_id AND worker.member_id=Member.id;
+    WHERE Member.id=w.member_id AND worker.member_id=Member.id ORDER BY lagt DESC;
 ";
     break;
 case "overview":
