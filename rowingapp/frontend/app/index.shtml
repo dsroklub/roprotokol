@@ -28,7 +28,7 @@
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="components/angular-locale_da-dk.js"></script>
   <script src="bower_components/angular-route/angular-route.min.js"></script>
-  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <!--script src="bower_components/angular-sanitize/angular-sanitize.js"></script-->
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
   <!--script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script-->
   <script src="bower_components_modifications/ui-bootstrap-tpls-elgaard.js"></script>

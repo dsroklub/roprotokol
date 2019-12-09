@@ -26,7 +26,7 @@ angular.
     'rowApp.utilities.righttodk',
     'rowApp.utilities.argrighttodk',
     'ui.select',
-    'ngSanitize',
+//    'ngSanitize',
     'ui.bootstrap',
     'angular-momentjs',
     'ngDialog',
