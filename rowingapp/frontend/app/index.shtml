@@ -6,7 +6,7 @@
   <head>
   <!--#include virtual="/public/rowbasetag.html" -->
 <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="xX-UA-Compatible" content="IE=edge">
   <title>DSR Roprotokol</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="bower_components/angular-ui-clock/dist/angular-clock.css">
   <link rel="stylesheet" href="rowApp.css"/>
   <link rel="stylesheet" href="local.css"/>
-  <!--base href="/frontene/app"-->
 
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="components/angular-locale_da-dk.js"></script>
