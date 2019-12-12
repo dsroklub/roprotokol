@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import MySQLdb
 import random
+import configparser
 import math
 import os.path
 import sys

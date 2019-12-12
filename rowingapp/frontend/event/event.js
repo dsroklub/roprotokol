@@ -12,7 +12,6 @@ angular.module('eventApp', [
   'dsrcommon.utilities.safefilename',
   'dsrcommon.utilities.mtokm',
   'dsrcommon.utilities.urlencode',
-  'ngSanitize',
   'ui.bootstrap',
   'ui.select',
   'angular-momentjs',
