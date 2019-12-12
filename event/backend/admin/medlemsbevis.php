@@ -41,7 +41,7 @@ $pdf->SetTitle("Rettigheder for DSR medlem",true);
 
 $pdf->SetFont('Times','B',16);
 
-$pdf->Image('../../../media/dsrlogo.jpg',null,null,200);
+$pdf->Image('/data/media/dsrlogo.jpg',null,null,200);
 $pdf->Ln(10);
 $pdf->Cell($w=20,0,utf8_decode("Rettigheder for medlem $rowername:"),$border=0, $ln=1,$align='L',$fill=null);
 $pdf->Ln(13);
