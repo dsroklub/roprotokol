@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS MemberRightType (
   showname VARCHAR(255),
   predicate VARCHAR(255),
   active  INTEGER,
+  category CHAR(20) DEFAULT "roning",
   PRIMARY KEY (member_right,arg)
 );
 
