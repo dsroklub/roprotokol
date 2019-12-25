@@ -637,3 +637,7 @@ datetimepicker.ng-empty ng-form div input {
 input[type="number"] {
    width:3em;
 }
+
+xinput {
+   -webkit-appearance: none;
+}
