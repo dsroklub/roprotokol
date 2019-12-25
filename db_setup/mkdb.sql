@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS Boat (
   placement_level INT, -- 0=ground, 1 .. shelves
   placement_side Char(6), -- -left, right,center
   Decommissioned datetime,
-  CONSTRAINT FOREIGN KEY bt (`BoatType`) REFERENCES BoatType(`Name`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT FOREIGN KEY bt (boat_type) REFERENCES BoatType(`Name`) ON DELETE RESTRICT ON UPDATE CASCADE,
   PRIMARY KEY (id)
 );
 
@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS MemberRightType (
   showname VARCHAR(255),
   predicate VARCHAR(255),
   active  INTEGER,
+  category CHAR(20) DEFAULT "roning",
   PRIMARY KEY (member_right,arg)
 );
 
@@ -488,17 +489,18 @@ CREATE TABLE status (
 INSERT INTO status (sculler_open) VALUES (0);
 
 
-CREATE INDEX IF NOT EXISTS tripmembermemberix ON TripMember(member_id);
-
+CREATE INDEaX IF NOT EXISTS tripmembermemberix ON TripMember(member_id);
 CREATE INDEX IF NOT EXISTS damageresponsible ON Damage(ResponsibleMember);
-
 CREATE INDEX IF NOT EXISTS damagerepairer ON Damage(RepairerMember);
-
 CREATE INDEX IF NOT EXISTS reservationmember ON reservation(member);
-
 CREATE INDEX IF NOT EXISTS rightsmember ON MemberRights(member_id);
-
 CREATE INDEX IF NOT EXISTS membername ON Member(FirstName,LastName);
+
+-- CREATE INDEX  damageresponsible ON Damage(ResponsibleMember);
+-- CREATE INDEX  damagerepairer ON Damage(RepairerMember);
+-- CREATE INDEX  reservationmember ON reservation(member);
+-- CREATE INDEX  rightsmember ON MemberRights(member_id);
+-- CREATE INDEX  membername ON Member(FirstName,LastName);
 
 
 
@@ -577,9 +579,9 @@ CREATE TABLE IF NOT EXISTS cox_log (
  );
 
 
---INSERT INTO authentication(6270,"hest","coxaspirant");
+-- INSERT INTO authentication(6270,"hest","coxaspirant");
 
---- Events
+-- Events
 
 CREATE TABLE IF NOT EXISTS event_category (
   name                   VARCHAR(255) PRIMARY KEY,

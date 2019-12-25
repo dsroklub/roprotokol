@@ -5,7 +5,10 @@ import random
 import math
 import os.path
 import sys
-
+import time
+from datetime import tzinfo, timedelta, datetime
+now=datetime.now()
+ 
 numrowers=1000
 if len(sys.argv)>1:
     rodb=sys.argv[1]
@@ -40,9 +43,9 @@ fnames=["Agnes","Agnete","Alberte","Amalie","Amanda","Andrea","Ane","Anette","An
 
 lnames=["Jensen","Nielsen","Hansen","Pedersen","Andersen","Christensen","Larsen","Sørensen","Rasmussen","Jørgensen","Petersen","Madsen","Kristensen","Olsen","Thomsen","Christiansen","Poulsen","Johansen","Møller","Mortensen","Bendtsen","Wilhelmsen"]
 
-cur.execute("DELETE FROM Member")
 cur.execute("DELETE FROM TripMember")
 cur.execute("DELETE FROM Trip")
+cur.execute("DELETE FROM Member")
 cur.execute("DELETE FROM MemberRights")
 
 m=dict()
@@ -51,33 +54,35 @@ for fid in range(1, 1000) :
     fname=fnames[random.randrange(0, len(fnames)-1)]
     lname=lnames[random.randrange(0, len(lnames)-1)]
     rndrights=random.randrange(0, 100)
+    pastdays=timedelta(days=random.randrange(0, 1000))
+    rdate=now-pastdays
     mid=str(fid+2000)
     if (rndrights<10):
         mid='k'+str(fid)
     print("INSERT INTO Member (id, MemberID, FirstName, LastName) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
     cur.execute("INSERT INTO Member (id, MemberID, FirstName, LastName) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
     if (rndrights>15):
-        print "INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2015-12-24","");'
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","2014-12-24","");')
+        print "INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","'+rdate.strftime("%Y-%m-%d")+'","");'
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","'+rdate.strftime("%Y-%m-%d")+'","");')
     if (rndrights>50):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"cox","2014-12-24","");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"cox","'+rdate.strftime("%Y-%m-%d")+'","");')
     if (rndrights>133):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"wrench","2014-12-24","");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"wrench","'+rdate.strftime("%Y-%m-%d")+'","");')
     if (rndrights>77):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"longdistance","2014-12-24","");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"longdistance","'+rdate.strftime("%Y-%m-%d")+'","");')
     if (rndrights>85):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","row");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","row");')
     rndrights=random.randrange(0, 100)
     if (rndrights>90):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","sculler");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","sculler");')
     if (rndrights>92):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","kajak");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","kajak");')
     if (rndrights>92):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","2014-12-24","svava");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","svava");')
     if (rndrights>20):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"competition","2014-12-24","");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"competition","'+rdate.strftime("%Y-%m-%d")+'","");')
     if (rndrights>90):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"notes","2014-12-24","der er noget lumsk med ham");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"notes","'+rdate.strftime("%Y-%m-%d")+'","der er noget lumsk med ham");')
 
     m[fid]=fname+' A. '+lname
     cur.execute("SELECT Boat.id, Seatcount FROM Boat,BoatType Where BoatType.Name=Boat.boat_type;")
@@ -86,7 +91,13 @@ boats=cur.fetchall()
 
 print "we have " +str(len(boats))+ " boats"
 for tid in range(1, 4000):
-    intime='"2016-01-14 03:12:33"'
+    pastdays=timedelta(days=random.randrange(0, 1000))
+    rtime=now-pastdays
+    rtime.replace(hour=random.randrange(7, 20),minute=random.randrange(0, 59))
+    outtime=rtime.strftime('"%Y-%m-%d %H:%M:%S"')
+    rtime=rtime+timedelta(minutes=random.randrange(0, 320))
+    intime=rtime.strftime('"%Y-%m-%d %H:%M:%S"')
+
     boat=boats[random.randrange(0, len(boats)-1)]
     if tid == 3999:
         intime='NULL'
@@ -95,7 +106,8 @@ for tid in range(1, 4000):
     pladser=int(boat[1])
     destination=random.randrange(1, 19)
     triptype=random.randrange(1, 12)
-    q="INSERT INTO Trip (id, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, intime) VALUES ("+str(tid)+','+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+',"2016-01-14 02:02:03", '+str(intime)+')';
+    dayspast=random.randrange(0, 800)
+    q="INSERT INTO Trip (id, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, InTime) VALUES ("+str(tid)+','+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+','+outtime+', '+intime+')';
     print q
     cur.execute(q);
     for d in range(0,pladser):
@@ -103,8 +115,6 @@ for tid in range(1, 4000):
         qm='INSERT INTO TripMember (TripID,Seat,member_id,CreatedDate) VALUES ('+str(tid)+','+str(d)+','+str(rower)+',"2016-01-12 00:00:00")'
         print qm
         cur.execute(qm)
-
-
 db.commit()
 db.close
 #for row in cur.fetchall() :
