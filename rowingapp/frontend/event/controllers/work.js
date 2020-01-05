@@ -16,9 +16,10 @@ function toDateTime(w) {
 
 
 function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout) {
-    $scope.work={};
-    $scope.workers=[];
-    $scope.workadmin={};
+  $scope.work={};
+  $scope.workers=[];
+  $scope.workadmin={};
+  $scope.mystatswork=null;
     var dberr=function(err) {
       $log.debug("db init err "+err);
       if (err['error']) {
@@ -132,11 +133,23 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
 
   $scope.show_worker = function () {
-    console.log("ww");
+    $scope.work.workdate=null;
+    $scope.mystatswork;
     DatabaseService.getDataNow('event/stats/worker',"worker="+$scope.work.selectedworker.worker_id,function (res) {
       $scope.mystatswork=res.data;
     }
                               );
+  }
+  $scope.show_day = function () {
+    console.log("show date");
+    $scope.mystatswork=null;
+    $scope.work.selectedworker=null;
+    if ($scope.work.workdate) {
+      DatabaseService.getDataNow('event/stats/workday',"day="+$scope.work.workdate.getFullYear()+"-"+(1+$scope.work.workdate.getMonth()) +"-"+$scope.work.workdate.getDate() ,function (res) {
+        $scope.mystatswork=res.data;
+      }
+                                );
+    }
   }
 
   $scope.end_work = function (work) {

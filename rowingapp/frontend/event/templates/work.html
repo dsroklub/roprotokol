@@ -82,15 +82,33 @@
 <h2>info</h2>
 
 Se alt dit arbejde under fanebladet: min side på din egen computer.
-<h2>Roeropslag</h2>
+<h2>Opslag</h2>
 
 <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xzzxyxmber" type="text"
            ng-model="work.selectedworker"
            typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers)"
-           typeahead-template-url="memberTemplate.html" typeahead-on-select="show_worker()" required />
-<div ng-if="mystatswork && work.selectedworker" class="worklist">
+       typeahead-template-url="memberTemplate.html" typeahead-on-select="show_worker()" required />
+
+<datetimepicker
+  date-format="d-MMM-yyyy"
+  close-text="Vælg"
+  clear-text="Rens"
+  current-text="i dag"
+  placeholder="arbejdsdato"
+  show-spinners="false"
+  date-options="dateOptions"
+  hidden-time="true"
+  show-meridian="false"
+  data-ng-model="work.workdate"
+  ng-change="show_day()"
+  class="trip-search-field"
+  >
+</datetimepicker>
+
+<div ng-if="mystatswork" class="worklist">
   <table class="genericlist">
-    <caption> Udført arbejde af {{work.selectedworker.name}}:  {{mystatswork|sumWork|number:1}} timer af {{work.selectedworker.requirement}}</caption>
+    <caption ng-if="work.selectedworker"> Udført arbejde af {{work.selectedworker.name}}:  {{mystatswork|sumWork|number:1}} timer af {{work.selectedworker.requirement}}</caption>
+    <caption ng-if="work.workdate"> Arbejde den {{work.workdate | date:'d/M yyyy'}}</caption>
     <thead>
       <tr>
         <th>tidsrum</th>
