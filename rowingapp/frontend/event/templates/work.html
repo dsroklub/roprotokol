@@ -111,6 +111,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
     <caption ng-if="work.workdate"> Arbejde den {{work.workdate | date:'d/M yyyy'}}</caption>
     <thead>
       <tr>
+        <th>roer</th>
         <th>tidsrum</th>
         <th>timer</th>
         <th>arbejde</th>
@@ -119,6 +120,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
     </thead>
     <tbody ng-if="!current_user.is_winter_admin">
       <tr ng-repeat="work in mystatswork">
+        <td>work.worker</td>
         <td>{{work.start_time | dsrtimeformat:true}}&mdash;{{work.end_time | dsrtimeformat}} </td>
         <td  class="rnum">{{work.hours}}</td>
         <td >{{work.task}} {{work.work}}</td>
@@ -127,6 +129,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
     </tbody>
     <tbody ng-if="current_user.is_winter_admin">
       <tr ng-repeat="work in mystatswork">
+        <td>{{work.worker}}</td>
         <td><dsrinterval editstarttime="true" usestartdate="true" ng-model="work" ng-change="work.dirty=true"></td>
         <td class="rnum"><input type="number" ng-model="work.hours" ng-change="work.dirty=true"></td>
         <td>{{work.task}} <input ng-model="work.work" ng-change="work.dirty=true"></td>

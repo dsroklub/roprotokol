@@ -6,6 +6,7 @@ include("utils.php");
 $worker=$_GET["worker"];
 // assert($cuser=="baadhal" || $cuser=="7843");
 $s="SELECT JSON_OBJECT(
+    'worker',CONCAT(FirstName,' ',LastName),
     'id',worklog.id,
     'start_time',JSON_OBJECT('year',YEAR(start_time),'month',MONTH(start_time),'day',DAY(start_time),'hour',HOUR(start_time),'minute',MINUTE(start_time)),
     'end_time',JSON_OBJECT('year',YEAR(worklog.end_time),'month',MONTH(worklog.end_time),'day',DAY(worklog.end_time),'hour',HOUR(worklog.end_time),'minute',MINUTE(worklog.end_time)),
