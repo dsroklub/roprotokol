@@ -143,8 +143,8 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.show_day = function () {
     console.log("show date");
     $scope.mystatswork=null;
-    $scope.work.selectedworker=null;
     if ($scope.work.workdate) {
+      $scope.work.selectedworker=null;
       DatabaseService.getDataNow('event/stats/workday',"day="+$scope.work.workdate.getFullYear()+"-"+(1+$scope.work.workdate.getMonth()) +"-"+$scope.work.workdate.getDate() ,function (res) {
         $scope.mystatswork=res.data;
       }
