@@ -45,7 +45,7 @@ if ($cuser=="baadhal"){
         $message .="$start_time til $end_time = $hours" ;
         $hours=3;
         error_log($message);
-        post_forum_message($forum,$txt"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
+        post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
     }
 }
 
