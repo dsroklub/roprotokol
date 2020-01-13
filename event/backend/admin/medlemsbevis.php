@@ -10,7 +10,7 @@ if (isset($_GET["member"])) {
     echo "please set member";
     exit(0);
 }
-verify_right("admin","vedligehold");
+//verify_right("admin","roprotokol");
 
 require('fpdf.php');
 $pdf = new FPDF( 'P', 'mm', 'A4' );
@@ -60,5 +60,5 @@ $today=date('d/m Y',time());
 $pdf->Cell($w=200,0,utf8_decode("For DSR den $today: ____________________"),$border=0, $ln=1,$align='C',$fill=null);
 
 header("Content-type: application/pdf");
-header("Content-Disposition: inline; filename=roer${member_id}.pdf");
-$pdf->Output();
+header("Content-Disposition: attachment;filename=roer${member_id}.pdf");
+$pdf->Output('I',"roerrettigheder__$member_id.pdf");
