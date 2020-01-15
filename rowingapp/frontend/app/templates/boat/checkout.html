@@ -100,9 +100,10 @@
                 <ui-select  name="checkout_destination" class="checkout_destination" ng-model="checkout.destination" on-select="updateCheckout($item)" >
                   <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
                   <ui-select-choices repeat="destination in destinations | filter: $select.search ">
-                    <span ng-bind-html="destination.name | highlight: $select.search"></span>
-                    (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km ,
-                    <small ng-bind-html="destination.duration | totime"></small>t)
+                    {{destination.name | highlight: $select.search}}
+                    (<small>{{destination.distance| mtokm}}</small>km ,
+                    <small> {{destination.duration }}</small>t
+                    )
                   </ui-select-choices>
                 </ui-select>
 
