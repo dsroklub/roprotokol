@@ -120,7 +120,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
     </thead>
     <tbody ng-if="!current_user.is_winter_admin">
       <tr ng-repeat="work in mystatswork">
-        <td>work.worker</td>
+        <td>{{work.worker}}</td>
         <td>{{work.start_time | dsrtimeformat:true}}&mdash;{{work.end_time | dsrtimeformat}} </td>
         <td  class="rnum">{{work.hours}}</td>
         <td class="worktext">{{work.task}} {{work.work}}</td>
