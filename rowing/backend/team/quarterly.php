@@ -19,8 +19,8 @@ $s=
         AND team_participation.dayofweek=team.dayofweek
         AND team_participation.timeofday=team.timeofday
   WHERE  Member.id=team_participation.member_id  AND
-        (QUARTER(classdate)=? AND 
-        (YEAR(classdate)=YEAR(NOW()) AND QUARTER(NOW())>=?) OR (YEAR(classdate)=YEAR(NOW())-1 AND QUARTER(NOW())<?)) 
+        QUARTER(classdate)=? AND 
+        ((YEAR(classdate)=YEAR(NOW()) AND QUARTER(NOW())>=?) OR (YEAR(classdate)=YEAR(NOW())-1 AND QUARTER(NOW())<?)) 
 ORDER BY team.name,team_participation.timeofday
   ';
 
