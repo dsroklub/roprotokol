@@ -4,7 +4,8 @@ include("../../../rowing/backend/inc/common.php");
 require_once("utils.php");
 verify_right("admin","vedligehold");
 
-$sumq=nullÃ;
+$sumq=null;
+$sum=null;
 $q=$_GET["q"] ?? "none";
 $a=$_GET["a"] ?? "";
 $format=$_GET["format"] ?? "csv";
@@ -33,11 +34,14 @@ case "weeks":
     break;
 case "nonstarters":
     $report_name="mindst arbejde lagt";
+    $f=$_GET["a"] ?? null;
+    $workertype=$f? "'".mysqli_real_escape_string($rodb,$f)."'" :"workertype";
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
-    WHERE worker.member_id=Member.id HAVING 0<1 ORDER BY LAGT ASC,mangler DESC,roer;
+    WHERE worker.member_id=Member.id AND workertype=$workertype ORDER BY LAGT ASC,mangler DESC,workertype;
 ";
+    //    echo "f=$f, $s\n";
     break;
 case "rank":
     $report_name="timer tilbage for roere $a";
@@ -70,7 +74,6 @@ SELECT 'resterende',ROUND(SUM(GREATEST(0,requirement-IFNULL(h,0))),1) as tilbage
       "
 ;
     break;
-
 default:
     $res=["status" => "error", "error"=>"invalid query: " . $q];
     echo json_encode($res);
@@ -82,7 +85,6 @@ $result = $rodb->query($s) or dbErr($rodb,$res,"workstats $q");
 if ($sumq){
     $sumresult = $rodb->query($sumq) or dbErr($rodb,$res,"workstats sum $q");
     $sum=$sumresult->fetch_assoc()["sum"];
-    error_log("Q SUM $sum");
 }
 
 switch ($format) {

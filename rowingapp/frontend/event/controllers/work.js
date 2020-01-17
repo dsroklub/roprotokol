@@ -182,7 +182,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
                    )
   }
 
-  $scope.get_report = function (report,p="workstats",a="default") {
+  $scope.get_report = function (report,p="workstats",a="") {
     DatabaseService.getDataNow('event/stats/'+p,'format=tablejson&q='+report+'&a='+a,
                                function (res) {
         $scope.workreport=res.data;

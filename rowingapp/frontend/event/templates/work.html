@@ -201,7 +201,12 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         <li><button ng-click="get_report('boat')">Timer pr båd vintervedligehold</button> <a href="/backend/event/stats/workstats.php?q=boat">download</a></li>
         <li><button ng-click="get_report('weeks')">Timer pr uge</button> <a href="/backend/event/stats/workstats.php?q=week">download</a></li>
         <li><button ng-click="get_report('resterende')">Timer roer</button> <a href="/backend/event/stats/workstats.php?q=resterende">download</a></li>
-        <li><button ng-click="get_report('nonstarters')">roere, mindst arbejdet</button> <a href="/backend/event/stats/workstats.php?q=nonstarters">download</a></li>
+        <li><button ng-click="get_report('nonstarters')">roere, mindst arbejdet</button>
+	  <button ng-click="get_report('nonstarters','workstats','Inrigger')">Inrigger</button>
+	  <button ng-click="get_report('nonstarters','workstats','Kajakker')">Kajak</button>
+  	  <button ng-click="get_report('nonstarters','workstats','Morgenroerne')">morgen</button>
+	  <button ng-click="get_report('nonstarters','workstats','Coastal')">coastel</button>
+	  <a href="/backend/event/stats/workstats.php?q=nonstarters">download</a></li>
         <li>
           <button ng-click="get_report('rank')">Roertimer tilbage </button>
           <button ng-click="get_report('rank','workstats',10)"> &gt; 10</button>
