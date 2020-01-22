@@ -5,7 +5,7 @@ require_once("utils.php");
 
 $report_name="ugegraf";
 
-$l = $rodb->query("SELECT IFNULL(SUM(requirement),0) AS 'timer' FROM worker WHERE assigner='vedligehold'")->fetch_assoc()["timer"] or dbErr($rodb,$res,"week chart $l");
+$l = $rodb->query("SELECT IFNULL(SUM(requirement),0) AS 'timer' FROM worker,Member WHERE worker.member_id=Member.id AND assigner='vedligehold'")->fetch_assoc()["timer"] or dbErr($rodb,$res,"week chart $l");
 
 $s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge ORDER BY YEAR(start_time),uge";
 
