@@ -9,6 +9,14 @@ error_log("addwork cuser $cuser");
 //verify_real_user("registrere timer");
 $data = file_get_contents("php://input");
 $d=json_decode($data);
+
+$checkstmt=$rodb->prepare("SELECT start_time FROM worklog,Member WHERE Member.id=worklog.member_id AND Member.MemberId=? AND end_time IS NULL") or dbErr($rodb,$res,"addwork chk");
+$checkstmt->bind_param("s", $d->worker_id) || dbErr($rodb,$res,"addwork check e");
+$checkstmt->execute() or dbErr($rodb,$res,"check addwork exe");
+$existing= $checkstmt->get_result() or dbErr($rodb,$res,"w");
+if ($e=$existing->fetch_assoc()) {
+    dbErr($rodb,$res,"allerede checket ind men ikke ud");
+}
 $stmt=$rodb->prepare("INSERT INTO worklog (boat,forum,start_time,work,hours,member_id,created_by)
   SELECT ?,?,NOW(),?,?,mm.id,mc.id FROM Member mc,Member mm WHERE mm.MemberId=? AND mc.MemberId=?")
      or dbErr($rodb,$res,"addwork prep");
