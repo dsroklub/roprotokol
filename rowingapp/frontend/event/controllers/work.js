@@ -62,12 +62,14 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     }
     if (isNaN(val)) {
       var re=new RegExp("\\b"+val,'i');
-      var result = rowers.filter(function(element) {
-        return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
+      var result = rowers.filter(
+        function(element) {
+          return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
       });
       return result;
     } else {
-      var result = rowers.filter(function(element) {
+      var result = rowers.filter(
+        function(element) {
           return (preselectedids === undefined || !(element.id in preselectedids)) && element.worker_id==val;
         });
       return result;
@@ -174,6 +176,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     sr.promise.then(function(status) {
       if (status.status =='ok') {
         work.hours=status.hours;
+        //work.worker.start_time='x';
         //console.log("worker");
       } else {
         alert(status.error);
@@ -231,5 +234,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.onNewWorkerSelect = function (item,model,label) {
     $scope.workadmin.newworker=item;
   }
-
+  $scope.oneperday = function (worker) {
+    return (worker.start_time=='x' || $scope.current_user.is_winter_admin)
+  }
 }

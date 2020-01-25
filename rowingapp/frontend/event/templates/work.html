@@ -52,8 +52,8 @@
         <td>{{wk.name}} ({{wk.worker_id}})</td>
         <td>{{wk.requirement | number:1}}</td>
         <td>
-          <dsrinterval usestartdate="current_user.is_winter_admin" editstarttime="current_user.is_winter_admin" ng-model="wk">
-            {{(wk.end_time-wk.start_time)/3600000 | number:1 }} timer</td>
+          <dsrinterval usestartdate="current_user.is_winter_admin" editstarttime="current_user.is_winter_admin" ng-model="wk"/>
+          {{(wk.end_time-wk.start_time)/3600000 | number:1 }} timer</td>
         <td><input class="description" ng-model="wk.work" type="text"></td>
         <td>
           <SELECT ng-model="wk.boat"><OPTION ng-repeat="bt in maintenance_boats">{{bt.name}}</OPTION>
@@ -74,7 +74,7 @@
   <form>
     <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xyxyxmber" type="text"
            ng-model="work.worker"
-           typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers) | filter: {start_time: 'x'}"
+           typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers) | filter: oneperday"
            typeahead-template-url="memberTemplate.html" typeahead-on-select="select_worker()" required />
   </form>
 </div>
@@ -130,7 +130,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
     <tbody ng-if="current_user.is_winter_admin">
       <tr ng-repeat="work in mystatswork">
         <td>{{work.worker}}</td>
-        <td><dsrinterval editstarttime="true" usestartdate="true" ng-model="work" ng-change="work.dirty=true"></td>
+        <td><dsrinterval editstarttime="true" usestartdate="true" ng-model="work" ng-change="work.dirty=true"/></td>
         <td class="rnum"><input type="number" ng-model="work.hours" ng-change="work.dirty=true"></td>
         <td>{{work.task}} <textarea class="worktext" ng-model="work.work" ng-change="work.dirty=true"></textarea></td>
         <td><input ng-model="work.boat" ng-change="work.dirty=4747"></td>
@@ -146,9 +146,8 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
 
 <div ng-if="current_user.is_winter_admin">
   <h1>Administration</h1>
-  <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>
-  <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button-->
-  <h2>Tilføj ny roer til vintervedligehold<h2>
+  <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>  <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button-->
+  <h2>Tilføj ny roer til vintervedligehold</h2>
       <form>
         <input placeholder="vælg medlem" autocomplete="off" id="workeradmininput" name="aseexmber" type="text"
                ng-model="workadmin.newworker"
@@ -158,18 +157,17 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
                typeahead-min-length="2" typeahead-select-on-exact="true"
                uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
                typeahead-on-select='onNewWorkerSelect($item, $model, $label)'
-               typeahead-template-url="allmemberTemplate.html" required />
+               typeahead-template-url="allmemberTemplate.html" required>
         <SELECT ng-model="workadmin.newworker.workertype" ng-show="workadmin.newworker.id">
           <option>Inrigger</option>
           <option>Kajakker</option>
           <option>Morgenroerne</option>
           <option>Coastal</option>
         </SELECT>
-        <input type="number" class="rnum" size="5" step="0.1" maxlength="5" autocomplete="off" ng-model="workadmin.newworker.requirement"
-               ng-change="workadmin.new=true">
+        <input type="number" class="rinum" size="8" step="0.5" maxlength="5" autocomplete="off" ng-model="workadmin.newworker.requirement" ng-change="workadmin.new=true">
         <button ng-show="workadmin.new && workadmin.newworker.requirement!=null" ng-click="create_worker(workadmin.newworker)">Sæt til arbejde</button>
       </form>
-  <h2>Rediger deltager<h2>
+      <h2>Rediger deltager</h2>
       <form>
         <input placeholder="vælg medlem" autocomplete="off" id="workeradmininput" name="asxyxmber" type="text"
                ng-model="workadmin.worker"
@@ -177,24 +175,21 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
                typeahead-select-on-blur="true"
                typeahead-min-length="2" typeahead-select-on-exact="true"
                uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers)"
-               typeahead-template-url="memberTemplate.html" typeahead-on-select="edit_worker()" required />
+               typeahead-template-url="memberTemplate.html" typeahead-on-select="edit_worker()" required>
         <input type="number" class="rnum" size="5" step="0.1" maxlength="5" autocomplete="off" ng-model="workadmin.worker.requirement"
                ng-change="workadmin.changed=true">
         <button ng-show="workadmin.changed && workadmin.worker.requirement!=null" ng-click="update_work_req()">Opdater timer</button>
       </form>
-
-
       <h2>Rapporter</h2>
       <div  class="weekbar">
-      <canvas id="bar" class="chart chart-bar"
-              chart-dataset-override="weekwork.override"
-              chart-data="weekwork.data"
-              chart-labels="weekwork.labels"
-              chart-series="weekwork.series"
-              chart-options="weekwork.options" maintainAspectRatio="false">
-      </canvas>
+        <canvas id="bar" class="chart chart-bar"
+                chart-dataset-override="weekwork.override"
+                chart-data="weekwork.data"
+                chart-labels="weekwork.labels"
+                chart-series="weekwork.series"
+                chart-options="weekwork.options" maintainAspectRatio="false">
+        </canvas>
       </div>
-
       <ul>
         <li><button ng-click="get_report('all')">Timer på vintervedligehold</button> <a href="/backend/event/stats/workstats.php?q=all">download</a></li>
         <li><button ng-click="get_report('day')">Timer pr dag vintervedligehold</button> <a href="/backend/event/stats/workstats.php?q=day">download</a></li>
@@ -202,11 +197,12 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         <li><button ng-click="get_report('weeks')">Timer pr uge</button> <a href="/backend/event/stats/workstats.php?q=week">download</a></li>
         <li><button ng-click="get_report('resterende')">Timer roer</button> <a href="/backend/event/stats/workstats.php?q=resterende">download</a></li>
         <li><button ng-click="get_report('nonstarters')">roere, mindst arbejdet</button>
-  <button ng-click="get_report('nonstarters','workstats','Inrigger')">Inrigger</button>
-  <button ng-click="get_report('nonstarters','workstats','Kajakker')">Kajak</button>
-    <button ng-click="get_report('nonstarters','workstats','Morgenroerne')">morgen</button>
-  <button ng-click="get_report('nonstarters','workstats','Coastal')">coastel</button>
-  <a href="/backend/event/stats/workstats.php?q=nonstarters">download</a></li>
+          <button ng-click="get_report('nonstarters','workstats','Inrigger')">Inrigger</button>
+          <button ng-click="get_report('nonstarters','workstats','Kajakker')">Kajak</button>
+          <button ng-click="get_report('nonstarters','workstats','Morgenroerne')">morgen</button>
+          <button ng-click="get_report('nonstarters','workstats','Coastal')">coastel</button>
+          <a href="/backend/event/stats/workstats.php?q=nonstarters">download</a>
+        </li>
         <li><button ng-click="get_report('nonmembers')">udmeldte</button></li>
         <li>
           <button ng-click="get_report('rank')">Roertimer tilbage </button>
@@ -218,8 +214,8 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
       </ul>
 </div>
 
-      <div ng-if="workreport">
-        <table class="tlist">
+<div ng-if="workreport">
+  <table class="tlist">
           <caption>{{workreport.name}}</caption>
           <thead>
             <tr>
@@ -231,5 +227,5 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
               </tr>
             </tbody>
           </thead>
-        </table>
-      </div>
+  </table>
+</div>
