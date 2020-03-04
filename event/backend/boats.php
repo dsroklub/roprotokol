@@ -14,7 +14,6 @@ $s="SELECT DISTINCT Boat.Name,JSON_OBJECT(
            'location', Boat.Location,
            'brand',Boat.brand,
            'forum',MAX(forum.name),
-           'formand',MIN(baadformand.formand),
            'level',Boat.level) as json
     FROM Boat
          INNER JOIN BoatType ON (BoatType.Name=Boat.boat_type)
@@ -22,7 +21,7 @@ $s="SELECT DISTINCT Boat.Name,JSON_OBJECT(
            LEFT JOIN forum ON forum.boat=Boat.name AND forum.forumtype='maintenance'
     WHERE
          Boat.Decommissioned IS NULL
-    GROUP BY Boat.id,baad.max_timer
+    GROUP BY Boat.id
     ORDER by Boat.Name
     ";
 //echo $s;

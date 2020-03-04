@@ -5,9 +5,9 @@ require_once("utils.php");
 
 $report_name="ugegraf";
 
-$l = $rodb->query("SELECT IFNULL(SUM(requirement),0) AS 'timer' FROM worker WHERE assigner='vedligehold'")->fetch_assoc()["timer"] !== false or dbErr($rodb,$res,"weeksum $l");
+$l = $rodb->query("SELECT IFNULL(SUM(requirement),0) AS 'timer' FROM worker,Member WHERE worker.member_id=Member.id AND assigner='vedligehold'")->fetch_assoc()["timer"] or dbErr($rodb,$res,"week chart $l");
 
-$s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge ORDER BY uge";
+$s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge,YEAR(start_time) ORDER BY YEAR(start_time),uge";
 
 $result = $rodb->query($s) or dbErr($rodb,$res,"week $q");
 $data=[];
@@ -30,7 +30,7 @@ $weeks[$w]=0;
 $left[$w]=round(($leftweeks-1)*$perweek,1);
 $gns[$w]=round($perweek,1);
 $w++;
-while ($w > 42 || $w<13 ) {
+while ( $w > 42 ||  $w<13) {
     $weeks[$w]=0;
     $left[$w]=null;
     $gns[$w]=null;

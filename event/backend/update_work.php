@@ -41,13 +41,13 @@ if (isset($d->hours) && $cuser != "baadhal") {
 
 if ($cuser=="baadhal"){
     if ($hours>3) {
+        $message = "$d->name afkortet til 3 timer\n";
+        $message .="$start_time til $end_time = $hours" ;
         $hours=3;
-        $message = "$d->name afkortet til 3 timer";
         error_log($message);
         post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
     }
 }
-
 
 if ($cuser=="baadhal" && $now-strtotime($start_time)>60) {
     // roErr("man kan ikke ændre starttidspunkt fra bådhallen");

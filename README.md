@@ -18,7 +18,7 @@ https://agol.dk/roprotokol/frontend/app/real.html
     # Remember to restart your web server.
 
    a2enmod dbd  rewrite include authn_dbd  php7.X
-   sudo npm install -g bower karma
+   sudo npm install -g bower
 
    # for debug scripts
    cd rowingapp/phplib; composer update

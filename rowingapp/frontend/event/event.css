@@ -147,10 +147,10 @@ input.big {
   background: #0088C0;
   padding: 0 10pt;
   margin: 0;
-  width: 100%
+  width: 100%;
  }
 .maxwidth {
-  width: 100%
+  width: 100%;
 }
 
 .description {
@@ -323,6 +323,9 @@ textarea {
   padding: 0px;
 }
 
+table.worklist {
+   width: 100%;
+}
 table.genericlist tbody {
    background : #FFD;
    width: 100%;
@@ -435,7 +438,7 @@ th,td {
 
 .messagelist {
   display:inline-block;
-    max-width: 100%
+    max-width: 100%;
 }
 .rightcontainer {
     display:inline-block;
@@ -463,12 +466,24 @@ th,td {
     float:left;
     margin-bottom: 1em;
     margin-right: 0.8em;
+}
 
+.worktext {
+     width:33em;
+ }
+
+.worktable {
+    border-radius: 5px;
+    overflow: visible;
+    float:left;
+    margin-bottom: 1em;
+    margin-right: 0.8em;
 }
 
 .worklist {
-            display:table;
-            }
+   display:table;
+   width: 100%;
+}
 
 .generate {
   background: #43d4eb;
@@ -636,4 +651,8 @@ datetimepicker.ng-empty ng-form div input {
 
 input[type="number"] {
    width:3em;
+}
+
+xinput {
+   -webkit-appearance: none;
 }

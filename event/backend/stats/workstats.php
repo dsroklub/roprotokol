@@ -4,6 +4,8 @@ include("../../../rowing/backend/inc/common.php");
 require_once("utils.php");
 verify_right("admin","vedligehold");
 
+$sumq=null;
+$sum=null;
 $q=$_GET["q"] ?? "none";
 $a=$_GET["a"] ?? "";
 $format=$_GET["format"] ?? "csv";
@@ -30,6 +32,28 @@ case "weeks":
     $report_name="ugefordeling";
     $s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge ORDER BY uge";
     break;
+case "nonstarters":
+    $report_name="mindst arbejde lagt";
+    $f=$_GET["a"] ?? null;
+    $workertype=$f? "'".mysqli_real_escape_string($rodb,$f)."'" :"workertype";
+    $s="
+SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
+FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
+    WHERE Member.RemoveDate IS NULL AND worker.member_id=Member.id AND workertype=$workertype ORDER BY LAGT ASC,mangler DESC,workertype;
+";
+    //    echo "f=$f, $s\n";
+    break;
+case "nonmembers":
+    $report_name="mindst arbejde lagt";
+    $f=$_GET["a"] ?? null;
+    $workertype=$f? "'".mysqli_real_escape_string($rodb,$f)."'" :"workertype";
+    $s="
+SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,DATE_FORMAT(RemoveDate,'%d/%m %Y') as udmeldt,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
+FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
+    WHERE Member.RemoveDate IS NOT NULL AND worker.member_id=Member.id AND workertype=$workertype ORDER BY udmeldt, roer,lagt ASC,mangler DESC,workertype;
+";
+    //    echo "f=$f, $s\n";
+    break;
 case "rank":
     $report_name="timer tilbage for roere $a";
     $limit="";
@@ -38,30 +62,35 @@ case "rank":
     }
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
-FROM Member,worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w
-    WHERE Member.id=w.member_id AND worker.member_id=Member.id $limit ORDER by mangler DESC;
+FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
+    WHERE worker.member_id=Member.id $limit ORDER by mangler DESC;
 ";
     break;
 case "resterende":
     $report_name="gjort arbejde";
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
-FROM Member,worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w
-    WHERE Member.id=w.member_id AND worker.member_id=Member.id ORDER BY lagt DESC;
+FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
+    WHERE  worker.member_id=Member.id ORDER BY lagt DESC;
 ";
     break;
 case "overview":
     $report_name="oversig over arbejde";
     $captions=["","timer"];
     $s="
-SELECT 'total',SUM(requirement) AS 'timer' FROM worker WHERE assigner='vedligehold' UNION
-      SELECT 'udført',SUM(hours) as 'timer'  FROM worklog UNION
-SELECT 'resterende',ROUND(SUM(GREATEST(0,requirement-IFNULL(h,0))),1) as tilbage  FROM worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id UNION
-      SELECT 'overskud',ROUND(SUM(GREATEST(0.0,h-requirement)),1) as tilbage  FROM worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w  WHERE worker.member_id=w.member_id
+SELECT 'total standerstrygning',SUM(requirement) AS 'timer' FROM worker WHERE assigner='vedligehold'
+  UNION
+SELECT 'aktuel total',SUM(requirement) AS 'timer' FROM worker,Member WHERE assigner='vedligehold' AND Member.id = worker.member_id AnD Member.RemoveDate IS NULL
+  UNION
+SELECT 'udført',SUM(hours) as 'timer'  FROM worklog
+  UNION
+SELECT 'resterende aktuelt',ROUND(SUM(GREATEST(0,requirement-IFNULL(h,0))),1) as tilbage  FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
+  WHERE Member.id=worker.member_id AND Member.RemoveDate IS NULL
+  UNION
+SELECT 'overskud',ROUND(SUM(GREATEST(0.0,h-requirement)),1) as tilbage  FROM worker,(SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w  WHERE worker.member_id=w.member_id
       "
 ;
     break;
-
 default:
     $res=["status" => "error", "error"=>"invalid query: " . $q];
     echo json_encode($res);
@@ -73,7 +102,6 @@ $result = $rodb->query($s) or dbErr($rodb,$res,"workstats $q");
 if ($sumq){
     $sumresult = $rodb->query($sumq) or dbErr($rodb,$res,"workstats sum $q");
     $sum=$sumresult->fetch_assoc()["sum"];
-    error_log("Q SUM $sum");
 }
 
 switch ($format) {

@@ -16,9 +16,10 @@ function toDateTime(w) {
 
 
 function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout) {
-    $scope.work={};
-    $scope.workers=[];
-    $scope.workadmin={};
+  $scope.work={};
+  $scope.workers=[];
+  $scope.workadmin={};
+  $scope.mystatswork=null;
     var dberr=function(err) {
       $log.debug("db init err "+err);
       if (err['error']) {
@@ -61,12 +62,14 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     }
     if (isNaN(val)) {
       var re=new RegExp("\\b"+val,'i');
-      var result = rowers.filter(function(element) {
-        return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
+      var result = rowers.filter(
+        function(element) {
+          return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
       });
       return result;
     } else {
-      var result = rowers.filter(function(element) {
+      var result = rowers.filter(
+        function(element) {
           return (preselectedids === undefined || !(element.id in preselectedids)) && element.worker_id==val;
         });
       return result;
@@ -132,11 +135,23 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
 
   $scope.show_worker = function () {
-    console.log("ww");
+    $scope.work.workdate=null;
+    $scope.mystatswork;
     DatabaseService.getDataNow('event/stats/worker',"worker="+$scope.work.selectedworker.worker_id,function (res) {
       $scope.mystatswork=res.data;
     }
                               );
+  }
+  $scope.show_day = function () {
+    console.log("show date");
+    $scope.mystatswork=null;
+    if ($scope.work.workdate) {
+      $scope.work.selectedworker=null;
+      DatabaseService.getDataNow('event/stats/workday',"day="+$scope.work.workdate.getFullYear()+"-"+(1+$scope.work.workdate.getMonth()) +"-"+$scope.work.workdate.getDate() ,function (res) {
+        $scope.mystatswork=res.data;
+      }
+                                );
+    }
   }
 
   $scope.end_work = function (work) {
@@ -161,6 +176,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     sr.promise.then(function(status) {
       if (status.status =='ok') {
         work.hours=status.hours;
+        //work.worker.start_time='x';
         //console.log("worker");
       } else {
         alert(status.error);
@@ -169,7 +185,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
                    )
   }
 
-  $scope.get_report = function (report,p="workstats",a="default") {
+  $scope.get_report = function (report,p="workstats",a="") {
     DatabaseService.getDataNow('event/stats/'+p,'format=tablejson&q='+report+'&a='+a,
                                function (res) {
         $scope.workreport=res.data;
@@ -218,5 +234,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.onNewWorkerSelect = function (item,model,label) {
     $scope.workadmin.newworker=item;
   }
-
+  $scope.oneperday = function (worker) {
+    return (worker.start_time=='x' || $scope.current_user.is_winter_admin)
+  }
 }

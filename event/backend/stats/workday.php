@@ -3,7 +3,7 @@
 include("../../../rowing/backend/inc/common.php");
 include("utils.php");
 
-$worker=$_GET["worker"];
+$day=$_GET["day"];
 // assert($cuser=="baadhal" || $cuser=="7843");
 $s="SELECT JSON_OBJECT(
     'worker',CONCAT(FirstName,' ',LastName),
@@ -17,12 +17,12 @@ $s="SELECT JSON_OBJECT(
     'work',work
     ) as json
     FROM worklog, Member
-    WHERE Member.MemberID=? AND Member.id=worklog.member_id
+    WHERE DATE(start_time)=DATE(?) AND Member.id=worklog.member_id
     ORDER BY start_time";
 
 $stmt = $rodb->prepare($s) or dbErr($rodb,$res,"mystats $q");
-$stmt->bind_param("s",$worker);
-$stmt->execute() ||  dbErr($rodb,$res,"worker $q");
+$stmt->bind_param("s",$day);
+$stmt->execute() ||  dbErr($rodb,$res,"workday $q");
 $result= $stmt->get_result();
 output_json($result);
 $stmt->close();
