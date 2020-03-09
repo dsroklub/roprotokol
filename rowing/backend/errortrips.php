@@ -74,13 +74,9 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
 
 if ($sqldebug) echo $sql."\n\n";
 
-if ($stmt = $rodb->prepare($sql)) {
-     $stmt->execute() or die("Error in etrips query: " . mysqli_error($rodb));
-     $result= $stmt->get_result() or die("Error in etrips query: " . mysqli_error($rodb));
-} else {
-    $error=mysqli_error($rodb);
-    error_log($error);
-}
+$stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"errortrips"); 
+$stmt->execute() or die("Error in etrips query: " . mysqli_error($rodb));
+$result= $stmt->get_result() or die("Error in etrips query: " . mysqli_error($rodb));
 
 echo '[';
 $first=1;

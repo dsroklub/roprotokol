@@ -124,7 +124,7 @@ if ($error) {
 
 foreach ($newtrip->rowers as $rower) {
   //error_log("check ".$rower->id);
-    if ($stmt = $rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name, MemberID, member_type From Member WHERE Member.MemberID=? AND (member_type=1 OR RemoveDate IS NOT NULL)")) {
+    if ($stmt = $rodb->prepare("SELECT RemoveDate,CONCAT(FirstName,' ',LastName) AS name, MemberID, member_type FROM Member WHERE Member.MemberID=? AND (member_type=1 OR RemoveDate IS NOT NULL)")) {
         $stmt->bind_param('s', $rower->id);
         $stmt->execute();
         $result= $stmt->get_result();
