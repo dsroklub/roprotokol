@@ -11,13 +11,13 @@ https://agol.dk/roprotokol/frontend/app/real.html
 
 # Installation
 
-    apt-get install composer npm python-mysqldb memcached php-memcached php-mysql libapache2-mod-php nodejs  mysql-server php-mail php-mailparse  composer php-cli
+    apt-get install composer npm python-mysqldb memcached php-memcached php-mysql php-gd php-zip libapache2-mod-php nodejs  mysql-server php-mail php-mailparse  composer php-cli
     # or mariadb
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
     apt-get install  libaprutil1-dbd-mysql pkg-php-tools
     # Remember to restart your web server.
 
-   a2enmod dbd  rewrite include authn_dbd  php7.X
+   a2enmod dbd  rewrite include authn_dbd  php7.X # where X is the php version
    sudo npm install -g bower
 
    # for debug scripts

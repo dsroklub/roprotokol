@@ -1,4 +1,11 @@
 <?php
+require __DIR__.'/../vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Ods;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+
 header('Content-Type: application/json; charset=utf-8');
 ini_set('default_charset', 'utf-8');
 ini_set('display_errors', 'Off');
@@ -7,8 +14,6 @@ date_default_timezone_set("Europe/Copenhagen");
 
 define( 'ROOT_DIR', dirname(__FILE__) );
 set_include_path(get_include_path() . PATH_SEPARATOR  . ROOT_DIR);
-$skiplogin=false;
-
 if(!isset($_SESSION)){
   session_start();
 }
@@ -23,8 +28,8 @@ $output="json";
 if (isset($_GET["sqldebug"])) {
     $sqldebug=true;
 }
-if (isset($_GET["output"]) and $_GET["output"]=="csv") {
-    $output="csv";
+if (isset($_GET["output"]) && ($_GET["output"]=="csv" || $_GET["output"]=="xlsx")) {
+    $output=$_GET["output"];
 }
 
 require_once("db.php");
@@ -75,7 +80,7 @@ function dbfetch($db,$table, $columns=['*'], $orderby=null) {
     $first=1;
     while ($row = $result->fetch_assoc()) {
         if ($first) $first=0; else echo ',';
-        echo json_encode($row,	JSON_PRETTY_PRINT);
+        echo json_encode($row,JSON_PRETTY_PRINT);
     }
     echo ']';
 }
@@ -86,14 +91,37 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 
 function process ($result,$output="json",$name="cvsfile",$captions=null) {
-    $mariaType=[ MYSQLI_TYPE_NEWDECIMAL=>"d", MYSQLI_TYPE_DECIMAL=>"d",MYSQLI_TYPE_FLOAT=>"f",MYSQLI_TYPE_DOUBLE=>"f",MYSQLI_TYPE_VAR_STRING=>"s",MYSQLI_TYPE_STRING=>"s",MYSQLI_TYPE_DATETIME=>"t"];
+    $mariaType=[
+        MYSQLI_TYPE_NEWDECIMAL=>"d",
+        MYSQLI_TYPE_DECIMAL=>"d",
+        MYSQLI_TYPE_LONGLONG=>"d",
+        MYSQLI_TYPE_LONG=>"d",
+        MYSQLI_TYPE_FLOAT=>"f",
+        MYSQLI_TYPE_DOUBLE=>"f",
+        MYSQLI_TYPE_VAR_STRING=>"s",
+        MYSQLI_TYPE_STRING=>"s",
+        MYSQLI_TYPE_DATETIME=>"t"
+    ];
+    $formatMap=[MYSQLI_TYPE_FLOAT => DataType::TYPE_NUMERIC,
+                MYSQLI_TYPE_STRING => DataType::TYPE_STRING,
+                MYSQLI_TYPE_VAR_STRING => DataType::TYPE_STRING,
+                MYSQLI_TYPE_NEWDECIMAL => DataType::TYPE_NUMERIC,
+                MYSQLI_TYPE_DECIMAL => DataType::TYPE_NUMERIC,
+                MYSQLI_TYPE_LONG => DataType::TYPE_NUMERIC,
+                MYSQLI_TYPE_LONGLONG => DataType::TYPE_NUMERIC,
+                MYSQLI_TYPE_DOUBLE => DataType::TYPE_NUMERIC
+    ];
+    $colTypes=[];
     if ($captions=="_auto") {
         $captions=[];
         foreach ($result->fetch_fields() as $fl) {
             $captions[]=$fl->name;
+            $colTypes[$fl->name]=$fl->type;
+
             //echo print_r($fl,true)."\n<br>";
         }
     }
+    //    error_log(print_r($colTypes));
     if ($output=="json") {
         header('Content-type: application/json;charset=utf-8');
         echo '[';
@@ -122,6 +150,45 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
             $rn=$rn+1;
         }
         echo ']}';
+    } else if ($output=="ods" || $output=="xlsx") {
+        header('Content-Disposition: filename="'.$name.".$output".'"');
+        if ($output=="ods"){
+            header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
+        } else {
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        }
+        header('Cache-Control: max-age=0');
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet()->setTitle($name);
+        $spreadsheet->getProperties()
+            ->setCreator('DSR roprotokol')
+            ->setTitle($name)
+            ->setSubject($name)
+            ->setDescription('DSR roprotokol rapport')
+            ->setKeywords('DSR roprotokol aftaler');
+        $ri=1;
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(50);
+        if ($captions) {
+            foreach ($captions as $ci => $caption) {
+                $sheet->setCellValueByColumnAndRow($ci+1,1,"$caption");
+            }
+            $sheet->freezePane("A2");
+        }
+        $ri++;
+        while ($row = $result->fetch_assoc()) {
+            $ci=1;
+            foreach ($row as $cn=>$rc) {
+                if (isset($colTypes[$cn]) && isset($formatMap[$colTypes[$cn]])) {
+                    $dataType=$formatMap[$colTypes[$cn]];
+                } else {
+                    $dataType=DataType::TYPE_STRING;
+                }
+                $sheet->setCellValueExplicitByColumnAndRow($ci++,$ri,$rc,$dataType);
+            }
+            $ri++;
+        }
+        $writer = ($output=="xlsx")?new Xlsx($spreadsheet):new Ods($spreadsheet);
+        $writer->save('php://output');
     } else if ($output=="csv") {
         header('Content-type: text/csv');
         header('Content-Disposition: filename="'.$name.'.csv"');

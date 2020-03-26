@@ -14,8 +14,8 @@ if (!$rodb->set_charset("utf8")) {
 
 header('Content-Disposition: filename="bådreservationer.csv"');
 $s='SELECT Boat.Name as boat, GROUP_CONCAT(TIME_FORMAT(start_time,"%H:%i"),"-",TIME_FORMAT(end_time,"%H:%i")," ",TripType.Name SEPARATOR "/") as reservation,dayofweek
-    FROM reservation,Boat,TripType,BoatType 
-    WHERE Boat.id=boat AND TripType.id=triptype AND BoatType.id=BoatType AND dayofweek>0
+    FROM reservation,Boat,TripType,BoatType
+    WHERE Boat.id=reservation.boat AND TripType.id=triptype AND BoatType.name=Boat.boat_type AND dayofweek>0
     GROUP BY boat,dayofweek
     ORDER BY Boat.Name,dayofweek,start_time';
 
@@ -27,10 +27,9 @@ $row = $result->fetch_assoc();
      echo "\n".$boat;
      for ($d = 1; $d <= 7; $d++) {
          echo ",";
-         if ($d==$row["dayofweek"] and $boat==$row["boat"]) {
+         if ($d==isset($row["dayofweek"]) and $boat==$row["boat"]) {
              echo $row["reservation"];
              $row = $result->fetch_assoc();
          }
      }
  }
-?> 

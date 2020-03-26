@@ -7,11 +7,11 @@ $right=$_GET["right"];
 $subtype=$_GET["subtype"]??"";
 
 $s =empty($subtype)?
-   "SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS rower, Acquired as tildelt, argument as subtype
+   "SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS navn, Acquired as tildelt, argument as subtype
     FROM Member, MemberRights
     WHERE Member.id=MemberRights.member_id AND RemoveDate IS NULL AND MemberRight=? "
    :
-   "SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS rower, Acquired as tildelt
+   "SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS navn, Acquired as tildelt
     FROM Member, MemberRights
     WHERE Member.id=MemberRights.member_id AND RemoveDate IS NULL AND MemberRight=? AND argument=?"
    ;
@@ -29,6 +29,6 @@ if (empty($subtype)) {
 }
 $stmt->execute() || dbErr($rodb,$res,"RBR exe");
 $result= $stmt->get_result();
-process($result,"csv","Ret_$right$subtype",array("$right","pr"));
+process($result,"xlsx","Ret_$right$subtype","_auto");
 $stmt->close();
 $rodb->close();

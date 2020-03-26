@@ -14,8 +14,8 @@ if (!$rodb->set_charset("utf8")) {
 
 header('Content-Disposition: filename="bådreservationer.csv"');
 $s='SELECT Boat.Name as boat,start_time,end_time,start_date,end_date,dayofweek,TripType.Name as triptype, BoatType.Name as boattype
-    FROM reservation,Boat,TripType,BoatType 
-    WHERE Boat.id=boat AND TripType.id=triptype AND BoatType.id=BoatType
+    FROM reservation,Boat,TripType,BoatType
+    WHERE Boat.id=reservation.boat AND TripType.id=triptype AND BoatType.name=Boat.boat_type
     ORDER BY Boat.Name,dayofweek,start_time';
 
 $result=$rodb->query($s) or die("Error in ld query: " . mysqli_error($rodb));;
@@ -26,4 +26,3 @@ $result=$rodb->query($s) or die("Error in ld query: " . mysqli_error($rodb));;
      }
      echo $row["boat"].",".$row["boattype"].",".$row["triptype"].",".$days[$row["dayofweek"]].",".$row["start_time"].",".$row["start_date"].",".$row["end_time"].",".$row["end_date"]."\n";
  }
-?> 

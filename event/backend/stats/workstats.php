@@ -105,21 +105,21 @@ if ($sumq){
 }
 
 switch ($format) {
-case "csv":
-    process($result,"csv",$q,$captions);
-    break;
-case "json":
-    process($result,"json",$q,$captions);
-    break;
-case "html":
-    process($result,"text",$q,$captions);
-    break;
-case "tablejson":
-    process($result,"tablejson",$report_name . "  ". $sum??"",$captions);
-    break;
-default:
-    $res=["status" => "error", "error"=>"invalid format: " . $format];
-    echo json_encode($res);
-    exit(0);
+    case "csv":
+    case "json":
+    case "ods":
+    case "xlsx":
+        process($result,$format,$q,$captions);
+        break;
+    case "html":
+        process($result,"text",$q,$captions);
+        break;
+    case "tablejson":
+        process($result,"tablejson",$report_name . "  ". $sum??"",$captions);
+        break;
+    default:
+        $res=["status" => "error", "error"=>"invalid format: " . $format];
+        echo json_encode($res);
+        exit(0);
 }
 $rodb->close();

@@ -2,11 +2,9 @@
 set_include_path(get_include_path().':..');
 include("inc/common.php");
 include("inc/backheader.php");
-header('Content-type: text/csv');
-header('Content-Disposition: filename="instruktorstat.csv"');
 
-$s="SELECT YEAR(NOW())-1 as sason, CONCAT(FirstName,' ',LastName) as Instruktor, MemberId as medlemsnummer, COUNT('x') AS instruktioner,
-     GROUP_CONCAT(DISTINCT BoatType.Name SEPARATOR '/') as boattypes
+$s="SELECT CONCAT(FirstName,' ',LastName) as instruktør,MemberId as medlemsnummer, YEAR(NOW())-1 as sæson, COUNT('x') AS instruktioner,
+     GROUP_CONCAT(DISTINCT BoatType.Name SEPARATOR '/') as bådtyper
 FROM Trip,TripMember, Member, TripType,MemberRights,Boat,BoatType
 WHERE
   Boat.id=Trip.BoatID AND
@@ -21,5 +19,5 @@ Group By Member.id
 ORDER BY instruktioner desc,FirstName,LastName
 ";
 $result=$rodb->query($s) or dbErr($rodb,$res,"Error in instruktorstat query: " );
-$output='csv';
-process($result,$output,"instruktørstatistik",array("season","instruktør","medlemsnr","ture","bådtyper"));
+$output='xlsx';
+process($result,$output,"instruktørstatistik","_auto");

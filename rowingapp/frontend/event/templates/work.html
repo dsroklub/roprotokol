@@ -191,17 +191,17 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         </canvas>
       </div>
       <ul>
-        <li><button ng-click="get_report('all')">Timer på vintervedligehold</button> <a href="/backend/event/stats/workstats.php?q=all">download</a></li>
-        <li><button ng-click="get_report('day')">Timer pr dag vintervedligehold</button> <a href="/backend/event/stats/workstats.php?q=day">download</a></li>
-        <li><button ng-click="get_report('boat')">Timer pr båd vintervedligehold</button> <a href="/backend/event/stats/workstats.php?q=boat">download</a></li>
-        <li><button ng-click="get_report('weeks')">Timer pr uge</button> <a href="/backend/event/stats/workstats.php?q=week">download</a></li>
-        <li><button ng-click="get_report('resterende')">Timer roer</button> <a href="/backend/event/stats/workstats.php?q=resterende">download</a></li>
+        <li><button ng-click="get_report('all')">Timer på vintervedligehold</button> <a href="/backend/event/stats/workstats.php?q=all&format=xlsx">download</a></li>
+        <li><button ng-click="get_report('day')">Timer pr dag vintervedligehold</button> <a href="/backend/event/stats/workstats.php?q=day&format=xlsx">download</a></li>
+        <li><button ng-click="get_report('boat')">Timer pr båd vintervedligehold</button> <a href="/backend/event/stats/workstats.php?q=boat&format=xlsx">download</a></li>
+        <li><button ng-click="get_report('weeks')">Timer pr uge</button> <a href="/backend/event/stats/workstats.php?q=week&format=xlsx">download</a></li>
+        <li><button ng-click="get_report('resterende')">Timer roer</button> <a href="/backend/event/stats/workstats.php?q=resterende&format=xlsx">download</a></li>
         <li><button ng-click="get_report('nonstarters')">roere, mindst arbejdet</button>
           <button ng-click="get_report('nonstarters','workstats','Inrigger')">Inrigger</button>
           <button ng-click="get_report('nonstarters','workstats','Kajakker')">Kajak</button>
           <button ng-click="get_report('nonstarters','workstats','Morgenroerne')">morgen</button>
           <button ng-click="get_report('nonstarters','workstats','Coastal')">coastel</button>
-          <a href="/backend/event/stats/workstats.php?q=nonstarters">download</a>
+          <a href="/backend/event/stats/workstats.php?q=nonstarters&format=xlsx">download</a>
         </li>
         <li><button ng-click="get_report('nonmembers')">udmeldte</button></li>
         <li>
@@ -209,8 +209,8 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
           <button ng-click="get_report('rank','workstats',10)"> &gt; 10</button>
           <button ng-click="get_report('rank','workstats',15)"> &gt; 15 </button>
           <button ng-click="get_report('rank','workstats',20)"> &gt; 20</button>
-          <a href="/backend/event/stats/workstats.php?q=rank">download</a></li>
-        <li><button ng-click="get_report('overview')">Oversigt</button> <a href="/backend/event/stats/workstats.php?q=overview">download</a></li>
+          <a href="/backend/event/stats/workstats.php?q=rank&format=xlsx">download</a></li>
+        <li><button ng-click="get_report('overview')">Oversigt</button> <a href="/backend/event/stats/workstats.php?q=overview&format=xlsx">download</a></li>
       </ul>
 </div>
 

@@ -82,10 +82,10 @@ if ($separate_instruction) {
                                  WHERE Name LIKE '%instruktion%')
         GROUP BY tm.member_id, bc.id";
 
-  $result=$rodb->query($s) or die("Error in query 4: " . mysqli_error($rodb));;
+  $result=$rodb->query($s) or dbErr($rodb,$res,"exe");
   while ($row = $result->fetch_assoc()) {
-   $rowers[$row['member']][ $row['category'] . '_km_uden_instruktion'] = $row['km'];
-   $rowers[$row['member']][ $row['category'] . '_ture_uden_instruktion'] = $row['trips'];
+      $rowers[$row['member']][ $row['category'] . '_km_uden_instruktion'] = $row['km'];
+      $rowers[$row['member']][ $row['category'] . '_ture_uden_instruktion'] = $row['trips'];
   }
 }
 
