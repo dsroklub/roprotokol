@@ -109,19 +109,21 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
                 MYSQLI_TYPE_DECIMAL => DataType::TYPE_NUMERIC,
                 MYSQLI_TYPE_LONG => DataType::TYPE_NUMERIC,
                 MYSQLI_TYPE_LONGLONG => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_DOUBLE => DataType::TYPE_NUMERIC
+                MYSQLI_TYPE_DOUBLE => DataType::TYPE_NUMERIC,
+                MYSQLI_TYPE_DATETIME => DataType::TYPE_NUMERIC
     ];
     $colTypes=[];
+    $maxlengths=[];
     if ($captions=="_auto") {
         $captions=[];
-        foreach ($result->fetch_fields() as $fl) {
+        foreach ($result->fetch_fields() as $fi => $fl) {
             $captions[]=$fl->name;
             $colTypes[$fl->name]=$fl->type;
+            $maxlengths[$fi]=$fl->max_length;
 
             //echo print_r($fl,true)."\n<br>";
         }
     }
-    //    error_log(print_r($colTypes));
     if ($output=="json") {
         header('Content-type: application/json;charset=utf-8');
         echo '[';
@@ -157,6 +159,7 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
         } else {
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         }
+        //\PhpOffice\PhpSpreadsheet\Shared\Date::setDefaultTimezone("UTC");
         header('Cache-Control: max-age=0');
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet()->setTitle($name);
@@ -167,23 +170,32 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
             ->setDescription('DSR roprotokol rapport')
             ->setKeywords('DSR roprotokol aftaler');
         $ri=1;
-        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(50);
         if ($captions) {
             foreach ($captions as $ci => $caption) {
                 $sheet->setCellValueByColumnAndRow($ci+1,1,"$caption");
             }
             $sheet->freezePane("A2");
         }
+        foreach ($maxlengths as $ci => $cw) {
+            $spreadsheet->getActiveSheet()->getColumnDimensionByColumn($ci+1)->setWidth($cw+1);
+        }
         $ri++;
         while ($row = $result->fetch_assoc()) {
             $ci=1;
             foreach ($row as $cn=>$rc) {
                 if (isset($colTypes[$cn]) && isset($formatMap[$colTypes[$cn]])) {
-                    $dataType=$formatMap[$colTypes[$cn]];
+                    if ($colTypes[$cn]==MYSQLI_TYPE_DATETIME && $output=="xlsx")  {
+                        $rc=\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($rc."Z"));
+                        $dataType=DataType::TYPE_NUMERIC;
+                        $sheet->getStyleByColumnAndRow($ci,$ri)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+                    } else {
+                        $dataType=$formatMap[$colTypes[$cn]];
+                    }
                 } else {
                     $dataType=DataType::TYPE_STRING;
                 }
                 $sheet->setCellValueExplicitByColumnAndRow($ci++,$ri,$rc,$dataType);
+
             }
             $ri++;
         }
