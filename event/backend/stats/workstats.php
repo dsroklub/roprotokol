@@ -75,8 +75,8 @@ FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROU
 ";
     break;
 case "overview":
-    $report_name="oversig over arbejde";
-    $captions=["","timer"];
+    $report_name="oversigt over arbejde";
+    $captions="_auto";
     $s="
 SELECT 'total standerstrygning',SUM(requirement) AS 'timer' FROM worker WHERE assigner='vedligehold'
   UNION
