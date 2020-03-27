@@ -177,7 +177,7 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
             $sheet->freezePane("A2");
         }
         foreach ($maxlengths as $ci => $cw) {
-            $spreadsheet->getActiveSheet()->getColumnDimensionByColumn($ci+1)->setWidth(min(60,max(5,$cw+1)));
+            $spreadsheet->getActiveSheet()->getColumnDimensionByColumn($ci+1)->setWidth(min(80,max(5,$cw+1)));
         }
         $ri++;
         while ($row = $result->fetch_assoc()) {
