@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('gymApp').controller(
   'teamCtrl',
   ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log','$timeout',teamCtrl]);
@@ -14,13 +13,12 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
   $scope.currentdate=new Date();
 
   DatabaseService.init({"team":true,"member":true}).then(function () {
-    $scope.teams = DatabaseService.getDB('team/team');       
+    $scope.teams = DatabaseService.getDB('team/team');
     $scope.currentdate=new Date();
   });
 
-
   var refreshDOW = function() {
-    var dow=new Date().getDay();       
+    var dow=new Date().getDay();
     if (dow != $scope.dayofweek) {
       $scope.dayofweek = dow;
     }
@@ -28,20 +26,20 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
   };
   refreshDOW();
 
-  
+
   $scope.isSameDay= function() {
     var d=new Date();
     return (d.getDate()==$scope.currentdate.getDate() &&
             d.getMonth()==$scope.currentdate.getMonth() &&
-            d.getYear()==$scope.currentdate.getYear());       
+            d.getYear()==$scope.currentdate.getYear());
   }
-  
+
   DatabaseService.getDataNow("team/attendance", null,
                              function (res) {
-                               $scope.attendance=res.data;         
+                               $scope.attendance=res.data;
                              }
                             );
-  
+
   $scope.getRowerByName = function (val) {
     return DatabaseService.getRowersByNameOrId(val, $scope.attendance,$scope.currentteam);
   };
@@ -52,7 +50,7 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
     }
   }
 
-  $scope.setTeam = function (tm) {       
+  $scope.setTeam = function (tm) {
     if (!$scope.isSameDay()) {
       DatabaseService.init({"team":true,"member":true}).then(function () {
         $scope.currentdate=new Date();
@@ -62,7 +60,7 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
       $scope.setCurrentTeam(tm);
     }
   }
-  
+
   $scope.addTeam = function() {
     $log.debug("add team");
     DatabaseService.addTeam($scope.newteam).promise.then(

@@ -1,10 +1,10 @@
 <h2>Seneste 4 kvartalsopgørelser</h2>
 <ul>
-    <li ng-repeat="q in quarters"> <a class="quarter" href="/backend/team/quarterly.php?quarter={{q}}">{{q}}. kvartal</a>  </li>
+    <li ng-repeat="q in quarters"> <a class="quarter" href="/backend/team/quarterly.php?quarter={{q}}&format=xlsx">{{q}}. kvartal</a>  </li>
 </ul>
 
 <h2>Eksisterende hold</h2>
- 
+
   <ul>
     <li ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm}" >
       {{tm.name}} {{tm.teamkey}} {{tm.description}}: {{tm.dayofweek}} {{tm.timeofday}} : {{tm.teacher}}
@@ -13,7 +13,7 @@
   </ul>
 
   <h2>Tilføj nyt hold</h2>
-  
+
   <ng-form name="newTeam">
 
     <input placeholder="holdnavn" autocomplete="off" "teamname" name="teamname" type="text" ng-model="newteam.name" required />

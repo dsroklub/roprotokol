@@ -22,5 +22,4 @@ if ($sqldebug) {
 
 $result= $rodb->query($s) or dbErr($rodb,$res,"exe");
 process($result,$output,"turtypestatistik",array("season","turtype","km","ture"));
-$stmt->close();
 $rodb->close();
