@@ -73,7 +73,10 @@
         <tr>
           <th></th>
           <th>Båd</th><th>Kategori</th><th>Lokalitet</th><th>Port</th><th>Inderst/Yderst</th><th>Hylde</th><th>Side</th>
-          <th>Niveau</th><th>Fabrikat</th><th>Særligt</th><th></th>
+          <th>Niveau</th><th>Fabrikat</th>
+          <th>Note</th>
+          <th>Brug</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -103,10 +106,13 @@
             </select>
           </td>
           <td><select ng-model="boat.level" ng-options="levelid*1 as level for (levelid,level) in levels" ng-change="update_level(boat)"> </select> </td>
-          <td><select ng-model="boat.brand" ng-options="brand.name as brand.name for brand in brands" ng-change="update_brand(boat)"> </select> </td>
-          <td><select ng-model="boat.usage_id" ng-options="usage.id as usage.name for usage in usages" ng-change="update_usage(boat)"> </select> </td>
-          <!--td><input ng-model-options="{updateOn:'blur'}" autocomplete="off" id="boat.boatusage" name="boat.boatusage" type="text" ng-model="boat.boatusage" ng-change="update_usage(boat)"></td-->
-
+          <td><input ng-model="boat.brand" type="text" ng-change="update_brand(boat)"></td>
+          <td>
+            <input  placeholder="bådnoter" type="text" ng-model="boat.note" ng_change="set_boat_note(boat)" ng-model-options="{updateOn:'blur'}">
+            </td>
+          <td>
+            <input ng-model="boat.usage" autocomplete="off" type="text" ng-change="update_usage(boat)" ng-model-options="{updateOn:'blur'}">
+          </td>
           <td>
             <button ng-show="boat.location" ng-click="retire_boat(boat)" class="action" confirm="Er du helt sikker på at du vil fjerne {{boat.name}}?" confirm-ok="ja, slet {{boat.name}}" confirm-cancel="nej">Slet/pensioner båd
             </button>

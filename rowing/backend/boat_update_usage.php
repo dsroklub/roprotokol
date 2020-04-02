@@ -6,17 +6,12 @@ $error=null;
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $boat=json_decode($data);
-
 $location = $boat->location;
 $rodb->begin_transaction();
 error_log("boat update usage ".json_encode($boat));
-
-if ($stmt = $rodb->prepare("UPDATE Boat SET boat_usage=? WHERE id=?")) {
-    $stmt->bind_param('ii', $boat->usage_id,$boat->id);
-    $stmt->execute() ||  error_log("update usage exe error :".$rodb->error);
-} else {
-    error_log("update usage error :".$rodb->error);
-}
+$stmt = $rodb->prepare("UPDATE Boat SET boat_use=? WHERE Boat.name=?") or dbErr($rodb,$res,"prep");
+$stmt->bind_param('ss', $boat->usage,$boat->name) || dbErr($rodb,$res,"bind");
+$stmt->execute() || dbErr($rodb,$res,"exe");
 $rodb->commit();
 $rodb->close();
 invalidate('boat');

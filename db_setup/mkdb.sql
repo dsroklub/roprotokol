@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS Boat (
   Created datetime,
   note   TEXT,
   Updated datetime,
-  MotionPlus varchar(100),
+  use VARCHAR(1000);
   boat_usage int(11),
   level int(11),
   oar_angle float,
@@ -73,7 +73,9 @@ CREATE TABLE IF NOT EXISTS Boat (
   placement_level INT, -- 0=ground, 1 .. shelves
   placement_side Char(6), -- -left, right,center
   Decommissioned datetime,
-  CONSTRAINT FOREIGN KEY bt (boat_type) REFERENCES BoatType(`Name`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT FOREIGN KEY bt (boat_type) REFERENCES BoatType(Name) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT FOREIGN KEY (Location) REFERENCES Locations (name) ON DELETE SET NULL ON UPDATE CASCADE
+
   PRIMARY KEY (id)
 );
 

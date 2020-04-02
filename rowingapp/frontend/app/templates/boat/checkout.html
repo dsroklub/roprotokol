@@ -14,7 +14,7 @@
     <table>
       <thead>
         <tr>
-          <th>Båd</th><th>Placering</th><th>Niveau</th><th>Mærke</th><th>særligt</th> <th>Status</th>
+          <th>Båd</th><th>Placering</th><th>Niveau</th><th>Mærke</th><th>brug</th> <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -33,7 +33,7 @@
           <td>{{levels[boat.level]}} </td>
           <td>{{boat.brand}} </td>
           <td class="usage">
-            {{boat.boatusage}}
+            {{boat.usage}}
             <span ng-show="boat.reserved_to && !(boat.reserved_to==checkout.triptype.name)" class="warn" uib-tooltip="reserveret {{boat.reserved_to }} indenfor to timer" >&#x23F3;</span>
           </td>
           <td ng-click="damagesForBoat=boat"><span ng-show="{{boat.trip}}">På vandet</span>

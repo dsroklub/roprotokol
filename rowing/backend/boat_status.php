@@ -13,7 +13,6 @@ $s="SELECT Boat.id,
            Boat.placement_level,
            Boat.placement_row,
            Boat.placement_side,
-           Boat.boat_usage as usage_id,
            COALESCE(MAX(Damage.Degree),0) as damage,
            MAX(Trip.id) as trip,
            MAX(Trip.OutTime) as outtime,
@@ -21,7 +20,7 @@ $s="SELECT Boat.id,
            MAX(Trip.Destination) as destination,
            MAX(Trip.Meter) as meter,
            MAX(Trip.Comment) as comment,
-           boat_usage.name as boatusage,
+           Boat.boat_use as 'usage',
            Boat.brand,
            Boat.note,
            Boat.oar_pitch,
@@ -34,7 +33,6 @@ $s="SELECT Boat.id,
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
          LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
          LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
-         LEFT JOIN boat_usage ON Boat.boat_usage=boat_usage.id
     GROUP BY
        Boat.id,
        Boat.Name,
@@ -47,7 +45,7 @@ $s="SELECT Boat.id,
 if ($sqldebug) {
  echo $s;
 }
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
+$result=$rodb->query($s) or dbErr($rodb,$res,"Q");
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
