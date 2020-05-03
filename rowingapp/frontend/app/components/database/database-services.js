@@ -577,10 +577,10 @@ function dbservice($http, $q, $log) {
     }
 
     if (isNaN(val.substring(1))) {
-      var re=new RegExp("\\b"+val,'i');
-        var result = rowers.filter(function(element) {
-          return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
-        });
+      var re=new RegExp("(\\s|^)"+val,'i');
+      var result = rowers.filter(function(element) {
+        return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
+      });
       return result;
     } else {
       var result = rowers.filter(function(element) {

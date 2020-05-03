@@ -15,10 +15,10 @@ $s="SELECT JSON_MERGE(
      GROUP_CONCAT(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired)),
    ']}')
    ) AS json
-   FROM Member 
-     LEFT JOIN member_setting ON member_setting.member=Member.id 
-     LEFT JOIN MemberRights on MemberRights.member_id=Member.id  
-   WHERE Member.MemberID!='0' AND RemoveDate IS NULL   
+   FROM Member
+     LEFT JOIN member_setting ON member_setting.member=Member.id
+     LEFT JOIN MemberRights on MemberRights.member_id=Member.id
+   WHERE Member.MemberID!='0' AND RemoveDate IS NULL
    GROUP BY Member.id";
 
 if ($sqldebug) {
