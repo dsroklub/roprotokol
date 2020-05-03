@@ -221,7 +221,7 @@ function dbservice($http, $q, $log, $timeout) {
       return [];
     }
     if (isNaN(val)) {
-      var re=new RegExp("\\b"+val,'i');
+      var re=new RegExp("(\\s|^)"+val,'i');
       var result = rowers.filter(function(element) {
         return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
       });
