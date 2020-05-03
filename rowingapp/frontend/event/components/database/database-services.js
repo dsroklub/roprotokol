@@ -5,11 +5,11 @@ function dbservice($http, $q, $log, $timeout) {
   var db={'boats':[],'boatsById':{},'boatsByName':{}};
   var tx=null;
   var debug=3;
-  var bend='/aftaler/backend/';
+
   var cachedepend;
   var datastatus={};
   function toURL(service){
-      return bend+service;
+      return '/backend/'+service;
   }
 
   this.onDBerror = function (err) {
@@ -144,7 +144,7 @@ function dbservice($http, $q, $log, $timeout) {
       subscriptions={};
     }
     var sq=$q.defer();
-    $http.post(bend+'event/datastatus.php', null).then (function(response) {
+    $http.post('/backend/event/datastatus.php', null).then (function(response) {
       var ds=response.data;
       var doreload=false;
       //      $log.debug("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
@@ -237,7 +237,7 @@ function dbservice($http, $q, $log, $timeout) {
   this.updateDB_async = function(op,data,config) {
     var qup=$q.defer();
     var res=undefined;
-    $http.post(bend+op+".php", data,config).then(function(r) {
+    $http.post('/backend/'+op+".php", data,config).then(function(r) {
       qup.resolve(r.data)
     },function(r) {
       $log.debug("db err for "+op);
@@ -275,7 +275,7 @@ function dbservice($http, $q, $log, $timeout) {
   this.createSubmit = function(entity,data) {
     var entityCreated=$q.defer();
     var res=undefined;
-    $http.post(bend+'event/'+entity+'.php', data).then(function(r) {
+    $http.post('/backend/event/'+entity+'.php', data).then(function(r) {
       entityCreated.resolve(r.data);
     },function(r) {
       var err=entity+"  fejl";
