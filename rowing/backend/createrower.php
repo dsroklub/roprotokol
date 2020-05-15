@@ -12,7 +12,7 @@ if ($rower->type == "guest") {
     $prefix="g";
 }
 
-$findcurrent="SELECT Mid(MemberID,2,5) AS tid FROM Member WHERE (Member.MemberID LIKE '".$prefix."%') GROUP BY Mid(MemberID,2,5) ORDER BY Mid(MemberID,2,5) DESC LIMIT 1";
+$findcurrent="SELECT Mid(MemberID,2,5) AS tid FROM Member WHERE (Member.MemberID LIKE '".$prefix."%') AND id>0 Group By Mid(Memberid,2,5) Order By Mid(MemberID,2,5) DESC LIMIT 1";
 
 $maxid="0001";
 
@@ -28,10 +28,7 @@ if ($stmt = $rodb->prepare($findcurrent)) {
 } else {
     error_log($rodb->error);
 }
-
-
 $newid=$prefix.$maxid;
-
 if ($stmt = $rodb->prepare("INSERT INTO Member (MemberID,FirstName, LastName, Created) VALUES (?,?,?,NOW())" )) { 
     $stmt->bind_param('sss', $newid,$rower->firstName,$rower->lastName);
     $stmt->execute() || dbErr($rodb,$res,"create rower exe");
