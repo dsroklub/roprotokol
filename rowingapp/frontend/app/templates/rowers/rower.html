@@ -258,9 +258,9 @@
                 <ui-select class="correction_destination" ng-model="correction.destination" on-select="correction.distance=$item.distance" required>
                   <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
                   <ui-select-choices repeat="destination in destinations | filter: $select.search">
-                    <span ng-bind-html="destination.name | highlight: $select.search"></span>
-                    (<small ng-bind-html="destination.distance| mtokm : $select.search"></small>km,
-                    <small ng-bind-html="destination.duration | totime"></small>t)
+                    <span >{{destination.name | highlight: $select.search}}</span>
+                    (<small >{{destination.distance| mtokm : $select.search}}</small>km,
+                    <small>{{destination.duration | totime}}</small>t)
                   </ui-select-choices>
                 </ui-select>
                 <input  autocomplete="off" maxlength="4" size="3" class="ui-select-bootstrap" type="text" min="0.5" step="0.5" name="input" transformkm ng-model="correction.distance">km
