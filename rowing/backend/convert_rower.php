@@ -11,6 +11,13 @@ error_log('convertrower '.json_encode($fromto));
 $rodb->begin_transaction();
 
 
+if (!$fromto->to) {
+    dbErr($todb,$res,"to missing");
+}
+if (!$fromto->from) {
+    dbErr($todb,$res,"from missing");
+}
+
 $updates = [
    "UPDATE TripMember, Member as fm, Member as tm Set TripMember.member_id = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND TripMember.member_id=fm.id",
    "UPDATE Damage, Member as fm, Member as tm Set Damage.ResponsibleMember = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND Damage.ResponsibleMember=fm.id",
@@ -23,31 +30,13 @@ $updates = [
 
 
 foreach ($updates as $sql) {
-    $stmt = $rodb->prepare($sql);
-    if (!$stmt) {
-        $error = "Prepare error: " . $rodb->error;
-    } else if (! $stmt->bind_param('ss', $fromto->to->id,$fromto->from->id) ) {
-        $error = "Bind error: " . $rodb->error;
-    } else if (!$stmt->execute()) {
-           $error= "Execute error: " . $rodb->error;
-    }
-    if ($error) {
-        $error .= " <<< $sql >>>";
-        break;
-    }
+    $stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"prep convert rower");
+    $stmt->bind_param('ss', $fromto->to->id,$fromto->from->id) || dbErr($rodb,$res,"bind, convert rower");
+    $stmt->execute() || dbErr($rodb,$res,"convert rower");
 }
 
-
-if ($error) {
-    error_log('convert_rower DB error ' . $error);
-    $res['message']='Could not convert rower';
-    $res['status']='error';
-    $res['error']=$error;
-    $rodb->rollback();
-} else {
-    $rodb->commit();
-    invalidate("member");
-}
+$rodb->commit();
+invalidate("member");
 
 $rodb->close();
 echo json_encode($res);
