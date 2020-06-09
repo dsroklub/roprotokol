@@ -673,4 +673,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.valid = function () {
     DatabaseService.valid();
   }
+
+  $scope.destfilter = function(ds) {
+    return function(d) {
+      return d.name.toLowerCase().indexOf(ds.toLowerCase())==0;
+    }
+  }
 }
