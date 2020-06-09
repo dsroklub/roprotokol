@@ -9,7 +9,7 @@ echo
 'edge [
 color = "blue"
 ]
-';        
+';
 
 echo 'node [
 shape = "ellipse"
@@ -38,11 +38,11 @@ foreach ($result as $tr) {
 $result = $rodb->query('
 SELECT m1.MemberId as m1, m2.MemberId as m2, Sum(Trip.Meter) as distance
 FROM Member m1, Member m2,Trip,TripMember tm1,TripMember tm2
-WHERE 
+WHERE
 tm1.TripID=Trip.id AND tm2.TripID=Trip.id AND
 m1.id=tm1.member_id AND m2.id=tm2.member_id AND
 m1.id<m2.id AND
-YEAR(OutTime)=YEAR(NOW()) AND MONTH(OutTime)=MONTH(NOW()) 
+YEAR(OutTime)=YEAR(NOW()) AND MONTH(OutTime)=MONTH(NOW())
 GROUP BY Trip.id,m1.id,m2.id
 ') or exit("dot gen ". $rodb->error);
 foreach ($result as $rt) {

@@ -72,7 +72,7 @@
 <div ng-if="current_user.member_id=='7843' || current_user.member_id=='baadhal' || current_user.is_winter_admin">
   <h2 >check ind</h2>
   <form>
-    <input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xyxyxmber" type="text"
+    <input placeholder="vælg medlem" autocomplete="off" id="checkinmemberinput" name="xyxyaxmber" type="text"
            ng-model="work.worker"
            typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers) | filter: oneperday"
            typeahead-template-url="memberTemplate.html" typeahead-on-select="select_worker()" required />
@@ -84,7 +84,7 @@
 Se alt dit arbejde under fanebladet: min side på din egen computer.
 <h2>Opslag</h2>
 
-<input placeholder="vælg medlem" autocomplete="off" id="memberinput" name="xzzxyxmber" type="text"
+<input placeholder="vælg medlem" autocomplete="off" id="lookupmemberinput" name="xzzzxyxmber" type="text"
            ng-model="work.selectedworker"
            typeahead-min-length="2" typeahead-select-on-exact="true" uib-typeahead="rower as rower.name for rower in getWorkersByName($viewValue,workers)"
        typeahead-template-url="memberTemplate.html" typeahead-on-select="show_worker()" required />
@@ -149,7 +149,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
   <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>  <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button-->
   <h2>Tilføj ny roer til vintervedligehold</h2>
       <form>
-        <input placeholder="vælg medlem" autocomplete="off" id="workeradmininput" name="aseexmber" type="text"
+        <input placeholder="vælg medlem" autocomplete="off" id="workeraddinput" name="aseexmberws" type="text"
                ng-model="workadmin.newworker"
                typeahead-editable="false"
                typeahead-select-on-blur="true"
@@ -169,7 +169,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
       </form>
       <h2>Rediger deltager</h2>
       <form>
-        <input placeholder="vælg medlem" autocomplete="off" id="workeradmininput" name="asxyxmber" type="text"
+        <input placeholder="vælg medlem" autocomplete="off" id="workereditelect" name="asxyxmber" type="text"
                ng-model="workadmin.worker"
                typeahead-editable="false"
                typeahead-select-on-blur="true"

@@ -65,7 +65,7 @@
           {{boattrip.destination}}
         </td>
         <td ng-class="{datealert: critical_time(boattrip.expectedintime)}">{{boattrip.expectedintime| txttotime | date :"HH:mm d. MMM"}}</td>
-        <td class="rnum" ng-bind-html="boattrip.distance|mtokm">km</td>
+        <td class="rnum">{{boattrip.distance|mtokm}} km</td>
         <td class="colinput">
           <input  autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boattrip.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm
                   name="kminput">

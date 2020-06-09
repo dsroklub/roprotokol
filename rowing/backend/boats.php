@@ -11,6 +11,8 @@ $s="SELECT JSON_OBJECT(
            'boat_type', Boat.boat_type,
            'location', Boat.Location,
            'brand',Boat.brand,
+           'note',Boat.note,
+           'usage',Boat.boat_use,
            'level',Boat.level) as json
     FROM Boat
          INNER JOIN BoatType ON (BoatType.Name=Boat.boat_type)

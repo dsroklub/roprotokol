@@ -1,8 +1,7 @@
 <?php
 $r=array ("status" => "ok");
 $memberId = trim(file_get_contents("php://input"));
-error_log("mid=$memberId");
-
+//error_log("mid=$memberId");
 require("inc/db.php");
 require("inc/mail_sender.php");
 $res = $link->query("SELECT * FROM Member WHERE RemoveDate IS NULL AND MemberId = '" . (int) $memberId."'");
@@ -33,7 +32,7 @@ if ($res) {
                 $istmt->bind_param('sss', $hpw,$pw,$memberId) || error_log($link->error);
 
                 error_log("now EXE");
-                $istmt->execute() || error_log("pw update error: ". $link->error);                            
+                $istmt->execute() || error_log("pw update error: ". $link->error);
             } else {
                 error_log("Prepare Error:". $link->error);
             }
@@ -54,4 +53,3 @@ if ($res) {
     $r["status"]="member login db error";
 }
 echo json_encode($r);
-?> 

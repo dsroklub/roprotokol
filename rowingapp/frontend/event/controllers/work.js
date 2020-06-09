@@ -130,7 +130,10 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
         $scope.work={};
         alert(status.error);
       }
-    }, function(err) {console.log("forum mem add work err: "+err)}
+    }, function(err)
+                    {
+                      console.log("forum mem add work err: "+err)
+                    }
                    )
   }
 
@@ -143,7 +146,6 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
                               );
   }
   $scope.show_day = function () {
-    console.log("show date");
     $scope.mystatswork=null;
     if ($scope.work.workdate) {
       $scope.work.selectedworker=null;

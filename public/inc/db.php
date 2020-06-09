@@ -36,4 +36,3 @@ function generate_password($len = 10) {
 }
 
 $link=sql_connect();
-?>
