@@ -65,8 +65,8 @@ if (!$uploadOk) {
 
     $s="
 UPDATE Member m JOIN tblMembersToRoprotokol tm ON (m.MemberID = tm.MemberID)
-SET m.FirstName = tm.FirstName,
-    m.LastName = tm.LastName,
+SET m.FirstName = TRIM(TRIM(CHAR(9) FROM tm.FirstName),
+    m.LastName = TRIM(TRIM(CHAR(9) FROM tm.LastName),
     m.Email = tm.E_mail,
     m.ShowEmail = tm.OnAddressList,
     m.JoinDate = tm.JoinDate,
@@ -90,11 +90,11 @@ SET m.FirstName = tm.FirstName,
     echo "<br>Indsætter eventuelle nye medlemmer i roprotokollen<br>";
 
     $s="
-INSERT INTO Member ( MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, KommuneKode,CprNo,Gender,member_type)
+INSERT INTO Member (MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, KommuneKode,CprNo,Gender,member_type)
   SELECT DISTINCTROW 
   tMem.MemberID AS mid,
-  tMem.LastName,
-  tMem.FirstName,
+  TRIM(TRIM(CHAR(9) FROM tMem.LastName)),
+  TRIM(TRIM(CHAR(9) FROM tMem.FirstName)),
   tMem.JoinDate,
   tMem.RemoveDate,
   tMem.E_mail,
