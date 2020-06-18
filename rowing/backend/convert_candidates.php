@@ -29,8 +29,8 @@ $s="SELECT CONCAT(m.FirstName, ' ', m.LastName) as member_name,
       AND m.id!=rabbit.id
       AND m.MemberID NOT LIKE 'k%'
       AND m.MemberID NOT LIKE 'g%'
-      AND m.FirstName = rabbit.FirstName
-      AND m.LastName = rabbit.LastName
+      AND m.FirstName = TRIM(TRIM(CHAR(9) FROM rabbit.FirstName))
+      AND m.LastName = TRIM(TRIM(CHAR(9) FROM rabbit.LastName))
     GROUP BY rabbit.id,m.id
     HAVING DATEDIFF(rabbit_first_trip, member_join_date) BETWEEN -100 AND 100
         OR DATEDIFF(rabbit_last_trip, member_first_trip) BETWEEN -60 AND 60

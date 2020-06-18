@@ -65,8 +65,8 @@ if (!$uploadOk) {
 
     $s="
 UPDATE Member m JOIN tblMembersToRoprotokol tm ON (m.MemberID = tm.MemberID)
-SET m.FirstName = TRIM(TRIM(CHAR(9) FROM tm.FirstName),
-    m.LastName = TRIM(TRIM(CHAR(9) FROM tm.LastName),
+SET m.FirstName = TRIM(TRIM(CHAR(9) FROM tm.FirstName)),
+    m.LastName = TRIM(TRIM(CHAR(9) FROM tm.LastName)),
     m.Email = tm.E_mail,
     m.ShowEmail = tm.OnAddressList,
     m.JoinDate = tm.JoinDate,
@@ -91,7 +91,7 @@ SET m.FirstName = TRIM(TRIM(CHAR(9) FROM tm.FirstName),
 
     $s="
 INSERT INTO Member (MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, ShowEmail, Birthday, KommuneKode,CprNo,Gender,member_type)
-  SELECT DISTINCTROW 
+  SELECT DISTINCTROW
   tMem.MemberID AS mid,
   TRIM(TRIM(CHAR(9) FROM tMem.LastName)),
   TRIM(TRIM(CHAR(9) FROM tMem.FirstName)),
@@ -109,7 +109,7 @@ INSERT INTO Member (MemberID, LastName, FirstName,JoinDate,RemoveDate, Email, Sh
   ORDER BY mid;
 ";
     error_log("SQL :\n".$s."\n");
-    if ($stmt = $rodb->prepare($s)) { 
+    if ($stmt = $rodb->prepare($s)) {
         $stmt->execute() || die($rodb->error);
     }  else {
         error_log("SQL stmt error: ".$rodb->error);
@@ -126,14 +126,14 @@ Member.KommuneKode=tblMembersToRoprotokol.KommuneKode,
 Member.CprNo=tblMembersToRoprotokol.CprNo,
 Member.member_type=tblMembersToRoprotokol.MemberType
     WHERE tblMembersToRoprotokol.MemberID=Member.MemberID AND Member.member_type!=-1;
-')){ 
+')){
         $stmt->execute() || die($rodb->error);
     }  else {
         error_log("SQL kommunecpr error: ".$rodb->error);
         echo " FEJL i kommune/cpr upload ".$rodb->error;
     }
-    
-    if ($stmt = $rodb->prepare("DELETE FROM tblMembersToRoprotokol")) { 
+
+    if ($stmt = $rodb->prepare("DELETE FROM tblMembersToRoprotokol")) {
         $stmt->execute() || die($rodb->error);
     }  else {
         error_log("SQL stmt error: ".$rodb->error);
@@ -151,4 +151,3 @@ Member.member_type=tblMembersToRoprotokol.MemberType
 ?>
 
 <?php
-
