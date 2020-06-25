@@ -293,19 +293,21 @@ individer som både for en turtype relativt meget.</p>
 <table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
   <tr class="header">
     <th class="left">{{y}}</th>
-    <th colspan="3" class="supercat">Både</th>
+    <th colspan="4" class="supercat">Både</th>
   </tr>
   <tr class="header">
     <th class="left" style="min-width: 15em">Bådklase</th>
     <th class="subcat-left">Individer</th>
     <th>Både</th>
     <th>Personer pr. båd</th>
+    <th>Individer pr. aktiv båd i klasse</th>
   </tr>
   <tr ng-repeat="(bc, row) in stats.classtrips[y]">
     <td class="left">{{bc}}</td>
     <td>{{row.individuals | number : 0 | ifNull:'-' }}</td>
     <td>{{row.boats | number : 0 | ifNull:'-' }}</td>
     <td>{{row.persons_per_trip | number : 1 | ifNull:'-'}}</td>
+    <td>{{row.persons_per_class | number : 1 | ifNull:'-'}}</td>
   </tr>
 </table>
 

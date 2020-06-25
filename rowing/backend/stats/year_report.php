@@ -369,6 +369,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                  COUNT(DISTINCT(TripMember.member_id)) as individuals,
 		 COUNT(DISTINCT(Trip.BoatID)) as boatCount,
                  ROUND(COUNT(TripMember.member_id)/COUNT(distinct Trip.id), 1) as persons_per_trip,
+                 ROUND(COUNT(distinct TripMember.member_id)/COUNT(distinct Boat.id), 1) as persons_per_class,
                  boat_class.description as boatclass
           FROM Trip
           INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
@@ -388,6 +389,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
          $res[$table][$y][$row['boatclass']]['individuals'] = $row['individuals'];
          $res[$table][$y][$row['boatclass']]['boats'] = $row['boatCount'];
          $res[$table][$y][$row['boatclass']]['persons_per_trip'] = round($row['persons_per_trip'], 1);
+         $res[$table][$y][$row['boatclass']]['persons_per_class'] = round($row['persons_per_class'], 1);
        }
     } else {
       make_error();
