@@ -283,31 +283,30 @@ individer som både for en turtype relativt meget.</p>
   </tr>
 </table>
 
-<h4>3.3 Individer og både</h4>
 
-<p>Nedenfor kan ses, hvor mange enkeltpersoner og både, der har benyttet de enkelte tilbud.</p>
-<p>Bemærk, at tallene er behæftet med stor usikkerhed - ganske få fejludskrevne ture kan påvirke antallet af såvel
-individer som både for en turtype relativt meget.</p>
-
-<h5>Tabel 7b - Individer og bådklasser</h5>
+<h5>Tabel 7b - Individer og bådklasser. Kun egne både</h5>
 <table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
   <tr class="header">
     <th class="left">{{y}}</th>
-    <th colspan="4" class="supercat">Både</th>
+    <th colspan="7" class="supercat">brug af både i klassen</th>
   </tr>
   <tr class="header">
-    <th class="left" style="min-width: 15em">Bådklase</th>
+    <th class="left" style="min-width: 15em">Bådklasse</th>
     <th class="subcat-left">Individer</th>
-    <th>Både</th>
+    <th>Brugte både</th>
+    <th>All både</th>
     <th>Personer pr. båd</th>
-    <th>Individer pr. aktiv båd i klasse</th>
+    <th>Individer pr. båd i klasse</th>
+    <th>Individer pr. sæde i båd i klasse</th>
   </tr>
   <tr ng-repeat="(bc, row) in stats.classtrips[y]">
     <td class="left">{{bc}}</td>
     <td>{{row.individuals | number : 0 | ifNull:'-' }}</td>
     <td>{{row.boats | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.allboats | number : 0 | ifNull:'-' }}</td>
     <td>{{row.persons_per_trip | number : 1 | ifNull:'-'}}</td>
-    <td>{{row.persons_per_class | number : 1 | ifNull:'-'}}</td>
+    <td>{{row.persons_per_class | number : 2 | ifNull:'-'}}</td>
+    <td>{{row.persons_per_class_seat | number : 2 | ifNull:'-'}}</td>
   </tr>
 </table>
 

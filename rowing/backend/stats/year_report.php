@@ -363,21 +363,29 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     $res[$table][$y] = [];
     $to_cut = get_cut($y);
     $from_cut = get_cut($y - 1);
-    $step = 'trips';
+    $step = 'classtrips';
     $s = "SELECT COUNT(DISTINCT Trip.id) as boatTrips,
                  COUNT(TripMember.member_id) as personTrips,
                  COUNT(DISTINCT(TripMember.member_id)) as individuals,
 		 COUNT(DISTINCT(Trip.BoatID)) as boatCount,
                  ROUND(COUNT(TripMember.member_id)/COUNT(distinct Trip.id), 1) as persons_per_trip,
-                 ROUND(COUNT(distinct TripMember.member_id)/COUNT(distinct Boat.id), 1) as persons_per_class,
+                 ROUND(COUNT(distinct TripMember.member_id)/cs.all_boats_count, 2) as persons_per_class,
+                 ROUND(COUNT(distinct TripMember.member_id)/cs.seats, 2) as persons_per_class_seat,
+                 cs.seats as seats,
+                 cs.all_boats_count,
                  boat_class.description as boatclass
-          FROM Trip
+          FROM
+             (SELECT class_name, SUM(BoatType.SeatCount) as seats, COUNT(Boat.id) as all_boats_count
+               FROM boat_class,BoatType,Boat
+               WHERE Boat.boat_type=BoatType.name AND BoatType.boat_class=boat_class.class_name AND (Decommissioned IS NULL OR Decommissioned< '".$to_cut."') AND Boat.Location <> 'Andre'
+               GROUP BY boat_class.class_name) as cs,
+          Trip
           INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
           INNER JOIN TripType on Trip.TripTypeID = TripType.id
           INNER JOIN Boat ON (Boat.id = Trip.BoatID)
           INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
           INNER JOIN boat_class ON (BoatType.boat_class = boat_class.class_name)
-          WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
+          WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "' AND cs.class_name=boat_class.class_name AND Boat.Location <> 'Andre'
           GROUP BY boat_class.class_name
           ORDER BY boat_class.class_name";
     $r = $rodb->query($s);
@@ -389,10 +397,13 @@ for ($y = $from_year; $y <= $to_year; $y++) {
          $res[$table][$y][$row['boatclass']]['individuals'] = $row['individuals'];
          $res[$table][$y][$row['boatclass']]['boats'] = $row['boatCount'];
          $res[$table][$y][$row['boatclass']]['persons_per_trip'] = round($row['persons_per_trip'], 1);
-         $res[$table][$y][$row['boatclass']]['persons_per_class'] = round($row['persons_per_class'], 1);
+         $res[$table][$y][$row['boatclass']]['persons_per_class'] = round($row['persons_per_class'], 2);
+         $res[$table][$y][$row['boatclass']]['persons_per_class_seat'] = round($row['persons_per_class_seat'], 2);
+         $res[$table][$y][$row['boatclass']]['seats'] = 0+$row['seats'];
+         $res[$table][$y][$row['boatclass']]['allboats'] = 0+$row['all_boats_count'];
        }
     } else {
-      make_error();
+      make_error($s);
       goto end;
     }
 }
