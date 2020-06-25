@@ -380,15 +380,15 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                WHERE Boat.boat_type=BoatType.name AND BoatType.boat_class=boat_class.class_name AND (Decommissioned IS NULL OR Decommissioned< '".$to_cut."') AND Boat.Location <> 'Andre' AND
                   Boat.Created <= '".$to_cut."'
                GROUP BY boat_class.class_name) as cs,
-          Trip
-          INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
-          INNER JOIN TripType on Trip.TripTypeID = TripType.id
-          INNER JOIN Boat ON (Boat.id = Trip.BoatID)
+          Boat
           INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
           INNER JOIN boat_class ON (BoatType.boat_class = boat_class.class_name)
-          WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "' AND cs.class_name=boat_class.class_name AND Boat.Location <> 'Andre'
+          LEFT JOIN Trip ON (Boat.id = Trip.BoatID AND DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "')
+          LEFT JOIN TripMember ON (TripMember.TripID = Trip.id)
+          LEFT JOIN TripType on Trip.TripTypeID = TripType.id
+          WHERE cs.class_name=boat_class.class_name AND Boat.Location <> 'Andre'
           GROUP BY boat_class.class_name
-          ORDER BY boat_class.class_name";
+          ORDER BY boat_class.description";
     $r = $rodb->query($s);
     if ($r) {
        $total = 0;
