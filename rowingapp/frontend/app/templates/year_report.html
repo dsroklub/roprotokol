@@ -284,7 +284,10 @@ individer som både for en turtype relativt meget.</p>
 </table>
 
 
-<h5>Tabel 7b - Individer og bådklasser. Kun egne både</h5>
+<h5>Tabel 7b - Individer og bådklasser. Alle egne både. Dvs ikke lånte både. Medregnet både der er købt eller udgået i perioden</h5>
+
+
+
 <table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
   <tr class="header">
     <th class="left">{{y}}</th>
@@ -294,10 +297,10 @@ individer som både for en turtype relativt meget.</p>
     <th class="left" style="min-width: 15em">Bådklasse</th>
     <th class="subcat-left">Individer</th>
     <th>Brugte både</th>
-    <th>All både</th>
+    <th>Alle både</th>
     <th>Personer pr. båd</th>
-    <th>Individer pr. båd i klasse</th>
-    <th>Individer pr. sæde i båd i klasse</th>
+    <th>Individer pr. båd i klassen</th>
+    <th>Individer pr. sæder i både i klassen</th>
   </tr>
   <tr ng-repeat="(bc, row) in stats.classtrips[y]">
     <td class="left">{{bc}}</td>

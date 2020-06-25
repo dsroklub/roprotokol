@@ -377,7 +377,8 @@ for ($y = $from_year; $y <= $to_year; $y++) {
           FROM
              (SELECT class_name, SUM(BoatType.SeatCount) as seats, COUNT(Boat.id) as all_boats_count
                FROM boat_class,BoatType,Boat
-               WHERE Boat.boat_type=BoatType.name AND BoatType.boat_class=boat_class.class_name AND (Decommissioned IS NULL OR Decommissioned< '".$to_cut."') AND Boat.Location <> 'Andre'
+               WHERE Boat.boat_type=BoatType.name AND BoatType.boat_class=boat_class.class_name AND (Decommissioned IS NULL OR Decommissioned< '".$to_cut."') AND Boat.Location <> 'Andre' AND
+                  Boat.Created <= '".$to_cut."'
                GROUP BY boat_class.class_name) as cs,
           Trip
           INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
