@@ -89,8 +89,16 @@ CREATE TABLE IF NOT EXISTS BoatCategory (
   UNIQUE KEY Navn (`Name`)
 );
 
+-- inrigger, coastal, kayak, etc
+CREATE TABLE IF NOT EXISTS boat_class ( 
+  class_name varchar(100) PRIMARY KEY,
+  description varchar(1000)
+);
+
+
+
 CREATE TABLE IF NOT EXISTS rights_subtype (
-  name VARCHAR(100) KEY,
+  name VARCHAR(100) PRIMARY KEY,
   Description VARCHAR(1000)
 );
 
@@ -216,11 +224,12 @@ CREATE TABLE IF NOT EXISTS Locations (
 CREATE TABLE IF NOT EXISTS MemberRights (
   member_id int(11) NOT NULL,
   created_by int,
-  MemberRight varchar(50) NOT NULL REFERENCES MemberRightType (member_right) ON DELETE CASCADE ON UPDATE CASCADE,
+  MemberRight varchar(50) NOT NULL,
   Acquired datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   argument varchar(100) NOT NULL DEFAULT '',
   FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL,
   FOREIGN KEY (member_id) REFERENCES Member(id) ON DELETE CASCADE,
+  FOREIGN KEY (MemberRight,argument) REFERENCES MemberRightType (member_right,argument) ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (member_id,MemberRight,Acquired,argument)
 );
 
@@ -689,7 +698,7 @@ CREATE TABLE IF NOT EXISTS forum_subscription (
   comment    VARCHAR(4096),
   work       FLOAT,
   FOREIGN KEY (forum) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
-  FOREIGN KEY (member) REFERENCES Member(id),
+  FOREIGN KEY (member) REFERENCES Member(id) ON UPDATE CASCADE ON DELETE CASCADE,
   PRIMARY KEY(member,forum)
 );
 
@@ -859,6 +868,10 @@ INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådha
 -- DROP VIEW IF EXISTS right_name;
 -- CREATE VIEW right_name AS SELECT DISTINCT member_right, MAX(showname),MAX(predicate) FROM MemberRightType GROUP BY member_right;
 
+CREATE VIEW right_name AS
+  SELECT distinct MemberRightType.member_right AS member_right,max(MemberRightType.showname) AS showname,max(MemberRightType.predicate) AS predicate from MemberRightType
+  GROUP BY MemberRightType.member_right
+
 
 DROP TABLE IF EXISTS workimport ;
 CREATE TABLE workimport (
@@ -871,3 +884,12 @@ email     VARCHAR(100),
 tel       VARCHAR(20),
 hours     INTEGER
 );
+
+
+INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('instructor','instruktør','','instruktør','være instruktør',0,'roning');
+
+
+
+update  MemberRightType SET showname='instruktør' WHERE showname='styrmandsinstruktør';
+
+

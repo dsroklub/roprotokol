@@ -38,7 +38,7 @@ function get_cut($year, $date=null, $offset=null) {
 
   $year += $offset;
   return $year . '-' . $date;
-} 
+}
 
 function make_error($query) {
   global $error, $table, $step, $y, $rodb;
@@ -91,7 +91,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     }
 
     $res[$table][$y]['diff'] = $res[$table][$y]['incoming'] - $res[$table][$y]['outgoing'];
-}    
+}
 $res['years'] = $years;
 
 
@@ -108,10 +108,10 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     $s = "select Gender as gender, count(*) as count, avg(datediff(JoinDate, Birthday)/365) as age FROM Member WHERE " . $joindate_where . " AND Gender IS NOT NULL GROUP BY gender";
     $r = $rodb->query($s);
     if ($r) {
-       $res[$table][$y]['total'] = ['count' => 0]; 
+       $res[$table][$y]['total'] = ['count' => 0];
        while ($row = $r->fetch_assoc()) {
          $res[$table][$y]['total']['count'] += $row['count'];
-         $res[$table][$y][$genders[$row['gender']]] = []; 
+         $res[$table][$y][$genders[$row['gender']]] = [];
          $res[$table][$y][$genders[$row['gender']]]['count'] = $row['count'];
          $res[$table][$y][$genders[$row['gender']]]['age'] = $row['age'];
        };
@@ -138,7 +138,7 @@ $dropout_categories = [
   'after_y3' => ['01-01', 3],
   'after_y4' => ['01-01', 4]
 ];
- 
+
 $table = 'new_members_dropout';
 $res[$table] = [];
 for ($y = $from_year; $y <= $to_year; $y++) {
@@ -356,6 +356,45 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     }
 }
 
+// Tabel 7B - Bådture og personture, robåd og kajak
+$table = 'classtrips';
+$res[$table] = [];
+for ($y = $from_year; $y <= $to_year; $y++) {
+    $res[$table][$y] = [];
+    $to_cut = get_cut($y);
+    $from_cut = get_cut($y - 1);
+    $step = 'trips';
+    $s = "SELECT COUNT(DISTINCT Trip.id) as boatTrips,
+                 COUNT(TripMember.member_id) as personTrips,
+                 COUNT(DISTINCT(TripMember.member_id)) as individuals,
+		 COUNT(DISTINCT(Trip.BoatID)) as boatCount,
+                 ROUND(COUNT(TripMember.member_id)/COUNT(distinct Trip.id), 1) as persons_per_trip,
+                 boat_class.description as boatclass
+          FROM Trip
+          INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
+          INNER JOIN TripType on Trip.TripTypeID = TripType.id
+          INNER JOIN Boat ON (Boat.id = Trip.BoatID)
+          INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
+          INNER JOIN boat_class ON (BoatType.boat_class = boat_class.class_name)
+          WHERE DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "'
+          GROUP BY boat_class.class_name
+          ORDER BY boat_class.class_name";
+    $r = $rodb->query($s);
+    if ($r) {
+       $total = 0;
+       while ($row = $r->fetch_assoc()) {
+         $res[$table][$y][$row['boatclass']]['boat_trips'] = $row['boatTrips'];
+         $res[$table][$y][$row['boatclass']]['person_trips'] = $row['personTrips'];
+         $res[$table][$y][$row['boatclass']]['individuals'] = $row['individuals'];
+         $res[$table][$y][$row['boatclass']]['boats'] = $row['boatCount'];
+         $res[$table][$y][$row['boatclass']]['persons_per_trip'] = round($row['persons_per_trip'], 1);
+       }
+    } else {
+      make_error();
+      goto end;
+    }
+}
+
 
 // Tabel 5 - Aktivitetsniveau 2014 og 2015 opdelt på turtyper (robåde)
 $table = 'trips';
@@ -368,7 +407,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                  sum(Trip.Meter)/1000 as distance,
                  count(Trip.id) as boat_trips,
                  sum(Trip.Meter)/1000/count(Trip.id) as km_per_trip,
-                 BoatType.Category as boatCat		 
+                 BoatType.Category as boatCat
           FROM Trip
           INNER JOIN TripType on Trip.TripTypeID = TripType.id
           INNER JOIN Boat ON (Boat.id = Trip.BoatID)
@@ -434,7 +473,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 
     $step = 'by_category';
     $s = "SELECT FLOOR(meh.distance/100000) as hundreds,
-                 COUNT(meh.member_no) as members, SUM(distance)/1000 as km 
+                 COUNT(meh.member_no) as members, SUM(distance)/1000 as km
           FROM (SELECT TripMember.member_id as member_no,
                        SUM(Trip.Meter) as distance
                 FROM Trip
@@ -476,7 +515,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
       make_error();
       goto end;
     }
-}    
+}
 
 
 
@@ -518,7 +557,7 @@ if ($r) {
     //              COUNT(distinct TripMember.member_id) as members,
     //              IF((RemoveDate IS NOT NULL AND RemoveDate <= '" . $to_cut . "'), 1, 0) as removed_1,
     //              IF((RemoveDate IS NOT NULL AND RemoveDate <= '" . get_cut($y + 1) . "'), 1, 0) as removed_2
-    //       FROM Trip 
+    //       FROM Trip
     //       JOIN TripMember ON (TripMember.TripID = Trip.id)
     //       INNER JOIN Boat ON (Boat.id = Trip.BoatID)
     //       INNER JOIN BoatType ON (BoatType.id = Boat.BoatType)
@@ -611,7 +650,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
     $from_cut = get_cut($y - 1);
 
     $step = 'trips';
- 
+
     $s = "SELECT TripType.Name as triptype,
           COUNT(t.member_id) as members,
           SUM(t.trips)  as trips,
@@ -703,13 +742,13 @@ if ($r) {
   while ($row = $r->fetch_assoc()) {
     if (! isset($res[$table]['triptypes'][ $row['triptype']])) {
       $res[$table]['triptypes'][ $row['triptype']] = [ 'distance' => 0, 'trips'=> 0, 'boattypes' => [] ];
-    } 
+    }
     if (! isset($res[$table]['boattypes'][ $row['boat_type']])) {
       $res[$table]['boattypes'][ $row['boat_type']] = [ 'distance' => 0, 'trips' => 0, 'boats' => [], 'triptypes' => [] ];
-    } 
+    }
     if (! isset($res[$table]['boats'][ $row['boat']])) {
       $res[$table]['boats'][ $row['boat']] = [ 'distance' => 0, 'trips' => 0, 'triptypes' => [] ];
-    } 
+    }
 
     if (! isset($res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boat_type']])) {
       $res[$table]['triptypes'][ $row['triptype']]['boattypes'][$row['boat_type']] = ['distance' => 0, 'trips' => 0];
@@ -746,7 +785,7 @@ if ($r) {
 
     $res[$table]['boattypes'][$row['boat_type']]['boats'][ $row['boat']]  = 1;
   }
- 
+
   foreach ($res[$table]['boattypes'] as $bt => $row) {
     $res[$table]['boattypes'][$bt]['boats'] = $res[$table]['boattypes'][$bt]['boats'] = array_keys( $res[$table]['boattypes'][$bt]['boats'] );
     sort($res[$table]['boattypes'][$bt]['boats']);
@@ -770,7 +809,7 @@ $res[$table][$step] = [ 'types' => [], 'boats' => []];
 
 $s = "SELECT b.Name AS boat,
              b.boat_type AS boat_type
-       FROM Boat b 
+       FROM Boat b
        WHERE b.Decommissioned IS NULL
          AND NOT EXISTS (
        	   SELECT 1
@@ -814,4 +853,3 @@ sort($res['trip_types']);
 
 header('Content-type: application/json;charset=utf-8');
 echo json_encode($res)."\n";
-
