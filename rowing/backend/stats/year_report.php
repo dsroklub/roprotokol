@@ -513,8 +513,10 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 	    $category = '200-299';
          } else if ($row['hundreds'] < 5) {
 	    $category = '300-499';
+         } else if ($row['hundreds'] < 10) {
+	    $category = '500-999';
          } else {
-	    $category = '500+';
+	    $category = '1000+';
 	 }
 
 	 if (!isset($res[$table][$y]['intervals'][$category])) {
