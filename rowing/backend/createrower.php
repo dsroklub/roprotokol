@@ -8,8 +8,10 @@ $message="rower  ".json_encode($rower);
 $error=null;
 $rodb->begin_transaction();
 $prefix="k";
+$guestClub=null;
 if ($rower->type == "guest") {
     $prefix="g";
+    $guestClub=$rower->guest_club??null;
 }
 
 $findcurrent="SELECT Mid(MemberID,2,5) AS tid FROM Member WHERE (Member.MemberID LIKE '".$prefix."%') AND id>0 Group By Mid(Memberid,2,5) Order By Mid(MemberID,2,5) DESC LIMIT 1";
@@ -29,8 +31,8 @@ if ($stmt = $rodb->prepare($findcurrent)) {
     error_log($rodb->error);
 }
 $newid=$prefix.$maxid;
-if ($stmt = $rodb->prepare("INSERT INTO Member (MemberID,FirstName, LastName, Created) VALUES (?,?,?,NOW())" )) { 
-    $stmt->bind_param('sss', $newid,$rower->firstName,$rower->lastName);
+if ($stmt = $rodb->prepare("INSERT INTO Member(MemberID,FirstName, LastName,club,Created) VALUES (?,?,?,?,NOW())" )) {
+    $stmt->bind_param('ssss', $newid,$rower->firstName,$rower->lastName,$guestClub);
     $stmt->execute() || dbErr($rodb,$res,"create rower exe");
 } else {
     error_log("ERROR in INSERT ".$rodb->error);
@@ -53,4 +55,3 @@ $res['search']=$newid." ".$res['name'];
 invalidate("member");
 $rodb->close();
 echo json_encode($res);
-

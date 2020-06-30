@@ -62,7 +62,7 @@
     </div>
     <div ng-show="currentrower">
       <table class="genericlist">
-        <caption>{{currentrower.name}} <i>({{currentrower.id}})</i></caption>
+        <caption>{{currentrower.name}} <i>({{currentrower.id}}) <span ng-if="currentrower.club"> fra {{currentrower.club}}</span></i></caption>
         <thead>
           <tr>
             <th>Rettighed</th>

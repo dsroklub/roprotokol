@@ -7,6 +7,7 @@ header('Content-type: application/json');
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
       'id',Member.MemberID,
+      'club',Member.club,
       'status', IF(RemoveDate,'ikke medlem',IF(member_type=1,'passiv','ok')),
       'name', CONCAT(FirstName,' ',LastName)
    ),

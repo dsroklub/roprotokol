@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="rowApp" class="no-js"> <!--<![endif]-->
   <head>
   <!--#include virtual="/public/rowbasetag.html" -->
-<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta http-equiv="xX-UA-Compatible" content="IE=edge">
   <title>DSR Roprotokol</title>
   <meta name="description" content="">

@@ -496,7 +496,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     return true;
   }
   $scope.boatcat2dk=DatabaseService.boatcat2dk;
-  $scope.createRower = function (rowers, index,temptype) {
+  $scope.createRower = function (rowers,index,temptype,club) {
     var inputname=rowers[index];
     if (inputname.toLowerCase().indexOf("gæst")>=0) {
       rowers[index]="";
@@ -519,7 +519,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     var rowerreq={
       "firstName":first,
       "lastName":last,
-      "type":temptype
+      "type":temptype,
+      "guest_club":club
     }
     var rower = DatabaseService.updateDB_async('createrower',rowerreq).then(
       function(rower) {

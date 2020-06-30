@@ -86,8 +86,9 @@
                   <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
                   <br>
                   <div class="guestpenguin" ng-show="isName(checkout.rowers[$index]) && norower[$index]">
-                    <button ng-click="createRower(checkout.rowers, $index,'rabbit')" tabindex="-1">opret kanin</button>
-                    <button ng-click="createRower(checkout.rowers, $index,'guest')" tabindex="-1">opret gæst</button>
+                    <button ng-click="createRower(checkout.rowers, $index,'rabbit',null)" tabindex="-1">opret kanin</button>
+                    <button ng-click="createRower(checkout.rowers, $index,'guest',checkout.club[$index])" tabindex="-1">opret gæst fra</button>
+                    <input type="text" ng-model="checkout.club[$index]" placeholder="roklub"></input>
                   </div>
                 </ng-form>
               </td>
