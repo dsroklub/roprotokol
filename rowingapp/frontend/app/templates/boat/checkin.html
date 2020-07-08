@@ -1,7 +1,7 @@
 <div class="big">{{checkinmessage}}</div>
 <div class="boatselection">
   <label for="select_boat">Båd</label>
-  <input autocomplete="off" typeahead-editable="false" id="select_boat" name="name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue)" typeahead-template-url="boatTemplate.html" required>
+  <input autocomplete="off" typeahead-editable="false" id="select_boat" name="ci_name" type="text" ng-model="selectedboat" typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoats($viewValue) | filter: {outtime:''}" ng-change="selectedBoatCategory=null" typeahead-template-url="boatTemplate.html">
 </div>
 <div class="boattypesmenu" style="float:left">
   <h2>Vælg bådtype</h2>
@@ -17,7 +17,7 @@
   </a>
 </script>
 <div ng-if="checkin.update_destination_for" class="destinationlist">
-  <table >
+  <table>
     <caption>Opdater destination<img class="chooser" ng-click="checkin.update_destination_for=null"  width="40px" src="media/popclose.svg" ></caption>
     <tr>
       <th>destination</th>

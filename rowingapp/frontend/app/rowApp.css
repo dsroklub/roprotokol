@@ -1262,3 +1262,12 @@ img.wrench {
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
 }
+
+.mkRabbit{
+    background: yellow;
+}
+
+.mkGuest{
+    background: #e0ffc0;
+
+}

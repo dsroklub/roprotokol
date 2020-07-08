@@ -293,6 +293,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   }
   $scope.selectBoatCategory = function(cat) {
     $scope.selectedBoatCategory=cat;
+    $scope.selectedboat=null;
   }
 
   $scope.do_boat_category = function(cat) {
@@ -342,7 +343,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
   $scope.matchType = function(boat,boat_type) {
     return function(matchboat) {
-      return (matchboat.boat_type && (!boat_type || matchboat.boat_type==boat_type.name));
+      return (matchboat.boat_type && (!boat_type || matchboat.boat_type==boat_type.name) && (!boat || boat.name==matchboat.boat));
     }
   };
 
