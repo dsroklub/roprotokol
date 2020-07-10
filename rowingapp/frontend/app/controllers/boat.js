@@ -648,7 +648,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
   $scope.update_checkin_destiation = function(d) {
     $scope.checkin.update_destination_for.destination=d.name;
-    $scope.checkin.update_destination_for.meter=d.distance;
+    $scope.checkin.update_destination_for.distance=d.distance;
+    $scope.checkin.update_destination_for.corrected_distance=null;
     $scope.checkin.update_destination_for=null;
   }
   // Hack to handle when user clicks outside field

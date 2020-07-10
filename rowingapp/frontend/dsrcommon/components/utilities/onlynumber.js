@@ -17,9 +17,9 @@ function onlynumber () {
           elem.val(et);
           ngModel.$setViewValue(et.trim());
         }
-      }      
+      }
       scope.$watch(attrs.ngModel, function(newValue, oldValue) {
-        checknumber();                              
+        checknumber(); 
       });
     }
   };
