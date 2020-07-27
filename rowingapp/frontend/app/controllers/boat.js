@@ -108,7 +108,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
           $scope.checkout.triptype=DatabaseService.getTriptypeWithID(reuse.triptype_id);
           $scope.checkout.destination=$scope.get_destination(reuse.destination);
           $scope.checkoutForm.checkout_destination.$setDirty();
-          $scope.checkout.distance=$scope.checkout.destination.distance;
+          if ($scope.checkout.destination.distance) {
+            $scope.checkout.distance=$scope.checkout.destination.distance;
+          }
           $scope.checkout.boat=DatabaseService.getBoatWithId(reuse.boat_id);
           $scope.checkout.comments=reuse.comment;
           $scope.checkout.starttime=new Date(reuse.outtime);
@@ -169,14 +171,19 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     }
     return null;
   }
+
   $scope.checkRights = function() {
+    $scope.rightsmessage="";
+    var norights=[];
     if (!$scope.checkout) {
       return false;
+    }
+    if ($scope.checkout.foreign_club && $scope.checkout.foreign_club !="DSR") {
+      return true;
     }
     var tripRequirements=($scope.checkout.triptype)?$scope.checkout.triptype.rights:[];
     var boatRequirements=($scope.selectedBoatCategory)?$scope.selectedBoatCategory.rights:[];
     var reqs=tripRequirements.concat(boatRequirements);
-    var norights=[];
     var subright=null;
     if ($scope.selectedBoatCategory) {
       subright=$scope.selectedBoatCategory.rights_subtype;
@@ -191,7 +198,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       } else if (subject=='cox') {
         if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
           if (rerr=miss_right(rq,arg,$scope.checkout.rowers[0].rights)) {
-            this.push("styrmand "+$scope.checkout.rowers[0].name+" Har ikke "+ $filter('righttodk')([rq])+rerr);
+            this.push("Styrmand "+$scope.checkout.rowers[0].name+" har ikke "+ $filter('righttodk')([rq])+rerr);
           }
         }
       } else if (subject=='all') {
@@ -291,6 +298,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     $scope.rightsmessage=norights.join(", ");
     return norights.length<1;
   }
+
   $scope.selectBoatCategory = function(cat) {
     $scope.selectedBoatCategory=cat;
     $scope.selectedboat=null;

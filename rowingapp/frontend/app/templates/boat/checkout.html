@@ -173,6 +173,9 @@
                 </select>
               </td>
             </tr>
+            <tr ng-if="checkout.boat.location=='Andre'">
+              <td>Ansvarlig roklub hvis ikke DSR</td><td><input type="text" ng-model="checkout.foreign_club" placeholder="roklub"></input></td>
+            </tr>
             <tr>
               <td>
                 <label for="checkout_comments">Bemærkninger</label>

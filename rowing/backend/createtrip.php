@@ -51,20 +51,22 @@ $expectedtime=mysdate($newtrip->expectedtime);
 if (!$error) {
     $starttime=mysdate($newtrip->starttime);
     // error_log('now new trip'. json_encode($newtrip));
+    $club=$newtrip->foreign_club??null;
     if ($stmt = $rodb->prepare(
-        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team)
-                VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?)")) {
+        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team,club)
+                VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?)")) {
         $info="client: ".$newtrip->client_name;
-        $stmt->bind_param('isississs',
-        $newtrip->boat->id ,
-        $newtrip->destination->name,
-        $newtrip->triptype->id,
-        $starttime,
-        $expectedtime,
-        $newtrip->distance,
-        $info,
-        $newtrip->comments,
-        $teamName
+        $stmt->bind_param('isississss',
+                          $newtrip->boat->id ,
+                          $newtrip->destination->name,
+                          $newtrip->triptype->id,
+                          $starttime,
+                          $expectedtime,
+                          $newtrip->distance,
+                          $info,
+                          $newtrip->comments,
+                          $teamName,
+                          $club
         );
         if (!$stmt->execute()) {
             $error=mysqli_error($rodb);
@@ -140,7 +142,6 @@ foreach ($newtrip->rowers as $rower) {
         error_log(mysqli_error($rodb));
     }
 }
-
 
 # DSR 55.71472/12.58661
 
