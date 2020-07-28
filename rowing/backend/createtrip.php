@@ -167,5 +167,6 @@ if ($iswinter) {
 
 $res['message']=$message;
 invalidate("trip");
+invalidate("stats");
 $rodb->close();
 echo json_encode($res);

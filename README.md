@@ -34,6 +34,8 @@ Create database:
     sudo echo "GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql
 
 
+grant super on *.* to roprotokol@localhost ;
+
 Import schema:
 
 

@@ -1246,7 +1246,8 @@ img.wrench {
     font-size: 5pt;
 }
 .warn {
-    background: yellow;
+  background: yellow;
+  border-radius: 15px;
 }
 
 .dropdown-menu {

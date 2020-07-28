@@ -243,7 +243,7 @@ function dbservice($http, $q, $log) {
       'reservation':['reservation','boat','get_reservations'],
       'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
-      'member':['boats','rowers','rower_statisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
+      'member':['boats','rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],
       'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat','stats/trip_stat_year'],
       'message':["boat_notes"],
@@ -301,7 +301,7 @@ function dbservice($http, $q, $log) {
       subscriptions={};
     }
     var sq=$q.defer();
-    $http.post('../../backend/datastatus.php', null).then (function(response) {
+    $http.post('../../backend/datastatus.php', null).then(function(response) {
       var ds=response.data;
       db['current_user']=ds.uid;
       if (gitrevision != ds.gitrevision) {

@@ -1,8 +1,7 @@
 'use strict';
-// Not worth caching for this
-angular.module('rowApp').controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval', 'ngDialog', TodayCtrl]);
+angular.module('rowApp').controller('TodayCtrl', ['$scope', '$routeParams', 'DatabaseService', '$interval',  TodayCtrl]);
 
-function TodayCtrl ($scope, $routeParams, DatabaseService, $interval, ngForm) {
+function TodayCtrl ($scope, $routeParams, DatabaseService, $interval) {
   $scope.tripstoday=[];
   $scope.onwater=[];
   $scope.available=[];
@@ -22,7 +21,7 @@ function TodayCtrl ($scope, $routeParams, DatabaseService, $interval, ngForm) {
       return(et< new Date);
     }
     return false;
-  };    
+  };
 
   $scope.updatecrew = function() {
     //    alert(" foo "+$scope.coxs+":"+$scope.rowers);
@@ -50,22 +49,21 @@ function TodayCtrl ($scope, $routeParams, DatabaseService, $interval, ngForm) {
       for (c4=0; c4<=max4; c4++) {
 	if (c2*3+c4*5<=$scope.rowers+$scope.coxs && c2*3+c4*5>mc && c2+c4<=$scope.coxs) {
 	  mc=c2*3+c4*5;
-	} 
+	}
       }
     }
-    
+
     for (c2=0; c2<=max2; c2++) {
       for (c4=0; c4<=max4; c4++) {
 	if (c2*3+c4*5==mc && c2+c4<=$scope.coxs) {
 	  bcms.push({"i2":c2,"i4":c4});
-	} 
+	}
       }
     }
     $scope.maxcrew=mc;
     $scope.boatcoms=bcms;
   };
-  
-  DatabaseService.init({boat:true}).then(function () {
+  DatabaseService.init({"boat":true,"trip":true}).then(function () {
     $scope.onwater = DatabaseService.getDB('onwater');
   }
 			       );
@@ -76,5 +74,5 @@ function TodayCtrl ($scope, $routeParams, DatabaseService, $interval, ngForm) {
     'DSR',function (res) {
       $scope.available=res.data;
     }
-  );  
+  );
 }

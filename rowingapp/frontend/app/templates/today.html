@@ -41,10 +41,10 @@
 </div>
 
 <div class="setboats">
-  <h2>Sæt både</h2>  
+  <h2>Sæt både</h2>
   <dl>
     <dt>2 åres Inrigger</dt><dd>{{available["Inrigger 2+"].amount}}: {{available["Inrigger 2+"].boats}}</dd>
-    <dt>4 åres Inrigger</dt><dd>{{available["Inrigger 4+"].amount}}: {{available["Inrigger 4+"].boats}}</dd>   
+    <dt>4 åres Inrigger</dt><dd>{{available["Inrigger 4+"].amount}}: {{available["Inrigger 4+"].boats}}</dd>
   </dl>
   <div class="boatcrew">
     <table class="crewcount">
@@ -56,14 +56,14 @@
         </tr>
         <tr>
 	  <td>styrmænd</td>
-          <td>roere</td> 
+          <td>roere</td>
         </tr>
         </body>
     </table>
-    
+
     <table class="boatcombinations">
       <caption>Både</caption>
-      <tr> <th>to+</th><th>fire+</th></tr>    
+      <tr> <th>to+</th><th>fire+</th></tr>
       <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="bc in boatcoms"><td >{{bc.i2}}</td><td>{{bc.i4}}</td>
       </tr>
     </table>
