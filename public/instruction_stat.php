@@ -4,9 +4,9 @@
     <link rel="stylesheet" href="basic.css">
     <meta charset="utf-8">
   </head>
-  <body>      
+  <body>
 <?php
-    include("../rowingapp/backend/inc/backheader.php");
+    include("../rowing/backend/inc/backheader.php");
 ?>
     <table>
       <caption>Instruktion</caption>
@@ -36,7 +36,7 @@
              printf("Error loading character set utf8: %s\n", $rodb->error);
          }
          $s="SELECT daytrips.day,rowers,trips,boats,seats FROM
-(SELECT Date(Trip.OutTime) as day, COUNT(TripMember.member_id) as rowers, COUNT(DISTINCT(Trip.id)) as trips, 
+(SELECT Date(Trip.OutTime) as day, COUNT(TripMember.member_id) as rowers, COUNT(DISTINCT(Trip.id)) as trips,
 GROUP_CONCAT(DISTINCT(Boat.Name) ORDER BY Boat.Name) as boats
 FROM TripType,TripMember,Boat,BoatType, Trip
 WHERE Trip.TripTypeID=TripType.id AND TripType.Name='Instruktion' AND TripMember.TripID=Trip.id  AND Boat.id=Trip.BoatID AND Boat.boat_type=BoatType.name AND BoatType.Seatcount>$minSeats AND Category=$category GROUP BY day) as daytrips
@@ -49,21 +49,19 @@ ORDER BY day DESC
 
 
          error_log("SQL :\n".$s."\n");
-         if ($stmt = $rodb->prepare($s)) { 
+         if ($stmt = $rodb->prepare($s)) {
       $result=$rodb->query($s) or die("Error in instruktion stat query: " . mysqli_error($rodb));;
       while ($row = $result->fetch_assoc()) {
       print("<tr><td>".$row['day']."</td><td class='nr'>".$row['rowers']."</td><td class='nr'>".$row['trips']."</td><td class='nr'>".($row['seats'])."</td><td>".$row['boats']."</td></tr>\n");
       }
       }  else {
       error_log("SQL instruction stat error: ".$rodb->error);
-      echo " FEJL i instruktionsstatistik ".$rodb->error;      
-      }      
+      echo " FEJL i instruktionsstatistik ".$rodb->error;
+      }
       ?>
     </table>
     <?php
        $rodb->close();
-    ?> 
+    ?>
   </body>
 </html>
-
-
