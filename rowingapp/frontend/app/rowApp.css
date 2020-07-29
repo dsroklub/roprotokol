@@ -888,6 +888,10 @@ input.tripcomment {
     width: 12em;
 }
 
+td.tripcomment {
+    width: 12em;
+}
+
 textarea {
     resize: vertical;
 }

@@ -83,15 +83,15 @@
       <table class="genericlist">
         <caption>Turoversigt for {{currentrower.name}} <i>({{currentrower.id}})</i></caption>
         <thead>
-          <tr><th>TurID</th><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
+          <tr><th>båd</th><th>Type</th><th>destination</th><th>kommentar</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
         <tbody class="tbody">
           <tr ng-repeat="trip in rowertrips" ng-hide="boat_type && boat_type.name!=trip.boat_type" ng-click="tripselect(trip,$index)"
               ng-class='{selected: trip == currenttrip}' >
-            <td class="selected">{{trip.id}}</td>
             <td>{{trip.boat}}</td>
             <td>{{trip.triptype}}</td>
             <td>{{trip.destination}}</td>
+            <td class="tripcomment">{{trip.comment}}</td>
             <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
             <td class="rnum" >{{trip.distance|mtokm}}</td>
           </tr>
@@ -102,12 +102,14 @@
       <table class="genericlist">
         <caption>Turoversigt for {{currentboat.name}} (sæson)</caption>
         <thead>
-          <tr><th>TurID</th><th>Båd</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
+          <tr><th>destination</th><th>kommentar</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
         <tr ng-repeat="trip in boattrips" ng-click="tripselect(trip,$index)" ng-class-odd="'oddboat'" ng-class-even="'evenboat'"
             ng-class='{selected: trip == currenttrip}' >
-          <td class="selected">{{trip.id}}</td><td>{{trip.boat}}</td><td>{{trip.destination}}</td>
-          <td>{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td><td class="rnum" >{{trip.distance|mtokm}}</td>
+          <td>{{trip.destination}}</td>
+          <td class="tripcomment">{{trip.comment}}</td>
+          <td>{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
+          <td class="rnum" >{{trip.distance|mtokm}}</td>
         </tr>
       </table>
       <table class="genericlist statbox">
@@ -139,13 +141,13 @@
       <table class="genericlist">
         <caption>Turoversigt for dagen {{tripdate| date : fulldate: UTC}}</caption>
         <thead>
-          <tr><th>TurID</th><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th></tr>
+          <tr><th>Båd</th><th>Type</th><th>Destination</th><th>kommentar</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
         <tr ng-repeat="trip in datetrips" ng-hide="boat_type && boat_type.name!=trip.boat_type" ng-click="tripselect(trip,$index)" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-class='{selected: trip == currenttrip}' >
-          <td class="selected">{{trip.id}}</td>
           <td>{{trip.boat}}</td>
           <td>{{trip.triptype}}</td>
           <td>{{trip.destination}}</td>
+          <td class="tripcomment">{{trip.comment}}</td>
           <td>{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
           <td class="rnum" >{{trip.distance|mtokm}}</td>
         </tr>
