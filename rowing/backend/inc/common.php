@@ -120,7 +120,9 @@ function process ($result,$output="json",$name="cvsfile",$captions=null) {
             $captions[]=$fl->name;
             $colTypes[$fl->name]=$fl->type;
             $maxlengths[$fi]=$fl->max_length;
-
+            if (!$maxlengths[$fi]) {
+                $maxlengths[$fi]=$fl->length;
+            }
             //echo print_r($fl,true)."\n<br>";
         }
     }

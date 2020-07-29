@@ -928,10 +928,11 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
   }
 
-  $scope.toggle_personal = function (fid,arg) {
+  $scope.toggle_personal = function (fid,arg,format) {
     var sid=fid+(arg?arg:"");
+    var fmt=format?format:"json";
     if ($scope.show[sid]) {
-      DatabaseService.getDataNow('event/stats/'+fid,arg?("q="+arg):null,function (res) {
+      DatabaseService.getDataNow('/event/stats/'+fid,"q="+arg?arg:""+"&format="+fmt,function (res) {
         $scope[sid]=res.data;
       }
                                 );

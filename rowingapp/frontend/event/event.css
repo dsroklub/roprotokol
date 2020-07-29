@@ -656,3 +656,7 @@ input[type="number"] {
 xinput {
    -webkit-appearance: none;
 }
+
+.dl{
+  color:  #FFFFFF;
+}
