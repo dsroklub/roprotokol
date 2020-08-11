@@ -932,7 +932,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     var sid=fid+(arg?arg:"");
     var fmt=format?format:"json";
     if ($scope.show[sid]) {
-      DatabaseService.getDataNow('/event/stats/'+fid,"q="+arg?arg:""+"&format="+fmt,function (res) {
+      DatabaseService.getDataNow('/event/stats/'+fid,"q="+(arg?arg:"")+"&format="+fmt,function (res) {
         $scope[sid]=res.data;
       }
                                 );
