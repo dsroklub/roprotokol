@@ -37,9 +37,7 @@ if ($is_public) {
 
      if ($show_status) {
          echo "<h2>Mine sidste 10 DSR aktiviteter (roture og gymnastik)</h2>";
-
          echo "Her kan man se om jeg er på vandet og holde øje med hvornår jeg går i land igen";
-
          $s="
   (SELECT Boat.id as boatid,
       Boat.Name AS boat,
@@ -82,7 +80,6 @@ UNION
                  echo "<td>". $row['boat'].  "</td>";
                  echo "<td>". $row['outtime']."</td>";
                  if (empty($row['intime']) and !empty($row['boat'])) {
-                     echo '<td class="onwater">'. $row['expectedintime'].  "</td>";
                      echo '<td class="onwater">På vandet</td>';
                  } else {
                      echo "<td>". $row['intime'].  "</td>";

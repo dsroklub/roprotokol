@@ -656,3 +656,10 @@ input[type="number"] {
 xinput {
    -webkit-appearance: none;
 }
+
+.dl{
+  color:  #FFFFFF;
+}
+a:visited {
+  color: wheat;
+}

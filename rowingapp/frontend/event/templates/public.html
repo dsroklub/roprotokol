@@ -220,9 +220,9 @@ Vis
 
 <div class="statbox" ng-show="mytrips">
   <table class="genericlist">
-    <caption>Mine {{mytrips.length}} roture alle år: {{mytrips|sumDistance|number:1}} km</caption>
+    <caption>Mine {{mytrips.length}} roture alle år: {{mytrips|sumDistance|number:1}} km,  <a class="dl" href="/backend/event/stats/mytrips.php?format=xlsx">🠳 download</a></caption>
     <thead>
-      <tr><th>Båd</th><th>Type</th><th>Destination</th><th>Oprettet</th><th>Turlængde</th><th>kommentar</th></tr>
+      <tr><th>Båd</th><th>type</th><th>destination</th><th>oprettet</th><th>turlængde</th><th>kommentar</th></tr>
     </thead>
     <tbody>
       <tr ng-repeat="trip in mytrips" >
@@ -273,4 +273,3 @@ Vis
 {{graph_message}}
   <div id="sumgraph" style="text-align: center;"></div>
 </div>
-
