@@ -26,7 +26,7 @@ if ($stmt = $rodb->prepare("SELECT member_setting.is_public,member_setting.show_
             $show_status=$row['show_status'];
         }
     } else {
-        echo 'ukendt medlem';             
+        echo 'ukendt medlem<br>eller $member har ikke tilvalgt "offentlig profil"';
     }
 } else {
     console_log( "user error");
@@ -37,25 +37,25 @@ if ($is_public) {
 
      if ($show_status) {
          echo "<h2>Mine sidste 10 DSR aktiviteter (roture og gymnastik)</h2>";
-         
+
          echo "Her kan man se om jeg er på vandet og holde øje med hvornår jeg går i land igen";
-         
+
          $s="
-  (SELECT Boat.id as boatid, 
-      Boat.Name AS boat, 
-      DATE_FORMAT(OutTime,'%Y-%m-%d %H:%i') as outtime, 
-      DATE_FORMAT(ExpectedIn,'%Y-%m-%d %H:%i') as expectedintime, 
-      DATE_FORMAT(InTime,'%Y-%m-%d %H:%i') as intime, 
-      Trip.Destination as destination, 
+  (SELECT Boat.id as boatid,
+      Boat.Name AS boat,
+      DATE_FORMAT(OutTime,'%Y-%m-%d %H:%i') as outtime,
+      DATE_FORMAT(ExpectedIn,'%Y-%m-%d %H:%i') as expectedintime,
+      DATE_FORMAT(InTime,'%Y-%m-%d %H:%i') as intime,
+      Trip.Destination as destination,
       Trip.id as tripid,
       CAST(Meter/1000 AS DECIMAL(10,2)) as km,
       TripType.Name AS triptype
-      FROM Member,TripMember,TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID 
+      FROM Member,TripMember,TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID
       WHERE Trip.id=TripMember.TripID AND TripMember.member_id=Member.id AND Member.MemberId=?)
 UNION
   (SELECT 'Gymnastik' as boatid,
       '' as boat,
-      DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as outtime, 
+      DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') as outtime,
       '' as expectedintime,
       '' as intime,
       '' as destination,
@@ -64,7 +64,7 @@ UNION
       team as triptype
       FROM Member,team_participation
       WHERE team_participation.member_id=Member.id AND Member.MemberId=?)
-  ORDER BY outtime DESC 
+  ORDER BY outtime DESC
   LIMIT 10";
 //         echo "SQL= $s";
          if ($stmt = $rodb->prepare($s)) {
@@ -96,14 +96,14 @@ UNION
              die("Error in user boat query: " . mysqli_error($rodb));
          }
      }
-     
-     echo "<h2>Mine næste tre aktiviteter i DSR</h2>";     
+
+     echo "<h2>Mine næste tre aktiviteter i DSR</h2>";
      echo "Kommer snart";
 
 } else {
     echo "<br>Lukket side";
 }
 
-?>     
+?>
   </body>
 </html>
