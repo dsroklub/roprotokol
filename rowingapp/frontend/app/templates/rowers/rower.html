@@ -156,7 +156,7 @@
 
     <div ng-show="currentrower" class="triptypeview">
       <table class="genericlist">
-        <caption>Sæsonoversigt for {{currentrower.name}} fordelt på turtyper</caption>
+        <caption>Sæsonoversigt for {{currentrower.name}} fordelt på turtyper, i alt: <strong>{{rowertripsaggregated|sumDistance|number:1}} km</caption></strong>
         <thead>
           <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
         </thead>
