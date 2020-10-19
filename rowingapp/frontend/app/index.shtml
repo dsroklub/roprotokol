@@ -44,6 +44,7 @@
   <script src="components/database/database.js"></script>
   <script src="components/status.js"></script>
   <script src="../dsrcommon/components/utilities/onlynumber.js"></script>
+  <script src="../dsrcommon/components/utilities/sums.js"></script>
   <script src="../dsrcommon/components/utilities/transformkm.js"></script>
   <script src="../dsrcommon/components/utilities/safefilename.js"></script>
   <script src="../dsrcommon/components/utilities/mtokm.js"></script>
