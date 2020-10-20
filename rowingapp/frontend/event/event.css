@@ -663,3 +663,9 @@ xinput {
 a:visited {
   color: wheat;
 }
+
+a.linkbtn {
+  background:#f9be9c;
+  font-size: 16pt;
+  border-radius: 3px;
+}
