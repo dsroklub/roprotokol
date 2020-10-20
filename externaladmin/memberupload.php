@@ -67,7 +67,7 @@ if (!$uploadOk) {
 UPDATE Member m JOIN tblMembersToRoprotokol tm ON (m.MemberID = tm.MemberID)
 SET m.FirstName = TRIM(TRIM(CHAR(9) FROM tm.FirstName)),
     m.LastName = TRIM(TRIM(CHAR(9) FROM tm.LastName)),
-    m.Email = tm.E_mail,
+    m.Email = TRIM(CHAR(9) FROM tm.E_mail),
     m.ShowEmail = tm.OnAddressList,
     m.JoinDate = tm.JoinDate,
     m.RemoveDate = tm.RemoveDate,
