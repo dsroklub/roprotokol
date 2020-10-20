@@ -43,6 +43,17 @@ FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROU
 ";
     //    echo "f=$f, $s\n";
     break;
+case "lesswork":
+    $pct=1.0*($_GET["a"] ?? 50);
+    $s="
+SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,Email as email,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler,100*IFNULL(h,0)/requirement AS pct
+FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
+    WHERE  worker.member_id=Member.id AND
+  100*IFNULL(h,0)/requirement < $pct
+ORDER BY lagt DESC;
+";
+    break;
+
 case "nonmembers":
     $report_name="mindst arbejde lagt";
     $f=$_GET["a"] ?? null;
