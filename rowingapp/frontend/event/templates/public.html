@@ -82,7 +82,7 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
 Vis
 <label class="switch">  <input type="checkbox" ng-model="show.mystatswork" ng-change="toggle_personal('mystats','work')">arbejde</label>,
 <label class="switch">  <input type="checkbox" ng-model="show.mytrips" ng-change="toggle_personal('mytrips')">mine ture</label>,
-<label class="switch">  <input type="checkbox" ng-model="show.mystatsrights" ng-change="toggle_personal('mystats','rights')">rettigheder</label>
+<label class="switch">  <input type="checkbox" ng-model="show.mystatsrights" ng-change="toggle_personal('mystats','rights','json')">rettigheder</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mytripsaggregated" ng-change="toggle_personal('mytripsaggregated')">sæsonoversigt</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mystatsdestinations" ng-change="toggle_personal('mystats','destinations')">destinationer</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mystatsmates" ng-change="toggle_personal('mystats','mates')">rokammerater</label>
@@ -187,7 +187,7 @@ Vis
 
 <div ng-show="mytripsaggregated" class="statbox">
   <table class="genericlist">
-    <caption>Sæsonoversigt fordelt på turtyper, i alt: {{mytripsaggregated|sumDistance|number:1}}</caption>
+    <caption>Sæsonoversigt fordelt på turtyper, i alt: {{mytripsaggregated|sumDistance|number:1}} <a class="dl" href="/backend/event/stats/mytripsaggregated.php?format=xlsx">🠳 download</a></caption>
     <thead>
       <tr><th>Turtype</th><th>Antal ture</th><th>Rodistance</th><th>Gennemsnit</th></tr>
     </thead>
