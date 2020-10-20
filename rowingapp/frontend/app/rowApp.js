@@ -9,6 +9,7 @@ angular.
     'dsrcommon.utilities.transformkm',
     'dsrcommon.utilities.mtokm',
     'dsrcommon.utilities.ifNull',
+    'dsrcommon.utilities.sumDistance',
     'dsrcommon.utilities.txttotime',
     'dsrcommon.utilities.totime',
     'dsrcommon.utilities.split',
