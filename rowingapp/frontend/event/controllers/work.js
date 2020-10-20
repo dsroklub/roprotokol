@@ -20,12 +20,13 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.workers=[];
   $scope.workadmin={};
   $scope.mystatswork=null;
-    var dberr=function(err) {
-      $log.debug("db init err "+err);
-      if (err['error']) {
-        alert('DB fejl '+err['error']);
-      }
+  $scope.workstat={"workpercent":50.0};
+  var dberr=function(err) {
+    $log.debug("db init err "+err);
+    if (err['error']) {
+      alert('DB fejl '+err['error']);
     }
+  }
 
   LoginService.check_user().promise.then(function(u) {
     $scope.current_user=u;
@@ -188,9 +189,33 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
 
   $scope.get_report = function (report,p="workstats",a="") {
-    DatabaseService.getDataNow('event/stats/'+p,'format=tablejson&q='+report+'&a='+a,
-                               function (res) {
-        $scope.workreport=res.data;
+    DatabaseService.getDataNow('event/stats/'+p,'format=tablejson&q='+report+'&a='+a, function (res) {
+      $scope.workreport=res.data;
+    },dberr
+                              )
+  };
+
+  $scope.get_email_report = function (report,p="workstats",a="") {
+    DatabaseService.getDataNow('event/stats/'+p,'format=tablejson&q='+report+'&a='+a, function (res) {
+      var emailc=null;
+      for (var ci=0; ci<res.data.captions.length;ci++) {
+        if (res.data.captions[ci].name=="email") {
+          emailc=ci;
+          break;
+        }
+      }
+      if (emailc) {
+        var emails=[];
+        for (var bi=0; bi<res.data.body.length;bi++) {
+          if (res.data.body[bi][emailc]) {
+            emails.push(res.data.body[bi][emailc]);
+          }
+        }
+        if (emails.length>0) {
+          $scope.workstat.mailto=emails.join(",");
+        }
+      }
+      $scope.workreport=res.data;
       },dberr
                                 )
   };
