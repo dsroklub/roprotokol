@@ -30,7 +30,7 @@ WHERE assigner='vedligehold'
 // FIXME validate
 
 $sql="
-SELECT DISTINCT CONCAT(FirstName,' ',LastName) as name, argument as winteradmin,Member.MemberId as worker_id,requirement, requirement,IFNULL(MAX(worklog.start_time),'x') as start_time
+SELECT DISTINCT CONCAT(FirstName,' ',LastName) as name, workertype,argument as winteradmin,Member.MemberId as worker_id,requirement, requirement,IFNULL(MAX(worklog.start_time),'x') as start_time
 FROM Member LEFT JOIN worker on Member.id=worker.member_id LEFT JOIN MemberRights ON MemberRights.member_id=Member.id AND MemberRight='admin' AND argument='vedligehold'
 LEFT JOIN worklog ON worklog.member_id=Member.id AND DATE(worklog.start_time)=DATE(NOW())
 WHERE Member.id=worker.member_id AND worker.assigner='vedligehold' AND Member.RemoveDate IS NULL

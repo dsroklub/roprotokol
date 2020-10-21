@@ -178,7 +178,14 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
                typeahead-template-url="memberTemplate.html" typeahead-on-select="edit_worker()" required>
         <input type="number" class="rnum" size="5" step="0.1" maxlength="5" autocomplete="off" ng-model="workadmin.worker.requirement"
                ng-change="workadmin.changed=true">
-        <button ng-show="workadmin.changed && workadmin.worker.requirement!=null" ng-click="update_work_req()">Opdater timer</button>
+
+        <select ng-change="workadmin.changed=true" ng-model="workadmin.worker.workertype">
+          <option value="Inrigger">Inrigger</option>
+          <option value="Kajakker">Kajakker</option>
+          <option value="Morgenroerne">Morgenroerne</option>
+          <option value="Coastal">Coastal</option>
+        </select>
+        <button ng-show="workadmin.changed && workadmin.worker.requirement!=null" ng-click="update_work_req()">Opdater timer og type</button>
       </form>
       <h2>Rapporter</h2>
       <div  class="weekbar">
@@ -213,11 +220,6 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
           <a class="linkbtn" href="/backend/event/stats/workstats.php?q=lesswork&a={{workstat.workpercent}}&format=xlsx">download</a>
         </li>
 
-        <li>Arbejdet mindre end <input type="number"  min="0" max="100" step="10" ng-model="workstat.workpercent" ng-change="workstat.mailto=null">
-          <button ng-click="get_email_report('lesswork','workstats',workstat.workpercent)">Vis</button>
-          <a class="linkbtn" ng-show="workstat.mailto" href='mailto:{{workstat.mailto}}?subject=Du%20er%20bagud%20med%20vintervedligehold&body=Du%20har%20lavet%20under%20{{workstat.workpercent}}%20procent%20af%20dit%20arbejde'>Lav email</a>
-          <a href="/backend/event/stats/workstats.php?q=lesswork&a={{workstat.workpercent}}&format=xlsx">download</a>
-        </li>
         <li>
           <button ng-click="get_report('rank')">Roertimer tilbage </button>
           <button ng-click="get_report('rank','workstats',10)"> &gt; 10</button>
