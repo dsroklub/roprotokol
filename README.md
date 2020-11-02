@@ -4,9 +4,9 @@
 
 ## [For DSR in Danish:](http://htmlpreview.github.io/?https://github.com/dsroklub/roprotokol/blob/master/documentation/DSR.html)
 
-# Demo:
+# Demo: login 2001, pw 
 
-https://agol.dk/roprotokol/frontend/app/real.html
+https://agol.dk/roprotokol/frontend/app/index.shtml
 
 
 # Installation
@@ -20,8 +20,7 @@ https://agol.dk/roprotokol/frontend/app/real.html
    a2enmod dbd  rewrite include authn_dbd  php7.X # where X is the php version
    sudo npm install -g bower
 
-   # for debug scripts
-   cd rowingapp/phplib; composer update
+   cd rowingapp/backend; composer update
 
    cd rowingapp/frontend; npm install
 
@@ -43,11 +42,3 @@ Import schema:
 
 Copy config.ini.template to config.ini and adjust
 
-
-Test Webserver:
-
-Run
-<code>
-   cd rowingapp/
-   php -S localhost:8080
-</code>
