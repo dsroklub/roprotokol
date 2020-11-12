@@ -2,7 +2,7 @@
 include("../../rowing/backend/inc/common.php");
 require("utils.php");
 include("messagelib.php");
-$forum = "materieludvalg";
+$forum = "vedligehold";
 
 //verify_real_user("registrere timer");
 $data = file_get_contents("php://input");
