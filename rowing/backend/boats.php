@@ -16,8 +16,8 @@ $s="SELECT JSON_OBJECT(
            'level',Boat.level) as json
     FROM Boat
          INNER JOIN BoatType ON (BoatType.Name=Boat.boat_type)
-         INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)         
-    WHERE 
+         INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
+    WHERE
          Boat.Decommissioned IS NULL
     GROUP BY Boat.id
     ORDER by Boat.name
@@ -27,7 +27,7 @@ $result=$rodb->query($s) or die("Error in boats query: " . mysqli_error($rodb));
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
-	  if ($first) $first=0; else echo ",\n";	  
+	  if ($first) $first=0; else echo ",\n";
 	  echo $row['json'];
 }
 echo ']';
