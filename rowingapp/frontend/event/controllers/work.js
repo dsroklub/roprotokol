@@ -19,6 +19,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.work={};
   $scope.workers=[];
   $scope.workadmin={};
+  $scope.workertypes=['Inrigger','Kajakker','Morgenroerne','Coastal','Værktøj'];
   $scope.mystatswork=null;
   $scope.workstat={"workpercent":50.0};
   var dberr=function(err) {
@@ -33,15 +34,15 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     // $scope.current_user.is_winter_admin=null;// FIXME REMOVE
   });
 
-  var dbready=function (ok) {
+  var dbready=function(ok) {
     $scope.worktasks=DatabaseService.getDB('event/worktasks');
     $scope.workers=DatabaseService.getDB('event/workers');
     $scope.work_today=DatabaseService.getDB('event/work_today');
     $scope.maintenance_boats=DatabaseService.getDB('event/maintenance_boats');
   }
-    DatabaseService.getDataNow('event/stats/week',"",function (res) {
-      $scope.weekwork=res.data;
-    });
+  DatabaseService.getDataNow('event/stats/week',"",function (res) {
+    $scope.weekwork=res.data;
+  });
   DatabaseService.init({"fora":true,"work":true,"boat":true,"message":true,"event":true,"member":true,"user":true}).then(
     dbready,
     function(err) {$log.debug("db init err "+err)},
