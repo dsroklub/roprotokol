@@ -158,11 +158,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
                uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
                typeahead-on-select='onNewWorkerSelect($item, $model, $label)'
                typeahead-template-url="allmemberTemplate.html" required>
-        <SELECT ng-model="workadmin.newworker.workertype" ng-show="workadmin.newworker.id">
-          <option>Inrigger</option>
-          <option>Kajakker</option>
-          <option>Morgenroerne</option>
-          <option>Coastal</option>
+        <SELECT ng-model="workadmin.newworker.workertype" ng-show="workadmin.newworker.id" ng-options="wt for wt in workertypes">
         </SELECT>
         <input type="number" class="rinum" size="8" step="0.5" maxlength="5" autocomplete="off" ng-model="workadmin.newworker.requirement" ng-change="workadmin.new=true">
         <button ng-show="workadmin.new && workadmin.newworker.requirement!=null" ng-click="create_worker(workadmin.newworker)">Sæt til arbejde</button>
@@ -179,11 +175,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         <input type="number" class="rnum" size="5" step="0.1" maxlength="5" autocomplete="off" ng-model="workadmin.worker.requirement"
                ng-change="workadmin.changed=true">
 
-        <select ng-change="workadmin.changed=true" ng-model="workadmin.worker.workertype">
-          <option value="Inrigger">Inrigger</option>
-          <option value="Kajakker">Kajakker</option>
-          <option value="Morgenroerne">Morgenroerne</option>
-          <option value="Coastal">Coastal</option>
+        <select ng-change="workadmin.changed=true" ng-model="workadmin.worker.workertype" ng-options="wt for wt in workertypes">
         </select>
         <button ng-show="workadmin.changed && workadmin.worker.requirement!=null" ng-click="update_work_req()">Opdater timer og type</button>
       </form>

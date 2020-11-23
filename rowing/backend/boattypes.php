@@ -5,8 +5,8 @@ $res=array ("status" => "ok");
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
      'name',Name,
-     'seatcount',Seatcount , 
-     'category',Category, 
+     'seatcount',Seatcount ,
+     'category',Category,
      'rights_subtype',rights_subtype,
      'description',Description
     ),

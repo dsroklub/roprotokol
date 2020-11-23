@@ -17,17 +17,17 @@ else:
     rodb="fakeprotokol"
     dbuser="fake"
 
-print "using db: "+rodb
+print ("using db: "+rodb)
 
 random.seed(42)
 # Password is read from file sectret.db
 # but do not write it in this file
 pwfile=os.path.dirname(sys.argv[0])+'/../../config.ini'
-print "checking db pw file "+pwfile
+print ("checking db pw file "+pwfile)
 if os.path.exists(pwfile):
     # FIXME, do not assume line 2, check for left side dbpassword
     dbpw=(open(pwfile).readlines()[1].split('='))[1].strip()
-    print "using PASSWORD #"+dbpw+"#"
+    print ("using PASSWORD #"+dbpw+"#")
     db= MySQLdb.connect(host="localhost",  user=dbuser, passwd=dbpw,charset='utf8', db=rodb)
 else:
     db= MySQLdb.connect(host="localhost",  user="fake", charset='utf8', db=rodb)
@@ -62,7 +62,7 @@ for fid in range(1, 1000) :
     print("INSERT INTO Member (id, MemberID, FirstName, LastName) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
     cur.execute("INSERT INTO Member (id, MemberID, FirstName, LastName) VALUES ("+str(fid)+','+'"'+mid+'","'+fname+'","'+lname+'");')
     if (rndrights>15):
-        print "INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","'+rdate.strftime("%Y-%m-%d")+'","");'
+        print("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","'+rdate.strftime("%Y-%m-%d")+'","");')
         cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"rowright","'+rdate.strftime("%Y-%m-%d")+'","");')
     if (rndrights>50):
         cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"cox","'+rdate.strftime("%Y-%m-%d")+'","");')
@@ -74,22 +74,22 @@ for fid in range(1, 1000) :
         cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","row");')
     rndrights=random.randrange(0, 100)
     if (rndrights>90):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","sculler");')
+        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","outrigger");')
     if (rndrights>92):
         cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","kajak");')
-    if (rndrights>92):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","svava");')
+#    if (rndrights>92):
+#        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"instructor","'+rdate.strftime("%Y-%m-%d")+'","svava");')
     if (rndrights>20):
         cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"competition","'+rdate.strftime("%Y-%m-%d")+'","");')
-    if (rndrights>90):
-        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"notes","'+rdate.strftime("%Y-%m-%d")+'","der er noget lumsk med ham");')
+#    if (rndrights>90):
+#        cur.execute("INSERT INTO MemberRights (member_id,MemberRight,Acquired,argument) VALUES ("+str(fid)+',"notes","'+rdate.strftime("%Y-%m-%d")+'","der er noget lumsk med ham");')
 
     m[fid]=fname+' A. '+lname
     cur.execute("SELECT Boat.id, Seatcount FROM Boat,BoatType Where BoatType.Name=Boat.boat_type;")
 
 boats=cur.fetchall()
 
-print "we have " +str(len(boats))+ " boats"
+print("we have " +str(len(boats))+ " boats")
 for tid in range(1, 4000):
     pastdays=timedelta(days=random.randrange(0, 1000))
     rtime=now-pastdays
@@ -108,12 +108,12 @@ for tid in range(1, 4000):
     triptype=random.randrange(1, 12)
     dayspast=random.randrange(0, 800)
     q="INSERT INTO Trip (id, BoatID,Destination,Meter,TripTypeID,DESTID, OutTime, InTime) VALUES ("+str(tid)+','+str(bid)+',"'+str(destinations[destination])+'",'+str(random.randrange(500,50000))+','+str(triptype)+','+str(destination)+','+outtime+', '+intime+')';
-    print q
+    print(q)
     cur.execute(q);
     for d in range(0,pladser):
         rower=int(math.sqrt(random.randrange(0, (numrowers-1)**2)))
         qm='INSERT INTO TripMember (TripID,Seat,member_id,CreatedDate) VALUES ('+str(tid)+','+str(d)+','+str(rower)+',"2016-01-12 00:00:00")'
-        print qm
+        print(qm)
         cur.execute(qm)
 db.commit()
 db.close

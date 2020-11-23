@@ -6,7 +6,7 @@ DELIMITER $$
    BEGIN
      RETURN DATE_FORMAT(tm,'%Y-%m-%dT%T');
    END $$
-DELIMITER;
+DELIMITER ;
 
 CREATE TABLE IF NOT EXISTS Member (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -47,6 +47,15 @@ CREATE TABLE IF NOT EXISTS BoatType (
   PRIMARY KEY (`Name`)
 );
 
+
+CREATE TABLE IF NOT EXISTS Locations (
+  `name` varchar(30) NOT NULL,
+  lat                DOUBLE,
+  lon                DOUBLE,
+  description varchar(100),
+  PRIMARY KEY (`name`)
+);
+
 CREATE TABLE IF NOT EXISTS Boat (
   id int(11) NOT NULL AUTO_INCREMENT,
   Name varchar(100)  UNIQUE,
@@ -58,7 +67,7 @@ CREATE TABLE IF NOT EXISTS Boat (
   Created datetime,
   note   TEXT,
   Updated datetime,
-  use VARCHAR(1000);
+  boat_use VARCHAR(1000),
   boat_usage int(11),
   level int(11),
   oar_angle float,
@@ -74,8 +83,7 @@ CREATE TABLE IF NOT EXISTS Boat (
   placement_side Char(6), -- -left, right,center
   Decommissioned datetime,
   CONSTRAINT FOREIGN KEY bt (boat_type) REFERENCES BoatType(Name) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT FOREIGN KEY (Location) REFERENCES Locations (name) ON DELETE SET NULL ON UPDATE CASCADE
-
+  CONSTRAINT FOREIGN KEY (Location) REFERENCES Locations (name) ON DELETE SET NULL ON UPDATE CASCADE,
   PRIMARY KEY (id)
 );
 
@@ -212,15 +220,6 @@ CREATE TABLE IF NOT EXISTS Error_TripMember (
   PRIMARY KEY (ErrorTripID,Seat)
 );
 
-CREATE TABLE IF NOT EXISTS Locations (
-  `name` varchar(30) NOT NULL,
-  lat                DOUBLE,
-  lon                DOUBLE,
-  description varchar(100),
-  PRIMARY KEY (`name`)
-);
-
-
 CREATE TABLE IF NOT EXISTS MemberRights (
   member_id int(11) NOT NULL,
   created_by int,
@@ -229,7 +228,7 @@ CREATE TABLE IF NOT EXISTS MemberRights (
   argument varchar(100) NOT NULL DEFAULT '',
   FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL,
   FOREIGN KEY (member_id) REFERENCES Member(id) ON DELETE CASCADE,
-  FOREIGN KEY (MemberRight,argument) REFERENCES MemberRightType (member_right,argument) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (MemberRight,argument) REFERENCES MemberRightType (member_right,arg) ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (member_id,MemberRight,Acquired,argument)
 );
 
@@ -500,7 +499,7 @@ CREATE TABLE status (
 INSERT INTO status (sculler_open) VALUES (0);
 
 
-CREATE INDEaX IF NOT EXISTS tripmembermemberix ON TripMember(member_id);
+CREATE INDEX IF NOT EXISTS tripmembermemberix ON TripMember(member_id);
 CREATE INDEX IF NOT EXISTS damageresponsible ON Damage(ResponsibleMember);
 CREATE INDEX IF NOT EXISTS damagerepairer ON Damage(RepairerMember);
 CREATE INDEX IF NOT EXISTS reservationmember ON reservation(member);
@@ -870,7 +869,7 @@ INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådha
 
 CREATE VIEW right_name AS
   SELECT distinct MemberRightType.member_right AS member_right,max(MemberRightType.showname) AS showname,max(MemberRightType.predicate) AS predicate from MemberRightType
-  GROUP BY MemberRightType.member_right
+  GROUP BY MemberRightType.member_right;
 
 
 DROP TABLE IF EXISTS workimport ;
@@ -885,10 +884,7 @@ tel       VARCHAR(20),
 hours     INTEGER
 );
 
-
 INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('instructor','instruktør','','instruktør','være instruktør',0,'roning');
-
-
 
 update  MemberRightType SET showname='instruktør' WHERE showname='styrmandsinstruktør';
 
