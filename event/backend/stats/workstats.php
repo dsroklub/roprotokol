@@ -80,7 +80,7 @@ FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROU
 case "resterende":
     $report_name="gjort arbejde";
     $s="
-SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
+SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,Email as email,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
     WHERE  worker.member_id=Member.id ORDER BY lagt DESC;
 ";

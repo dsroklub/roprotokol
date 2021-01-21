@@ -90,7 +90,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-function process ($result,$output="json",$name="cvsfile",$captions=null) {
+function process ($result,$output="json",$name="csvfile",$captions=null) {
     $mariaType=[
         MYSQLI_TYPE_NEWDECIMAL=>"d",
         MYSQLI_TYPE_DECIMAL=>"d",
