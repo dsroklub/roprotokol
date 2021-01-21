@@ -77,6 +77,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   $scope.trip={};
   $scope.showDestinations=["DSR","Nordhavn","Andre"];
   $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
+  $scope.newrightdate=new Date();
 
   DatabaseService.init({"boat":true,"status":true,"member":true, "trip":true,"reservation":true}).then(function () {
     $scope.currentrower=null;
@@ -320,8 +321,8 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       }
     }
 
-    $scope.add_rower_right = function(right,rower) {
-      var data={'right':right,'rower':rower}
+    $scope.add_rower_right = function(right,rower,nrd) {
+      var data={'right':right,'rower':rower,'newrightdate':nrd.toISOString().split('T')[0]}
       var exeres=DatabaseService.updateDB('add_rower_right',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
           $scope.currentrower.rights.push(right);

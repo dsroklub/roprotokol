@@ -225,6 +225,7 @@ CREATE TABLE IF NOT EXISTS MemberRights (
   created_by int,
   MemberRight varchar(50) NOT NULL,
   Acquired datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  Created datetime,
   argument varchar(100) NOT NULL DEFAULT '',
   FOREIGN KEY (created_by) REFERENCES Member(id) ON DELETE SET NULL,
   FOREIGN KEY (member_id) REFERENCES Member(id) ON DELETE CASCADE,
