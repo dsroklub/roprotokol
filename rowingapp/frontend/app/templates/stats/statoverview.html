@@ -30,7 +30,7 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr ng-repeat="stat in $data track by $index" ng-class-odd="'oddstat'" > 
+	    <tr ng-repeat="stat in $data track by $index" ng-class-odd="'oddstat'" >
 	      <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
 	      <td class="rnum" data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}">{{stat.id}}</td>
 	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}">
