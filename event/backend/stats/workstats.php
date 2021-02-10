@@ -33,13 +33,17 @@ case "weeks":
     $s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge ORDER BY uge";
     break;
 case "nonstarters":
-    $report_name="mindst arbejde lagt";
+    $report_name="ikke startet arbejde";
     $f=$_GET["a"] ?? null;
-    $workertype=$f? "'".mysqli_real_escape_string($rodb,$f)."'" :"workertype";
+    $workertypeC="";
+    if ($f) {
+        $workertype=$f? "'".mysqli_real_escape_string($rodb,$f)."'" :"workertype";
+        $workertypeC=" AND workertype=$workertype";
+    }
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
-    WHERE Member.RemoveDate IS NULL AND worker.member_id=Member.id AND workertype=$workertype ORDER BY LAGT ASC,mangler DESC,workertype;
+    WHERE Member.RemoveDate IS NULL AND worker.member_id=Member.id ${workertypeC} ORDER BY LAGT ASC,mangler DESC,workertype;
 ";
     //    echo "f=$f, $s\n";
     break;
@@ -55,13 +59,17 @@ ORDER BY lagt DESC;
     break;
 
 case "nonmembers":
-    $report_name="mindst arbejde lagt";
+    $report_name="ikke medlemmer";
     $f=$_GET["a"] ?? null;
-    $workertype=$f? "'".mysqli_real_escape_string($rodb,$f)."'" :"workertype";
+    $workertypeC="";
+    if ($f) {
+        $workertype=$f? "'".mysqli_real_escape_string($rodb,$f)."'" :"workertype";
+        $workertypeC=" AND workertype=$workertype";
+    }
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,DATE_FORMAT(RemoveDate,'%d/%m %Y') as udmeldt,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
-    WHERE Member.RemoveDate IS NOT NULL AND worker.member_id=Member.id AND workertype=$workertype ORDER BY udmeldt, roer,lagt ASC,mangler DESC,workertype;
+    WHERE Member.RemoveDate IS NOT NULL AND worker.member_id=Member.id ${workertypeC} ORDER BY udmeldt, roer,lagt ASC,mangler DESC,workertype;
 ";
     //    echo "f=$f, $s\n";
     break;
