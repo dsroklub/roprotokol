@@ -23,8 +23,13 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   };
 
   $scope.reservation_current = function() {
+    // TODO deduplicate with admin.js
     return function(reservation) {
-      return (reservation.dayofweek<1 || reservation.configuration==$scope.status.reservation_configuration);
+      // if (reservation.dayofweek<1) return true;
+      for (var rci=0; rci<$scope.reservation_configurations.length; rci++) {
+        if ($scope.reservation_configurations[rci].selected && $scope.reservation_configurations[rci].name==reservation.configuration) return true;
+      }
+      return false;
     }
   };
 
@@ -32,11 +37,11 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.status={};
   $scope.boat_type=null;
   $scope.boatcategories=[];
-    DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true,"message":true}).then(function () {
+  DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true,"message":true}).then(function () {
     // Load Category Overview
     var reservations=DatabaseService.getDB('get_reservations');
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
-    $scope.status.reservation_configuration=DatabaseService.getDB('status').reservation_configuration;
+    $scope.reservation_configurations = DatabaseService.getDB('reservation_configurations');
     $scope.boatcategories = DatabaseService.getBoatTypes();
     $scope.nowtime=new Date();
     var endofday=new Date();

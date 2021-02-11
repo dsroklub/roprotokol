@@ -6,12 +6,6 @@
       Scullerskilt:
       <select ng-change="set_sculler_open(sculler_open)" ng-model="sculler_open" ng-options="op.id as op.n for op in [{n:'Lukket',id:0},{n:'Åbent',id:1}]">
       </select>
-
-      Reservations conf:
-
-      <select ng-change="set_reservation_configuration(config.reservation_configuration)" ng-model="config.reservation_configuration" ng-options="op.id as op.n for op in [{'n':'Sommer',id:'sommer'},{n:'Vinter',id:'vinter'},{n:'Ydersæson',id:'ydersæson'},]">
-      </select>
-
     </form>
   </div>
 
@@ -377,7 +371,7 @@
       </table>
     </div>
     <div class="addright" ng-if="currentrower.id">
-      per: 
+      per:
       <datetimepicker
         date-format="dd-MMM-yyyy"
         show-spinners="false"
@@ -466,121 +460,205 @@
 </div>
 
 <div ng-show="do=='reservations'">
+  <div class="lisel">
+    Vælg aktive ugedagsreservationer:
+  <ul>
+    <li ng-repeat="rc in reservation_configurations" ng-click="toggle_rc(rc)" ng-class="{selected: rc.selected}">
+      {{rc.name}}
+    </li>
+    </div>
+  </ul>
+
+
+  <h2>Reservationer</h2>
   <form name="resv">
     <table class="genericlist" >
-      <caption>Reservationer</caption>
+      <caption>Ugedagsreservationer for
+        <select ng-model="editreservationconfiguration" ng-options="rc.name for rc in reservation_configurations">
+          <option>-</option>
+        </select>
+      </caption>
       <thead>
         <tr>
-          <th>Båd</th>
+          <th>reservations<br>type</th>
+          <th>båd</th>
           <th>ugedag</th>
           <th>start</th>
-          <th>(dato)</th>
           <th>slut</th>
-          <th>(dato)</th>
           <th>turtype</th>
           <th>formål</th>
-          <!--th>bemærkninger</th-->
-<th>gør</th>
-</tr>
-</thead>
-<tbody>
-  <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations |filter: reservation_current()" >
-    <td>{{iboats[rv.boat_id].name}}</td>
-    <td>{{weekdays[rv.dayofweek].day}}</td>
-    <td>{{rv.start_time}}</td>
-    <td>
-      <div ng-show="rv.dayofweek==0">{{rv.start_date}}</div>
-    </td>
-    <td>{{rv.end_time}}</td>
-    <td>
-      <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div>
-    </td>
-    <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>
-    <td>{{rv.purpose}}</td>
-    <!--td>{{rv.description}}</td-->
-<td><button ng-click="cancel_reservation(rv)" class="reject">slet reservation</button></td>
-</tr>
-<tr>
-  <td>
-    <select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required>
-    </select>
-  </td>
-  <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
-              uib-tooltip="hvis det er en reservation på en fast ugedag. Ellers udfyld start- og slutdato"
-              ></select></td>
-  <td>
-    <uib-timepicker
-      ng-model="reservation.start_time"
-      show-spinners="false"
-      show-meridian="false"
-      required
-      />
-  </td>
-  <td>
-    <fieldset ng-hide="reservation.dayofweek">
-      <datetimepicker
-        uib-tooltip="startdato hvis det ikke er en fast ugedag"
-        popup="d MMM yyyy"
-        current-text="i dag"
-        close-text="vælg"
-        clear-text="rens"
-        date-format="yyyy-MM-dd"
-        hidden-time="true"
-        show-spinners="false"
-        date-options="dateOptions"
-        show-meridian="false"
-        ng-model="reservation.start_date"
-        >
-      </datetimepicker>
-    </fieldset>
-  </td>
-  <td>
-    <uib-timepicker
-      ng-model="reservation.end_time"
-      show-spinners="false"
-      show-meridian="false"
-      required
-      />
-  </td>
+          <th>gør</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <select ng-model="reservation.configuration" ng-options="rc.name for rc in reservation_configurations" required>
+          </td>
+          <td>
+            <select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required>
+            </select>
+          </td>
+          <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
+                      uib-tooltip="fast ugedag"
+                      ></select></td>
+          <td>
+            <uib-timepicker
+              ng-model="reservation.start_time"
+              show-spinners="false"
+              show-meridian="false"
+              required
+              />
+          </td>
+          <td>
+            <uib-timepicker
+              ng-model="reservation.end_time"
+              show-spinners="false"
+              show-meridian="false"
+              required
+              />
+          </td>
 
-  <td>
-    <fieldset ng-hide="reservation.dayofweek">
-      <datetimepicker
-        uib-tooltip="slutdato hvis det ikke er en fast ugedag"
-        popup="d MMM yyyy"
-        close-text="vælg"
-        clear-text="rens"
-        current-text="i dag"
-        date-format="yyyy-MM-dd"
-        hidden-time="true"
-        show-spinners="false"
-        date-options="dateOptions"
-        show-meridian="false"
-        ng-model="reservation.end_date"
-        >
-      </datetimepicker>
-    </fieldset>
-  </td>
-  <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"
-               uib-tooltip="turtypen" required>
-  </select></td>
-  <td><input type="text" ng-model="reservation.purpose" required
-             uib-tooltip="Reservationsformål. Fx træning, navn på langtur, vedligehold"
-             ></td>
-  <!--td><input type="text" ng-model="reservation.description"></td-->
-<td><button ng-click="make_reservation(reservation)" class="green"
-            ng-disabled="resv.$invalid || (!reservation.dayofweek && !(reservation.start_date && reservation.end_date))"
-            >
-    ny reservation</button></td>
-</tr>
-<tr><td colspan=8>en reservation skal have et start- og sluttidspunkt.
-    Og <strong>enten</strong> en fast ugedag eller start og slutdatoer. Turtype og formål <strong>skal</strong> udfyldes
-  </td>
-</tr>
+          <td><select  ng-model="reservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"
+                       uib-tooltip="turtypen" required>
+          </select></td>
+          <td><input type="text" ng-model="reservation.purpose" required
+                     uib-tooltip="Reservationsformål. Fx træning, navn på langtur, vedligehold"
+                     ></td>
+          <td><button ng-click="make_reservation(reservation)" class="green"
+                      ng-disabled="resv.$invalid || !(reservation.dayofweek)"
+                      >
+              ny reservation</button></td>
+        </tr>
+        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations | filter: {dayofweek:''} | filter: {configuration:editreservationconfiguration.name}" >
+          <td>{{rv.configuration}}</td>
+          <td>{{iboats[rv.boat_id].name}}</td>
+          <td>{{weekdays[rv.dayofweek].day}}</td>
+          <td>{{rv.start_time}}</td>
+          <td>{{rv.end_time}}</td>
+          <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>
+          <td>{{rv.purpose}}</td>
+          <td><button ng-click="cancel_reservation(rv)" class="reject">slet reservation</button></td>
+        </tr>
+        <tr><td colspan=8>en reservation skal have et start- og sluttidspunkt.
+            Turtype og formål <strong>skal</strong> udfyldes
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
 
-</tbody>
-</table>
-</form>
+
+  <form name="dateresv">
+    <table class="genericlist" >
+      <caption>Datoreservationer</caption>
+      <thead>
+        <tr>
+          <th>reservations<br>type</th>
+          <th>båd</th>
+          <th>start</th>
+          <th>dato</th>
+          <th>slut</th>
+          <th>dato</th>
+          <th>turtype</th>
+          <th>formål</th>
+          <th>gør</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <select ng-model="datereservation.configuration" ng-options="rc.name for rc in reservation_configurations" required>
+          </td>
+          <td>
+            <select ng-model="datereservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required>
+            </select>
+          </td>
+          <td>
+            <uib-timepicker
+              ng-model="datereservation.start_time"
+              show-spinners="false"
+            show-meridian="false"
+              required
+              />
+          </td>
+          <td>
+            <fieldset>
+              <datetimepicker
+                uib-tooltip="startdato"
+                popup="d MMM yyyy"
+                current-text="i dag"
+                close-text="vælg"
+                clear-text="rens"
+                date-format="yyyy-MM-dd"
+                hidden-time="true"
+                show-spinners="false"
+                date-options="dateOptions"
+                show-meridian="false"
+                ng-model="datereservation.start_date"
+                >
+              </datetimepicker>
+            </fieldset>
+          </td>
+          <td>
+            <uib-timepicker
+              ng-model="datereservation.end_time"
+              show-spinners="false"
+              show-meridian="false"
+              required
+              />
+          </td>
+
+          <td>
+            <fieldset>
+              <datetimepicker
+                uib-tooltip="slutdato"
+                popup="d MMM yyyy"
+                close-text="vælg"
+                clear-text="rens"
+                current-text="i dag"
+                date-format="yyyy-MM-dd"
+                hidden-time="true"
+                show-spinners="false"
+                date-options="dateOptions"
+                show-meridian="false"
+                ng-model="datereservation.end_date"
+                >
+              </datetimepicker>
+            </fieldset>
+          </td>
+          <td><select  ng-model="datereservation.triptype_id" ng-options="tt.id as tt.name for tt in DB('triptypes')"
+                       uib-tooltip="turtypen" required>
+          </select></td>
+          <td><input type="text" ng-model="datereservation.purpose" required
+                     uib-tooltip="Reservationsformål. Fx træning, navn på langtur, vedligehold"
+                     ></td>
+          <td><button ng-click="make_reservation(datereservation)" class="green"
+                      ng-disabled="dateresv.$invalid || !datereservation.start_date || !datereservation.end_date"
+                      >
+              ny reservation</button></td>
+        </tr>
+        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations |filter: {end_date:''}" >
+          <td>{{rv.configuration}}</td>
+          <td>{{iboats[rv.boat_id].name}}</td>
+          <td>{{rv.start_time}}</td>
+          <td>{{rv.start_date}}</td>
+          <td>{{rv.end_time}}</td>
+          <td>
+            <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div>
+          </td>
+          <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>
+          <td>{{rv.purpose}}</td>
+          <td><button ng-click="cancel_reservation(rv)" class="reject">slet reservation</button></td>
+        </tr>
+        <tr><td colspan=8>en reservation skal have et start- og sluttidspunkt.
+            Turtype og formål <strong>skal</strong> udfyldes
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+
 </div>
 
 <div ng-if="do=='events'">
@@ -602,7 +680,6 @@
 </div>
 
 <div ng-if="do=='misc'">
-
   <h2>Denne terminal hedder</h2>
   <input ng-model-options="{updateOn:'blur'}"
          placeholder="Denne terminal hedder"
@@ -614,13 +691,8 @@
 
 
   <!--  <h2>Denne terminal håndterer både for disse lokationer</h2> -->
-
-
-
   <h2>andre sider</h2>
-
-  <p>  Her er sider til oversigter og eksport af data.</p>
-
+  <p> Her er sider til oversigter og eksport af data.</p>
   <p> CSV filerne burde man kunne åbne og så gemme som regneark.</p>
   <p>
     Reservationer og statistik for instruktion er offentlig tilgængeligt, så man ikke behøver at gå ned i klubben for at hente dem.
@@ -628,7 +700,6 @@
     De andre sider skal man enten bruge et password til eller man kan hente dem på en USB-stick fra terminalerne i bådhallen.
   </p>
   </p>
-
   <ul class="tools">
     <li><a href="/backend/basic/current.php?returnlink">Dagens Ture.</a>
       <ul>
@@ -661,6 +732,6 @@
     <li><a href="/backend/stats/trip_rower_year.php?output=xlsx&allboats=1&km=1">roer statistik for turtyper mm (robåde, kajakker)</a></li>
     <li><a href="/backend/stats/rowersbyright.php?right=instructor&subtype=kajak">Kajakinstruktører</a></li>
     <li><a href="/backend/stats/rowersbyright.php?right=instructor&subtype=row">Robådsinstruktører</a></li>
-    <li><a href="/backend/stats/rowersbyright.php?right=wrench">Svensknøgler</a><li>    
+    <li><a href="/backend/stats/rowersbyright.php?right=wrench">Svensknøgler</a><li>
   </ul>
 </div>

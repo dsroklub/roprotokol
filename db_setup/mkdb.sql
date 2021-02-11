@@ -885,6 +885,16 @@ tel       VARCHAR(20),
 hours     INTEGER
 );
 
+CREATE TABLE reservation_configuration (
+  name CHAR(50),
+  selected   BOOLEAN NOT NULL DEFAULT false,
+  description varchar(1000)
+);
+
+DELETE FROM reservation_configuration;
+INSERT INTO reservation_configuration(name) VALUES ('sommer'),('vinter'),('kajak'),('kajakvinter'),('racerkanin'),('instruktion');
+
+
 INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('instructor','instruktør','','instruktør','være instruktør',0,'roning');
 
 update  MemberRightType SET showname='instruktør' WHERE showname='styrmandsinstruktør';

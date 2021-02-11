@@ -22,6 +22,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     return diffs;
   }
 
+  $scope.editreservationconfiguration={'name':'-'};
   $scope.rowerkm_force_email = false;
   $scope.rowerkm_include_trips = true;
   $scope.rowerkm_separate_instruction = false;
@@ -29,9 +30,14 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   $scope.rowerkm_year = new Date().getFullYear();
 
 
-  $scope.reservation_current = function() {
+  $scope.reservation_match = function() {
     return function(reservation) {
-      return (reservation.dayofweek<1 || reservation.configuration==$scope.config.reservation_configuration);
+      for (var rci=0; rci<$scope.reservation_configurations.length; rci++) {
+        if ($scope.reservation_configurations[rci].selected && $scope.reservation_configurations[rci].name==reservation.configuration) {
+           return true;
+        }
+      }
+      return false;
     }
   };
 
@@ -89,7 +95,6 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.isadmin=false;
     $scope.isremote=!!$scope.current_rower;
     $scope.sculler_open=DatabaseService.getDB('status').sculler_open;
-    $scope.config.reservation_configuration=DatabaseService.getDB('status').reservation_configuration;
     if ($scope.current_rower) {
       for (var r in $scope.current_rower.rights) {
         if ($scope.current_rower.rights[r].member_right=="admin" && $scope.current_rower.rights[r].arg=="roprotokol") {
@@ -100,6 +105,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
     $scope.triptypes=DatabaseService.getDB('triptypes');
     $scope.reservations = DatabaseService.getDB('get_reservations');
+    $scope.reservation_configurations = DatabaseService.getDB('reservation_configurations');
     $scope.clientname = DatabaseService.client_name();
     $scope.boats={"allboats":DatabaseService.getDB('boatsA')};
     $scope.iboats=DatabaseService.getDB('boats');
@@ -167,6 +173,11 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
         .then(function(){
           bt.changed = false
         });
+    }
+
+    $scope.toggle_rc = function(rc) {
+      rc.selected=!rc.selected;
+      var exeres=DatabaseService.updateDB('set_reservation_configuration',rc,$scope.config,$scope.errorhandler);
     }
 
     $scope.create_boattype = function(bt) {
@@ -463,7 +474,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
         function(newreservation) {
           if (newreservation.status=="ok") {
             $log.info("reservation made");
-            r.configuration=$scope.config.reservation_configuration;
+            r.configuration=r.configuration.name;
             $scope.reservations.push(r);
             $scope.reservation.boat_id=null;
           }
