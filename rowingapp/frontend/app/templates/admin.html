@@ -530,7 +530,7 @@
                       >
               ny reservation</button></td>
         </tr>
-        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations | filter: {dayofweek:''} | filter: {configuration:editreservationconfiguration.name}" >
+        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations | filter: {configuration:editreservationconfiguration.name}" ng-if="rv.dayofweek>0">
           <td>{{rv.configuration}}</td>
           <td>{{iboats[rv.boat_id].name}}</td>
           <td>{{weekdays[rv.dayofweek].day}}</td>

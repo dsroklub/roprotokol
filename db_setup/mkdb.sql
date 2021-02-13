@@ -892,7 +892,7 @@ CREATE TABLE reservation_configuration (
 );
 
 DELETE FROM reservation_configuration;
-INSERT INTO reservation_configuration(name) VALUES ('sommer'),('vinter'),('kajak'),('kajakvinter'),('racerkanin'),('instruktion');
+INSERT INTO reservation_configuration(name) VALUES ('sommer'),('vinter'),('kajak'),('kajakvinter'),('racerkanin'),('instruktion'),('covid');
 
 
 INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('instructor','instruktør','','instruktør','være instruktør',0,'roning');
