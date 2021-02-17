@@ -3,7 +3,7 @@ require("inc/common.php");
 include("inc/utils.php");
 
 $s="
-SELECT Boat.id as boat_id,Boat.Name as boat, TIME_FORMAT(start_time,'%H:%i') as start_time,start_date,TIME_FORMAT(end_time,'%H:%i') AS end_time,end_date,
+SELECT reservation.id,Boat.id as boat_id,Boat.Name as boat, TIME_FORMAT(start_time,'%H:%i') as start_time,start_date,TIME_FORMAT(end_time,'%H:%i') AS end_time,end_date,
     dayofweek,reservation.description,TripType.Name as triptype, TripType.id as triptype_id,purpose, configuration
     FROM reservation,Boat,TripType,reservation_configuration
     WHERE Boat.id=reservation.boat AND TripType.id=reservation.triptype AND

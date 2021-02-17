@@ -52,6 +52,7 @@
     <script src="../dsrcommon/components/utilities/totime.js"></script>
     <script src="../dsrcommon/components/utilities/split.js"></script>
     <script src="../dsrcommon/components/utilities/nodsr.js"></script>
+    <script src="../dsrcommon/components/utilities/timestring.js"></script>
     <script src="components/utilities/sidetodk.js"></script>
     <script src="components/utilities/leveltodk.js"></script>
     <script src="components/utilities/rowtodk.js"></script>

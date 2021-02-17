@@ -21,14 +21,13 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     },this);
     return diffs;
   }
-
   $scope.editreservationconfiguration={'name':'-'};
   $scope.rowerkm_force_email = false;
   $scope.rowerkm_include_trips = true;
   $scope.rowerkm_separate_instruction = false;
   $scope.rowerkm_only_members = false;
   $scope.rowerkm_year = new Date().getFullYear();
-
+  $scope.datereservation={"start_time":"17:00","end_time":"19:00"};
 
   $scope.reservation_match = function() {
     return function(reservation) {
@@ -178,6 +177,10 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.toggle_rc = function(rc) {
       rc.selected=!rc.selected;
       var exeres=DatabaseService.updateDB('set_reservation_configuration',rc,$scope.config,$scope.errorhandler);
+    }
+
+    $scope.update_res = function(rv) {
+      var exeres=DatabaseService.updateDB('update_reservation',rv,$scope.config,$scope.errorhandler);
     }
 
     $scope.create_boattype = function(bt) {
@@ -475,6 +478,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
           if (newreservation.status=="ok") {
             $log.info("reservation made");
             r.configuration=r.configuration.name;
+            r.id=newreservation.reservationid;
             $scope.reservations.push(r);
             $scope.reservation.boat_id=null;
           }

@@ -9,20 +9,24 @@ if (isset($_SERVER['HTTP_PASSWORD'])) {
     $remotepw=$_SERVER['HTTP_PASSWORD'];
 }
 if (!empty($cuser)) {
-    $stmt = $rodb->prepare("SELECT Acquired FROM MemberRights,Member WHERE Member.MemberId=? AND Member.id=MemberRights.member_id AND MemberRight='admin' AND argument='roprotokol'");
+    $stmt = $rodb->prepare(
+        "SELECT Member.id as admin_id,Acquired FROM MemberRights,Member WHERE Member.MemberId=? AND Member.id=MemberRights.member_id AND MemberRight='admin' AND argument='roprotokol'"
+    );
     $stmt->bind_param("s", $cuser);
     $stmt->execute();
     $result= $stmt->get_result() or die("Error in admin check: " . mysqli_error($rodb));
     $right=$result->fetch_assoc();
     if ($right) {
+        global $admin_id;
+        $admin_id=$right["admin_id"];
         error_log("verified $cuser by password");
         $verified=true;
     }
 }
-if ($adminpw == $remotepw) {
-    $verified=true;
-    error_log("verified user by password");
-}
+// if ($adminpw && $adminpw == $remotepw) {
+//     $verified=true;
+//     error_log("verified user by password");
+// }
 
 if (!$verified) {
     error_log("login failed");

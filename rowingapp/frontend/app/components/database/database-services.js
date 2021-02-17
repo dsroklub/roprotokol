@@ -63,7 +63,7 @@ function dbservice($http, $q, $log) {
 
   this.fetch = function (subscriptions) {
     var boatmaintypes = ['kayak','any','rowboat'];
-    $log.debug("DB fetch "+Date());
+    //$log.debug("DB fetch "+Date());
     var headers = {};
     var promises=[];
     if (subscriptions.boat) {

@@ -503,18 +503,16 @@
                       uib-tooltip="fast ugedag"
                       ></select></td>
           <td>
-            <uib-timepicker
+            <dsrtimestring
               ng-model="reservation.start_time"
-              show-spinners="false"
-              show-meridian="false"
+              ng-model-options="{updateOn:'blur'}"
               required
               />
           </td>
           <td>
-            <uib-timepicker
+            <dsrtimestring
               ng-model="reservation.end_time"
-              show-spinners="false"
-              show-meridian="false"
+              ng-model-options="{updateOn:'blur'}"
               required
               />
           </td>
@@ -530,12 +528,30 @@
                       >
               ny reservation</button></td>
         </tr>
+
         <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations | filter: {configuration:editreservationconfiguration.name}" ng-if="rv.dayofweek>0">
           <td>{{rv.configuration}}</td>
           <td>{{iboats[rv.boat_id].name}}</td>
-          <td>{{weekdays[rv.dayofweek].day}}</td>
-          <td>{{rv.start_time}}</td>
-          <td>{{rv.end_time}}</td>
+          <td>
+            <select ng-model="rv.dayofweek" ng-options="dov.id as dov.day for dov in weekdays" uib-tooltip="fast ugedag" ng-change="update_res(rv)">
+            </select>
+          </td>
+          <td>
+            <dsrtimestring
+              ng-model="rv.start_time"
+              ng-change="update_res(rv)"
+              ng-model-options="{updateOn:'blur'}"
+              required
+              ></dsrtimestring>
+          </td>
+          <td>
+            <dsrtimestring
+              ng-model="rv.end_time"
+              ng-change="update_res(rv)"
+              ng-model-options="{updateOn:'blur'}"
+              required
+              ></dsrtimestring>
+          </td>
           <td>{{getTriptypeWithID(rv.triptype_id).name}}</td>
           <td>{{rv.purpose}}</td>
           <td><button ng-click="cancel_reservation(rv)" class="reject">slet reservation</button></td>
@@ -575,10 +591,9 @@
             </select>
           </td>
           <td>
-            <uib-timepicker
+            <dsrtimestring
               ng-model="datereservation.start_time"
-              show-spinners="false"
-            show-meridian="false"
+              ng-model-options="{updateOn:'blur'}"
               required
               />
           </td>
@@ -601,10 +616,9 @@
             </fieldset>
           </td>
           <td>
-            <uib-timepicker
+            <dsrtimestring
               ng-model="datereservation.end_time"
-              show-spinners="false"
-              show-meridian="false"
+              ng-model-options="{updateOn:'blur'}"
               required
               />
           </td>
@@ -641,9 +655,9 @@
         <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations |filter: {end_date:''}" >
           <td>{{rv.configuration}}</td>
           <td>{{iboats[rv.boat_id].name}}</td>
-          <td>{{rv.start_time}}</td>
+          <td>{{rv.start_time.hour}}:{{rv.start_time.minute}}</td>
           <td>{{rv.start_date}}</td>
-          <td>{{rv.end_time}}</td>
+          <td>{{rv.end_time:hour}}:{{rv.end_time:minute}}</td>
           <td>
             <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div>
           </td>
