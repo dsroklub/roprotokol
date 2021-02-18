@@ -24,11 +24,11 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   $scope.editreservationconfiguration={'name':'-'};
   $scope.rowerkm_force_email = false;
   $scope.rowerkm_include_trips = true;
+  $scope.newtriptype={"active":1};
   $scope.rowerkm_separate_instruction = false;
   $scope.rowerkm_only_members = false;
   $scope.rowerkm_year = new Date().getFullYear();
   $scope.datereservation={"start_time":"17:00","end_time":"19:00"};
-
   $scope.reservation_match = function() {
     return function(reservation) {
       for (var rci=0; rci<$scope.reservation_configurations.length; rci++) {
@@ -210,7 +210,8 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.create_triptype = function(tt) {
       $log.info("new triptype");
       var exeres=DatabaseService.updateDB('create_triptype',tt,$scope.config,$scope.errorhandler);
-      $scope.triptypes.push(tt);
+      $scope.triptypes.unshift(tt);
+      $scope.newtriptype={"active":1};
     }
 
     $scope.update_level = function(boat) {

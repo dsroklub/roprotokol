@@ -7,6 +7,7 @@ $s=<<<SQT
 SELECT JSON_MERGE(
      JSON_OBJECT(
        'id',id,
+       'tripstat_name',tripstat_name,
         'active',Active,
         'name',Name,
         'description',Description
@@ -15,20 +16,13 @@ SELECT JSON_MERGE(
                       GROUP_CONCAT(JSON_OBJECT('required_right',required_right,'requirement',requirement)) ,
       ']}')
       ) as json
-     FROM TripType 
+     FROM TripType
      LEFT JOIN TripRights ON TripRights.trip_type=TripType.id GROUP BY TripType.id,TripType.Name ORDER BY name;
 SQT
 ;
-// $s="SELECT TurTypeID as id, Navn as name FROM TurType ORDER BY id";
 
 if ($sqldebug) echo "$s\n";
 
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
-echo '[';
- $first=1;
- while ($row = $result->fetch_assoc()) {
-	  if ($first) $first=0; else echo ",\n";
-	  echo $row['json'];
-}
-echo ']';
+$result=$rodb->query($s) or dbErr($rodb,$res,"GET triptypes");
+output_json($result);
 $rodb->close();
