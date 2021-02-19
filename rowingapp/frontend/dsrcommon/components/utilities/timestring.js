@@ -8,7 +8,6 @@ function timeCtrl() {
   }
 
   this.$onInit=function() {
-    console.log("dsrtimestring AAA");
     if (!this.ngModel) {
       this.ngModel="12:00";
     }

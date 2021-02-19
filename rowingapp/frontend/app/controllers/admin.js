@@ -24,7 +24,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   $scope.editreservationconfiguration={'name':'-'};
   $scope.rowerkm_force_email = false;
   $scope.rowerkm_include_trips = true;
-  $scope.newtriptype={"active":1};
+  $scope.newtriptype={"active":1,"rights":[]};
   $scope.rowerkm_separate_instruction = false;
   $scope.rowerkm_only_members = false;
   $scope.rowerkm_year = new Date().getFullYear();
@@ -208,10 +208,15 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
 
     $scope.create_triptype = function(tt) {
-      $log.info("new triptype");
-      var exeres=DatabaseService.updateDB('create_triptype',tt,$scope.config,$scope.errorhandler);
-      $scope.triptypes.unshift(tt);
-      $scope.newtriptype={"active":1};
+      var exeres=DatabaseService.updateDB('create_triptype',tt,$scope.config,$scope.errorhandler).then(
+        function(newtriptype) {
+          if (newtriptype.status=="ok") {
+            tt.id=newtriptype.triptypeid;
+            $scope.triptypes.unshift(tt);
+            $scope.newtriptype={"active":1,"rights":[]};
+          }
+        }
+      )
     }
 
     $scope.update_level = function(boat) {
@@ -499,11 +504,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       )            }
 
     $scope.dotriprights = function (rr,tt) {
-      if (rr && rr.length==0) { // Hack, must be due to PHP json marshalling
-        $scope.requiredtriprights={};
-      } else {
-        $scope.requiredtriprights=rr;
-      }
+      $scope.requiredtriprights=rr;
       $scope.currenttriptype=tt;
     }
 
