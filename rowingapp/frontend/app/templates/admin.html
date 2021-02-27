@@ -211,7 +211,7 @@
     <tbody>
       <tr ng-repeat="r in requiredboatrights" ng-if="r.required_right">
         <td>{{r.required_right|righttodk}}</td>
-        <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{r.requirement}}</select></td>
+        <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects" ng-change="update_boattype_requirement(currentboattype,r)">{{r.requirement}}</select></td>
         <td>
           <button class="action" ng-click="remove_boattype_requirement(r,$index)">Fjern krav</button>
         </td>
@@ -272,9 +272,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="r in requiredtriprights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-if="r.required_right">
+        <tr ng-repeat="r in currenttriptype.rights" ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-if="r.required_right">
           <td>{{r.required_right| righttodk }}</td>
-          <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{r.requirement}}</select></td>
+          <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects" ng-change="update_triptype_requirement(currenttriptype,r)">{{r.requirement}}</select></td>
           <td><button class="action" ng-click="remove_triptype_requirement(r,$index)">Fjern krav</button></td>
         </tr>
         <tr>

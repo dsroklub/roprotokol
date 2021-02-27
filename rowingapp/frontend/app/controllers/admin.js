@@ -386,16 +386,21 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       });
     }
 
-    $scope.add_triptype_requirement = function(data) {
-      data.triptype=$scope.currenttriptype;
-      $scope.requiredtriprights.push({"required_right":data.right, "requirement":data.subject});
-      var exeres=DatabaseService.updateDB('add_triptype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
+    $scope.remove_triptype_requirement = function(rt,ix) {
+      var data={triptype:$scope.currenttriptype,'right':rt};
+      var exeres=DatabaseService.updateDB('remove_triptype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          $scope.trip.newright.right=null;
+          delete $scope.requiredtriprights.splice(ix,1);
         }
       });
     }
 
+    $scope.update_triptype_requirement = function(tt,tr) {
+      var exeres=DatabaseService.updateDB('update_triptype_req',{"triptype":tt,"req":tr},$scope.config,$scope.errorhandler);
+    }
+    $scope.update_boattype_requirement = function(bt,br) {
+      var exeres=DatabaseService.updateDB('update_boattype_requirement',{"boattype":bt,"req":br},$scope.config,$scope.errorhandler);
+    }
     $scope.approve_correction = function(data,ix) {
       var exeres=DatabaseService.updateDB('approve_correction',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
