@@ -22,15 +22,17 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     return false;
   };
 
-  $scope.reservation_current = function() {
-    // TODO deduplicate with admin.js
-    return function(reservation) {
+  function reservation_is_current(reservation) {
       // if (reservation.dayofweek<1) return true;
       for (var rci=0; rci<$scope.reservation_configurations.length; rci++) {
         if ($scope.reservation_configurations[rci].selected && $scope.reservation_configurations[rci].name==reservation.configuration) return true;
       }
       return false;
-    }
+  }
+
+  $scope.reservation_current = function() {
+    // TODO deduplicate with admin.js
+    return reservation_is_current;
   };
 
   $scope.newdamage={};
@@ -73,7 +75,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       {id:7,day:"søndag"}
     ];
 
-    DatabaseService.update_reservations();
+    DatabaseService.update_reservations($scope.reservation_configurations);
     $scope.allboats = DatabaseService.getBoats();
     $scope.levels =DatabaseService.getDB('boatlevels');
     $scope.coxteams =DatabaseService.getDB('coxteams');
@@ -311,7 +313,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
   $scope.do_boat_category = function(cat) {
     $scope.selectedBoatCategory=cat;
-    DatabaseService.update_reservations();
+    DatabaseService.update_reservations($scope.reservation_configurations);
     $scope.checkoutmessage=null;
     $scope.checkoutnotification=null;
     $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
