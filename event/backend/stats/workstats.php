@@ -59,7 +59,7 @@ ORDER BY lagt DESC;
     break;
 
 case "nonmembers":
-    $report_name="ikke medlemmer";
+    $report_name="Udmeldte";
     $f=$_GET["a"] ?? null;
     $workertypeC="";
     if ($f) {
