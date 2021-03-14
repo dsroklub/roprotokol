@@ -63,7 +63,7 @@ function dbservice($http, $q, $log) {
 
   this.fetch = function (subscriptions) {
     var boatmaintypes = ['kayak','any','rowboat'];
-    $log.debug("DB fetch "+Date());
+    //$log.debug("DB fetch "+Date());
     var headers = {};
     var promises=[];
     if (subscriptions.boat) {
@@ -140,6 +140,7 @@ function dbservice($http, $q, $log) {
     this.getData('triptypes',"",promises);
     this.getData('onwater',"",promises);
     this.getData('locations',"",promises);
+    this.getData('reservation_configurations',"",promises);
     this.getData('boatkayakcategory',"",promises);
     this.getData('boat_brand',"",promises);
     this.getData('boat_usages',"",promises);
@@ -241,7 +242,7 @@ function dbservice($http, $q, $log) {
       'status':['status','reservation'],
       'admin':['memberrighttypes','rights_subtype','errortrips','locations','get_events'],
       'reservation':['reservation','boat','get_reservations'],
-      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations'],
+      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations','reservation_configurations'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],
@@ -252,7 +253,15 @@ function dbservice($http, $q, $log) {
     return this.sync(subscriptions);
   }
 
-  this.update_reservations = function() {
+  function reservation_is_current(reservation,reservation_configurations) {
+    // if (reservation.dayofweek<1) return true;
+    for (var rci=0; rci<reservation_configurations.length; rci++) {
+      if (reservation_configurations[rci].selected && reservation_configurations[rci].name==reservation.configuration) return true;
+    }
+    return false;
+  }
+
+  this.update_reservations = function(reservation_configurations) {
     var now = new Date();
     var this_dayofweek=now.getDay();
     if (this_dayofweek==0) {
@@ -264,29 +273,31 @@ function dbservice($http, $q, $log) {
       if (reservationsByBoat[allboats[bi].id]) {
         for (var ri=0; ri<reservationsByBoat[allboats[bi].id].length; ri++) {
           var reservation=reservationsByBoat[allboats[bi].id][ri];
-          var starttime=new Date;
-          var endtime=new Date;
-          var from_time=reservation.start_time.split(":");
-          var end_time=reservation.end_time.split(":");
-          if (reservation.dayofweek==0) {
-            var startdate=new Date(reservation.start_date);
-            var enddate=new Date(reservation.end_date);
-            enddate.setHours(end_time[0]);
-            enddate.setMinutes(end_time[1]);
-            startdate.setHours(from_time[0]);
-            startdate.setMinutes(from_time[1]);
-            if (endtime>now && (starttime-now)/1000/3600<2) {
-              allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
-              break;
-            }
-          } else if (reservation.dayofweek==this_dayofweek) {
-            endtime.setHours(end_time[0]);
-            endtime.setMinutes(end_time[1]);
-            starttime.setHours(from_time[0]);
-            starttime.setMinutes(from_time[1]);
-            if (endtime>now && (starttime-now)/1000/3600<2) {
-              allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
-              break;
+          if (reservation_is_current(reservation,reservation_configurations)) {
+            var starttime=new Date;
+            var endtime=new Date;
+            var from_time=reservation.start_time.split(":");
+            var end_time=reservation.end_time.split(":");
+            if (reservation.dayofweek==0) {
+              var startdate=new Date(reservation.start_date);
+              var enddate=new Date(reservation.end_date);
+              enddate.setHours(end_time[0]);
+              enddate.setMinutes(end_time[1]);
+              startdate.setHours(from_time[0]);
+              startdate.setMinutes(from_time[1]);
+              if (endtime>now && (starttime-now)/1000/3600<2) {
+                allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
+                break;
+              }
+            } else if (reservation.dayofweek==this_dayofweek) {
+              endtime.setHours(end_time[0]);
+              endtime.setMinutes(end_time[1]);
+              starttime.setHours(from_time[0]);
+              starttime.setMinutes(from_time[1]);
+              if (endtime>now && (starttime-now)/1000/3600<2) {
+                allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
+                break;
+              }
             }
           }
         }

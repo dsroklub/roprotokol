@@ -1,8 +1,8 @@
-/* Generic */
+/* Generic 
 .ng-pristine {
     background: white;
 }
-
+*/
 html, body {
     margin: 0;
     padding: 0;
@@ -67,17 +67,18 @@ button:hover {
     /*    border: 1px solid #23AEE2;*/
 }
 button i {
-    margin-right: 5pt;
+  margin-right: 5pt;
 }
 button.red {
-    border: 1px solid #FF6C60;
-    color: #FF6C60;
+  border: 1px solid #FF6C60;
+  color: #FF6C60;
 }
 button.green {
-    border: 1px solid #3ECBBF;
-    color: #3ECBBF;
-    background:#FFFFFF;
+  border: 1px solid #3ECBBF;
+  color: #000000;
+  background:#87e272;
 }
+
 button.klar {
     border: 1px solid #3ECBBF;
     color: #000000;
@@ -86,7 +87,6 @@ button.klar {
     margin-top: 2px !important;
     margin-bottom: 2px !important;
 }
-
 
 button.yellow {
     color: #f0ce4e;
@@ -202,7 +202,6 @@ button.statcat, button.adminbut {
     background: #EEC88E;
     margin: 3pt;
 }
-
 
 .boatlist,
 .statlist,
@@ -777,12 +776,13 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 select  {
-    border-radius: 1.5empx;
-    border: 1px solid #ccc;
-    padding: 3pt;
-    margin-bottom: 0pt;
-    background-color: #FFB992;
-    border-radius: 5px;
+  border-radius: 1.5empx;
+  border: 1px solid #ccc;
+  padding: 3pt;
+  margin-bottom: 0pt;
+  color: #fff;
+  background: #FFB992;
+  border-radius: 5px;
 }
 
 .chooser  {
@@ -903,17 +903,12 @@ textarea {
 .uib-timepicker tr td {
     padding : 0px;
 }
-
-
 .form-control {
     padding: 0px;
 }
-
 .tbody {
     background : #FFD;
 }
-
-
 .oddboat {
     background: #E8F2F3;
 }
@@ -1276,3 +1271,16 @@ img.wrench {
     background: #e0ffc0;
 
 }
+
+.lisel {
+      list-style: none;
+}
+.lisel li {
+    background:#da8c8c ;
+    display: inline-block;
+    padding: 4pt 4pt;
+    margin: 0;
+    cursor: pointer;
+    vertical-align: top;
+}
+

@@ -14,32 +14,32 @@ if (isset($_GET["q"])) {
 }
 
 if ($q=="mates") {
-    $s="SELECT CONCAT(them.FirstName,' ',them.LastName) as mate, SUM(Meter) as dist 
-    FROM Member me, Member them,Trip,TripMember tm, TripMember ttm 
-    WHERE me.MemberID=? AND tm.TripID=Trip.id AND tm.member_id=me.id AND them.id=ttm.member_id and ttm.TripID=Trip.id AND me.id!=them.id 
-    GROUP By mate 
-    ORDER BY dist DESC 
+    $s="SELECT CONCAT(them.FirstName,' ',them.LastName) as mate, SUM(Meter) as dist
+    FROM Member me, Member them,Trip,TripMember tm, TripMember ttm
+    WHERE me.MemberID=? AND tm.TripID=Trip.id AND tm.member_id=me.id AND them.id=ttm.member_id and ttm.TripID=Trip.id AND me.id!=them.id
+    GROUP By mate
+    ORDER BY dist DESC
     LIMIT 10";
 } else if ($q=="boats") {
-    $s="SELECT Boat.Name as boatname, SUM(Meter) as dist 
+    $s="SELECT Boat.Name as boatname, SUM(Meter) as dist
     FROM Member me, Boat,Trip,TripMember tm
     WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID AND Trip.BoatID=Boat.id
-    GROUP By Boat.id 
-    ORDER BY dist DESC 
+    GROUP By Boat.id
+    ORDER BY dist DESC
     LIMIT 10";
 } else if ($q=="destinations") {
     $s="SELECT Trip.Destination AS destination, COUNT(Trip.id) as numtrips
     FROM Member me,Trip,TripMember tm
-    WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID 
-    GROUP By Trip.Destination 
-    ORDER BY numtrips DESC 
+    WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID
+    GROUP By Trip.Destination
+    ORDER BY numtrips DESC
     LIMIT 10";
 } else if ($q=="triptypes") {
     $s="SELECT TripType.Name AS triptype, COUNT(Trip.id) as numtrips
     FROM Member me,Trip,TripMember tm,TripType
     WHERE me.MemberID=? AND tm.member_id=me.id AND Trip.id=tm.TripID AND TripType.id=Trip.TripTypeID
     GROUP By TripType.id
-    ORDER BY numtrips DESC 
+    ORDER BY numtrips DESC
     LIMIT 20";
 } else {
     echo "invalid query ".$q;
@@ -48,7 +48,7 @@ if ($q=="mates") {
 
 if ($stmt = $rodb->prepare($s)) {
     $stmt->bind_param("s",$rowerid);
-     $stmt->execute(); 
+     $stmt->execute();
      $result= $stmt->get_result();
      echo '[';
      $rn=1;
@@ -57,8 +57,7 @@ if ($stmt = $rodb->prepare($s)) {
          echo json_encode($row);
          $rn=$rn+1;
      }
-     echo ']';     
-     $stmt->close(); 
- } 
-
+     echo ']';
+     $stmt->close();
+ }
 $rodb->close();

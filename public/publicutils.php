@@ -1,11 +1,11 @@
 <?php
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../rowing/backend/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
-
+global $rodb;
 header('Content-Type: application/json; charset=utf-8');
 ini_set('default_charset', 'utf-8');
 ini_set('display_errors', 'Off');
@@ -17,12 +17,6 @@ set_include_path(get_include_path() . PATH_SEPARATOR  . ROOT_DIR);
 if(!isset($_SESSION)){
   session_start();
 }
-if (isset($_GET["season"])) {
-    $season=$_GET["season"];
-} else {
-  $season=date('Y');
-}
-
 $sqldebug=false;
 $output="json";
 if (isset($_GET["sqldebug"])) {
@@ -32,7 +26,6 @@ if (isset($_GET["output"]) && ($_GET["output"]=="csv" || $_GET["output"]=="xlsx"
     $output=$_GET["output"];
 }
 
-require_once("db.php");
 if (!$rodb->set_charset("utf8")) {
     printf("Error loading character set utf8: %s\n", $rodb->error);
 }
@@ -42,13 +35,6 @@ function mysdate($jsdate) {
     return($r);
 }
 
-function invalidate($tp) {
-    $mem  = new Memcached();
-    $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, TRUE);
-    $mem->addServer('127.0.0.1',11211);
-    $mem->increment($tp, 1, time());
-
-}
 function roErr($err="fejl") {
     $res["status"]="error";
     $res["error"]="Fejl: ". $err;
@@ -90,7 +76,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-function process ($result,$output="json",$name="csvfile",$captions=null) {
+function process ($result,$output="json",$name="csvfile",$captions=null,$colormap=[]) {
     $mariaType=[
         MYSQLI_TYPE_NEWDECIMAL=>"d",
         MYSQLI_TYPE_DECIMAL=>"d",
@@ -196,8 +182,11 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
                 } else {
                     $dataType=DataType::TYPE_STRING;
                 }
-                $sheet->setCellValueExplicitByColumnAndRow($ci++,$ri,$rc,$dataType);
-
+                $sheet->setCellValueExplicitByColumnAndRow($ci,$ri,$rc,$dataType);
+                if (isset($colormap[$cn]) && isset($colormap[$cn][$rc])) {
+                    $sheet->getStyleByColumnAndRow($ci,$ri)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('AA'.$colormap[$cn][$rc]);
+                }
+                $ci++;
             }
             $ri++;
         }
@@ -229,18 +218,7 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
     }
 }
 
-function eventLog($entry) {
-    error_log("log $entry");
-    global $rodb;
-    if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
-        $stmt->bind_param('s', $entry);
-        $stmt->execute();
-    } else {
-        error_log($rodb->error);
-    }
-}
 $res=array ("status" => "ok");
-$damageMaintenance=4;
 
 function output_json(&$rl,$keyname=null) {
     if ($keyname) {

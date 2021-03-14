@@ -22,21 +22,28 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     return false;
   };
 
+  function reservation_is_current(reservation) {
+      // if (reservation.dayofweek<1) return true;
+      for (var rci=0; rci<$scope.reservation_configurations.length; rci++) {
+        if ($scope.reservation_configurations[rci].selected && $scope.reservation_configurations[rci].name==reservation.configuration) return true;
+      }
+      return false;
+  }
+
   $scope.reservation_current = function() {
-    return function(reservation) {
-      return (reservation.dayofweek<1 || reservation.configuration==$scope.status.reservation_configuration);
-    }
+    // TODO deduplicate with admin.js
+    return reservation_is_current;
   };
 
   $scope.newdamage={};
   $scope.status={};
   $scope.boat_type=null;
   $scope.boatcategories=[];
-    DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true,"message":true}).then(function () {
+  DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true,"message":true}).then(function () {
     // Load Category Overview
     var reservations=DatabaseService.getDB('get_reservations');
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
-    $scope.status.reservation_configuration=DatabaseService.getDB('status').reservation_configuration;
+    $scope.reservation_configurations = DatabaseService.getDB('reservation_configurations');
     $scope.boatcategories = DatabaseService.getBoatTypes();
     $scope.nowtime=new Date();
     var endofday=new Date();
@@ -68,7 +75,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       {id:7,day:"søndag"}
     ];
 
-    DatabaseService.update_reservations();
+    DatabaseService.update_reservations($scope.reservation_configurations);
     $scope.allboats = DatabaseService.getBoats();
     $scope.levels =DatabaseService.getDB('boatlevels');
     $scope.coxteams =DatabaseService.getDB('coxteams');
@@ -306,7 +313,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
   $scope.do_boat_category = function(cat) {
     $scope.selectedBoatCategory=cat;
-    DatabaseService.update_reservations();
+    DatabaseService.update_reservations($scope.reservation_configurations);
     $scope.checkoutmessage=null;
     $scope.checkoutnotification=null;
     $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
