@@ -483,7 +483,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       if (r.start_date) {
         r.start_date=DatabaseService.toIsoDate(reservation.start_date);
       }
-
+      $scope.editreservationconfiguration=reservation.configuration;
       var exeres=DatabaseService.updateDB('make_reservation',r,$scope.config,$scope.errorhandler).then(
         function(newreservation) {
           if (newreservation.status=="ok") {
