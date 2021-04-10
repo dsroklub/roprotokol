@@ -222,7 +222,7 @@ Vis
   <table class="genericlist">
     <caption>Mine {{mytrips.length}} roture alle år: {{mytrips|sumDistance|number:1}} km,  <a class="dl" href="/backend/event/stats/mytrips.php?format=xlsx">🠳 download</a></caption>
     <thead>
-      <tr><th>Båd</th><th>type</th><th>destination</th><th>oprettet</th><th>turlængde</th><th>kommentar</th></tr>
+      <tr><th>Båd</th><th>type</th><th>destination</th><th>oprettet</th><th>turlængde</th><th>kommentar</th><th></th></tr>
     </thead>
     <tbody>
       <tr ng-repeat="trip in mytrips" >
@@ -232,6 +232,7 @@ Vis
         <td class="datetime">{{trip.outtime|date: "d-MMM-yyyy HH:mm"}}</td>
         <td class="rnum" >{{trip.distance|mtokm}}</td>
         <td class="comment">{{trip.comment}}</td>
+        <td ng-if="!trip.intime"><button ng-click="closetrip(trip.id)">Skriv ind</button><td>
       </tr>
     </tbody>
   </table>

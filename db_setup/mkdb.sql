@@ -896,7 +896,7 @@ INSERT INTO reservation_configuration(name) VALUES ('sommer'),('vinter'),('kajak
 
 
 INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('instructor','instruktør','','instruktør','være instruktør',0,'roning');
+INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('longdistance_swim','Langtur svømmeprøve','300m svøm','Langtur svømmeprøve','have taget langtur svømmeprøve indenfor 3 år',1,'roning');
 
-update  MemberRightType SET showname='instruktør' WHERE showname='styrmandsinstruktør';
 
 

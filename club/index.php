@@ -10,12 +10,10 @@
   <textarea placeholder="besked" class="msgbody" name="body"  id="privatemessage_body" type="text" required>
   </textarea><br>
    <label>Send privat besked </label>
-  <input type="submit"> 
+  <input type="submit">
 <!--button class="green forumselect">Send privat besked </button-->
 </form>
 </html>
-      
-
 <?php
 $cuser=-1;
 include("../rowing/backend/inc/common.php");
@@ -30,10 +28,10 @@ if (isset($_REQUEST['action']) and ($_REQUEST['action']=="mail")) {
 
 header('Content-Type: text/html; charset=utf-8');
 
-$s="SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS owner_name, event.name, 
-    BoatCategory.Name as boat_category, start_time, end_time, 
+$s="SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS owner_name, event.name,
+    BoatCategory.Name as boat_category, start_time, end_time,
     distance, destination, TripType.Name as trip_type, max_participants, location, category, comment, event.open,event.status
-    FROM Member, (event LEFT JOIN BoatCategory on BoatCategory.id=event.boat_category) LEFT JOIN TripType ON TripType.id=event.trip_type 
+    FROM Member, (event LEFT JOIN BoatCategory on BoatCategory.id=event.boat_category) LEFT JOIN TripType ON TripType.id=event.trip_type
     WHERE Member.id=event.owner AND start_time >= NOW() ORDER BY start_time ASC LIMIT 50";
     $result=$rodb->query($s);
 
@@ -54,14 +52,10 @@ if ($result) {
         echo "<td>".$row["location"]."</td>";
         echo "<td>".$row["boat_category"]."</td>";
         echo "<td>".$row["category"]."</td>";
-        echo "<td>".$row["trip_type"]."</td>";        
+        echo "<td>".$row["trip_type"]."</td>";
         echo "\n";
         echo "</tr>\n";
     }
     echo "</tbody>";
     echo "</table>";
 }
-
-
-
-    

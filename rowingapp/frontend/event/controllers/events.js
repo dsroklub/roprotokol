@@ -998,6 +998,19 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
                               );
   }
+  $scope.closetrip = function (tripid) {
+    var sr=DatabaseService.createSubmit("closetrip",tripid);
+    sr.promise.then(function(status) {
+      if (status.status !='ok') {
+        if (status.status =='warning') {
+          alert(status.warning);
+        } else {
+          alert(status.error);
+        }
+      }
+    },function(err) {console.log("set forum member work hours: "+err)});
+  }
+
   $scope.messagematch = function (messagefilter) {
     return function(message) {
       if (!messagefilter) {
