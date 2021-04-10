@@ -614,6 +614,7 @@ li.selected,button.selected {
 .checkoutBoat{
     display: inline-block;
     float:left;
+    font-size: 14pt;
 }
 
 .oddstat {
@@ -780,7 +781,7 @@ select  {
   border: 1px solid #ccc;
   padding: 3pt;
   margin-bottom: 0pt;
-  color: #fff;
+  color: #000000;
   background: #FFB992;
   border-radius: 5px;
 }
