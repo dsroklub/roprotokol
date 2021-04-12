@@ -16,7 +16,7 @@ $s="SELECT Boat.id as boatid, Boat.Name AS boat, Trip.Destination as destination
        'name', CONCAT(Member.FirstName,' ',Member.LastName))),
    ']') AS rowers
    FROM TripMember LEFT JOIN Member ON Member.id = TripMember.member_id, TripType RIGHT JOIN (Boat RIGHT JOIN Trip ON Boat.id = Trip.BoatID) ON TripType.id = Trip.TripTypeID
-   WHERE Trip.id=TripMember.TripID AND (Trip.InTime Is Null OR Trip.InTime  >= CURDATE()) AND NOW()>ExpectedIn
+   WHERE Trip.id=TripMember.TripID AND Trip.InTime IS Null AND NOW()>ExpectedIn
    GROUP BY Trip.id
    ORDER BY InTime,ExpectedIn";
 
@@ -33,8 +33,8 @@ $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
          }
          $names[]= $rower->name;
      }
-     $allnames=implode($names);
-     $body="Kære $allnames\n ".$trip["boat"]." er stadig skrevet ud til ".$trip["destination"].", den skulle være inde ".$trip["expectedintime"]."\n Hvis ".(count($names)>1?"I":"du")." er komme i land, så få båden skrevet ind\n".
+     $allnames=implode(", ",$names);
+     $body="Kære $allnames\n ".$trip["boat"]." er stadig skrevet ud til ".$trip["destination"].", den skulle være inde ".$trip["expectedintime"]."\n Hvis ".(count($names)>1?"I":"du")." er kommet i land, så få båden skrevet ind\n".
          ' Du kan selv skrive båden in på https://aftaler.danskestudentersroklub.dk/ under: "Min Side", "mine ture"'.
          "\n\n--\nroprotokollen";
 
