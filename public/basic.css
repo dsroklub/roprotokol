@@ -23,8 +23,8 @@
   }
   
   table, th, td {
-      border: 1px solid black;
-          padding: 0.2em;
+   border: 1px solid black;
+          padding: 0px;
   }
 
   .notin {
@@ -35,16 +35,8 @@
       background: #FBB;
   }
 
-  .onwater {
-      background: #F99;
-  }
-
   .tripisin {
     background: #BBFFBB;
   }
-.nr {
-    text-align: right!important;
-    padding-right: 2px;
-}
 
 </style>
