@@ -242,7 +242,7 @@ function dbservice($http, $q, $log) {
       'status':['status','reservation'],
       'admin':['memberrighttypes','rights_subtype','errortrips','locations','get_events'],
       'reservation':['reservation','boat','get_reservations'],
-      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations','reservation_configurations'],
+      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations','reservation_configurations','memberrighttypes'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations'],

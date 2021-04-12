@@ -377,11 +377,21 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
       });
     }
 
+    $scope.add_triptype_requirement = function(data,existing_rights) {
+      data.triptype=$scope.currenttriptype;
+      $scope.requiredtriprights.push({"required_right":data.right, "requirement":data.subject});
+      var exeres=DatabaseService.updateDB('add_triptype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
+        if (status.status=="ok") {
+          existing_rights.push({"requirement":data.subject, "required_right":data.right});
+        }
+      });
+    }
+
     $scope.remove_triptype_requirement = function(rt,ix) {
       var data={triptype:$scope.currenttriptype,'right':rt};
       var exeres=DatabaseService.updateDB('remove_triptype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          delete $scope.requiredtriprights.splice(ix,1);
+           $scope.trip.newright.right=null;
         }
       });
     }

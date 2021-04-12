@@ -144,6 +144,7 @@ CREATE TABLE IF NOT EXISTS MemberRightType (
   showname VARCHAR(255),
   predicate VARCHAR(255),
   active  INTEGER,
+  validity FLOAT, -- unit: year
   category CHAR(20) DEFAULT "roning",
   PRIMARY KEY (member_right,arg)
 );

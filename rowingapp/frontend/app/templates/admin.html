@@ -285,7 +285,7 @@
             <select ng-model="trip.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">{{subject}}</select>
           </td>
           <td>
-            <button ng-show="trip.newright.subject && trip.newright.right" class="action" ng-click="add_triptype_requirement(trip.newright)">Tilføj krav</button>
+            <button ng-show="trip.newright.subject && trip.newright.right" class="action" ng-click="add_triptype_requirement(trip.newright,requiredtriprights)">Tilføj krav</button>
           </td>
         </tr>
       </tbody>

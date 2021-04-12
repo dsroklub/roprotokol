@@ -42,6 +42,13 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true,"message":true}).then(function () {
     // Load Category Overview
     var reservations=DatabaseService.getDB('get_reservations');
+    $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
+    $scope.rightsvalidity = {};
+    angular.forEach($scope.memberrighttypes, function(mrt) {
+      if (mrt.validity) {
+        $scope.rightsvalidity[mrt.member_right]=mrt.validity; // we do not handle arg yet
+      }
+    });
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
     $scope.reservation_configurations = DatabaseService.getDB('reservation_configurations');
     $scope.boatcategories = DatabaseService.getBoatTypes();
@@ -157,8 +164,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     for (var ri=0; ri<rightlist.length; ri++) {
       // DSR Hack here
       if (
-        (rightlist[ri].member_right==required_right || (required_right=="svava" && rightlist[ri].member_right=="sculler"))
-          && (!arg || !rightlist[ri].arg || arg==rightlist[ri].arg)
+        (
+          rightlist[ri].member_right==required_right || (required_right=="svava" && rightlist[ri].member_right=="sculler")) &&
+          (!arg || !rightlist[ri].arg || arg==rightlist[ri].arg) &&
+          (!$scope.rightsvalidity[rightlist[ri]] || ($scope.nowtime-new Date(rightlist[0].acquired))/1000/3600/24/365.25 < $scope.rightsvalidity[rightlist[ri]])
       ) {
         if (!$scope.sculler_open || rightlist[ri].arg!='sommer') {
           return null;
