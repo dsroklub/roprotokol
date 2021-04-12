@@ -20,9 +20,7 @@ $s="SELECT Boat.id as boatid, Boat.Name AS boat, Trip.Destination as destination
    GROUP BY Trip.id
    ORDER BY InTime,ExpectedIn";
 
-
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
-
  while ($trip = $result->fetch_assoc()) {
      $emails=["elgaard@agol.dk"];
      $names=[];
@@ -55,7 +53,6 @@ $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
      require_once("Mail.php");
      $smtp = Mail::factory('sendmail', array ());
      $mail_status = $smtp->send($emails, $mail_headers, $body);
-
      if (PEAR::isError($mail_status)) {
          $warning="Kunne ikke sende besked som email: " . $mail_status->getMessage() . " headers=".print_r($mail_headers,true)." $body";
          //echo $warning;
