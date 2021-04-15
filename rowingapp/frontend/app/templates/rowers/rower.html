@@ -68,13 +68,15 @@
             <th>Rettighed</th>
             <th>Detaljer</th>
             <th>Tildelt</th>
+            <th>Udløb</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-if="currentrower" ng-repeat="rr in currentrower.rights">
-            <td>{{rr.member_right|righttodk}}</td>
+            <td ng-class='{disabled: rr.expire < nowtimeiso}'>{{rr.member_right|righttodk}}</td>
             <td>{{rr.arg}}</td>
             <td>{{rr.acquired | txttotime | date:'d/M yyyy' }}</td>
+            <td>{{rr.expire | txttotime | date:'d/M yyyy' }}</td>
           </tr>
         </tbody>
       </table>

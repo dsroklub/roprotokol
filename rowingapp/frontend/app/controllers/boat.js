@@ -164,10 +164,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     for (var ri=0; ri<rightlist.length; ri++) {
       // DSR Hack here
       if (
-        (
-          rightlist[ri].member_right==required_right || (required_right=="svava" && rightlist[ri].member_right=="sculler")) &&
+        (rightlist[ri].member_right==required_right || (required_right=="svava" && rightlist[ri].member_right=="sculler")) &&
           (!arg || !rightlist[ri].arg || arg==rightlist[ri].arg) &&
-          (!$scope.rightsvalidity[rightlist[ri]] || ($scope.nowtime-new Date(rightlist[0].acquired))/1000/3600/24/365.25 < $scope.rightsvalidity[rightlist[ri]])
+          ((!rightlist[0].expire || ($scope.nowtime<new Date(rightlist[0].expire))))
       ) {
         if (!$scope.sculler_open || rightlist[ri].arg!='sommer') {
           return null;

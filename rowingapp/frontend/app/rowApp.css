@@ -1285,3 +1285,7 @@ img.wrench {
     vertical-align: top;
 }
 
+.disabled{
+  text-decoration: line-through;
+  color:a5a56f;
+}

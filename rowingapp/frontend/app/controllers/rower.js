@@ -5,6 +5,7 @@ angular.module('rowApp').controller(
    RowerCtrl]);
 
 function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog,  $filter,$log) {
+  $scope.nowtimeiso=new Date().toISOString();
   $scope.rowertrips=[];
   $scope.datetrips=[];
   $scope.tripmembers=[];
