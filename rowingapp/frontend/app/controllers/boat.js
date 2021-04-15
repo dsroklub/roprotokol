@@ -614,7 +614,11 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
           $scope.checkoutmessage+=("Dør "+$scope.checkout.boat.placement_aisle);
         }
         if ($scope.checkout.boat.placement_level && $scope.checkout.boat.placement_level>0) {
-          $scope.checkoutmessage+=(" hylde "+$scope.checkout.boat.placement_level);
+          if ($scope.checkout.boat.placement_level>2) {
+            $scope.checkoutmessage+=(" under loftet");
+          } else {
+            $scope.checkoutmessage+=(" hylde "+$scope.checkout.boat.placement_level);
+          }
         }
         if ($scope.checkout.boat.placement_row==0) {
           $scope.checkoutmessage+=(" mod porten");

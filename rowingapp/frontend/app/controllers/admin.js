@@ -117,7 +117,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     $scope.levels=DatabaseService.getDB('boatlevels');
     $scope.brands=DatabaseService.getDB('boat_brand');
     $scope.usages=DatabaseService.getDB('boat_usages');
-    $scope.placementlevels=[0,1,2];
+    $scope.placementlevels=[0,1,2,3];
     $scope.ziperrors=[];
     $scope.getTriptypeWithID=DatabaseService.getTriptypeWithID;
     // var mainplan=[[],[],[],[],[]];
