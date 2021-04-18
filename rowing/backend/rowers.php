@@ -17,7 +17,7 @@ $s="SELECT JSON_MERGE(
       'member_right',MemberRight,'arg',argument,'acquired',Acquired,'expire',DATE_ADD(Acquired,INTERVAL MemberRightType.validity YEAR))),
    ']}')
    ) AS json
-   FROM Member LEFT JOIN MemberRights ON MemberRights.member_id=Member.id JOIN MemberRightType ON MemberRights.MemberRight = MemberRightType.member_right AND MemberRights.argument=MemberRightType.arg
+   FROM Member LEFT JOIN MemberRights ON MemberRights.member_id=Member.id LEFT JOIN MemberRightType ON MemberRights.MemberRight = MemberRightType.member_right AND MemberRights.argument=MemberRightType.arg
    WHERE Member.MemberID!='0' AND Member.id>=0 AND
      (member_type <> -1 OR member_type IS NULL)
    GROUP BY Member.id";
