@@ -7,6 +7,7 @@ $s="SELECT CONCAT(FirstName,' ',LastName) as roer,MemberId as medlemsnummer, IFN
 IF(DATEDIFF(DATE(NOW()),MAX(DATE(MemberRights.Acquired)))<3*365,'OK','-') AS 'indenfor 3 år'
 FROM Member LEFT JOIN MemberRights on  MemberRights.member_id=Member.id AND MemberRights.MemberRight='longdistance_swim'
 WHERE
+Member.id IN (SELECT member_id FROM MemberRights mr WHERE mr.MemberRight='longdistance_swim') AND
   RemoveDate IS NULL
 Group By Member.id
 ORDER BY FirstName,LastName
