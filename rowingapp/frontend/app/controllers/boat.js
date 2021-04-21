@@ -544,6 +544,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       function(rower) {
         if (rower.error) {
           $scope.checkoutmessage=rower.error;
+          var errSnd=document.querySelector("#noboat");
+          errSnd.play();
         } else {
           $scope.checkout.rowers[index] = rower;
         }
@@ -630,10 +632,16 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         // TODO: clear
       } else if (status.status =='error' && status.error=="already on water") {
         $scope.checkouterrormessage = $scope.checkout.boat.name + " er allerede udskrevet, vælg en anden båd";
+        var errSnd=document.querySelector("#noboat");
+        errSnd.play();
       } else if (status.status =='error' && status.error=="rower already on water") {
-        $scope.checkouterrormessage = $scope.checkout.boat.name + " er allerede udskrevet, vælg en anden båd";
+        var errSnd=document.querySelector("#noboat");
+        $scope.checkouterrormessage = " roer er allerede på vandet";
+        errSnd.play();
       } else {
         $scope.checkouterrormessage="Fejl: "+status.error;
+        var errSnd=document.querySelector("#noboat");
+        errSnd.play();
         // TODO: give error that we could not save the trip
       };
     },function() {alert("error")}, function() {alert("notify")}

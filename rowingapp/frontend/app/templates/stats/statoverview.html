@@ -47,8 +47,7 @@
       </div>
     </div>
 
-    
-    <div class="boatstat"> 
+    <div class="boatstat">
       <div class="stats">
 	<table ng-table="boattableParams" class="statlist" show-filter="true">
           <caption>Statistik for både</caption>
@@ -66,7 +65,7 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr ng-repeat="boatstat in $data" ng-class-odd="'oddstat'"> 
+	    <tr ng-repeat="boatstat in $data" ng-class-odd="'oddstat'">
 	      <td sortable="'rank'" data-title="'Nr'">{{boatstat.rank}} </td>
 	      <td data-title="'boatname'" sortable="'boatname'"><a href="{{burl}}#!rowers?boat={{boatstat.id}}"> {{boatstat.boatname}}</a></td>
 	      <td data-title="'boat_type'" sortable="'boat_type'"> {{boatstat.boat_type}}</td>
