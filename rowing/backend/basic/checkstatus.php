@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 $config = parse_ini_file('/data/roprotokol/config.ini');
 $rodb=new mysqli("localhost",$config["dbuser"],$config["dbpassword"],$config["database"]);
