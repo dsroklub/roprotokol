@@ -11,3 +11,6 @@ xterm				install
 xserver-xorg-input-libinput	install
 xserver-xorg-input-evdev	install
 
+pulseaudio			install
+alsaplayer-text			install
+alsa-utils			install
