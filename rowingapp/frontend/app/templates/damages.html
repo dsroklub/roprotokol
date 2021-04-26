@@ -31,7 +31,6 @@
     <option value="">alle typer</option>
   </select>
 
-  
   <select name="damage" ng-model="newdamage.degree">
     <option value="" disabled default selected>grad?</option>
     <option value="1">1 let</option>
@@ -62,7 +61,8 @@
     <td ng-show="!boat_type">{{bd.boat_type}}</td>
     <td>{{bd.reporter}}</td>
     <td>{{bd.created| txttotime | date:"d. MMM yyyy"}}</td>
-    <td class="degree">{{bd.degree|damagedegreedk}}</td>
+    <td ng-if="!isadmin" class="degree">{{bd.degree|damagedegreedk}}</td>
+    <td ng-if="isadmin" class="degree"><select ng-change="update_damage(bd)" ng-options="dd.id as dd.name for dd in damagedegrees" ng-model="bd.degree"></select></td>
     <td>{{bd.description}}</td>
     <td class="ok" ng-click="reportFixDamage(bd,newdamage.reporter,allboatdamages,$index)">
       <button ng-disabled="!(newdamage.reporter && newdamage.reporter.id)" class="klar"><i class="fa fa-thumbs-up"></i>

@@ -15,6 +15,7 @@
   <button class="adminbut" ng-class="{selected: do=='correction'}" ng-click="do='correction'">Fejlrettelser</button>
   <button class="adminbut" ng-class="{selected: do=='events'}" ng-click="do='events'">Hændelser</button>
   <button class="adminbut" ng-class="{selected: do=='reservations'}" ng-click="do='reservations'">Reservationer</button>
+  <button class="adminbut" ng-class="{selected: do=='rights'}" ng-click="do='rights'">Rettigheder</button>
   <button class="adminbut" ng-class="{selected: do=='misc'}" ng-click="do='misc'">Diverse</button>
 </div>
 
@@ -458,6 +459,57 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div ng-if="do=='rights'">
+  <h2>Rettigheder</h2>
+  <h3>Brug dem under "ture" og "både"</h3>
+
+  <form name="newmrt">
+    <table class="genericlist" >
+      <caption>Rettigheder</caption>
+      <thead>
+        <tr>
+          <th>rettighed</th>
+          <th>beskrivelse</th>
+          <th>undertype</th>
+          <th>vist navn</th>
+          <th>prædikat</th>
+          <th>aktiv</th>
+          <th>kategori</th>
+          <th>gyldighed (år)</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" ng-model="newright.member_right" required></td>
+          <td><input type="text" ng-model="newright.description" required></td>
+          <td><input type="text" ng-model="newright.arg" required></td>
+          <td><input type="text" ng-model="newright.showname" required></td>
+          <td><input type="text" ng-model="newright.predicate" required></td>
+          <td><input type="checkbox" ng-model="newright.active" ng-true-value="1" ng-false-value="0"></td>
+          <td><input type="text"  size="6" ng-model="newright.category" required></td>
+          <td><input type="number" class="numin" max="99" ng-model="newright.validity"></td>
+        <td><button ng-click="make_righttype(newright)" class="green"
+                    ng-disabled="newmrt.$invalid"
+                    >
+            ny rettighed</button>
+        </td>
+        </tr>
+        <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="mrt in memberrighttypes">
+          <td>{{mrt.member_right}}</td>
+          <td>{{mrt.description}}</td>
+          <td>{{mrt.arg}}</td>
+          <td>{{mrt.showname}}</td>
+          <td>{{mrt.predicate}}</td>
+          <td><div ng_show="mrt.active">&check;</div></td>
+          <td>{{mrt.category}}</td>
+          <td class="rnum">{{mrt.validity}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
 </div>
 
 <div ng-show="do=='reservations'">

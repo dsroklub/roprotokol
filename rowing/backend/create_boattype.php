@@ -12,10 +12,10 @@ $rodb->begin_transaction();
 error_log("new bt ".json_encode($data));
 
 if ($stmt = $rodb->prepare("INSERT INTO BoatType (Name,SeatCount, Category,Created) ".
-" VALUES (?,?,?,NOW())")) { 
+" VALUES (?,?,?,NOW())")) {
     $stmt->bind_param('sii', $data->name,$data->seatcount,$data->category);
     $stmt->execute();
-} 
+}
 $rodb->commit();
 $rodb->close();
 invalidate('boat');
