@@ -9,6 +9,7 @@ angular.module('rowApp').controller(
   ]);
 
 function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log, $location) {
+  $scope.damagedegrees=[{"id":"","name":"disabled"},{id:1,name:"let"},{"id":2,"name":"middel"},{"id":3,"name":"svær"},{"id":4,"name":"vedligehold"}];
   $scope.allboatdamages=[];
   $scope.destinations=[];
   $scope.burl=$location.$$absUrl.split("ind/")[0];
@@ -41,6 +42,17 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.boatcategories=[];
   DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true,"message":true}).then(function () {
     // Load Category Overview
+    $scope.current_rower=DatabaseService.getCurrentRower();
+    $scope.isadmin=false;
+    if ($scope.current_rower) {
+      for (var r in $scope.current_rower.rights) {
+        if ($scope.current_rower.rights[r].member_right=="admin" && $scope.current_rower.rights[r].arg=="roprotokol") {
+          $scope.isadmin=true;
+          break;
+        }
+      }
+    }
+
     var reservations=DatabaseService.getDB('get_reservations');
     $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
@@ -311,6 +323,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.selectBoatCategory = function(cat) {
     $scope.selectedBoatCategory=cat;
     $scope.selectedboat=null;
+  }
+
+  $scope.update_damage = function(damage) {
+    DatabaseService.updateDB('damage_update',damage,$scope.config,$scope.errorhandler);
   }
 
   $scope.do_boat_category = function(cat) {
