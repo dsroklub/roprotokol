@@ -49,7 +49,7 @@ $result=$rodb->query($s) or dbErr($rodb,$res,"Q");
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {
-	  if ($first) $first=0; else echo ",\n";	  
+	  if ($first) $first=0; else echo ",\n";
 	  echo json_encode($row);
 }
 echo ']';
