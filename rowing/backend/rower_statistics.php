@@ -30,7 +30,7 @@ if (isset($_GET["boattype"])) {
       season.season=Year(OutTime) AND
       (((Year(OutTime))=?) " . $boatclause .")".
     " GROUP BY mm.id,mm.MemberID, firstname, lastname
-    ORDER BY distance desc";
+    ORDER BY summer desc";
 
 
 if ($sqldebug) echo $s;

@@ -86,6 +86,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
 
   DatabaseService.init({"boat":true,"status":true,"member":true, "trip":true,"reservation":true}).then(function () {
     $scope.currentrower=null;
+    $scope.newright={"active":1,"category":"roning"};
     $scope.do="events";
     $scope.newboat={};
     $scope.newboattype={'rights':[]};
@@ -506,6 +507,17 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
         }
       )            }
 
+    $scope.make_righttype = function (right){
+      var r=angular.copy(right);
+      var exeres=DatabaseService.updateDB('create_right',r,$scope.config,$scope.errorhandler).then(
+        function(newright) {
+          if (newright.status=="ok") {
+            $log.info("right created");
+            $scope.memberrighttypes.unshift(r);
+            $scope.newright={"active":1,"category":"roning"};
+          }
+        }
+      )            }
 
     $scope.cancel_reservation = function (rv){
       var r=angular.copy(rv);
