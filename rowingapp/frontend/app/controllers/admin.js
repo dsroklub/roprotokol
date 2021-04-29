@@ -103,6 +103,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
         }
       }
     }
+    $scope.ready=true;
     $scope.triptypes=DatabaseService.getDB('triptypes');
     $scope.reservations = DatabaseService.getDB('get_reservations');
     $scope.reservation_configurations = DatabaseService.getDB('reservation_configurations');
