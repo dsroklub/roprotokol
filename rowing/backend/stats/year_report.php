@@ -194,7 +194,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 
     $r = $rodb->query($s);
     if ($r) {
-       $res[$table][$y][$step] = [ 'total' => 0];
+        $res[$table][$y][$step] = [ 'total' => 0,'dropped_out'=>0];
        while ($row = $r->fetch_assoc()) {
          $res[$table][$y][$step]['total'] += $row['members'];
          if ($row['removed']) {
@@ -242,6 +242,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
         $res[$table][$y][$step] = [];
 	$last = [ 'total' => 0, 'dropped_out' => 0 ];
         $max_after_20 = 10;
+        $hastrips=false;
         while (($row = $r->fetch_assoc())) {
           if ($row['trips'] > 20) {
 	    $max_after_20 = $row['trips'];
@@ -262,10 +263,13 @@ for ($y = $from_year; $y <= $to_year; $y++) {
         }
 
         // Fill holes - e.g. if no one have rowed 10 trips, use numbers from 11
+        if ($max_after_20<20) {
+            $res[$table][$y][$step][$max_after_20]=0;
+        }
         for ($i = $max_after_20; $i > 1; $i--) {
-          if (!isset($res[$table][$y][$step][$i])) {
-            $res[$table][$y][$step][$i] = $res[$table][$y][$step][$i + 1];
-          }
+            if (!isset($res[$table][$y][$step][$i])) {
+                $res[$table][$y][$step][$i] = $res[$table][$y][$step][$i + 1];
+            }
         }
       } else {
         make_error();

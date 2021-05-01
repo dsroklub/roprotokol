@@ -158,6 +158,11 @@ CREATE TABLE IF NOT EXISTS BoatRights (
   PRIMARY KEY (boat_type,required_right)
 );
 
+CREATE TABLE IF NOT EXISTS DamageType (
+   degree int,
+   name CHAR(20)
+);
+
 CREATE TABLE IF NOT EXISTS Damage (
   id int(11) NOT NULL AUTO_INCREMENT,
   Boat int(11),
@@ -898,6 +903,9 @@ INSERT INTO reservation_configuration(name) VALUES ('sommer'),('vinter'),('kajak
 
 INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('instructor','instruktør','','instruktør','være instruktør',0,'roning');
 INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('longdistance_swim','Langtur svømmeprøve','300m svøm','Langtur svømmeprøve','have taget langtur svømmeprøve indenfor 3 år',1,'roning');
+
+
+INSERT INTO DamageType(degree,name) VALUES (1,'let'),(2,'middel'),(3,'svær'),(4,'vedligehold');
 
 
 

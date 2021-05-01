@@ -46,9 +46,7 @@ JOIN (SELECT Date(Trip.OutTime) as day, SUM(BoatType.Seatcount-1) as seats
      as sr ON sr.day=daytrips.day GROUP BY daytrips.day
 ORDER BY day DESC
 ";
-
-
-         error_log("SQL :\n".$s."\n");
+         //error_log("SQL :\n".$s."\n");
          if ($stmt = $rodb->prepare($s)) {
       $result=$rodb->query($s) or die("Error in instruktion stat query: " . mysqli_error($rodb));;
       while ($row = $result->fetch_assoc()) {
