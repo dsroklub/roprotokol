@@ -26,7 +26,7 @@ if ($stmt = $rodb->prepare("SELECT member_setting.is_public,member_setting.show_
             $show_status=$row['show_status'];
         }
     } else {
-        echo 'ukendt medlem<br>eller $member har ikke tilvalgt "offentlig profil"';
+        echo "ukendt medlem<br>eller $member har ikke tilvalgt \"offentlig profil\"";
     }
 } else {
     console_log( "user error");
