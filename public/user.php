@@ -68,28 +68,28 @@ UNION
         $stmt = $rodb->prepare($s) or dbErr($roDb,$res,"user activities");
         $stmt->bind_param("ss", $member,$member);
         $stmt->execute();
-         $result= $stmt->get_result() or die("Error in user query: " . mysqli_error($rodb));
-         echo "<table>";
-         echo "<tr>
+        $result= $stmt->get_result() or die("Error in user query: " . mysqli_error($rodb));
+        echo "<table>";
+        echo "<tr>
                <th>destination</th><th>Turtype</th><th>Båd</th><th>Ud</th><th>Ind</th><th>km</th>
               </tr>";
-         while ($row = $result->fetch_assoc()) {
-             echo "<tr>";
-             echo "<td>". $row['destination'].  "</td>";
-             echo "<td>". $row['triptype'].  "</td>";
-             echo "<td>". $row['boat'].  "</td>";
-             echo "<td>". $row['outtime']."</td>";
-             if (empty($row['intime']) and !empty($row['boat'])) {
-                 echo '<td class="onwater">På vandet</td>';
-             } else {
-                 echo "<td>". $row['intime'].  "</td>";
-             }
-                 echo '<td class="nr">'. $row['km']."</td>";
-                 echo "</tr>";
-         }
-             echo "</table>";
-             // rank
-             $ranksql="SELECT 1+COUNT('x')  as rank,rs.summer FROM (
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>". $row['destination'].  "</td>";
+            echo "<td>". $row['triptype'].  "</td>";
+            echo "<td>". $row['boat'].  "</td>";
+            echo "<td>". $row['outtime']."</td>";
+            if (empty($row['intime']) and !empty($row['boat'])) {
+                echo '<td class="onwater">På vandet</td>';
+            } else {
+                echo "<td>". $row['intime'].  "</td>";
+            }
+            echo '<td class="nr">'. number_format($row['km'],1)."</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+         // rank
+        $ranksql="SELECT 1+COUNT('x')  as rank,rs.summer FROM (
     SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance,Member.MemberID as id, Member.FirstName as firstname, Member.LastName as lastname,
     CAST(SUM(IF(season.summer_start<OutTime AND season.summer_end>OutTime,Meter,0)) AS UNSIGNED) AS summer
     FROM Member,season,BoatType,Trip,TripMember,Boat
