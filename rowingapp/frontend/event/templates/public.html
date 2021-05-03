@@ -1,40 +1,31 @@
-
 <h2> <a href="{{public_path}}?member={{current_user.member_id}}"> Indstillinger for {{current_user.name}} ({{current_user.member_id}})</a></h2>
-
 <h4 ng-show="current_user.has_remote_access" >Du har lov til <a class="link" href="https://roprotokol.danskestudentersroklub.dk/frontend/app/index.html">at bruge roprotokollen udefra <i class="fa fa-link"></i></a></h4>
 
 <h3>Din offentlige side</h3>
-
-
 Din offentlige DSR side, som kan ses af alle er:
 <br>
 <a href="{{site_path}}/public/user.php?member={{current_user.member_id}}"  target="_blank">
   {{site_path}}/public/user.php?member={{current_user.member_id}}
 </a>
-
-
 <h3>
   Din helt personlige iCal kalender er <a href="{{site_path}}/cal/{{current_user.member_id}}/{{current_user.token}}/roaftaler.ics">
     {{site_path}}/cal/{{current_user.member_id}}/{{current_user.token}}/roaftaler.ics
   </a><br>
 </h3>
 <div  class="helpbox">
-Brug fx ICSdroid til Android telefoner, tilføj til Google calendar ...
-<h4>Google Kalender</h4>
-<ul>
-  <li> Login ind på din Google Kalender</li>
-  <li> Vælg "andre Kalendere" ("Other Calendars")</li>
-  <li> Vælg "tilføj via Webadresse" ("Add by URL")</li>
-  <li> Kopier URL-en overfor ind ok tryk Enter</li>
-</ul>
-
-<h4>iPhone, Mac</h4>
-Tryk på linket, tilføj begivenheder til din Apple kalender.
+  Brug fx ICSdroid til Android telefoner, tilføj til Google calendar ...
+  <h4>Google Kalender</h4>
+  <ul>
+    <li> Login ind på din Google Kalender</li>
+    <li> Vælg "andre Kalendere" ("Other Calendars")</li>
+    <li> Vælg "tilføj via Webadresse" ("Add by URL")</li>
+    <li> Kopier URL-en overfor ind ok tryk Enter</li>
+  </ul>
+  <h4>iPhone, Mac</h4>
+  Tryk på linket, tilføj begivenheder til din Apple kalender.
 </div>
 
 <h3><a href="/backend/event/mine_roture.xlsx?output=xlsx">Alle dine roture og aktiviteter til download HER <i class="fa fa-download"></i></a></h3>
-
-
 <h2>Vælg hvad andre kan se på din offentlige side:</h2>
 <form name="publicsetting">
   <table>
@@ -44,19 +35,15 @@ Tryk på linket, tilføj begivenheder til din Apple kalender.
     <tr ng-show="member_setting.is_public">
       <th>Vis min rostatus</th>
       <td> <input type="checkbox" id="status" ng-model="member_setting.show_status" ng-true-value="1" ng-false-value="0" ></td></tr>
-
     <tr ng-show="member_setting.is_public">
       <th>Vis mine aktiviteter i DSR</th>
       <td> <input type="checkbox" id="activities" ng-model="member_setting.show_activities" ng-true-value="1" ng-false-value="0" ></td></tr>
-
     <tr>
-
     <tr>
       <th>Hver gang jeg går i land send en email til:<br>(mig, min kæreste, el. lign.) </th>
       <td> <input type="email" id="notification_email" ng-model="member_setting.notification_email"></td>
       <td> <i class="fa fa-remove" ng-click="emailflush()"></i></td>
     </tr>
-
     <tr>
       <th>Telefonnummer som kan ses af andre DSR-medlemmer og som vises i bådhallen</th>
       <td> <input pattern="(\+\d+ ?)?\d+$" type="tel" id="phone" ng-model="member_setting.phone"></td>
@@ -87,7 +74,6 @@ Vis
 <label class="switch">  <input type="checkbox" ng-model="show.mystatsdestinations" ng-change="toggle_personal('mystats','destinations')">destinationer</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mystatsmates" ng-change="toggle_personal('mystats','mates')">rokammerater</label>
 <label class="switch">  <input type="checkbox" ng-model="show.mychart" ng-change="toggle_chart()">aktivitetsgraf</label>
-
 <script type="text/ng-template" id="memberTemplate.html">
   <a>
     <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
@@ -103,8 +89,6 @@ Vis
          typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
          typeahead-template-url="memberTemplate.html" />
 </form>
-
-
 <div ng-show="othermember" class="statbox">
   <table  class="genericlist">
     <caption>Roture med {{othermember.name}} <i>({{othermember.id}}), {{mate_trips.length}} ture, {{mate_trips |sumDistance|number:1}} km</i></caption>
@@ -124,7 +108,6 @@ Vis
     </tbody>
   </table>
 </div>
-
 <div ng-if="mystatswork" class="statbox">
   <table class="genericlist">
     <caption>Udført arbejde:  {{mystatswork|sumWork|number:1}} timer</caption>
@@ -146,7 +129,6 @@ Vis
     </tbody>
   </table>
 </div>
-
 <div ng-if="mystatsmates" class="statbox">
   <table class="genericlist">
     <caption>Mine Rokammerater</caption>
@@ -164,7 +146,6 @@ Vis
     </tbody>
   </table>
 </div>
-
 <div ng-if="mystatsrights" class="statbox">
   <table class="genericlist">
     <caption>Mine rettigheder</caption>
@@ -184,7 +165,6 @@ Vis
     </tbody>
   </table>
 </div>
-
 <div ng-show="mytripsaggregated" class="statbox">
   <table class="genericlist">
     <caption>Sæsonoversigt fordelt på turtyper, i alt: {{mytripsaggregated|sumDistance|number:1}} <a class="dl" href="/backend/event/stats/mytripsaggregated.php?format=xlsx">🠳 download</a></caption>
@@ -199,9 +179,8 @@ Vis
         <td class="rnum">{{ta.average |mtokm}}</td>
       </tr>
     </tbody>
-      </table>
+  </table>
 </div>
-
 <div ng-show="mystatsdestinations" class="statbox">
   <table class="genericlist">
     <caption>Mine destinationer</caption>
@@ -209,15 +188,14 @@ Vis
       <tr><th>Sted</th><th>gange</th><th>km></th></tr>
     </thead>
     <tbody>
-        <tr  ng-repeat="rowerdest in mystatsdestinations">
-          <td>{{rowerdest.destination}}</td>
-          <td class="rnum">{{rowerdest.numtrips}}</td>
-          <td class="rnum">{{rowerdest.distance/1000|number:1}}</td>
-        </tr>
+      <tr  ng-repeat="rowerdest in mystatsdestinations">
+        <td>{{rowerdest.destination}}</td>
+        <td class="rnum">{{rowerdest.numtrips}}</td>
+        <td class="rnum">{{rowerdest.distance/1000|number:1}}</td>
+      </tr>
     </tbody>
   </table>
 </div>
-
 <div class="statbox" ng-show="mytrips">
   <table class="genericlist">
     <caption>Mine {{mytrips.length}} roture alle år: {{mytrips|sumDistance|number:1}} km,  <a class="dl" href="/backend/event/stats/mytrips.php?format=xlsx">🠳 download</a></caption>
@@ -267,10 +245,8 @@ Vis
     </tbody>
   </table>
 </div>
-
-
 <div>
-<button ng-click="render_graph()">månedsgraf over roforbindelser</button>
-{{graph_message}}
+  <button ng-click="render_graph()">månedsgraf over roforbindelser</button>
+  {{graph_message}}
   <div id="sumgraph" style="text-align: center;"></div>
 </div>

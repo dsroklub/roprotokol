@@ -5,9 +5,6 @@
     <meta charset="utf-8">
   </head>
   <body>
-<?php
-    include("../rowingapp/backend/inc/backheader.php");
-?>
     <table>
 <caption>Inringger Brug af b&aring;de i &aring;r</caption>
       <tr>

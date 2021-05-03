@@ -5,6 +5,7 @@ $days=['mandag','tirsdag','onsdag','torsdag','fredag','lørdag','søndag'];
 set_include_path(get_include_path().':..');
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Cache-Control: max-age=0');
+header('Content-Disposition: filename="ugereservationer.xlsx"');
 ini_set('default_charset', 'utf-8');
 ini_set('display_errors', 'On');
 

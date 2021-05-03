@@ -6,9 +6,9 @@ include("inc/common.php");
 
 $s="
 SELECT FORMAT(SUM(Meter)/1000 ,2) AS distance,COUNT(DISTINCT Member.id) as aktive_roere,FORMAT(SUM(Meter)/COUNT(DISTINCT Member.id)/1000,3) as km_per_aktiv_roer,MONTHNAME(NOW() - INTERVAL 1 MONTH) AS tilogmed
-FROM 
+FROM
     Trip,TripMember,Member,Boat,BoatType,MemberRights
-WHERE 
+WHERE
   Member.id=MemberRights.member_id AND
   MemberRight='rowright' AND
   YEAR(Trip.OutTime) = YEAR(NOW()) AND
@@ -24,9 +24,9 @@ process($res,"text",null,["km","aktive roere","gennemsnit","fra april til og med
 
 $s="
 SELECT MONTH(Trip.OutTime) as maaned, FORMAT(SUM(Meter)/1000 ,2) AS distance,COUNT(DISTINCT Member.id) as aktive_roere,FORMAT(SUM(Meter)/COUNT(DISTINCT Member.id)/1000,3) as km_per_aktiv_roer
-FROM 
+FROM
     Trip,TripMember,Member,Boat,BoatType,MemberRights
-WHERE 
+WHERE
   Member.id=MemberRights.member_id AND
   MemberRight='rowright' AND
   YEAR(Trip.OutTime)=YEAR(NOW()) AND
