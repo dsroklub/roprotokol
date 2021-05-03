@@ -601,6 +601,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
           if (status.boattrips %5 ==0) {
             $scope.checkinmessage=""+status.boat+" har været på vandet "+status.boattrips+ " gange DEN SKAL VASKES DENNE GANG";
           }
+          else{
+           $scope.checkinmessage=""+status.boat+" skal IKKE vaskes denne gang";   
+          }
         }
       } else if (status.status =='error' && status.error=="notonwater") {
         $scope.checkinmessage= status.boat+" var allerede skrevet ind";
