@@ -26,6 +26,13 @@ if ($newtrip->boat->location != "Andre") {
             error_log($error);
             error_log($data);
         }
+
+        $countStmt = $rodb->prepare("SELECT 1+count('x') as year_boat_trips FROM Trip WHERE InTime IS NOT NULL AND BoatID=? AND YEAR(OutTime)=YEAR(NOW()) ") or dbErr($rodb,$res,"create trip count trips");
+        $countStmt->bind_param('i', $newtrip->boat->id) || dbErr($rodb,$res,"create trip cnt");
+        $countStmt->execute() || dbErr($rodb,$res,"create trip COUNT");
+        if ($countRow=$countStmt->get_result()->fetch_assoc()) {
+            $res['boattrips']=$countRow['year_boat_trips'];
+        }
     }
 }
 

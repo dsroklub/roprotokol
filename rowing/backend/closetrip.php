@@ -39,7 +39,7 @@ invalidate('trip');
 invalidate('stats');
 
 
-$countStmt = $rodb->prepare("SELECT count('x') as year_boat_trips FROM Trip WHERE BoatID=? AND YEAR(OutTime)=YEAR(NOW()) ") or dbErr($rodb,$res,"closetrip count trips");
+$countStmt = $rodb->prepare("SELECT count('x') as year_boat_trips FROM Trip WHERE InTime IS NOT NULL AND BoatID=? AND YEAR(OutTime)=YEAR(NOW()) ") or dbErr($rodb,$res,"closetrip count trips");
 $countStmt->bind_param('i', $closedtrip->boat_id) || dbErr($rodb,$res,"close trip cnt");
 $countStmt->execute() || dbErr($rodb,$res,"close trip COUNT");
 if ($countRow=$countStmt->get_result()->fetch_assoc()) {

@@ -344,6 +344,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.checkoutBoat = function(boat) {
     var oldboat=$scope.checkout.boat;
     $scope.checkoutmessage=null;
+    $scope.washmessage="";
     $scope.checkoutnotification=null;
     $scope.checkout.boat=boat;
     $scope.destinations = DatabaseService.getDestinations(boat.location);
@@ -624,12 +625,22 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       data.boat.trip=null;
       // DatabaseService.reload(['trip']);
       if (status.status =='ok') {
+        $scope.checkouterrormessage=null;
+        $scope.washmessage="";
         data.boat.trip=status.tripid;
         data.boat.outtime=data.boat.outtime;
+        $scope.checkoutnotification=null;
         if (status.notification){
           $scope.checkoutnotification=status.notification;
         }
         $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+":";
+        if (status.boattrips) {
+          if (status.boattrips %5 ==0) {
+            $scope.washmessage=""+$scope.checkout.boat.name+" har været på vandet "+status.boattrips+ " gange DEN SKAL VASKES DENNE GANG efter turen";
+          } else {
+            $scope.washmessage="Tillykke "+ (($scope.checkout.boat.spaces>1)?"I":"du") +" behøver ikke at vaske "+ $scope.checkout.boat.name+" efter turen. Men vask årerne";
+          }
+        }
         if ($scope.checkout.boat.placement_aisle) {
           $scope.checkoutmessage+=("Dør "+$scope.checkout.boat.placement_aisle);
         }
@@ -678,6 +689,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       $scope.starttime_clean=now;
       $scope.updateExpectedTime();
     }
+    $scope.washmessage="";
+    $scope.checkoutmessage="";
+    $scope.checkoutnotification=null;
     var ds=DatabaseService.reload(['boat'])
     if (ds) {
       ds.then(function(what) {
