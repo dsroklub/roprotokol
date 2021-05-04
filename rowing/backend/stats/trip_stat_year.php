@@ -1,8 +1,6 @@
 <?php
 set_include_path(get_include_path().':..');
 include("inc/common.php");
-
-
 if (isset($_GET["km"])) {
     $km="/1000";
 } else {
