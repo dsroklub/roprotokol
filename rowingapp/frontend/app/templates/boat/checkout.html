@@ -58,6 +58,7 @@
     <div class="big message checkoutnotification">{{checkoutnotification}}</div>
     <div class="big message checkouterrormessage">{{checkouterrormessage}}</div>
     <div class="big rightsmessage" ng-show="!checkRights()">{{rightsmessage}}</div>
+    <div class="big message">{{washmessage}}</div>
     <div class="checkout-form">
       <form name="checkoutForm" novalidate autocomplete="off" noautocomplete>
         <table>
@@ -200,11 +201,11 @@
 
         </table>
       </form>
-      <button class="alert minor" ng-hide="checkout.expectedtime">husk at angive forventet ankomst</button>
+      <button class="alert minor" ng-hide="checkout.expectedtime || !checkout.destination.location">husk at angive forventet ankomst</button>
       <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name || !checkout.rowers[0]">husk at vælge båd</button>
       <button class="alert minor" ng-hide="checkout.triptype || !checkout.destination.name || !checkout.rowers[0]">husk turtype</button>
-      <button class="alert minor" ng-hide="checkout.destination || !checkout.triptype || !checkout.rowers[0]">vælg destination</button>
-      <button class="alert minor" ng-hide="checkout.distance>0">Sæt distance</button>
+      <button class="alert minor" ng-hide="checkout.destination.location || !checkout.triptype || !checkout.rowers[0]">vælg destination</button>
+      <button class="alert minor" ng-hide="checkout.distance>0 || !checkout.destination.location">Sæt distance</button>
     </div>
 
     <div ng-show="checkout.boat.placement_aisle || checkout.boat.placement_level" class="damageslist">

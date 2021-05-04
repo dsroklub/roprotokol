@@ -84,7 +84,14 @@
                     >
               Indskriv
             </button>
-            <button uib-tooltip="slet turen hvis båden ikke kom på vandet" ng-click="deleteopentrip(boattrip,$index)" class="minor">Slet</button>
+            <button
+              uib-tooltip="slet turen hvis båden ikke kom på vandet"
+              ng-click="deleteopentrip(boattrip,$index)" class="minor"
+              confirm="Er du sikker på, at du vil slette denne tur."
+              confirm-ok="Ja, slet turen"
+              confirm-cancel="Nej, jeg fortryder"
+              >Slet
+            </button>
             <a href="{{burl}}#!ud?reuse={{boattrip}}">
               <button uib-tooltip="genbrug turoplysinger fx til at skrive en anden båd ud med samme roere og destination" ng-click="reusetrip(boat,$index)" class="minor">
                 <i class="fa fa-recycle"></i></button>

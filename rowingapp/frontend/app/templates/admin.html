@@ -297,7 +297,7 @@
     <caption>Destinationer fra {{showdest}}</caption>
     <thead>
       <tr>
-        <th>Destination</th><th>Distance</th><th>Varighed</th><th>Varighed for instruktion</th>
+        <th>Destination</th><th>Distance</th><th>Farvand</th><th>Varighed</th><th>Varighed for instruktion</th>
       </tr>
     </thead>
     <tbody>
@@ -305,6 +305,7 @@
         <td><input ng-model="ds.name" ng-model-options="{updateOn:'blur'}" ng-change="set_destination_name(ds)">
         </td>
         <td><input ng-change="set_distance(ds)" type="number" min="0" step="0.5" ng-model="ds.distance" transformkm></td>
+        <td><select ng-change="set_zone(ds)"  ng-options="z.zone as z.zone for z in zones" ng-model="ds.zone"></select></td>
         <td><input ng-change="set_duration(ds)" type="number" min="0" step="0.25" ng-model="ds.duration" ng-model-options="{allowInvalid:true}"></td>
         <td><input ng-change="set_duration(ds)" type="number" min="0.25" step="0.25" ng-model="ds.duration_instruction" ng-model-options="{allowInvalid:true}"></td>
       </tr>
@@ -798,6 +799,7 @@
     <li><a href="https://roprotokol.danskestudentersroklub.dk/public/reservations.php?format=xlsx">Bådreservationer, som regneark, ekstern offentlig adgang</a></li>
     <li><a href="https://roprotokol.danskestudentersroklub.dk/public/reservationdays.php">Ugeskema for bådreservationer som regneark, ekstern offentlig adgang</a></li>
     <li><a href="/backend/stats/trip_stat_year.php?output=xlsx&allboats=1&km=1">km statistik for turtyper mm (robåde, kajakker)</a></li>
+    <li><a href="/backend/stats/trip_stat_month.php?output=xlsx&allboats=1&km=1">km statistik per måned (robåde, kajakker)</a></li>
     <li><a href="/backend/stats/trip_rower_year.php?output=xlsx&allboats=1&km=1">roer statistik for turtyper mm (robåde, kajakker)</a></li>
     <li><a href="/backend/stats/rowersbyright.php?right=instructor&subtype=kajak">Kajakinstruktører</a></li>
     <li><a href="/backend/stats/rowersbyright.php?right=instructor&subtype=row">Robådsinstruktører</a></li>

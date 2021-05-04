@@ -26,7 +26,7 @@ if ($stmt = $rodb->prepare("SELECT member_setting.is_public,member_setting.show_
             $show_status=$row['show_status'];
         }
     } else {
-        echo 'ukendt medlem<br>eller $member har ikke tilvalgt "offentlig profil"';
+        echo "ukendt medlem<br>eller $member har ikke tilvalgt \"offentlig profil\"";
     }
 } else {
     console_log( "user error");
@@ -68,29 +68,29 @@ UNION
         $stmt = $rodb->prepare($s) or dbErr($roDb,$res,"user activities");
         $stmt->bind_param("ss", $member,$member);
         $stmt->execute();
-         $result= $stmt->get_result() or die("Error in user query: " . mysqli_error($rodb));
-         echo "<table>";
-         echo "<tr>
+        $result= $stmt->get_result() or die("Error in user query: " . mysqli_error($rodb));
+        echo "<table>";
+        echo "<tr>
                <th>destination</th><th>Turtype</th><th>Båd</th><th>Ud</th><th>Ind</th><th>km</th>
               </tr>";
-         while ($row = $result->fetch_assoc()) {
-             echo "<tr>";
-             echo "<td>". $row['destination'].  "</td>";
-             echo "<td>". $row['triptype'].  "</td>";
-             echo "<td>". $row['boat'].  "</td>";
-             echo "<td>". $row['outtime']."</td>";
-             if (empty($row['intime']) and !empty($row['boat'])) {
-                 echo '<td class="onwater">På vandet</td>';
-             } else {
-                 echo "<td>". $row['intime'].  "</td>";
-             }
-                 echo '<td class="nr">'. $row['km']."</td>";
-                 echo "</tr>";
-         }
-             echo "</table>";
-             // rank
-             $ranksql="SELECT 1+COUNT('x')  as rank FROM (
-SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance,Member.MemberID as id, Member.FirstName as firstname, Member.LastName as lastname,
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>". $row['destination'].  "</td>";
+            echo "<td>". $row['triptype'].  "</td>";
+            echo "<td>". $row['boat'].  "</td>";
+            echo "<td>". $row['outtime']."</td>";
+            if (empty($row['intime']) and !empty($row['boat'])) {
+                echo '<td class="onwater">På vandet</td>';
+            } else {
+                echo "<td>". $row['intime'].  "</td>";
+            }
+            echo '<td class="nr">'. number_format($row['km'],1)."</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+         // rank
+        $ranksql="SELECT 1+COUNT('x')  as rank,rs.summer FROM (
+    SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance,Member.MemberID as id, Member.FirstName as firstname, Member.LastName as lastname,
     CAST(SUM(IF(season.summer_start<OutTime AND season.summer_end>OutTime,Meter,0)) AS UNSIGNED) AS summer
     FROM Member,season,BoatType,Trip,TripMember,Boat
     WHERE
@@ -102,8 +102,8 @@ SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance,Member.MemberID as id, Member.Fi
       ((Year(OutTime))=YEAR(NOW())) AND BoatType.Category=2
       GROUP BY Member.id,Member.MemberID, firstname, lastname
     ORDER BY summer desc
-    ) as s
-    WHERE summer > (SELECT CAST(SUM(IF(season.summer_start<OutTime AND season.summer_end>OutTime,Meter,0)) AS UNSIGNED) AS summer FROM season,BoatType,Trip,TripMember,Boat,Member
+    ) as s,
+     (SELECT CAST(SUM(IF(season.summer_start<OutTime AND season.summer_end>OutTime,Meter,0)) AS UNSIGNED) AS summer FROM season,BoatType,Trip,TripMember,Boat,Member
               WHERE
               Trip.id = TripMember.TripID AND
               Member.id = TripMember.member_id AND
@@ -112,14 +112,15 @@ SELECT CAST(Sum(Meter) AS UNSIGNED) AS distance,Member.MemberID as id, Member.Fi
               BoatType.Name = Boat.boat_type AND
               season.season=Year(OutTime) AND
               ((Year(OutTime))=YEAR(NOW())) AND BoatType.Category=2
-)
+) as rs
+WHERE s.summer >rs.summer
 ";
              $rankstmt = $rodb->prepare($ranksql) or dbErr($roDb,$res,"user rankactivities");
              $rankstmt->bind_param("s", $member);
              $rankstmt->execute() || dbErr($rodb,$res,"user rant exe");
              $result= $rankstmt->get_result() or die("Error in user rank query: " . mysqli_error($rodb));
              if ($rankrow = $result->fetch_assoc()) {
-                 echo "<h2>$name er nummer ".$rankrow["rank"] ." i rostatistikken (sommer)</h2>";
+                 echo "<h2>$name har roet ". number_format($rankrow["summer"]/1000,1). " km og er nummer ". $rankrow["rank"] ." i rostatistikken (sommer)</h2>";
              }
     }
      echo "<h2>Mine næste tre aktiviteter i DSR</h2>";

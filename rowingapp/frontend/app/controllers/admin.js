@@ -105,6 +105,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
     }
     $scope.ready=true;
     $scope.triptypes=DatabaseService.getDB('triptypes');
+    $scope.zones=DatabaseService.getDB('zones');
     $scope.reservations = DatabaseService.getDB('get_reservations');
     $scope.reservation_configurations = DatabaseService.getDB('reservation_configurations');
     $scope.clientname = DatabaseService.client_name();
@@ -275,6 +276,9 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
 
     $scope.set_duration = function(destination) {
       var exeres=DatabaseService.updateDB('set_duration',destination,$scope.config,$scope.errorhandler);
+    }
+    $scope.set_zone = function(zone) {
+      var exeres=DatabaseService.updateDB('set_zone',zone,$scope.config,$scope.errorhandler);
     }
     $scope.set_distance = function(destination) {
       var exeres=DatabaseService.updateDB('set_distance',destination,$scope.config,$scope.errorhandler);
