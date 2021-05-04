@@ -179,12 +179,22 @@ CREATE TABLE IF NOT EXISTS Damage (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS zones (
+  zone   CHAR(20) PRIMARY KEY,
+  description  VARCHAR(1000)
+);
+
+INSERT INTO zones VALUES('dagligt','dagligt rofarvand');
+INSERT INTO zones VALUES('nær','nært rofarvand');
+INSERT INTO zones VALUES('hvidovre','outrigger kaproning i Hvidovre');
+
 CREATE TABLE IF NOT EXISTS Destination (
   id int(11),
   created_by int,
   Location varchar(10) NOT NULL DEFAULT 'DSR',
   Name varchar(100) NOT NULL,
   Meter int(11),
+  Zone CHAR(20)   DEFAULT 'dagligt' REFERENCES zones(zone) ON DELETE RESTRICT,
   Description varchar(1000),
   Created datetime DEFAULT CURRENT_TIMESTAMP,
   Updated datetime,
