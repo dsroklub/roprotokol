@@ -3,6 +3,13 @@ $config = parse_ini_file('/data/roprotokol/config.ini');
 $rodb=new mysqli("localhost",$config["dbuser"],$config["dbpassword"],$config["database"]);
 //set_include_path(get_include_path().':..');
 
+$emails=[];
+$emailres=$rodb->query("SELECT value as emails from Configuration WHERE id='not_in_emails'") or die ("not in email failed");
+
+if ($e = $emailres->fetch_assoc()) {
+    $emails=explode(",",$e["emails"]);
+}
+
 $s="SELECT Boat.id as boatid, Boat.Name AS boat, Trip.Destination as destination,
    IF (DAYOFYEAR(NOW())=DAYOFYEAR(OutTime),Date_Format(OutTime,'%H:%i'), Date_Format(OutTime,'%e/%c %H:%i')) as outtime,
    IF (DAYOFYEAR(NOW())=DAYOFYEAR(InTime),Date_Format(InTime,'%H:%i'),Date_Format(InTime,'%e/%c %H:%i')) as intime,
@@ -22,7 +29,6 @@ $s="SELECT Boat.id as boatid, Boat.Name AS boat, Trip.Destination as destination
 
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
  while ($trip = $result->fetch_assoc()) {
-     $emails=["elgaard@agol.dk"];
      $names=[];
      $rowers=json_decode($trip['rowers']);
      foreach ($rowers as $rower) {
