@@ -600,10 +600,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         $scope.onwater.splice($scope.onwater.indexOf(boattrip),1);
         if (status.boattrips) {
           if (status.boattrips %5 ==0) {
-            $scope.checkinmessage=""+status.boat+" har været på vandet "+status.boattrips+ " gange DEN SKAL VASKES DENNE GANG";
+            $scope.checkinmessage=""+status.boat+" SKAL VASKES DENNE GANG";
           }
           else{
-           $scope.checkinmessage=""+status.boat+" skal IKKE vaskes denne gang";   
+           $scope.checkinmessage=""+status.boat+" skal IKKE vaskes denne gang";
           }
         }
       } else if (status.status =='error' && status.error=="notonwater") {
@@ -636,7 +636,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+":";
         if (status.boattrips) {
           if (status.boattrips %5 ==0) {
-            $scope.washmessage=""+$scope.checkout.boat.name+" har været på vandet "+status.boattrips+ " gange DEN SKAL VASKES DENNE GANG efter turen";
+            $scope.washmessage=""+$scope.checkout.boat.name+" SKAL VASKES DENNE GANG efter turen";
           } else {
             $scope.washmessage="Tillykke "+ (($scope.checkout.boat.spaces>1)?"I":"du") +" behøver ikke at vaske "+ $scope.checkout.boat.name+" efter turen. Men vask årerne";
           }

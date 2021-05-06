@@ -13,7 +13,7 @@ $s="SELECT YEAR(Trip.OutTime) as år,MONTHNAME(Trip.OutTime) as måned,CASE WHEN
     WHERE Trip.TripTypeID=TripType.id AND Trip.BoatID=Boat.id AND Boat.boat_type=BoatType.Name AND
      YEAR(NOW())-YEAR(Trip.OutTime)<6 AND
     Trip.OutTime IS NOT NULL
-    GROUP BY år,måned,BoatType.category,BoatType.Name
+    GROUP BY år,måned,BoatType.category
     ORDER BY BoatType.category,YEAR(Trip.OutTime),MONTH(Trip.OutTime)";
 
 if ($sqldebug) {
