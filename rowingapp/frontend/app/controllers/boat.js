@@ -608,7 +608,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         }
       } else if (status.status =='error' && status.error=="notonwater") {
         $scope.checkinmessage= status.boat+" var allerede skrevet ind";
-        $log.debug("not on water")
+        $log.debug("not on water");
+        DatabaseService.getDataNow('onwater',null,function(r) {$scope.onwater=r.data});
       } else {
         $log.error("error "+status.message);
         $scope.checkinmessage="Fejl: "+closetrip;
