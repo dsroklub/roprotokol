@@ -104,8 +104,8 @@
               <td>
                 <ui-select name="checkout_destination" class="checkout_destination" ng-model="checkout.destination" on-select="updateCheckout($item)" >
                   <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
-                  <ui-select-choices repeat="destination in destinations | filter: destfilter($select.search)"> 
-                    <span ng-class="{longtrip: destination.zone=='lang'}">{{destination.name}}</span>
+                  <ui-select-choices class="ddlist" repeat="destination in destinations | filter: destfilter($select.search)">
+                    <span ng-class="{'neartrip':destination.zone=='nær','longtrip': destination.zone=='lang'}">{{destination.name}}</span>
                     (<small>{{destination.distance| mtokm}}</small>km ,
                     <small> {{destination.duration }}</small>t
                     )

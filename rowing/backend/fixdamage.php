@@ -9,15 +9,10 @@ if (empty($cuser)) {
 }
 
 $rodb->query("BEGIN TRANSACTION");
-if ($stmt = $rodb->prepare("UPDATE Damage, (SELECT id FROM Member WHERE MemberID=?) m  SET Repaired=NOW(),RepairerMember=m.id WHERE Damage.id=?")) { 
-    $stmt->bind_param('si',  $reporter,$fix->damage->id);
-    $stmt->execute() || error_log("damage fix DB error: $rodb->error"); 
-} else {
-    error_log("fix damage database error ");
-} 
+$stmt = $rodb->prepare("UPDATE Damage, (SELECT id FROM Member WHERE MemberID=?) m  SET Repaired=NOW(),RepairerMember=m.id WHERE Damage.id=?") or dbErr($rodb,$res,"fixdamage");
+$stmt->bind_param('si',  $reporter,$fix->damage->id) || dbErr($rodb,$res,"fixdamage bind");
+$stmt->execute() || dbErr($rodb,$res,"FIXDAMAGE");
 eventLog($fix->reporter->name." klarmeldte skaden: ".$fix->damage->description." på båden ".$fix->damage->boat);
-
 $rodb->query("END TRANSACTION");
 $rodb->close();
 invalidate("boat");
-

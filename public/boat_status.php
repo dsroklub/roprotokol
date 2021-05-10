@@ -11,6 +11,7 @@
 <th>B&aring;d</th>
 <th>B&aring;dtype</th>
 <th>placering</th>
+<th>hylde</th>
 <th>skade</th>
 <th>forventes ind</th>
       </tr>
@@ -27,9 +28,9 @@
 $boatclause=" ";
 
 $s="
-SELECT b.boat_name, b.boat_type, IFNULL(DamageType.name,'') as damageName,damage,out_time,location,expected
+SELECT b.boat_name,placement_level, b.boat_type, IFNULL(DamageType.name,'') as damageName,damage,out_time,location,expected
   FROM (
-  SELECT Boat.id,Boat.Name AS boat_name, Boat.Location as location, Boat.boat_type, COALESCE(MAX(Damage.Degree),0) as damage,Trip.OutTime as out_time, DATE_FORMAT(Trip.ExpectedIn,'%Y-%m-%d %H:%i') as expected
+  SELECT Boat.id,Boat.Name AS boat_name, placement_level,Boat.Location as location, Boat.boat_type, COALESCE(MAX(Damage.Degree),0) as damage,Trip.OutTime as out_time, DATE_FORMAT(Trip.ExpectedIn,'%Y-%m-%d %H:%i') as expected
 FROM
  Boat
    LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL) JOIN DamageType
@@ -48,7 +49,9 @@ ORDER BY location, boat_type,boat_name
 if ($stmt = $rodb->prepare($s)) {
       $result=$rodb->query($s) or die("Error in instruktion stat query: " . mysqli_error($rodb));;
       while ($row = $result->fetch_assoc()) {
-          print("<tr><td ".(($row['damage']>2 || !empty($row['expected']))?"class=\"alert\"":"").">".$row['boat_name']."</td><td ". ($row['boat_type']=='Inrigger 2+'?"class=\"inriggertwo\"":"").">".$row['boat_type'] . "</td><td class=\"". ($row['location']!='DSR'?" notdsr":"") ."\">".$row['location']."</td><td>".$row['damageName']."</td><td>".$row['expected']."</td></tr>\n");
+          print("<tr><td ".(($row['damage']>2 || !empty($row['expected']))?"class=\"alert\"":"").">".$row['boat_name'].
+                "</td><td ". ($row['boat_type']=='Inrigger 2+'?"class=\"inriggertwo\"":"").">".$row['boat_type'] .
+                "</td><td class=\"". ($row['location']!='DSR'?" notdsr":"") ."\">".$row['location']."</td><td>".($row['placement_level']?$row['placement_level']:'')."</td><td>".$row['damageName']."</td><td>".$row['expected']."</td></tr>\n");
       }
       }  else {
       error_log("SQL boat stat error: ".$rodb->error);

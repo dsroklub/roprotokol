@@ -23,6 +23,7 @@ if (!$result->fetch_assoc()) {
     error_log($message);
     $rodb->close();
     $res['status']='error';
+    $res['boat']=$closedtrip->boat;
     $res['error']='notonwater';
     echo json_encode($res);
     exit(0);

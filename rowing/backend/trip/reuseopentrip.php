@@ -18,11 +18,11 @@ $s="SELECT JSON_MERGE(
     'triptype',  TripType.Name,
     'boat_id',Boat.id,
     'boat',Boat.Name,
-    'destination', Trip.Destination, 
+    'destination', Trip.Destination,
     'intime', Trip.InTime,
     'outtime', DATE_FORMAT(CONVERT_TZ(Trip.OutTime,    'SYSTEM', '+0:00'), '%Y-%m-%dT%T.000Z'),
     'expectedintime', DATE_FORMAT(CONVERT_TZ(Trip.ExpectedIn, 'SYSTEM', '+0:00'), '%Y-%m-%dT%T.000Z'),
-    'comment',  MAX(Trip.Comment)), 
+    'comment',  MAX(Trip.Comment)),
    CONCAT(
      '{', JSON_QUOTE('rowers'),': [',
      GROUP_CONCAT(JSON_OBJECT(
@@ -31,7 +31,7 @@ $s="SELECT JSON_MERGE(
    ']}')
    ) AS json
 
-   FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id  
+   FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id
    WHERE Boat.id=Trip.BoatID
      AND Trip.id=?
      AND Trip.InTime IS NULL
@@ -40,32 +40,23 @@ $s="SELECT JSON_MERGE(
    GROUP BY Trip.id,TripType.id,Boat.id
    ORDER BY Trip.id ";
 
-if ($stmt = $rodb->prepare("$s")) { 
-  $stmt->bind_param('i', $reuse->trip_id);
-  $stmt->execute();
-  $result= $stmt->get_result();
-  if ($result) {
-  	if ($row = $result->fetch_assoc()) {
-      $okres=$row["json"];
-      error_log("reuse open trip json=". $row["json"]);
-    } else {
-    	$error = 'No such trip found';
-    }
-  } else {
-  	$error = "Error in reuse query: " . mysqli_error($rodb);
-  }
+$stmt = $rodb->prepare("$s") or dbErr($rodb,$res,"reuse trip");
+$stmt->bind_param('i', $reuse->trip_id) || dbErr($rodb,$res,"reuse trip bind");
+$stmt->execute() || dbErr($rodb,$res,"reuse trip exe");
+$result= $stmt->get_result() or dbErr($rodb,$res,"reuse trip res");
+if ($row = $result->fetch_assoc()) {
+    $okres=$row["json"];
+    error_log("reuse open trip json=". $row["json"]);
 } else {
-  $error = "Error in reuse query SQL: " . mysqli_error($rodb);
+    $error = 'No such trip found';
 }
-
 
 if ($error) {
     error_log("reuse Error: $error :" .$reuse->trip_id);
   // Skip
-} elseif ($stmt = $rodb->prepare("DELETE FROM Trip WHERE id=? AND InTime IS NULL")) { 
+} elseif ($stmt = $rodb->prepare("DELETE FROM Trip WHERE id=? AND InTime IS NULL")) {
   $stmt->bind_param('i', $reuse->trip_id);
   $stmt->execute();
-  $result= $stmt->get_result();
 } else {
   $error = "Could not delete trip";
 }

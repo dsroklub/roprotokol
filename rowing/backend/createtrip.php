@@ -60,10 +60,10 @@ if (!$error) {
     // error_log('now new trip'. json_encode($newtrip));
     $club=$newtrip->foreign_club??null;
     if ($stmt = $rodb->prepare(
-        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team,club)
-                VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?)")) {
+        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team,club,starting_place)
+                VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,?)")) {
         $info="client: ".$newtrip->client_name;
-        $stmt->bind_param('isississss',
+        $stmt->bind_param('isississsss',
                           $newtrip->boat->id ,
                           $newtrip->destination->name,
                           $newtrip->triptype->id,
@@ -73,7 +73,8 @@ if (!$error) {
                           $info,
                           $newtrip->comments,
                           $teamName,
-                          $club
+                          $club,
+                          $newtrip->destination->location
         );
         if (!$stmt->execute()) {
             $error=mysqli_error($rodb);
