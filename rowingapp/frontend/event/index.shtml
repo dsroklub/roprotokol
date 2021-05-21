@@ -1,95 +1,82 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="eventApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="eventApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="eventApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="eventApp" class="no-js"> <!--<![endif]-->
-<head>
-  <!--#include virtual="/public/eventbasetag.html" -->
+<html lang="da-DK">
+  <head>
+    <!--#include virtual="/public/eventbasetag.html" -->
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>DSR roaftaler</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png"  href="media/ico.png" />
-  <script>
-   if (window.location.pathname.startsWith('/frontend/')) {
-     var frontend=document.getElementsByTagName('base')[0].href.split('/')[3];
-     window.location.pathname=window.location.pathname.replace('/frontend/','/'+frontend+'/');
-   }
-  </script>
-
-  <link rel="stylesheet" href="../app/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../app/bower_components/angular-ui-select/dist/select.min.css">
-  <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog.min.css">
-  <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog-theme-default.css">
-  <link rel="stylesheet" href="../app/bower_components/components-font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
-  <!--link rel="stylesheet" href="../app/bower_components/angular-chart.js/dist/angular-chart.css"-->
-  <link rel="stylesheet" href="event.css"/>
-  <link rel="stylesheet" href="local.css"/>
-  <script src="../app/bower_components/angular/angular.js"></script>
-  <script src="components/angular-locale_da-dk.js"></script>
-  <script src="../app/bower_components/angular-route/angular-route.min.js"></script>
-  <script src="../app/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-  <!--script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script-->
-  <script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <!--script src="../app/bower_components_modifications/ui-bootstrap-tpls-elgaard.js"></script-->
-  <script src="../app/bower_components/angular-ui-select/dist/select.min.js"></script>
-  <script src="../app/bower_components/ngDialog/js/ngDialog.min.js"></script>
-  <script src="../app/bower_components/ng-table/dist/ng-table.js"></script>
-  <script src="../app/bower_components/angular-confirm-modal/angular-confirm.js"></script>
-  <script src="../app/bower_components/checklist-model/checklist-model.js"></script>
-
-  <script src="../app/bower_components/moment/moment.js"></script>
-  <script src="../app/bower_components/moment/locale/da.js"></script>
-  <script src="../app/bower_components/angular-momentjs/angular-momentjs.js"></script>
-  <script src="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
-  <script src="../app/bower_components/ng-file-upload/ng-file-upload.js"></script>
-
-  <script src="components/database/database.js"></script>
-  <script src="components/sumWork.js"></script>
-  <script src="components/database/database-services.js"></script>
-  <script src="../dsrcommon/components/utilities/onlynumber.js"></script>
-  <script src="../dsrcommon/components/utilities/time.js"></script>
-  <script src="../dsrcommon/components/utilities/dsrtimeformat.js"></script>
-  <script src="../dsrcommon/components/utilities/interval.js"></script>
-  <script src="../dsrcommon/components/utilities/transformkm.js"></script>
-  <script src="../dsrcommon/components/utilities/safefilename.js"></script>
-  <script src="../dsrcommon/components/utilities/mtokm.js"></script>
-  <script src="../dsrcommon/components/utilities/urlencode.js"></script>
-  <script src="../../public/js/gitrevision.js"></script>
-  <script src="components/database/login-services.js"></script>
-  <script src="event.js"></script>
-  <script src="node_modules/viz.js/viz.js" type="application/javascript"></script>
-  <script src="node_modules/webcola/WebCola/cola.js"></script>
-  <script src="node_modules/d3/dist/d3.js"></script>
-  <script src="node_modules/d3-graphviz/build/d3-graphviz.js"></script>
-  <script src="controllers/events.js"></script>
-  <script src="controllers/work.js"></script>
-  <script src="controllers/club.js"></script>
-  <script src="controllers/noright.js"></script>
-  <script src="controllers/menu.js"></script>
-  <script src="components/database/database-directives.js"></script>
-  <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
-  <script type='text/javascript' src="node_modules/chart.js/dist/Chart.js"></script>
-  <script type='text/javascript' src="node_modules/angular-chart.js/dist/angular-chart.js"></script>
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DSR roaftaler</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png"  href="media/ico.png" />
+    <script>
+      if (window.location.pathname.startsWith('/frontend/')) {
+      var frontend=document.getElementsByTagName('base')[0].href.split('/')[3];
+      window.location.pathname=window.location.pathname.replace('/frontend/','/'+frontend+'/');
+      }
+    </script>
+    
+    <link rel="stylesheet" href="../app/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../app/bower_components/angular-ui-select/dist/select.min.css">
+    <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog-theme-default.css">
+    <link rel="stylesheet" href="../app/bower_components/components-font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
+    <!--link rel="stylesheet" href="../app/bower_components/angular-chart.js/dist/angular-chart.css"-->
+    <link rel="stylesheet" href="event.css"/>
+    <link rel="stylesheet" href="local.css"/>
+    <script src="../app/bower_components/angular/angular.js"></script>
+    <script src="components/angular-locale_da-dk.js"></script>
+    <script src="../app/bower_components/angular-route/angular-route.min.js"></script>
+    <script src="../app/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <!--script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script-->
+    <script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!--script src="../app/bower_components_modifications/ui-bootstrap-tpls-elgaard.js"></script-->
+    <script src="../app/bower_components/angular-ui-select/dist/select.min.js"></script>
+    <script src="../app/bower_components/ngDialog/js/ngDialog.min.js"></script>
+    <script src="../app/bower_components/ng-table/dist/ng-table.js"></script>
+    <script src="../app/bower_components/angular-confirm-modal/angular-confirm.js"></script>
+    <script src="../app/bower_components/checklist-model/checklist-model.js"></script>
+    <script src="../app/bower_components/moment/moment.js"></script>
+    <script src="../app/bower_components/moment/locale/da.js"></script>
+    <script src="../app/bower_components/angular-momentjs/angular-momentjs.js"></script>
+    <script src="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
+    <script src="components/version/version.js"></script>
+    <script src="components/version/version-directive.js"></script>
+    <script src="components/version/interpolate-filter.js"></script>
+    <script src="../app/bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="components/database/database.js"></script>
+    <script src="components/sumWork.js"></script>
+    <script src="components/database/database-services.js"></script>
+    <script src="../dsrcommon/components/utilities/onlynumber.js"></script>
+    <script src="../dsrcommon/components/utilities/time.js"></script>
+    <script src="../dsrcommon/components/utilities/dsrtimeformat.js"></script>
+    <script src="../dsrcommon/components/utilities/interval.js"></script>
+    <script src="../dsrcommon/components/utilities/transformkm.js"></script>
+    <script src="../dsrcommon/components/utilities/safefilename.js"></script>
+    <script src="../dsrcommon/components/utilities/mtokm.js"></script>
+    <script src="../dsrcommon/components/utilities/urlencode.js"></script>
+    <script src="../dsrcommon/components/utilities/txttotime.js"></script>
+    <script src="../../public/js/gitrevision.js"></script>
+    <script src="components/database/login-services.js"></script>
+    <script src="event.js"></script>
+    <script src="node_modules/viz.js/viz.js" type="application/javascript"></script>
+    <script src="node_modules/webcola/WebCola/cola.js"></script>
+    <script src="node_modules/d3/d3.min.js"></script>
+    <script src="node_modules/d3-graphviz/build/d3-graphviz.js"></script>
+    <script src="controllers/events.js"></script>
+    <script src="controllers/boat.js"></script>
+    <script src="controllers/work.js"></script>
+    <script src="controllers/club.js"></script>
+    <script src="controllers/noright.js"></script>
+    <script src="controllers/menu.js"></script>
+    <script src="components/database/database-directives.js"></script>
+    <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
+    <script type='text/javascript' src="node_modules/chart.js/dist/Chart.js"></script>
+    <script type='text/javascript' src="node_modules/angular-chart.js/dist/angular-chart.js"></script>
   <!--script src="../dsrcommon/controllers/main.js"></script-->
 </head>
 <body>
-
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-
   <div class="menuholder" >
     <ul class="menu" ng-controller="menuCtrl as menu">
       <li class="logo">
@@ -115,9 +102,8 @@
       <li ng-class="{topsel:activePath=='/damages/'}"><a href="damages"><i class="fa fa-exclamation-triangle"></i> Skader</a></li>
     </ul>
   </div>
-<div class="main">
-  <div ng-view></div>
+  <div ng-app="eventApp" class="main">
+    <div ng-view></div>
   </div>
-
-</body>
+  </body>
 </html>
