@@ -7,6 +7,7 @@ angular.module('eventApp', [
   'dsrcommon.utilities.onlynumber',
   'dsrcommon.utilities.dsrtime',
   'dsrcommon.utilities.dsrtimeformat',
+  'dsrcommon.utilities.txttotime',
   'dsrcommon.utilities.dsrinterval',
   'dsrcommon.utilities.transformkm',
   'dsrcommon.utilities.safefilename',
@@ -100,6 +101,10 @@ angular.module('eventApp', [
     $routeProvider.when('/club/', {
       templateUrl: 'templates/club.html',
       controller: 'clubCtrl'
+    });
+    $routeProvider.when('/damages/', {
+      templateUrl: 'templates/damages.html',
+      controller: 'boatCtrl'
     });
     $routeProvider.when('/showevent/:event', {
       templateUrl: 'templates/timeline.html',

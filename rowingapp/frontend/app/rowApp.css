@@ -3,6 +3,8 @@
     background: white;
 }
 */
+
+
 html, body {
     margin: 0;
     padding: 0;
@@ -1293,5 +1295,11 @@ img.wrench {
 .longtrip {
   background:#cde040;
 }
+.neartrip {
+  background:#c2ffc2;
+}
 
+
+.ui-select-choices-row div:hover {
+  color: red !important;
 }

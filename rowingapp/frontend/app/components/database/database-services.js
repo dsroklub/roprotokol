@@ -145,6 +145,7 @@ function dbservice($http, $q, $log) {
     this.getData('boatkayakcategory',"",promises);
     this.getData('boat_brand',"",promises);
     this.getData('boat_usages',"",promises);
+    this.getData('damage_types',"",promises);
     this.getData('rights_subtype',"",promises);
     this.getData('status',"",promises);
     this.getData('boat_notes',"",promises);
@@ -243,7 +244,7 @@ function dbservice($http, $q, $log) {
       'status':['status','reservation'],
       'admin':['memberrighttypes','rights_subtype','errortrips','locations','get_events'],
       'reservation':['reservation','boat','get_reservations'],
-      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations','reservation_configurations','memberrighttypes'],
+      'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations','reservation_configurations','memberrighttypes','damage_types'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
       'destination':['destinations','zones'],

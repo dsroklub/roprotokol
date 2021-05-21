@@ -1,0 +1,59 @@
+<script type="text/ng-template" id="reporterTemplate.html">
+  <a>
+  <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+  {{match.model.name}} <i>({{match.model.id}})</i>
+  </a>
+</script>
+
+<ng-form name="reportDamage">
+  <label class="alert" ng-bind="damagesnewstatus"></label>
+  <br>
+
+  <script type="text/ng-template" id="boatTemplate.html">
+    <a>
+      <span bind-html-unsafe="match.label | uibTypeaheadHighlight:query"></span>
+      {{match.model.name}} <i>({{match.model.category}})</i>
+    </a>
+  </script>
+  <div class="report">
+    <input placeholder="Vælg båd" autocomplete="off" id="select_boat" name="name" type="text" ng-model="newdamage.boat"
+           typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoatsWithType($viewValue,boat_type)"
+           typeahead-template-url="boatTemplate.html" required>
+    <select name="boattypechooser" id="boattypechooser" ng-model="boat_type"
+            ng-options="boatcategory.name for boatcategory in boatcategories">
+      <option value="">alle typer</option>
+    </select>
+    <select name="damage" ng-options="dd.degree as dd.name for dd in damage_types" ng-model="newdamage.degree">
+    </select>
+    <textarea placeholder="beskriv skaden" class="damagetext" autocomplete="off" id="damages.damage" name="skade" type="text"
+              ng-model="newdamage.description" required></textarea>
+    <button class="klar"
+            ng-disabled="!(newdamage.boat.id && newdamage.description && newdamage.degree)"
+            id="newdamagereport_button"
+          ng-click="reportDamageForBoat(newdamage)">
+    <i class="fa fa-thumbs-down"></i>Meld ny skade
+  </button>
+  <div class="message" ng-show="newdamage.degree && newdamage.boat && !newdamage.description">HUSK AT BESKRIVE SKADEN</div>
+  </div>
+</ng-form>
+
+<br>
+<table class="genericlist">
+  <thead>
+    <tr><th>Båd</th><th ng-show="!boat_type"></th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>klarmeld</th></tr>
+  </thead>
+  <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="bd in boatdamages | filter: matchBoatAndType(newdamage.boat,boat_type)">
+    <td>{{bd.boat}}</td>
+    <td ng-show="!boat_type">{{bd.boat_type}}</td>
+    <td>{{bd.reporter}}</td>
+    <td>{{bd.created| txttotime | date:"d. MMM yyyy"}}</td>
+    <td ng-if="!isadmin" class="degree">{{bd.damage_name}}</td>
+    <td ng-if="isadmin" class="degree"><select ng-change="update_damage(bd)" ng-options="dd.id as dd.name for dd in damagedegrees" ng-model="bd.degree"></select></td>
+    <td>{{bd.description}}</td>
+    <td class="ok" ng-click="reportFixDamage(bd,boatdamages,$index)">
+      <button class="klar"><i class="fa fa-thumbs-up"></i>
+      </button>
+    </td>
+  </tr>
+</table>
+<!--pre>newdamage= {{newdamage | json}}</pre-->
