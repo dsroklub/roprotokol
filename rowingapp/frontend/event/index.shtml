@@ -2,9 +2,7 @@
 <html lang="da-DK">
   <head>
     <!--#include virtual="/public/eventbasetag.html" -->
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>DSR roaftaler</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +13,6 @@
       window.location.pathname=window.location.pathname.replace('/frontend/','/'+frontend+'/');
       }
     </script>
-    
     <link rel="stylesheet" href="../app/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../app/bower_components/angular-ui-select/dist/select.min.css">
     <link rel="stylesheet" href="../app/bower_components/ngDialog/css/ngDialog.min.css">
