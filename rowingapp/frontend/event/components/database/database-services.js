@@ -62,11 +62,13 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/messages',promises);
     this.getData('event/member_setting',promises);
     this.getData('event/worklog',promises);
+    this.getData('event/boats',promises);
     this.getData('event/workers',promises);
     this.getData('event/work_today',promises);
     this.getData('event/rowers',promises);
     this.getData('event/worktasks',promises);
     this.getData('event/boat_category',promises);
+    this.getData('event/damage_types',promises);
     this.getData('event/maintenance_boats',promises);
     this.getData('event/current_user',promises);
     this.getData('event/fora',promises);
@@ -74,28 +76,8 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/events_participants',promises);
     this.getData('event/destinations',promises);
     this.getData('event/userfora',promises);
+    this.getData('event/boatdamages',promises);
     $log.debug("DB fetch rowers");
-
-    $log.debug("DB boatById");
-    if(!valid['boatsById']) {
-      var bq=$q.defer();
-      promises.push(bq.promise);
-      $http.get(toURL('event/boats.php')).then(function(response) {
-        db['boatsByID'] = {};
-        db['boatsByName'] = {};
-        db['boats'] = [];
-        for (var di=0; di<response.data.length;di++) {
-          db['boatsById'][response.data[di].id]=response.data[di];
-          db['boatsByName'][response.data[di].name]=response.data[di];
-          db['boats'].push(response.data[di]);
-        }
-        valid['boatsById']=true;
-        valid['boatsByname']=true;
-        $log.debug(" resolve boatsById");
-        bq.resolve(true);
-      },this.onDBerror);
-    }
-    $log.debug("DB Q #p="+promises.length);
     var qll=$q.all(promises);
     tx=qll;
     return qll;
@@ -125,7 +107,7 @@ function dbservice($http, $q, $log, $timeout) {
       'member':['event/rowers','event/events_participants'],
       'event':['event/events','event/event_category','event/userfora','event/events_participants'],
       'message':['event/messages'],
-      'boat':['boatsByID','boatsByName'],
+      'boat':['event/damage_types','event/boatdamages','event/boats'],
       'work':['event/work_today','event/workers','event/worklog','event/worktasks','event/maintenance_boats'],
       'fora':['event/messages','event/userfora','event/fora'],
       'file':['event/forum_files_list']

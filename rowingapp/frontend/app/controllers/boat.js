@@ -12,6 +12,16 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.damagedegrees=[{"id":"","name":"disabled"},{id:1,name:"let"},{"id":2,"name":"middel"},{"id":3,"name":"svær"},{"id":4,"name":"vedligehold"}];
   $scope.allboatdamages=[];
   $scope.destinations=[];
+  $scope.errorhandler = function(error) {
+    $log.error(error);
+    if (error.status==400 || error.status=="notauthorized") {
+      $route.reload();
+      alert("du skal logge ind");
+    } else {
+      alert("DB fejl " + error.data.error);
+    }
+  }
+
   $scope.burl=$location.$$absUrl.split("ind/")[0];
   $scope.isName = function(n) {
     if (!n) {
@@ -55,6 +65,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
     var reservations=DatabaseService.getDB('get_reservations');
     $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
+    $scope.damage_types = DatabaseService.getDB('damage_types');
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
     $scope.reservation_configurations = DatabaseService.getDB('reservation_configurations');
     $scope.boatcategories = DatabaseService.getBoatTypes();

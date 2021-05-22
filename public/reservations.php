@@ -25,7 +25,7 @@ $s='SELECT
 $format=$_GET["format"] ?? "csv";
 $q="bådreservationer";
 $colormap=["turtype"=>["Motionsroning"=>"4444FF","Puls og program"=>"00FF00","Inriggerkaproning"=>"FF0000","Instruktion"=>"888844","Coastalroning"=>"00AAAA"]];
-$result=$rodb->query($s) or die("Error in ld query: " . mysqli_error($rodb));;
+$result=$rodb->query($s) or die("Error in ld query: " . mysqli_error($rodb));
 $captions="_auto";
 process($result,$format,$q,$captions,$colormap);
 

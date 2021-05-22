@@ -79,6 +79,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     $scope.boatsById=DatabaseService.getDB('boatsById');
     $scope.boatsByName=DatabaseService.getDB('boatsByName');
     $scope.boats=DatabaseService.getDB('event/boats');
+    $scope.damage_types=DatabaseService.getDB('event/damage_types');
     $scope.maintenance_boats=DatabaseService.getDB('event/maintenance_boats');
     $scope.events=DatabaseService.getDB('event/events_participants');
     $scope.destinations=(DatabaseService.getDB('event/destinations')['DSR']).concat([{name:"Langtur"}]);
@@ -110,7 +111,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     });
     $scope.member_path=$location.protocol()+"://"+ $location.host()+"/backend/event/";
     $scope.site_path=$location.protocol()+"://"+ $location.host();
-    $log.debug("DB READY");
+    $log.debug("EV DB READY");
     $scope.dbready=true;
 
     if ($scope.eventarg) {

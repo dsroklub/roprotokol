@@ -27,3 +27,12 @@ function verify_right($required,$arg) {
         roErr("medlem $cuser har ikke rettigheden $required ".$arg??"");
     }
 }
+
+function member_lookup($u) {
+    global $rodb;
+    $stmt=$rodb->prepare("SELECT CONCAT(FirstName,' ',LastName) as name,id FROM Member WHERE MemberId=?") or dbErr($rodb,$res,"verify right");
+    $stmt->bind_param("s", $u) or dbErr($rodb,$res,"member lookup bind");
+    $stmt->execute() or dbErr($rodb,$res,"member LOOKUP");
+    $result= $stmt->get_result() or dbErr($rodb,$res,"mem LU");
+    return($result->fetch_assoc());
+}

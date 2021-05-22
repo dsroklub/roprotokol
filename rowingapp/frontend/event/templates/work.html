@@ -206,7 +206,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
           <a class="linkbtn" href="/backend/event/stats/workstats.php?q=nonmembers&format=xlsx">download</a>
         </li>
 
-        <li>Arbejdet mindre end <input type="number"  min="0" max="100" step="10" ng-model="workstat.workpercent" ng-change="workstat.mailto=null">
+        <li>Arbejdet mindre end <input type="number"  min="0" max="100" step="10" ng-model="workstat.workpercent" ng-change="workstat.mailto=null"> pct
           <button ng-click="get_email_report('lesswork','workstats',workstat.workpercent)">Vis</button>
           <a class="linkbtn" ng-show="workstat.mailto" href='mailto:{{workstat.mailto}}?subject=Du%20er%20bagud%20med%20vintervedligehold&body=Du%20har%20lavet%20under%20{{workstat.workpercent}}%20procent%20af%20dit%20arbejde'>Lav email</a>
           <a class="linkbtn" href="/backend/event/stats/workstats.php?q=lesswork&a={{workstat.workpercent}}&format=xlsx">download</a>
