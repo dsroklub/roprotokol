@@ -12,7 +12,7 @@ if (empty($cuser)) {
 } else {
     $reporter=$cuser;
 }
-$stmt = $rodb->prepare("INSERT INTO Damage(Boat,Degree,ResponsibleMember,Description,Created) SELECT ?,?,id,?,NOW() From Member WHERE MemberID=?")) or dbErr($rodb,$res,"newdamage prep");
+$stmt = $rodb->prepare("INSERT INTO Damage(Boat,Degree,ResponsibleMember,Description,Created) SELECT ?,?,id,?,NOW() From Member WHERE MemberID=?") or dbErr($rodb,$res,"newdamage prep");
 $stmt->bind_param('iiss', $newdamage->boat->id , $newdamage->degree, $newdamage->description,$reporter) || dbErr($rodb,$res,"newdamage bind");
 $stmt->execute() || dbErr($rodb,$res,"could not create damage, DB error".$stmt->error);
 eventLog($newdamage->reporter->name." meldte skaden: ".$newdamage->description. " grad ".$newdamage->degree." på båden ".$newdamage->boat->name);
