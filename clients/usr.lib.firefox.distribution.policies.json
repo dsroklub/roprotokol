@@ -1,0 +1,8 @@
+{
+  "policies": {
+    "DisableDeveloperTools": true,
+    "DisableFirefoxStudies": true ,
+     "DisableFormHistory": true,
+     "DisplayMenuBar": true 
+  }
+}

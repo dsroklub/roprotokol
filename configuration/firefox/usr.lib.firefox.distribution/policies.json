@@ -1,0 +1,10 @@
+{
+  "policies": {
+    "DisableDeveloperTools": true,
+    "DisableFirefoxStudies": true ,
+     "DisableFormHistory": true,
+     "DisplayMenuBar": true, 
+     "OverridePostUpdatePage": true,
+     "BlockAboutAddons":true
+  }
+}
