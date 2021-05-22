@@ -28,7 +28,7 @@ if (isset($d->end_time->hour)) {
 }
 $work="";
 if ($cuser=="baadhal"){
-    if (strtotime($end_time) > now)  {
+    if (strtotime($end_time) > $now)  {
         $end_time=date("Y-m-d H:i:s");
     }
 }
