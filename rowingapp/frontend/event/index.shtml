@@ -59,7 +59,7 @@
     <script src="event.js"></script>
     <script src="node_modules/viz.js/viz.js" type="application/javascript"></script>
     <script src="node_modules/webcola/WebCola/cola.js"></script>
-    <script src="node_modules/d3/d3.min.js"></script>
+    <script src="node_modules/d3/dist/d3.min.js"></script>
     <script src="node_modules/d3-graphviz/build/d3-graphviz.js"></script>
     <script src="controllers/events.js"></script>
     <script src="controllers/boat.js"></script>
@@ -71,9 +71,8 @@
     <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
     <script type='text/javascript' src="node_modules/chart.js/dist/Chart.js"></script>
     <script type='text/javascript' src="node_modules/angular-chart.js/dist/angular-chart.js"></script>
-  <!--script src="../dsrcommon/controllers/main.js"></script-->
-</head>
-<body>
+  </head>
+  <body>
   <div class="menuholder" >
     <ul class="menu" ng-controller="menuCtrl as menu">
       <li class="logo">
