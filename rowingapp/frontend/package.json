@@ -6,12 +6,12 @@
   "repository": "https://github.com/elgaard/DSR-roprotokol",
   "license": "MIT",
   "devDependencies": {
-    "karma": "*",
+    "bower": "^1.8.12",
+    "http-server": "^0.12.3",
+    "karma": "^5.1.1",
+    "karma-junit-reporter": "^0.2.2",
     "protractor": "^1.1.1",
-    "http-server": "^0.6.1",
-    "bower": "*",
-    "shelljs": "^0.2.6",
-    "karma-junit-reporter": "^0.2.2"
+    "shelljs": "^0.2.6"
   },
   "scripts": {
     "postinstall": "bower install",
@@ -27,8 +27,9 @@
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
   },
   "dependencies": {
+    "angular-chart.js": "^1.1.1",
     "angularjs-datepicker": "^2.1.23",
-    "d3": "^5.12.0",
+    "d3": "^5.16.0",
     "d3-graphviz": "^2.6.1",
     "webcola": "^3.4.0"
   }
