@@ -59,7 +59,7 @@
     <script src="event.js"></script>
     <script src="node_modules/viz.js/viz.js" type="application/javascript"></script>
     <script src="node_modules/webcola/WebCola/cola.js"></script>
-    <script src="node_modules/d3/d3.min.js"></script>
+    <script src="node_modules/d3/dist/d3.min.js"></script>
     <script src="node_modules/d3-graphviz/build/d3-graphviz.js"></script>
     <script src="controllers/events.js"></script>
     <script src="controllers/boat.js"></script>
