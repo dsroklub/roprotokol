@@ -79,7 +79,7 @@
         <tr ng-repeat-start="boat in boats.allboats | filter: matchBoatType(boat_type)">
           <td ng-click="boat.expand=!boat.expand"><i class="fa fa-chevron-circle-down"></td>
           <td>
-            <input class="boatname" type="text" ng-model="boat.name" ng_change="set_name_for_boat(boat)" ng-model-options="{updateOn:'blur'}">
+            <input class="boatname" type="text" ng-model="boat.name" ng-change="set_name_for_boat(boat)" ng-model-options="{updateOn:'blur'}">
           </td>
           <td><select ng-change="set_cat_for_boat(boat)" ng-model="boat.category" ng-options="cat.name as cat.name for cat in boatcategories"></select></td>
           <td><select ng-show="boat.location" ng-change="set_loc_for_boat(boat)" ng-model="boat.location" ng-options="loc.name as loc.name for loc in locations"></select>
