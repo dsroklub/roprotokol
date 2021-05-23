@@ -19,6 +19,8 @@ function boatCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
   $anchorScroll.yOffset = 50;
   $scope.boatObj=null;
+  $scope.searchdamage={boattype:"all",degree:-1};
+
   $scope.todpattern="[0-2]\\d:[0-5]\\d";
   $scope.boats=[];
   $scope.boatdamages=[];
@@ -41,13 +43,14 @@ function boatCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
 
   var wait_for_db = function (ok) {
     $log.debug("evt boat db init done");
-    $scope.boatcategories=[{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
+    $scope.boatcategories=[];
     $log.debug("EVET BT");
     $scope.boats=DatabaseService.getDB('event/boats');
     $log.debug("get dam");
     $scope.boatdamages=DatabaseService.getDB('event/boatdamages');
     $scope.damage_types=DatabaseService.getDB('event/damage_types');
     $scope.boats=DatabaseService.getDB('event/boats');
+    $scope.boatcategories = DatabaseService.getDB('event/boattypes');
     $scope.member_setting=DatabaseService.getDB('event/member_setting');
     LoginService.check_user().promise.then(function(u) {
       $scope.current_user=u;
@@ -76,6 +79,12 @@ function boatCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.matchBoatAndType = function(boat,boat_type) {
     return function(matchboat) {
       return (matchboat.id && (boat==null || matchboat.boat_id==boat.id) && (!boat_type || matchboat.boat_type==boat_type.name));
+    }
+  };
+
+  $scope.matchDegree = function(d) {
+    return function(md) {
+      return (md.degree>=d);
     }
   };
 
@@ -109,6 +118,7 @@ function boatCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
       var exeres=DatabaseService.updateDB_async('event/newdamage',damage,$scope.config).then(
         function(data) {
           if (data.status=="ok") {
+            data.damage.damage_name=$scope.damage_types[data.damage.degree-1].name;
             $scope.boatdamages.splice(0,0,data.damage);
             $scope.newdamage={};
           }

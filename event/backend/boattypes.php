@@ -1,6 +1,5 @@
 <?php
-require("inc/common.php");
-include("inc/utils.php");
+include("../../rowing/backend/inc/common.php");
 $bt=$rodb->query("SELECT JSON_MERGE(
     JSON_OBJECT(
      'name',Name,
@@ -17,5 +16,6 @@ $bt=$rodb->query("SELECT JSON_MERGE(
     LEFT JOIN  BoatRights ON BoatType.Name=BoatRights.boat_type
     GROUP BY BoatType.Name,Seatcount,Category,rights_subtype,Description
     ORDER by Name") or dbErr($rodb,$res,"boattypes");
+//echo $s;
 output_json($bt);
 $rodb->close();

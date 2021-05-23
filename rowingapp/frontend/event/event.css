@@ -669,3 +669,7 @@ a.linkbtn {
   font-size: 16pt;
   border-radius: 3px;
 }
+
+.report{
+  display:flex;
+}

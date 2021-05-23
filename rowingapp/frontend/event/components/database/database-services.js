@@ -75,6 +75,7 @@ function dbservice($http, $q, $log, $timeout) {
     //    this.getData('event/events',promises);
     this.getData('event/events_participants',promises);
     this.getData('event/destinations',promises);
+    this.getData('event/boattypes',promises);
     this.getData('event/userfora',promises);
     this.getData('event/boatdamages',promises);
     $log.debug("DB fetch rowers");
