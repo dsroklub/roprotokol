@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('eventApp', [
-  'ngRoute',
   'event.utilities.sumWork',
   'event.utilities.sumDistance',
   'dsrcommon.utilities.onlynumber',
@@ -26,6 +25,7 @@ angular.module('eventApp', [
   'ui.bootstrap.datetimepicker',
   'angular.filter',
   'checklist-model',
+  'ngRoute',
   'ngFileUpload'
 ])
 .config([
@@ -41,85 +41,65 @@ angular.module('eventApp', [
     $routeProvider.when('/eventsubscribe/', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
-    });
-    $routeProvider.when('/forumsubscribe/', {
+    }).when('/forumsubscribe/', {
       templateUrl: 'templates/forum.html',
       controller: 'eventCtrl'
-  });
-    $routeProvider.when('/overview/', {
+  }).when('/overview/', {
       templateUrl: 'templates/overview.html',
       controller: 'eventCtrl'
-  });
-    $routeProvider.when('/eventcreate/!#forum/:forum', {
+  }).when('/eventcreate/!#forum/:forum', {
       templateUrl: 'templates/eventcreate.html',
       controller: 'eventCtrl'
-  });
-    $routeProvider.when('/eventcreate/', {
+  }).when('/eventcreate/', {
       templateUrl: 'templates/eventcreate.html',
       controller: 'eventCtrl'
-  });
-    $routeProvider.when('/!#message/:message', {
+  }).when('/!#message/:message', {
       templateUrl: 'templates/message.html',
       controller: 'eventCtrl'
-  });
-    $routeProvider.when('/message/', {
+  }).when('/message/', {
       templateUrl: 'templates/message.html',
       controller: 'eventCtrl'
-  });
-    $routeProvider.when('/admin/', {
+  }).when('/admin/', {
       templateUrl: 'templates/admin.html',
       controller: 'eventCtrl'
-  });
-    $routeProvider.when('/public/', {
+  }).when('/public/', {
       templateUrl: 'templates/public.html',
       controller: 'eventCtrl'
-  });
-    $routeProvider.when('/about/', {
+  }).when('/about/', {
       templateUrl: 'templates/about.html',
       controller: 'noRight'
-  });
-    $routeProvider.when('/!#timeline/:event', {
+  }).when('/!#timeline/:event', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
-    });
-    $routeProvider.when('/timeline/', {
+    }).when('/timeline/', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
-    });
-    $routeProvider.when('/member/:memberid', {
+    }).when('/member/:memberid', {
       templateUrl: 'templates/member.html',
       controller: 'eventCtrl'
-    });
-    $routeProvider.when('/member/', {
+    }).when('/member/', {
       templateUrl: 'templates/member.html',
       controller: 'eventCtrl'
-    });
-    $routeProvider.when('/work/', {
+    }).when('/work/', {
       templateUrl: 'templates/work.html',
       controller: 'workCtrl'
-    });
-    $routeProvider.when('/club/', {
+    }).when('/club/', {
       templateUrl: 'templates/club.html',
       controller: 'clubCtrl'
-    });
-    $routeProvider.when('/damages/', {
+    }).when('/damages/', {
       templateUrl: 'templates/damages.html',
       controller: 'boatCtrl'
-    });
-    $routeProvider.when('/showevent/:event', {
+    }).when('/showevent/:event', {
       templateUrl: 'templates/timeline.html',
       controller: 'eventCtrl'
-    });
-    $routeProvider.when('/forcelogin/', {
+    }).when('/forcelogin/', {
       templateUrl: 'templates/login.html',
       controller: 'eventCtrl'
-  });
-    $routeProvider.when('/login/', {
+  }).when('/login/', {
       templateUrl: 'templates/login.html',
       controller: 'noRight'
-  });
-    $routeProvider.when('/', {redirectTo: '/login'});
-    $routeProvider.otherwise({
+  }).when('/', {redirectTo: '/login'})
+	  .otherwise({
       templateUrl: 'templates/notimplementet.html',
       controller: 'noRight'
     });
