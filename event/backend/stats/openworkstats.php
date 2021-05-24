@@ -4,6 +4,7 @@ include("../../../rowing/backend/inc/common.php");
 require_once("utils.php");
 $q=$_GET["q"] ?? "none";
 $format=$_GET["format"] ?? "csv";
+$sumq=null;
 $sum=null;
 $captions="_auto";
 $seasonclause="YEAR(start_time)=YEAR(NOW()) OR (YEAR(start_time)=YEAR(NOW())-1 AND MONTH(start_time)>6)";

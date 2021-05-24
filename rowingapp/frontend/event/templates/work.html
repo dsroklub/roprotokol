@@ -140,9 +140,6 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
   </table>
 </div>
 
-<ul>
-  <li><button ng-click="get_report('rank','openworkstats')">statistik</button></li>
-</ul>
 
 <div ng-if="current_user.is_winter_admin">
   <h1>Administration</h1>
@@ -190,6 +187,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         </canvas>
       </div>
       <ul>
+        <li><button ng-click="get_report('rank','openworkstats')">overskudstimer</button></li>
         <li><button ng-click="get_report('all')">Timer på vintervedligehold</button> <a class="linkbtn" href="/backend/event/stats/workstats.php?q=all&format=xlsx">download</a></li>
         <li><button ng-click="get_report('day')">Timer pr dag vintervedligehold</button> <a class="linkbtn" href="/backend/event/stats/workstats.php?q=day&format=xlsx">download</a></li>
         <li><button ng-click="get_report('boat')">Timer pr båd vintervedligehold</button> <a class="linkbtn" href="/backend/event/stats/workstats.php?q=boat&format=xlsx">download</a></li>

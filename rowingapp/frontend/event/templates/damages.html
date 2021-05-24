@@ -17,12 +17,9 @@
   </script>
   <div class="report">
     <input placeholder="Vælg båd" autocomplete="off" id="select_boat" name="name" type="text" ng-model="newdamage.boat"
+           ng-change="searchdamage.boat_type=null"
            typeahead-min-length="1" uib-typeahead="boat as boat.name for boat in getMatchingBoatsWithType($viewValue,boat_type)"
            typeahead-template-url="boatTemplate.html" required>
-    <select name="boattypechooser" id="boattypechooser" ng-model="boat_type"
-            ng-options="boatcategory.name for boatcategory in boatcategories">
-      <option value="">alle typer</option>
-    </select>
     <select name="damage" ng-options="dd.degree as dd.name for dd in damage_types" ng-model="newdamage.degree">
     </select>
     <textarea placeholder="beskriv skaden" class="damagetext" autocomplete="off" id="damages.damage" name="skade" type="text"
@@ -37,14 +34,25 @@
   </div>
 </ng-form>
 
-<br>
+<h2>Skader</h2>
+<select name="boattypechooser" id="boattypechooser" ng-model="searchdamage.boat_type"
+        ng-change="newdamage.boat=null"
+        ng-options="boatcategory.name for boatcategory in boatcategories">
+      <option value="">alle typer</option>
+    </select>
+
+        <select name="damage" ng-options="dd.degree as dd.name for dd in damage_types" ng-model="searchdamage.degree">
+          <option value="-1">alle typer</option>
+        </select>
+    eller værre
+        <br>
 <table class="genericlist">
   <thead>
     <tr><th>Båd</th><th ng-show="!boat_type"></th><th>Skadeanmelder</th><th>Dato</th><th>Grad</th><th>Beskrivelse</th><th>klarmeld</th></tr>
   </thead>
-  <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="bd in boatdamages | filter: matchBoatAndType(newdamage.boat,boat_type)">
+  <tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="bd in boatdamages | filter: matchBoatAndType(newdamage.boat,searchdamage.boat_type) | filter: matchDegree(searchdamage.degree)" >
     <td>{{bd.boat}}</td>
-    <td ng-show="!boat_type">{{bd.boat_type}}</td>
+    <td ng-show="!searchdamage.boat_type">{{bd.boat_type}}</td>
     <td>{{bd.reporter}}</td>
     <td>{{bd.created| txttotime | date:"d. MMM yyyy"}}</td>
     <td ng-if="!isadmin" class="degree">{{bd.damage_name}}</td>
