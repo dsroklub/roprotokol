@@ -243,7 +243,7 @@ function dbservice($http, $q, $log) {
     cachedepend={
       'status':['status','reservation'],
       'admin':['memberrighttypes','rights_subtype','errortrips','locations','get_events'],
-      'reservation':['reservation','boat','get_reservations'],
+      'reservation':['reservation','boats','get_reservations'],
       'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations','reservation_configurations','memberrighttypes','damage_types'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
