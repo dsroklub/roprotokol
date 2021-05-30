@@ -243,7 +243,7 @@ function dbservice($http, $q, $log) {
     cachedepend={
       'status':['status','reservation'],
       'admin':['memberrighttypes','rights_subtype','errortrips','locations','get_events'],
-      'reservation':['reservation','boat','get_reservations'],
+      'reservation':['reservation','boats','get_reservations'],
       'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations','reservation_configurations','memberrighttypes','damage_types'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
@@ -287,7 +287,7 @@ function dbservice($http, $q, $log) {
               enddate.setMinutes(end_time[1]);
               startdate.setHours(from_time[0]);
               startdate.setMinutes(from_time[1]);
-              if (endtime>now && (starttime-now)/1000/3600<2) {
+              if (startdate>now && (startdate-now)/1000/3600<2) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
                 break;
               }
