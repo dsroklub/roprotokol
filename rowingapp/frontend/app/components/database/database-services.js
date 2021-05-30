@@ -287,7 +287,7 @@ function dbservice($http, $q, $log) {
               enddate.setMinutes(end_time[1]);
               startdate.setHours(from_time[0]);
               startdate.setMinutes(from_time[1]);
-              if (endtime>now && (starttime-now)/1000/3600<2) {
+              if (startdate>now && (startdate-now)/1000/3600<2) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
                 break;
               }
