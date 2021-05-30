@@ -40,12 +40,12 @@ if (isset($d->hours) && $cuser != "baadhal") {
 }
 
 if ($cuser=="baadhal"){
-    if ($hours>3) {
+    if ($hours>5) {
         $message = "$d->name afkortet til 3 timer\n";
         $message .="$start_time til $end_time = $hours" ;
-        $hours=3;
+        $hours=5;
         error_log($message);
-        post_forum_message($forum,"$d->name over 3 timer",$message,$from=null,$forumEmail=null,$sticky=false);
+        post_forum_message($forum,"$d->name over 5 timer",$message,$from=null,$forumEmail=null,$sticky=false);
     }
 }
 
