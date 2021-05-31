@@ -4,14 +4,15 @@
 
 angular.module('rowApp').controller(
   'BoatCtrl',
-  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log','$location',
+  ['$scope', '$routeParams', 'DatabaseService', '$filter', 'ngDialog','$log','$location','$route',
    BoatCtrl
   ]);
 
-function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log, $location) {
+function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log, $location,$route) {
   $scope.damagedegrees=[{"id":"","name":"disabled"},{id:1,name:"let"},{"id":2,"name":"middel"},{"id":3,"name":"svær"},{"id":4,"name":"vedligehold"}];
   $scope.allboatdamages=[];
   $scope.destinations=[];
+  $scope.checkout={};
   $scope.errorhandler = function(error) {
     $log.error(error);
     if (error.status==400 || error.status=="notauthorized") {
@@ -63,7 +64,6 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       }
     }
 
-    var reservations=DatabaseService.getDB('get_reservations');
     $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
     $scope.damage_types = DatabaseService.getDB('damage_types');
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
@@ -99,7 +99,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       {id:7,day:"søndag"}
     ];
 
-    DatabaseService.update_reservations($scope.reservation_configurations);
+    DatabaseService.update_reservations($scope.reservation_configurations,$scope.checkout);
     $scope.allboats = DatabaseService.getBoats();
     $scope.levels =DatabaseService.getDB('boatlevels');
     $scope.coxteams =DatabaseService.getDB('coxteams');
@@ -342,7 +342,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
   $scope.do_boat_category = function(cat) {
     $scope.selectedBoatCategory=cat;
-    DatabaseService.update_reservations($scope.reservation_configurations);
+    DatabaseService.update_reservations($scope.reservation_configurations,$scope.checkout);
     $scope.checkoutmessage=null;
     $scope.checkoutnotification=null;
     $scope.selectedboats = DatabaseService.getBoatsWithCategoryName(cat.name);
@@ -525,7 +525,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       }
       $scope.expectedOptions.minDate=$scope.checkout.starttime;
     }
+    DatabaseService.update_reservations($scope.reservation_configurations,$scope.checkout);
   }
+  
   $scope.togglecheckout = function (tm) {
     $scope.timeopen[tm]=!$scope.timeopen[tm];
   }
