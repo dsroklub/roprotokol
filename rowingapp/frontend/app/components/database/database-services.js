@@ -263,15 +263,27 @@ function dbservice($http, $q, $log) {
     return false;
   }
 
-  this.update_reservations = function(reservation_configurations) {
-    var now = new Date();
-    var this_dayofweek=now.getDay();
+  this.update_reservations = function(reservation_configurations,checkout) {
+    var chout;
+    if (checkout.starttime) {
+      chout=checkout.starttime;
+    } else {
+      chout = new Date();
+    }
+    var this_dayofweek=chout.getDay();
     if (this_dayofweek==0) {
       this_dayofweek=7;
+    }
+    var chin;
+    if (checkout.expectedtime) {
+      chin=checkout.expectedtime;
+    } else {
+      chin=new Date(chout.getTime()+2*3600*1000);
     }
     var allboats=db['boatsA'];
     var reservationsByBoat=db['reservationsByBoat'];
     for (var bi=0; bi<allboats.length;bi++) {
+      allboats[bi].reserved_to=null;
       if (reservationsByBoat[allboats[bi].id]) {
         for (var ri=0; ri<reservationsByBoat[allboats[bi].id].length; ri++) {
           var reservation=reservationsByBoat[allboats[bi].id][ri];
@@ -287,8 +299,11 @@ function dbservice($http, $q, $log) {
               enddate.setMinutes(end_time[1]);
               startdate.setHours(from_time[0]);
               startdate.setMinutes(from_time[1]);
-              if (startdate>now && (startdate-now)/1000/3600<2) {
+              if (chout>startdate && chout<enddate || chin>startdate&&chin<enddate) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
+                if (reservationsByBoat[allboats[bi].id][ri].purpose) {
+                  allboats[bi].reserved_to+=(" ("+reservationsByBoat[allboats[bi].id][ri].purpose+")");
+                }
                 break;
               }
             } else if (reservation.dayofweek==this_dayofweek) {
@@ -296,8 +311,11 @@ function dbservice($http, $q, $log) {
               endtime.setMinutes(end_time[1]);
               starttime.setHours(from_time[0]);
               starttime.setMinutes(from_time[1]);
-              if (endtime>now && (starttime-now)/1000/3600<2) {
+              if (endtime>chout && (starttime-chout)/1000/3600<2) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
+                if (reservationsByBoat[allboats[bi].id][ri].purpose) {
+                  allboats[bi].reserved_to+=(" ("+reservationsByBoat[allboats[bi].id][ri].purpose+")");
+                }
                 break;
               }
             }

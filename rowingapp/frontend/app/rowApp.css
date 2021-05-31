@@ -1303,3 +1303,7 @@ img.wrench {
 .ui-select-choices-row div:hover {
   color: red !important;
 }
+
+.purpose{
+        min-width:30em;
+}
