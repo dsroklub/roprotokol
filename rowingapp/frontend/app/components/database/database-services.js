@@ -288,8 +288,6 @@ function dbservice($http, $q, $log) {
         for (var ri=0; ri<reservationsByBoat[allboats[bi].id].length; ri++) {
           var reservation=reservationsByBoat[allboats[bi].id][ri];
           if (reservation_is_current(reservation,reservation_configurations)) {
-            var starttime=new Date;
-            var endtime=new Date;
             var from_time=reservation.start_time.split(":");
             var end_time=reservation.end_time.split(":");
             if (reservation.dayofweek==0) {
@@ -299,7 +297,7 @@ function dbservice($http, $q, $log) {
               enddate.setMinutes(end_time[1]);
               startdate.setHours(from_time[0]);
               startdate.setMinutes(from_time[1]);
-              if (chout>startdate && chout<enddate || chin>startdate&&chin<enddate) {
+              if (chout>startdate && chout<enddate || chin>startdate && chin<enddate) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
                 if (reservationsByBoat[allboats[bi].id][ri].purpose) {
                   allboats[bi].reserved_to+=(" ("+reservationsByBoat[allboats[bi].id][ri].purpose+")");
@@ -307,12 +305,17 @@ function dbservice($http, $q, $log) {
                 break;
               }
             } else if (reservation.dayofweek==this_dayofweek) {
+              var starttime=new Date;
+              var endtime=new Date;
               endtime.setHours(end_time[0]);
               endtime.setMinutes(end_time[1]);
               starttime.setHours(from_time[0]);
               starttime.setMinutes(from_time[1]);
-              if (endtime>chout && (starttime-chout)/1000/3600<2) {
+              if (chout>startdate && chout<enddate || chin>startdate && chin<enddate) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
+                if (chout<starttime) {
+                  allboats[bi].reserved_to+=(" "+from_time[0]+":"+from_time[1]);
+                }
                 if (reservationsByBoat[allboats[bi].id][ri].purpose) {
                   allboats[bi].reserved_to+=(" ("+reservationsByBoat[allboats[bi].id][ri].purpose+")");
                 }

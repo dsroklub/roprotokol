@@ -36,7 +36,7 @@
           <td>{{boat.note}} </td>
           <td class="usage">
             {{boat.usage}}
-            <span ng-show="boat.reserved_to && !(boat.reserved_to==checkout.triptype.name)" class="warn" uib-tooltip="reserveret {{boat.reserved_to }} indenfor to timer" >&#x23F3;</span>
+            <span ng-show="boat.reserved_to && !(boat.reserved_to==checkout.triptype.name)" class="warn" uib-tooltip="reserveret {{boat.reserved_to }}" >&#x23F3;</span>
           </td>
           <td ng-click="damagesForBoat=boat"><span ng-show="{{boat.trip}}">På vandet</span>
             <span>{{boat.damage|damagedegreedk}}</span>
