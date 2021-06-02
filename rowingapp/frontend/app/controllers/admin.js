@@ -28,6 +28,7 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   $scope.rowerkm_separate_instruction = false;
   $scope.rowerkm_only_members = false;
   $scope.rowerkm_year = new Date().getFullYear();
+  $scope.newright_year = new Date().getFullYear();
   $scope.datereservation={"start_time":"17:00","end_time":"19:00"};
   $scope.reservation_match = function() {
     return function(reservation) {
