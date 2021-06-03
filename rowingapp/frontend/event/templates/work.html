@@ -18,6 +18,7 @@
       <tr>
         <th>navn</th>
         <th>tid</th>
+        <th>udført</th>
         <th>beskrivelse</th>
         <th>båd</th>
       </tr>
@@ -28,6 +29,7 @@
         <td>{{wk.start_time | dsrtimeformat}} &mdash;
           <span ng-if="wk.end_time">{{wk.end_time | dsrtimeformat}} = {{wk.hours | number:1 }} h</span>
         </td>
+        <td>{{wk.allhours | number:1}} af {{wk.requirement | number:1}}</td>
         <td>{{wk.work}}</td>
         <td>{{wk.boat}}</td>
         <td><i class="fa fa-trash" ng-click="rm_work(work_today,wk)"></i></td>
@@ -40,7 +42,7 @@
     <thead>
       <tr>
         <th>Navn</th>
-        <th>krav</th>
+        <th>udført</th>
         <th>påbegyndt</th>
         <th>beskrivelse</th>
         <th>båd</th>
@@ -50,10 +52,10 @@
     <tbody>
       <tr ng-repeat="wk in wtd=(work_today | filter: {'hours':null})">
         <td>{{wk.name}} ({{wk.worker_id}})</td>
-        <td>{{wk.requirement | number:1}}</td>
+        <td>{{wk.allhours | number:1}} af {{wk.requirement | number:1}}</td>
         <td>
           <dsrinterval usestartdate="current_user.is_winter_admin" editstarttime="current_user.is_winter_admin" ng-model="wk"/>
-          {{(wk.end_time-wk.start_time)/3600000 | number:1 }} timer</td>
+        </td>
         <td><input class="description" ng-model="wk.work" type="text"></td>
         <td>
           <SELECT ng-model="wk.boat"><OPTION ng-repeat="bt in maintenance_boats">{{bt.name}}</OPTION>

@@ -38,5 +38,4 @@ $work_id=$rd["work_id"];
 $res["work_id"]=$work_id;
 $res["hours"]=$hours;
 invalidate("work");
-
 echo json_encode($res);

@@ -7,25 +7,31 @@ $timeclause="(worklog.end_time IS NULL OR DATE(worklog.start_time)=DATE(NOW()))"
 if (isset($_GET["days"])) {
     $timeclause="DATE_ADD(start_time,INTERVAL 1 WEEK) < NOW() ";
     }
-        
+
 $sql="
 SELECT JSON_OBJECT(
-  'id',worklog.id,
-  'name',CONCAT(FirstName,' ',LastName), 
-  'worker_id',Member.MemberId,
+  'id',id,
+  'name',CONCAT(FirstName,' ',LastName),
+  'worker_id',MemberId,
   'requirement',requirement,
-   'start_time',JSON_OBJECT('year',YEAR(start_time),'month',MONTH(start_time),'day',DAY(start_time),'hour',HOUR(start_time),'minute',MINUTE(start_time)), 
-   'end_time',JSON_OBJECT('year',YEAR(worklog.end_time),'month',MONTH(worklog.end_time),'day',DAY(worklog.end_time),'hour',HOUR(worklog.end_time),'minute',MINUTE(worklog.end_time)), 
+   'start_time',JSON_OBJECT('year',YEAR(start_time),'month',MONTH(start_time),'day',DAY(start_time),'hour',HOUR(start_time),'minute',MINUTE(start_time)),
+   'end_time',JSON_OBJECT('year',YEAR(end_time),'month',MONTH(end_time),'day',DAY(end_time),'hour',HOUR(end_time),'minute',MINUTE(end_time)),
    'hours', hours,
-   'boat',worklog.boat,
-   'work',worklog.work,
+   'boat',boat,
+   'work',work,
    'description',description,
+   'allhours',allhours,
    'task',task) as json
-FROM Member, worker, worklog 
-WHERE 
+FROM (
+SELECT worklog.id,FirstName,LastName,MemberId,requirement,worklog.start_time,worklog.end_time,worklog.hours,worklog.boat,worklog.work,description,CONVERT(IFNULL(SUM(wl.hours),0),FLOAT) as allhours,worklog.task
+FROM Member LEFT JOIN worklog wl ON wl.member_id=Member.id, worker, worklog
+WHERE
   Member.id=worker.member_id AND worker.assigner='vedligehold' AND
   worklog.member_id=worker.member_id AND $timeclause
+  GROUP BY Member.id ORDER BY worklog.start_time
+) as w
 ";
+
 $stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"worker");
 $stmt->execute() ||  dbErr($rodb,$res,"rower workers");
 $result= $stmt->get_result() or dbErr($rodb,$res,"w");

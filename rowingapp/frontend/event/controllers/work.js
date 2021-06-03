@@ -133,6 +133,8 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
         $scope.work.start_time=js_to_date(wd);
         $scope.work.end_time={"hour":null};
         $scope.work.hours=status.hours;
+        $scope.work.allhours=$scope.work.worker.allhours;
+        $scope.work.requirement=$scope.work.worker.requirement;
         $scope.work.id=status.work_id;
         $scope.work.open=true;
         $scope.work.name=$scope.work.worker.name;
@@ -192,6 +194,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     sr.promise.then(function(status) {
       if (status.status =='ok') {
         work.hours=status.hours;
+        work.allhours+=status.hours;
         //work.worker.start_time='x';
         //console.log("worker");
       } else {

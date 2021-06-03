@@ -70,5 +70,4 @@ $res["hours"]=$hours;
 $stmt->bind_param("ssssdss", $start_time,$end_time,$d->work, $d->boat, $hours,$d->task,$d->id) || dbErr($rodb,$res,"update work e");
 $stmt->execute() or dbErr($rodb,$res,"updwork EXE");
 invalidate("work");
-
 echo json_encode($res);

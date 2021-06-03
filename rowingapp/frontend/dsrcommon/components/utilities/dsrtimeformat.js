@@ -5,7 +5,7 @@
 angular.module('dsrcommon.utilities.dsrtimeformat', []).filter('dsrtimeformat', function () {
   return function(tm,showdate) {
     //    var showdate=false;
-    if (!(tm && tm.hour)) {
+    if (!tm || typeof tm.hour== 'undefined') {
       return "";
     }
     if (showdate) {
