@@ -7,6 +7,7 @@ angular.module('rowApp').controller(
 function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog,  $filter,$log) {
   $scope.nowtimeiso=new Date().toISOString();
   $scope.rowertrips=[];
+  $scope.correction={};
   $scope.datetrips=[];
   $scope.tripmembers=[];
   $scope.trip={};
@@ -40,6 +41,23 @@ function RowerCtrl ($scope, $routeParams, DatabaseService, $interval, ngDialog, 
                                                                    );
   $scope.DB=DatabaseService.getDB;
 
+  $scope.validCorrectionRowers = function () {
+    if (!$scope.correction || !$scope.correction.rowers || $scope.correction.rowers.length<0) {
+      return false;
+    }
+    for (var i=0; i<$scope.correction.rowers.length;i++) {
+      if (! ($scope.correction.rowers[i] && $scope.correction.rowers[i].name)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  $scope.co_rower_leave = function(ix) {
+    if (!$scope.correction.rowers[ix].id){
+      $scope.correction.rowers[ix]=null;
+    }
+  }
   $scope.tripselect= function(trip) {
     $scope.currenttrip=trip;
     DatabaseService.getTripMembers(trip.id,function (res) {

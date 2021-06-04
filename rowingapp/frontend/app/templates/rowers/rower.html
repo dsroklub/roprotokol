@@ -243,10 +243,15 @@
               </td>
               <td>
                 <ng-form name="rowerFieldForm">
-                  <input  autocomplete="off" id="correction_rower{{$index}}"  name="name"
+                  <input  autocomplete="off"
+                          id="correction_rower{{$index}}"
+                          name="wsefwname"
                           type="text"
+                          typeahead-select-on-exact="true"
                           ng-model="correction.rowers[$index]"
+                          ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }"
                           uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+                          ng-blur="co_rower_leave($index)"
                           uibTypeahead-template-url="taTemplate.html" required >
                   <span ng-if="isObjectAndHasId(correction.rowers[$index])">
                   </span>
@@ -337,10 +342,11 @@
                 <button ng-show="correctionForm.$valid" class="big" ng-show="tripmembers.length>0 " ng-click="closeCorrection(true)">meld sletning</button>
               </td>
               <td>
-                <button class="big" ng-show="correctionForm.$valid && correction.distance" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse
+                <button class="big" ng-show="correctionForm.$valid && correction.distance && validCorrectionRowers()" type="submit" ng-click="closeCorrection(false)">Indsend rettelser til godkendelse
                 </button>
                 <label ng-hide="correction.reason && correction.reporter" class="alert notready">angiv begrundelse og dit navn</label>
                 <label ng-hide="correction.distance" class="alert notready">Distance skal være positiv</label>
+                <label ng-hide="validCorrectionRowers()" class="alert notready">Angiv alle roere</label>
               </td>
             </tr>
           </tbody>

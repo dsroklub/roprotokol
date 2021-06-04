@@ -1,5 +1,4 @@
 'use strict';
-
 angular.module('rowApp').controller(
     'AdminCtrl',
   ['$scope', 'DatabaseService', 'NgTableParams', '$filter', '$route', '$confirm','$log',
@@ -10,12 +9,12 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
   var rower_diff = function(current,correction) {
     var diffs={'from':{},'to':{}};
     angular.forEach(current, function(rid,rower,kv) {
-      if (correction[rower].id!=rid.id) {
-        diffs.from[rower]=rid;
-      }
+        if (!correction[rower] || correction[rower].id!=rid.id) {
+          diffs.from[rower]=rid;
+        }
     },this);
     angular.forEach(correction, function(rid,rower,kv) {
-      if (current[rower].id!=rid.id) {
+      if (!current[rower] || current[rower].id!=rid.id) {
         diffs.to[rower]=rid;
       }
     },this);
