@@ -23,7 +23,7 @@ SELECT JSON_OBJECT(
    'allhours',allhours,
    'task',task) as json
 FROM (
-SELECT worklog.id,FirstName,LastName,MemberId,requirement,worklog.start_time,worklog.end_time,worklog.hours,worklog.boat,worklog.work,description,CONVERT(IFNULL(SUM(wl.hours),0),FLOAT) as allhours,worklog.task
+SELECT worklog.id,FirstName,LastName,MemberId,requirement,worklog.start_time,worklog.end_time,worklog.hours,worklog.boat,worklog.work,description,CONVERT(IFNULL(SUM(wl.hours),0),DOUBLE) as allhours,worklog.task
 FROM Member LEFT JOIN worklog wl ON wl.member_id=Member.id, worker, worklog
 WHERE
   Member.id=worker.member_id AND worker.assigner='vedligehold' AND

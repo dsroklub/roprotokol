@@ -14,7 +14,7 @@ WHERE assigner='vedligehold'
 
 $sql="
 SELECT DISTINCT CONCAT(FirstName,' ',LastName) as name, workertype,argument as winteradmin,Member.MemberId as worker_id,requirement, requirement,IFNULL(MAX(worklog.start_time),'x') as start_time,
- CONVERT(IFNULL(SUM(wl.hours),0),FLOAT) as allhours
+ CONVERT(IFNULL(SUM(wl.hours),0),DOUBLE) as allhours
 FROM Member LEFT JOIN worker on Member.id=worker.member_id LEFT JOIN MemberRights ON MemberRights.member_id=Member.id AND MemberRight='admin' AND argument='vedligehold'
 LEFT JOIN worklog ON worklog.member_id=Member.id AND DATE(worklog.start_time)=DATE(NOW())
 LEFT JOIN worklog wl ON wl.member_id=Member.id

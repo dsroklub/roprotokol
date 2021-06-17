@@ -525,7 +525,7 @@
 
 
   <h2>Reservationer, <a href="/public/reservations.php?format=xlsx">som regneark</a></h2>
-  <form name="resv">
+  <form name="weekdayreservations">
     <table class="genericlist" >
       <caption>Ugedagsreservationer for
         <select ng-model="editreservationconfiguration" ng-options="rc.name for rc in reservation_configurations">
@@ -578,7 +578,7 @@
                      uib-tooltip="Reservationsformål. Fx træning, navn på langtur, vedligehold"
                      ></td>
           <td><button ng-click="make_reservation(reservation)" class="green"
-                      ng-disabled="resv.$invalid || !(reservation.dayofweek)"
+                      ng-disabled="weekdayreservations.$invalid || !(reservation.dayofweek)"
                       >
               ny reservation</button></td>
         </tr>
