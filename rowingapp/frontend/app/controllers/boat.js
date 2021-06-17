@@ -271,7 +271,6 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       }
     },norights);
     // Check reservation
-    // WIP, works for daytrips
     angular.forEach($scope.reservations, function(rv) {
       var otime=$scope.checkout.starttime;
       var etime=$scope.checkout.expectedtime;

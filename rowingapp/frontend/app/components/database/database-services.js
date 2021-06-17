@@ -5,6 +5,7 @@ function dbservice($http, $q, $log) {
   var rowerstatistics=[];
   var boatstatistics=[];
   var databasesource=dbmode;
+  var reservation_configurations=[];
   var cachedepend;
   var currentseason=new Date().getFullYear();
 
