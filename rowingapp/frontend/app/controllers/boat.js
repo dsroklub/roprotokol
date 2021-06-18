@@ -13,6 +13,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.allboatdamages=[];
   $scope.destinations=[];
   $scope.checkout={};
+  $scope.reservation_configurations=[];
   $scope.errorhandler = function(error) {
     $log.error(error);
     if (error.status==400 || error.status=="notauthorized") {
@@ -526,7 +527,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     }
     DatabaseService.update_reservations($scope.reservation_configurations,$scope.checkout);
   }
-  
+
   $scope.togglecheckout = function (tm) {
     $scope.timeopen[tm]=!$scope.timeopen[tm];
   }

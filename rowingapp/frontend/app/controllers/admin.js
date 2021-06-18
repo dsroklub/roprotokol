@@ -506,8 +506,8 @@ function AdminCtrl ($scope, DatabaseService, NgTableParams, $filter,$route,$conf
             $log.info("reservation made");
             r.configuration=r.configuration.name;
             r.id=newreservation.reservationid;
-            $scope.reservations.push(r);
-            $scope.reservation.boat_id=null;
+            $scope.reservations.unshift(r);
+            reservation.boat_id=null;
           }
         }
       )            }

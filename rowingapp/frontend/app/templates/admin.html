@@ -709,9 +709,9 @@
         <tr ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="rv in reservations |filter: {end_date:''}" >
           <td>{{rv.configuration}}</td>
           <td>{{iboats[rv.boat_id].name}}</td>
-          <td>{{rv.start_time.hour}}:{{rv.start_time.minute}}</td>
+          <td>{{rv.start_time}}</td>
           <td>{{rv.start_date}}</td>
-          <td>{{rv.end_time.hour}}:{{rv.end_time.minute}}</td>
+          <td>{{rv.end_time}}</td>
           <td>
             <div ng-show="rv.end_date!='0000-00-00'">{{rv.end_date}}</div>
           </td>

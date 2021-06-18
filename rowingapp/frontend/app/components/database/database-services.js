@@ -285,6 +285,7 @@ function dbservice($http, $q, $log) {
     var reservationsByBoat=db['reservationsByBoat'];
     for (var bi=0; bi<allboats.length;bi++) {
       allboats[bi].reserved_to=null;
+      //console.log("upres "+allboats[bi].name);
       if (reservationsByBoat[allboats[bi].id]) {
         for (var ri=0; ri<reservationsByBoat[allboats[bi].id].length; ri++) {
           var reservation=reservationsByBoat[allboats[bi].id][ri];
@@ -298,7 +299,7 @@ function dbservice($http, $q, $log) {
               enddate.setMinutes(end_time[1]);
               startdate.setHours(from_time[0]);
               startdate.setMinutes(from_time[1]);
-              if (chout>startdate && chout<enddate || chin>startdate && chin<enddate) {
+              if ((chout>startdate && chout<enddate) || (chin>startdate && chin<enddate)) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
                 if (reservationsByBoat[allboats[bi].id][ri].purpose) {
                   allboats[bi].reserved_to+=(" ("+reservationsByBoat[allboats[bi].id][ri].purpose+")");
@@ -306,15 +307,15 @@ function dbservice($http, $q, $log) {
                 break;
               }
             } else if (reservation.dayofweek==this_dayofweek) {
-              var starttime=new Date;
-              var endtime=new Date;
-              endtime.setHours(end_time[0]);
-              endtime.setMinutes(end_time[1]);
-              starttime.setHours(from_time[0]);
-              starttime.setMinutes(from_time[1]);
-              if (chout>startdate && chout<enddate || chin>startdate && chin<enddate) {
+              var startres=new Date;
+              var endres=new Date;
+              endres.setHours(end_time[0]);
+              endres.setMinutes(end_time[1]);
+              startres.setHours(from_time[0]);
+              startres.setMinutes(from_time[1]);
+              if ((chout>startres && chout<endres) || (chin>startres && chin<endres)) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
-                if (chout<starttime) {
+                if (chout<startres) {
                   allboats[bi].reserved_to+=(" "+from_time[0]+":"+from_time[1]);
                 }
                 if (reservationsByBoat[allboats[bi].id][ri].purpose) {
