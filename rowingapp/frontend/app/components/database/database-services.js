@@ -299,7 +299,7 @@ function dbservice($http, $q, $log) {
               enddate.setMinutes(end_time[1]);
               startdate.setHours(from_time[0]);
               startdate.setMinutes(from_time[1]);
-              if ((chout>startdate && chout<enddate) || (chin>startdate && chin<enddate)) {
+              if (!(chin<startdate || chout>enddate)) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
                 if (reservationsByBoat[allboats[bi].id][ri].purpose) {
                   allboats[bi].reserved_to+=(" ("+reservationsByBoat[allboats[bi].id][ri].purpose+")");
@@ -313,7 +313,7 @@ function dbservice($http, $q, $log) {
               endres.setMinutes(end_time[1]);
               startres.setHours(from_time[0]);
               startres.setMinutes(from_time[1]);
-              if ((chout>startres && chout<endres) || (chin>startres && chin<endres)) {
+              if (!(chin<startres || chout>endres)) {
                 allboats[bi].reserved_to=reservationsByBoat[allboats[bi].id][ri].triptype;
                 if (chout<startres) {
                   allboats[bi].reserved_to+=(" "+from_time[0]+":"+from_time[1]);
