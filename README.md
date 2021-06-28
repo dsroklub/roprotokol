@@ -4,7 +4,7 @@
 
 ## [For DSR in Danish:](http://htmlpreview.github.io/?https://github.com/dsroklub/roprotokol/blob/master/documentation/DSR.html)
 
-# Demo: login 2001, pw 
+# Demo: login 2001, pw demo
 
 https://agol.dk/roprotokol/frontend/app/index.shtml
 
