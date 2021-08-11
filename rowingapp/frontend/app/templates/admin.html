@@ -351,6 +351,7 @@
     <form name="rowerFieldForm">
       <input autocomplete="off" id="findrower"
              typeahead-editable="false"
+             ng-blur="converttorower=null"
              typeahead-select-on-blur="true"
              ng-model="currentrower" name="name" type="text"
              typeahead-on-select="alert($item)"
@@ -399,7 +400,7 @@
     <button  ng-disabled="!converttorower" class="big" ng-click="rowerconvert(currentrower,converttorower)">Konverter roer </button>
     {{currentrower.id}} {{currentrower.name}} (forsvinder) til {{converttorower.id}}
     <input autocomplete="off" id="findrowerforconvert" name="name" type="text"
-           typeahead-on-select="alert($item)" ng-model="converttorower"
+           ng-model="converttorower"
            uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
            typeahead-template-url="taTemplate.html" required /> (bevares)
   </div>
