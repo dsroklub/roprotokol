@@ -58,7 +58,7 @@
     <script src="components/utilities/rowtodk.js"></script>
     <script src="components/utilities/year2tool.js"></script>
     <script src="components/utilities/mtokmint.js"></script>
-    <script src="components/utilities/subArray.js"></script>
+    <script src="../dsrcommon/components/utilities/subArray.js"></script>
     <script src="components/utilities/damagedegreedk.js"></script>
     <script src="components/utilities/dk_tags.js"></script>
     <script src="components/utilities/subjecttodk.js"></script>

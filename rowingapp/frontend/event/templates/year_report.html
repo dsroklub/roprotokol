@@ -1,0 +1,648 @@
+<div ng-if="statusMsg" class="statusClass">
+   {{ statusMsg }}
+</div>
+<div ng-if="stats" id="year_report">
+<div class="report-front-page">
+<h1 ng-if="year_done">Rosæsonen {{stats.parameters.to_year}}</h1>
+<h1 ng-if="!year_done">Foreløbig rapport for rosæsonen {{stats.parameters.to_year}}</h1>
+
+
+<img src="assets/dsrlogo.svg" height="400px" />
+
+<h2>Danske Studenters Roklub</h2>
+
+<i>Udfærdiget d. {{ now | date}}</i>
+</div>
+
+<h3>1. Indledning</h3>
+<p>Denne rapport er automatisk genereret ud fra udtræk fra roprotokollen.</p>
+
+<p>Dette betyder, at alle tal er beregnet på samme måde - også dem fra tidligere år.
+Dog er der naturligvis forskel på, hvilke turtyper og både, der har været til rådighed de enkelte år.</p>
+
+<p ng-if="!year_done"><b>Bemærk, at rosæsonen {{stats.parameters.to_year}} ikke er slut endnu.</b>
+Denne rapport giver derfor ikke et retvisende billede for {{stats.parameters.to_year}}. Især er
+frafaldsstatistikken ufuldstændig.</p>
+
+<p>Man skal være opmærksom på, at rapporten ikke er mere præcis end datagrundlaget: I det omfang
+roprotokollen er udfyldt forkert, vil rapporten afspejle dette. Desuden er alle rostatistikker fra
+før 2016 baseret på data, der er konverteret fra den gamle roprotokol. Der kan være opstået
+systematiske fejl i den forbindelse, omend vi ikke er bekendt med nogen.</p>
+
+<p>En anden fejlkilde er, at nye medlemmer typisk får registreret deres første ture på deres
+kanin-nummer frem for deres medlemsnummer. Kanin-nummeret er <b>ikke</b> koblet til medlemsoplysninger
+såsom køn, ind- og udmeldelsesdato og så videre. Desuden bliver ture roet på henholdsvis kanin-nummeret
+og medlemsnummeret opfattet som ture roet af forskellige personer. Med andre ord: Hvis en kanin ror
+3 instruktionsture på kaninnummeret og 5 instruktionsture på medlemsnummeret, vil det i statistikken
+tælle som to personer, som hver har roet i gennemsnit 4 instruktionsture. For den ene person har vi
+ingen oplysninger om evt. frafald, og for den anden vil evt. frafald blive medtalt i frafald efter 5 ture,
+selvom personen i virkeligheden har roet 8 ture.</p>
+
+<p>For at imødegå dette (og af andre årsager), er der i roprotokollen mulighed for at konvertere roere,
+så alle ture, rettigheder osv. for et (kanin)nummer overføres til et andet nummer. Dette sker dog
+ikke i alle tilfælde. Rapportens præcision afhænger således også af, hvor mange kanin-numre, der er
+blevet konverteret til de korrekte medlemsnumre i roprotokollen.</p>
+
+
+<h3>2. Klubbens medlemmer</h3>
+<p>Den første tabel beskriver medlemstallet og medlemsudviklingen. Klubbens medlemstal
+varierer efter et relativt fast mønster hen over året, og det siger derfor ikke så meget om
+medlemstallet i sig selv at udvælge en bestemt dato at opgøre det på. I nedenstående tabel
+opgør vi antallet af indmeldte, antallet af udmeldte og det samlede antal aktive i årets løb. De
+aktive er alle, der har været medlemmer på et tidspunkt i løbet af året, men ikke nødvendigvis
+samtidig. Det faktiske medlemstal per en given dato vil derfor være noget lavere.</p>
+
+<p>For faktiske medlemstal på skæringsdatoer henvises til kassererens kvartalsrapporter.</p>
+
+
+<h5>Tabel 1: Indmeldelser, udmeldelser og medlemsomsætning</h5>
+<table>
+  <tr class="header">
+    <th>År</th>
+    <th>Antal medlemmer<br/>i årets løb</th>
+    <th>Indmeldte dette år</th>
+    <th>Udmeldte dette år</th>
+    <th>Udvikling</th>
+  </tr>
+  <tr ng-repeat="y in stats.years | orderBy:'-'">
+    <td>{{y}}</td>
+    <td>{{stats.members[y].during}}</td>
+    <td>{{stats.members[y].incoming}}</td>
+    <td>{{stats.members[y].outgoing}}</td>
+    <td>{{stats.members[y].diff}}</td>
+  </tr>
+</table>
+
+
+
+
+
+<h4>2.1 Nye medlemmer – alder, køn, antal</h4>
+<p>Her følger statistik for optaget af medlemmer de enkelte år.</p>
+
+
+<h5>Tabel 2 - Nye medlemmer og kønsfordeling {{ stats.years[0] }}-{{ stats.years[stats.years.length -1] }}</h5>
+<table>
+  <tr class="header">
+    <th rowspan="2">År</th>
+    <th colspan="3" class="supercat">Antal</th>
+    <th colspan="3" class="supercat">Alder</th>
+  </tr>
+  <tr class="header">
+    <th class="subcat-left">Samlet</th>
+    <th>Kvinder</th>
+    <th>Mænd</th>
+    <th class="subcat-left">Samlet</th>
+    <th>Kvinder</th>
+    <th>Mænd</th>
+  </tr>
+  <tr ng-repeat="y in stats.years | orderBy:'-'">
+    <td>{{y}}</td>
+    <td>{{stats.new_members_by_gender[y].total.count}}</td>
+    <td>{{stats.new_members_by_gender[y].female.count}} ({{stats.new_members_by_gender[y].female.percentage}}%)</td>
+    <td>{{stats.new_members_by_gender[y].male.count}} ({{stats.new_members_by_gender[y].male.percentage}}%)</td>
+    <td>{{stats.new_members_by_gender[y].total.age}}</td>
+    <td>{{stats.new_members_by_gender[y].female.age}}</td>
+    <td>{{stats.new_members_by_gender[y].male.age}}</td>
+  </tr>
+</table>
+
+
+
+<h4>2.2 Hvor længe er man medlem af DSR?</h4>
+<p>De historiske data afslører, hvornår medlemmerne typisk falder fra.</p>
+<p>Ser man f.x. på årgang {{ example_year }} er der stadig
+{{stats.new_members_dropout[example_year].still.percentage }}% af den årgang, der er medlemmer på nuværende tidspunkt.
+{{stats.new_members_dropout[example_year].after_q3.percentage }}% af
+årgangen var dog faldet fra allerede ved udgangen af 3. kvartal samme år. Efter udgangen af 4. kvartal
+{{example_year}} var i alt {{stats.new_members_dropout[example_year].after_q4.percentage }}% af årgangen faldet fra.
+Og ved udgangen af {{ 1 + example_year }} var {{stats.new_members_dropout[example_year].after_y2.percentage }}% af hele
+{{example_year}}-årgangen væk. Ved udgangen af {{ 2 + example_year }} var
+{{stats.new_members_dropout[example_year].after_y3.percentage }}% af hele årgangen væk, og ved udgangen af
+{{ 3 + example_year }} var {{stats.new_members_dropout[example_year].after_y4.percentage }}%
+af årgangen væk. De resterende
+{{ 100 - stats.new_members_dropout[example_year].still.percentage - stats.new_members_dropout[example_year].after_y4.percentage }}%
+(100-{{stats.new_members_dropout[example_year].still.percentage }}-{{stats.new_members_dropout[example_year].after_y4.percentage }}%)
+ er faldet fra mellem {{ 3 + example_year }} og nu.</p>
+
+<p>Den overordnede tendens er, at vi mister ca. 25% af en årgang i 1-3. kvartal og yderligere 5-
+10% i 4. kvartal. Det følgende år mister vi ca. 20% af årgangen. Men hvis folk først har
+overlevet 2½ år, bliver de som regel mindst et år mere.</p>
+
+
+<h5>Tabel 3 - Nye medlemmer og deres frafald</h5>
+<table>
+  <tr class="header">
+    <th>Årgang</th>
+    <th>Optag</th>
+    <th>Stadig medlem</th>
+    <th>Udmeldt 3.&nbsp;kvartal</th>
+    <th>Udmeldt 4.&nbsp;kvartal</th>
+    <th>Udmeldt året efter</th>
+    <th>Udmeldt 2&nbsp;år efter</th>
+    <th>Udmeldt 3&nbsp;år efter</th>
+  </tr>
+  <tr ng-repeat="y in stats.years | orderBy:'-'">
+    <td>{{y}}</td>
+    <td>{{stats.new_members_dropout[y].incoming.count }}</td>
+    <td>{{stats.new_members_dropout[y].still.percentage }}%</td>
+    <td>{{stats.new_members_dropout[y].after_q3.percentage }}%</td>
+    <td>{{stats.new_members_dropout[y].after_q4.percentage }}%</td>
+    <td>{{stats.new_members_dropout[y].after_y2.percentage | ifNull : 'n/a' : '%'}}</td>
+    <td>{{stats.new_members_dropout[y].after_y3.percentage | ifNull : 'n/a' : '%'}}</td>
+    <td>{{stats.new_members_dropout[y].after_y4.percentage | ifNull : 'n/a' : '%'}}</td>
+  </tr>
+</table>
+
+
+<h3>3. Aktivitetsniveau – robåd og kajak i {{stats.parameters.to_year}}</h3>
+
+<h4>3.1 Antal roede kilometer</h4>
+
+<p>De kilometer, der er opgjort her, er bådkilometer. Det vil sige, at fem personer, der ror 10 km,
+tæller som 10 km og ikke 50.</p>
+<p>Sæsoner regnes i forhold til kalenderåret, så vinterroning er også med.</p>
+
+<h5>Tabel 4 - Samlet aktivitetsniveau</h5>
+<table>
+  <tr class="header">
+    <th>Sæson</th>
+    <th>Roede km, robåd</th>
+    <th>Roede km, kajak</th>
+    <th>I alt</th>
+  </tr>
+  <tr ng-repeat="y in stats.years | orderBy:'-'">
+    <td>{{y}}</td>
+    <td>{{stats.rowed_kilometers[y].rowboat | number : 0 }}</td>
+    <td>{{stats.rowed_kilometers[y].kayak | number : 0 }}</td>
+    <td>{{stats.rowed_kilometers[y].total | number : 0}}</td>
+  </tr>
+</table>
+
+<p>Herunder kan man se fordelingen af ture efter hvilken turtype, folk har valgt, da de skrev båden ud i
+roprotokollen.</p>
+
+<p>Enkelte ture skrives forkert ud – f.x. er der i 2015 skrevet en enkelt tur ud som "Tur & Teknik" til
+trods for, at dette tilbud ikke blev tilbudt i 2015.</p>
+<p>Ikke alle tilbud har deres egen turtype. Indtil 2016 kunne man f.x. ikke skrive en tur ud som coastal-træning,
+men måtte vælge "Lokaltur". På samme måde kan man ikke skelne mellem en tur i motion-tilbuddet og en spontan tur,
+man selv arrangerer.</p>
+<p>Det anbefales derfor, at der til enhver tid er oprettet turtyper i roprotokollen til alle organiserede
+tilbud.</p>
+
+
+<h5>Tabel 5 - Kilometer fordelt på turtyper, robåd og kajak</h5>
+<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
+  <tr class="header">
+    <th class="left">{{y}}</th>
+    <th colspan="3" class="supercat">Robåde</th>
+    <th colspan="3" class="supercat">Kajakker</th>
+  </tr>
+  <tr class="header">
+    <th class="left" style="min-width: 15em">Turtype</th>
+    <th class="subcat-left">Kilometer</th>
+    <th>Bådture</th>
+    <th>Km pr. tur</th>
+    <th class="subcat-left">Kilometer</th>
+    <th>Bådture</th>
+    <th>Km pr. tur</th>
+  </tr>
+  <tr ng-repeat="(tt, row) in stats.trips[y]">
+    <td class="left">{{tt}}</td>
+    <td>{{row.rowboat.distance | number : 0  | ifNull:'-' }}</td>
+    <td>{{row.rowboat.boat_trips | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.rowboat.km_per_trip | number : 1 | ifNull:'-' }}</td>
+    <td>{{row.kayak.distance | number : 0  | ifNull:'-' }}</td>
+    <td>{{row.kayak.boat_trips | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.kayak.km_per_trip | number : 1 | ifNull:'-' }}</td>
+  </tr>
+</table>
+
+
+<h4>3.2 Ture</h4>
+
+
+<h5>Tabel 6 - Bådture og personture, robåd og kajak</h5>
+<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
+  <tr class="header">
+    <th class="left">{{y}}</th>
+    <th colspan="3" class="supercat">Robåde</th>
+    <th colspan="3" class="supercat">Kajakker</th>
+  </tr>
+  <tr class="header">
+    <th class="left" style="min-width: 15em">Turtype</th>
+    <th class="subcat-left">Bådture</th>
+    <th>Personture</th>
+    <th>Personer pr. båd</th>
+    <th class="subcat-left">Bådture</th>
+    <th>Personture</th>
+    <th>Personer pr. båd</th>
+  </tr>
+  <tr ng-repeat="(tt, row) in stats.trips[y]">
+    <td class="left">{{tt}}</td>
+    <td>{{row.rowboat.boat_trips | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.rowboat.person_trips | number : 0 | ifNull:'-'}}</td>
+    <td>{{row.rowboat.persons_per_trip | number : 1 | ifNull:'-'}}</td>
+    <td>{{row.kayak.boat_trips | number : 0 | ifNull:'-'}}</td>
+    <td>{{row.kayak.person_trips | number : 0 | ifNull:'-'}}</td>
+    <td>{{row.kayak.persons_per_trip | number : 1 | ifNull:'-'}}</td>
+  </tr>
+</table>
+
+
+<h4>3.3 Individer og både</h4>
+
+<p>Nedenfor kan ses, hvor mange enkeltpersoner og både, der har benyttet de enkelte tilbud.</p>
+<p>Bemærk, at tallene er behæftet med stor usikkerhed - ganske få fejludskrevne ture kan påvirke antallet af såvel
+individer som både for en turtype relativt meget.</p>
+
+<h5>Tabel 7 - Individer og både</h5>
+<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
+  <tr class="header">
+    <th class="left">{{y}}</th>
+    <th colspan="3" class="supercat">Robåde</th>
+    <th colspan="3" class="supercat">Kajakker</th>
+  </tr>
+  <tr class="header">
+    <th class="left" style="min-width: 15em">Turtype</th>
+    <th class="subcat-left">Individer</th>
+    <th>Både</th>
+    <th>Personer pr. båd</th>
+    <th class="subcat-left">Individer</th>
+    <th>Både</th>
+    <th>Personer pr. båd</th>
+  </tr>
+  <tr ng-repeat="(tt, row) in stats.trips[y]">
+    <td class="left">{{tt}}</td>
+    <td>{{row.rowboat.individuals | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.rowboat.boats | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.rowboat.persons_per_trip | number : 1 | ifNull:'-'}}</td>
+    <td>{{row.kayak.individuals | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.kayak.boats | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.kayak.persons_per_trip | number : 1 | ifNull:'-'}}</td>
+  </tr>
+</table>
+
+
+<h5>Tabel 7b - Individer og bådklasser. Alle egne både. Dvs ikke lånte både. Medregnet både der er købt eller udgået i perioden</h5>
+
+
+
+<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
+  <tr class="header">
+    <th class="left">{{y}}</th>
+    <th colspan="7" class="supercat">brug af både i klassen</th>
+  </tr>
+  <tr class="header">
+    <th class="left" style="min-width: 15em">Bådklasse</th>
+    <th class="subcat-left">Individer</th>
+    <th>Brugte både</th>
+    <th>Alle både</th>
+    <th>Personer pr. båd</th>
+    <th>Individer pr. båd i klassen</th>
+    <th>Individer pr. sæder i både i klassen</th>
+  </tr>
+  <tr ng-repeat="(bc, row) in stats.classtrips[y]">
+    <td class="left">{{bc}}</td>
+    <td>{{row.individuals | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.boats | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.allboats | number : 0 | ifNull:'-' }}</td>
+    <td>{{row.persons_per_trip | number : 1 | ifNull:'-'}}</td>
+    <td>{{row.persons_per_class | number : 2 | ifNull:'-'}}</td>
+    <td>{{row.persons_per_class_seat | number : 2 | ifNull:'-'}}</td>
+  </tr>
+</table>
+
+
+
+
+<h4>3.4 Medlemmernes aktivitetsniveau</h4>
+<p>Hvis man skal danne sig et billede af aktivitetsniveauet for alle klubbens medlemmer som
+helhed, er det for det første interessant at se på, hvor mange af dem, der i det hele taget ror.
+Ud af de {{ stats.members[stats.parameters.to_year].during }} personer, der har været medlemmer
+i løbet af {{ stats.parameters.to_year }}, har
+{{ stats.rower_activity[stats.parameters.to_year].total.count }} registreret mindst én
+tur fra Svanemøllen.</p>
+<p>Derudover er der givetvis personer, som ikke har roet fra Svanemøllen, men har roet på Bagsværd,
+spillet kajakpolo, dyrket yoga, eller på anden måde har været aktive i klubben.</p>
+
+<h5>Tabel 8 - Aktivitetsprofil for medlemmerne</h5>
+<table>
+  <tr class="header">
+    <th class="left">År</th>
+    <th class="left" ng-repeat="i in intervals">{{ i }}</th>
+    <th class="left">Af alle medlemmer</th>
+  </tr>
+  <tr ng-repeat="y in stats.years | orderBy:'-'">
+    <td class="left">{{y}}</td>
+    <td ng-repeat="i in intervals">{{stats.rower_activity[y].intervals[i].count | number : 0 }}
+      ( {{stats.rower_activity[y].intervals[i].percentage | number : 0 }}%),
+       {{stats.rower_activity[y].intervals[i].distance | number : 0}} km
+    </td>
+    <td style="border-left-width: 3px">{{stats.rower_activity[y].total.count | number : 0 }}
+      ( {{stats.rower_activity[y].total.percentage | number : 0 }}%)
+      , {{stats.rower_activity[y].total.distance | number : 0}} km
+    </td>
+  </tr>
+</table>
+
+<p>Fordeling af roede kilometer for medlemmer, der har roet mindst en tur. Tallene dækker både robåde og kajak.
+Procentsatserne er i procent af de aktive, bortset fra den sidste kolonne, som er af alle
+  medlemmer.</p>
+<p>
+  Km er roerkm. Fx en to-åres inrigger til Skovshoveder giver 3*11.5 km= 34.5 km.
+</p>
+
+
+
+
+<h3>4. Instruktion {{stats.parameters.to_year}}</h4>
+
+<h4>4.1  Hvem instruerer?</h4>
+
+Nedenstående er de medlemmer, der har været udskrevet som styrmand på en instruktionstur
+i inrigger i {{stats.parameters.to_year}}.
+
+<h5>Tabel 9 - Aktive instruktører {{stats.parameters.to_year}}</h5>
+<table>
+  <tr class="header">
+    <th>#</th>
+    <th>Medlemnr.</th>
+    <th class="left">Navn</th>
+    <th class="left">Antal ture</th>
+  </tr>
+  <tr ng-repeat="row in stats.instructors track by $index">
+    <td>{{1 + $index}}</td>
+    <td>{{row.member_no}}</td>
+    <td class="left">{{row.name}}</td>
+    <td>{{row.trips}}</td>
+  </tr>
+</table>
+
+
+
+<h3>5.Kaniners aktiviteter</h3>
+<h4>5.1 Frafaldne kaniner</h4>
+<p>Ikke alle kaniner klarer sig igennem første år. Men hvornår falder de fra?</p>
+
+<p>En del når aldrig på vandet – i {{ stats.parameters.to_year }} fik vi
+{{ stats.new_members_dropout[stats.parameters.to_year].incoming.count }} nye medlemmer,
+men kun {{ stats.new_members_dropout[stats.parameters.to_year].after_instruction[1].total }}
+af dem fik nogensinde en instruktionstur (i enten robåd eller kajak). Der kan naturligvis være medlemmer, som aldrig kommer på en
+instruktionstur i Svanemøllen, men ror på Bagsværd eller spiller kajakpolo.</p>
+
+<p>Af alle {{ stats.new_members_dropout[stats.parameters.to_year].incoming.count }} indmeldte
+er {{ stats.new_members_dropout[stats.parameters.to_year].after_q4.count }} personer udmeldt
+igen ved årets udgang – svarende til {{ stats.new_members_dropout[stats.parameters.to_year].after_q4.percentage }}%.
+Men af de {{ stats.new_members_dropout[stats.parameters.to_year].after_rowright.total}}, der opnåede roret er
+kun {{ stats.new_members_dropout[stats.parameters.to_year].after_rowright.dropped_out}} faldet fra – svarende til
+{{ stats.new_members_dropout[stats.parameters.to_year].after_rowright.percentage}}%. Så ikke overraskende er
+frafaldet blandt dem, der har opnået roret, lavere end gennemsnittet.</p>
+
+<h5>Tabel 10 - Udmeldte kaniner efter aktivitet</h5>
+<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3">
+  <tr class="header">
+    <th class="left">{{y}}</th>
+    <th>Personer</th>
+    <th>Heraf udmeldte</th>
+    <th>Frafald</th>
+  </tr>
+  <tr>
+    <td class="left">Indmeldte</td>
+    <td>{{stats.new_members_dropout[y].incoming.count}}</td>
+    <td>{{stats.new_members_dropout[y].after_q4.count}}</td>
+    <td>{{stats.new_members_dropout[y].after_q4.percentage}}%</td>
+  </tr>
+  <tr>
+    <td class="left">Mindst 1 instruktionstur</td>
+    <td>{{stats.new_members_dropout[y].after_instruction[1].total}}</td>
+    <td>{{stats.new_members_dropout[y].after_instruction[1].dropped_out}}</td>
+    <td>{{stats.new_members_dropout[y].after_instruction[1].percentage}}%</td>
+  </tr>
+  <tr>
+    <td class="left">Mindst 3 instruktionsture</td>
+    <td>{{stats.new_members_dropout[y].after_instruction[3].total}}</td>
+    <td>{{stats.new_members_dropout[y].after_instruction[3].dropped_out}}</td>
+    <td>{{stats.new_members_dropout[y].after_instruction[3].percentage}}%</td>
+  </tr>
+  <tr>
+    <td class="left">Opnået roret</td>
+    <td>{{stats.new_members_dropout[y].after_rowright.total}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowright.dropped_out}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowright.percentage}}%</td>
+  </tr>
+  <tr>
+    <td class="left">Mindst 2 roture udover instruktion</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[2].total}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[2].dropped_out}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[2].percentage}}%</td>
+  </tr>
+  <tr>
+    <td class="left">Mindst 3 roture som racerkanin</td>
+    <td>{{stats.new_members_dropout[y].after_racer_rabbit[3].total}}</td>
+    <td>{{stats.new_members_dropout[y].after_racer_rabbit[3].dropped_out}}</td>
+    <td>{{stats.new_members_dropout[y].after_racer_rabbit[3].percentage}}%</td>
+  </tr>
+  <tr>
+    <td class="left">Mindst 5 roture udover instruktion</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[5].total}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[5].dropped_out}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[5].percentage}}%</td>
+  </tr>
+  <tr>
+    <td class="left">Mindst 10 roture udover instruktion</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[10].total}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[10].dropped_out}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[10].percentage}}%</td>
+  </tr>
+  <tr>
+    <td class="left">Mindst 20 roture udover instruktion</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[20].total}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[20].dropped_out}}</td>
+    <td>{{stats.new_members_dropout[y].after_rowing[20].percentage}}%</td>
+  </tr>
+</table>
+
+
+
+<h4>5.2 Hvilke tilbud benytter kaniner efter deres roret?</h4>
+<p>Det er naturligvis også interessant at se på, hvilke tilbud, kaninerne benytter sig af i deres
+første år. Herunder kan man se fordelingen på turtyper.</p>
+<p>I sidste kolonne kan man se frafaldsprocenten blandt de kaniner, der har benyttet det
+pågældende tilbud.</p>
+
+<p>Der er desværre ret stor usikkerhed forbundet med de kaniner, der kun har deltaget én gang på et tilbud.
+Stikprøver gennem årene har vist, at en stor del af disse tilfælde har været fejltastning - f.x. langture til Hellerup.
+Derfor er der i denne tabel regnet med, at kaninen skal have roet mindst 2 gange på et tilbud for at det regnes som deltagelse.</p>
+
+<p>For tidligere år er der desuden medtaget oplysninger om frafald i årene efter. For eksempel kan man se,
+at af de {{stats.rabbit_activity[example_year].Inriggerkaproning.total}} kaniner, der deltog i
+InKa i {{example_year}}, faldt {{stats.rabbit_activity[example_year].Inriggerkaproning.after_1.percentage}}% fra i løbet
+af {{example_year}},og ved udgangen af {{ 1 + example_year }} var
+i alt {{stats.rabbit_activity[example_year].Inriggerkaproning.after_2.percentage}}% af dem faldet fra.</p>
+
+<h5>Tabel 11 - Kaniners aktivitet efter roret</h5>
+<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:3" class="repeated">
+  <tr class="header">
+    <th class="left"style="min-width: 15em">{{y}}</th>
+    <th>Individer</th>
+    <th>Bådture</th>
+    <th>Ture pr. person</th>
+    <th>Udmeldte samme år</th>
+    <th>Udmeldte efter {{1 + y}}</th>
+  </tr>
+  <tr ng-repeat="(tt, row) in stats.rabbit_activity[y]">
+    <td class="left">{{tt}}</td>
+    <td>{{row.total | number : 0 }}</td>
+    <td>{{row.trips | number : 0 }}</td>
+    <td>{{row.trips_per_person | number : 1 }}</td>
+    <td>{{row.after_1.percentage | number : 0 }}%</td>
+    <td>{{row.after_2.percentage | number : 0 | ifNull:'n/a':'%' }}</td>
+  </tr>
+</table>
+
+
+
+<h3>6.Frafald blandt alle medlemmer</h3>
+<h4>6.1 Efter aktivitet</h4>
+<p>Hvis vi ser på alle medlemmer – både kaniner og tidligere medlemmer – kan vi se,
+hvilke tilbud, der generelt er med til at fastholde medlemmer.</p>
+
+<p>I nedenstående oversigt er regnet med alle medlemmer, der har haft mindst 3 ture
+af en given type. Man kan således se, at i {{ stats.parameters.to_year }} har i alt
+{{ stats.member_dropout[stats.parameters.to_year].Langtur.total }} medlemmer været på mindst 3 langture. Heraf
+valgte {{stats.member_dropout[stats.parameters.to_year].Langtur.after_1.percentage}}% at melde sig ud samme år.</p>
+
+<p>Af dem, der roede mindst 3 langture i {{example_year}}, meldte
+{{stats.member_dropout[example_year].Langtur.after_1.percentage}}% sig ud i løbet af {{ example_year}},
+og i alt {{stats.member_dropout[example_year].Langtur.after_3.percentage}}% var meldt ud ved udgangen
+af {{2 + example_year}}.</p>
+
+<p>Tallene for instruktion inkluderer alle, der har været på mindst 3 instruktionsture, altså også
+instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for Racerkanin.</p>
+
+
+<h5>Tabel 12 - Frafald blandt alle medlemmer efter aktivitet - robåde</h5>
+<table ng-repeat="y in stats.years | orderBy:'-' | subArray:0:5">
+  <tr class="header">
+    <th class="left" style="min-width: 15em">{{y}}</th>
+    <th>Individer</th>
+    <th>Bådture</th>
+    <th>Ture pr. person</th>
+    <th>Udmeldte samme år</th>
+    <th>Udmeldte efter {{1 + y}}</th>
+    <th>Udmeldte efter {{2 + y}}</th>
+  </tr>
+  <tr ng-repeat="(tt, row) in stats.member_dropout[y]">
+    <td class="left">{{tt}}</td>
+    <td>{{row.total | number : 0 }}</td>
+    <td>{{row.trips | number : 0 }}</td>
+    <td>{{row.trips_per_person | number : 1 }}</td>
+    <td>{{row.after_1.percentage | number : 0 }}%</td>
+    <td>{{row.after_2.percentage | number : 0 | ifNull:'n/a':'%' }}</td>
+    <td>{{row.after_3.percentage | number : 0 | ifNull:'n/a':'%' }}</td>
+  </tr>
+</table>
+
+
+<h3>7. Brug af både</h3>
+<h4>7.1  Bådtyper</h4>
+
+<h5>Tabel 13 - Bådtyper efter turtype og samlet kilometertal</h5>
+<table>
+  <tr class="header">
+    <th class="left around-slanted">Bådtype</th>
+    <th class="left slanted" ng-repeat="tt in triptypes"><div><span>{{tt}}</span></div></th>
+    <th class="around-slanted"><b>I alt</b></th>
+  </tr>
+  <tr ng-repeat="bt in boattypes | orderBy:'+'">
+    <td>{{bt}}</td>
+    <td ng-repeat="tt in triptypes">{{stats.boats.boattypes[bt].triptypes[tt].distance | number:0}}</td>
+    <td><b>{{stats.boats.boattypes[bt].distance | number:0}}</b></td>
+  </tr>
+  <tr>
+    <td><b>Total</b></td>
+    <td ng-repeat="tt in triptypes"><b>{{stats.boats.triptypes[tt].distance | number:0}}</b></td>
+    <td><b>{{stats.boats.total.distance|number:0}}</b></td>
+</table>
+
+
+<h4>7.2 Enkelte både</h4>
+<h5>Tabel 14 - Både efter turtype og samlet kilometertal</h5>
+<table>
+  <tr class="header">
+    <th class="left around-slanted">Båd</th>
+    <th class="left slanted" ng-repeat="tt in triptypes"><div><span>{{tt}}</span></div></th>
+    <th class="around-slanted"><b>I alt</b></th>
+  </tr>
+  <tr ng-repeat="(name,boat) in stats.boats.boats">
+    <td>{{name}}</td>
+    <td ng-repeat="tt in triptypes">{{boat.triptypes[tt].distance | number:0}}</td>
+    <td><b>{{boat.distance | number:0}}</b></td>
+  </tr>
+  <tr>
+    <td><b>Total</b></td>
+    <td ng-repeat="tt in triptypes"><b>{{stats.boats.triptypes[tt].distance | number:0}}</b></td>
+    <td><b>{{stats.boats.total.distance|number:0}}</b></td>
+</table>
+
+<h5>Tabel 15 - Både efter turtype og antal ture</h5>
+<table>
+  <tr class="header">
+    <th class="left around-slanted">Båd</th>
+    <th class="left slanted" ng-repeat="tt in triptypes"><div><span>{{tt}}</span></div></th>
+    <th class="around-slanted"><b>I alt</b></th>
+  </tr>
+  <tr ng-repeat="(name,boat) in stats.boats.boats">
+    <td>{{name}}</td>
+    <td ng-repeat="tt in triptypes">{{boat.triptypes[tt].trips | number:0}}</td>
+    <td><b>{{boat.distance | number:0}}</b></td>
+  </tr>
+  <tr>
+    <td><b>Total</b></td>
+    <td ng-repeat="tt in triptypes"><b>{{stats.boats.triptypes[tt].trips | number:0}}</b></td>
+    <td><b>{{stats.boats.total.trips|number:0}}</b></td>
+</table>
+
+
+
+<h5>Tabel 16 - Bådkilometer sorteret efter bådtype</h5>
+<table>
+  <tr class="header">
+    <th class="left">Bådtype</th>
+    <th class="left">Båd</th>
+    <th>Kilometer</th>
+  </tr>
+  <tbody ng-repeat="(bt_name, bt) in stats.boats.boattypes">
+    <tr ng-repeat="b in stats.boats.boattypes[bt_name].boats track by $index">
+      <td rowspan="{{bt.boatcount}}" ng-if="$index === 0" class="top">{{bt_name}}</td>
+      <td class="left">{{b}}</td>
+      <td>{{stats.boats.boats[b].distance | number:0}}</b></td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td><b>Total</b></td>
+      <td>&nbsp;</td>
+      <td><b>{{stats.boats.total.distance|number:0}}</b></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<h5>Tabel 17 - Både ikke roet i {{stats.parameters.to_year}}</h5>
+<table>
+  <tr class="header">
+    <th class="left">Bådtype</th>
+    <th class="left">Båd</th>
+  </tr>
+  <tr ng-repeat="b in stats.boats.unused.boats">
+    <td rowspan="{{stats.boats.unused.types[b.boat_type].count}}" ng-if="stats.boats.unused.types[b.boat_type].boats[0] === b.boat" class="top">{{b.boat_type}}</td>
+    <td>{{b.boat}}</td>
+  </tr>
+</table>
+
+</div>
+

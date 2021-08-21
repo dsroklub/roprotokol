@@ -12,6 +12,8 @@ angular.module('eventApp', [
   'dsrcommon.utilities.safefilename',
   'dsrcommon.utilities.mtokm',
   'dsrcommon.utilities.urlencode',
+  'dsrcommon.utilities.ifNull',
+  'dsrcommon.utilities.subArray',
   'ui.bootstrap',
   'ui.select',
   'angular-momentjs',
@@ -89,6 +91,9 @@ angular.module('eventApp', [
     }).when('/club/', {
       templateUrl: 'templates/club.html',
       controller: 'clubCtrl'
+    }).when('/yearreport/', {
+      templateUrl: 'templates/year_report.html',
+      controller: 'YearReportCtrl'
     }).when('/damages/', {
       templateUrl: 'templates/damages.html',
       controller: 'boatCtrl'
@@ -102,10 +107,11 @@ angular.module('eventApp', [
       templateUrl: 'templates/login.html',
       controller: 'noRight'
   }).when('/', {redirectTo: '/login'})
-	  .otherwise({
-      templateUrl: 'templates/notimplementet.html',
-      controller: 'noRight'
-    });
+      .otherwise({
+        templateUrl: 'templates/notimplementet.html',
+        controller: 'noRight'
+      })
+    ;
   }]).config(['uiSelectConfig', function(uiSelectConfig) {
     uiSelectConfig.theme = 'bootstrap';
   }])  .config(['ChartJsProvider', function (ChartJsProvider) {

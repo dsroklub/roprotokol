@@ -1,5 +1,4 @@
 <h1>Data fra roprotokollen</h2>
-Kræver rettigheder i roprotokollen
 <h2> Offentlige data </2>
 
 <ul>
@@ -19,32 +18,32 @@ Kræver rettigheder i roprotokollen
 <h2> data der kræver rettigheder </2>
 
 <ul>
-    <li><a href="/backend/event/stats/inka.php?format=xlsx">sæsons ture for inka og coastal-roere som regneark</a></li>
-    <li><a href="/backend/event/stats/inkauger.php?format=xlsx">sæsons ture for inka/costal roere på ugebasis</a></li>
-
-    <li><a href="/backend/event/stats/racerkaniner.php">Statistik for førsteårsroning</a></li>
-    <li><a href="/backend/event/stats/rowerkm.php?include_trips={{rowerkm_include_trips?1:0}}&separate_instruction={{rowerkm_separate_instruction?1:0}}&force_email={{rowerkm_force_email?1:0}}&only_members={{rowerkm_only_members?1:0}}&year={{rowerkm_year}}">Kilometerstatistik for roere  som regneark</a>
-      (år <input type="text" ng-model="rowerkm_year" size="4"/>,
-      <input type="checkbox" ng-model="rowerkm_include_trips"/> ture,
-      <input type="checkbox" ng-model="rowerkm_separate_instruction"/> med/uden instruktion,
-      <input type="checkbox" ng-model="rowerkm_only_members"/> kun nuværende medlemmer,
-      <input type="checkbox" ng-model="rowerkm_force_email"/> inkluder fortrolig email)</li>
-    <li><a href="/backend/event/stats/boatrowerkm.php?format=xlsx">Årets 10 mest aktive roere i hver båd som regneark</a></li>
-    <li><a href="/backend/event/stats/maxmates.php?format=xlsx">Årets 10 roere med flest rokammerater som regneark</a></li>
-    <li><a href="/backend/event/stats/longdistancecoxes.php">Langdistancestyrmænd som regneark</a></li>
-    <li><a href="/backend/event/stats/instruktorstat.php">Sidste års instruktører som regneark</a>&nbsp;(<a href="/backend/stats/instruktorstat_all.php">sidste 10 år</a>)</li>
-    <li><a href="/backend/event/stats/instruktor_entring.php">Instruktøreres entringsøvelser som regneark</a></li>
-    <li><a href="/backend/event/stats/swimtest3year.php">Langturssvømmeprøver, 3 år</a></li>
-    <li><a href="/backend/event/stats/newrights_year.php?year={{newright_year}}">Nye rettigheder pr. år</a>
-      (år <input type="text" ng-model="newright_year" size="4"/>),
+  <li><a href="yearreport/">Årsrapport</a></li>
+  <li><a href="/backend/event/stats/inka.php?format=xlsx">sæsons ture for inka og coastal-roere som regneark</a></li>
+  <li><a href="/backend/event/stats/inkauger.php?format=xlsx">sæsons ture for inka/costal roere på ugebasis</a></li>
+  <li><a href="/backend/event/stats/racerkaniner.php">Statistik for førsteårsroning</a></li>
+  <li><a href="/backend/event/stats/rowerkm.php?include_trips={{rowerkm_include_trips?1:0}}&separate_instruction={{rowerkm_separate_instruction?1:0}}&force_email={{rowerkm_force_email?1:0}}&only_members={{rowerkm_only_members?1:0}}&year={{rowerkm_year}}">Kilometerstatistik for roere  som regneark</a>
+    (år <input type="text" ng-model="rowerkm_year" size="4"/>,
+    <input type="checkbox" ng-model="rowerkm_include_trips"/> ture,
+    <input type="checkbox" ng-model="rowerkm_separate_instruction"/> med/uden instruktion,
+    <input type="checkbox" ng-model="rowerkm_only_members"/> kun nuværende medlemmer,
+    <input type="checkbox" ng-model="rowerkm_force_email"/> inkluder fortrolig email)</li>
+  <li><a href="/backend/event/stats/boatrowerkm.php?format=xlsx">Årets 10 mest aktive roere i hver båd som regneark</a></li>
+  <li><a href="/backend/event/stats/maxmates.php?format=xlsx">Årets 10 roere med flest rokammerater som regneark</a></li>
+  <li><a href="/backend/event/stats/longdistancecoxes.php">Langdistancestyrmænd som regneark</a></li>
+  <li><a href="/backend/event/stats/instruktorstat.php">Sidste års instruktører som regneark</a>&nbsp;(<a href="/backend/stats/instruktorstat_all.php">sidste 10 år</a>)</li>
+  <li><a href="/backend/event/stats/instruktor_entring.php">Instruktøreres entringsøvelser som regneark</a></li>
+  <li><a href="/backend/event/stats/swimtest3year.php">Langturssvømmeprøver, 3 år</a></li>
+  <li><a href="/backend/event/stats/newrights_year.php?year={{newright_year}}">Nye rettigheder pr. år</a>
+    (år <input type="text" ng-model="newright_year" size="4"/>),
     <li><a href="/backend/event/stats/trip_stat_year.php?output=xlsx&allboats=1&km=1">km statistik for turtyper mm (robåde, kajakker)</a></li>
-    <li><a href="/backend/event/stats/trip_stat_month.php?output=xlsx&allboats=1&km=1">km statistik per måned (robåde, kajakker)</a></li>
-    <li><a href="/backend/event/stats/trip_rower_year.php?output=xlsx&allboats=1&km=1">roer statistik for turtyper mm (robåde, kajakker)</a></li>
-    <li><a href="/backend/event/stats/rowersbyright.php?right=instructor&subtype=kajak">Kajakinstruktører</a></li>
-    <li><a href="/backend/event/stats/rowersbyright.php?right=instructor&subtype=row">Robådsinstruktører</a></li>
-    <li><a href="/backend/event/stats/rowersbyright.php?right=wrench">Svensknøgler</a></li>
-    <li>
-        <select ng-model="rowerright" ng-options="mrt.member_right as mrt.member_right for mrt in memberrighttypes|unique:'member_right'"> </select>
-      <a href="/backend/event/stats/rowersbyright.php?right={{rowerright}}">Rettighed</a>
-    </li>
+  <li><a href="/backend/event/stats/trip_stat_month.php?output=xlsx&allboats=1&km=1">km statistik per måned (robåde, kajakker)</a></li>
+  <li><a href="/backend/event/stats/trip_rower_year.php?output=xlsx&allboats=1&km=1">roer statistik for turtyper mm (robåde, kajakker)</a></li>
+  <li><a href="/backend/event/stats/rowersbyright.php?right=instructor&subtype=kajak">Kajakinstruktører</a></li>
+  <li><a href="/backend/event/stats/rowersbyright.php?right=instructor&subtype=row">Robådsinstruktører</a></li>
+  <li><a href="/backend/event/stats/rowersbyright.php?right=wrench">Svensknøgler</a></li>
+  <li>
+    <select ng-model="rowerright" ng-options="mrt.member_right as mrt.member_right for mrt in memberrighttypes|unique:'member_right'"> </select>
+    <a href="/backend/event/stats/rowersbyright.php?right={{rowerright}}">Rettighed</a>
+  </li>
 </ul>

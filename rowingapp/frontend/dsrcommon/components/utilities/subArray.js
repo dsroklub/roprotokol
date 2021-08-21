@@ -1,4 +1,4 @@
-angular.module('rowApp.utilities.subArray', []).filter('subArray', function () {
+angular.module('dsrcommon.utilities.subArray', []).filter('subArray', function () {
   return function( arr, start, len) {
     if (! arr.splice ) {
       // console.log("subArray input cannot be spliced", arr);

@@ -20,7 +20,7 @@ angular.
     'rowApp.utilities.rowtodk',
     'rowApp.utilities.mtokmint',
      'rowApp.utilities.year2tool',
-    'rowApp.utilities.subArray',
+    'dsrcommon.utilities.subArray',
     'rowApp.utilities.damagedegreedk',
     'rowApp.utilities.dk_tags',
     'rowApp.utilities.subjecttodk',
