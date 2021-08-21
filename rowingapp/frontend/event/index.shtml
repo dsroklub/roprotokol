@@ -3,6 +3,7 @@
   <head>
     <!--#include virtual="/public/eventbasetag.html" -->
     <meta charset="utf-8">
+    <base href="/index.shtml"
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>DSR roaftaler</title>
     <meta name="description" content="">
@@ -76,7 +77,7 @@
     <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
     <script type='text/javascript' src="node_modules/chart.js/dist/Chart.js"></script>
     <script type='text/javascript' src="node_modules/angular-chart.js/dist/angular-chart.js"></script>
-    
+    <base href="/">
   </head>
   <body>
   <div class="menuholder" >

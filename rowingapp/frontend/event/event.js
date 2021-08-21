@@ -32,7 +32,7 @@ angular.module('eventApp', [
 ])
 .config([
   '$locationProvider', function($locationProvider) {
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode({ enabled: false, requireBase: false });
   }])
 .config([
   '$animateProvider', function($animateProvider) {
