@@ -83,6 +83,9 @@ angular.module('eventApp', [
     }).when('/work/', {
       templateUrl: 'templates/work.html',
       controller: 'workCtrl'
+    }).when('/rowing/', {
+      templateUrl: 'templates/rowing.html',
+      controller: 'rowingCtrl'
     }).when('/club/', {
       templateUrl: 'templates/club.html',
       controller: 'clubCtrl'

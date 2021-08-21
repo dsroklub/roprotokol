@@ -23,10 +23,6 @@ if (!empty($cuser)) {
         $verified=true;
     }
 }
-// if ($adminpw && $adminpw == $remotepw) {
-//     $verified=true;
-//     error_log("verified user by password");
-// }
 
 if (!$verified) {
     error_log("login failed");
