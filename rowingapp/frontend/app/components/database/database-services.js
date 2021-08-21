@@ -247,7 +247,7 @@ function dbservice($http, $q, $log) {
       'reservation':['reservation','boats','get_reservations'],
       'boat':['boats','boatdamages','availableboats','boat_status','boat_usages','get_events','onwater','boattypes','destinations','reservation_configurations','memberrighttypes','damage_types'],
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
-      'member':['boats','rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat'],
+      'member':['boats','rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat','memberrighttypes'],
       'destination':['destinations','zones'],
       'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat','stats/trip_stat_year'],
       'message':["boat_notes"],

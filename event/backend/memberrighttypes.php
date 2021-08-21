@@ -1,19 +1,10 @@
 <?php
 include("../../rowing/backend/inc/common.php");
-include("utils.php");
+include("inc/utils.php");
 header('Content-type: application/json');
-
-$s="SELECT member_right,arg,description,showname,predicate From  MemberRightType ORDER by description,arg";
-
-if ($stmt = $rodb->prepare($s)) {
-     $stmt->execute();
-     $result= $stmt->get_result() or die("Error in location query: " . mysqli_error($rodb));
-     $first=1;
-     echo '[';
-     while ($row = $result->fetch_assoc()) {
-         if ($first) $first=0; else echo ',';
-         echo json_encode($row);
-     }
-     echo ']';
-}
+$s="SELECT member_right,arg,description,showname,predicate,category,validity,active FROM  MemberRightType ORDER by description,arg";
+$stmt = $rodb->prepare($s) or dbErr($rodb,$res,"member rt bind");
+$stmt->execute() || dbErr($rodb,$res,"member rt exe");
+$result= $stmt->get_result() or dbErr($rodb,$res,"member rt res");
+process($result);
 $rodb->close();
