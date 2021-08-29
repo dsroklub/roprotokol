@@ -765,8 +765,8 @@ input.adminpw {
 }
 
 .numin  {
-    max-width: 3em;
-    text-align: right!important;
+  min-width: 2em;
+  text-align: right!important;
 
 }
 

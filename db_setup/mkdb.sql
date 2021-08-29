@@ -207,8 +207,8 @@ CREATE TABLE IF NOT EXISTS Destination (
 CREATE TABLE IF NOT EXISTS Error_Trip (
   id int(11) NOT NULL AUTO_INCREMENT,
   DeleteTrip int(11),
-  CreatedDate date,
-  EditDate date,
+  CreatedDate DATETIME,
+  EditDate dateTIME,
   Trip int(11),
   Boat varchar(100),
   BoatID int(11) NOT NULL,
