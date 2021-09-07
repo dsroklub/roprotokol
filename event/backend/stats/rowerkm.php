@@ -3,7 +3,7 @@ ini_set('default_charset', 'utf-8');
 set_include_path(get_include_path().':..');
 include("../../../rowing/backend/inc/common.php");
 include("inc/utils.php");
-$vr=verify_right("admin");
+$vr=verify_right(["admin"=>null,"data"=>"stat"]);
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: filename="kilometerstatistik.xlsx"');
 header('Cache-Control: max-age=0');

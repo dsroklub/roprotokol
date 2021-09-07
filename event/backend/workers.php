@@ -3,7 +3,7 @@ include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
 if (false && isset($_GET["delete"])) {
-    verify_right("admin","vedligehold");
+    verify_right(["admin"=>"vedligehold"]);
     $dsql="
 DELETE FROM worker
 WHERE assigner='vedligehold'

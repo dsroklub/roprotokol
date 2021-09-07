@@ -2,7 +2,7 @@
 set_include_path(get_include_path().':..');
 include("../../../rowing/backend/inc/common.php");
 include("inc/utils.php");
-$vr=verify_right("admin");
+$vr=verify_right(["admin"=>null,"data"=>"stat"]);
 
 $s='SELECT Concat(Member.FirstName," ",Member.LastName) as roer,Member.MemberID as medlemsnummer,COUNT(distinct tmo.member_id) as rokammerater
 FROM Member, Trip,TripMember tm, TripMember tmo

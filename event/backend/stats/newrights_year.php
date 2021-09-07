@@ -2,7 +2,7 @@
 set_include_path(get_include_path().':..');
 include("../../../rowing/backend/inc/common.php");
 include("inc/utils.php");
-$vr=verify_right("admin");
+$vr=verify_right(["admin"=>null,"data"=>"stat"]);
 $now = getdate();
 $year = (int) ($_GET["year"] ??  $now['year']);
 $s="SELECT Concat(Member.FirstName,' ',Member.LastName) as roer, Member.MemberID as medlemNr,showname as rettighed,argument as ekstra,Acquired as tildelt,Concat(m.FirstName,' ',m.LastName) as tildeler
