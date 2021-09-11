@@ -588,8 +588,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       DatabaseService.reload(['boat']);
       if (status.status =='ok') {
         $scope.checkinmessage=status.boat+" er nu ledig, turen er slettet";
-        $scope.checkin.boat=null;
-        $scope.onwater.splice($scope.onwater.indexOf(boattrip),1);
+        // $scope.checkin.boat=null;
+        boattrip.done=true;
+        // $scope.onwater.splice($scope.onwater.indexOf(boattrip),1);
       } else {
         $log.error("error "+status.message);
         $scope.checkoutmessage="Fejl: "+closetrip;
@@ -608,9 +609,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       DatabaseService.reload(['boat']);
       if (status.status =='ok') {
         $scope.checkinmessage= status.boat+" er nu skrevet ind";
-        $scope.checkin.boat=null;
+        //$scope.checkin.boat=null;
         $scope.checkout.trip_team=null;
-        $scope.onwater.splice($scope.onwater.indexOf(boattrip),1);
+        boattrip.done=true;
+        //$scope.onwater.splice($scope.onwater.indexOf(boattrip),1);
         if (status.boattrips) {
           if (status.boattrips %5 ==0) {
             $scope.checkinmessage=""+status.boat+" SKAL VASKES DENNE GANG";

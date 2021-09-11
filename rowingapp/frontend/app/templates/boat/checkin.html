@@ -46,7 +46,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr  ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-repeat="boattrip in onwater | filter: matchType(selectedboat,selectedBoatCategory)" ng-model="item"  >
+      <tr  ng-class-odd="'oddboat'" ng-class-even="'evenboat'" ng-class="{'tripdone':boattrip.done}" ng-repeat="boattrip in onwater | filter: matchType(selectedboat,selectedBoatCategory)" ng-model="item"  >
         <td class="boat">
             {{boattrip.boat}}
         </td>
@@ -67,13 +67,13 @@
         <td ng-class="{datealert: critical_time(boattrip.expectedintime)}">{{boattrip.expectedintime| txttotime | date :"HH:mm d. MMM"}}</td>
         <td class="rnum">{{boattrip.distance|mtokm}} km</td>
         <td class="colinput">
-          <input  autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boattrip.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm
+          <input ng-hide="boattrip.done" autocomplete="off" min="0.1" step="0.1" maxlength="4" size="3" ng-model="boattrip.corrected_distance" class="ui-select-bootstrap" onlynumber type="text" transformkm
                   name="kminput">
         </td>
         <td class="colinput">
-          <input  autocomplete="off" maxlength="200" size="3" ng-model="boattrip.comment" class="tripcomment" type="text" name="tripcomments">
+          <input ng-hide="boattrip.done" autocomplete="off" maxlength="200" size="3" ng-model="boattrip.comment" class="tripcomment" type="text" name="tripcomments">
         </td>
-        <td class="colinput">
+        <td class="colinput" ng-hide="boattrip.done">
           <div class="checkinactions">
             <button uib-tooltip="indskriv turen" ng-click="closetrip(boattrip,$index,item.km)" class="big"
                     ng-disabled="boattrip.corrected_distance===0"
