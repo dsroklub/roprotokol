@@ -1,6 +1,7 @@
 <?php
 require("inc/common.php");
 include("inc/utils.php");
+verify_right(["admin" => null,"rodata"=>null]);
 
 $s="SELECT event, event_time FROM event_log ORDER BY event_time DESC LIMIT 500";
 $result=$rodb->query($s) or die("Error in event query: " . mysqli_error($rodb));;
