@@ -1,5 +1,5 @@
 <?php
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../../../rowing/backend/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
