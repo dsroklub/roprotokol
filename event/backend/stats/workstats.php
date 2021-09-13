@@ -2,7 +2,7 @@
 set_include_path(get_include_path().':..');
 include("../../../rowing/backend/inc/common.php");
 require_once("utils.php");
-verify_right("admin","vedligehold");
+$vr=verify_right(["admin"=>"vedligehold","data"=>"stat"]);
 
 $sumq=null;
 $sum=null;

@@ -14,7 +14,7 @@ function parse_time($t) {
 }
 
 if ($cuser != "baadhal" ) {
-    verify_right("admin","vedligehold");
+    verify_right(["admin"=>"vedligehold"]);
 }
 if (isset($d->start_time)) {
     $start_time=parse_time($d->start_time);
@@ -41,7 +41,7 @@ if (isset($d->hours) && $cuser != "baadhal") {
 
 if ($cuser=="baadhal"){
     if ($hours>5) {
-        $message = "$d->name afkortet til 3 timer\n";
+        $message = "$d->name afkortet til 5 timer\n";
         $message .="$start_time til $end_time = $hours" ;
         $hours=5;
         error_log($message);
