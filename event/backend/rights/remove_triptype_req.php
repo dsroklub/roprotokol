@@ -1,13 +1,10 @@
 <?php
 include("../inc/common.php");
 $vr=verify_right(["admin"=>"roprotokol","admin"=>"trip","admin"=>"right"]);
-
 $error=null;
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
-
-
 $rodb->begin_transaction();
 error_log('remove right '.json_encode($data));
 
