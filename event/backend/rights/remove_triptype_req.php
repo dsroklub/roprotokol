@@ -1,6 +1,6 @@
 <?php
 include("../inc/common.php");
-$vr=verify_right(["admin"=>"roprotokol","admin"=>"boat","admin"=>"right"]);
+$vr=verify_right(["admin"=>"roprotokol","admin"=>"trip","admin"=>"right"]);
 
 $error=null;
 $res=array ("status" => "ok");
