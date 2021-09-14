@@ -1,5 +1,5 @@
 <?php
-include("inc/common.php");
+include("../inc/common.php");
 $vr=verify_right(["admin"=>"roprotokol","admin"=>"boats"]);
 
 $error=null;
