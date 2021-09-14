@@ -1,6 +1,6 @@
 <?php
-include("inc/common.php");
-include("inc/verify_user.php");
+include("../inc/common.php");
+$vr=verify_right(["admin"=>"roprotokol","admin"=>"reservation"]);
 $rc = json_decode(file_get_contents("php://input"));
 $stmt=$rodb->prepare("UPDATE reservation_configuration SET selected=? WHERE name=?") or dbErr($rodb,$res,"p set res conf");
 $sel=$rc->selected;

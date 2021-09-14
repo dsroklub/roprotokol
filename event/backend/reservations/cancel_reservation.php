@@ -1,11 +1,9 @@
 <?php
 include("inc/common.php");
-include("inc/verify_user.php");
-
+$vr=verify_right(["admin"=>"roprotokol","admin"=>"reservation"]);
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
-
 error_log("cancel res ".print_r($data,true));
 $rodb->begin_transaction();
 $stmt = $rodb->prepare("DELETE FROM reservation  WHERE id=?")  or dbErr($rodb,$res,"deletes reservation (Exe)");
