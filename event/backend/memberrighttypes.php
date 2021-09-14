@@ -1,5 +1,5 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 $s="SELECT member_right,arg,description,showname,predicate,category,validity,active FROM  MemberRightType ORDER by description,arg";
