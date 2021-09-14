@@ -1,6 +1,6 @@
 <?php
 include("../inc/common.php");
-
+include("../inc/utils.php");
 $error=null;
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");

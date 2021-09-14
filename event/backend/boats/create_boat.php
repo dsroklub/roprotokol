@@ -1,13 +1,11 @@
 <?php
 include("../inc/common.php");
-$vr=verify_right(["admin"=>"roprotokol","admin"=>"boat"]);
-
-
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol","boat"]]);
 $error=null;
 $res=["status" => "ok"];
 $jsondata = file_get_contents("php://input");
 $data=json_decode($jsondata);
-
 $rodb->begin_transaction();
 $stmt = $rodb->prepare("INSERT INTO Boat (Name,boat_type,Location,Created) VALUES(?,?,?,NOW())") or dbErr($rodb,$res,"create boat (Prepare)");
 $stmt->bind_param('sss', $data->name,$data->boat_type->name,$data->location) or dbErr($rodb,$res,"create boat (Bind)");

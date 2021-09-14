@@ -1,6 +1,7 @@
 <?php
 include("../inc/common.php");
-$vr=verify_right(["admin"=>"roprotokol","admin"=>"boat"]);
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol","boat"]]);
 $data = file_get_contents("php://input");
 $data=json_decode($data);
 $rodb->begin_transaction();
