@@ -2,6 +2,7 @@
 
 function dbservice($http, $q, $log, $timeout) {
   var valid={};
+  var db={'boatsA':[]};
   var db={'boats':[],'boatsById':{},'boatsByName':{}};
   var tx=null;
   var debug=3;
@@ -16,14 +17,25 @@ function dbservice($http, $q, $log, $timeout) {
     if (err.data && err.data.status && err.data.status=="error") {
       alert(err.data.error);
     } else if (err.statusText) {
-      alert(err.statusText);
-    }
+      alert("DB error"+err.statusText);
+    } else alert(err);
+
     $log.debug(" db service err: "+err);
-    alert(err);
   };
 
   this.getDB = function (dataid) {
+    if (db[dataid]===undefined) {
+      console.log("missing "+dataid);
+    }
     return db[dataid];
+  }
+  var right2dk={"nothing":"here"};
+  var right2dkm={};
+  this.getRight2dk = function (r) {
+    return right2dk[r];
+  }
+  this.getRight2dkm = function (r) {
+    return right2dkm[r];
   }
 
   this.getData = function (dataid,promises) {
@@ -54,6 +66,72 @@ function dbservice($http, $q, $log, $timeout) {
     $log.debug("DB fetch "+Date());
     var headers = {};
     var promises=[];
+    if (subscriptions.boat) {
+      if(!valid['boats']) {
+        //Build indexes and lists for use by API
+        // $log.debug("  boats not valid");
+        var bq=$q.defer();
+        promises.push(bq.promise);
+        $http.get(toURL('event/boat_status.php'), { headers: headers } ).then(function (response) {
+          db['boats'] = {};
+          var boatsA=[];
+          angular.forEach(response.data, function(boat, index) {
+            db['boats'][boat.id] = boat;
+            boatsA.push(boat);
+          }, boatsA);
+          db['boatsA']=boatsA;
+          var boatCategories={};
+          angular.forEach(response.data, function(boat, index) {
+            var category = boat.category;
+            if(this[category] === undefined) {
+              this[category] = [];
+            }
+            this[category].push(boat);
+          }, boatCategories);
+          db['boatcategories'] = boatCategories;
+          valid['boats']=true;
+          bq.resolve(true);
+        });
+      }
+
+      if (!valid['boatdamages']) {
+        var boatdamageq=$q.defer();
+        promises.push(boatdamageq.promise);
+        $http.get(toURL('event/boatdamages.php')).then(function onSuccess(response) {
+          var boatdamages={};
+          db['boatdamages_flat'] = response.data;
+          angular.forEach(db['boatdamages_flat'], function(boatdamage, index) {
+            if(this[boatdamage.boat_id] === undefined) {
+              this[boatdamage.boat_id] = [];
+            }
+            this[boatdamage.boat_id].push(boatdamage);
+          }, boatdamages);
+          db['boatdamages'] = boatdamages;
+          valid['boatdamages']=true;
+          boatdamageq.resolve(true);
+        });
+      }
+    }
+    if (!valid['get_reservations']) {
+      var reservationq=$q.defer();
+      promises.push(reservationq.promise);
+      $http.get(toURL('event/reservations/get_reservations.php')).then(function onSuccess (response) {
+        db["get_reservations"] = response.data;
+        var reservationsByBoat=[];
+        var reservations=db['get_reservations'];
+        for (var ri=0; ri<reservations.length;ri++) {
+          if (!reservationsByBoat[reservations[ri].boat_id]) {
+            reservationsByBoat[reservations[ri].boat_id]=[];
+          }
+          //if (reservations[ri].dayofweek<1 || reservations[ri].configuration==status.reservertion_configuration) {
+            reservationsByBoat[reservations[ri].boat_id].push(reservations[ri]);
+          //}
+        }
+        db['reservationsByBoat']=reservationsByBoat;
+        valid["get_reservations"]=true;
+        reservationq.resolve("get_reservations");
+      });
+    }
     this.getData('event/roles',promises);
     this.getData('event/memberrighttypes',promises);
     this.getData('event/forum_files_list',promises);
@@ -62,10 +140,13 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/messages',promises);
     this.getData('event/member_setting',promises);
     this.getData('event/worklog',promises);
+    this.getData('event/triptypes',promises);
+    this.getData('event/zones',promises);
     this.getData('event/boats',promises);
     this.getData('event/workers',promises);
     this.getData('event/work_today',promises);
     this.getData('event/rowers',promises);
+    this.getData('event/get_row_events',promises);
     this.getData('event/worktasks',promises);
     this.getData('event/boat_category',promises);
     this.getData('event/damage_types',promises);
@@ -75,6 +156,15 @@ function dbservice($http, $q, $log, $timeout) {
     //    this.getData('event/events',promises);
     this.getData('event/events_participants',promises);
     this.getData('event/destinations',promises);
+    this.getData('event/rights_subtype',promises);
+    this.getData('event/errortrips',promises);
+    this.getData('event/boat_brand',promises);
+    this.getData('event/boat_usages',promises);
+    this.getData('event/reservations/reservation_configurations',promises);
+//    this.getData('event/get_reservations',promises);
+    this.getData('event/boatkayakcategory',promises);
+    this.getData('event/locations',promises);
+    this.getData('event/status',promises);
     this.getData('event/boattypes',promises);
     this.getData('event/userfora',promises);
     this.getData('event/boatdamages',promises);
@@ -102,12 +192,23 @@ function dbservice($http, $q, $log, $timeout) {
     'destination':null,
     'file':null
   };
-
+  
+  db.boatlevels={
+    0:'',
+    1:'Let',
+    2:'Mellem',
+    3:'Svær',
+    4:'Meget svær'
+  }
   this.init = function(subscriptions) {
     cachedepend={
+      'status':['event/status','event/reservations/get_reservations'],
+      'admin':['event/memberrighttypes','event/rights_subtype','event/errortrips','event/locations','event/get_row_events','boatlevels','event/triptypes','event/destinations'],
+      'reservation':['event/boats','event/reservations/get_reservations'],
       'member':['event/rowers','event/events_participants'],
       'event':['event/events','event/event_category','event/userfora','event/events_participants'],
       'message':['event/messages'],
+      'destination':['event/destinations','event/zones'],
       'boat':['event/damage_types','event/boatdamages','event/boats'],
       'work':['event/work_today','event/workers','event/worklog','event/worktasks','event/maintenance_boats'],
       'fora':['event/messages','event/userfora','event/fora'],
@@ -224,8 +325,8 @@ function dbservice($http, $q, $log, $timeout) {
       qup.resolve(r.data)
     },function(r) {
       $log.debug("db err for "+op);
-      $log.error(r.status);
-      qup.resolve(false);
+      $log.error("updataDB",r.status);
+      qup.reject(r);
     });
     datastatus['message']=null;
     datastatus['event']=null;
@@ -244,7 +345,7 @@ function dbservice($http, $q, $log, $timeout) {
      var at=ar.then(function (res) {
        // $log.debug(' done '+op+" res="+JSON.stringify(res)+" stat "+res.status);
        if (!res||res.status=="notauthorized") {
-         $log.error("auth error "+op+JSON.stringify(data));
+         $log.error("updatedb error "+op+JSON.stringify(data));
          if (eh) {
            eh(res);
          }
@@ -298,6 +399,26 @@ function dbservice($http, $q, $log, $timeout) {
   this.valid = function() {
     return valid;
   }
+
+  this.getRowerByMemberId = function(member_id) {
+    var rowers=db['rowers'];
+    if (!rowers) {
+      return null;
+    }
+    for (var rmi=0; rmi<rowers.length; rmi++) {
+      if (rowers[rmi].id==member_id) {
+        return rowers[rmi];
+      }
+    }
+  }
+
+  this.getCurrentRower = function() {
+    if (!db['current_user']) return null;
+    return this.getRowerByMemberId(db['current_user']);
+  }
+
+  
+
 }
 
 angular.module('eventApp.database.database-services', []).service('DatabaseService', ['$http','$q','$log','$timeout',dbservice]);

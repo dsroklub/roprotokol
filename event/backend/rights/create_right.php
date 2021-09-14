@@ -1,8 +1,7 @@
 <?php
-include("inc/common.php");
-include("inc/verify_user.php");
-
-
+include("../inc/common.php");
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol""right"]]);
 $sjondata = file_get_contents("php://input");
 $right=json_decode($sjondata);
 error_log("new right: ".json_encode($right));

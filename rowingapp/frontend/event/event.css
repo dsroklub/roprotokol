@@ -272,6 +272,7 @@ select  {
   margin-bottom: 0pt;
   background-color: #FFB992;
   border-radius: 5px;
+  color: #000000;
 }
 
 button.deletealert {
@@ -672,4 +673,15 @@ a.linkbtn {
 
 .report{
   display:flex;
+}
+.lisel {
+      list-style: none;
+}
+.lisel li {
+    background:#da8c8c ;
+    display: inline-block;
+    padding: 4pt 4pt;
+    margin: 0;
+    cursor: pointer;
+    vertical-align: top;
 }

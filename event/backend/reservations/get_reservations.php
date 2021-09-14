@@ -1,6 +1,6 @@
 <?php
-require("inc/common.php");
-include("inc/utils.php");
+require("../inc/common.php");
+include("../inc/utils.php");
 
 $s="
 SELECT reservation.id,Boat.id as boat_id,Boat.Name as boat, TIME_FORMAT(start_time,'%H:%i') as start_time,start_date,TIME_FORMAT(end_time,'%H:%i') AS end_time,end_date,

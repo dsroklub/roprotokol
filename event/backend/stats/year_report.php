@@ -2,14 +2,11 @@
 set_include_path(get_include_path().':..');
 include("../../../rowing/backend/inc/common.php");
 include("inc/utils.php");
-$vr=verify_right(["admin"=>null,"data"=>"stat"]);
-
+$vr=verify_right(["admin"=>[null],"data"=>["stat"]]);
 $messages = [];
 $error=null;
 $res=array ("status" => "ok");
 $tripTypes = [];
-
-
 $y = 0;
 $now = getdate();
 $to_year = isset($_GET['to_year']) ? (int) $_GET['to_year'] : $now['mon'] < 2 ? $now['year'] - 1 : $now['year'];

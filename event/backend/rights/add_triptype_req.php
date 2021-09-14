@@ -1,6 +1,7 @@
 <?php
 include("../inc/common.php");
-$vr=verify_right(["admin"=>"roprotokol","admin"=>"trip","admin"=>"right"]);
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol","trip","right"]]);
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);

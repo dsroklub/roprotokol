@@ -9,15 +9,16 @@ error_log('close trip');
 $data = file_get_contents("php://input");
 $closedtrip=json_decode($data);
 
+$tripinfo="$closedtrip->triptype: $closedtrip->boat til $closedtrip->destination ud $closedtrip->outtime med ". $closedtrip->rowers[0]->name;
 $rodb->begin_transaction();
-error_log("delete open trip ". $closedtrip->trip_id);
+error_log("slet $closedtrip->trip_id $tripinfo");
+eventLog("slettet $closedtrip->trip_id $tripinfo");
 
-if ($stmt = $rodb->prepare("DELETE FROM Trip WHERE id=? AND InTime IS NULL")) { 
+if ($stmt = $rodb->prepare("DELETE FROM Trip WHERE id=? AND InTime IS NULL")) {
   $stmt->bind_param('i', $closedtrip->trip_id);
   $stmt->execute();
   $result= $stmt->get_result();
-} 
-
+}
 
 if ($error) {
  $res['status']='error';

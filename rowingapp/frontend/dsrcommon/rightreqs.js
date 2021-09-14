@@ -1,4 +1,4 @@
-angular.module('rowApp.utilities.rightreqs', []).filter('rightreqs', ['DatabaseService', rightreqs]);
+angular.module('row.rightreqs', []).filter('rightreqs', ['DatabaseService', rightreqs]);
 
 function rightreqs(db_service) {
   var ss={'cox':'styrmanden','all':'alle','any':'mindst en','forbidden':'forbudt'};

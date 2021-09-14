@@ -1,8 +1,7 @@
 <?php
-set_include_path(get_include_path().':..');
-include("../../../rowing/backend/inc/common.php");
-include("inc/utils.php");
-$vr=verify_right(["admin"=>null,"data"=>"stat"]);
+include("../inc/common.php");
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>[null],"data"=>["stat"]]);
 $s="SELECT CONCAT(FirstName,' ',LastName) AS navn, MemberID AS medlemsnummer, COUNT('x') as ture, ROUND(SUM(Meter)/1000,2) as km, WEEK(OutTime) as uge, GROUP_CONCAT(DISTINCT TripType.Name) as turtyper
 FROM Member,Trip,TripMember,TripType,Boat
 WHERE

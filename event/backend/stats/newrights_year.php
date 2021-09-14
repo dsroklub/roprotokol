@@ -1,8 +1,8 @@
 <?php
 set_include_path(get_include_path().':..');
-include("../../../rowing/backend/inc/common.php");
-include("inc/utils.php");
-$vr=verify_right(["admin"=>null,"data"=>"stat"]);
+include("../inc/common.php");
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>[null],"data"=>["stat"]]);
 $now = getdate();
 $year = (int) ($_GET["year"] ??  $now['year']);
 $s="SELECT Concat(Member.FirstName,' ',Member.LastName) as roer, Member.MemberID as medlemNr,showname as rettighed,argument as ekstra,Acquired as tildelt,Concat(m.FirstName,' ',m.LastName) as tildeler
@@ -10,6 +10,5 @@ $s="SELECT Concat(Member.FirstName,' ',Member.LastName) as roer, Member.MemberID
     WHERE
        member_id=Member.id AND YEAR(Acquired)=" . $year . " AND MemberRightType.member_right=MemberRights.MemberRight AND NOT (MemberRightType.arg <> MemberRights.argument)
     ORDER BY MemberRight,tildelt,roer";
-
 $result=$rodb->query($s) or dbErr($rodb,$res,"q");
 process($result,"xlsx","årets_nye_rettigheder_$year","_auto");

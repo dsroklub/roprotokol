@@ -1,23 +1,19 @@
 <?php
 include("inc/common.php");
-$vr=verify_right(["admin"=>"roprotokol","admin"=>"rower"]);
+include("inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol","rower"]]);
 $res=array ("status" => "ok");
-
 $data = file_get_contents("php://input");
 $fromto=json_decode($data);
 $error=null;
 error_log('convertrower '.json_encode($fromto));
-
 $rodb->begin_transaction();
-
-
 if (!$fromto->to) {
     dbErr($todb,$res,"to missing");
 }
 if (!$fromto->from) {
     dbErr($todb,$res,"from missing");
 }
-
 $updates = [
    "UPDATE TripMember, Member as fm, Member as tm Set TripMember.member_id = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND TripMember.member_id=fm.id",
    "UPDATE Damage, Member as fm, Member as tm Set Damage.ResponsibleMember = tm.id WHERE tm.MemberID=? AND fm.MemberID=? AND Damage.ResponsibleMember=fm.id",

@@ -57,6 +57,12 @@
     <script src="../dsrcommon/components/utilities/safefilename.js"></script>
     <script src="../dsrcommon/components/utilities/mtokm.js"></script>
     <script src="../dsrcommon/components/utilities/urlencode.js"></script>
+    <script src="../dsrcommon/sidetodk.js"></script>
+    <script src="../dsrcommon/leveltodk.js"></script>
+    <script src="../dsrcommon/rowtodk.js"></script>
+    <script src="../dsrcommon/subjecttodk.js"></script>
+    <script src="../dsrcommon/rightreqs.js"></script>
+    <script src="../dsrcommon/righttodk.js"></script>
     <script src="../../public/js/gitrevision.js"></script>
     <script src="components/database/login-services.js"></script>
     <script src="event.js"></script>

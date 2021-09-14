@@ -66,8 +66,9 @@ function verify_right($requireds) {
         return false;
     }
     $cuser=$_SERVER['PHP_AUTH_USER'];
-    foreach ($requireds as $required=>$arg) {
+    foreach ($requireds as $required=>$args) {
         // one of
+        foreach ($args as $arg) {
         if ($arg) {
             $tried .= "$required/$arg ";
             $stmt=$rodb->prepare("SELECT 'x' FROM Member,MemberRights WHERE Member.MemberId=? AND MemberRights.member_id=Member.id AND MemberRight=? AND argument=?") or dbErr($rodb,$res,"verify right");
@@ -83,5 +84,6 @@ function verify_right($requireds) {
             return true;
         }
     }
-    roErr("medlem $cuser har ikke nogen af rettighederne $tried");
+    }
+    roErr("Medlem $cuser har ikke nogen af rettighederne $tried");
 }

@@ -1,7 +1,7 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 require("utils.php");
-verify_right(["admin"=>"vedligehold"]);
+verify_right(["admin"=>["vedligehold"]]);
 $data = file_get_contents("php://input");
 $d=json_decode($data);
 $stmt=$rodb->prepare("UPDATE worker SET requirement=?,workertype=? WHERE assigner='vedligehold' AND member_id IN (SELECT id FROM Member WHERE MemberID=?)") or dbErr($rodb,$res,"set work");

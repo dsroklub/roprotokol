@@ -1,7 +1,7 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 require("utils.php");
-verify_right(["admin"=>"vedligehold"]);
+verify_right(["admin"=>["vedligehold"]]);
 error_log("rmwork cuser $cuser");
 $data = file_get_contents("php://input");
 $d=json_decode($data);

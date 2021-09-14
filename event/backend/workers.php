@@ -1,9 +1,8 @@
 <?php
 include("../../rowing/backend/inc/common.php");
 include("utils.php");
-
 if (false && isset($_GET["delete"])) {
-    verify_right(["admin"=>"vedligehold"]);
+    verify_right(["admin"=>["vedligehold"]]);
     $dsql="
 DELETE FROM worker
 WHERE assigner='vedligehold'
@@ -11,7 +10,6 @@ WHERE assigner='vedligehold'
     $stmt = $rodb->prepare($dsql) or dbErr($rodb,$res,"worker del");
     $stmt->execute() ||  dbErr($rodb,$res,"rower work delete");
 }
-
 $sql="
 SELECT DISTINCT CONCAT(FirstName,' ',LastName) as name, workertype,argument as winteradmin,Member.MemberId as worker_id,requirement, requirement,IFNULL(MAX(worklog.start_time),'x') as start_time,
  CONVERT(IFNULL(SUM(wl.hours),0),DOUBLE) as allhours

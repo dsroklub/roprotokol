@@ -1,11 +1,10 @@
 <?php
 include("../inc/common.php");
-$vr=verify_right(["admin"=>"roprotokol","admin"=>"reservation"]);
-
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol","reservation"]]);
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
-
 $start_date=isset($data->start_date)?$data->start_date:null;
 $end_date=isset($data->end_date)?$data->end_date:null;
 $dow=isset($data->dayofweek)?$data->dayofweek:null;
@@ -30,6 +29,5 @@ $res['reservationid']= $last->fetch_assoc()['lastid'];
 $rodb->commit();
 invalidate('boat');
 invalidate('reservation');
-
 $rodb->close();
 echo json_encode($res);

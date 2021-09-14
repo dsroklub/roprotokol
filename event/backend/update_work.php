@@ -1,6 +1,6 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-require("utils.php");
+include("inc/common.php");
+require("inc/utils.php");
 include("messagelib.php");
 $forum = "vedligehold";
 
@@ -14,7 +14,7 @@ function parse_time($t) {
 }
 
 if ($cuser != "baadhal" ) {
-    verify_right(["admin"=>"vedligehold"]);
+    verify_right(["admin"=>["vedligehold"]]);
 }
 if (isset($d->start_time)) {
     $start_time=parse_time($d->start_time);

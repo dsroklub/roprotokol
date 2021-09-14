@@ -1,7 +1,7 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 require("utils.php");
-verify_right(["admin"=>"vedligehold"]);
+verify_right(["admin"=>["vedligehold"]]);
 $data = file_get_contents("php://input");
 $d=json_decode($data);
 $stmt=$rodb->prepare("INSERT INTO worker(member_id,assigner, created,created_by,requirement,workertype )

@@ -4,7 +4,7 @@ var side2dk = {
   'center':'midtfor'
 }
 
-angular.module('rowApp.utilities.sidetodk', []).filter('sidetodk', function () {
+angular.module('row.sidetodk', []).filter('sidetodk', function () {
   return function (sd) {
     var r=side2dk[sd];
     return (r?r:sd);

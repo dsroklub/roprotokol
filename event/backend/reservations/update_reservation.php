@@ -1,6 +1,7 @@
 <?php
 include("../inc/common.php");
-$vr=verify_right(["admin"=>"roprotokol","admin"=>"reservation"]);
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol","reservation"]]);
 $rv = json_decode(file_get_contents("php://input"));
 $stmt=$rodb->prepare("UPDATE reservation SET dayofweek=?,start_time=?,end_time=?
  WHERE id=?") or dbErr($rodb,$res,"res update prepare");
