@@ -1,16 +1,17 @@
 <?php
-include("../inc/common.php");
-$vr=verify_right(["admin"=>"roprotokol","admin"=>"boat"]);
+include("inc/common.php");
+include("inc/verify_user.php");
 
 $error=null;
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $data=json_decode($data);
 
+$location = $data->location;
 $rodb->begin_transaction();
 
-if ($stmt = $rodb->prepare("UPDATE Boat set Name=? Where id=?")) {
-    $stmt->bind_param('si', $data->name,$data->id);
+if ($stmt = $rodb->prepare("UPDATE Boat set Location=? Where id=?")) {
+    $stmt->bind_param('si', $data->location,$data->id);
     $stmt->execute();
 }
 $rodb->commit();
