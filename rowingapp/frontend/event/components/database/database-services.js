@@ -132,6 +132,24 @@ function dbservice($http, $q, $log, $timeout) {
         reservationq.resolve("get_reservations");
       });
     }
+    if(!valid['memberrighttypes']) {
+      var mrq=$q.defer();
+      promises.push(mrq.promise);
+      $http.get(toURL('event/memberrighttypes.php')).then(function(response) {
+        var rights=response.data;
+        right2dk = {};
+        right2dkm = {};
+        db['memberrighttypes']= rights;
+        for (var mri=0;mri<rights.length;mri++) {
+          var r=rights[mri];
+          right2dk[r.member_right] = r.showname;
+          right2dkm[r.member_right] = r.predicate;
+        }
+        valid['memberrighttypes']=true;
+        mrq.resolve(true);
+      });
+    }
+
     this.getData('event/roles',promises);
     this.getData('event/memberrighttypes',promises);
     this.getData('event/forum_files_list',promises);

@@ -12,7 +12,7 @@ function rightreqs(db_service) {
           res +=", ";
         }
         if (subject=='none') {
-          res+=(" ingen må "+(db_service.getRight2dkm(right)?db_service.getRight2dkm(right):right));        
+          res+=(" ingen må "+(db_service.getRight2dkm(right)?db_service.getRight2dkm(right):right));
         } else {
           res+=(ss[subject]+" skal "+(db_service.getRight2dkm(right)?db_service.getRight2dkm(right):right));
         }

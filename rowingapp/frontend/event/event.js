@@ -8,6 +8,7 @@ angular.module('eventApp', [
   'dsrcommon.utilities.dsrtimeformat',
   'dsrcommon.utilities.txttotime',
   'dsrcommon.utilities.dsrinterval',
+  'dsrcommon.utilities.dsrtimestring',
   'dsrcommon.utilities.transformkm',
   'dsrcommon.utilities.safefilename',
   'dsrcommon.utilities.mtokm',
