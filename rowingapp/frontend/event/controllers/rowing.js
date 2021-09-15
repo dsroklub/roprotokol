@@ -196,7 +196,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
 
     $scope.create_destination = function(dest) {
       $log.info("new destination");
-      var exeres=DatabaseService.updateDB('event/create_destination',dest,$scope.config,$scope.errorhandler);
+      var exeres=DatabaseService.updateDB('event/trips/create_destination',dest,$scope.config,$scope.errorhandler);
       if (!$scope.DB('destinations')[dest.location]) {
         $scope.DB('destinations')[dest.location]=[];
       }
@@ -244,7 +244,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       var exeres=DatabaseService.updateDB('event/boats/usage_update_name',usage,$scope.config,$scope.errorhandler);
     }
     $scope.set_sculler_open = function(sculler_open) {
-      var exeres=DatabaseService.updateDB('event/set_sculler_open',sculler_open,$scope.config,$scope.errorhandler);
+      var exeres=DatabaseService.updateDB('event/trips/set_sculler_open',sculler_open,$scope.config,$scope.errorhandler);
     }
     $scope.set_reservation_configuration = function(resconf) {
       var exeres=DatabaseService.updateDB('event/reservations/set_reservation_configuration',resconf,$scope.config,$scope.errorhandler);
@@ -263,7 +263,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     }
 
     $scope.set_destination_name = function(destination) {
-      var exeres=DatabaseService.updateDB('event/set_destination_name',destination,$scope.config,$scope.errorhandler);
+      var exeres=DatabaseService.updateDB('event/trips/set_destination_name',destination,$scope.config,$scope.errorhandler);
       if (confirm("omdøb " + destination.orig_name + " til " + destination.orig_name)) {
         exeres.then(
           function (status) {
@@ -353,7 +353,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       var data={'right':right,'rower':rower,'newrightdate':nrd.toISOString().split('T')[0]}
       var exeres=DatabaseService.updateDB('event/rights/add_rower_right',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
-          $scope.currentrower.rights.push(right);
+          $scope.currentrower.rights.unshift(right);
         }
       });
     }
@@ -361,10 +361,10 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     $scope.remove_rower_right = function(right,rower,ix) {
       var data={'right':right,'rower':rower}
       var exeres=DatabaseService.updateDB('event/rights/remove_rower_right',data,$scope.config,$scope.errorhandler).then(function(status) {
-        if (status.status=="ok") {
+        if (status && status.status=="ok") {
           $scope.currentrower.rights.splice(ix,1);
         }
-      });
+      },$scope.errorhandler);
     }
 
     $scope.remove_boattype_requirement = function(rt,ix) {
@@ -378,7 +378,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
 
     $scope.add_boattype_requirement = function(data,existing_rights) {
       data.boat_type=$scope.currentboattype;
-      var exeres=DatabaseService.updateDB('event/boats/rights/add_boattype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
+      var exeres=DatabaseService.updateDB('event/boats/add_boattype_req',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
           existing_rights.push({"requirement":data.subject, "required_right":data.right});
         }
@@ -387,11 +387,12 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
 
     $scope.add_triptype_requirement = function(data,existing_rights) {
       data.triptype=$scope.currenttriptype;
-      $scope.requiredtriprights.push({"required_right":data.right, "requirement":data.subject});
+      var rr=data.right;
+      var rs=data.subject;
       var exeres=DatabaseService.updateDB('event/rights/add_triptype_req',data,$scope.config,$scope.errorhandler).then(
         function(status) {
           if (status.status=="ok") {
-            existing_rights.push({"requirement":data.subject, "required_right":data.right});
+            existing_rights.push({"requirement":rs, "required_right":rr});
           }
         },
         $scope.errorhandler

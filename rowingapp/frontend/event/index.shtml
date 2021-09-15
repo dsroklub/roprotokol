@@ -110,7 +110,7 @@
       <li ng-class="{topsel: activePath=='/work/'}"><a href="#!work/"><i class="fa fa-hourglass"></i>Arbejde</a></li>
       <li ng-class="{topsel: activePath=='/club/'}"><a href="#!club/"><i class="fa fa-chart-bar"></i>Klub</a></li>
       <li ng-class="{topsel: activePath=='/damages/'}"><a href="#!damages/"><i class="fa fa-chart-bar"></i>Skader</a></li>
-      <li ng-class="{topsel: activePath=='/rowing/'}"><a href="#!rowing/"><i class="fa fa-compass"></i>Rodata</a></li>
+      <li ng-class="{topsel: activePath=='/rowing/'}"><a href="#!rowing/"><i class="fa fa-compass"></i>Ro</a></li>
       <li ng-class="{topsel: activePath=='/about/'}"><a href="#!about/"><i class="fa fa-info-circle"></i>Om</a></li>
 
     </ul>

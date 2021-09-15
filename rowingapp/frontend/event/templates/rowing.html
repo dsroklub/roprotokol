@@ -219,7 +219,7 @@
       </tr>
       <tr>
         <td>
-          <select ng-model="boat_type.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)|unique:'member_right'">
+          <select ng-model="boat_type.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)| filter: {category:roning}|unique:'member_right'">
           </select>
         </td>
         <td>
@@ -275,7 +275,7 @@
       <tbody>
         <tr ng-repeat="r in currenttriptype.rights" ng-class-odd="'odd'" ng-class-even="'even'" ng-if="r.required_right">
           <td>{{r.required_right| righttodk }}</td>
-          <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects" ng-change="update_triptype_requirement(currenttriptype,r)">{{r.requirement}}</select></td>
+          <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects  | filter: {category:roning}" ng-change="update_triptype_requirement(currenttriptype,r)">{{r.requirement}}</select></td>
           <td><button class="action" ng-click="remove_triptype_requirement(r,$index)">Fjern krav</button></td>
         </tr>
         <tr>
@@ -359,6 +359,26 @@
              typeahead-template-url="taTemplate.html" required />
     </form>
     <div>
+    <div class="addright" ng-if="currentrower.id">
+      per:
+      <datetimepicker
+        date-format="dd-MMM-yyyy"
+        show-spinners="false"
+        current-text="i dag"
+        close-text="Vælg"
+        clear-text="Rens"
+        date-options="dateOptions"
+        show-meridian="false"
+        hidden-time="true"
+        data-ng-model="newrightdate"
+        >
+      </datetimepicker>
+      <br>
+      <ui-select class="right_select" name="rower.addnewright" ng-model="rower.newright" on-select="add_rower_right(rower.newright,currentrower,newrightdate)">
+        <ui-select-match class="newright" placeholder="tildel rettighed til {{currentrower.name}}" >Tildel ny rettighed til {{currentrower.name}}</ui-select-match>
+        <ui-select-choices class="newright" position="down" repeat="rtt in DB('memberrighttypes')| filter:noright()" >{{rtt|argrighttodk}}</ui-select-choices>
+      </ui-select>
+    </div>
       <table class="boatlist" ng-show="currentrower.id">
         <caption>Rettigheder for {{currentrower.name}} ({{currentrower.id}})</caption>
         <thead>
@@ -373,27 +393,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="addright" ng-if="currentrower.id">
-      per:
-      <datetimepicker
-        date-format="dd-MMM-yyyy"
-        show-spinners="false"
-        current-text="i dag"
-        close-text="Vælg"
-        clear-text="Rens"
-        date-options="dateOptions"
-        show-meridian="false"
-        hidden-time="true"
-        data-ng-model="newrightdate"
-        >
-    </datetimepicker>
-        <br>
-      <ui-select class="right_select" name="rower.addnewright" ng-model="rower.newright" on-select="add_rower_right(rower.newright,currentrower,newrightdate)">
-        <ui-select-match class="newright" placeholder="tildel rettighed til {{currentrower.name}}" >Tildel ny rettighed til {{currentrower.name}}</ui-select-match>
-        <ui-select-choices class="newright" position="down" repeat="rtt in DB('memberrighttypes')| filter:noright()" >{{rtt|argrighttodk}}</ui-select-choices>
-      </ui-select>
-
     </div>
   </div>
   <div class="adminconvertrower" ng-show="currentrower.id">

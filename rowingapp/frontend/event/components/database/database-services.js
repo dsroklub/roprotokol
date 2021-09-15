@@ -17,10 +17,12 @@ function dbservice($http, $q, $log, $timeout) {
     if (err.data && err.data.status && err.data.status=="error") {
       alert(err.data.error);
     } else if (err.statusText) {
-      alert("DB error"+err.statusText);
+      alert("DB error: "+err.statusText);
     } else alert(err);
 
-    $log.debug(" db service err: "+err);
+    if (err.status) {
+      $log.debug(" db service err: "+err.status +" " +err.statusText);
+    }
   };
 
   this.getDB = function (dataid) {
@@ -342,8 +344,7 @@ function dbservice($http, $q, $log, $timeout) {
     $http.post('/backend/'+op+".php", data,config).then(function(r) {
       qup.resolve(r.data)
     },function(r) {
-      $log.debug("db err for "+op);
-      $log.error("updataDB",r.status);
+      $log.error("updataDB",r.status + ": "+op);
       qup.reject(r);
     });
     datastatus['message']=null;

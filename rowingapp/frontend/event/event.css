@@ -685,3 +685,37 @@ a.linkbtn {
     cursor: pointer;
     vertical-align: top;
 }
+
+.addright {
+  display: inline-block;
+}
+
+.right_select {
+    border-radius: 5px;
+    height: 2em;
+    min-width : 26em;
+    display: inline-block;
+}
+.form-control {
+  background: #e6f1ff;
+}
+
+.btn-default {
+  border-color: #793131;
+}
+
+.leftblock,.boatadmin {
+    max-width:67%;
+}
+
+.blok, .destinations {
+    display: inline-block;
+    float: left;
+    padding:4px;
+}
+
+.bblok{
+    display: inline-block;
+        float: left;
+        min-width:70em;
+}

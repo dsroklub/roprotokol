@@ -1,9 +1,7 @@
 <?php
-include("inc/common.php");
-include("inc/verify_user.php");
-
-$error=null;
-$res=array ("status" => "ok");
+include("../inc/common.php");
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol","trip"]]);
 $sjondata = file_get_contents("php://input");
 $data=json_decode($sjondata);
 $rodb->begin_transaction();
