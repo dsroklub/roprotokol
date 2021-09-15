@@ -26,7 +26,7 @@ angular.
     'rowApp.utilities.subjecttodk',
     'row.rightreqs',
     'row.righttodk',
-    'rowApp.utilities.argrighttodk',
+    'row.argrighttodk',
     'ui.select',
     'ui.bootstrap',
     'angular-momentjs',

@@ -15,6 +15,7 @@ angular.module('eventApp', [
   'dsrcommon.utilities.urlencode',
   'dsrcommon.utilities.ifNull',
   'dsrcommon.utilities.subArray',
+  'row.argrighttodk',
   'row.righttodk',
   'row.rightreqs',
   'row.subjecttodk',

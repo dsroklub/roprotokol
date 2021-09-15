@@ -65,6 +65,7 @@
     <script src="../dsrcommon/rightreqs.js"></script>
     <script src="../dsrcommon/righttodk.js"></script>
     <script src="../../public/js/gitrevision.js"></script>
+    <script src="../dsrcommon/argrighttodk.js"></script>
     <script src="components/database/login-services.js"></script>
     <script src="event.js"></script>
     <script src="node_modules/viz.js/viz.js" type="application/javascript"></script>

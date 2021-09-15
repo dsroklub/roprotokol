@@ -1,4 +1,4 @@
-angular.module('rowApp.utilities.argrighttodk', []).filter('argrighttodk', ['DatabaseService', function (db_service) {
+angular.module('row.argrighttodk', []).filter('argrighttodk', ['DatabaseService', function (db_service) {
   return function (sb) {
     if (!sb) {
       return "U";

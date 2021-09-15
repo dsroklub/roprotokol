@@ -360,7 +360,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
 
     $scope.remove_rower_right = function(right,rower,ix) {
       var data={'right':right,'rower':rower}
-      var exeres=DatabaseService.updateDB('event/remove_rower_right',data,$scope.config,$scope.errorhandler).then(function(status) {
+      var exeres=DatabaseService.updateDB('event/rights/remove_rower_right',data,$scope.config,$scope.errorhandler).then(function(status) {
         if (status.status=="ok") {
           $scope.currentrower.rights.splice(ix,1);
         }

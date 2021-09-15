@@ -64,7 +64,7 @@
     <script src="components/utilities/subjecttodk.js"></script>
     <script src="../dsrcommon/rightreqs.js"></script>
     <script src="components/utilities/righttodk.js"></script>
-    <script src="components/utilities/argrighttodk.js"></script>
+    <script src="../dsrcommon/argrighttodk.js"></script>
     <script src="components/database/database-services.js"></script>
     <script src="rowApp.js"></script>
     <script src="controllers/boat.js"></script>
