@@ -82,7 +82,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
   $scope.showDestinations=["DSR","Nordhavn","Andre"];
   $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
   $scope.newrightdate=new Date();
-
+  $scope.memberrighttypes=[];
   LoginService.check_user().promise.then(function(u) {
     $scope.current_user=u;
     $scope.rowerkm_force_email = false;

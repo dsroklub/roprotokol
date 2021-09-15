@@ -34,7 +34,11 @@ function dbservice($http, $q, $log, $timeout) {
   var right2dk={"nothing":"here"};
   var right2dkm={};
   this.getRight2dk = function (r) {
-    return right2dk[r];
+    if (right2dk[r]) {
+      return right2dk[r];
+    } else {
+      return r;
+    }
   }
   this.getRight2dkm = function (r) {
     return right2dkm[r];
