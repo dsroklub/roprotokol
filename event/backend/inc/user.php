@@ -1,10 +1,3 @@
-<!DOCTYPE html lang="da-DK">
- <html>
-   <head>
-     <link rel="stylesheet" href="basic.css">
-     <meta charset="utf-8">
-   </head>
-<body>
 <?php
 
 $currentuser=null;
@@ -75,5 +68,3 @@ function check_forum_owner($forumName) {
     }
     return false;
 }
-  </body>
-</html>

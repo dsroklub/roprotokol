@@ -320,8 +320,15 @@ function dbservice($http, $q, $log, $timeout) {
     return rs[0];
   }
 
-  this.getRowersByNameOrId = function(nameorid, preselectedids) {
+  this.getRowersByNameOrId = function(nameorid, preselected) {
     var val = nameorid.trim().toLowerCase();
+    if (!preselected) {
+      preselected=[];
+    }
+    var ps=[];
+    for (var pi=0; pi<preselected.length; pi++) {
+      ps[preselected[pi].member_id]=1;
+    }
     if (val.length<3 && isNaN(val)) {
       return [];
     }
@@ -332,12 +339,12 @@ function dbservice($http, $q, $log, $timeout) {
     if (isNaN(val)) {
       var re=new RegExp("(\\s|^)"+val,'i');
       var result = rowers.filter(function(element) {
-        return (preselectedids === undefined || !(element.id in preselectedids)) && re.test(element['name']);
+        return (!(element.id in ps) && re.test(element['name']));
       });
       return result;
     } else {
       var result = rowers.filter(function(element) {
-          return (preselectedids === undefined || !(element.id in preselectedids)) && element.id==val;
+        return (!(element.id in ps) && element.id==val);
         });
       return result;
     }

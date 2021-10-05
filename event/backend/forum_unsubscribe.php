@@ -1,5 +1,5 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 require_once("inc/user.php");
 
 $res=array ("status" => "ok");

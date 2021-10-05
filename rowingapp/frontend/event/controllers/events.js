@@ -208,6 +208,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           "forum":$scope.newforummember.forum.forum,
           "name":$scope.newforummember.member.name
         }                                );
+        $scope.newforummember.member=null;
       } else if (status.status =='warning') {
         alert("! "+status.warning);
       } else {
@@ -639,9 +640,12 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }, function(err) {console.log("member setting upd error: "+err)});
   }
 
-  $scope.getRowerByName = function (val) {
-    // Generate list of ids that we already have added
-    return DatabaseService.getRowersByNameOrId(val);
+  $scope.getRowerByName = function (val,members) {
+    if (!members) {
+      members=[];
+    }
+    console.log("get ",val);
+    return DatabaseService.getRowersByNameOrId(val,members);
   }
 
   $scope.updateForumHours = function (forum) {
@@ -776,7 +780,7 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
 
   $scope.forum_show_member = function () {
       return function(m) {
-        console.log("fshow " + m.member_id)
+        //console.log("fshow " + m.member_id)
       return (m.member_id != "baadhal");
     }
   };
@@ -935,6 +939,19 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     if ($scope.show[sid]) {
       DatabaseService.getDataNow('/event/stats/'+fid,"q="+(arg?arg:"")+"&format="+fmt,function (res) {
         $scope[sid]=res.data;
+      }
+                                );
+    } else {
+      $scope[sid]=null;
+    }
+  }
+
+  $scope.toggle_data = function (dir,fid,arg,format) {
+    var sid=fid+(arg?arg:"");
+    var fmt=format?format:"json";
+    if ($scope.show[sid] || $scope.show[fid]) {
+      DatabaseService.getDataNow('/event/'+dir+'/'+fid,"q="+(arg?arg:"")+"&format="+fmt,function (res) {
+        $scope[fid]=res.data;
       }
                                 );
     } else {
