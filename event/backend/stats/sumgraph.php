@@ -11,7 +11,7 @@ color = "blue"
 ratio="fill"
 mode="maxent";
 ]
-';        
+';
 
 echo 'node [
 shape = "ellipse"
