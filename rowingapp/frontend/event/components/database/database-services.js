@@ -148,6 +148,7 @@ function dbservice($http, $q, $log, $timeout) {
         db['memberrighttypes']= rights;
         for (var mri=0;mri<rights.length;mri++) {
           var r=rights[mri];
+          if (r.member_right=="admin") continue;
           right2dk[r.member_right] = r.showname;
           right2dkm[r.member_right] = r.predicate;
         }
