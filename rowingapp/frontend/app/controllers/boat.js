@@ -649,7 +649,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         if (status.notification){
           $scope.checkoutnotification=status.notification;
         }
-        $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+":";
+        $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+": ";
         if (status.boattrips) {
           if (status.boattrips %5 ==0) {
             $scope.washmessage=""+$scope.checkout.boat.name+" SKAL VASKES DENNE GANG efter turen";
@@ -661,8 +661,11 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
           $scope.checkoutmessage+=("Dør "+$scope.checkout.boat.placement_aisle);
         }
         if ($scope.checkout.boat.placement_level && $scope.checkout.boat.placement_level>0) {
-          if ($scope.checkout.boat.placement_level>2) {
+          if ($scope.checkout.boat.placement_level==3) {
             $scope.checkoutmessage+=(" under loftet");
+          }
+          else if ($scope.checkout.boat.placement_level==4) {
+            $scope.checkoutmessage+=(" på elevator");
           } else {
             $scope.checkoutmessage+=(" hylde "+$scope.checkout.boat.placement_level);
           }
