@@ -135,7 +135,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       $scope.levels=DatabaseService.getDB('boatlevels');
       $scope.brands=DatabaseService.getDB('event/boat_brand');
       $scope.usages=DatabaseService.getDB('event/boat_usages');
-      $scope.placementlevels=[0,1,2,3];
+      $scope.placementlevels=[0,1,2,4,3];
       $scope.ziperrors=[];
       $scope.getTriptypeWithID=DatabaseService.getTriptypeWithID;
 

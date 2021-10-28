@@ -36,16 +36,21 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   $scope.eventarg=$routeParams.event;
   $scope.messagearg=$routeParams.message;
   $scope.forumarg=$routeParams.forum;
+  $scope.includeforumarg=$routeParams.includeforum;
   $scope.memberarg=$routeParams.memberid;
   $scope.rParams=$routeParams;
   $scope.min_time=new Date();
+  $scope.min_date=new Date();
+  $scope.min_date.setHours(0);
+  $scope.min_date.setMinutes(0);
+  $scope.min_date.setSeconds(0);
   $scope.work={'start_time':$scope.min_time};
   $scope.current_forum={"forum":null};
   $scope.current_boat_type={'id':null,'name':null};
   $scope.forumhours=null;
   $scope.dateOptions = {
     showWeeks: false,
-    minDate: $scope.min_time
+    minDate: $scope.min_date
   };
   $scope.enddateOptions = {
     showWeeks: false,
@@ -93,6 +98,15 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
           break;
         }
       }
+    }
+    if($scope.includeforumarg) {
+      DatabaseService.simpleGet('event/forum_members',{"forum":$scope.includeforumarg}).then(
+        function (d) {
+          $scope.newevent.invitees=d.data;
+          $scope.newevent.name=$scope.includeforumarg+" tur";
+
+        },function(err) {console.log("forum member error: "+err)}
+      );
     }
     $scope.privatemessage={};
 //    $scope.memberid="7843";
@@ -597,7 +611,8 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
     }
   }
 
-  $scope.burl=$location.$$absUrl.split("message/")[0]; // FIXME
+  $scope.burl=$location.$$absUrl.split(/\/\#\!/)[0]; // 
+  $scope.burl=$scope.burl.split(/message|forumsubscribe|eventcreate\//)[0]; //
  // $log.debug("burl="+$scope.burl);
 
   $scope.add_forummemberwork = function(member) {
@@ -834,6 +849,9 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
   }
 
   $scope.set_event_start = function () {
+    if ($scope.newevent.starttime<$scope.min_time) {
+      $scope.newevent.starttime=$scope.min_time;
+    }
     if ($scope.newevent.starttime && ($scope.newevent.endtime < $scope.newevent.starttime   || !$scope.newevent.endtime_dirty)) {
       var tdiff=3600000;
       if ($scope.newevent.destination) {
@@ -1027,6 +1045,10 @@ function eventCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $
         }
       }
     },function(err) {console.log("set forum member work hours: "+err)});
+  }
+
+  $scope.make_event_for_forum = function (forum) {
+    //FIXME
   }
 
   $scope.messagematch = function (messagefilter) {

@@ -145,8 +145,9 @@
 
 </table>
   <button class="green" ng-show="newevent.starttime && neweventform.$valid" ng-click="eventcreate()">Opret begivenhed</button>
-  <button class="red" ng-hide="neweventform.$valid">Udfyld navn</button>
+  <button class="red" ng-hide="newevent.name">Udfyld navnet på tur/begivenhed</button>
   <button class="red" ng-hide="newevent.starttime">Udfyld starttid</button>
+  <!--button class="red" ng-hide="!newevent.starttime || newevent.starttime > $scope.min_time">Starttid skal være i fremtiden</button-->
 </ng-form>
 </div>
 <!--pre>

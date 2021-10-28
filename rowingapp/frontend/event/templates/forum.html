@@ -88,6 +88,11 @@
     </tr>
   </table>
 
+  <h2>Forum action </h2>
+  <a href="{{burl}}#!eventcreate?includeforum={{current_forum.forum}}">
+    <button class="minor">Opret begivenhed med alle i {{current_forum.forum}}</button>
+  </a>
+
   <h2>Forum information </h2>
   <label class="switch">  <input type="checkbox" ng-model="show.set_new_rowers" ng-change="toggle_data('forum','set_new_rowers',current_forum.forum,'json')">Mulige 2+ både med langtursstyrmand, der aldrig har roet sammen før</label>,
   <div ng-if="set_new_rowers" class="statbox">

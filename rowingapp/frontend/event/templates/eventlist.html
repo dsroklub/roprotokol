@@ -9,7 +9,7 @@
       <th>til</th>
       <th>både</th>
       <th>åben</th>
-   </tr> 
+   </tr>
   </thead>
   <tbody>
     <tr ng-repeat="ev in events | filter: event_forum_match()| filter: event_boat_type_match()" ng-click="setCurrentEvent(ev)"  ng-class="{selected: currentevent == ev}"
@@ -17,7 +17,7 @@
       <td ng-class="{iamin: is_event_member(ev)}"><span class="tooltiptext">Jeg deltager</span>{{ev.name}}</td>
       <td>{{ev.start_time | date:"d. MMM yyyy"}}</td>
       <td class="rnum">{{ev.distance|mtokm}} km</td>
-      <td>{{ev.destination}}</td>      
+      <td>{{ev.destination}}</td>
       <td>{{ev.boats}}</td>
       <td ng-show="ev.open">åben</td>
       <td ng-hide="ev.open">lukket</td>
@@ -39,14 +39,14 @@
       <tr ng-if="currentevent.max_participants"><th>max deltagere</th><td>{{currentevent.max_participants}}</td></tr>
       <tr ng-if="currentevent.boat_category"><th>Vi ror i</th><td>{{currentevent.boat_category}}</td></tr>
       <tr class="tripdescription" ng-if="currentevent.comment"><th>Beskrivelse</th><td>{{currentevent.comment}}</td></tr>
-      <tr class="owner" ng-hide="currentevent.open"><th>Ejer</th><td>{{currentevent.owner_name}}</td></tr>            
+      <tr class="owner" ng-hide="currentevent.open"><th>Ejer</th><td>{{currentevent.owner_name}}</td></tr>
       <tr><th>Hvor:</th><td>{{currentevent.location}}</td></tr>
       <tr ng-show="currentevent.distance"><th>distance</th><td>{{currentevent.distance|mtokm}} km</td></tr>
-    </tbody>         
+    </tbody>
   </table>
 
   <button ng-hide="currentevent.open || current_user.member_id=='baadhal' || is_event_member(currentevent)" class="green" ng-click="eventjoin('supplicant')">
-    Jeg vil med. Anmod om deltagelse 
+    Jeg vil med. Anmod om deltagelse
   </button>
   <button ng-show="currentevent.open && !is_event_member(currentevent) && current_user.member_id!='baadhal'" class="green"  ng-click="eventjoin('member')">
     Jeg vil med. Tilmeld mig {{current_user.member_id}}
@@ -56,28 +56,22 @@
   </button>
   <br>
   <div ng-if="currentevent.owner==current_user.member_id && currentevent" class="forowner">
-
     <select ng-model="currentevent.status" ng-change="set_event_status(currentevent)">
       <option value="on">Aktiv</option>
       <option value="canceled">Aflyst</option>
     </select>
-
     <select ng-model="currentevent.open" ng-change="set_event_openness(currentevent)">
       <option ng-value="1">Åben</option>
       <option ng-value="0">Lukket</option>
     </select>
-
     <h3>Tilføj rorere til din begivenhed</h3>
     <input placeholder="tilføj medlem" autocomplete="off" id="neweventmemberinput" name="neweventmembermember" type="text"
            ng-model="neweventmember.member"
            typeahead-min-length="2" uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
            typeahead-template-url="memberTemplate.html" required />
-    
     <select name="role" id="role" ng-model="neweventmember.role" ng-options="role.name as role.description for role in eventroles" ng-init="neweventmember.role='member'">
     </select>
-    
-    <i ng-show="neweventmember.member" ng-click="event_add_member()" class="fa fa-plus"></i>    
-    
+    <i ng-show="neweventmember.member" ng-click="event_add_member()" class="fa fa-plus"></i>
   </div>
   <table>
     <caption>
@@ -100,10 +94,9 @@
           <i ng-hide="em.member_id==current_user.member_id" ng-click="event_remove_participant(em)"
              uib-tooltip="fjern roer fra begivenhed" class="remove fa fa-minus"></i
         </td>
-      </tr>      
-    </tbody>         
+      </tr>
+    </tbody>
   </table>
-
   <table ng-if="currentevent.boats=='Inriggere'">
     <caption>
       <p>
@@ -122,7 +115,7 @@
       <tr ng-class-even="'even'" ng-class-odd="'odd'" ng-repeat="bc in crews.configurations">
         <td>{{bc.i2}} </td>
         <td>{{bc.i4}} </td>
-      </tr>      
-    </tbody>         
+      </tr>
+    </tbody>
   </table>
 </div>
