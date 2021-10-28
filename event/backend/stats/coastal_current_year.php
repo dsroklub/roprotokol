@@ -2,7 +2,7 @@
 set_include_path(get_include_path().':..');
 include("../../../rowing/backend/inc/common.php");
 include("inc/utils.php");
-$vr=verify_right(["admin"=>null,"data"=>"stat"]);
+$vr=verify_right(["admin"=>[null],"data"=>["stat"]]);
 $s="SELECT GROUP_CONCAT(CONCAT(FirstName,' ',LastName,' (',MemberID,')')) AS roere, TripType.Name as turtype,IFNULL(starting_place,'') as fra, Destination as til, ROUND(Meter/1000,2) as km, WEEK(OutTime) as uge,DATE_FORMAT(OutTime,'%Y-%m-%d %H:%i') as ud, DATE_FORMAT(InTime,'%Y-%m-%d %H:%i') as ind, Comment as kommentar, Boat.Name as båd, Boat.boat_type as bådtype
 FROM Member,Trip,TripMember,TripType,Boat
 WHERE
