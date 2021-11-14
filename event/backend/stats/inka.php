@@ -16,5 +16,7 @@ WHERE
   ORDER BY navn,ud";
 $result=$rodb->query($s) or dbErr($rodb,$res,"inka stat");
 $output='xlsx';
+if ($_GET["format"]=="json") $output='json';
+if ($_GET["format"]=="csv") $output='csv';
 process($result,$output,"inka-pop-coastal_roning","_auto");
 $rodb->close();

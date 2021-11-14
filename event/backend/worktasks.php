@@ -1,5 +1,5 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 $s="SELECT * FROM worktasks";
 $stmt = $rodb->prepare($s) or dbErr($rodb,$res,"mystats $q");
 $stmt->execute() || dbErr($rodb,$res,"fetch");

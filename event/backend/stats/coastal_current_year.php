@@ -15,9 +15,9 @@ WHERE
   (Boat.boat_type LIKE 'Coastal%' OR TripType.Name='Coastalkaproning')
   GROUP BY Trip.id
   ORDER BY ud";
-
-
-$result=$rodb->query($s) or dbErr($rodb,$res,"inka stat");
+$result=$rodb->query($s) or dbErr($rodb,$res,"coastal stat");
 $output='xlsx';
+if ($_GET["format"]=="json") $output='json';
+if ($_GET["format"]=="csv") $output='csv';
 process($result,$output,"Coastal i år","_auto");
 $rodb->close();

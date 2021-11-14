@@ -206,11 +206,12 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
     } else if ($output=="csv") {
         header('Content-type: text/csv');
         header('Content-Disposition: filename="'.$name.'.csv"');
+        $foutput = fopen('php://output', 'w');
         if ($captions) {
-            echo implode(",",$captions)."\n";
+            fputcsv($foutput,$captions);
         }
         while ($row = $result->fetch_assoc()) {
-            echo implode(",",$row)."\n";
+            fputcsv($foutput,$row);
         }
     }  else if ($output=="text") {
         header('Content-type: text/html');
