@@ -1,5 +1,4 @@
 <?php
-set_include_path(get_include_path().':..');
 include("../../../rowing/backend/inc/common.php");
 include("inc/utils.php");
 $vr=verify_right(["admin"=>[null],"data"=>["stat"]]);
