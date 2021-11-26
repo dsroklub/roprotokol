@@ -1,5 +1,5 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 require("inc/utils.php");
 include("messagelib.php");
 error_log("addwork cuser $cuser");

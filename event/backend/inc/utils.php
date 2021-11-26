@@ -1,4 +1,6 @@
 <?php
+$workseason =" ((YEAR(start_time)=YEAR(NOW()) AND (MONTH(start_time)>10 OR MONTH(NOW())<11)) OR (YEAR(start_time)=YEAR(NOW())-1 AND MONTH(start_time)>10 AND  MONTH(NOW())<10))";
+
 function sanestring($s,$slash=false,$allowedchars=".:;@abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ01234567890_-#") {
    if ($slash) {
        $allowedchars.="/";

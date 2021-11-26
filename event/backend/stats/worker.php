@@ -1,9 +1,11 @@
 <?php
 
-include("../../../rowing/backend/inc/common.php");
-include("utils.php");
-
+include("../inc/common.php");
+include("../inc/utils.php");
 $worker=$_GET["worker"];
+
+#$workseason =" 2>1 ";
+
 // assert($cuser=="baadhal" || $cuser=="7843");
 $s="SELECT JSON_OBJECT(
     'worker',CONCAT(FirstName,' ',LastName),
@@ -17,7 +19,7 @@ $s="SELECT JSON_OBJECT(
     'work',work
     ) as json
     FROM worklog, Member
-    WHERE Member.MemberID=? AND Member.id=worklog.member_id
+    WHERE Member.MemberID=? AND Member.id=worklog.member_id AND $workseason
     ORDER BY start_time";
 
 $stmt = $rodb->prepare($s) or dbErr($rodb,$res,"mystats $q");

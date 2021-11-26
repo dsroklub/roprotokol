@@ -1,14 +1,21 @@
 <?php
-set_include_path(get_include_path().':..');
-include("../../../rowing/backend/inc/common.php");
-require_once("utils.php");
+include("../inc/common.php");
+require_once("../inc/utils.php");
+$seasonclause="YEAR(start_time)=YEAR(NOW() AND MONTH(start_time)<11) OR (YEAR(start_time)=YEAR(NOW())-1 AND MONTH(start_time)>10 AND  MONTH(NOW())<10)";
+$lt = $rodb->query("
+SELECT IFNULL(SUM(requirement),0) AS 'timer' 
+FROM worker,Member 
+WHERE worker.member_id=Member.id AND assigner='vedligehold'
+") or dbErr($rodb,$res,"week chart $l");
+$l = $lt->fetch_assoc()["timer"];
 
-$report_name="ugegraf";
-
-$l = $rodb->query("SELECT IFNULL(SUM(requirement),0) AS 'timer' FROM worker,Member WHERE worker.member_id=Member.id AND assigner='vedligehold'")->fetch_assoc()["timer"] or dbErr($rodb,$res,"week chart $l");
-
-$s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog GROUP BY uge,YEAR(start_time) ORDER BY YEAR(start_time),uge";
-
+$s="
+SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både 
+FROM worklog  
+WHERE $seasonclause
+GROUP BY uge,YEAR(start_time)
+ORDER BY YEAR(start_time),uge
+";
 $result = $rodb->query($s) or dbErr($rodb,$res,"week $q");
 $data=[];
 $weeks=[];
@@ -30,7 +37,7 @@ $weeks[$w]=0;
 $left[$w]=round(($leftweeks-1)*$perweek,1);
 $gns[$w]=round($perweek,1);
 $w++;
-while ( $w > 42 ||  $w<13) {
+while ( $w > 46 ||  $w<13) {
     $weeks[$w]=0;
     $left[$w]=null;
     $gns[$w]=null;

@@ -1,6 +1,6 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-require("utils.php");
+include("inc/common.php");
+require("inc/utils.php");
 verify_right(["admin"=>["vedligehold"]]);
 error_log("rmwork cuser $cuser");
 $data = file_get_contents("php://input");

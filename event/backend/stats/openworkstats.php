@@ -1,7 +1,6 @@
 <?php
-set_include_path(get_include_path().':..');
-include("../../../rowing/backend/inc/common.php");
-require_once("utils.php");
+include("../inc/common.php");
+require_once("../inc/utils.php");
 $q=$_GET["q"] ?? "none";
 $format=$_GET["format"] ?? "csv";
 $sumq=null;
@@ -14,7 +13,7 @@ case "rank":
     $report_name="overskudsroere";
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlNr,requirement as krævet,ROUND(h,1) as lagt, ROUND(h-requirement,1) as overskud, IF((requirement-h)<0,'***','') as status
-FROM Member,worker,(SELECT member_id,IFNULL(SUM(hours),0) as h from worklog GROUP BY worklog.member_id) as w
+FROM Member,worker,(SELECT member_id,IFNULL(SUM(hours),0) as h FROM worklog WHERE $workseason GROUP BY worklog.member_id) as w
     WHERE Member.id=w.member_id AND worker.member_id=Member.id AND requirement>0 HAVING overskud>0 ORDER by overskud DESC
 ";
     break;

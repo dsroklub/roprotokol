@@ -1,6 +1,6 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-include("utils.php");
+include("inc/common.php");
+include("inc/utils.php");
 
 $from="1857-01-01";
 
@@ -30,7 +30,7 @@ $s="SELECT MAX(hours) as h,JSON_MERGE(
    ']}')
    ) AS json
    FROM Member LEFT JOIN worklog on worklog.member_id=Member.id
-   WHERE Member.MemberID!='0' AND Member.id>=0 AND start_time > ? $limit
+   WHERE Member.MemberID!='0' AND Member.id>=0 AND start_time > ? $limit AND $workseason
    GROUP BY Member.id,forum ;
 ";
 // HAVING h IS NOT NULL
