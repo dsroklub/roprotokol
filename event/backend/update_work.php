@@ -39,13 +39,14 @@ if (isset($d->hours) && $cuser != "baadhal") {
     $hours=(strtotime($end_time)-strtotime($start_time))/3600;
 }
 
+$hourlimit=12;
 if ($cuser=="baadhal"){
-    if ($hours>5) {
-        $message = "$d->name afkortet til 5 timer\n";
-        $message .="$start_time til $end_time = $hours" ;
-        $hours=5;
+    if ($hours>$hourlimit) {
+        $message = "$d->name afkortet til $hourlimit timer\n";
+        $message .="$start_time til $end_time = ".round($hours,1);
+        $hours=$hourlimit;
         error_log($message);
-        post_forum_message($forum,"$d->name over 5 timer",$message,$from=null,$forumEmail=null,$sticky=false);
+        post_forum_message($forum,"$d->name over $hourlimit timer",$message,$from=null,$forumEmail=null,$sticky=false);
     }
 }
 

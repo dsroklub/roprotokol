@@ -6,8 +6,6 @@ $mem->setOption(Memcached::OPT_BINARY_PROTOCOL, TRUE);
 header('Content-type: application/json');
 
 $ts=42;
-
-
 function dv($v) {
     if (empty($v)) {
         return 7;

@@ -1,18 +1,17 @@
 <?php
 include("../inc/common.php");
 require_once("../inc/utils.php");
-$seasonclause="YEAR(start_time)=YEAR(NOW() AND MONTH(start_time)<11) OR (YEAR(start_time)=YEAR(NOW())-1 AND MONTH(start_time)>10 AND  MONTH(NOW())<10)";
 $lt = $rodb->query("
-SELECT IFNULL(SUM(requirement),0) AS 'timer' 
-FROM worker,Member 
+SELECT IFNULL(SUM(requirement),0) AS 'timer'
+FROM worker,Member
 WHERE worker.member_id=Member.id AND assigner='vedligehold'
 ") or dbErr($rodb,$res,"week chart $l");
 $l = $lt->fetch_assoc()["timer"];
-
+$w=46;
 $s="
-SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både 
-FROM worklog  
-WHERE $seasonclause
+SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både
+FROM worklog
+WHERE $workseason
 GROUP BY uge,YEAR(start_time)
 ORDER BY YEAR(start_time),uge
 ";
