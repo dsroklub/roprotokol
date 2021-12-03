@@ -879,7 +879,10 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
 
 
 INSERT INTO Member (id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");
-
+INSERT INTO Member(id,MemberID,FirstName,LastName,club) VALUES('-3','crossfit','Crossfit','Registrering','DSR');
+INSERT INTO MemberRights(member_id,MemberRight,Acquired ,argument) VALUES (-2,'remote_access',NOW(),'roprotokol');
+INSERT INTO MemberRights(member_id,MemberRight,Acquired ,argument) VALUES (-3,'remote_access',NOW(),'roprotokol');
+INSERT INTO MemberRights(member_id,MemberRight,Acquired ,argument) VALUES (-3,'gym',NOW(),'registrering');
 
 -- DROP VIEW IF EXISTS right_name;
 -- CREATE VIEW right_name AS SELECT DISTINCT member_right, MAX(showname),MAX(predicate) FROM MemberRightType GROUP BY member_right;

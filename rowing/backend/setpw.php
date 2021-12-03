@@ -14,6 +14,7 @@ $hpw= '{SHA}' . base64_encode(sha1($pw, TRUE));
 error_log("new  pw= $pw $hpw mid=$memberId");
 
 $istmt = $rodb->prepare("UPDATE authentication SET password=?,newpassword=? WHERE member_id in (SELECT id from Member where MemberId=?)") or dbErr($rodb,$res,"setpw");
+$pw='XXX';
 $istmt->bind_param('sss', $hpw,$pw,$memberId) || dbErr($rodb,$res,"pwerr");
 $istmt->execute() || dbErr($rodb,$res,"pwerr");
 echo json_encode($res);

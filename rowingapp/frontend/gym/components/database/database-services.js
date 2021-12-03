@@ -6,13 +6,10 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
   var databasesource=dbmode;
   var tx=null;
   var debug=3;
-  
-
   var cachedepend={
     'member':['rowers'],
     'team':['team']
   };
-  
   var datastatus={
     'member':null,
     'destination':null
@@ -25,7 +22,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
       return 'data/'+service.replace('.php','').replace(/\?/g,'Q').replace(/=/g,'')+".json";
     }
   }
-  
+
   this.onDBerror = function (err) {
     alert(err);
   };
@@ -47,7 +44,6 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     }
   }
 
-
   this.simpleGet = function (service, args) {
     var conf = {};
     if (args) {
@@ -59,13 +55,11 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
   this.fetch = function (subscriptions) {
     var headers = {};
     var promises=[];
-        
-    this.getData('team/team',promises);    
-
+    this.getData('team/team',promises);
     if(!valid['rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);
-      $http.get(toURL('rowers.php')).then(function(response) {
+      $http.get(toURL('team/rowers.php')).then(function(response) {
         db['rowers'] = [];
         angular.forEach(response.data, function(rower, index) {
           rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
@@ -75,25 +69,20 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
         rq.resolve(true);
       });
     }
-    
     var currentyear=true;
     var thisYear=new Date().getFullYear();
     var qll=$q.all(promises);
     tx=qll;
     return qll;
   };
-
-  
   this.defaultLocation = 'DSR';
   this.invalidate_dependencies=function(tp) {
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
-      valid[subtp]=false;	    
+      valid[subtp]=false;
     }
   };
-
   this.init = function(subscriptions) {
-
     return this.sync(subscriptions);
   }
 
@@ -126,7 +115,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     });
     return sq.promise;
   }
-  
+
   this.reload=function (tps) {
     var subs={};
     for (var ti=0; ti<tps.length; ti++) {
@@ -166,13 +155,13 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     }
     $http.get(toURL(dataid+'.php'+a)).then(onSuccess);
   }
-  
+
   this.getTeams = function (onSuccess) {
     this.getDataNow('team/team',null,onSuccess);
   }
   this.getTripMembers = function (tripid,onSuccess) {
     this.getDataNow('tripmembers','trip='+tripid,onSuccess);
-  }  
+  }
 
   this.getRower = function(val) {
     var rs=db['rowers'].filter(function(element) {
@@ -201,16 +190,16 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
         return (element.id==parseInt(val));
       });
     }
-    return result.filter(function(rower) {        
+    return result.filter(function(rower) {
       for (var i=0;i<attendance.length;i++) {
         if (attendance[i].memberid==rower.id && attendance[i].timeofday==team.timeofday && attendance[i].team==team.name) {
           return false;
         }
       }
       return true;
-    })    
+    })
   };
-    
+
   this.closeForm = function(form,data,datakind) {
     var formClosed=$q.defer();
     var res=undefined;
@@ -235,7 +224,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     datastatus['member']=null;
     return qup.promise;
   }
-  
+
   this.updateDB = function(op,data,config,eh) {
     $log.debug(' do '+op);
     var ar=this.updateDB_async(op,data,config);
@@ -245,14 +234,13 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
          $log.error("auth error "+op+JSON.stringify(data));
          if (eh) {
            eh(res);
-         }         
+         }
        }
        return res;
-     }                                    
+     }
                    );
     return at;
   }
-
 
   this.attendTeam = function(data) {
     var attendance=$q.defer();
@@ -279,7 +267,6 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     return adt;
   }
 
-  
   this.deleteTeam = function(data) {
     var dt=$q.defer();
     var res=undefined;
@@ -291,11 +278,11 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     datastatus['gym']=null;
     return dt;
   }
-  
+
   this.client_name =function () {
     var clientname="terminal";
     if (localStorage) {
-      clientname=localStorage.getItem("roprotokol.client.name");                    
+      clientname=localStorage.getItem("roprotokol.client.name");
     }
     return(clientname?clientname:"noname");
   }
@@ -310,9 +297,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
       alert("det mislykkedes at sende nyt password");
     });
   }
-  
   /// The rest is just for testing
-
   this.valid = function() {
     return valid;
   }

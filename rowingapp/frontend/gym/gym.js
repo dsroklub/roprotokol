@@ -13,7 +13,7 @@ angular.module('gymApp', [
   'dsrcommon.utilities.onlynumber',
   'dsrcommon.utilities.nodsr',
   'dsrcommon.utilities.txttotime',
-  'dsrcommon.utilities.totime',    
+  'dsrcommon.utilities.totime',
   'dsrcommon.utilities.ifNull',
   'dsrcommon.utilities.split',
   'angular-confirm',
@@ -47,7 +47,6 @@ angular.module('gymApp', [
 	  controller: 'teamCtrl'
 	});
 	$routeProvider.when('/', {redirectTo: '/registrer'});
-        
 	$routeProvider.otherwise(
           {redirectTo: '/registrer'}
         );
