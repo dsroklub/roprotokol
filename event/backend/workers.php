@@ -15,7 +15,7 @@ SELECT DISTINCT CONCAT(FirstName,' ',LastName) as name, workertype,argument as w
  CONVERT(IFNULL(SUM(wl.hours),0),DOUBLE) as allhours
 FROM Member LEFT JOIN worker on Member.id=worker.member_id LEFT JOIN MemberRights ON MemberRights.member_id=Member.id AND MemberRight='admin' AND argument='vedligehold'
 LEFT JOIN worklog ON worklog.member_id=Member.id AND DATE(worklog.start_time)=DATE(NOW()) AND $workseason
-LEFT JOIN worklog wl ON wl.member_id=Member.id AND ((YEAR(wl.start_time)=YEAR(NOW()) AND (MONTH(NOW())<10 OR MONTH(wl.start_time)>10)) OR (YEAR(wl.start_time)=YEAR(NOW())-1 AND MONTH(wl.start_time)>10 AND  MONTH(NOW())<10))
+LEFT JOIN worklog wl ON wl.member_id=Member.id AND ((YEAR(wl.start_time)=YEAR(NOW()) AND (MONTH(NOW())<11 OR MONTH(wl.start_time)>10)) OR (YEAR(wl.start_time)=YEAR(NOW())-1 AND MONTH(wl.start_time)>10 AND MONTH(NOW())<11))
 WHERE Member.id=worker.member_id AND worker.assigner='vedligehold' AND Member.RemoveDate IS NULL
 GROUP BY Member.id ORDER BY name";
 $stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"worker");
