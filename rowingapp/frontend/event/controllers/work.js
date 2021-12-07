@@ -278,6 +278,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
     $scope.workadmin.newworker=item;
   }
   $scope.oneperday = function (worker) {
-    return (worker.start_time=='x' || $scope.current_user.is_winter_admin)
+      return (worker.start_time=='x' || worker.start_time.split(" ")[0]!=new Date().toISOString().split("T")[0]
+	      || $scope.current_user.is_winter_admin)
   }
 }
