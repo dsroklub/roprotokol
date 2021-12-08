@@ -1,9 +1,7 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 require_once("inc/user.php");
 include("messagelib.php");
-
-
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 error_log("SET event status $data\n");

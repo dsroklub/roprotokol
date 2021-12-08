@@ -1,5 +1,5 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 require("utils.php");
 verify_right(["admin"=>["vedligehold"]]);
 $data = file_get_contents("php://input");

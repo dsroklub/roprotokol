@@ -1,6 +1,6 @@
 <?php
 require("inc/utils.php");
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 require_once("Mail.php");
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");

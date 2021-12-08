@@ -1,6 +1,6 @@
 <?php
 error_log("ROLE\n");
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 include("inc/user.php");
 
 $data = file_get_contents("php://input");

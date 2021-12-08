@@ -1,6 +1,5 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-
+include("inc/common.php");
 $s="SELECT Member.MemberId as member_id, forum.name as forum, forum.boat, owner.MemberId as owner, forum.description, forum_subscription.role
     FROM Member, forum_subscription, forum LEFT JOIN Member owner ON owner.id=forum.owner
     WHERE forum.name=forum_subscription.forum AND
@@ -15,7 +14,7 @@ if ($stmt = $rodb->prepare($s)) {
      echo '[';
      $first=1;
      while ($row = $result->fetch_assoc()) {
-         if ($first) $first=0; else echo ',';	  
+         if ($first) $first=0; else echo ',';
          echo json_encode($row,	JSON_PRETTY_PRINT);
      }
      echo ']';

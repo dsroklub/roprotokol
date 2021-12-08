@@ -1,6 +1,6 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-include("utils.php");
+include("inc/common.php");
+include("inc/utils.php");
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
     //    error_log("CU=$cuser");

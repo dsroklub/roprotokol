@@ -1,5 +1,5 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 $bt=$rodb->query("SELECT JSON_MERGE(
     JSON_OBJECT(
      'name',Name,

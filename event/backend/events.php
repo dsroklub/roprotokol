@@ -1,26 +1,24 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-include("utils.php");
-
-$res=array ("status" => "ok");
-
-$s="SELECT Member.MemberId AS owner, CONCAT(Member.FirstName,' ',Member.LastName) as owner_name, event.name, 
-    BoatCategory.Name as boat_category, start_time,end_time, 
-    distance, destination, TripType.Name as trip_type, max_participants, location, category, preferred_intensity, comment, event.open,event.status
-    FROM Member, (event LEFT JOIN BoatCategory on BoatCategory.id=event.boat_category) LEFT JOIN TripType ON TripType.id=event.trip_type 
+include("inc/common.php");
+include("inc/utils.php");
+$s="SELECT JSON_OBJECT(
+  'owner', Member.MemberId,
+  'owner_name', CONCAT(Member.FirstName,' ',Member.LastName),
+  'boat_category',BoatCategory.Name,
+  'start_time', start_time,
+  'end_time',end_time,
+  'distance', distance,
+  'destination',destination,
+  'trip_type',TripType.Name,
+  'max_participants',max_participants,
+  'location', location,
+  'category',category,
+  'preferred_intensity',preferred_intensity,
+  'comment',comment,
+  'open',event.open,
+  'status',event.status
+   ) as json
+    FROM Member, (event LEFT JOIN BoatCategory on BoatCategory.id=event.boat_category) LEFT JOIN TripType ON TripType.id=event.trip_type
     WHERE Member.id=event.owner AND start_time >= NOW()";
-$result=$rodb->query($s);
-
-if ($result) {
-    echo '[';
-    $first=1;
-    while ($row = $result->fetch_assoc()) {
-        if ($first) $first=0; else echo ',';	  
-        echo json_encode($row);
-    }
-    echo ']';
-} else {
-    http_response_code(500);
-    $res["status"]=$rodb->error;
-    echo json_encode($res);
-}
+$result=$rodb->query($s) or dbErr($rodb,$res,"events");
+output_json($result);

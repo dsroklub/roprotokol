@@ -1,5 +1,5 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
     if (!empty($_GET["otherrower"])) {

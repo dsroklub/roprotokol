@@ -1,8 +1,6 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-include("utils.php");
-header('Content-type: application/json');
-
+include("inc/common.php");
+include("inc/utils.php");
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
       'id',Member.MemberID,
@@ -24,12 +22,6 @@ $s="SELECT JSON_MERGE(
 if ($sqldebug) {
     echo $s."<br>\n";
 }
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
-echo '[';
- $first=1;
- while ($row = $result->fetch_assoc()) {
-     if ($first) $first=0; else echo ',';
-     echo $row['json'];
-}
-echo ']';
+$result=$rodb->query($s) or dbErr($rodb,$res,'rowers');
+output_json($result);
 $rodb->close();

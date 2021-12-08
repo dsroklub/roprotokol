@@ -1,6 +1,6 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-require("utils.php");
+include("inc/common.php");
+require("inc/utils.php");
 $data = file_get_contents("php://input");
 $tripId=json_decode($data);
 $rodb->begin_transaction();

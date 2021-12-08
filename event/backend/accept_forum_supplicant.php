@@ -1,7 +1,5 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-
-
+include("inc/common.php");
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $subscription=json_decode($data);
@@ -13,7 +11,6 @@ error_log(print_r($subscription,true));
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
-
 
 if ($stmt = $rodb->prepare(
     "UPDATE FROM forum_subscription

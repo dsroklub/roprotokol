@@ -1,3 +1,3 @@
 <?php
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 dbfetch($rodb,"BoatCategory",['*']);

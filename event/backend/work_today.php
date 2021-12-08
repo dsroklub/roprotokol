@@ -1,6 +1,6 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-include("utils.php");
+include("inc/common.php");
+include("inc/utils.php");
 
 $timeclause="(worklog.end_time IS NULL OR DATE(worklog.start_time)=DATE(NOW()))";
 

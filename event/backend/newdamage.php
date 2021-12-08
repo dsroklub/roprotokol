@@ -1,6 +1,6 @@
 <?php
-include("../../rowing/backend/inc/common.php");
-include("utils.php");
+include("inc/common.php");
+include("inc/utils.php");
 $newdamage=json_decode(file_get_contents("php://input"));
 $rodb->query("BEGIN TRANSACTION");
 //error_log("rep ".json_encode($newdamage->reporter->id));

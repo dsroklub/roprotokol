@@ -1,12 +1,11 @@
 <?php
 require("inc/utils.php");
-
 $res=array ("status" => "ok");
 $json = file_get_contents("php://input");
 $data=json_decode($json);
 $cuser=$_SERVER['PHP_AUTH_USER'];
 verify_real_user("skifte password");
-include("../../rowing/backend/inc/common.php");
+include("inc/common.php");
 require("db.php");
 $pw=$data->pw;
 assert(strlen($pw)>7);

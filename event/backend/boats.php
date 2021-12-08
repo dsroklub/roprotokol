@@ -1,9 +1,5 @@
 <?php
-// Copy from roprotokol
-
-require("../../rowing/backend/inc/common.php");
-header('Content-type: application/json');
-
+require("inc/common.php");
 $s="SELECT DISTINCT Boat.Name,JSON_OBJECT(
            'id', Boat.id,
            'name', Boat.Name,
