@@ -135,7 +135,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         <td><dsrinterval editstarttime="true" usestartdate="true" ng-model="work" ng-change="work.dirty=true"/></td>
         <td class="rnum"><input type="number" ng-model="work.hours" ng-change="work.dirty=true"></td>
         <td>{{work.task}} <textarea class="worktext" ng-model="work.work" ng-change="work.dirty=true"></textarea></td>
-        <td><input ng-model="work.boat" ng-change="work.dirty=4747"></td>
+        <td><input ng-model="work.boat" ng-change="work.dirty=true"></td>
         <td><i class="fa fa-trash" ng-click="rm_work(mystatswork,work)"></i> <button ng-show="work.dirty" ng-click="update_work(work)">opdater</button></td>
       </tr>
     </tbody>

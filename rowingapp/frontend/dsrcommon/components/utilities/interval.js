@@ -59,7 +59,7 @@ function iCtrl() {
       this.ngModel.end_time.minute=(now.getMinutes());
       this.onUpdate();
     }
-    if (this.ngModel.hours) {
+    if (typeof(this.ngModel.hours)!="undefined") {
       this.ngModel.hours=Math.round((et-st)/360000)/10;
     }
     this.ngChange();
