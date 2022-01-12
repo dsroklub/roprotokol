@@ -64,7 +64,7 @@
           </SELECT>
         </td>
         <td><button ng-disabled="!wk.work"
-                    ng-click="end_work(wk)" uib-tooltip="registrer timer">færdig <i class="fa fa-thumbs-up"></i>
+                    ng-click="!!wk.work && end_work(wk)" uib-tooltip="registrer timer">færdig <i class="fa fa-thumbs-up"></i>
           </button>
         </td>
       </tr>
