@@ -64,28 +64,30 @@ function verify_right($requireds) {
     global $rodb;
     global $res;
     $tried="";
+    //error_log("verify that user=$cuser has rights ".print_r($requireds,1));
     if (!isset($_SERVER['PHP_AUTH_USER'])) {
-        return false;
+        roErr("bruger ukendt");
     }
     $cuser=$_SERVER['PHP_AUTH_USER'];
     foreach ($requireds as $required=>$args) {
         // one of
         foreach ($args as $arg) {
-        if ($arg) {
-            $tried .= "$required/$arg ";
-            $stmt=$rodb->prepare("SELECT 'x' FROM Member,MemberRights WHERE Member.MemberId=? AND MemberRights.member_id=Member.id AND MemberRight=? AND argument=?") or dbErr($rodb,$res,"verify right");
-            $stmt->bind_param("sss", $cuser,$required,$arg) or dbErr($rodb,$res,"owner verify bind");
-        } else {
-            $tried .= "$required ";
-            $stmt=$rodb->prepare("SELECT 'x' FROM Member,MemberRights WHERE Member.MemberId=? AND MemberRights.member_id=Member.id AND MemberRight=?") or dbErr($rodb,$res,"verify right");
-            $stmt->bind_param("ss", $cuser,$required) or dbErr($rodb,$res,"owner verify bind");
+            error_log("verify $arg");
+            if ($arg) {
+                $tried .= "$required/$arg ";
+                $stmt=$rodb->prepare("SELECT 'x' FROM Member,MemberRights WHERE Member.MemberId=? AND MemberRights.member_id=Member.id AND MemberRight=? AND argument=?") or dbErr($rodb,$res,"verify right");
+                $stmt->bind_param("sss", $cuser,$required,$arg) or dbErr($rodb,$res,"owner verify bind");
+            } else {
+                $tried .= "$required ";
+                $stmt=$rodb->prepare("SELECT 'x' FROM Member,MemberRights WHERE Member.MemberId=? AND MemberRights.member_id=Member.id AND MemberRight=?") or dbErr($rodb,$res,"verify right");
+                $stmt->bind_param("ss", $cuser,$required) or dbErr($rodb,$res,"owner verify bind");
+            }
+            $stmt->execute() or dbErr($rodb,$res,"right verify");
+            $result= $stmt->get_result() or dbErr($rodb,$res,"right verify res");
+            if ($result->num_rows>0) {
+                return true;
+            }
         }
-        $stmt->execute() or dbErr($rodb,$res,"right verify");
-        $result= $stmt->get_result() or dbErr($rodb,$res,"right verify res");
-        if ($result->num_rows>0) {
-            return true;
-        }
-    }
     }
     roErr("Medlem $cuser har ikke nogen af rettighederne $tried");
 }
