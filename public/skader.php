@@ -19,4 +19,4 @@ WHERE DamageType.degree=Damage.degree AND Boat.id=Damage.Boat AND Repaired IS NU
 ORDER BY Boat.Name,grad desc
 ") or dbErr($rodb,$res,"skader");
 
-process($result,$format,"skader","_auto",$colormap);
+process($result,$format,"skader","_auto");

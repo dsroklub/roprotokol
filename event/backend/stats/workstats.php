@@ -39,9 +39,9 @@ case "nonstarters":
         $workertypeC=" AND workertype=$workertype";
     }
     $s="
-SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
+SELECT DISTINCT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as vedligeholdstype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
-    WHERE Member.RemoveDate IS NULL AND worker.member_id=Member.id ${workertypeC} 
+   WHERE Member.RemoveDate IS NULL AND worker.member_id=Member.id ${workertypeC} 
    ORDER BY LAGT ASC,mangler DESC,workertype;
 ";
     //    echo "f=$f, $s\n";

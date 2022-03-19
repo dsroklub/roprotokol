@@ -1,8 +1,9 @@
 <?php
 include("../inc/common.php");
-$vr=verify_right(["admin"=>"roprotokol","admin"=>"reservation"]);
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol","reservation"]]);
 $rc = json_decode(file_get_contents("php://input"));
-$stmt=$rodb->prepare("UPDATE reservation_configuration SET selected=? WHERE name=?") or dbErr($rodb,$res,"p set res conf");
+$stmt=$rodb->prepare("UPDATE reservation_configuration SET selected=? WHERE name=? AND name !='altid'") or dbErr($rodb,$res,"p set res conf");
 $sel=$rc->selected;
 $rname=$rc->name;
 $stmt->bind_param('is',$sel,$rname) || dbErr($rodb,$res,"SET res conf");
