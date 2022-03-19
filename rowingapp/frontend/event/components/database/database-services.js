@@ -3,7 +3,7 @@
 function dbservice($http, $q, $log, $timeout) {
   var valid={};
   var db={'boatsA':[]};
-  var db={'boats':[],'boatsById':{},'boatsByName':{}};
+    var db={'boats':[],'boatsById':{},'boatsByName':{},'event/get_row_events':[]};
   var tx=null;
   var debug=3;
 
@@ -45,7 +45,7 @@ function dbservice($http, $q, $log, $timeout) {
   }
 
   this.getData = function (dataid,promises) {
-    if(!valid[dataid] || !db[dataid]) {
+    if(valid[dataid]===false || !db[dataid]) {
       var dq=$q.defer();
       promises.push(dq.promise);
       $http.get(toURL(dataid+'.php'),{}).then(function onSuccess (response) {
