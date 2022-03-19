@@ -517,7 +517,7 @@
   <div class="lisel">
     Vælg aktive ugedagsreservationer:
   <ul>
-    <li ng-repeat="rc in reservation_configurations" ng-click="toggle_rc(rc)" ng-class="{selected: rc.selected}">
+    <li ng-repeat="rc in reservation_configurations" ng-click="toggle_rc(rc)" ng-class="{selected: rc.selected}" ng-hide="rc.name=='altid'">
       {{rc.name}}
     </li>
     </div>

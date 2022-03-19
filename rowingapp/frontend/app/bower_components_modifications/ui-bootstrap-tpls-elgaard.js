@@ -5911,7 +5911,7 @@ angular.module('ui.bootstrap.timepicker', [])
 
   // Get $scope.hours in 24H mode if valid
   function getHoursFromTemplate() {
-    var hours = +$scope.hours;
+    var hours = $scope.hours;
     if (!hours || hours<0) {
       hours=0; // NEL Niels Elgaard Larsen, diff
     }

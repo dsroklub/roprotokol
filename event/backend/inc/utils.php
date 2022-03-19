@@ -60,7 +60,7 @@ function saneEmail($s) {
     return $r;
 }
 
-function verify_right($requireds) {
+function verify_right($requireds,$abort=true) {
     global $rodb;
     global $res;
     $tried="";
@@ -89,5 +89,9 @@ function verify_right($requireds) {
             }
         }
     }
-    roErr("Medlem $cuser har ikke nogen af rettighederne $tried");
+    if ($abort) {
+        roErr("Medlem $cuser har ikke nogen af rettighederne: $tried");
+    } else {
+        return false;
+    }
 }
