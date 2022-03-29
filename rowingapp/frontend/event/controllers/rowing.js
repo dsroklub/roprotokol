@@ -510,8 +510,8 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
             $log.info("reservation made");
             r.configuration=r.configuration.name;
             r.id=newreservation.reservationid;
-            $scope.reservations.unshift(r);
-            reservation.boat_id=null;
+	    var rc=angular.copy(r);
+            $scope.reservations.unshift(rc);
           }
         }
       )            }
