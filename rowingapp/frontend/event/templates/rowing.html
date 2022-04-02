@@ -553,9 +553,7 @@
             <select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required>
             </select>
           </td>
-          <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
-                      uib-tooltip="fast ugedag"
-                      ></select></td>
+          <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays" uib-tooltip="fast ugedag"></select></td>
           <td>
             <dsrtimestring
               ng-model="reservation.start_time"
