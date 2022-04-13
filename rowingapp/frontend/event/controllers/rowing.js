@@ -19,6 +19,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     },this);
     return diffs;
     }
+  $scope.rodata={};
   $scope.editreservationconfiguration={'name':'-'};
   $scope.rowerkm_force_email = false;
   $scope.rowerkm_include_trips = true;
