@@ -137,6 +137,7 @@
                 </datetimepicker>
               </td>
             </tr>
+            <tr><td>MIN={{expectedOptions.minDate}}</td></tr>
             <tr>
               <td>
                 <label for="checkout_expectedtime">Forventet ind</label>
@@ -152,7 +153,6 @@
                   show-meridian="false"
                   ng-model="checkout.expectedtime"
                   ng-click="set_expected()"
-
                    >
                 </datetimepicker>
               </td>
@@ -196,14 +196,14 @@
                         confirm-cancel="fortryd"
                         id="createtrip_button"
                         class="big"
-                        ng-if="checkout.distance >0 && checkout.starttime && checkout.expectedtime && checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')"
+                        ng-if="checkout.distance >0 && checkout.starttime && !!checkout.expectedtime && checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')"
                         ng-click="createtrip(checkout)">UDSKRIV {{checkout.boat.name}}</button>
 </td></tr>
           </tbody>
 
         </table>
       </form>
-      <button class="alert minor" ng-hide="checkout.expectedtime || !checkout.destination.location">husk at angive forventet ankomst</button>
+      <button class="alert minor" ng-hide="!!checkout.expectedtime || !checkout.destination.location">husk at angive forventet ankomst</button>
       <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name || !checkout.rowers[0]">husk at vælge båd</button>
       <button class="alert minor" ng-hide="checkout.triptype || !checkout.destination.name || !checkout.rowers[0]">husk turtype</button>
       <button class="alert minor" ng-hide="checkout.destination.location || !checkout.triptype || !checkout.rowers[0]">vælg destination</button>
