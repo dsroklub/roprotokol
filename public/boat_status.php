@@ -5,8 +5,10 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <table>
-<caption>Inriggere</caption>
+       <h1>B&aring;dstatus <?php echo date("Y-m-d H:i"); ?></h1>
+<button onClick="window.location.reload();">Opdater side</button>
+<table>
+         <caption>Inriggere</caption>
       <tr>
 <th>B&aring;d</th>
 <th>B&aring;dtype</th>
@@ -49,9 +51,12 @@ ORDER BY location, boat_type,boat_name
 if ($stmt = $rodb->prepare($s)) {
       $result=$rodb->query($s) or die("Error in instruktion stat query: " . mysqli_error($rodb));;
       while ($row = $result->fetch_assoc()) {
+          $lvl=$row['placement_level']??'';
+          if (!$lvl) $lvl='';
+          elseif ($lvl==4) $lvl='elevator';
           print("<tr><td ".(($row['damage']>2 || !empty($row['expected']))?"class=\"alert\"":"").">".$row['boat_name'].
                 "</td><td ". ($row['boat_type']=='Inrigger 2+'?"class=\"inriggertwo\"":"").">".$row['boat_type'] .
-                "</td><td class=\"". ($row['location']!='DSR'?" notdsr":"") ."\">".$row['location']."</td><td>".($row['placement_level']?$row['placement_level']:'')."</td><td>".$row['damageName']."</td><td>".$row['expected']."</td></tr>\n");
+                "</td><td class=\"". ($row['location']!='DSR'?" notdsr":"") ."\">".$row['location']."</td><td>$lvl</td><td>".$row['damageName']."</td><td>".$row['expected']."</td></tr>\n");
       }
       }  else {
       error_log("SQL boat stat error: ".$rodb->error);

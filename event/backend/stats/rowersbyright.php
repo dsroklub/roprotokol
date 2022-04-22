@@ -6,11 +6,11 @@ assert(isset($_GET["right"]));
 $right=$_GET["right"];
 $subtype=$_GET["subtype"]??"";
 $s =empty($subtype)?
-   "SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS navn, Acquired as tildelt, argument as subtype
+   "SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS navn, MemberId as medlemsnummer, Acquired as tildelt, argument as subtype
     FROM Member, MemberRights
     WHERE Member.id=MemberRights.member_id AND RemoveDate IS NULL AND MemberRight=? "
    :
-   "SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS navn, Acquired as tildelt
+   "SELECT CONCAT(Member.FirstName,' ',Member.LastName) AS navn, MemberId as medlemsnummer, Acquired as tildelt
     FROM Member, MemberRights
     WHERE Member.id=MemberRights.member_id AND RemoveDate IS NULL AND MemberRight=? AND argument=?"
    ;

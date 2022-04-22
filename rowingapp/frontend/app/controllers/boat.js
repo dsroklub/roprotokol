@@ -12,7 +12,10 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.damagedegrees=[{"id":"","name":"disabled"},{id:1,name:"let"},{"id":2,"name":"middel"},{"id":3,"name":"svær"},{"id":4,"name":"vedligehold"}];
   $scope.allboatdamages=[];
   $scope.destinations=[];
-  $scope.checkout={};
+  $scope.checkout={
+    expectedtime:null,
+    starttime:null
+  };
   $scope.reservation_configurations=[];
   $scope.errorhandler = function(error) {
     $log.error(error);
@@ -498,10 +501,12 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   };
   $scope.min_time=new Date();
   $scope.dateOptions = {
-    showWeeks: false,
+    showWeeks: false
+
   };
   $scope.expectedOptions = {
     showWeeks: false,
+    minDate:new Date()
   };
 
   $scope.set_expected = function () {
@@ -511,21 +516,28 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   }
 
   $scope.newStartTime = function () {
-    if ($scope.checkout && $scope.checkout.starttime && ($scope.checkout.exptectedtime < $scope.checkout.starttime|| !$scope.checkout.expectedtime_dirty)) {
-      if ($scope.checkout.destination) {
-        if ($scope.checkout.destination.duration) {
-          var tdiff=$scope.checkout.destination.duration*3600000;
-          $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+tdiff);
-        } else if ($scope.checkout.destination.distance) {
-          var speed=6.0; //km/h
-          $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+ 3600*(0.2+ $scope.checkout.destination.distance/speed));
+//    console.log("newStart "+$scope.checkout.starttime);
+    if ($scope.checkout.starttime) {
+      if ($scope.checkout && ($scope.checkout.expectedtime < $scope.checkout.starttime|| !$scope.checkout.expectedtime_dirty)) {
+        if ($scope.checkout.destination && $scope.checkout.destination.name) {
+          if ($scope.checkout.destination.duration) {
+            var tdiff=$scope.checkout.destination.duration*3600000;
+            $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+tdiff);
+          } else if ($scope.checkout.destination.distance) {
+            var speed=6.0; //km/h
+            $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+ 3600*($scope.checkout.destination.distance/speed));
+          } else {
+            console.log("not useful destination");
+            $scope.checkout.expectedtime=null;
+          }
         } else {
-          $scope.checkout.expectedtime=null;
+          $scope.checkout.expectedtime=new Date($scope.checkout.starttime.getTime()+ 3600000*2);
         }
       }
-      $scope.expectedOptions.minDate=$scope.checkout.starttime;
+      $scope.expectedOptions={showWeeks: false, minDate:$scope.checkout.starttime};
+    //$scope.expectedOptions.minDate.setTime($scope.checkout.starttime.getTime());
+      DatabaseService.update_reservations($scope.reservation_configurations,$scope.checkout);
     }
-    DatabaseService.update_reservations($scope.reservation_configurations,$scope.checkout);
   }
 
   $scope.togglecheckout = function (tm) {
