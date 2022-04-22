@@ -60,6 +60,14 @@ function dbservice($http, $q, $log, $timeout) {
                                              )
     }
   }
+  this.getTriptypeWithID = function(tid) {
+    for (var i=0; i<db['event/triptypes'].length;i++) {
+      if (db['event/triptypes'][i].id==tid) {
+        return db['event/triptypes'][i];
+      }
+    }
+  }
+
   this.simpleGet = function (service, args) {
     var conf = {};
     if (args) {
@@ -183,6 +191,7 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/destinations',promises);
     this.getData('event/rights_subtype',promises);
     this.getData('event/errortrips',promises);
+    this.getData('event/triptypes',promises);
     this.getData('event/boat_brand',promises);
     this.getData('event/boat_usages',promises);
     this.getData('event/reservations/reservation_configurations',promises);
@@ -229,7 +238,7 @@ function dbservice($http, $q, $log, $timeout) {
     cachedepend={
       'status':['event/status','event/reservations/get_reservations'],
       'admin':['event/memberrighttypes','event/rights_subtype','event/errortrips','event/locations','event/get_row_events','boatlevels','event/triptypes','event/destinations'],
-      'reservation':['event/boats','event/reservations/get_reservations'],
+	'reservation':['event/boats','event/reservations/get_reservations','event/triptypes'],
       'member':['event/rowers','event/events_participants'],
       'event':['event/events','event/event_category','event/userfora','event/events_participants'],
       'message':['event/messages'],
