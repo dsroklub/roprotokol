@@ -379,6 +379,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       // Distance have changed, and we do not know if user overrode and accounted for location
       if ($scope.checkout.destination && $scope.checkout.destination.name)
         $scope.checkout.destination=DatabaseService.nameSearch($scope.destinations,$scope.checkout.destination.name);
+        $scope.checkout.distance=$scope.checkout.destination.distance;
       }
     }
   }
