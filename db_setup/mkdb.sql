@@ -1,4 +1,5 @@
-charset utf8
+charset utf8mb4
+DROP FUNCTION IF EXISTS jsontm;
 DELIMITER $$
 DROP FUNCTION IF EXISTS jsontm;
  CREATE FUNCTION jsontm(tm DATETIME)
@@ -100,7 +101,7 @@ CREATE TABLE IF NOT EXISTS BoatCategory (
 );
 
 -- inrigger, coastal, kayak, etc
-CREATE TABLE IF NOT EXISTS boat_class ( 
+CREATE TABLE IF NOT EXISTS boat_class (
   class_name varchar(100) PRIMARY KEY,
   description varchar(1000)
 );
@@ -155,10 +156,11 @@ DELETE FROM MemberRightType;
 INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category)
    VALUES ('remote_access','fjernadgang til roprotokol','roprotokol','fjernadgang','have fjernadgang',1,'roning');
 INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category)
-   VALUES ('gym','gymnastik registrering','registrering','gymnestikregistrering','lave gymnastikregistrering',1,'klub');
-INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('instructor','instruktør','','instruktør','være instruktør',0,'roning');
-INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category) VALUES('longdistance_swim','Langtur svømmeprøve','300m svøm','Langtur svømmeprøve','have taget langtur svømmeprøve indenfor 3 år',1,'roning');
-
+   VALUES ('gym','gymnastik registrering','registrering','gymnestikregistrering','lave gymnastikregistrering',1,        'klub');
+INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category)
+  VALUES('instructor','instruktør','','instruktør','være instruktør',0,'roning');
+INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category)
+   VALUES('longdistance_swim','Langtur svømmeprøve','300m svøm','Langtur svømmeprøve','have taget langtur svømmeprøve indenfor 3 år',1,'roning');
 
 CREATE TABLE IF NOT EXISTS BoatRights (
   boat_type VARCHAR(100) NOT NULL,
@@ -194,8 +196,7 @@ CREATE TABLE IF NOT EXISTS zones (
   zone   CHAR(20) PRIMARY KEY,
   description  VARCHAR(1000)
 );
-
-DELETE FROM zones;
+DELETE from zones;
 INSERT INTO zones VALUES('dagligt','dagligt rofarvand');
 INSERT INTO zones VALUES('nær','nært rofarvand');
 INSERT INTO zones VALUES('hvidovre','outrigger kaproning i Hvidovre');
@@ -499,7 +500,7 @@ CREATE TABLE worklog (
   hours            NUMERIC(6,2),
   task             VARCHAR(32),
   forum            VARCHAR(255) REFERENCES forum(name) ON UPDATE CASCADE ON DELETE CASCADE,
-  boat             VARCHAR(100),-- REFERENCES Boat(Name) ON DELETE SET NULL ON UPDATE CASCADE,
+  boat             VARCHAR(100) REFERENCES Boat(Name) ON DELETE SET NULL ON UPDATE CASCADE,
   created_by       int REFERENCES Member(id) ON DELETE SET NULL
 );
 
@@ -891,7 +892,7 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
  (2038,"2038-03-28","2038-10-31"),
  (2039,"2039-03-27","2039-10-30");
 
-DELETE FROM Member WHERE id<0;
+-- DELETE FROM Member WHERE id<0;
 INSERT INTO Member(id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");
 INSERT INTO Member(id,MemberId,FirstName,LastName) VALUES (-2,"kajakskur","Kajakskuret","DSR");
 INSERT INTO Member(id,MemberID,FirstName,LastName,club) VALUES('-3','crossfit','Crossfit','Registrering','DSR');
@@ -919,7 +920,7 @@ tel       VARCHAR(20),
 hours     INTEGER
 );
 
-DROP TABLE IF EXISTS reservation_configuration ;
+DROP TABLE IF EXISTS reservation_configuration;
 CREATE TABLE reservation_configuration (
   name CHAR(50),
   selected   BOOLEAN NOT NULL DEFAULT false,
@@ -933,6 +934,3 @@ INSERT INTO reservation_configuration(name) VALUES ('sommer'),('vinter'),('kajak
 
 
 INSERT INTO DamageType(degree,name) VALUES (1,'let'),(2,'middel'),(3,'svær'),(4,'vedligehold');
-
-
-
