@@ -15,6 +15,10 @@ function sanestring($s,$slash=false,$allowedchars=".:;@abcdefghijklmnopqrstuvwxy
     return $r;
 }
 
+function user_log($msg="no message") {
+    error_log($_SERVER['PHP_AUTH_USER'] . ": " . $msg);
+}
+
 function verify_real_user($action="gøre dette") {
     if (!isset($_SERVER['PHP_AUTH_USER']) or $_SERVER['PHP_AUTH_USER'] == "baadhal") {
         global $res;
