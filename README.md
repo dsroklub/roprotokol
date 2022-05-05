@@ -30,6 +30,7 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
 
    cd /data/roprotokol/rowingapp/frontend; npm install
 
+   sudo chown www-data.www-data /data/roprotokol/externaladmin/uploads
 
 # init git hooks
   cp /data/roprotokol/configuration/git/hooks/* /data/roprotokol/.git/hooks
