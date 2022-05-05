@@ -21,6 +21,7 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
    sudo npm install -g bower
 
    cd rowingapp/backend; composer update
+   cd phplib; composer update
 
    cd rowingapp/frontend; npm install
 
