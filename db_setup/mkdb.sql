@@ -1,6 +1,7 @@
 charset utf8mb4
 DROP FUNCTION IF EXISTS jsontm;
 DELIMITER $$
+DROP FUNCTION IF EXISTS jsontm;
  CREATE FUNCTION jsontm(tm DATETIME)
    RETURNS VARCHAR(100)
    DETERMINISTIC
@@ -160,8 +161,6 @@ INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,acti
   VALUES('instructor','instruktør','','instruktør','være instruktør',0,'roning');
 INSERT INTO MemberRightType(member_right,description,arg,showname,predicate,active,category)
    VALUES('longdistance_swim','Langtur svømmeprøve','300m svøm','Langtur svømmeprøve','have taget langtur svømmeprøve indenfor 3 år',1,'roning');
-
-
 
 CREATE TABLE IF NOT EXISTS BoatRights (
   boat_type VARCHAR(100) NOT NULL,
@@ -893,9 +892,7 @@ INSERT INTO season (season,summer_start,summer_end) VALUES
  (2038,"2038-03-28","2038-10-31"),
  (2039,"2039-03-27","2039-10-30");
 
-
-
---DELETE FROM Member where id<0;
+-- DELETE FROM Member WHERE id<0;
 INSERT INTO Member(id,MemberId,FirstName,LastName) VALUES (-1,"baadhal","Bådhallen","DSR");
 INSERT INTO Member(id,MemberId,FirstName,LastName) VALUES (-2,"kajakskur","Kajakskuret","DSR");
 INSERT INTO Member(id,MemberID,FirstName,LastName,club) VALUES('-3','crossfit','Crossfit','Registrering','DSR');

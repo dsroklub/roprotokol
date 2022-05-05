@@ -6,16 +6,16 @@ require("inc/db.php");
 require("inc/mail_sender.php");
 $res = $link->query("SELECT * FROM Member WHERE RemoveDate IS NULL AND MemberId = '" . (int) $memberId."'");
 if ($res) {
-    error_log("got member");
+    error_log("got member $memberId");
     $person = $res->fetch_assoc();
-    if ($person or $memberId='kajakskur') {
+    if ($person || $memberId=='kajakskur') {
         $pw=null;
         if ($stmt = $link->prepare("SELECT newpassword FROM authentication,Member WHERE member_id=Member.id AND Member.MemberId=?")) {
             $stmt->bind_param('s', $memberId);
             $stmt->execute();
             $result= $stmt->get_result();
-            if ($result) {
-                $pw=$result->fetch_assoc()['newpassword'];
+            if ($result && $r=$result->fetch_assoc()) {
+                $pw=r['newpassword'];
                 error_log("old pw= $pw");
             }
         } else {
@@ -24,7 +24,7 @@ if ($res) {
         if (empty($pw) or ($pw[0]=='$')) { // transferred htpasswd hashes
             $pw = generate_password();
             $hpw= '{SHA}' . base64_encode(sha1($pw, TRUE));
-            error_log("new  pw= $pw $hpw");
+            //            error_log("new  pw= $pw $hpw");
 //            if ($stmt = $link->prepare("UPDATE authentication SET password=?, newpassword=? WHERE member_id=?")) {
             if ($istmt = $link->prepare(
                 "INSERT INTO authentication (password,newpassword,member_id)  SELECT ?,?,id FROM Member WHERE MemberId=?")) {

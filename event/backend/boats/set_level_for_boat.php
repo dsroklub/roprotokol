@@ -11,6 +11,7 @@ $rodb->begin_transaction();
 $stmt = $rodb->prepare("UPDATE Boat set placement_level=? WHERE id=?") or dbErr($rodb,$res,"could not set level");
 $stmt->bind_param('ii', $data->placement_level,$data->id) || dbErr($rodb,$res,"could not set level bind");
 $stmt->execute()  || dbErr($rodb,$res,"could not set level exe");
+user_log("ændrede hyldestatus båden ".$data->name);
 $rodb->commit();
 $rodb->close();
 invalidate('boat');
