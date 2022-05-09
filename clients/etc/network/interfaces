@@ -4,4 +4,6 @@ iface lo inet loopback
 auto enp4s0
 iface enp4s0 inet static
 address 10.21.55.1xx
-
+# Port 2: 10.21.55.116
+# Port 4: 10.21.55.105
+# gym: 10.21.55.2??

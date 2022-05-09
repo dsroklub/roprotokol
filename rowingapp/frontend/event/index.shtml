@@ -61,6 +61,7 @@
     <script src="../dsrcommon/components/utilities/timestring.js"></script>
     <script src="../dsrcommon/leveltodk.js"></script>
     <script src="../dsrcommon/rowtodk.js"></script>
+    <script src="../dsrcommon/dk_tags.js"></script>
     <script src="../dsrcommon/subjecttodk.js"></script>
     <script src="../dsrcommon/rightreqs.js"></script>
     <script src="../dsrcommon/righttodk.js"></script>

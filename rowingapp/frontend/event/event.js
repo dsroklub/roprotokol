@@ -22,6 +22,7 @@ angular.module('eventApp', [
   'row.sidetodk',
   'row.leveltodk',
   'row.rowtodk',
+  'row.dk_tags',
   'ui.bootstrap',
   'ui.select',
   'angular-momentjs',
@@ -40,7 +41,12 @@ angular.module('eventApp', [
 ])
 .config([
   '$locationProvider', function($locationProvider) {
-    $locationProvider.html5Mode({ enabled: false, requireBase: false });
+
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
+    //$locationProvider.html5Mode(true);
   }])
 .config([
   '$animateProvider', function($animateProvider) {
@@ -91,6 +97,9 @@ angular.module('eventApp', [
       templateUrl: 'templates/member.html',
       controller: 'eventCtrl'
     }).when('/work/', {
+      templateUrl: 'templates/work.html',
+      controller: 'workCtrl'
+    }).when('#!work/', {
       templateUrl: 'templates/work.html',
       controller: 'workCtrl'
     }).when('/rowing/', {

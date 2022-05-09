@@ -34,11 +34,16 @@ Din offentlige DSR side, som kan ses af alle er:
 
     <tr ng-show="member_setting.is_public">
       <th>Vis min rostatus</th>
-      <td> <input type="checkbox" id="status" ng-model="member_setting.show_status" ng-true-value="1" ng-false-value="0" ></td></tr>
+      <td> <input type="checkbox" id="status" ng-model="member_setting.show_status" ng-true-value="1" ng-false-value="0" ></td>
+    </tr>
     <tr ng-show="member_setting.is_public">
       <th>Vis mine aktiviteter i DSR</th>
-      <td> <input type="checkbox" id="activities" ng-model="member_setting.show_activities" ng-true-value="1" ng-false-value="0" ></td></tr>
-    <tr>
+      <td> <input type="checkbox" id="activities" ng-model="member_setting.show_activities" ng-true-value="1" ng-false-value="0" ></td>
+    </tr>
+    <tr ng-show="member_setting.morning_status">
+      <th>Send daglig morgenstatus</th>
+      <td> <input type="checkbox" id="activities" ng-model="member_setting.morning_status" ng-true-value="1" ng-false-value="0" ></td>
+    </tr>
     <tr>
       <th>Hver gang jeg går i land send en email til:<br>(mig, min kæreste, el. lign.) </th>
       <td> <input type="email" id="notification_email" ng-model="member_setting.notification_email"></td>

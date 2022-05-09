@@ -517,7 +517,7 @@
   <div class="lisel">
     Vælg aktive ugedagsreservationer:
   <ul>
-    <li ng-repeat="rc in reservation_configurations" ng-click="toggle_rc(rc)" ng-class="{selected: rc.selected}">
+    <li ng-repeat="rc in reservation_configurations" ng-click="toggle_rc(rc)" ng-class="{selected: rc.selected}" ng-hide="rc.name=='altid'">
       {{rc.name}}
     </li>
     </div>
@@ -553,9 +553,7 @@
             <select ng-model="reservation.boat_id" ng-options="boat.id as boat.name for boat in boats.allboats" required>
             </select>
           </td>
-          <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays"
-                      uib-tooltip="fast ugedag"
-                      ></select></td>
+          <td><select ng-model="reservation.dayofweek" ng-options="dov.id as dov.day for dov in weekdays" uib-tooltip="fast ugedag"></select></td>
           <td>
             <dsrtimestring
               ng-model="reservation.start_time"
@@ -789,6 +787,13 @@
   <li><a href="/backend/event/stats/longdistancecoxes.php">Langdistancestyrmænd som regneark</a></li>
   <li><a href="/backend/event/stats/instruktorstat.php">Sidste års instruktører som regneark</a>&nbsp;(<a href="/backend/stats/instruktorstat_all.php">sidste 10 år</a>)</li>
   <li><a href="/backend/event/stats/instruktor_entring.php">Instruktøreres entringsøvelser som regneark</a></li>
+  <li>
+    Rettighed: <ui-select class="right_select" name="rightsdl" ng-model="rodata.right">
+      <ui-select-match class="newright" placeholder="vælg rettighed">{{rodata.right|argrighttodk}}</ui-select-match>
+      <ui-select-choices class="newright" position="down" repeat="rtt in memberrighttypes" >{{rtt|argrighttodk}}</ui-select-choices>
+    </ui-select>
+     <a ng-show="rodata.right" href="/backend/event/stats/rowersbyright.php?right={{rodata.right.member_right}}&subtype={{rodata.right.arg}}"><button>Hent regneark med {{rodata.right|argrighttodk}}</button></a>
+  </li>
   <li><a href="/backend/event/stats/swimtest3year.php">Langturssvømmeprøver, 3 år</a></li>
   <li><a href="/backend/event/stats/newrights_year.php?year={{newright_year}}">Nye rettigheder pr. år</a>
     (år <input type="text" ng-model="newright_year" size="4"/>),

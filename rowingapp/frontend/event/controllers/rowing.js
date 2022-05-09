@@ -19,6 +19,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     },this);
     return diffs;
     }
+  $scope.rodata={};
   $scope.editreservationconfiguration={'name':'-'};
   $scope.rowerkm_force_email = false;
   $scope.rowerkm_include_trips = true;
@@ -138,8 +139,12 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       $scope.placementlevels=[0,1,2,4,3];
       $scope.ziperrors=[];
       $scope.getTriptypeWithID=DatabaseService.getTriptypeWithID;
-
-        var i=0;
+      for (var rci=0; rci<$scope.reservation_configurations.length; rci++) {
+	  if ($scope.reservation_configurations[rci].name=='altid') {
+	      $scope.datereservation.configuration=$scope.reservation_configurations[rci];
+	  }
+      }
+    var i=0;
     while (i < $scope.errortrips.length -1) {
       while ($scope.errortrips[i].id && i < $scope.errortrips.length-1) {
         i++;
@@ -180,6 +185,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     }
 
     $scope.toggle_rc = function(rc) {
+     if (rc.name=='altid') return;
       rc.selected=!rc.selected;
       var exeres=DatabaseService.updateDB('event/reservations/set_reservation_configuration',rc,$scope.config,$scope.errorhandler);
     }
@@ -505,8 +511,8 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
             $log.info("reservation made");
             r.configuration=r.configuration.name;
             r.id=newreservation.reservationid;
-            $scope.reservations.unshift(r);
-            reservation.boat_id=null;
+	    var rc=angular.copy(r);
+            $scope.reservations.unshift(rc);
           }
         }
       )            }

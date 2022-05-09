@@ -1,4 +1,12 @@
 #!/bin/sh
 
 matchbox-window-manager -use_titlebar no -use_desktop_mode plain&
-chromium-browser --app="https://roprotokol.danskestudentersroklub.dk"
+
+numlockx on
+#necessary with some DVI-HDMI adaptors
+xscreensaver&
+
+setxkbmap -option ctrl:nocaps
+setxkbmap -option numpad:mac
+
+firefox --kiosk https://roprotokol.danskestudentersroklub.dk

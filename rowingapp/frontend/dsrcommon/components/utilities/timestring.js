@@ -31,6 +31,12 @@ function timeCtrl() {
     maxwidth: "2em"
   };
   this.setTimeString = function() {
+    if (typeof(this.ngModel)=="string") {
+      var ta=this.ngModel.split(':');
+      if (ta.length>1) {
+        this.ngModel={"hour":ta[0],"minute":ta[1]};
+      }
+    }
     this.ngModel.timestring=(this.ngModel.hour?this.ngModel.hour:"0")+":"+(this.ngModel.minute?this.ngModel.minute:"00");
   }
 

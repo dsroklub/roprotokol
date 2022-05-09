@@ -10,13 +10,13 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 }
 error_log("MS UPDATE $data,   PUB=".$settings['is_public']);
 if ($stmt = $rodb->prepare(
-        "INSERT INTO member_setting(member,is_public,show_status,show_activities,notification_email,phone,email_shared)
-         SELECT Member.id, ?,?,?,?,?,?
+        "INSERT INTO member_setting(member,is_public,show_status,show_activities,notification_email,phone,email_shared,morning_status)
+         SELECT Member.id, ?,?,?,?,?,?,?
          FROM Member
          WHERE
            MemberId=?
          ON DUPLICATE KEY
-  UPDATE is_public=VALUES(is_public),show_status=VALUES(show_status),show_activities=VALUES(show_activities),notification_email=VALUES(notification_email),phone=VALUES(phone),email_shared=VALUES(email_shared)
+  UPDATE is_public=VALUES(is_public),show_status=VALUES(show_status),show_activities=VALUES(show_activities),notification_email=VALUES(notification_email),phone=VALUES(phone),email_shared=VALUES(email_shared),morning_status=VALUES(morning_status)
          "))  {
     $notification_email=null;
     $phone=null;
@@ -31,6 +31,9 @@ if ($stmt = $rodb->prepare(
     }
     if (!empty($settings['show_activities'])) {
         $show_activities=$settings['show_activities'];
+    }
+    if (!empty($settings['morning_status'])) {
+        $morning_status=$settings['morning_status'];
     }
     if (!empty($settings['notification_email'])) {
         $notification_email= filter_var($settings['notification_email'],FILTER_SANITIZE_EMAIL);
@@ -49,6 +52,7 @@ if ($stmt = $rodb->prepare(
         $notification_email,
         $phone,
         $email_shared,
+        $morning_status,
         $cuser) ||  die("member setting BIND errro ".mysqli_error($rodb));
     if (!$stmt->execute()) {
         $error=" member setting exe ".mysqli_error($rodb);
