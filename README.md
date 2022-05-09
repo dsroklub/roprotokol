@@ -14,7 +14,7 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
     apt-get install composer npm python-mysqldb memcached php-memcached php-mysql php-gd php-zip libapache2-mod-php nodejs  mysql-server php-mail php-mailparse  composer php-cli
     # or mariadb
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
-    apt-get install  libaprutil1-dbd-mysql pkg-php-tools
+    apt-get install  libaprutil1-dbd-mysql pkg-php-tools php-fpdf // php-tcpdf
     # Remember to restart your web server.
 
    a2enmod dbd  rewrite include authn_dbd  php7.X # where X is the php version
@@ -41,4 +41,3 @@ Import schema:
     mysql -u roprotokol -p'roprotokol' roprotokol < db_setup/mkdb.sql
 
 Copy config.ini.template to config.ini and adjust
-
