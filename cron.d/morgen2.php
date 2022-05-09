@@ -19,53 +19,68 @@ function dbErr(&$db, &$res, $err="") {
 
 
 $ranksql="
-SELECT member_id,name,rank,year_rank,email,summer,distance FROM
+SELECT Member.id as member_id,CONCAT(Member.FirstName,' ',Member.LastName) as name,m.rank,m.year_rank,Member.Email as email,m.summer,m.distance,g.gymrank,g.gymcount,m.rowingtrips
+FROM
+Member LEFT JOIN
 (SELECT
   member_id,
   ROW_NUMBER() OVER ( ORDER BY summer DESC) rank,
   ROW_NUMBER() OVER ( ORDER BY distance DESC) year_rank,
-  distance,summer,name,email
+  distance,summer,rowingtrips
    FROM
    (SELECT
+    COUNT('x') as rowingtrips,
     CAST(Sum(Meter) AS UNSIGNED) AS distance,
     CAST(SUM(IF(season.summer_start<OutTime AND season.summer_end>OutTime,Meter,0)) AS UNSIGNED) AS summer,
-    Member.id as member_id, Member.MemberID,CONCAT(Member.FirstName,' ',Member.LastName) as name,
-    Member.Email as email
-    FROM season,Trip,TripMember,Member
+    rm.id as member_id, rm.MemberID
+    FROM season,Trip,TripMember,Member rm
     WHERE
-      Member.id = TripMember.member_id AND
+      rm.id = TripMember.member_id AND
       Trip.id = TripMember.TripID AND
       season.season=Year(OutTime) AND
       Year(OutTime)=YEAR(NOW())
-     GROUP BY Member.MemberID, name,email
-  )   as m
-) as m,    member_setting
+     GROUP BY rm.MemberID
+  )  as im
+) as m ON m.member_id=Member.id LEFT JOIN
+(
+  SELECT COUNT('x') AS gymcount,gm.id as member_id,
+  ROW_NUMBER() OVER ( ORDER BY gymcount DESC) gymrank
+  FROM team_participation,Member gm
+    WHERE  YEAR(start_time)=YEAR(NOW()) AND
+       gm.id=team_participation.member_id
+     GROUP BY gm.id
+  ) as g ON g.member_id=Member.id,
+    member_setting
 WHERE member_setting.member=m.member_id AND member_setting.morning_status=1
 ";
 $mail_status=null;
-echo "$ranksql\nm2\n";
 $result = $rodb->query($ranksql) or dbErr($rodb,$res," rank prep");
 while ($rankrow = $result->fetch_assoc()) {
-    $ranktxt="Kære ".$rankrow["name"].
-        " Du har roet ". number_format($rankrow["summer"]/1000,1). " km sommer, " .
-        number_format($rankrow["distance"]/1000,1). " km hele året" .
-        " og er nummer ". $rankrow["rank"] ." i rostatistikken (sommer)".
-                ", nummer ". $rankrow["year_rank"] ." (hele året)" ;
+    $ranktxt="\nKære ".$rankrow["name"].
+        "\nDu har roet ". number_format($rankrow["summer"]/1000,1). " km sommer, " .
+        " og er nummer ". $rankrow["rank"] ." i sommerrostatistikken\n".
+        "Du har roet ".number_format($rankrow["distance"]/1000,1). " på ".$rankrow["rowingtrips"]." ture km hele året" .
+                " og er nummer ". $rankrow["year_rank"] ." (hele året)\n" ;
+
+    if (!empty($rankrow["gymcount"])) {
+        $ranktxt .= "\n\nDu har gået til gymnastik ". $rankrow["gymcount"] ." gang". ($rankrow["gymcount"]>1?"e":"")." \n ".
+            "og er nummer ".$rankrow["gymrank"] ." i gymnastikstatistikken ";
+    }
     $body="\nDin daglige morgenorientering fra DSR roprotokol:\n$ranktxt";
-    error_log("morgen: $body");
-         $mail_headers = [
-         'From'                      => "Roprotokollen i Danske Studenters Roklub <aftaler.danskestudentersroklub.dk>",
-         'To'                        => [$rankrow["email"]],
-         'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
-         'Subject'                   => mb_encode_mimeheader("DSR roprotokol morgenorientering"),
-         'Content-Transfer-Encoding' => "8bit",
-         'Content-Type'              => 'text/plain; charset="utf8"',
-         'Date'                      => date('r'),
-         'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
-         'MIME-Version'              => "1.0",
+    //echo "\n\n$body";
+    $mail_headers = [
+        'From'                      => "Roprotokollen i Danske Studenters Roklub <aftaler.danskestudentersroklub.dk>",
+        'To'                        => [$rankrow["email"]],
+        'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
+        'Subject'                   => mb_encode_mimeheader("DSR roprotokol morgenorientering"),
+        'Content-Transfer-Encoding' => "8bit",
+        'Content-Type'              => 'text/plain; charset="utf8"',
+        'Date'                      => date('r'),
+        'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
+        'MIME-Version'              => "1.0",
          'X-Mailer'                  => "DSRroprotokol",
     ];
-    $mail_status = $smtp->send($emails, $mail_headers, $body);
+    NEL $mail_status = $smtp->send($emails, $mail_headers, $body);
     //    echo $body;
     if (PEAR::isError($mail_status)) {
         $warning="Kunne ikke sende besked som email: " . $mail_status->getMessage() . " headers=".print_r($mail_headers,true)." $body";
