@@ -61,6 +61,9 @@ function iCtrl() {
     }
     if (this.ngModel.hours ||  this.ngModel.hours==0) {
       this.ngModel.hours=Math.round((et-st)/360000)/10;
+      if (this.ngModel.hours<0) {
+        this.ngModel.hours+=24;
+      }
     }
     this.ngChange();
   }
