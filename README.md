@@ -17,7 +17,7 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
     # Remember to restart your web server.
 
    a2enmod ssl dbd  rewrite include authn_dbd
-   a2enmod php7.X # where X is the php version
+   a2enmod php8.X # where X is the php version
 #   sudo npm install -g bower
 
 
@@ -38,11 +38,12 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
 
 Create database:
 
-   sudo mysqladmin  --default-character-set=utf8mb4 create roprotokol
-   sudo "echo "CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol'; CREATE USER 'apacheauth'@'localhost' IDENTIFIED BY 'XXXX';"|mysql
-   sudo echo "GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql
-   sudo echo "GRANT ALL PRIVILEGES ON roprotokol.authentication TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql
-    sudo echo "GRANT SELECT ON roprotokol.MemberRights TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql
+   sudo mysqladmin -p  --default-character-set=utf8mb4 create roprotokol
+   echo "CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol'; CREATE USER 'apacheauth'@'localhost' IDENTIFIED BY 'XXXX';"|mysql -u root -p
+   echo "GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql
+   mysql -u roprotokol -p'roprotokol' roprotokol < /data/roprotokol/db_setup/mkdb.sql
+   echo "GRANT ALL PRIVILEGES ON roprotokol.authentication TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql
+   echo "GRANT SELECT ON roprotokol.MemberRights TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql -u roo t-p
 
 
 grant super on *.* to roprotokol@localhost ;
@@ -50,6 +51,5 @@ grant super on *.* to roprotokol@localhost ;
 Import schema:
 
 
-    mysql -u roprotokol -p'roprotokol' roprotokol < /data/roprotokol/db_setup/mkdb.sql
 
 Copy config.ini.template to config.ini and adjust
