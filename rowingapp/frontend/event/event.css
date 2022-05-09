@@ -228,10 +228,6 @@ li.selected,button.selected {
   text-align: right!important;
   padding-right: 6px;
 }
-.hours {
-  text-align: right!important;
-  padding-right: 6px;
-}
 
 .togg {
   text-align: center;
@@ -355,8 +351,11 @@ datetimepicker.ng-empty ng-form div input {
 }
 
 .hours {
-  margin-left: 4em;
+  text-align: right!important;
+  padding-right: 6px;
+  margin-left: 4px;
   font-size: 1.0em;
+  width : 4em;
 }
 
 .uib-datepicker tr td {
