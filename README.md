@@ -40,10 +40,10 @@ Create database:
 
    sudo mysqladmin -p  --default-character-set=utf8mb4 create roprotokol
    echo "CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol'; CREATE USER 'apacheauth'@'localhost' IDENTIFIED BY 'XXXX';"|mysql -u root -p
-   echo "GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql
+   echo "GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql -u root -p
    mysql -u roprotokol -p'roprotokol' roprotokol < /data/roprotokol/db_setup/mkdb.sql
-   echo "GRANT ALL PRIVILEGES ON roprotokol.authentication TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql
-   echo "GRANT SELECT ON roprotokol.MemberRights TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql -u roo t-p
+   echo "GRANT ALL PRIVILEGES ON roprotokol.authentication TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql -u root -p
+   echo "GRANT SELECT ON roprotokol.MemberRights TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql -u root -p
 
 
 grant super on *.* to roprotokol@localhost ;
