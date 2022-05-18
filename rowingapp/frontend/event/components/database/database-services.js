@@ -202,6 +202,7 @@ function dbservice($http, $q, $log, $timeout) {
     this.getData('event/boattypes',promises);
     this.getData('event/userfora',promises);
     this.getData('event/boatdamages',promises);
+    this.getData('event/stats/rostat',promises);
     $log.debug("DB fetch rowers");
     var qll=$q.all(promises);
     tx=qll;
@@ -226,7 +227,7 @@ function dbservice($http, $q, $log, $timeout) {
     'destination':null,
     'file':null
   };
-  
+
   db.boatlevels={
     0:'',
     1:'Let',
@@ -457,7 +458,7 @@ function dbservice($http, $q, $log, $timeout) {
     return this.getRowerByMemberId(db['current_user']);
   }
 
-  
+
 
 }
 
