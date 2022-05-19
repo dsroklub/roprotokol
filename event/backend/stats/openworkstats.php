@@ -1,6 +1,6 @@
 <?php
 include("../inc/common.php");
-require_once("../inc/utils.php");
+include("../inc/utils.php");
 $q=$_GET["q"] ?? "none";
 $format=$_GET["format"] ?? "csv";
 $sumq=null;

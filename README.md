@@ -13,11 +13,11 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
 
     apt install composer npm memcached php-memcached php-mysql php-gd php-zip libapache2-mod-php nodejs  mariadb-server php-mail php-mailparse  composer php-cli
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
-    apt install  libaprutil1-dbd-mysql pkg-php-tools postfix postfix-sqlite automysqlbackup php-curl certbot mdbtools
+    apt install  libaprutil1-dbd-mysql pkg-php-tools php-fpdf mdbtools postfix postfix-sqlite automysqlbackup php-curl certbot // php-tcpdf
     # Remember to restart your web server.
 
    a2enmod ssl dbd  rewrite include authn_dbd
-   a2enmod php7.X # where X is the php version
+   a2enmod php8.X # where X is the php version
 #   sudo npm install -g bower
 
 
@@ -30,6 +30,7 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
 
    cd /data/roprotokol/rowingapp/frontend; npm install
 
+   sudo chown www-data.www-data /data/roprotokol/externaladmin/uploads
 
 # init git hooks
   cp /data/roprotokol/configuration/git/hooks/* /data/roprotokol/.git/hooks
@@ -37,11 +38,12 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
 
 Create database:
 
-   sudo mysqladmin  --default-character-set=utf8mb4 create roprotokol
-   sudo "echo "CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol'; CREATE USER 'apacheauth'@'localhost' IDENTIFIED BY 'XXXX';"|mysql
-   sudo echo "GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql
-   sudo echo "GRANT ALL PRIVILEGES ON roprotokol.authentication TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql
-    sudo echo "GRANT SELECT ON roprotokol.MemberRights TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql
+   sudo mysqladmin -p  --default-character-set=utf8mb4 create roprotokol
+   echo "CREATE USER 'roprotokol'@'localhost' IDENTIFIED BY 'roprotokol'; CREATE USER 'apacheauth'@'localhost' IDENTIFIED BY 'XXXX';"|mysql -u root -p
+   echo "GRANT ALL PRIVILEGES ON roprotokol.* TO 'roprotokol'@'localhost'; FLUSH PRIVILEGES;"|mysql -u root -p
+   mysql -u roprotokol -p'roprotokol' roprotokol < /data/roprotokol/db_setup/mkdb.sql
+   echo "GRANT ALL PRIVILEGES ON roprotokol.authentication TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql -u root -p
+   echo "GRANT SELECT ON roprotokol.MemberRights TO 'apacheauth'@'localhost';GRANT SELECT ON roprotokol.Member TO 'apacheauth'@'localhost'; "|mysql -u root -p
 
 
 grant super on *.* to roprotokol@localhost ;
@@ -49,6 +51,5 @@ grant super on *.* to roprotokol@localhost ;
 Import schema:
 
 
-    mysql -u roprotokol -p'roprotokol' roprotokol < /data/roprotokol/db_setup/mkdb.sql
 
 Copy config.ini.template to config.ini and adjust

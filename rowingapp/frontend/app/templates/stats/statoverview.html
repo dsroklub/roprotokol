@@ -13,84 +13,83 @@
   <div>
     <div class="rowerstat">
       <div class="stats">
-	<table ng-table="tableParams" class="statlist" show-filter="true">
+        <table ng-table="tableParams" class="statlist" show-filter="true">
           <caption>Statistik for roere</caption>
-	  <thead>
-	    <tr>
-	      <th class="text-center sortable"
-		  ng-class="{'sort-asc': tableParams.isSortBy('rank', 'asc'),'sort-desc': tableParams.isSortBy('rank', 'desc')}"
-		  ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr <i class="fa fa-sort"></i>
-	      </th>
-	      <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlem# <i class="fa fa-sort"></th>
-	      <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer <i class="fa fa-sort"></th>
-	      <th  ng-class="{'sort-asc': tableParams.isSortBy('summer', 'asc'),'sort-desc': tableParams.isSortBy('summer', 'desc')}"
+          <thead>
+            <tr>
+              <th class="text-center sortable"
+                  ng-class="{'sort-asc': tableParams.isSortBy('rank', 'asc'),'sort-desc': tableParams.isSortBy('rank', 'desc')}"
+                  ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr <i class="fa fa-sort"></i>
+              </th>
+              <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlem# <i class="fa fa-sort"></th>
+              <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer <i class="fa fa-sort"></th>
+              <th  ng-class="{'sort-asc': tableParams.isSortBy('summer', 'asc'),'sort-desc': tableParams.isSortBy('summer', 'desc')}"
                    ng-click="tableParams.sorting('summer', tableParams.isSortBy('summer', 'desc') ? 'asc' : 'desc')">Km sommer <i class="fa fa-sort"></th>
-	      <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}"
+              <th  ng-class="{'sort-asc': tableParams.isSortBy('distance', 'asc'),'sort-desc': tableParams.isSortBy('distance', 'desc')}"
                    ng-click="tableParams.sorting('distance', tableParams.isSortBy('distance', 'desc') ? 'asc' : 'desc')">Km år <i class="fa fa-sort"></th>
-	      <!--th  ng-class="{'sort-asc': tableParams.isSortBy('summer', 'asc'),'sort-desc': tableParams.isSortBy('summer', 'desc')}"
-                   ng-click="tableParams.sorting('summer', tableParams.isSortBy('summer', 'desc') ? 'asc' : 'desc')"><i class="fa fa-thermometer-full" aria-hidden="true"></i> <i class="fa fa-sort"></th-->
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr ng-repeat="stat in $data track by $index" ng-class-odd="'oddstat'" >
-	      <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
-	      <td class="rnum" data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}">{{stat.id}}</td>
-	      <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}">
+              <!--th  ng-class="{'sort-asc': tableParams.isSortBy('summer', 'asc'),'sort-desc': tableParams.isSortBy('summer', 'desc')}"
+                  ng-click="tableParams.sorting('summer', tableParams.isSortBy('summer', 'desc') ? 'asc' : 'desc')"><i class="fa fa-thermometer-full" aria-hidden="true"></i> <i class="fa fa-sort"></th-->
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="stat in $data track by $index" ng-class-odd="'oddstat'" >
+              <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
+              <td class="rnum" data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}">{{stat.id}}</td>
+              <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}">
                 <a href="{{burl}}#!rowers?rower={{stat.id}}">{{stat.firstname}} {{stat.lastname}}</a>
                 <img ng-repeat="year in stat.wrenches | split:','" class="wrench"
                      title="Mangler vintervedligehold {{year}}"
                      alt="Mangler vintervedligehold {{year}}"
                      ng-src="{{burl}}assets/tools/{{year | year2tool}}.svg" /></td>
-	      <td data-title="'Sommer'" sortable="'summer'" class="rnum">{{stat.summer|mtokm}}</td>
-	      <td data-title="'Distance'" sortable="'distance'" class="rnum">{{stat.distance|mtokm}}</td>
-	      <!--td data-title="'Sommer'" sortable="'summer'" class="rnum summerstat">{{stat.summer|mtokmint}}</td-->
-	    </tr>
-	  </tbody>
-	</table>
+              <td data-title="'Sommer'" sortable="'summer'" class="rnum">{{stat.summer|mtokm}}</td>
+              <td data-title="'Distance'" sortable="'distance'" class="rnum">{{stat.distance|mtokm}}</td>
+          <!-- td data-title="'Sommer'" sortable="'summer'" class="rnum summerstat">{{stat.summer|mtokmint}}</td -->
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-
-    <div class="boatstat">
-      <div class="stats">
-	<table ng-table="boattableParams" class="statlist" show-filter="true">
+<div class="boatstat">
+  <div class="stats">
+    <table ng-table="boattableParams" class="statlist" show-filter="true">
           <caption>Statistik for både</caption>
-	  <thead>
-	    <tr>
-	      <th class="text-center sortable"
-		  ng-class="{'sort-asc': boattableParams.isSortBy('rank', 'asc'),'sort-desc': boattableParams.isSortBy('rank', 'desc')}"
-		  ng-click="boattableParams.sorting('rank', boattableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr <i class="fa fa-sort">
-	      </th>
-	      <th ng-click="boattableParams.sorting('boatname',boattableParams.isSortBy('boatname','asc')?'desc':'asc')">  Navn <i class="fa fa-sort"></th>
-	      <th ng-click="boattableParams.sorting('boat_type',boattableParams.isSortBy('boat_type','asc')?'desc':'asc')">Type <i class="fa fa-sort"></th>
-	      <th ng-click="boattableParams.sorting('num_trips',boattableParams.isSortBy('num_trips','desc')?'asc':'desc')">ture <i class="fa fa-sort"></th>
-	      <th  ng-class="{'sort-asc': boattableParams.isSortBy('distance', 'asc'),'sort-desc': boattableParams.isSortBy('distance', 'desc')}"
+          <thead>
+            <tr>
+              <th class="text-center sortable"
+                  ng-class="{'sort-asc': boattableParams.isSortBy('rank', 'asc'),'sort-desc': boattableParams.isSortBy('rank', 'desc')}"
+                  ng-click="boattableParams.sorting('rank', boattableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr <i class="fa fa-sort">
+              </th>
+              <th ng-click="boattableParams.sorting('boatname',boattableParams.isSortBy('boatname','asc')?'desc':'asc')">  Navn <i class="fa fa-sort"></th>
+              <th ng-click="boattableParams.sorting('boat_type',boattableParams.isSortBy('boat_type','asc')?'desc':'asc')">Type <i class="fa fa-sort"></th>
+              <th ng-click="boattableParams.sorting('num_trips',boattableParams.isSortBy('num_trips','desc')?'asc':'desc')">ture <i class="fa fa-sort"></th>
+              <th  ng-class="{'sort-asc': boattableParams.isSortBy('distance', 'asc'),'sort-desc': boattableParams.isSortBy('distance', 'desc')}"
                    ng-click="boattableParams.sorting('distance', boattableParams.isSortBy('distance', 'desc') ? 'asc' : 'desc')">Km år <i class="fa fa-sort"></th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr ng-repeat="boatstat in $data" ng-class-odd="'oddstat'">
-	      <td sortable="'rank'" data-title="'Nr'">{{boatstat.rank}} </td>
-	      <td data-title="'boatname'" sortable="'boatname'"><a href="{{burl}}#!rowers?boat={{boatstat.id}}"> {{boatstat.boatname}}</a></td>
-	      <td data-title="'boat_type'" sortable="'boat_type'"> {{boatstat.boat_type}}</td>
-	      <td class="rnum" data-title="'num_trips'" sortable="'num_trips'"> {{boatstat.num_trips}}</td>
-	      <td data-title="'Distance'" sortable="'distance'" class="rnum">{{boatstat.distance|mtokm}}</td>
-	    </tr>
-	  </tbody>
-	</table>
-      </div>
-    </div>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="boatstat in $data" ng-class-odd="'oddstat'">
+              <td sortable="'rank'" data-title="'Nr'">{{boatstat.rank}} </td>
+              <td data-title="'boatname'" sortable="'boatname'"><a href="{{burl}}#!rowers?boat={{boatstat.id}}"> {{boatstat.boatname}}</a></td>
+              <td data-title="'boat_type'" sortable="'boat_type'"> {{boatstat.boat_type}}</td>
+              <td class="rnum" data-title="'num_trips'" sortable="'num_trips'"> {{boatstat.num_trips}}</td>
+              <td data-title="'Distance'" sortable="'distance'" class="rnum">{{boatstat.distance|mtokm}}</td>
+            </tr>
+          </tbody>
+    </table>
   </div>
+</div>
+</div>
 
-  <div class="rowchart">
-    <h2>Roede km per turtype hvert år {{boat_type}}</h2>
-    <canvas id="tripdistancesyear" class="chart chart-bar"
-            chart-data="triptypestat.distance" chart-labels="triptypestat.labels" chart-series="triptypestat.series" chart-legend="true">
-    </canvas>
-  </div>
-  <div class="rowchart">
-    <h2>Antal roture per turtype hvert år {{boat_type}}</h2>
-    <canvas id="numtripsyear" class="chart chart-bar"
-            chart-data="triptypestat.numtrips" chart-labels="triptypestat.labels" chart-series="triptypestat.series" chart-legend="true">
-    </canvas>
-  </div>  
+<div class="rowchart">
+  <h2>Roede km per turtype hvert år {{boat_type}}</h2>
+  <canvas id="tripdistancesyear" class="chart chart-bar"
+          chart-data="triptypestat.distance" chart-labels="triptypestat.labels" chart-series="triptypestat.series" chart-legend="true">
+  </canvas>
+</div>
+<div class="rowchart">
+  <h2>Antal roture per turtype hvert år {{boat_type}}</h2>
+  <canvas id="numtripsyear" class="chart chart-bar"
+          chart-data="triptypestat.numtrips" chart-labels="triptypestat.labels" chart-series="triptypestat.series" chart-legend="true">
+  </canvas>
+</div>
 </div>
