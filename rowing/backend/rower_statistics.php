@@ -27,8 +27,8 @@ SELECT
       'firstname', firstname,
       'lastname',lastname,
       'wranches',wrenches,
-      'rank',ROW_NUMBER() OVER ( ORDER BY summer DESC),
-      'yank',ROW_NUMBER() OVER ( ORDER BY distance DESC)
+      'rank',CAST(ROW_NUMBER() OVER ( ORDER BY summer DESC) as UNSIGNED),
+      'yrank',CAST(ROW_NUMBER() OVER ( ORDER BY distance DESC) as UNSIGNED)
 )
  as json
 FROM (
