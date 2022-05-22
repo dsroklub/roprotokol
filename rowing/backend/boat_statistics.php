@@ -27,7 +27,7 @@ WHERE Year(OutTime)=? ". $boatclause .
 
 if ($sqldebug) echo $s;
 if ($stmt = $rodb->prepare($s)) {
-     $stmt->bind_param("s", $season);
+     $stmt->bind_param("i", $season);
      $stmt->execute();
      $result= $stmt->get_result();
      echo '[';
