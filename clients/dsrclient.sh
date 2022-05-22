@@ -1,11 +1,11 @@
 #!/bin/bash
 timedatectl set-timezone Europe/Copenhagen
-apt install firefox-esr firefox-esr-l10n-da joe matchbox ssh ssh-server xserver-common nodm ntp xserver-xorg-core term xserver-xorg-input-libinput xserver-xorg-input-evdev tinysshd numlockx
+apt install firefox-esr firefox-esr-l10n-da joe matchbox ssh xserver-common nodm xserver-xorg-core xterm xserver-xorg-input-libinput xserver-xorg-input-evdev tinysshd numlockx
 
 #necessary with DVI adapter
 apt install xscreensaver xscreensaver-data-extra
 
-apt purge exim4-base usb-modeswitch avahi-daemon
+apt purge exim4-base usb-modeswitch avahi-daemon wolfram-engine libreoffice libreoffice-core
 apt autoremove
 cp etc/{hosts,ntp,locale.gen} /etc/
 cp etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
@@ -24,6 +24,7 @@ chown dsr /home/dsr/.ssh/authorized_keys
 locale-gen
 usermod -L pi
 cp usr.lib.firefox.distribution.policies.json /usr/lib/firefox-esr/distribution/policies.json
+#mkdir -p /home/dsr/.mozilla/firefox/
 cp user.js /home/dsr/.mozilla/firefox/*.default-esr/
 
 
