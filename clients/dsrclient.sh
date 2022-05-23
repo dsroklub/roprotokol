@@ -3,9 +3,10 @@ timedatectl set-timezone Europe/Copenhagen
 apt install firefox-esr firefox-esr-l10n-da joe matchbox ssh xserver-common nodm xserver-xorg-core termit xserver-xorg-input-libinput xserver-xorg-input-evdev tinysshd numlockx
 
 
-apt install lightdm # for use with multiseat
+apt install lightdm lightdm-settings # for use with multiseat
+cp etc/default/nodm /etc/default/
 #necessary with DVI adapter
-apt install xscreensaver xscreensaver-data-extra
+###apt install xscreensaver xscreensaver-data-extra
 
 apt purge exim4-base usb-modeswitch avahi-daemon wolfram-engine libreoffice libreoffice-core modemmanager
 apt autoremove
@@ -28,16 +29,20 @@ chown dsr.dsr /home/dsr/.ssh/authorized_keys
 locale-gen
 usermod -L pi
 cp usr.lib.firefox.distribution.policies.json /usr/lib/firefox-esr/distribution/policies.json
-#mkdir -p /home/dsr/.mozilla/firefox/
-
-
 sudo -u dsr firefox -headless -CreateProfile  dsr
 sudo -u dsr2 firefox -headless -CreateProfile  dsr
 
 cp user.js /home/dsr/.mozilla/firefox/*.dsr/
 
-
-if [[ -d /etc/lightdm/ ]]
+if [ -d /etc/lightdm/ ]
 then
-  echo "[Seat:seat1]\nautologin-user=dsr2\n" >> /etc/lightdm/lightdm.conf
+    echo "[Seat:seat0]\nautologin-user=dsr\nautologin-session=\n" >> /etc/lightdm/lightdm.conf
+    echo "[Seat:seat1]\nautologin-user=dsr2\nautologin-session=\n" >> /etc/lightdm/lightdm.conf
+fi
+
+
+if [ -d /boot/config.txt ]
+then
+  sed -i -e "s/^dtoverlay/#dtoverlay/" /boot/config.txt
+  cp usr.share.X11.xorg.conf.d.99-fbturbo.conf /usr/share/X11/xorg.conf.d/99-fbturbo.conf
 fi

@@ -11,7 +11,7 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
 
 # Installation
 
-    apt install composer npm memcached php-memcached php-mysql php-gd php-zip libapache2-mod-php nodejs  mariadb-server php-mail php-mailparse  composer php-cli
+    apt install composer npm memcached php-memcached php-mysql php-gd php-zip libapache2-mod-php nodejs  mariadb-server php-mail php-mailparse  composer php-cli ntp
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
     apt install  libaprutil1-dbd-mysql pkg-php-tools php-fpdf mdbtools postfix postfix-sqlite automysqlbackup php-curl certbot // php-tcpdf
     # Remember to restart your web server.
