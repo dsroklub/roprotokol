@@ -9,4 +9,7 @@ xscreensaver&
 setxkbmap -option ctrl:nocaps
 setxkbmap -option numpad:mac
 
-firefox --kiosk https://roprotokol.danskestudentersroklub.dk
+while true
+do
+  firefox --kiosk -P dsr https://roprotokol.danskestudentersroklub.dk
+done
