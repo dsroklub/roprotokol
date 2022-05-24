@@ -49,7 +49,8 @@ fi
 #for raspberry pi
 if [ -d /boot/config.txt ]
 then
-  # disable autologin
+    # disable autologin
+  cp seat.rules /etc/udev/rules.d/99-seat.rules
   echo -e "[Service]\nExecStart=-/sbin/agetty  --noclear %I $TERM\n" > /etc/systemd/system/getty@tty1.service.d/autologin.conf
   sed -i -e "s/^dtoverlay/#dtoverlay/" /boot/config.txt
   cp etc.X11.xorg.conf.d.99-fbturbo.conf /etc/X11/xorg.conf.d/99-fbturbo.conf
