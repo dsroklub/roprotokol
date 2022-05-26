@@ -67,7 +67,7 @@ case "nonmembers":
     }
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,DATE_FORMAT(RemoveDate,'%d/%m %Y') as udmeldt,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
-FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseson GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
+FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
     WHERE Member.RemoveDate IS NOT NULL AND worker.member_id=Member.id ${workertypeC} ORDER BY udmeldt, roer,lagt ASC,mangler DESC,workertype;
 ";
     //    echo "f=$f, $s\n";
