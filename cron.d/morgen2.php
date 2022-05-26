@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+echo "morgenorientering";
 define( 'ROOT_DIR', dirname(__FILE__) );
 $config = parse_ini_file(ROOT_DIR . '/../config.ini');
 $rodb=new mysqli("localhost",$config["dbuser"],$config["dbpassword"],$config["database"]);
@@ -67,25 +68,25 @@ while ($rankrow = $result->fetch_assoc()) {
             "og er nummer ".$rankrow["gymrank"] ." i gymnastikstatistikken ";
     }
     $body="\nDin daglige morgenorientering fra DSR roprotokol:\n$ranktxt";
-    //echo "\n\n$body";
-    $mail_headers = [
-        'From'                      => "Roprotokollen i Danske Studenters Roklub <aftaler.danskestudentersroklub.dk>",
-        'To'                        => [$rankrow["email"]],
-        'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
-        'Subject'                   => mb_encode_mimeheader("DSR roprotokol morgenorientering"),
-        'Content-Transfer-Encoding' => "8bit",
-        'Content-Type'              => 'text/plain; charset="utf8"',
-        'Date'                      => date('r'),
-        'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
-        'MIME-Version'              => "1.0",
+    error_log("morgen: $body");
+         $mail_headers = [
+         'From'                      => "Roprotokollen i Danske Studenters Roklub <elgaard@agol.dk>",
+         'To'                        => [$rankrow["email"]],
+         'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
+         'Subject'                   => mb_encode_mimeheader("DSR roprotokol morgenorientering"),
+         'Content-Transfer-Encoding' => "8bit",
+         'Content-Type'              => 'text/plain; charset="utf8"',
+         'Date'                      => date('r'),
+         'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
+         'MIME-Version'              => "1.0",
          'X-Mailer'                  => "DSRroprotokol",
     ];
-    NEL $mail_status = $smtp->send($emails, $mail_headers, $body);
+    $mail_status = $smtp->send($rankrow["email"], $mail_headers, $body);
     //    echo $body;
     if (PEAR::isError($mail_status)) {
         $warning="Kunne ikke sende besked som email: " . $mail_status->getMessage() . " headers=".print_r($mail_headers,true)." $body";
         //echo $warning;
-        error_log(" $warning ");
+        error_log("morgenstatus $warning ");
     }
 }
 $rodb->close();
