@@ -17,7 +17,7 @@ function dbErr(&$db, &$res, $err="") {
     exit(1);
 }
 
-foreach (['7843'] as $mid) {
+foreach (['7843','8145','10152'] as $mid) {
     echo "do $mid\n";
 
 
@@ -65,7 +65,7 @@ foreach (['7843'] as $mid) {
     $result= $rankstmt->get_result() or die("Error in user rank query: " . mysqli_error($rodb));
     $ranktxt="";
     if ($rankrow = $result->fetch_assoc()) {
-        $name=$rankrow["name"];
+        //$name=$rankrow["name"];
         $ranktxt="Du har roet ". number_format($rankrow["summer"]/1000,1). " km og er nummer ". $rankrow["rank"] ." i rostatistikken (sommer)";
     }
     $body="Din daglige morgenorientering fra DSR roprotokol:\n$ranktxt";
