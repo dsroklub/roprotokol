@@ -13,7 +13,7 @@
         <th>Hold</th> <th>Holdtidspnkt</th>  <th>Underviser</th>
       </tr>
       <tr  ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-class="{selected: currentteam == tm, nottoday: tm.dow != dayofweek}" >
-        <td>{{tm.name}} {{teamkey}}  {{tm.description}} </td> <td>{{tm.dayofweek}} {{tm.timeofday}} </td> <td>  {{tm.teacher}} <td>
+        <td><strong>{{tm.name}}</strong> {{teamkey}}  {{tm.description}} </td> <td>{{tm.dayofweek}} {{tm.timeofday}} </td> <td>  {{tm.teacher}} <td>
       </tr>
   </table>
 
