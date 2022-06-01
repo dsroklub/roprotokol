@@ -1,11 +1,10 @@
 <?php
-
-set_include_path(get_include_path().':/');
-include("../../rowing/backend/inc/common.php");
-include("utils.php");
+include("inc/common.php");
+include("inc/utils.php");
+//error_log("Currentuser ".$_SERVER['PHP_AUTH_USER']);
 if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
-    //error_log("CU=$cuser");
+    // error_log("CU=$cuser");
     $s="SELECT
        sha1(CONCAT(authentication.password,?)) as token,
        IFNULL(mrc.MemberRight,'') as is_cox,
