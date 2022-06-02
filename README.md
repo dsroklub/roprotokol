@@ -11,7 +11,7 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
 
 # Installation
 
-    apt install composer npm memcached php-memcached php-mysql php-gd php-zip libapache2-mod-php nodejs  mariadb-server php-mail php-mailparse  composer php-cli
+    apt install composer npm memcached php-memcached php-mysql php-gd php-zip libapache2-mod-php nodejs  mariadb-server php-mail php-mailparse  composer php-cli ntp
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
     apt install  libaprutil1-dbd-mysql pkg-php-tools php-fpdf mdbtools postfix postfix-sqlite automysqlbackup php-curl certbot
     apt install opendkim opendkim-tools # php-tcpdf
@@ -20,6 +20,7 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
    apt install ffproxy # to update terminals that are not on the internet.
    a2enmod ssl dbd  rewrite include authn_dbd
    a2enmod php8.X # where X is the php version
+   echo 'POSTBACKUP="chgrp roprotokol -R /data/backup/automysqlbackup/ && chmod -R g+r /data/backup/automysqlbackup/"' >> /etc/default/automysqlbackup
 #   sudo npm install -g bower
 
    cd rowingapp/backend; composer update

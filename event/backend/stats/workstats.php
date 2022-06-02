@@ -13,7 +13,7 @@ $report_name="Rapport";
 switch ($q) {
 case "all":
     $report_name="alt arbejde";
-    $s="SELECT CONCAT(FirstName,' ',Lastname) as name,MemberID AS medlemsnummer,DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') AS fra, DATE_FORMAT(end_time,'%H:%i') AS til, hours AS timer, work AS arbejde 
+    $s="SELECT CONCAT(FirstName,' ',Lastname) as name,MemberID AS medlemsnummer,DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') AS fra, DATE_FORMAT(end_time,'%H:%i') AS til, hours AS timer, work AS arbejde
  FROM worklog,Member WHERE Member.id=worklog.member_id AND $workseason
  ORDER BY name,fra";
     $sumq="SELECT SUM(hours) as sum FROM worklog,Member WHERE Member.id=worklog.member_id AND $workseason";
@@ -41,7 +41,7 @@ case "nonstarters":
     $s="
 SELECT DISTINCT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as vedligeholdstype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
-   WHERE Member.RemoveDate IS NULL AND worker.member_id=Member.id ${workertypeC} 
+   WHERE Member.RemoveDate IS NULL AND worker.member_id=Member.id ${workertypeC}
    ORDER BY LAGT ASC,mangler DESC,workertype;
 ";
     //    echo "f=$f, $s\n";
@@ -67,10 +67,11 @@ case "nonmembers":
     }
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,DATE_FORMAT(RemoveDate,'%d/%m %Y') as udmeldt,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
-FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
+FROM Member,worker LEFT JOIN
+(SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
     WHERE Member.RemoveDate IS NOT NULL AND worker.member_id=Member.id ${workertypeC} ORDER BY udmeldt, roer,lagt ASC,mangler DESC,workertype;
 ";
-    //    echo "f=$f, $s\n";
+    echo "f=$f, $s\n";
     break;
 case "rank":
     $report_name="timer tilbage for roere $a";
@@ -89,7 +90,7 @@ case "resterende":
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,Email as email,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
     FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
-    WHERE  worker.member_id=Member.id 
+    WHERE  worker.member_id=Member.id
     ORDER BY lagt DESC;
 ";
     break;
