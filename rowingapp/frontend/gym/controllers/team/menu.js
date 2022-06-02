@@ -7,11 +7,13 @@ angular.module('gymApp').controller(
 function menuCtrl ($scope,   $location,$route,LoginService ) {
   $scope.activePath = null;
   $scope.showadmin=false;
-  LoginService.check_user().promise.then(function(u) {         
-    $scope.currentuser=u.member_id;
-    if (u.has_remote_access) {
-      $scope.showadmin=true;
-    }
+    LoginService.check_user().promise.then(function(u) {
+	if (u) {
+	    $scope.currentuser=u.member_id;
+	    if (u.has_remote_access) {
+		$scope.showadmin=true;
+	    }
+	}
   });
 
   $scope.$on('$routeChangeSuccess', function(){
