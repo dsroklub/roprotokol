@@ -1,10 +1,10 @@
 <?php
-require __DIR__.'/../vendor/autoload.php';
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Writer\Ods;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+// require __DIR__.'/../vendor/autoload.php';
+// use PhpOffice\PhpSpreadsheet\Spreadsheet;
+// use PhpOffice\PhpSpreadsheet\Cell\DataType;
+// use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+// use PhpOffice\PhpSpreadsheet\Writer\Ods;
+// use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 header('Content-Type: application/json; charset=utf-8');
 ini_set('default_charset', 'utf-8');
@@ -102,16 +102,6 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
         MYSQLI_TYPE_STRING=>"s",
         MYSQLI_TYPE_DATETIME=>"t"
     ];
-    $formatMap=[MYSQLI_TYPE_FLOAT => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_STRING => DataType::TYPE_STRING,
-                MYSQLI_TYPE_VAR_STRING => DataType::TYPE_STRING,
-                MYSQLI_TYPE_NEWDECIMAL => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_DECIMAL => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_LONG => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_LONGLONG => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_DOUBLE => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_DATETIME => DataType::TYPE_NUMERIC
-    ];
     $colTypes=[];
     $maxlengths=[];
     if ($captions=="_auto") {
@@ -154,66 +144,7 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
             $rn=$rn+1;
         }
         echo ']}';
-    } else if ($output=="ods" || $output=="xlsx") {
-        header('Content-Disposition: filename="'.$name.".$output".'"');
-        if ($output=="ods"){
-            header('Content-Type: application/vnd.oasis.opendocument.spreadsheet');
-        } else {
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        }
-        //\PhpOffice\PhpSpreadsheet\Shared\Date::setDefaultTimezone("UTC");
-        header('Cache-Control: max-age=0');
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet()->setTitle($name);
-        $spreadsheet->getProperties()
-            ->setCreator('DSR roprotokol')
-            ->setTitle($name)
-            ->setSubject($name)
-            ->setDescription('DSR roprotokol rapport')
-            ->setKeywords('DSR roprotokol aftaler');
-        $ri=1;
-        if ($captions) {
-            foreach ($captions as $ci => $caption) {
-                $sheet->setCellValueByColumnAndRow($ci+1,1,"$caption");
-            }
-            $sheet->freezePane("A2");
-        }
-        foreach ($maxlengths as $ci => $cw) {
-            $spreadsheet->getActiveSheet()->getColumnDimensionByColumn($ci+1)->setWidth(min(80,max(5,$cw+1)));
-        }
-        $ri++;
-        while ($row = $result->fetch_assoc()) {
-            $ci=1;
-            foreach ($row as $cn=>$rc) {
-                if (isset($colTypes[$cn]) && isset($formatMap[$colTypes[$cn]])) {
-                    if ($colTypes[$cn]==MYSQLI_TYPE_DATETIME && $output=="xlsx")  {
-                        $rc=\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($rc."Z"));
-                        $dataType=DataType::TYPE_NUMERIC;
-                        $sheet->getStyleByColumnAndRow($ci,$ri)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
-                    } else {
-                        $dataType=$formatMap[$colTypes[$cn]];
-                    }
-                } else {
-                    $dataType=DataType::TYPE_STRING;
-                }
-                $sheet->setCellValueExplicitByColumnAndRow($ci++,$ri,$rc,$dataType);
-
-            }
-            $ri++;
-        }
-        $writer = ($output=="xlsx")?new Xlsx($spreadsheet):new Ods($spreadsheet);
-        $writer->save('php://output');
-    } else if ($output=="csv") {
-        header('Content-type: text/csv');
-        header('Content-Disposition: filename="'.$name.'.csv"');
-        $foutput = fopen('php://output', 'w');
-        if ($captions) {
-            fputcsv($foutput,$captions);
-        }
-        while ($row = $result->fetch_assoc()) {
-            fputcsv($foutput,$row);
-        }
-    }  else if ($output=="text") {
+    } else if ($output=="text") {
         header('Content-type: text/html');
         echo " <link rel=\"stylesheet\" href=\"/public/stat.css\">\n<table>\n";
         if ($captions) {
