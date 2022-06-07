@@ -33,9 +33,9 @@ if (isset($_GET["output"]) && ($_GET["output"]=="csv" || $_GET["output"]=="xlsx"
 }
 
 require_once("db.php");
-if (!$rodb->set_charset("utf8")) {
-    printf("Error loading character set utf8: %s\n", $rodb->error);
-}
+//if (!$rodb->set_charset("utf8")) {
+//    printf("Error loading character set utf8: %s\n", $rodb->error);
+//}
 
 function mysdate($jsdate) {
     $r=preg_replace("/\.\d\d\dZ/","",$jsdate);
