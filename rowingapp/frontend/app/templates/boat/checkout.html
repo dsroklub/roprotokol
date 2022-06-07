@@ -94,6 +94,7 @@
                   <div class="guestpenguin" ng-show="isName(checkout.rowers[$index]) && norower[$index]">
                     <i class="fa fa-eraser" ng-click="checkout.rowers[$index]=''"></i>
                     <button class="mkRabbit" ng-click="createRower(checkout.rowers, $index,'rabbit',null)" tabindex="-1">opret kanin &#x1f407; &#x1f427;</button>
+                    <br>
                     <button class="mkGuest" ng-click="createRower(checkout.rowers, $index,'guest',checkout.club[$index])" tabindex="-1">opret gæst fra</button>
                     <input class="mkGuest" type="text" ng-model="checkout.club[$index]" placeholder="roklub"></input>
                   </div>

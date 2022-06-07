@@ -13,7 +13,8 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
 
     apt install composer npm memcached php-memcached php-mysql php-gd php-zip libapache2-mod-php nodejs  mariadb-server php-mail php-mailparse  composer php-cli ntp
     #  php-mysqlnd/php-mysql is needed to make PHP know the difference between numbers and strings
-    apt install  libaprutil1-dbd-mysql pkg-php-tools php-fpdf mdbtools postfix postfix-sqlite automysqlbackup php-curl certbot # php-tcpdf
+    apt install  libaprutil1-dbd-mysql pkg-php-tools php-fpdf mdbtools postfix postfix-sqlite automysqlbackup php-curl certbot
+    apt install opendkim opendkim-tools # php-tcpdf
     # Remember to restart your web server.
 
    apt install ffproxy # to update terminals that are not on the internet.
@@ -29,7 +30,7 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
    cd phplib; composer update
 
   sudo mkdir /data
-  chown roprotokol.roprotokol /date
+  chown roprotokol.roprotokol /data
   cd /data;git clone https://github.com/dsroklub/roprotokol.git
 
    cd /data/roprotokol/rowing/backend; composer update

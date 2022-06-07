@@ -70,14 +70,14 @@ while ($rankrow = $result->fetch_assoc()) {
     $body="\nDin daglige morgenorientering fra DSR roprotokol:\n$ranktxt";
     error_log("morgen: $body");
          $mail_headers = [
-         'From'                      => "Roprotokollen i Danske Studenters Roklub <elgaard@agol.dk>",
+         'From'                      => "Roprotokollen i Danske Studenters Roklub <roprotokol@roprotokol.danskestudentersroklub.dk>",
          'To'                        => [$rankrow["email"]],
          'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
          'Subject'                   => mb_encode_mimeheader("DSR roprotokol morgenorientering"),
          'Content-Transfer-Encoding' => "8bit",
          'Content-Type'              => 'text/plain; charset="utf8"',
          'Date'                      => date('r'),
-         'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
+         'Message-ID'                => "<".sha1(microtime(true))."@roprotokol.danskestudentersroklub.dk>",
          'MIME-Version'              => "1.0",
          'X-Mailer'                  => "DSRroprotokol",
     ];
