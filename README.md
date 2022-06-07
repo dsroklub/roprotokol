@@ -19,7 +19,10 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
    apt install ffproxy # to update terminals that are not on the internet.
    a2enmod ssl dbd  rewrite include authn_dbd
    a2enmod php8.X # where X is the php version
-   echo 'POSTBACKUP="chgrp roprotokol -R /data/backup/automysqlbackup/ && chmod -R g+r /data/backup/automysqlbackup/"' >> /etc/default/automysqlbackup
+
+   mkdir -p /data/backup/automysqlbackup/{latest,daily,monthly,weekly}
+   chgrp roprotokol -R /data/backup/automysqlbackup/
+   chmod 2750 /data/backup/automysqlbackup/*
 #   sudo npm install -g bower
 
    cd rowingapp/backend; composer update
