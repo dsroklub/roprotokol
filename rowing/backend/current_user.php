@@ -1,8 +1,8 @@
 <?php
 include("inc/common.php");
 include("inc/utils.php");
-error_log("Currentuser ".$_SERVER['PHP_AUTH_USER']);
 if (isset($_SERVER['PHP_AUTH_USER'])) {
+// error_log("Currentuser ".$_SERVER['PHP_AUTH_USER']);
     $cuser=$_SERVER['PHP_AUTH_USER'];
      error_log("CU=$cuser");
     $s="SELECT

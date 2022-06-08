@@ -45,7 +45,7 @@ if ($cuser=="baadhal"){
         $message = "$d->name afkortet til $hourlimit timer\n";
         $message .="$start_time til $end_time = ".round($hours,1);
         $hours=$hourlimit;
-        error_log($message);
+        // error_log($message);
         post_forum_message($forum,"$d->name over $hourlimit timer",$message,$from=null,$forumEmail=null,$sticky=false);
     }
 }

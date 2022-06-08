@@ -175,12 +175,7 @@ function dbservice($http, $q, $log) {
       var rowerq=$q.defer();
       promises.push(rowerq.promise);
       $http.get(toURL('rowers.php')).then(function(response) {
-        var rowers = [];
-        angular.forEach(response.data, function(rower, index) {
-          rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
-          this.push(rower);
-        }, rowers);
-        db['rowers']=rowers;
+        db['rowers']=response.data;
         valid['rowers']=true;
         rowerq.resolve(true);
       });

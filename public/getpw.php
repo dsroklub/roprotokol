@@ -15,7 +15,7 @@ if ($res) {
             $stmt->execute();
             $result= $stmt->get_result();
             if ($result && $r=$result->fetch_assoc()) {
-                $pw=r['newpassword'];
+                $pw=$r['newpassword'];
                 error_log("old pw= $pw");
             }
         } else {
