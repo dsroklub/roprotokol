@@ -16,7 +16,10 @@ https://agol.dk/roprotokol/frontend/app/index.shtml
     apt install  libaprutil1-dbd-mysql pkg-php-tools php-fpdf mdbtools postfix postfix-sqlite automysqlbackup php-curl certbot
     apt install opendkim opendkim-tools # php-tcpdf
     # Remember to restart your web server.
+    usermod -a -G opendkim postfix 
 
+    mkdir -p /var/spool/postfix/opendkim/
+    chown opendkim.opendkim /var/spool/postfix/opendkim/
    apt install ffproxy # to update terminals that are not on the internet.
    a2enmod ssl dbd  rewrite include authn_dbd
    a2enmod php8.X # where X is the php version
