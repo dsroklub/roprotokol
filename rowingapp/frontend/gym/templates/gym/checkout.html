@@ -5,9 +5,32 @@
   </a>
 </script>
 
-<form ng-submit="attend()" name="gymParticipant">
-
+<ng-form
+  ng-submit="attend()"
+  name="gymParticipant">
   <h2>Registerer deltager på gymnastikhold</h2>
+  <div>
+    <label for="gym.deltager">Deltager på gymnastikhold</label><br>
+    <div ng-hide="currentteam">vælg et af dagens hold</div>
+    <input ng-show="currentteam"
+           ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }"
+	   placeholder="gymnastikdeltager"
+	   autocomplete="off"
+   	   autocorrect="off"
+      	   spellcheck="false"
+           id="gymmember"
+	   name="gparticipant"
+	   type="text"
+           ng-model="attendee"
+           uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+	   typeahead-select-on-exact="true"
+	   typeahead-template-url="gymTemplate.html"
+	   typeaheadWaitMs="200"
+	   required>
+    <input type="submit"  style="display:none">
+    <button type="button" ng-disabled="!currentteam || !attendee.id" class="klar" ng-click="attend()">Registrer</button>
+  </div>
+
   <table class="listbox">
       <tr>
         <th>Hold</th> <th>Holdtidspnkt</th>  <th>Underviser</th>
@@ -16,19 +39,7 @@
         <td><strong>{{tm.name}}</strong> {{teamkey}}  {{tm.description}} </td> <td>{{tm.dayofweek}} {{tm.timeofday}} </td> <td>  {{tm.teacher}} <td>
       </tr>
   </table>
-
-  <div>
-    <label for="gym.deltager">Deltager på gymnastikhold</label>
-    <div ng-hide="currentteam">vælg et af dagens hold</div>
-    <input ng-show="currentteam" placeholder="gymnastikdeltager" autocomplete="off"
-           id="gymmember" name="participant" type="text"
-           ng-model="attendee"
-           uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)" typeahead-template-url="gymTemplate.html" required />
-  </div>
   <br>
-
-  <input type="submit"  style="display:none">
-  <button type="button" ng-disabled="!currentteam || !attendee.id" class="klar" ng-click="attend()">Registrer</button>
 
   <div>
     <h2 ng-show="currentteam">{{(attendance | filter:{'team':currentteam.name, 'timeofday':currentteam.timeofday } ).length}} tilmeldte til {{currentteam.name}} {{currentteam.dayofweek}} {{currentteam.timeofday}} </h2>
@@ -39,6 +50,6 @@
       </li>
     </ul>
   </div>
-</form>
+</ng-form>
 
 
