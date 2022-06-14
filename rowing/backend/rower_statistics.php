@@ -26,7 +26,7 @@ SELECT
       'id',id,
       'firstname', firstname,
       'lastname',lastname,
-      'wranches',wrenches,
+      'wrenches',wrenches,
       'rank',CAST(ROW_NUMBER() OVER ( ORDER BY summer DESC) as UNSIGNED),
       'yrank',CAST(ROW_NUMBER() OVER ( ORDER BY distance DESC) as UNSIGNED)
 )
