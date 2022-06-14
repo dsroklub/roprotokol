@@ -21,26 +21,24 @@ if ($res) {
         } else {
             error_log("get pw error: ".$link->error);
         }
-        if (empty($pw) or ($pw[0]=='$')) { // transferred htpasswd hashes
+        if (empty($pw) or $pw="xxx" or ($pw[0]=='$')) { // transferred htpasswd hashes
             $pw = generate_password();
             $hpw= '{SHA}' . base64_encode(sha1($pw, TRUE));
             //            error_log("new  pw= $pw $hpw");
-//            if ($stmt = $link->prepare("UPDATE authentication SET password=?, newpassword=? WHERE member_id=?")) {
-            if ($istmt = $link->prepare(
-                "INSERT INTO authentication (password,newpassword,member_id)  SELECT ?,?,id FROM Member WHERE MemberId=?")) {
-                error_log("now Bind");
-                $istmt->bind_param('sss', $hpw,$pw,$memberId) || error_log($link->error);
-
-                error_log("now EXE");
-                $istmt->execute() || error_log("pw update error: ". $link->error);
-            } else {
-                error_log("Prepare Error:". $link->error);
+                if ($istmt = $link->prepare(
+                    "REPLACE INTO authentication (password,newpassword,member_id)  SELECT ?,?,id FROM Member WHERE MemberId=?")) {
+                    error_log("now Bind");
+                    $istmt->bind_param('sss', $hpw,$pw,$memberId) || error_log($link->error);
+                    error_log("now EXE");
+                    $istmt->execute() || error_log("pw update error: ". $link->error);
+                } else {
+                    error_log("Prepare Error:". $link->error);
+                }
             }
-        }
         $body = "Kode til DSR for $memberId \n Din kode er: $pw\nDit brugernavn er dit medlemsnummer";
-        $mail_error = send_email("Kode til DSR styrmandsinstruktion og aftaler", $body, $person, $pw);
+        $mail_error = send_email("Kode til DSR roprotokol og aftaler", $body, $person, $pw);
         if ($mail_error) {
-            echo "<p class=\"error\">Fejl: Kunne ikke afsende mail til aftaler og styrmandsinstruktion: $mail_error</p>\n";
+            echo "<p class=\"error\">Fejl: Kunne ikke afsende mail til aftaler og roprotokol: $mail_error</p>\n";
         } else {
             $sent = true;
         }
