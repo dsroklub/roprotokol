@@ -85,13 +85,18 @@
     </div>
     <div class="turoversigt" ng-show="currentrower">
       <table class="genericlist">
-        <caption>Turoversigt for {{currentrower.name}} <i>({{currentrower.id}})</i></caption>
+        <caption>Turoversigt for {{currentrower.name}} <i>({{currentrower.id}})</i>: 
+          <select  ng-model="tripsearch.triptype" ng-options="tt.name as tt.name for tt in triptypes"  uib-tooltip="turtypen">
+            <option value="">alle</option>
+          </select> 
+        </caption>
         <thead>
           <tr><th>båd</th><th>Type</th><th>destination</th><th>kommentar</th><th>Oprettet</th><th>Turlængde</th></tr>
         </thead>
         <tbody class="tbody">
-          <tr ng-repeat="trip in rowertrips" ng-hide="boat_type && boat_type.name!=trip.boat_type" ng-click="tripselect(trip,$index)"
-              ng-class='{selected: trip == currenttrip}' >
+          <tr ng-repeat="trip in rowertrips" ng-hide="boat_type && boat_type.name!=trip.boat_type || tripsearch.triptype && trip.triptype!=tripsearch.triptype" ng-click="tripselect(trip,$index)"
+              ng-class='{selected: trip == currenttrip}'
+              >
             <td>{{trip.boat}}</td>
             <td>{{trip.triptype}}</td>
             <td>{{trip.destination}}</td>
