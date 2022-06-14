@@ -7,12 +7,12 @@ function send_email( $subject, $body, $user) {
           $email = trim($user['Email']);
 
           $mail_headers = array(
-                              'From'                      => "DSR Instruktionsrochef <instruktion@danskestudentersroklub.dk>",
+                              'From'                      => "DSR roaftaler <aftaler@danskestudentersroklub.dk>",
           					  'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
                               'Content-Transfer-Encoding' => "8bit",
 						      'Content-Type'              => 'text/plain; charset="utf8"',
 						      'Date'                      => date('r'),
-			      			  'Message-ID'                => "<".sha1(microtime(true))."@instruktion.danskestudentersroklub.dk>",
+			      			  'Message-ID'                => "<".sha1(microtime(true))."@aftaler.danskestudentersroklub.dk>",
                               'MIME-Version'              => "1.0",
                               'X-Mailer'                  => "PHP-Custom",
                               'Subject'                   => "$subject"

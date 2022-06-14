@@ -339,9 +339,9 @@ function dbservice($http, $q, $log) {
       var ds=response.data;
       db['current_user']=ds.uid;
       if (gitrevision != ds.gitrevision) {
-        //$log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
+        $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
         //        window.location="/frontend/app/index.shtml";
-        window.location.pathname="/front"+ds.gitrevision+"/app/";
+        // window.location.pathname="/front"+ds.gitrevision+"/app/";
         // window.location.reload(true);
           // $angularCacheFactory.clearAll();
         //    var cache = $cacheFactory.get('$http');

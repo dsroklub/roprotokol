@@ -1,6 +1,13 @@
 #!/usr/bin/php
 <?php
 echo "morgenorientering";
+
+$motd="";
+$motdfile="/data/media/motd";
+if (file_exists($motdfile)) {
+    $motd = "\n\n".file_get_contents($motdfile);
+}
+
 define( 'ROOT_DIR', dirname(__FILE__) );
 $config = parse_ini_file(ROOT_DIR . '/../config.ini');
 $rodb=new mysqli("localhost",$config["dbuser"],$config["dbpassword"],$config["database"]);
@@ -67,7 +74,7 @@ while ($rankrow = $result->fetch_assoc()) {
         $ranktxt .= "\n\nDu har gået til gymnastik ". $rankrow["gymcount"] ." gang". ($rankrow["gymcount"]>1?"e":"")." \n ".
             "og er nummer ".$rankrow["gymrank"] ." i gymnastikstatistikken ";
     }
-    $body="\nDin daglige morgenorientering fra DSR roprotokol:\n$ranktxt";
+    $body="\nDin daglige morgenorientering fra DSR roprotokol:\n$ranktxt\n$motd";
     error_log("morgen: $body");
          $mail_headers = [
          'From'                      => "Roprotokollen i Danske Studenters Roklub <roprotokol@roprotokol.danskestudentersroklub.dk>",
