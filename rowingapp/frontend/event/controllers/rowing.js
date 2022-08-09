@@ -78,6 +78,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
 
   $scope.reservations=[];
   $scope.reservation={};
+  $scope.checkout={"rowers":[]};
   $scope.errortrips=[];
   $scope.trip={};
   $scope.showDestinations=["DSR","Nordhavn","Andre"];
@@ -97,8 +98,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     var wait_for_db = function (ok) {
       $scope.currentrower=null;
       $log.debug("evt db init done");
-      $scope.boatcategories=
-        [{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
+      $scope.boatcategories= [{id:101,name:"Inriggere"},{id:102,name:"Coastal"},{id:103,name:"Outriggere"},{name:"Kajakker"}];
       $scope.memberrighttypes = DatabaseService.getDB('event/memberrighttypes');
       // $log.debug("events set user " + $scope.current_user);
       LoginService.set_user($scope.current_user);
@@ -111,6 +111,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       $scope.isadmin=false;
       $scope.isremote=!!$scope.current_rower;
       $scope.sculler_open=DatabaseService.getDB('event/status').sculler_open;
+      $scope.destinations=DatabaseService.getDB('event/destinations')["DSR"];
       if ($scope.current_rower) {
         for (var r in $scope.current_rower.rights) {
           if ($scope.current_rower.rights[r].member_right=="admin" && $scope.current_rower.rights[r].arg=="roprotokol") {
@@ -555,6 +556,106 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     }
     };
 
+    $scope.validRowers = function () {
+      if (!$scope.checkout.rowers || $scope.checkout.rowers.length<0) {
+        return false;
+      }
+      for (var i=0; i<$scope.checkout.rowers.length;i++) {
+        if (! ($scope.checkout.rowers[i] && $scope.checkout.rowers[i].name)) {
+          return false;
+        }
+      }
+      return true;
+    }
+
+  $scope.createtrip = function (data) {
+    if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
+      data.event=$scope.rightsmessage;
+    }
+    var newtrip=DatabaseService.createSubmit('registertrip',data);
+    newtrip.promise.then(function(status) {
+      data.boat.trip=null;
+      if (status.status =='ok') {
+        $scope.checkouterrormessage=null;
+        $scope.washmessage="";
+        data.boat.trip=status.tripid;
+        data.boat.outtime=data.boat.outtime;
+        $scope.checkoutnotification=null;
+        if (status.notification){
+          $scope.checkoutnotification=status.notification;
+        }
+        $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+": ";
+        $scope.usersettime=false;
+        $scope.checkout.starttime=null;
+        $scope.checkout.expectedtime=null;
+        for (var ir=0; ir<$scope.checkout.rowers.length; ir++) {
+          $scope.checkout.rowers[ir]="";
+        }
+        $scope.checkout.boat=null;
+      } else {
+        $scope.checkouterrormessage="Fejl: "+status.error;
+      };
+    },function() {alert("error")}, function() {alert("notify")}
+                        )
+  };
+
+    $scope.do_boat_category = function(cat) {
+      $scope.checkoutmessage=null;
+      $scope.checkoutnotification=null;
+      for (var i = $scope.checkout.rowers.length; i < cat.seatcount; i++) {
+        $scope.checkout.rowers.push("");
+      }
+      $scope.checkout.rowers=$scope.checkout.rowers.splice(0,cat.seatcount);
+    }
+
+      $scope.isName = function(n) {
+    if (!n) {
+      return false;
+    }
+    if (n.length>3 && isNaN(n)) {
+      return true;
+    }
+    return false;
+  };
+
+    $scope.createRower = function (rowers,index,temptype,club) {
+      var inputname=rowers[index];
+      if (inputname.toLowerCase().indexOf("gæst")>=0) {
+        rowers[index]="";
+        alert("Roeren hedder ikke gæst. Brug " + (temptype=="guest"?"gæstens":"kaninens")  +  " rigtige navn");
+        return;
+      }
+      if (inputname.toLowerCase().indexOf("kanin")>=0) {
+        rowers[index]="";
+        alert("Roeren hedder ikke kanin. Brug " + (temptype=="guest"?"gæstens":"kaninens")  +  " rigtige navn");
+        return;
+      }
+      if (/\d/.test(inputname)) {
+        rowers[index]="";
+        alert("navnet indeholder tal. Brug " + (temptype=="guest"?"gæstens":"kaninens")  +  " rigtige navn");
+        return;
+      }
+      var tmpnames=inputname.trim().split(" ");
+      var last=tmpnames.splice(-1,2)[0];
+      var first=tmpnames.join(" ");
+      var rowerreq={
+        "firstName":first,
+        "lastName":last,
+        "type":temptype,
+        "guest_club":club
+      }
+      var rower = DatabaseService.updateDB_async('createrower',rowerreq).then(
+        function(rower) {
+          if (rower.error) {
+            $scope.checkoutmessage=rower.error;
+            var errSnd=document.querySelector("#noboat");
+            errSnd.play();
+          } else {
+            $scope.checkout.rowers[index] = rower;
+          }
+        }
+      );
+    };
 
     DatabaseService.init({"admin":true,"trip":true,"status":true,"reservation":true,"fora":false,"file":false,"boat":true,"message":false,"event":false,"member":true,"user":true}).then(
       wait_for_db,

@@ -459,7 +459,20 @@ function dbservice($http, $q, $log, $timeout) {
   }
 
 
-
+  this.updateDB_async = function(op,data,config) {
+    var qup=$q.defer();
+    var res=undefined;
+    $http.post('/backend/event/'+op+".php", data,config).then(function(r) {
+      qup.resolve(r.data)
+    },function(r) {
+      qup.resolve(r);
+    });
+    datastatus['trip']=null;
+    datastatus['boat']=null;
+    datastatus['member']=null;
+    datastatus['status']=null;
+    return qup.promise;
+  }
 }
 
 angular.module('eventApp.database.database-services', []).service('DatabaseService', ['$http','$q','$log','$timeout',dbservice]);
