@@ -403,7 +403,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   };
   $scope.matchBoatId = function(boat,onwater) {
     return function(matchboat) {
-      return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip || matchboat.location=='Andre' || ($scope.checkout.expectedtime && new Date(matchboat.outtime) > $scope.checkout.expectedtime) )) || (onwater && matchboat.trip)) &&
+	return ((!boat || matchboat===boat) && ((!onwater && (!matchboat.trip || matchboat.location=='Andre' || ($scope.checkout.expectedtime && new Date(matchboat.outtime) > $scope.checkout.expectedtime)  || $routeParams.allboats)) || (onwater && matchboat.trip)) &&
               (!$scope.selectedBoatCategory || $scope.selectedBoatCategory.name==matchboat.category) && matchboat.location);
     }
   };
