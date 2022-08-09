@@ -7,7 +7,7 @@ function send_email( $subject, $body, $user) {
           $email = trim($user['Email']);
 
           $mail_headers = array(
-                              'From'                      => "DSR roaftaler <aftaler@danskestudentersroklub.dk>",
+                              'From'                      => "DSR roaftaler <info@aftaler.danskestudentersroklub.dk>",
           					  'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
                               'Content-Transfer-Encoding' => "8bit",
 						      'Content-Type'              => 'text/plain; charset="utf8"',
