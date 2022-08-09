@@ -15,7 +15,7 @@ $sql="SELECT Trip.id, Boat.Name AS boat, Boat.id as boat_id, TripTypeID as tript
     DATE_FORMAT(ExpectedIn,'%Y-%m-%d %T') as expectedin, Comment as comment, TripType.name as triptype
     FROM Boat,Trip,TripType
     WHERE Boat.id=? AND Boat.id = Trip.BoatID AND Trip.OutTime>=? AND TripType.id=Trip.TripTypeID
-    ORDER BY Trip.id DESC";
+    ORDER BY outtime DESC";
 
 if ($sqldebug) {
  echo $sql;

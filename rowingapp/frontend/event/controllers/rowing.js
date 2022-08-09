@@ -644,7 +644,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
         "type":temptype,
         "guest_club":club
       }
-      var rower = DatabaseService.updateDB_async('createrower',rowerreq).then(
+      var rower = DatabaseService.updateDB_async('event/createrower',rowerreq).then(
         function(rower) {
           if (rower.error) {
             $scope.checkoutmessage=rower.error;
