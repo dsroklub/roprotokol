@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS BoatType (
   Created datetime DEFAULT CURRENT_TIMESTAMP,
   Updated datetime,
   rights_subtype CHAR(20),
+  created_by int,
   PRIMARY KEY (`Name`)
 );
 
@@ -56,6 +57,7 @@ CREATE TABLE IF NOT EXISTS Locations (
   lat                DOUBLE,
   lon                DOUBLE,
   description varchar(100),
+  created_by int,
   PRIMARY KEY (`name`)
 );
 
@@ -85,6 +87,7 @@ CREATE TABLE IF NOT EXISTS Boat (
   placement_level INT, -- 0=ground, 1 .. shelves
   placement_side Char(6), -- -left, right,center
   Decommissioned datetime,
+  created_by int,
   CONSTRAINT FOREIGN KEY bt (boat_type) REFERENCES BoatType(Name) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT FOREIGN KEY (Location) REFERENCES Locations (name) ON DELETE SET NULL ON UPDATE CASCADE,
   PRIMARY KEY (id)
@@ -96,6 +99,7 @@ CREATE TABLE IF NOT EXISTS BoatCategory (
   Description varchar(1000),
   Created datetime DEFAULT CURRENT_TIMESTAMP,
   Updated datetime,
+  created_by int,
   PRIMARY KEY (id),
   UNIQUE KEY Navn (`Name`)
 );
@@ -103,9 +107,9 @@ CREATE TABLE IF NOT EXISTS BoatCategory (
 -- inrigger, coastal, kayak, etc
 CREATE TABLE IF NOT EXISTS boat_class (
   class_name varchar(100) PRIMARY KEY,
-  description varchar(1000)
+  description varchar(1000),
+  created_by int
 );
-
 
 
 CREATE TABLE IF NOT EXISTS rights_subtype (
@@ -137,7 +141,8 @@ CREATE TABLE boat_configuration (
   ØnsketOmsætningsforhold float,
   ØnsketGearingsforhold float,
   NyÅrelængde float,
-  NyIndvendiglængde float
+  NyIndvendiglængde float,
+  created_by int
 );
 
 CREATE TABLE IF NOT EXISTS MemberRightType (
@@ -149,6 +154,7 @@ CREATE TABLE IF NOT EXISTS MemberRightType (
   active  INTEGER,
   validity FLOAT, -- unit: year
   category CHAR(20) DEFAULT "roning",
+  created_by int,
   PRIMARY KEY (member_right,arg)
 );
 
@@ -221,6 +227,7 @@ CREATE TABLE IF NOT EXISTS Error_Trip (
   id int(11) NOT NULL AUTO_INCREMENT,
   DeleteTrip int(11),
   CreatedDate DATETIME,
+  created_by int,
   EditDate dateTIME,
   Trip int(11),
   Boat varchar(100),
@@ -308,6 +315,7 @@ CREATE TABLE IF NOT EXISTS Trip (
   DESTID int(11),
   info varchar(20),
   team varchar(200),
+  created_by int,
   PRIMARY KEY (id),
   FOREIGN KEY (Destination) REFERENCES Destination(name) ON UPDATE CASCADE ON DELETE NO ACTION,
   KEY tripfk (BoatID),
@@ -329,6 +337,7 @@ CREATE TABLE IF NOT EXISTS TripRights (
   trip_type int(11) NOT NULL,
   required_right varchar(30) NOT NULL REFERENCES MemberRightType(member_right) ON DELETE CASCADE ON UPDATE CASCADE,
   requirement varchar(10),
+  created_by int,
   PRIMARY KEY (trip_type,required_right)
 );
 
@@ -338,6 +347,7 @@ CREATE TABLE IF NOT EXISTS TripType (
   tripstat_name VARCHAR(20),
   Description varchar(1000),
   Created datetime DEFAULT CURRENT_TIMESTAMP,
+  created_by int,
   Updated datetime,
   Active int(11),
   PRIMARY KEY (id),
@@ -347,6 +357,7 @@ CREATE TABLE IF NOT EXISTS TripType (
 CREATE TABLE IF NOT EXISTS boat_brand (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(100),
+  created_by int,
   PRIMARY KEY (id),
   UNIQUE KEY Typenavn (`name`)
 );
