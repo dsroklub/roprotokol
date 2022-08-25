@@ -21,7 +21,7 @@ $sql=
     " FROM Trip, TripMember,TripType,Member " .
     " WHERE  Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND Trip.TripTypeID = TripType.id AND (? OR YEAR(Trip.OutTime)=?) " .
     " AND Member.MemberID=? " .
-    " GROUP BY TripType.Name";
+    " GROUP BY TripType.Name ORDER BY distance DESC";
 # echo $sql;
 if ($stmt = $rodb->prepare($sql)) {
     $qseason=(($season=="all")?"0":$season);
