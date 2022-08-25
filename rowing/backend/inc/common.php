@@ -104,7 +104,7 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
     ];
     $colTypes=[];
     $maxlengths=[];
-    error_log("process $output c=$captions");
+    //error_log("process $output c=$captions");
     if ($captions=="_auto") {
         $captions=[];
         foreach ($result->fetch_fields() as $fi => $fl) {
