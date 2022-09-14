@@ -60,11 +60,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
       var rq=$q.defer();
       promises.push(rq.promise);
       $http.get(toURL('team/rowers.php')).then(function(response) {
-        db['rowers'] = [];
-        angular.forEach(response.data, function(rower, index) {
-          rower.search = (rower.id + " " + rower.name).toLocaleLowerCase();
-          this.push(rower);
-        }, db['rowers']);
+        db['rowers'] = response.data;
 	valid['rowers']=true;
         rq.resolve(true);
       });
@@ -75,7 +71,6 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     tx=qll;
     return qll;
   };
-  this.defaultLocation = 'DSR';
   this.invalidate_dependencies=function(tp) {
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
@@ -182,11 +177,12 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
 
     var result;
     if (isNaN(val)) {
-      result = rowers.filter(function(element) {
-        return (element['search'].indexOf(val) > -1);
-      });
+	var re=new RegExp("(\\s|^)"+val,'i');
+	result = rowers.filter(function(element) {
+	    return (re.test(element['name']));
+	});
     } else {
-      result = rowers.filter(function(element) {
+	result = rowers.filter(function(element) {
         return (element.id==parseInt(val));
       });
     }

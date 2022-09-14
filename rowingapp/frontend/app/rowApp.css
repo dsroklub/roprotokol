@@ -744,7 +744,7 @@ input.adminpw {
 }
 
 .setboats dl dd {
-    min-width: 20em;
+    min-width: 23em;
 }
 
 .setboats table {
@@ -1320,4 +1320,6 @@ img.wrench {
       background: grey;
 }
 
+.rowerco{
+        width:18em;
 }

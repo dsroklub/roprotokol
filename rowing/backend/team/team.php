@@ -7,7 +7,7 @@ $s='SELECT no as dow,team.name,description,dayofweek,teacher,timeofday, weekday(
     WHERE weekday.name=team.dayofweek
     ORDER BY no,timeofday,team.name,teacher
 ';
-$result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));
+$result=$rodb->query($s) or dbErr($rodb,$res,"team");
 echo '[';
  $first=1;
  while ($row = $result->fetch_assoc()) {

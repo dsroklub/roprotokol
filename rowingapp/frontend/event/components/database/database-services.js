@@ -269,7 +269,7 @@ function dbservice($http, $q, $log, $timeout) {
       //      $log.debug("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));
       if (gitrevision != ds.gitrevision) {
         $log.info("new git revision " +gitrevision +" --> "+ ds.gitrevision);
-        window.location="/front"+ds.gitrevision+"/event/index.shtml";
+        // window.location="/front"+ds.gitrevision+"/event/index.shtml";
       }
       for (var tp in ds) {
     if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
@@ -371,6 +371,7 @@ function dbservice($http, $q, $log, $timeout) {
     });
     datastatus['message']=null;
     datastatus['event']=null;
+    datastatus['trip']=null;
     datastatus['boat']=null;
     datastatus['member']=null;
     datastatus['fora']=null;
@@ -457,9 +458,6 @@ function dbservice($http, $q, $log, $timeout) {
     if (!db['current_user']) return null;
     return this.getRowerByMemberId(db['current_user']);
   }
-
-
-
 }
 
 angular.module('eventApp.database.database-services', []).service('DatabaseService', ['$http','$q','$log','$timeout',dbservice]);

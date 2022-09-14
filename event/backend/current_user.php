@@ -38,5 +38,5 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
         echo '{"member_id":"baadhal","name":"Baadhal"}';
     }
 } else {
-    echo '{"id":"0","name":"Ikke logget ind"}';
+    echo '{"member_id":"0","name":"Ikke logget ind"}';
 }

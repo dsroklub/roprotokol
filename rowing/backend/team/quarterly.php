@@ -6,12 +6,12 @@ if (isset($_GET["quarter"])) {
     exit(1);
 }
 $format="csv";
-if (isset($_GET["format"]) && $_GET["format"]="xlsx") {
+if (isset($_GET["format"]) && $_GET["format"]=="xlsx") {
     $format="xlsx";
 }
 
 set_include_path(get_include_path().':..');
-include("inc/common.php");
+include("../inc/common.php");
 //header("Pragma: no-cache");
 
 $s=
@@ -26,7 +26,7 @@ $s=
         ((YEAR(classdate)=YEAR(NOW()) AND QUARTER(NOW())>=?) OR (YEAR(classdate)=YEAR(NOW())-1 AND QUARTER(NOW())<?))
 ORDER BY team.name,team_participation.timeofday
   ';
-
+//echo $s;
 $stmt=$rodb->prepare($s) or dbErr($rodb,$res,"prep");
 $stmt->bind_param("iii", $quarter,$quarter,$quarter) || dbErr($rodb,$res,"bind");
 $stmt->execute() || dbErr($rodb,$res,"exe");

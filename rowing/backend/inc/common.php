@@ -1,10 +1,10 @@
 <?php
-require __DIR__.'/../vendor/autoload.php';
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Writer\Ods;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+ require __DIR__.'/../vendor/autoload.php';
+ use PhpOffice\PhpSpreadsheet\Spreadsheet;
+ use PhpOffice\PhpSpreadsheet\Cell\DataType;
+ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+ use PhpOffice\PhpSpreadsheet\Writer\Ods;
+ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 header('Content-Type: application/json; charset=utf-8');
 ini_set('default_charset', 'utf-8');
@@ -33,9 +33,9 @@ if (isset($_GET["output"]) && ($_GET["output"]=="csv" || $_GET["output"]=="xlsx"
 }
 
 require_once("db.php");
-if (!$rodb->set_charset("utf8")) {
-    printf("Error loading character set utf8: %s\n", $rodb->error);
-}
+//if (!$rodb->set_charset("utf8")) {
+//    printf("Error loading character set utf8: %s\n", $rodb->error);
+//}
 
 function mysdate($jsdate) {
     $r=preg_replace("/\.\d\d\dZ/","",$jsdate);
@@ -102,18 +102,9 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
         MYSQLI_TYPE_STRING=>"s",
         MYSQLI_TYPE_DATETIME=>"t"
     ];
-    $formatMap=[MYSQLI_TYPE_FLOAT => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_STRING => DataType::TYPE_STRING,
-                MYSQLI_TYPE_VAR_STRING => DataType::TYPE_STRING,
-                MYSQLI_TYPE_NEWDECIMAL => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_DECIMAL => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_LONG => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_LONGLONG => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_DOUBLE => DataType::TYPE_NUMERIC,
-                MYSQLI_TYPE_DATETIME => DataType::TYPE_NUMERIC
-    ];
     $colTypes=[];
     $maxlengths=[];
+    error_log("process $output c=$captions");
     if ($captions=="_auto") {
         $captions=[];
         foreach ($result->fetch_fields() as $fi => $fl) {
@@ -203,17 +194,7 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
         }
         $writer = ($output=="xlsx")?new Xlsx($spreadsheet):new Ods($spreadsheet);
         $writer->save('php://output');
-    } else if ($output=="csv") {
-        header('Content-type: text/csv');
-        header('Content-Disposition: filename="'.$name.'.csv"');
-        $foutput = fopen('php://output', 'w');
-        if ($captions) {
-            fputcsv($foutput,$captions);
-        }
-        while ($row = $result->fetch_assoc()) {
-            fputcsv($foutput,$row);
-        }
-    }  else if ($output=="text") {
+    } else if ($output=="text") {
         header('Content-type: text/html');
         echo " <link rel=\"stylesheet\" href=\"/public/stat.css\">\n<table>\n";
         if ($captions) {

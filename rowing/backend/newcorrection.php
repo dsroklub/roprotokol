@@ -49,8 +49,8 @@ if ($correction->deleterequest) {
     )) {
         $seat=1;
         foreach ($correction->rowers as $rower) {
-            error_log("SEAT".$seat);
-            error_log("DO trip correction mb ".$rower->name . " ID=".$rower->id);
+            // error_log("SEAT".$seat);
+            // error_log("DO trip correction mb ".$rower->name . " ID=".$rower->id);
             $stmt->bind_param('iss',$seat,$rower->name,$rower->id);
             $stmt->execute() || error_log(' error trip member set failed: '.$rodb->error);
             $seat+=1;
@@ -68,7 +68,7 @@ if ($error) {
     $res['error']=$error;
     $rodb->rollback();
 } else {
-    error_log("committing");
+    // error_log("committing");
     $rodb->commit();
 }
 

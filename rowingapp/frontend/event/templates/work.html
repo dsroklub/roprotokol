@@ -132,8 +132,8 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
     <tbody ng-if="current_user.is_winter_admin">
       <tr ng-repeat="work in mystatswork">
         <td>{{work.worker}}</td>
-        <td><dsrintervaleditstarttime="true" usestartdate="true" ng-model="work" ng-change="work.dirty=true"/></td>
-        <td class="hours"><input type="number" ng-model="work.hours" ng-change="work.dirty=true"></td>
+        <td><dsrinterval editstarttime="true" usestartdate="true" ng-model="work" ng-change="work.dirty=true"/></td>
+        <td><input class="hours" type="number" ng-model="work.hours" ng-change="work.dirty=true"></td>
         <td>{{work.task}} <textarea class="worktext" ng-model="work.work" ng-change="work.dirty=true"></textarea></td>
         <td><input ng-model="work.boat" ng-change="work.dirty=true"></td>
         <td><i class="fa fa-trash" ng-click="rm_work(mystatswork,work)"></i> <button ng-show="work.dirty" ng-click="update_work(work)">opdater</button></td>
@@ -214,6 +214,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
 
         <li>
           <button ng-click="get_report('rank')">Roertimer tilbage </button>
+          <button ng-click="get_report('rank','workstats',5)"> &gt; 5</button>
           <button ng-click="get_report('rank','workstats',10)"> &gt; 10</button>
           <button ng-click="get_report('rank','workstats',15)"> &gt; 15 </button>
           <button ng-click="get_report('rank','workstats',20)"> &gt; 20</button>

@@ -350,14 +350,6 @@ datetimepicker.ng-empty ng-form div input {
   background:white;
 }
 
-.hours {
-  text-align: right!important;
-  padding-right: 6px;
-  margin-left: 4px;
-  font-size: 1.0em;
-  width : 4em;
-}
-
 .uib-datepicker tr td {
   background: #DAD3D3;
   padding: 0px;
@@ -721,5 +713,13 @@ a.linkbtn {
 
 .iblok{
   display: inline-block;
-   min-width:70em;
+  min-width:70em;
+}
+
+.hours {
+  text-align: right!important;
+  padding-right: 6px;
+  margin-left: 4px;
+  font-size: 1.0em;
+  min-width : 5em;
 }

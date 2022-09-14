@@ -35,9 +35,7 @@ FROM (BoatType INNER JOIN Boat ON BoatType.Name = Boat.boat_type) LEFT JOIN Trip
 WHERE 
          Boat.Decommissioned IS NULL
   ORDER BY Boat.id";
-
-
-         error_log("SQL :\n".$s."\n");
+// error_log("boats SQL :\n".$s."\n");
          if ($stmt = $rodb->prepare($s)) {
       $result=$rodb->query($s) or die("Error in instruktion stat query: " . mysqli_error($rodb));;
       while ($row = $result->fetch_assoc()) {

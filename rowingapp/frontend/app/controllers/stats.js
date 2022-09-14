@@ -147,7 +147,6 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
       $scope.boat_type=val;
     }
     make_tables(val);
-    console.log("cat");
     $scope.tableParams.filter(catfilter);
     $scope.boattableParams.reload();
     $scope.tableParams.reload();

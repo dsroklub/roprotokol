@@ -21,7 +21,11 @@
                   ng-class="{'sort-asc': tableParams.isSortBy('rank', 'asc'),'sort-desc': tableParams.isSortBy('rank', 'desc')}"
                   ng-click="tableParams.sorting('rank', tableParams.isSortBy('rank', 'asc') ? 'desc' : 'asc')">nr <i class="fa fa-sort"></i>
               </th>
-              <th ng-click="tableParams.sorting('id', tableParams.isSortBy('id', 'asc') ? 'desc' : 'asc')">Medlem# <i class="fa fa-sort"></th>
+              <th class="text-center sortable"
+                  ng-class="{'sort-asc': tableParams.isSortBy('yrank', 'asc'),'sort-desc': tableParams.isSortBy('yrank', 'desc')}"
+                  ng-click="tableParams.sorting('yrank', tableParams.isSortBy('yrank', 'asc') ? 'desc' : 'asc')">år <i class="fa fa-sort"></i>
+              </th>
+              <th>Medlem#</th>
               <th ng-click="tableParams.sorting('firstname', tableParams.isSortBy('firstname', 'asc') ? 'desc' : 'asc')">Roer <i class="fa fa-sort"></th>
               <th  ng-class="{'sort-asc': tableParams.isSortBy('summer', 'asc'),'sort-desc': tableParams.isSortBy('summer', 'desc')}"
                    ng-click="tableParams.sorting('summer', tableParams.isSortBy('summer', 'desc') ? 'asc' : 'desc')">Km sommer <i class="fa fa-sort"></th>
@@ -33,8 +37,9 @@
           </thead>
           <tbody>
             <tr ng-repeat="stat in $data track by $index" ng-class-odd="'oddstat'" >
-              <td sortable="'rank'" data-title="'Nr'">{{stat.rank}} </td>
-              <td class="rnum" data-title="'Medlemsnummer'" sortable="'memberid'" filter="{'memberid':'text'}">{{stat.id}}</td>
+              <td sortable="'rank'" data-title="'Nr'"><strong>{{stat.rank}}</strong></td>
+              <td sortable="'yrank'" data-title="'år'">{{stat.yrank}}</td>
+              <td class="rnum" data-title="'Medlemsnummer'" filter="{'memberid':'text'}">{{stat.id}}</td>
               <td data-title="'Navn'" sortable="'name'" filter="{'firstname':'text'}">
                 <a href="{{burl}}#!rowers?rower={{stat.id}}">{{stat.firstname}} {{stat.lastname}}</a>
                 <img ng-repeat="year in stat.wrenches | split:','" class="wrench"

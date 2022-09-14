@@ -75,7 +75,7 @@
                 <label for="checkout_rower{{$index}}">{{rower.id}}</label>
               </td>
               <td>
-                <ng-form name="rowerFieldForm">
+                <ng-form name="rowerFieldForm" class="rowers">
                   <input  typeahead-no-results="norower[$index]"
                           typeahead-select-on-exact="true"
                           typeahead-is-open="checkout_open[$index]"
@@ -89,12 +89,14 @@
                           ng-blur="co_rower_leave($index)"
                           uib-typeahead="rower as rower.name for rower in getRowersByName($viewValue)"
                           typeahead-template-url="rowersTemplate.html"
+                          class="rowerco"
                           required >
                   <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
                   <br>
                   <div class="guestpenguin" ng-show="isName(checkout.rowers[$index]) && norower[$index]">
                     <i class="fa fa-eraser" ng-click="checkout.rowers[$index]=''"></i>
                     <button class="mkRabbit" ng-click="createRower(checkout.rowers, $index,'rabbit',null)" tabindex="-1">opret kanin &#x1f407; &#x1f427;</button>
+                    <br>
                     <button class="mkGuest" ng-click="createRower(checkout.rowers, $index,'guest',checkout.club[$index])" tabindex="-1">opret gæst fra</button>
                     <input class="mkGuest" type="text" ng-model="checkout.club[$index]" placeholder="roklub"></input>
                   </div>

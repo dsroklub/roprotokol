@@ -22,7 +22,7 @@ function make_tables(cat) {
 	$scope.triptypestat.distance.push([]);
 	$scope.triptypestat.numtrips.push([]);
     }
-    
+
     for (var di=0;di<$scope.ddata.length; di++) {
 	if (($scope.triptypestat.labelmap[$scope.ddata[di].name] === undefined)) {
             var lix=$scope.triptypestat.labels.length;
@@ -84,7 +84,6 @@ $scope.getRowerData = function getRowerData(params) {
 	$scope.boattableParams.reload();
 	$scope.tableParams.reload();
     };
-    
 
     $scope.tableParams = new NgTableParams({
 	page: 1,            // show first page
@@ -100,10 +99,8 @@ $scope.getRowerData = function getRowerData(params) {
 	getData: $scope.getRowerData
     }
 					  );
-    
-    
     DatabaseService.getDataNow('event/stats/sumgraphforce',null, function (res) {
-	$scope.graph=res.data;    
+	$scope.graph=res.data;
 	var width = 2200, height = 1400;
 	var dcola = cola.d3adaptor(d3).linkDistance(20).symmetricDiffLinkLengths(5). size([width, height]);
 	var svg = d3.select("#clubgraph").append("svg")
@@ -115,7 +112,7 @@ $scope.getRowerData = function getRowerData(params) {
 	    .links($scope.graph.links)
       .linkDistance(90)
       .avoidOverlaps(true)
-      .start(8,10,20);        
+      .start(8,10,20);
     var link = svg.selectAll(".link")
         .data($scope.graph.links)
         .enter().append("line")
@@ -128,7 +125,6 @@ $scope.getRowerData = function getRowerData(params) {
         }
               )
         .attr("class", "link");
-    
     var label = svg.selectAll(".label")
         .data($scope.graph.nodes)
         .enter().append("text")
@@ -152,16 +148,14 @@ $scope.getRowerData = function getRowerData(params) {
         .attr("y1", function (d) { return d.source.y; })
         .attr("x2", function (d) { return d.target.x; })
         .attr("y2", function (d) { return d.target.y; });
-      
       label.attr("x", function (d) { return d.x; })
         .attr("y", function (d) {
           var h = this.getBBox().height;
           return d.y + h/4;
         });
-      
       node.attr("x", function (d) {
         return d.x - this.getBBox().width/2;
       }) .attr("y", function (d) {return d.y- this.getBBox().height/2;});
-    });        
+    });
   },dberr)
 }

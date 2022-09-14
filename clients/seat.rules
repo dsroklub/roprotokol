@@ -1,0 +1,5 @@
+TAG=="seat", ATTR{phys}=="usb-0000:01:00.0-1.1*", ENV{ID_SEAT}="seat1"
+TAG=="seat", ATTR{phys}=="usb-0000:01:00.0-1.2*", ENV{ID_SEAT}="seat1"
+TAG=="seat", ATTR{phys}=="usb-0000:01:00.0-1.4*", ENV{ID_SEAT}="seat0"
+SUBSYSTEM=="graphics", KERNEL=="fb[0-9]", TAG+="master-of-seat"
+SUBSYSTEM=="graphics", KERNEL=="fb1", ENV{ID_SEAT}="seat1"

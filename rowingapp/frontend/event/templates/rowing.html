@@ -236,6 +236,161 @@
 
 <div ng-if="do=='trip'">
   <div class="blok leftblock">
+
+
+    <h1>Efterregistrer tur for {{checkout.boat_type.name}}</h1>
+    <div class="efterregistrer">
+      <select class="chooser" name="boattypechooser" id="boattypechooser" ng-model="checkout.boat_type"  ng-options="boatcategory.name for boatcategory in boatcategories" ng-change="do_boat_category(checkout.boat_type)"> </select>
+      <select class="chooser" name="boatchooser" id="boatchooser" ng-model="checkout.boat" ng-options="boat.name for boat in boats.allboats |filter: {category:checkout.boat_type.name}" > </select>
+
+      <form name="checkoutForm" novalidate autocomplete="off" noautocomplete>
+        <table>
+          <caption>Efterregistrer tur for: {{checkout.boat.name}}</caption>
+          <tbody>
+            <tr ng-repeat="rower in checkout.rowers track by $index">
+              <td>
+                <label for="checkout_rower{{$index}}">{{$first ? 'Styrmand' : 'Roer'}}</label>
+                <label class="warn" ng-hide="rower.status=='ok'" for="checkout_rower{{$index}}">{{rower.status}}</label>
+                <label for="checkout_rower{{$index}}">{{rower.id}}</label>
+              </td>
+              <td>
+                <ng-form name="rowerFieldForm" class="rowers">
+                  <input  typeahead-no-results="norower[$index]"
+                          typeahead-select-on-exact="true"
+                          typeahead-is-open="checkout_open[$index]"
+                          ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }"
+                          autocomplete="off"
+                          id="checkout_rower{{$index}}"
+                          typeahead-on-select="boatSync()"
+                          name="dhrepwifhp"
+                          type="text"
+                          ng-model="checkout.rowers[$index]"
+                          ng-blur="co_rower_leave($index)"
+                          uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+                          typeahead-template-url="taTemplate.html"
+                          class="rowerco"
+                          required >
+                  <span class="error" ng-show="rowerFieldForm.name.$error.required">Krævet</span>
+                  <br>
+                  <div class="guestpenguin" ng-show="isName(checkout.rowers[$index]) && norower[$index]">
+                    <i class="fa fa-eraser" ng-click="checkout.rowers[$index]=''"></i>
+                    <button class="mkRabbit" ng-click="createRower(checkout.rowers, $index,'rabbit',null)" tabindex="-1">opret kanin &#x1f407; &#x1f427;</button>
+                    <br>
+                    <button class="mkGuest" ng-click="createRower(checkout.rowers, $index,'guest',checkout.club[$index])" tabindex="-1">opret gæst fra</button>
+                    <input class="mkGuest" type="text" ng-model="checkout.club[$index]" placeholder="roklub"></input>
+                  </div>
+                </ng-form>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="checkout_destination">Destination</label>
+              </td>
+              <td>
+                <ui-select name="checkout_destination" class="checkout_destination" ng-model="checkout.destination" >
+                  <ui-select-match placeholder="Vælg Destination">{{$select.selected.name||"vælg destination"}}</ui-select-match>
+                  <ui-select-choices class="ddlist" repeat="destination in destinations | filter: destfilter($select.search)">
+                    <span ng-class="{'neartrip':destination.zone=='nær','longtrip': destination.zone=='lang'}">{{destination.name}}</span>
+                    (<small>{{destination.distance| mtokm}}</small>km ,
+                    <small> {{destination.duration }}</small>t
+                    )
+                  </ui-select-choices>
+                </ui-select>
+
+                <input  autocomplete="off" min="0.1" maxlength="4" size="3" step="0.1"
+                        class="ui-select-bootstrap" type="text" onlynumber name="input" transformkm ng-model="checkout.distance" required >km
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="checkout_starttime">Ud</label>
+              </td>
+              <td>
+                <datetimepicker
+                  date-format="dd-MMM-yyyy"
+                  show-spinners="false"
+                  current-text="i dag"
+                  close-text="Vælg"
+                  clear-text="Rens"
+                  date-options="dateOptions"
+                  show-meridian="false"
+                  data-ng-model="checkout.starttime"
+                  ng-change="newStartTime()"
+                   >
+                </datetimepicker>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="checkout_intime">Ind</label>
+              </td>
+              <td>
+                <datetimepicker
+                  date-format="dd-MMM-yyyy"
+                  show-spinners="false"
+                  date-options="inOptions"
+                  current-text="i dag"
+                  close-text="Vælg"
+                  clear-text="Rens"
+                  show-meridian="false"
+                  ng-model="checkout.intime"
+                  ng-click="set_intime()"
+                   >
+                </datetimepicker>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="checkout_triptype">Turtype</label>
+              </td>
+              <td>
+                <select name="triptypechooser" id="checkout_triptype" ng-model="checkout.triptype"
+                        ng-options="item as item.name for item in triptypes|filter: {active:1} : true"
+                        ng-change="updateExpectedTime()" required>
+                </select>
+              </td>
+            </tr>
+
+            <tr ng-if='checkout.triptype.name=="Styrmandsinstruktion"'>
+              <td>
+                <label for="checkout_triptype">Hold</label>
+              </td>
+              <td>
+                <select name="trip_team" id="checkout_trip_team" ng-model="checkout.trip_team" ng-options="coxteam.name for coxteam in coxteams" required>
+                </select>
+              </td>
+            </tr>
+            <tr ng-if="checkout.boat.location=='Andre'">
+              <td>Ansvarlig roklub hvis ikke DSR</td><td><input type="text" ng-model="checkout.foreign_club" placeholder="roklub"></input></td>
+            </tr>
+            <tr>
+              <td>
+                <label for="checkout_comments">Bemærkninger</label>
+              </td>
+              <td>
+                <textarea id="checkout_comments" type="text" ng-model="checkout.comments" name="efjwjli"></textarea>
+                <span class="error" ng-show="!checkout.comments && !(checkout.destination.duration>0)">Krævet</span>
+              </td>
+            </tr>
+            <tr><td>
+                <button 
+                        id="createtrip_button"
+                        class="big"
+                        ng-if="checkout.distance >0 && checkout.starttime && !!checkout.intime && checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')"
+                        ng-click="createtrip(checkout)">Registrer tur {{checkout.boat.name}}</button>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </form>
+      <button class="alert minor" ng-hide="checkout.boat || !checkout.destination.name || !checkout.rowers[0]">husk at vælge båd</button>
+      <button class="alert minor" ng-hide="checkout.triptype || !checkout.destination.name || !checkout.rowers[0]">husk turtype</button>
+      <button class="alert minor" ng-hide="checkout.destination.location || !checkout.triptype || !checkout.rowers[0]">vælg destination</button>
+      <button class="alert minor" ng-hide="checkout.distance>0 || !checkout.destination.location">Sæt distance</button>
+    </div>
+
+
     <table class="boatlist" >
       <caption>Turtyper</caption>
       <thead>
@@ -775,7 +930,7 @@
   <li><a href="/backend/event/stats/inka.php?format=xlsx">sæsonens ture for inka, POP og coastal-roere som regneark</a></li>
   <li><a href="/backend/event/stats/inkauger.php?format=xlsx">sæsonens ture for inka/costal roere på ugebasis</a></li>
   <li><a href="/backend/event/stats/coastal_current_year.php?format=xlsx">sæsonens coastalture</a></li>
-  <li><a href="/backend/event/stats/racerkaniner.php">Statistik for førsteårsroning</a></li>
+  <li><a href="/backend/event/stats/racerkaniner.php">Statistik for kaninholdet</a></li>
   <li><a href="/backend/event/stats/rowerkm.php?include_trips={{rowerkm_include_trips?1:0}}&separate_instruction={{rowerkm_separate_instruction?1:0}}&force_email={{rowerkm_force_email?1:0}}&only_members={{rowerkm_only_members?1:0}}&year={{rowerkm_year}}">Kilometerstatistik for roere  som regneark</a>
     (år <input type="text" ng-model="rowerkm_year" size="4"/>,
     <input type="checkbox" ng-model="rowerkm_include_trips"/> ture,

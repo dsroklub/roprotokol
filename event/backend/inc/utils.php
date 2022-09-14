@@ -76,7 +76,7 @@ function verify_right($requireds,$abort=true) {
     foreach ($requireds as $required=>$args) {
         // one of
         foreach ($args as $arg) {
-            error_log("verify $arg");
+            // error_log("verify $arg");
             if ($arg) {
                 $tried .= "$required/$arg ";
                 $stmt=$rodb->prepare("SELECT 'x' FROM Member,MemberRights WHERE Member.MemberId=? AND MemberRights.member_id=Member.id AND MemberRight=? AND argument=?") or dbErr($rodb,$res,"verify right");
