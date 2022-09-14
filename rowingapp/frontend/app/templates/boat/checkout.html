@@ -36,7 +36,7 @@
             <strong uib-tooltip="på elevator" ng-show="boat.placement_level==4">E</strong>
           </td>
           <td>{{levels[boat.level]}} </td>
-          <td>{{boat.note}} </td>
+          <td class="boatnote"><i uib-tooltip="{{boat.note}}">{{boat.note}}</i> </td>
           <td class="usage">
             {{boat.usage}}
             <span ng-show="boat.reserved_to && !(boat.reserved_triptype==checkout.triptype.name)" class="warn" uib-tooltip="reserveret {{boat.reserved_to}}" >&#x23F3;</span>
@@ -61,6 +61,7 @@
     <div class="big message checkoutnotification">{{checkoutnotification}}</div>
     <div class="big message checkouterrormessage">{{checkouterrormessage}}</div>
     <div class="big rightsmessage" ng-show="!checkRights()">{{rightsmessage}}</div>
+    <div class="big notesmessage" ng-show="checkout.boat.note">{{checkout.boat.note}}</div>
     <div class="big message">{{washmessage}}</div>
     <div class="checkout-form">
       <form name="checkoutForm" novalidate autocomplete="off" noautocomplete>

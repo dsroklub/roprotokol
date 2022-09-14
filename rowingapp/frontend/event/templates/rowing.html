@@ -17,6 +17,7 @@
   <button class="adminbut" ng-class="{selected: do=='reservations'}" ng-click="do='reservations'">Reservationer</button>
   <button class="adminbut" ng-class="{selected: do=='rights'}" ng-click="do='rights'">Rettigheder</button>
   <button class="adminbut" ng-class="{selected: do=='data'}" ng-click="do='rodata'">Rodata</button>
+  <button class="adminbut" ng-class="{selected: do=='efterregistrer'}" ng-click="do='rodata'">Efterregistrer</button>
 </div>
 
 <div ng-if="do=='boat'">
@@ -181,6 +182,38 @@
     </div>
   </div>
 
+  <div ng-show="currentboattype" class="rightbox">
+    <table>
+      <caption>Administrer rettigheder for bådtypen {{currentboattype.name}}
+        <img ng-click="currentboattype=null"  width="40px" src="../event/media/popclose.svg" >
+      </caption>
+      <thead>
+        <tr><th>Rettighed</th><th>kræves af</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="r in requiredboatrights" ng-if="r.required_right">
+          <td>{{r.required_right|righttodk}}</td>
+          <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects" ng-change="update_boattype_requirement(currentboattype,r)">{{r.requirement}}</select></td>
+          <td>
+            <button class="action" ng-click="remove_boattype_requirement(r,$index)">Fjern krav</button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <select ng-model="boat_type.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)| filter: {category:roning}|unique:'member_right'">
+            </select>
+          </td>
+          <td>
+            <select ng-model="boat_type.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">
+            </select>
+          </td>
+          <td>
+            <button ng-show="boat_type.newright.subject && boat_type.newright.right" class="action" ng-click="add_boattype_requirement(boat_type.newright,requiredboatrights)">Tilføj krav</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="iblok">
     <table class="genericlist">
       <caption>Fabrikater</caption>
@@ -199,39 +232,6 @@
       </tbody>
     </table>
   </div>
-</div>
-
-<div ng-show="currentboattype && do=='boat'" class="rightbox">
-  <table>
-    <caption>Administrer rettigheder for bådtypen {{currentboattype.name}}
-      <img ng-click="currentboattype=null"  width="40px" src="../event/media/popclose.svg" >
-    </caption>
-    <thead>
-      <tr><th>Rettighed</th><th>kræves af</th><th></th></tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="r in requiredboatrights" ng-if="r.required_right">
-        <td>{{r.required_right|righttodk}}</td>
-        <td> <select ng-model="r.requirement" ng-options="rt as rt|subjecttodk for rt in rightsubjects" ng-change="update_boattype_requirement(currentboattype,r)">{{r.requirement}}</select></td>
-        <td>
-          <button class="action" ng-click="remove_boattype_requirement(r,$index)">Fjern krav</button>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <select ng-model="boat_type.newright.right" ng-options="mrt.member_right as mrt.member_right|righttodk for mrt in memberrighttypes| filter: noreq(requiredboatrights)| filter: {category:roning}|unique:'member_right'">
-          </select>
-        </td>
-        <td>
-          <select ng-model="boat_type.newright.subject" ng-options="rt as rt|subjecttodk for rt in rightsubjects">
-          </select>
-        </td>
-        <td>
-          <button ng-show="boat_type.newright.subject && boat_type.newright.right" class="action" ng-click="add_boattype_requirement(boat_type.newright,requiredboatrights)">Tilføj krav</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>
 
 <div ng-if="do=='trip'">
@@ -823,3 +823,5 @@
   </ul>
 </div>
 
+<div ng-if="do=='efterregstrer'">
+</div>

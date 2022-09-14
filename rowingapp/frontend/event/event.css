@@ -718,3 +718,8 @@ a.linkbtn {
         float: left;
         min-width:70em;
 }
+
+.iblok{
+  display: inline-block;
+   min-width:70em;
+}
