@@ -1,4 +1,4 @@
-/* Generic 
+/* Generic
 .ng-pristine {
     background: white;
 }
@@ -100,8 +100,17 @@ td.usage {
 }
 
 td.boatname {
-    max-width:6em;
+  max-width:6em;
+
 }
+td.boatnote {
+  max-width:10em;
+  min-width:2em;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+
 input.boatname {
    max-width: 8em;
    word-break: break-all;
@@ -644,6 +653,10 @@ li.selected,button.selected {
     max-width: 20em;
     background: yellow;
 }
+.notesmessage {
+    max-width: 20em;
+    background: pink;
+}
 
 .error {
     color: red;
@@ -821,11 +834,6 @@ max-width: 70%;
 
 .datealert {
     background: #f00;
-}
-.boatnote {
-   background: #D2F8D7;
-   min-width: 80em;
-   min-height: 12em;
 }
 
 .toppopup .uib-datepicker-popup {

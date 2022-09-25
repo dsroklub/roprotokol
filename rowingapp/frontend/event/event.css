@@ -711,6 +711,11 @@ a.linkbtn {
         min-width:70em;
 }
 
+.iblok{
+  display: inline-block;
+  min-width:70em;
+}
+
 .hours {
   text-align: right!important;
   padding-right: 6px;
