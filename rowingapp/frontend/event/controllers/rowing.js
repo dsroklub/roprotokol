@@ -513,6 +513,12 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
             r.configuration=r.configuration.name;
             r.id=newreservation.reservationid;
 	    var rc=angular.copy(r);
+            if (rc.start_time && rc.start_time.timestring) {
+              rc.start_time=rc.start_time.timestring;
+            }
+            if (rc.end_time && rc.end_time.timestring) {
+              rc.end_time=rc.end_time.timestring;
+            }
             $scope.reservations.unshift(rc);
           }
         }

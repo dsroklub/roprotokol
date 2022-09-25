@@ -20,7 +20,7 @@ $status=$rodb->query("select * from status")->fetch_assoc() or dbErr($rodb,$res,
 global $admin_id;
 $stmt = $rodb->prepare(
     "INSERT INTO reservation (boat,start_time,start_date,end_time,end_date,dayofweek,description,triptype,purpose,configuration,created_by)
-     VALUES (?,?,?,?,?,?,?,?,?,?,?)") or dbErr($rodb,$res,"make reservation");
+     VALUES (?,?,?,?,?,?,?,?,LEFT(?,1000),?,?)") or dbErr($rodb,$res,"make reservation");
 
 $stmt->bind_param('issssisissi', $data->boat_id,$data->start_time->timestring,$start_date,$data->end_time->timestring,$end_date,$dow,$data->description,$data->triptype_id,$data->purpose,$data->configuration->name,$admin_id ) or dbErr($rodb,$res,"make reservation (Exe)");
 $stmt->execute() or dbErr($rodb,$res,"make reservation (Exe)");
