@@ -1,5 +1,6 @@
 #!/bin/sh
-#apt-get install python-mysqldb  php5-mysqlnd mysql nodejs npm
+#apt-get install python-mysqldb  php5-mysqlnd mysql nodejs npm python3-certbot-apache
+
 
 DB=${1-$defaultDB}
 
@@ -17,7 +18,7 @@ if [ ! -f secret.sh ]; then
     echo 'DBCMD="mysql -u roprotokol --password=roprotokol ' $DB '"' >  secret.sh
     echo 'superDBCMD="mysql -u roprotokol --password=roprotokol"' >>  secret.sh
     echo 'dbpassword=roprotokol' >>  secret.sh
-    echo "roprotokol" > secret.db    
+    echo "roprotokol" > secret.db
 fi
 
 . ./secret.sh
