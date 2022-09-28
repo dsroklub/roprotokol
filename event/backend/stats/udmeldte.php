@@ -4,7 +4,15 @@ include("../inc/utils.php");
 $vr=verify_right(["admin"=>[null],"data"=>["stat"]]);
 $s="
 WITH qs (f,t,qt)
-AS (VALUES (0,0,'<1 kv'),(1,1,'1 kv'),(2,2,'halvt år'),(3,3,'3 kv'),(4,4,'1 år'),(5,8,'2 år'),(9,12,'3 år'),(13,16,'4 år'),(17,20,'5 år'),(21,999,'stadig medlem'))
+AS (VALUES
+(0,0,'0-3 måneder'),
+(1,1,'3-6 måneder'),
+(2,3,'6-12 måneder'),
+(4,5,'12-18 måneder'),
+(6,7,'18 måneder - 2 år'),
+(8,11,'2 år - 3 år'),
+(12,15,'3 år - 4 år'),
+(21,999,'stadig medlem'))
 SELECT YEAR(JoinDate) indmeldt,qt 'kvartaler i DSR',COUNT('x') antal
 FROM Member,qs
 WHERE JoinDate IS NOT NULL AND YEAR(JoinDate) > 0 AND
