@@ -373,7 +373,7 @@
               </td>
             </tr>
             <tr><td>
-                <button 
+                <button
                         id="createtrip_button"
                         class="big"
                         ng-if="checkout.distance >0 && checkout.starttime && !!checkout.intime && checkout.boat && checkout.triptype && checkout.destination.name && validRowers() && (checkout.comments || checkout.destination.name!='Øvrige [Skriv i kommentar]')"
@@ -958,6 +958,7 @@
   <li><a href="/backend/event/stats/rowersbyright.php?right=instructor&subtype=kajak">Kajakinstruktører</a></li>
   <li><a href="/backend/event/stats/rowersbyright.php?right=instructor&subtype=row">Robådsinstruktører</a></li>
   <li><a href="/backend/event/stats/rowersbyright.php?right=wrench">Svensknøgler</a></li>
+  <li><a href="/backend/event/stats/udmeldte.php">Medlemsvarighed i kvartaler per år</a></li>
   <li>
     <select ng-model="rowerright" ng-options="mrt.member_right as mrt.member_right for mrt in memberrighttypes|unique:'member_right'"> </select>
     <a href="/backend/event/stats/rowersbyright.php?right={{rowerright}}">Rettighed</a>
