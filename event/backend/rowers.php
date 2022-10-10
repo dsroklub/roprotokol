@@ -2,7 +2,7 @@
 include("inc/common.php");
 include("inc/utils.php");
 $currentClause="";
-if (!verify_right(["admin"=>["roprotokol"]],false)) {
+if (!verify_right(["admin"=>["roprotokol"],"data"=>["stat"]],false)) {
   $currentClause=" AND RemoveDate IS NULL";
 }
 $s="SELECT JSON_MERGE(
