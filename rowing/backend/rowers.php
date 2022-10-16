@@ -8,7 +8,7 @@ $s="SELECT JSON_MERGE(
     JSON_OBJECT(
       'id',Member.MemberID,
       'club',Member.club,
-      'status', IF(Member.RemoveDate,'ikke medlem',IF(Member.member_type=1,'passiv','ok')),
+      'status', IF(Member.member_type=1,'passiv','ok'),
       'name', CONCAT(Member.FirstName,' ',Member.LastName)
    ),
    CONCAT(
@@ -20,7 +20,7 @@ $s="SELECT JSON_MERGE(
    FROM
       Member LEFT JOIN MemberRights ON MemberRights.member_id=Member.id LEFT JOIN MemberRightType ON MemberRights.MemberRight = MemberRightType.member_right AND MemberRights.argument=MemberRightType.arg LEFT JOIN Member mb ON mb.id=MemberRights.created_by
    WHERE
-     Member.MemberID!='0' AND Member.id>=0 AND Member.RemoveDate IS NULL AND
+     Member.MemberID!='0' AND Member.id>=0 AND (Member.RemoveDate IS NULL OR Member.RemoveDate>=NOW()) AND
      (Member.member_type <> -1 OR Member.member_type IS NULL)
    GROUP BY Member.id";
 
