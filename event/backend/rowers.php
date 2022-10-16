@@ -4,13 +4,14 @@ include("inc/utils.php");
 $currentClause="";
 if (!verify_right(["admin"=>["roprotokol"],"data"=>["stat"]],false)) {
   $currentClause=" AND RemoveDate IS NULL";
+  $currentClause=" AND (Member.RemoveDate IS NULL OR Member.RemoveDate>=NOW()) ";
 }
 $s="SELECT JSON_MERGE(
     JSON_OBJECT(
       'id',Member.MemberID,
       'phone',member_setting.phone,
       'email_shared',member_setting.email_shared,
-      'status', IF(RemoveDate,'ikke medlem',IF(member_type=1,'passiv','ok')),
+      'status', IF(Member.RemoveDate AND Member.RemoveDate<NOW(),'ikke medlem',IF(member_type=1,'passiv','ok')),
       'name', CONCAT(FirstName,' ',LastName)
    ),
    CONCAT('{\"rights\" : [',
