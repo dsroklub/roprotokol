@@ -146,6 +146,16 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
 <div ng-if="current_user.is_winter_admin">
   <h1>Administration</h1>
   <!--button ng-hide="workers.length" ng-click="generate_work()">Generer arbejdstimer</button>  <button ng-show="workers.length" ng-click="delete_work()">Slet alle arbejdstimer</button-->
+  <h2>Importer arbejdstimer</h2>
+  Importer xlsx regneark med timer.
+  Der skal være to kolonner, der <strong>skal</strong> hedde medlemsnummer og timer. Der kan være en 3. kolonne med arbejdstype (Inrigger,Kajak,Morgenroererne,Coastal)
+  Dette vil overskrive allokerede timer for medlemmer, men allerede registrerede timer bevare.
+  <br>
+  <input type="file" id="workerfile" ng-file="workhoursfile">
+  <button id="whupload" ng-click="importHours()">Importer arbejdstimer</button>
+  <button ng-show="whready">Klar</button>
+  <button ng-show="wherr">{{wherr}}</button>
+
   <h2>Tilføj ny roer til vintervedligehold</h2>
       <form>
         <input placeholder="vælg medlem" autocomplete="off" id="workeraddinput" name="aseexmberws" type="text"
@@ -206,7 +216,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
           <a class="linkbtn" href="/backend/event/stats/workstats.php?q=nonmembers&format=xlsx">download</a>
         </li>
 
-        <li>Arbejdet mindre end <input type="number"  min="0" max="100" step="10" ng-model="workstat.workpercent" ng-change="workstat.mailto=null" width="4"> pct
+        <li>Arbejdet mindre end <input type="number"  min="0" max="100" step="10" ng-model="workstat.workpercent" ng-change="workstat.mailto=null" width="5"> pct
           <button ng-click="get_email_report('lesswork','workstats',workstat.workpercent)">Vis</button>
           <a class="linkbtn" ng-show="workstat.mailto" href='mailto:{{workstat.mailto}}?subject=Du%20er%20bagud%20med%20vintervedligehold&body=Du%20har%20lavet%20under%20{{workstat.workpercent}}%20procent%20af%20dit%20arbejde'>Lav email</a>
           <a class="linkbtn" href="/backend/event/stats/workstats.php?q=lesswork&a={{workstat.workpercent}}&format=xlsx">download</a>

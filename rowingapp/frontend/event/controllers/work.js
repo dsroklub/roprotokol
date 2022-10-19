@@ -1,7 +1,7 @@
 'use strict';
 angular.module('eventApp').controller(
   'workCtrl',
-  ['$scope','$routeParams','$route','DatabaseService','LoginService','$filter','ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout',
+  ['$scope','$routeParams','$route','DatabaseService','LoginService','$filter','ngDialog','orderByFilter','$log','$location','$anchorScroll','$timeout','$http',
    workCtrl
   ]);
 
@@ -27,7 +27,7 @@ function week_no(dt) {
   return 1 + Math.ceil((firstThursday - tdt) / 604800000);
 }
 
-function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout) {
+function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $filter, ngDialog, orderBy, $log, $location,$anchorScroll,$timeout,$http) {
   $scope.work={};
   $scope.workers=[];
   $scope.workadmin={};
@@ -282,6 +282,31 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   }
   $scope.oneperday = function (worker) {
       return (worker.start_time=='x' || worker.start_time.split(" ")[0]!=new Date().toISOString().split("T")[0]
-	      || $scope.current_user.is_winter_admin)
+      || $scope.current_user.is_winter_admin)
+  }
+  $scope.importHours = function (files) {
+    $scope.whready=false;
+    $scope.wherr=null;
+
+    var uf=document.getElementById('workerfile').files[0];
+    $http({
+      method: 'post',
+      url: '/backend/event/workhoursupload.php',
+      data: uf,
+      headers: {'Content-Type': undefined},
+    }).then(
+      function(response) {
+        // Store response data
+//        if (response.status=="OK") {
+          //console.log(response);
+          $scope.whready=true;
+  //      }
+      },
+      function(response) {
+        // Store response data
+        //console.log(response);
+        $scope.wherr="Fejl i upload";
+      }
+    );
   }
 }
