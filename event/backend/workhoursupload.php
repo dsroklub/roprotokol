@@ -51,3 +51,4 @@ $rodb->query("COMMIT");
 } else {
     roErr("unknown content type: $contentType");
 }
+invalidate("work");
