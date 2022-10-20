@@ -287,26 +287,30 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.importHours = function (files) {
     $scope.whready=false;
     $scope.wherr=null;
-
-    var uf=document.getElementById('workerfile').files[0];
-    $http({
-      method: 'post',
-      url: '/backend/event/workhoursupload.php',
-      data: uf,
-      headers: {'Content-Type': undefined},
-    }).then(
-      function(response) {
-        // Store response data
-//        if (response.status=="OK") {
+    var wfiles=document.getElementById('workerfile').files;
+    if (wfiles.length==1) {
+      var uf=wfiles[0];
+      $http({
+        method: 'post',
+        url: '/backend/event/workhoursupload.php',
+        data: uf,
+        headers: {'Content-Type': undefined},
+      }).then(
+        function(response) {
+          // Store response data
+          //        if (response.status=="OK") {
           //console.log(response);
           $scope.whready=true;
-  //      }
-      },
-      function(response) {
+          //      }
+        },
+        function(response) {
         // Store response data
-        //console.log(response);
-        $scope.wherr="Fejl i upload";
-      }
-    );
+          //console.log(response);
+          $scope.wherr="Fejl i upload";
+        }
+      );
+    } else {
+      $scope.wherr="vælg en fil";
+    }
   }
 }
