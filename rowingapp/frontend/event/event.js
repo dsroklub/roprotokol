@@ -111,6 +111,9 @@ angular.module('eventApp', [
     }).when('/yearreport/', {
       templateUrl: 'templates/year_report.html',
       controller: 'YearReportCtrl'
+    }).when('#!yearreport/', {
+      templateUrl: 'templates/year_report.html',
+      controller: 'YearReportCtrl'
     }).when('/damages/', {
       templateUrl: 'templates/damages.html',
       controller: 'boatCtrl'
