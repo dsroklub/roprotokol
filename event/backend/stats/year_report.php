@@ -9,7 +9,7 @@ $res=array ("status" => "ok");
 $tripTypes = [];
 $y = 0;
 $now = getdate();
-$to_year = $_GET['to_year'] ? ((int) $_GET['to_year']) : ($now['mon'] < 2 ? $now['year'] - 1 : $now['year']);
+$to_year = isset($_GET['to_year']) ? ((int) $_GET['to_year']) : ($now['mon'] < 2 ? $now['year'] - 1 : $now['year']);
 $from_year = isset($_GET['from_year']) ? (int) $_GET['from_year'] : 2010;
 $cut_date = isset($_GET['cut_date']) ? $_GET['cut_date'] : '01-01';
 $cut_year_offset = isset($_GET['cut_year_offset']) ? (int) $_GET['cut_year_offset'] : 1;
@@ -127,6 +127,31 @@ for ($y = $from_year; $y <= $to_year; $y++) {
       goto end;
     }
 }
+
+
+// Tabel 2 - tilbud, antal gange permed
+$table = 'members_triptypes_count';
+$r=$rodb->query("
+SELECT mg.år,mg.turtype, mg.gange as turtypegange, COUNT('g') as medlemmer FROM
+(
+SELECT Member.id,TripType.Name as turtype,IF(COUNT('x')>30,30,COUNT('x')) as gange,YEAR(Trip.OutTime) as år
+FROM Trip,Member,TripMember,TripType
+WHERE TripMember.TripID=Trip.ID AND TripMember.member_id=Member.id AND Trip.TripTypeID=TripType.id AND  YEAR(Trip.OutTime)>YEAR(NOW())-11
+GROUP BY år,Member.id,TripType.Name) as mg
+GROUP by mg.år,mg.turtype,mg.gange
+ORDER by år,turtype, turtypegange
+");
+$mtc=[];
+while (($row = $r->fetch_assoc())) {
+    $mtc[$row['år']][$row['turtype']][$row['turtypegange']]=$row['medlemmer'];
+}
+foreach ($mtc as $y => $mtcy) {
+    foreach ($mtcy as $tt => $mtctt) {
+        $res[$table][]=['year'=>$y,'tt'=>$tt,'membercounts'=>$mtctt];
+    }
+}
+
+
 
 // Tabel 3 - Nye medlemmer og deres frafald
 // Tabel 9 - Udmeldte kaniner efter aktivitet

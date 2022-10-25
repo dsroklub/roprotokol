@@ -353,6 +353,19 @@ Procentsatserne er i procent af de aktive, bortset fra den sidste kolonne, som e
   Km er roerkm. Fx en to-åres inrigger til Skovshoveder giver 3*11.5 km= 34.5 km.
 </p>
 
+<h5>Tabel 8b - Antal medlemmer der har benyttet tilbud </h5>
+<table>
+  <tr class="header">
+    <th class="left">År</th>
+    <th class="left">Turtype</th>
+    <th ng-repeat="membercount in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,'30+']">{{membercount}}</th>
+  </tr>
+  <tr ng-repeat="mtc in stats.members_triptypes_count">
+    <td class="right">{{mtc.year}}</td>
+    <td class="right">{{mtc.tt}}</td>
+    <td ng-repeat="membercount in ['0','1','2','3','4','5',6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]">{{mtc.membercounts[membercount]}}</td>
+  </tr>
+</table>
 
 
 
