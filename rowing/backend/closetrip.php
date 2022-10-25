@@ -59,7 +59,7 @@ require_once("Mail.php");
 $smtp = Mail::factory('sendmail', array ());
 
 $mail_headers = array(
-    'From'                      => "Roprotokollen i Danske Studenters Roklub <elgaard@agol.dk>",
+    'From'                      => "Roprotokollen i Danske Studenters Roklub <info@roprotokol.danskestudentersroklub.dk>",
     'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
       'Content-Transfer-Encoding' => "8bit",
     'Content-Type'              => 'text/plain; charset="utf8"',
