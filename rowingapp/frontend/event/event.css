@@ -241,6 +241,16 @@ li.selected,button.selected {
   background: #ffffaa;
   color: #0088C0;
 }
+.evenctr {
+  background-color: #e0d4eb80;
+}
+.oddctr {
+  background-color: #e3cba780;
+}
+
+.evenrtr {
+  background-color: #ffeaea80;
+}
 
 .odd {
   background: #FFDDAA;
