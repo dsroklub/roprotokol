@@ -9,7 +9,7 @@ $res=array ("status" => "ok");
 $tripTypes = [];
 $y = 0;
 $now = getdate();
-$to_year = isset($_GET['to_year']) ? (int) $_GET['to_year'] : $now['mon'] < 2 ? $now['year'] - 1 : $now['year'];
+$to_year = $_GET['to_year'] ? ((int) $_GET['to_year']) : ($now['mon'] < 2 ? $now['year'] - 1 : $now['year']);
 $from_year = isset($_GET['from_year']) ? (int) $_GET['from_year'] : 2010;
 $cut_date = isset($_GET['cut_date']) ? $_GET['cut_date'] : '01-01';
 $cut_year_offset = isset($_GET['cut_year_offset']) ? (int) $_GET['cut_year_offset'] : 1;
