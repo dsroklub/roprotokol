@@ -26,7 +26,7 @@ FROM (
 SELECT worklog.id,FirstName,LastName,MemberId,requirement,worklog.start_time,worklog.end_time,worklog.hours,worklog.boat,worklog.work,description,CONVERT(IFNULL(SUM(wl.hours),0),DOUBLE) as allhours,worklog.task
 FROM Member LEFT JOIN worklog wl ON wl.member_id=Member.id AND ((YEAR(wl.start_time)=YEAR(NOW()) AND (MONTH(NOW())<10 OR MONTH(wl.start_time)>9)) OR (YEAR(wl.start_time)=YEAR(NOW())-1 AND MONTH(wl.start_time)>9 AND MONTH(NOW())<10)), worker, worklog
 WHERE
-  Member.id=worker.member_id AND worker.assigner='vedligehold' AND
+  Member.id=worker.member_id AND worker.description='vintervedligehold' AND
   worklog.member_id=worker.member_id AND $timeclause
   GROUP BY Member.id ORDER BY worklog.start_time
 ) as w
