@@ -129,12 +129,12 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 }
 
 
-// Tabel 2 - tilbud, antal gange permed
+// Tabel 2 - tilbud, antal gange permedlem
 $table = 'members_triptypes_count';
 $r=$rodb->query("
 SELECT mg.år,mg.turtype, mg.gange as turtypegange, COUNT('g') as medlemmer FROM
 (
-SELECT Member.id,TripType.Name as turtype,IF(COUNT('x')>30,30,COUNT('x')) as gange,YEAR(Trip.OutTime) as år
+SELECT Member.id,TripType.Name as turtype,IF(COUNT('x')>50,50,COUNT('x')) as gange,YEAR(Trip.OutTime) as år
 FROM Trip,Member,TripMember,TripType
 WHERE TripMember.TripID=Trip.ID AND TripMember.member_id=Member.id AND Trip.TripTypeID=TripType.id AND  YEAR(Trip.OutTime)>YEAR(NOW())-11
 GROUP BY år,Member.id,TripType.Name) as mg

@@ -358,12 +358,12 @@ Procentsatserne er i procent af de aktive, bortset fra den sidste kolonne, som e
   <tr class="header">
     <th class="left">År</th>
     <th class="left">Turtype</th>
-    <th ng-repeat="membercount in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,'30+']">{{membercount}}</th>
+    <th ng-repeat="membercount in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,'50+']">{{membercount}}</th>
   </tr>
   <tr ng-class-even="'evenrtr'" ng-repeat="mtc in stats.members_triptypes_count">
     <td class="right">{{mtc.year}}</td>
     <td class="right">{{mtc.tt}}</td>
-    <td ng-class-odd="'oddctr'" ng-class-even="'evenctr'"  ng-repeat="membercount in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]">{{mtc.membercounts[membercount]}}</td>
+    <td ng-class-odd="'oddctr'" ng-class-even="'evenctr'"  ng-repeat="membercount in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50]">{{mtc.membercounts[membercount]}}</td>
   </tr>
 </table>
 
@@ -588,7 +588,7 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
     <th class="left slanted" ng-repeat="tt in triptypes"><div><span>{{tt}}</span></div></th>
     <th class="around-slanted"><b>I alt</b></th>
   </tr>
-  <tr ng-repeat="(name,boat) in stats.boats.boats">
+  <tr ng-repeat="(name,boat) in stats.boats.boats" ng-class-even="'even'" ng-class-odd="'odd'">
     <td>{{name}}</td>
     <td ng-repeat="tt in triptypes">{{boat.triptypes[tt].distance | number:0}}</td>
     <td><b>{{boat.distance | number:0}}</b></td>
@@ -606,7 +606,7 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
     <th class="left slanted" ng-repeat="tt in triptypes"><div><span>{{tt}}</span></div></th>
     <th class="around-slanted"><b>I alt</b></th>
   </tr>
-  <tr ng-repeat="(name,boat) in stats.boats.boats">
+  <tr ng-repeat="(name,boat) in stats.boats.boats" ng-class-even="'even'" ng-class-odd="'odd'">
     <td>{{name}}</td>
     <td ng-repeat="tt in triptypes">{{boat.triptypes[tt].trips | number:0}}</td>
     <td><b>{{boat.distance | number:0}}</b></td>
@@ -626,7 +626,7 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
     <th class="left">Båd</th>
     <th>Kilometer</th>
   </tr>
-  <tbody ng-repeat="(bt_name, bt) in stats.boats.boattypes">
+  <tbody ng-repeat="(bt_name, bt) in stats.boats.boattypes" ng-class-even="'even'" ng-class-odd="'odd'">
     <tr ng-repeat="b in stats.boats.boattypes[bt_name].boats track by $index">
       <td rowspan="{{bt.boatcount}}" ng-if="$index === 0" class="top">{{bt_name}}</td>
       <td class="left">{{b}}</td>
@@ -651,8 +651,8 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
     <th class="left">Bådtype</th>
     <th class="left">Båd</th>
   </tr>
-  <tr ng-repeat="b in stats.boats.unused.boats">
-    <td rowspan="{{stats.boats.unused.types[b.boat_type].count}}" ng-if="stats.boats.unused.types[b.boat_type].boats[0] === b.boat" class="top">{{b.boat_type}}</td>
+  <tr ng-repeat="b in stats.boats.unused.boats" >
+    <td rowspan="{{stats.boats.unused.types[b.boat_type].count}}" ng-if="stats.boats.unused.types[b.boat_type].boats[0] === b.boat" class="top" ng-class-even="'even'" ng-class-odd="'odd'">{{b.boat_type}}</td>
     <td>{{b.boat}}</td>
   </tr>
 </table>
