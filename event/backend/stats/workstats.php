@@ -98,9 +98,9 @@ case "overview":
     $report_name="oversigt over arbejde";
     $captions="_auto";
     $s="
-SELECT 'total standerstrygning',SUM(requirement) AS 'timer' FROM worker WHERE assigner='vedligehold'
+SELECT 'total standerstrygning',SUM(requirement) AS 'timer' FROM worker WHERE assigner='vedligehold' OR description='vintervedligehold'
   UNION
-SELECT 'aktuel total',SUM(requirement) AS 'timer' FROM worker,Member WHERE assigner='vedligehold' AND Member.id = worker.member_id AnD Member.RemoveDate IS NULL
+SELECT 'aktuel total',SUM(requirement) AS 'timer' FROM worker,Member WHERE description='vintervedligehold' AND Member.id = worker.member_id AnD Member.RemoveDate IS NULL
   UNION
 SELECT 'udført',SUM(hours) as 'timer'  FROM worklog WHERE $workseason
   UNION

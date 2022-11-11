@@ -4,7 +4,7 @@ require_once("../inc/utils.php");
 $lt = $rodb->query("
 SELECT IFNULL(SUM(requirement),0) AS 'timer'
 FROM worker,Member
-WHERE worker.member_id=Member.id AND assigner='vedligehold'
+WHERE worker.member_id=Member.id AND description='vintervedligehold'
 ") or dbErr($rodb,$res,"week chart $l");
 $l = $lt->fetch_assoc()["timer"];
 $w=46;
