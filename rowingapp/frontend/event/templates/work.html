@@ -188,7 +188,7 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
         </select>
         <button ng-show="workadmin.changed && workadmin.worker.requirement!=null" ng-click="update_work_req()">Opdater timer og type</button>
       </form>
-      <h2>Rapporter</h2>
+      <h2>Hvordan det går med arbejdet</h2>
       <div  class="weekbar">
         <canvas id="bar" class="chart chart-bar"
                 chart-dataset-override="weekwork.override"
@@ -197,7 +197,9 @@ Se alt dit arbejde under fanebladet: min side på din egen computer.
                 chart-series="weekwork.series"
                 chart-options="weekwork.options" maintainAspectRatio="false">
         </canvas>
+          <div>Blå søjler viser hvor mange timer der er lagt i hver uge.<br> Den røde linie viser hvor meget der gennemsnitligt skal arbejdes i resten af perioden for at alle får lagt deres timer.<br>Den lyseblå kurve viser hvor mange timer der mangler at blive arbejdet</div>
       </div>
+      <h2>Rapporter</h2>
       <ul>
         <li><button ng-click="get_report('rank','openworkstats')">overskudstimer</button></li>
         <li><button ng-click="get_report('all')">Timer på vintervedligehold</button> <a class="linkbtn" href="/backend/event/stats/workstats.php?q=all&format=xlsx">download</a></li>
