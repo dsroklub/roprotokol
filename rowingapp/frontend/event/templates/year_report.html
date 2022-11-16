@@ -619,25 +619,25 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
 
 
 
-<h5>Tabel 16 - Bådkilometer sorteret efter bådtype</h5>
+<h5>Tabel 16 - Bådkilometer sorteret efter bådtype, antal ture i parantes</h5>
 <table>
   <tr class="header">
     <th class="left">Bådtype</th>
     <th class="left">Båd</th>
-    <th>Kilometer</th>
+    <th ng-repeat="(yr,d) in stats.boatskm.years">{{yr}} km</th>
   </tr>
-  <tbody ng-repeat="(bt_name, bt) in stats.boats.boattypes" ng-class-even="'even'" ng-class-odd="'odd'">
-    <tr ng-repeat="b in stats.boats.boattypes[bt_name].boats track by $index">
-      <td rowspan="{{bt.boatcount}}" ng-if="$index === 0" class="top">{{bt_name}}</td>
-      <td class="left">{{b}}</td>
-      <td>{{stats.boats.boats[b].distance | number:0}}</b></td>
+  <tbody ng-repeat="(tp,tps) in stats.boatskm.types" ng-class-even="'even'" ng-class-odd="'odd'">
+    <tr ng-repeat="(bt,bys) in tps">
+      <td rowspan="{{tps.length}}">{{tp}}</td>
+      <td class="left">{{bt}}</td>
+      <td ng-repeat="by in bys"><span ng-if="by.distance">{{by.distance | number:0}} ({{by.trips}})</span></td>
     </tr>
   </tbody>
   <tbody>
     <tr>
       <td><b>Total</b></td>
       <td>&nbsp;</td>
-      <td><b>{{stats.boats.total.distance|number:0}}</b></td>
+      <td ng-repeat="by in stats.boatskm.total"><b ng-if="by.distance">{{by.distance | number:0}} ({{by.trips}})</b></td>
     </tr>
   </tbody>
 </table>
@@ -658,4 +658,3 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
 </table>
 
 </div>
-

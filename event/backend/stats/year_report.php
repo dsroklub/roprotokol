@@ -760,7 +760,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 
 
 // Tabel 14 - Både efter turtype og samlet kilometertal
-// Tabel 15-16 bruger samme udtræk
+// Tabel 15 bruger samme udtræk
 $table = 'boats';
 $to_cut = get_cut($to_year);
 $from_cut = get_cut($to_year - 1);
@@ -842,6 +842,47 @@ if ($r) {
 }
 
 
+// Tabel 16 boatkm
+$table = 'boatskm';
+$step = 'usage';
+$res[$table] = [];
+$thisyear=$now['year'];
+$s = "
+SELECT bt.year, bt.boat_type,bt.boat,bs.trips,bs.distance FROM
+(
+   SELECT yt.year as year,Boat.Name as boat,Boat.boat_type AS boat_type FROM Boat,
+       (SELECT DISTINCT YEAR(t.OutTime) as year FROM Trip t WHERE YEAR(t.OutTime)>=YEAR(NOW())-10) as yt
+) as bt
+LEFT OUTER JOIN
+(SELECT
+        Boat.Name as bn,
+        Sum(Meter)/1000 AS distance,
+        COUNT(Trip.id) AS trips,
+        YEAR(Trip.OutTime) as year
+      FROM Boat,Trip WHERE Boat.id = Trip.BoatID AND Boat.Decommissioned IS NULL
+      GROUP BY Boat.Name, Boat.id, YEAR(Trip.OutTime)) as bs ON bs.year=bt.year AND bs.bn=bt.boat
+      ORDER BY bt.boat_type,bt.boat,bt.year
+";
+
+$messages[] = $s;
+$r = $rodb->query($s);
+if ($r) {
+    $res[$table]['years']= [];
+    while ($row = $r->fetch_assoc()) {
+        $res[$table]["types"][$row["boat_type"]][$row['boat']][$row["year"]] = ["distance"=>$row['distance'],"trips"=>$row["trips"]];
+        $res[$table]['years'][$row["year"]]=1;
+        if (!isset($res[$table]['total'][$row["year"]])) {
+            $res[$table]['total'][$row["year"]]=['trips' => 0, 'distance' => 0];
+        }
+        $res[$table]['total'][$row["year"]]['trips']++;
+        $res[$table]['total'][$row["year"]]["distance"]+=$row['distance'];
+    }
+} else {
+  make_error();
+  goto end;
+}
+
+
 
 
 // Tabel 17 - Ikke roede både
@@ -856,9 +897,9 @@ $s = "SELECT b.Name AS boat,
        FROM Boat b
        WHERE b.Decommissioned IS NULL
          AND NOT EXISTS (
-       	   SELECT 1
-	       FROM Trip
-	       WHERE b.id = BoatID
+          SELECT 1
+       FROM Trip
+       WHERE b.id = BoatID
              AND DATE(Trip.OutTime) >= '" . $from_cut . "'
              AND DATE(Trip.OutTime) < '" . $to_cut . "'
        )
