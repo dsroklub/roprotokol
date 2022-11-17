@@ -263,7 +263,7 @@ function dbservice($http, $q, $log, $timeout) {
       subscriptions={};
     }
     var sq=$q.defer();
-    $http.post('/backend/event/datastatus.php', null).then (function(response) {
+    $http.post('/backend/event/datastatus.php', null).then(function(response) {
       var ds=response.data;
       var doreload=false;
       //      $log.debug("got ds" + JSON.stringify(ds)+ "'\ndatastatus="+JSON.stringify(datastatus) +"\n subs="+ JSON.stringify(subscriptions));

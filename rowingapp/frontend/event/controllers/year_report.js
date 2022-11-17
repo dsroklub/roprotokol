@@ -10,6 +10,7 @@ function YearReportCtrl ($scope, $rootScope, DatabaseService,  $filter,$route,$c
   DatabaseService.init().then(function () {
     DatabaseService.simpleGet('event/stats/year_report').then(
       function(response) {
+        $scope.keys = Object.keys;
       if (response.data && response.data.status === 'ok') {
         $scope.statusMsg = null;
         $scope.stats = response.data;

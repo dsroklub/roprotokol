@@ -627,8 +627,8 @@ instruktører og kaniner indmeldt året før. Tilsvarende gør sig gældende for
     <th ng-repeat="(yr,d) in stats.boatskm.years">{{yr}} km</th>
   </tr>
   <tbody ng-repeat="(tp,tps) in stats.boatskm.types" ng-class-even="'even'" ng-class-odd="'odd'">
-    <tr ng-repeat="(bt,bys) in tps">
-      <td rowspan="{{tps.length}}">{{tp}}</td>
+    <tr ng-repeat="(bt,bys) in tps track by $index">
+      <td  ng-if="$index==0" rowspan="{{keys(tps).length}}">{{tp}}</td>
       <td class="left">{{bt}}</td>
       <td ng-repeat="by in bys"><span ng-if="by.distance">{{by.distance | number:0}} ({{by.trips}})</span></td>
     </tr>
