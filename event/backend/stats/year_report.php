@@ -2,6 +2,7 @@
 set_include_path(get_include_path().':..');
 include("../../../rowing/backend/inc/common.php");
 include("inc/utils.php");
+$profile=isset($_GET['profile']);
 $vr=verify_right(["admin"=>[null],"data"=>["stat"]]);
 $messages = [];
 $error=null;
@@ -44,6 +45,9 @@ function make_error($query) {
   $error = 'Could not get ' . $table . ':' . $step . '/' . $y . ': ' . $rodb->error . " " .$query;
 }
 
+if ($profile) {
+    $r = $rodb->query("set profiling=1");
+}
 
 // Tabel 1 - Indmeldelser, udmeldelser og medlemsomsætning
 $table = 'members';
@@ -433,7 +437,7 @@ for ($y = $from_year; $y <= $to_year; $y++) {
 }
 
 
-// Tabel 5 - Aktivitetsniveau 2014 og 2015 opdelt på turtyper (robåde)
+// Tabel 5 - Aktivitetsniveau opdelt på turtyper (robåde)
 $table = 'trips';
 $to_cut = get_cut($to_year);
 $from_cut = get_cut($from_year - 1);
@@ -449,7 +453,7 @@ $s = "SELECT TripType.Name as triptype,
           INNER JOIN TripType on Trip.TripTypeID = TripType.id
           INNER JOIN Boat ON (Boat.id = Trip.BoatID)
           INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
-          WHERE OutTime >= '" . $from_cut . "' AND OutTime < '" . $to_cut . "'
+          WHERE YEAR(OutTime) >= $from_year AND YEAR(OutTime) <= $to_year
           GROUP BY year,BoatType.Category, TripType.id
           ORDER BY year,boatCat, triptype";
 $r = $rodb->query($s);
@@ -614,8 +618,8 @@ $s = "SELECT TripType.Name as triptype,t.year,
                  INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
                  INNER JOIN Boat ON (Boat.id = Trip.BoatID)
                  INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
-                 WHERE Trip.OutTime >= '" . $from_cut . "'
-                   AND Trip.OutTime < '" . $to_cut . "'
+                 WHERE YEAR(Trip.OutTime) >= $from_year
+                   AND YEAR(Trip.OutTime) <= $to_year
                    AND Trip.TripTypeID NOT IN (5)
                    AND BoatType.Category=2
                  GROUP BY year,TripTypeID, member_id
@@ -633,7 +637,6 @@ if ($r) {
     while ($row = $r->fetch_assoc()) {
         $y=$row['year'];
         $ys[$y]=1;
-        error_log("\n do $y");
         if (!isset($res[$table][$y][$row['triptype']] )) {
             $res[$table][$y][$row['triptype']] =
                 [ 'total' => 0,
@@ -649,7 +652,6 @@ if ($r) {
     }
     foreach ($ys as $y=>$dummy) {
         foreach ($res[$table][$y] as $tt => $dummyrow) {
-            error_log("\n do $y $tt");
             $res[$table][$y][$tt]['trips_per_person'] = round($res[$table][$y][$tt]['trips'] / $res[$table][$y][$tt]['total'], 1);
             $res[$table][$y][$tt]['after_1']['percentage'] = round(100 * $res[$table][$y][$tt]['after_1']['count'] / $res[$table][$y][$tt]['total'], 0);
             if ($y >= $now['year'] - 1) {
@@ -684,8 +686,8 @@ $s = "SELECT TripType.Name as triptype,t.year,
                        INNER JOIN TripMember ON (TripMember.TripID = Trip.id)
                        INNER JOIN Boat ON (Boat.id = Trip.BoatID)
                        INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
-                       WHERE Trip.OutTime >= '" . $from_cut . "'
-                         AND Trip.OutTime < '" . $to_cut . "'
+                       WHERE YEAR(Trip.OutTime) >= $from_year
+                         AND YEAR(Trip.OutTime) <= $to_year
                          AND BoatType.Category=2
                        GROUP BY year,Trip.TripTypeID, TripMember.member_id
                        HAVING COUNT(1) >= 3
@@ -735,14 +737,9 @@ if ($r) {
     goto end;
 }
 
-
-
-
 // Tabel 14 - Både efter turtype og samlet kilometertal
 // Tabel 15 bruger samme udtræk
 $table = 'boats';
-$to_cut = get_cut($to_year);
-$from_cut = get_cut($to_year - 1);
 $step = 'usage';
 $res[$table] = [ 'boattypes' => [], 'triptypes' => [], 'boats' => []];
 
@@ -754,8 +751,7 @@ $s = "SELECT Boat.Name AS boat,
       FROM Boat
       LEFT OUTER JOIN Trip ON Boat.id = Trip.BoatID
       LEFT OUTER JOIN TripType ON (TripType.id = Trip.TripTypeID)
-      WHERE Trip.OutTime >= '" . $from_cut . "'
-        AND Trip.OutTime < '"  . $to_cut . "'
+      WHERE YEAR(Trip.OutTime) = $to_year
       GROUP BY Boat.Name, Boat.id, Boat.boat_type, triptype";
 
 $messages[] = $s;
@@ -791,12 +787,9 @@ if ($r) {
     $res[$table]['boattypes'][ $row['boat_type']]['trips'] += $row['trips'];
     $res[$table]['boattypes'][ $row['boat_type']]['triptypes'][$row['triptype']]['distance'] += $row['distance'];
     $res[$table]['boattypes'][ $row['boat_type']]['triptypes'][$row['triptype']]['trips'] += $row['trips'];
-
-
     if (! isset($res[$table]['boats'][ $row['boat']]['triptypes'][$row['triptype']])) {
       $res[$table]['boats'][ $row['boat']]['triptypes'][$row['triptype']] = ['distance' => 0, 'trips' => 0];
     }
-
     $res[$table]['boats'][ $row['boat']]['distance'] += $row['distance'];
     $res[$table]['boats'][ $row['boat']]['boat_type'] = $row['boat_type'];
     $res[$table]['boats'][ $row['boat']]['trips'] += $row['trips'];
@@ -899,13 +892,17 @@ if ($r) {
 
 end:
 
-$rodb->close();
 
 
 if ($error) {
    $res['error'] = $error;
    $res['status'] = 'error';
 }
+if ($profile) {
+    $r = $rodb->query("show profiles");
+    $messages[]=$r->fetch_all();
+}
+$rodb->close();
 if (count($messages)) {
    $res['messages'] = $messages;
 }
