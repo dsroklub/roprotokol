@@ -604,8 +604,8 @@ $step = 'trips';
 $s = "SELECT TripType.Name as triptype,t.year,
                  COUNT(distinct t.member_id) as members,
           SUM(t.trips)  as trips,
-                 IF((RemoveDate IS NOT NULL AND YEAR(RemoveDate) <= t.year), 1, 0) as removed_1,
-                 IF((RemoveDate IS NOT NULL AND YEAR(RemoveDate) <= t.year+1), 1, 0) as removed_2
+                 IF((RemoveDate IS NOT NULL AND RemoveDate <= MAKEDATE(t.year+1,1)), 1, 0) as removed_1,
+                 IF((RemoveDate IS NOT NULL AND RemoveDate <= MAKEDATE(t.year+2,1)), 1, 0) as removed_2
           FROM ( SELECT Trip.TripTypeID as TripTypeID,
                         TripMember.member_id as member_id,
                         COUNT('x') AS trips,
@@ -674,9 +674,9 @@ $step = 'trips';
 $s = "SELECT TripType.Name as triptype,t.year,
       COUNT(t.member_id) as members,
       SUM(t.trips)  as trips,
-      IF((RemoveDate IS NOT NULL AND RemoveDate <= '" . $to_cut . "'), 1, 0) as removed_1,
-      IF((RemoveDate IS NOT NULL AND RemoveDate <= '" . get_cut($y + 1) . "'), 1, 0) as removed_2,
-      IF((RemoveDate IS NOT NULL AND RemoveDate <= '" . get_cut($y + 3) . "'), 1, 0) as removed_3
+      IF((RemoveDate IS NOT NULL AND RemoveDate <= MAKEDATE(t.year+1,1)), 1, 0) as removed_1,
+      IF((RemoveDate IS NOT NULL AND RemoveDate <= MAKEDATE(t.year+2,1)), 1, 0) as removed_2,
+      IF((RemoveDate IS NOT NULL AND RemoveDate <= MAKEDATE(t.year+4,1)), 1, 0) as removed_3
       FROM TripType
       INNER JOIN ( SELECT Trip.TripTypeID as TripTypeID,YEAR(OutTime) as year,
                       TripMember.member_id as member_id,COUNT(1) as trips
