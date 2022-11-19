@@ -55,81 +55,68 @@ $res[$table] = [];
 $years = [];
 for ($y = $from_year; $y <= $to_year; $y++) {
     $years[] = $y;
-    $res[$table][$y] = [];
-    $to_cut = get_cut($y);
-    $from_cut = get_cut($y - 1);
-
+}
+$yclause= " WITH yt (y) AS (VALUES ((". implode(")),((",$years) .")))";
     $step = 'during';
-    $s = "select count(*) FROM Member where JoinDate <= '" . $to_cut . "' AND (RemoveDate IS NULL OR RemoveDate >= '" . $from_cut . "')";
+    $s = "$yclause
+    SELECT yt.y as year,'during' as step,COUNT('x') as cnt FROM yt LEFT JOIN Member ON JoinDate<=MAKEDATE(yt.y+1,1) AND (RemoveDate IS NULL OR RemoveDate >= MAKEDATE(yt.y,1))
+  GROUP BY year
+   UNION
+    SELECT yt.y as year,'incoming' as step,COUNT('x') as cnt FROM yt LEFT JOIN Member ON JoinDate>=MAKEDATE(yt.y,1) AND JoinDate<MAKEDATE(yt.y+1,1)
+  GROUP BY year
+   UNION
+    SELECT yt.y as year,'outgoing' as step,COUNT('x') as cnt FROM yt LEFT JOIN Member ON RemoveDate>MAKEDATE(yt.y,1) AND RemoveDate<=MAKEDATE(yt.y+1,1)
+  GROUP BY year
 
-    $r = $rodb->query($s);
-    if ($r) {
-       $res[$table][$y][$step] = $r->fetch_row()[0];
-    } else {
-      make_error();
-      goto end;
+";
+$r = $rodb->query($s);
+if ($r) {
+    while ($row = $r->fetch_assoc()) {
+        $res[$table][$row['year']][$row['step']] = $row["cnt"];
     }
+} else {
+    make_error();
+    goto end;
+}
 
-    $step = 'incoming';
-    $s = "select count(1) FROM Member where JoinDate >= '" . $from_cut . "' AND JoinDate < '" . $to_cut . "'";
-
-    $r = $rodb->query($s);
-    if ($r) {
-       $res[$table][$y][$step] = $r->fetch_row()[0];
-    } else {
-      make_error();
-      goto end;
-    }
-
-
-    $step = 'outgoing';
-    $s = "select count(*) FROM Member where RemoveDate > '" . $from_cut . "' AND RemoveDate <= '" . $to_cut . "'";
-
-    $r = $rodb->query($s);
-    if ($r) {
-       $res[$table][$y][$step] = $r->fetch_row()[0];
-    } else {
-      make_error();
-      goto end;
-    }
-
+foreach ($years as $y) {
     $res[$table][$y]['diff'] = $res[$table][$y]['incoming'] - $res[$table][$y]['outgoing'];
 }
-$res['years'] = $years;
 
+$res['years'] = $years;
 
 // Tabel 2 - Nye medlemmer og kønsfordeling
 $table = 'new_members_by_gender';
 $genders = [ 'male', 'female' ];
-for ($y = $from_year; $y <= $to_year; $y++) {
-    $res[$table][$y] = [];
-    $to_cut = get_cut($y);
-    $from_cut = get_cut($y - 1);
-    $joindate_where = "JoinDate >= '" . $from_cut . "' AND JoinDate < '" . $to_cut . "'";
-
-    $step = 'stats';
-    $s = "select Gender as gender, count(*) as count, avg(datediff(JoinDate, Birthday)/365) as age FROM Member WHERE " . $joindate_where . " AND Gender IS NOT NULL GROUP BY gender";
-    $r = $rodb->query($s);
-    if ($r) {
-       $res[$table][$y]['total'] = ['count' => 0];
-       while ($row = $r->fetch_assoc()) {
-         $res[$table][$y]['total']['count'] += $row['count'];
-         $res[$table][$y][$genders[$row['gender']]] = [];
-         $res[$table][$y][$genders[$row['gender']]]['count'] = $row['count'];
-         $res[$table][$y][$genders[$row['gender']]]['age'] = $row['age'];
-       };
-
-       $age_sum = 0;
-       foreach ( $genders as $g) {
-         $res[$table][$y][$g]['percentage'] = round(100 * $res[$table][$y][$g]['count'] / $res[$table][$y]['total']['count'], 0);
-         $age_sum += $res[$table][$y][$g]['count'] * $res[$table][$y][$g]['age'];
-   $res[$table][$y][$g]['age'] = round($res[$table][$y][$g]['age'], 1);
-       }
-       $res[$table][$y]['total']['age'] = round( $age_sum / $res[$table][$y]['total']['count'], 1);
-    } else {
-      make_error();
-      goto end;
+$res[$table][$y] = [];
+$step = 'stats';
+$s = "$yclause SELECT yt.y, Gender as gender, COUNT(*) as count, avg(datediff(JoinDate, Birthday)/365) as age
+                   FROM yt LEFT JOIN Member ON JoinDate >= MAKEDATE(y,1) AND JoinDate < MAKEDATE(y+1,1) AND Gender IS NOT NULL
+                   GROUP BY yt.y,gender";
+$r = $rodb->query($s);
+foreach ($years as $y) {
+    $res[$table][$y]['total'] = ['count' => 0];
+}
+if ($r) {
+    while ($row = $r->fetch_assoc()) {
+        $y=$row['y'];
+        $res[$table][$y]['total']['count'] += $row['count'];
+        $res[$table][$y][$genders[$row['gender']]] = [];
+        $res[$table][$y][$genders[$row['gender']]]['count'] = $row['count'];
+        $res[$table][$y][$genders[$row['gender']]]['age'] = $row['age'];
+    };
+    foreach ($years as $y) {
+        $age_sum = 0;
+        foreach ( $genders as $g) {
+            $res[$table][$y][$g]['percentage'] = round(100 * $res[$table][$y][$g]['count'] / $res[$table][$y]['total']['count'], 0);
+            $age_sum += $res[$table][$y][$g]['count'] * $res[$table][$y][$g]['age'];
+            $res[$table][$y][$g]['age'] = round($res[$table][$y][$g]['age'], 1);
+        }
+        $res[$table][$y]['total']['age'] = round( $age_sum / $res[$table][$y]['total']['count'], 1);
     }
+} else {
+    make_error();
+    goto end;
 }
 
 
@@ -389,13 +376,12 @@ $table = 'classtrips';
 $res[$table] = [];
 for ($y = $from_year; $y <= $to_year; $y++) {
     $res[$table][$y] = [];
-    $to_cut = get_cut($y);
-    $from_cut = get_cut($y - 1);
-    $step = 'classtrips';
-    $s = "SELECT COUNT(DISTINCT Trip.id) as boatTrips,
+}
+$step = 'classtrips';
+    $s = "$yclause SELECT cs.y,COUNT(DISTINCT Trip.id) as boatTrips,
                  COUNT(TripMember.member_id) as personTrips,
                  COUNT(DISTINCT(TripMember.member_id)) as individuals,
-          COUNT(DISTINCT(Trip.BoatID)) as boatCount,
+                 COUNT(DISTINCT(Trip.BoatID)) as boatCount,
                  ROUND(COUNT(TripMember.member_id)/COUNT(distinct Trip.id), 1) as persons_per_trip,
                  ROUND(COUNT(distinct TripMember.member_id)/cs.all_boats_count, 2) as persons_per_class,
                  ROUND(COUNT(distinct TripMember.member_id)/cs.seats, 2) as persons_per_class_seat,
@@ -403,37 +389,42 @@ for ($y = $from_year; $y <= $to_year; $y++) {
                  cs.all_boats_count,
                  boat_class.description as boatclass
           FROM
-             (SELECT class_name, SUM(BoatType.SeatCount) as seats, COUNT(Boat.id) as all_boats_count
-               FROM boat_class,BoatType,Boat
-               WHERE Boat.boat_type=BoatType.name AND BoatType.boat_class=boat_class.class_name AND (Decommissioned IS NULL OR Decommissioned< '".$to_cut."') AND Boat.Location <> 'Andre' AND
-                  Boat.Created <= '".$to_cut."'
-               GROUP BY boat_class.class_name) as cs,
           Boat
           INNER JOIN BoatType ON (BoatType.Name = Boat.boat_type)
           INNER JOIN boat_class ON (BoatType.boat_class = boat_class.class_name)
-          LEFT JOIN Trip ON (Boat.id = Trip.BoatID AND DATE(OutTime) >= '" . $from_cut . "' AND DATE(OutTime) < '" . $to_cut . "')
+          LEFT JOIN
+             (SELECT yt.y, class_name, SUM(BoatType.SeatCount) as seats, COUNT(Boat.id) as all_boats_count
+                  FROM yt, boat_class,BoatType,Boat
+                    WHERE Boat.boat_type=BoatType.name AND BoatType.boat_class=boat_class.class_name  AND Boat.Location <> 'Andre' AND
+                    (Decommissioned IS NULL OR YEAR(Decommissioned) <= yt.y) AND YEAR(Boat.Created) <= yt.y
+                    GROUP BY y,boat_class.class_name) as cs
+          ON cs.class_name=boat_class.class_name
+          LEFT JOIN Trip ON Boat.id = Trip.BoatID AND YEAR(OutTime) = cs.y
           LEFT JOIN TripMember ON (TripMember.TripID = Trip.id)
           LEFT JOIN TripType on Trip.TripTypeID = TripType.id
-          WHERE cs.class_name=boat_class.class_name AND Boat.Location <> 'Andre'
-          GROUP BY boat_class.class_name
-          ORDER BY boat_class.description";
-    $r = $rodb->query($s);
-    if ($r) {
-       while ($row = $r->fetch_assoc()) {
-         $res[$table][$y][$row['boatclass']]['boat_trips'] = $row['boatTrips'];
-         $res[$table][$y][$row['boatclass']]['person_trips'] = $row['personTrips'];
-         $res[$table][$y][$row['boatclass']]['individuals'] = $row['individuals'];
-         $res[$table][$y][$row['boatclass']]['boats'] = $row['boatCount'];
-         $res[$table][$y][$row['boatclass']]['persons_per_trip'] = round($row['persons_per_trip'], 1);
-         $res[$table][$y][$row['boatclass']]['persons_per_class'] = round($row['persons_per_class'], 2);
-         $res[$table][$y][$row['boatclass']]['persons_per_class_seat'] = round($row['persons_per_class_seat'], 2);
-         $res[$table][$y][$row['boatclass']]['seats'] = 0+$row['seats'];
-         $res[$table][$y][$row['boatclass']]['allboats'] = 0+$row['all_boats_count'];
-       }
-    } else {
-      make_error($s);
-      goto end;
+          WHERE    Boat.Location <> 'Andre'
+          GROUP BY cs.y,cs.class_name
+          ORDER BY cs.y,boat_class.description";
+
+$r = $rodb->query($s);
+$messages[] = $s;
+
+if ($r) {
+    while ($row = $r->fetch_assoc()) {
+        $y=$row['y'];
+        $res[$table][$y][$row['boatclass']]['boat_trips'] = $row['boatTrips'];
+        $res[$table][$y][$row['boatclass']]['person_trips'] = $row['personTrips'];
+        $res[$table][$y][$row['boatclass']]['individuals'] = $row['individuals'];
+        $res[$table][$y][$row['boatclass']]['boats'] = $row['boatCount'];
+        $res[$table][$y][$row['boatclass']]['persons_per_trip'] = round($row['persons_per_trip'], 1);
+        $res[$table][$y][$row['boatclass']]['persons_per_class'] = round($row['persons_per_class'], 2);
+        $res[$table][$y][$row['boatclass']]['persons_per_class_seat'] = round($row['persons_per_class_seat'], 2);
+        $res[$table][$y][$row['boatclass']]['seats'] = 0+$row['seats'];
+        $res[$table][$y][$row['boatclass']]['allboats'] = 0+$row['all_boats_count'];
     }
+} else {
+    make_error($s);
+    goto end;
 }
 
 
@@ -754,7 +745,6 @@ $s = "SELECT Boat.Name AS boat,
       WHERE YEAR(Trip.OutTime) = $to_year
       GROUP BY Boat.Name, Boat.id, Boat.boat_type, triptype";
 
-$messages[] = $s;
 $r = $rodb->query($s);
 if ($r) {
   $res[$table]['total'] = ['trips' => 0, 'distance' => 0];
