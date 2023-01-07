@@ -18,7 +18,7 @@ if (isset($_GET["last_year"])) {
     }
 }
 
-$namesuf=($workyear-2) . "-" . ($workyear-1);
+$namesuf=($workyear-1) . "-" . ($workyear);
 
 $captions="_auto";
 $report_name="Rapport $q";
