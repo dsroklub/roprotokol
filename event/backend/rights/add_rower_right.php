@@ -1,7 +1,11 @@
 <?php
 include("../inc/common.php");
 include("../inc/utils.php");
-$vr=verify_right(["admin"=>["roprotokol","right"]]);
+if ($data->right->member_right=='wrench') {
+    $vr=verify_right(["admin"=>["roprotokol","right",'vedligehold']]);
+} else {
+    $vr=verify_right(["admin"=>["roprotokol","right"]]);
+}
 $error=null;
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");

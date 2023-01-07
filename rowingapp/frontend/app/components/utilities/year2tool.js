@@ -7,6 +7,10 @@ function year2tool () {
     2018: 'saw',
     2019: 'screwdriver',
     2020: 'knibtang',
+    2021: 'saw',
+    2022: 'hammer',
+    2023: 'screwdriver',
+    2023: 'knibtang'
   };
    return function(str) {
     if (str && years[str]) {
