@@ -916,6 +916,9 @@
     </li>
 </ul>
 
+  
+</ul>
+
 <h2> data der kræver rettigheder </2>
 
 <ul>
@@ -964,6 +967,12 @@
     <select ng-model="rowerright" ng-options="mrt.member_right as mrt.member_right for mrt in memberrighttypes|unique:'member_right'"> </select>
     <a href="/backend/event/stats/rowersbyright.php?right={{rowerright}}">Rettighed</a>
   </li>
+  <h3> Sidste År</h3>
+  <li> <a  class="linkbtn" href="/backend/event/stats/workstats.php?q=all&format=xlsx&last_year">Timer på vintervedligehold</a></li>
+  <li><a class="linkbtn" href="/backend/event/stats/workstats.php?q=day&format=xlsx&last_year">Timer pr dag vintervedligehold</a></li>
+  <li><a class="linkbtn" href="/backend/event/stats/workstats.php?q=weeks&format=xlsx&last_year">Timer pr uge</a></li>
+   <li><a class="linkbtn" href="/backend/event/stats/workstats.php?q=resterende&format=xlsx&last_year">Timer og arbejde for medlemmer</a></li>
+<ul>
 </ul>
 
 

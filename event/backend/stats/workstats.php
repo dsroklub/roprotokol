@@ -7,31 +7,43 @@ $sum=null;
 $q=$_GET["q"] ?? "none";
 $a=$_GET["a"] ?? "";
 $format=$_GET["format"] ?? "csv";
+$namesuf="";
+
+
+if (isset($_GET["last_year"])) {
+    $workyear=date("Y")-1;
+    $workseason =" ( (YEAR(start_time)=YEAR(NOW())-1 AND (MONTH(start_time)<=9)) OR ((YEAR(start_time)=YEAR(NOW())-2 AND MONTH(start_time)>9)))";
+    if ($workyear==2022) {
+        $workseason =" ( (YEAR(start_time)=YEAR(NOW())-1 AND (MONTH(start_time)<=9)) OR ((YEAR(start_time)=YEAR(NOW())-2 AND MONTH(start_time)>10)))";
+    }
+}
+
+$namesuf=($workyear-2) . "-" . ($workyear-1);
 
 $captions="_auto";
-$report_name="Rapport";
+$report_name="Rapport $q";
 switch ($q) {
 case "all":
-    $report_name="alt arbejde";
+    $report_name="alt arbejde $namesuf";
     $s="SELECT CONCAT(FirstName,' ',Lastname) as name,MemberID AS medlemsnummer,DATE_FORMAT(start_time,'%Y-%m-%d %H:%i') AS fra, DATE_FORMAT(end_time,'%H:%i') AS til, hours AS timer, work AS arbejde
  FROM worklog,Member WHERE Member.id=worklog.member_id AND $workseason
  ORDER BY name,fra";
     $sumq="SELECT SUM(hours) as sum FROM worklog,Member WHERE Member.id=worklog.member_id AND $workseason";
     break;
 case "day":
-    $report_name="arbejde per dag";
+    $report_name="arbejde per dag $namesuf";
     $s="SELECT DATE_FORMAT(start_time,'%Y-%m-%d') as dag, ROUND(SUM(hours),1) AS timer FROM worklog WHERE $workseason GROUP by dag ORDER BY dag";
     break;
 case "boat":
-    $report_name="arbejde per båd";
+    $report_name="arbejde per båd $namesuf";
     $s="SELECT boat as båd,ROUND(SUM(hours),1) as timer FROM worklog WHERE $workseason GROUP by boat ORDER BY boat";
     break;
 case "weeks":
-    $report_name="ugefordeling";
+    $report_name="ugefordeling $namesuf";
     $s="SELECT WEEK(start_time) as uge, SUM(hours) as timer, GROUP_CONCAT(DISTINCT boat)  as både FROM worklog WHERE $workseason GROUP BY uge ORDER BY uge";
     break;
 case "nonstarters":
-    $report_name="ikke startet arbejde";
+    $report_name="ikke startet arbejde $namesuf";
     $f=$_GET["a"] ?? null;
     $workertypeC="";
     if ($f) {
@@ -86,11 +98,11 @@ FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHER
 ";
     break;
 case "resterende":
-    $report_name="gjort arbejde";
+    $report_name="gjort arbejde $namesuf";
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,Email as email,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
-    FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
-    WHERE  worker.member_id=Member.id
+    FROM Member,worker_hist LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker_hist.member_id=w.member_id
+    WHERE  worker_hist.member_id=Member.id AND worker_hist.season=$workyear
     ORDER BY lagt DESC;
 ";
     break;
@@ -129,7 +141,7 @@ switch ($format) {
     case "json":
     case "ods":
     case "xlsx":
-        process($result,$format,$q,$captions);
+        process($result,$format,$report_name,$captions);
         break;
     case "html":
         process($result,"text",$q,$captions);

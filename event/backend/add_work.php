@@ -2,7 +2,7 @@
 include("inc/common.php");
 require("inc/utils.php");
 include("messagelib.php");
-error_log("addwork cuser $cuser");
+// error_log("addwork cuser $cuser");
 //if ($cuser!='baadhal') {
 //    roErr("man kan kun skrive sig i bådhallen ved kontoret");
 //}
@@ -21,8 +21,7 @@ if ($cuser == "baadhal" ) {
 }
 
 $stmt=$rodb->prepare("INSERT INTO worklog (boat,forum,start_time,work,hours,member_id,created_by)
-  SELECT ?,?,NOW(),?,?,mm.id,mc.id FROM Member mc,Member mm WHERE mm.MemberId=? AND mc.MemberId=?")
-     or dbErr($rodb,$res,"addwork prep");
+  SELECT ?,?,NOW(),?,?,mm.id,mc.id FROM Member mc,Member mm WHERE mm.MemberId=? AND mc.MemberId=?") or dbErr($rodb,$res,"addwork prep");
 if (isset($d->start_time)) {
     $start_time=date("Y-m-d H:i:s", strtotime($d->start_time));
 } else {

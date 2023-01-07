@@ -24,8 +24,8 @@ $wd=$ws->toArray();
 $i=0;
 $rodb->query("BEGIN");
 $stmt = $rodb->prepare(
-    "INSERT INTO worker(member_id,assigner,requirement,description,workertype)
-     SELECT id,?,?,'vintervedligehold',? FROM Member WHERE Member.MemberId=?") or dbErr($rodb,$res,"arbejdstimer prep");
+    "INSERT INTO worker(member_id,assigner,requirement,description,workertype,season)
+     SELECT id,?,?,'vintervedligehold',?,$workyear FROM Member WHERE Member.MemberId=?") or dbErr($rodb,$res,"arbejdstimer prep");
 
 foreach($wd as $wr) {
     if ($i<1) {
@@ -35,7 +35,7 @@ foreach($wd as $wr) {
         if (strtolower($wr[1]!="timer")) {
                 roErr("Den anden kolonne skal være timer, ikke: ".$wr[1]);
             }
-        $rodb->query("DELETE FROM worker where assigner='vedligehold' OR description='vintervedligehold'") || dnErr($rodb,$res,"clear workers");
+        $rodb->query("DELETE FROM worker WHERE season=$workyear AND (assigner='vedligehold' OR description='vintervedligehold')") || dnErr($rodb,$res,"clear workers");
     } else {
         $wt=null;
         if (count($wr)>2) {
