@@ -38,6 +38,10 @@ angular.module('gymApp', [
 	  templateUrl: 'templates/gym/checkout.html',
 	  controller: 'teamCtrl'
 	});
+	$routeProvider.when('/registrer2', {
+	  templateUrl: 'templates/gym/checkout2.html',
+	  controller: 'teamCtrl'
+	});
 	$routeProvider.when('/admin/', {
 	  templateUrl: 'templates/gym/admin.html',
 	  controller: 'teamCtrl'
