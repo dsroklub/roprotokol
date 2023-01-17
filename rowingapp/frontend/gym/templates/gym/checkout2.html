@@ -1,0 +1,52 @@
+<script type="text/ng-template" id="gymTemplate.html">
+  <a>
+    <strong class="membername">{{match.model.name}}<strong> <i class="membernum"> {{match.model.id}}</i>
+  </a>
+</script>
+
+<form
+  ng-submit="attend()"
+  name="gymParticipant">
+  <div>
+    <div ng-hide="currentteam">vælg et af dagens hold</div>
+    <input ng-show="currentteam"
+           ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }"
+	   placeholder="gymnastikdeltager"
+	   autocomplete="off"
+   	   autocorrect="off"
+      	   spellcheck="false"
+           id="gymmember"
+	   name="gparticipant"
+	   type="text"
+           ng-model="attendee"
+           uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+	   typeahead-select-on-exact="true"
+	   typeahead-template-url="gymTemplate.html"
+	   typeaheadWaitMs="200"
+	   required>
+    <input type="submit"  style="display:none">
+    <button type="button" ng-disabled="!currentteam || !attendee.id" class="klar" ng-click="attend()">Registrer</button>
+  </div>
+
+  <table class="listbox">
+      <tr>
+        <th>Hold i dag</th> <th>Holdtid</th>  <th>Underviser</th>
+      </tr>
+      <tr  ng-repeat="tm in teams" ng-click="setTeam(tm)"  ng-show="tm.dow==dayofweek" ng-class="{selected: currentteam == tm}" >
+        <td ><strong class="teamname">{{tm.name}}</strong> {{teamkey}}  {{tm.description}} </td> <td>{{tm.dayofweek}} {{tm.timeofday}} </td> <td>  {{tm.teacher}}<td>
+      </tr>
+  </table>
+  <br>
+
+  <div>
+    <h2 ng-show="currentteam">{{(attendance | filter:{'team':currentteam.name, 'timeofday':currentteam.timeofday } ).length}} tilmeldte til {{currentteam.name}} {{currentteam.dayofweek}} {{currentteam.timeofday}}:</h2>
+    <div class="memberlist">
+      <div class="member" ng-repeat="tp in attendance"
+          ng-if="tp.team==currentteam.name && tp.dayofweek==currentteam.dayofweek && tp.timeofday==currentteam.timeofday">
+        {{tp.membername}} ({{tp.memberid}})
+      </div>
+    </div>
+  </div>
+</form>
+
+
