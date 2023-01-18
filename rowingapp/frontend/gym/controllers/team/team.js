@@ -12,7 +12,7 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
   $scope.weekdays=["Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag","Søndag"];
   $scope.currentdate=new Date();
 
-  DatabaseService.init({"team":true,"member":true}).then(function () {
+  DatabaseService.init({"gym":true,"member":true}).then(function () {
     $scope.teams = DatabaseService.getDB('team/team');
     $scope.currentdate=new Date();
   });

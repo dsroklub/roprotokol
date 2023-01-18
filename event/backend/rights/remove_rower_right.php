@@ -1,6 +1,8 @@
 <?php
 include("../inc/common.php");
 include("../inc/utils.php");
+$data = file_get_contents("php://input");
+$data=json_decode($data);
 if ($data->right->member_right=='wrench') {
     $vr=verify_right(["admin"=>["roprotokol","right",'vedligehold']]);
 } else {
@@ -8,8 +10,6 @@ if ($data->right->member_right=='wrench') {
 }
 $error=null;
 $res=array ("status" => "ok");
-$data = file_get_contents("php://input");
-$data=json_decode($data);
 $admin="bådhalsbruger";
 if (!empty($cuser)) {
     $admin=$cuser;

@@ -8,7 +8,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
   var debug=3;
   var cachedepend={
     'member':['rowers'],
-    'team':['team']
+    'gym':['team']
   };
   var datastatus={
     'member':null,

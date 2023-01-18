@@ -13,6 +13,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 $tsa=array(
     'boat' => $mem->get('boat'),
     'member' =>  $mem->get('member'),
+    'gym' =>  $mem->get('gym'),
     'trip' =>  $mem->get('trip'),
     'stats' =>  $mem->get('stats'),
     'message' =>  $mem->get('message'),
