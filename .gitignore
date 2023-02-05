@@ -1,4 +1,6 @@
 /nbproject/private/
+log
+serverstatus.json
 public/inc/gitrevision.php
 public/js/gitrevision.js
 public/eventbasetag.html
