@@ -19,6 +19,7 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
 
   var refreshDOW = function() {
     var dow=new Date().getDay();
+    if (dow==0) dow=7;
     if (dow != $scope.dayofweek) {
       $scope.dayofweek = dow;
     }
