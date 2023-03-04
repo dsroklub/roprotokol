@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 echo "morgenorientering";
-
+$testmode=($argc>1 && $argv[1]=="test");
 $motd="";
 $motdfile="/data/media/motd";
 if (file_exists($motdfile)) {
@@ -59,7 +59,7 @@ Member LEFT JOIN
      GROUP BY gm.id
   ) as g ON g.member_id=Member.id,
     member_setting
-WHERE member_setting.member=m.member_id AND member_setting.morning_status=1
+WHERE member_setting.member=m.member_id AND member_setting.morning_status=1 AND EXISTS (SELECT 'x' FROM Trip mt,TripMember mtm WHERE mtm.member_id=m.member_id AND mtm.TripID=mt.id AND DATEDIFF(NOW(),mt.OutTime)<3 )
 ";
 $mail_status=null;
 $result = $rodb->query($ranksql) or dbErr($rodb,$res," rank prep");
@@ -88,7 +88,12 @@ while ($rankrow = $result->fetch_assoc()) {
          'MIME-Version'              => "1.0",
          'X-Mailer'                  => "DSRroprotokol",
     ];
-    $mail_status = $smtp->send($rankrow["email"], $mail_headers, $body);
+         if ($testmode) {
+             echo "TESTMODE: " . $rankrow["email"] . print_r($mail_headers,1) . $body;
+         } else {
+             echo "real";
+         //    $mail_status = $smtp->send($rankrow["email"], $mail_headers, $body);
+         }
     //    echo $body;
     if (PEAR::isError($mail_status)) {
         $warning="Kunne ikke sende besked som email: " . $mail_status->getMessage() . " headers=".print_r($mail_headers,true)." $body";
