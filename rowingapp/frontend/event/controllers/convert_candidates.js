@@ -1,11 +1,9 @@
 'use strict';
-
-angular.module('rowApp').controller('ConvertCandidatesCtrl', ['$scope', '$rootScope', 'DatabaseService', '$filter', '$confirm',
-                             function ($scope, $rootScope, DatabaseService, $filter,$confirm) {
+angular.module('eventApp').controller('ConvertCandidatesCtrl', ['$scope', '$rootScope', 'DatabaseService', '$filter', '$confirm',  function ($scope, $rootScope, DatabaseService, $filter,$confirm) {
 
   $scope.config={'headers':{'XROWING-CLIENT':'ROPROTOKOL'}};
   DatabaseService.init().then(function () {
-    DatabaseService.simpleGet('convert_candidates').then( function(response) {
+    DatabaseService.simpleGet('event/convert_candidates').then( function(response) {
       if (response.data && response.data.status === 'ok') {
         $scope.statusMsg = null;
         $scope.candidates = response.data.candidates;
@@ -25,7 +23,7 @@ angular.module('rowApp').controller('ConvertCandidatesCtrl', ['$scope', '$rootSc
   var convert_rower = function(fromrower,torower) {
     if (fromrower && torower) {
       if (fromrower != torower) {
-        return DatabaseService.updateDB('convert_rower',{"from":{"id":fromrower},"to":{"id":torower}},$scope.config,$scope.errorhandler)
+        return DatabaseService.updateDB('event/convert_rower',{"from":{"id":fromrower},"to":{"id":torower}},$scope.config,$scope.errorhandler)
       } else {
         console.log("Cannot convert from " + fromrower + " to itself");
       }
@@ -37,7 +35,6 @@ angular.module('rowApp').controller('ConvertCandidatesCtrl', ['$scope', '$rootSc
   $scope.convert_candidate = function(idx) {
     if ($scope.candidates[idx]) {
       var c = $scope.candidates[idx];
-
       convert_rower(c.rabbit_number, c.member_number)
       .then( function(res) {
         if (res.status=="ok") {

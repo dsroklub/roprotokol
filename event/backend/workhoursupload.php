@@ -1,8 +1,9 @@
 <?php
 include("inc/common.php");
 require("inc/utils.php");
-$data = file_get_contents("php://input");
 
+verify_right(["admin"=>["vedligehold"]]);
+$data = file_get_contents("php://input");
 $tn=tempnam(sys_get_temp_dir(), "whu");
 error_log("tn=$tn");
 $fh=fopen($tn, "w+");

@@ -75,6 +75,9 @@ angular.module('eventApp', [
   }).when('/message/', {
       templateUrl: 'templates/message.html',
       controller: 'eventCtrl'
+  }).when('/convertcandidates/', {
+      templateUrl: 'templates/convert_candidates.html',
+      controller: 'ConvertCandidatesCtrl'
   }).when('/admin/', {
       templateUrl: 'templates/admin.html',
       controller: 'eventCtrl'

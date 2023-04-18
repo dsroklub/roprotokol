@@ -1,16 +1,15 @@
 <?php
 include("inc/common.php");
-// include("inc/verify_user.php");
+include("inc/utils.php");
+verify_right(["admin"=>["roprotokol"]]);
 $res=array ("status" => "ok");
-
 $data = file_get_contents("php://input");
 $fromto=json_decode($data);
 $error=null;
 error_log('convertrower '.json_encode($fromto));
 
-
-$s="SELECT CONCAT(m.FirstName, ' ', m.LastName) as member_name,
-           CONCAT(rabbit.FirstName, ' ', rabbit.LastName) as rabbit_name,
+$s="SELECT CONCAT(m.FirstName, ' ', IFNULL(m.LastName,'')) as member_name,
+           CONCAT(rabbit.FirstName, ' ', IFNULL(rabbit.LastName,'')) as rabbit_name,
            m.id as member_id,
            rabbit.id as rabbit_id,
            rabbit.MemberID as rabbit_number,
@@ -26,14 +25,15 @@ $s="SELECT CONCAT(m.FirstName, ' ', m.LastName) as member_name,
           INNER JOIN TripMember tmm ON tmm.member_id=m.id
           INNER JOIN Trip tm ON tmm.TripID=tm.id
     WHERE rabbit.MemberID LIKE 'k%'
+      AND rabbit.FirstName NOT LIKE 'udløbet%'
       AND m.id!=rabbit.id
       AND m.MemberID NOT LIKE 'k%'
       AND m.MemberID NOT LIKE 'g%'
       AND m.FirstName = TRIM(TRIM(CHAR(9) FROM rabbit.FirstName))
       AND m.LastName = TRIM(TRIM(CHAR(9) FROM rabbit.LastName))
     GROUP BY rabbit.id,m.id
-    HAVING DATEDIFF(rabbit_first_trip, member_join_date) BETWEEN -100 AND 100
-        OR DATEDIFF(rabbit_last_trip, member_first_trip) BETWEEN -60 AND 60
+    HAVING DATEDIFF(rabbit_first_trip, member_join_date) BETWEEN -150 AND 150
+        OR DATEDIFF(rabbit_last_trip, member_first_trip) BETWEEN -90 AND 90
    ";
 
 $r = $rodb->query($s);
@@ -45,7 +45,7 @@ if ($r) {
     $candidates[] = $row['rabbit_id'];
   }
 
-  $s="SELECT CONCAT(m.FirstName, ' ', m.LastName) as name,
+  $s="SELECT CONCAT(m.FirstName, ' ', IFNULL(m.LastName,'')) as name,
              m.MemberID as rabbit_number,
              m.id as id,
              DATE(MIN(t.OutTime)) as first_trip,
@@ -54,6 +54,7 @@ if ($r) {
              INNER JOIN TripMember tm ON tm.member_id=m.id
              INNER JOIN Trip t ON tm.TripID=t.id
       WHERE m.MemberID LIKE 'k%'
+      AND m.FirstName NOT LIKE 'udløbet%'
         AND m.id NOT IN (" . (count($candidates)?join(', ', $candidates):'0') . ")
       GROUP BY m.id
       ORDER BY m.MemberID
