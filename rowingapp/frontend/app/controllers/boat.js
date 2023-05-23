@@ -209,7 +209,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   }
 
   $scope.checkRights = function() {
-    $scope.rightsmessage="";
+    $scope.rightsmessages=[];
     var norights=[];
     if (!$scope.checkout) {
       return false;
@@ -329,8 +329,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     if ($scope.checkout.boat && $scope.checkout.boat.damage > 2) {
       norights.push(" Båden er svært skadet og må derfor ikke komme på vandet !!!");
     }
-
-    $scope.rightsmessage=norights.join(", ");
+    $scope.rightsmessages=norights;
+    $scope.rightsmessageTxt=norights.join(", ");
     return norights.length<1;
   }
 
@@ -344,6 +344,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   }
 
   $scope.do_boat_category = function(cat) {
+    $scope.checkRights();
     $scope.selectedBoatCategory=cat;
     DatabaseService.update_reservations($scope.reservation_configurations,$scope.checkout);
     $scope.checkoutmessage=null;
@@ -357,6 +358,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   }
   $scope.checkoutBoat = function(boat) {
     var oldboat=$scope.checkout.boat;
+    $scope.checkRights();
     $scope.checkoutmessage=null;
     $scope.washmessage="";
     $scope.checkoutnotification=null;
@@ -442,6 +444,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   };
   $scope.updateCheckout = function (item) {
     // Calculate expected time based on triptype and destination
+    $scope.checkRights();
     $scope.checkout.destination=item;
     $scope.checkout.distance=$scope.checkout.destination.distance;
     $scope.boatSync();
@@ -459,6 +462,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         }
       }
     }
+    $scope.checkRights();
   }
 
   $scope.clearDestination = function () {
@@ -518,6 +522,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
   $scope.newStartTime = function () {
 //    console.log("newStart "+$scope.checkout.starttime);
+    $scope.checkRights();
     if ($scope.checkout.starttime) {
       if ($scope.checkout && ($scope.checkout.expectedtime < $scope.checkout.starttime|| !$scope.checkout.expectedtime_dirty)) {
         if ($scope.checkout.destination && $scope.checkout.destination.name) {
@@ -646,8 +651,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
                           )
   }
   $scope.createtrip = function (data) {
-    if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
-      data.event=$scope.rightsmessage;
+    if ($scope.rightsmessages && $scope.rightsmessages.length>0) {
+      data.event=$scope.rightsmessage.join(",");
     }
     var newtrip=DatabaseService.createTrip(data);
     newtrip.promise.then(function(status) {
@@ -720,6 +725,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       $scope.checkout.starttime=now;
       $scope.starttime_clean=now;
       $scope.updateExpectedTime();
+    } else {
+      $scope.checkRights();
     }
     $scope.washmessage="";
     $scope.checkoutmessage="";
@@ -743,7 +750,6 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       });
     }
   }
-
 
   $scope.update_checkin_destiation = function(d) {
     $scope.checkin.update_destination_for.destination=d.name;

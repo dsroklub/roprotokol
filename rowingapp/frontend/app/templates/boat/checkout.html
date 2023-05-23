@@ -60,7 +60,7 @@
     <div class="big message checkoutmessage">{{checkoutmessage}}</div>
     <div class="big message checkoutnotification">{{checkoutnotification}}</div>
     <div class="big message checkouterrormessage">{{checkouterrormessage}}</div>
-    <div class="big rightsmessage" ng-show="!checkRights()">{{rightsmessage}}</div>
+    <div class="big rightsmessage" ng-show="rightsmessages"><ul><li ng-repeat="rightsmessage in rightsmessages">{{rightsmessage}}</li></ul></div>
     <div class="big notesmessage" ng-show="checkout.boat.note">{{checkout.boat.note}}</div>
     <div class="big message">{{washmessage}}</div>
     <div class="checkout-form">
@@ -194,7 +194,7 @@
               </td>
             </tr>
             <tr><td>
-                <button confirm-if="rightsmessage" confirm="{{rightsmessage}}. Vil du alligevel udskrive båden?"
+                <button confirm-if="rightsmessages" confirm="{{rightsmessageTxt}}. Vil du alligevel udskrive båden?"
                         confirm-ok="Udskriv båd"
                         confirm-cancel="fortryd"
                         id="createtrip_button"
