@@ -652,7 +652,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   }
   $scope.createtrip = function (data) {
     if ($scope.rightsmessages && $scope.rightsmessages.length>0) {
-      data.event=$scope.rightsmessage.join(",");
+      data.event=$scope.rightsmessages.join(",");
     }
     var newtrip=DatabaseService.createTrip(data);
     newtrip.promise.then(function(status) {

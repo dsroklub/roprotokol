@@ -3,8 +3,8 @@
     <form>
       <!--input ng-hide="isadmin" placeholder="admin kodeord" autocomplete="off" class="adminpw" type="password" ng-model="config.headers.password"-->
       <div class="warn" ng-hide="isadmin || !ready">Du er ikke administrator. Du kan se men ikke rette.</div>
-      Scullerskilt:
-      <select ng-change="set_sculler_open(sculler_open)" ng-model="sculler_open" ng-options="op.id as op.n for op in [{n:'Lukket',id:0},{n:'Åbent',id:1}]">
+      <div ng-if="sculler_open"> Scullerskilt åbent</div>
+      <div ng-if="!sculler_open"> Scullerskilt lukket</div>
       </select>
     </form>
   </div>
