@@ -210,6 +210,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
 
   $scope.checkRights = function() {
     $scope.rightsmessages=[];
+    $scope.rightsmessageTxt=null;
     var norights=[];
     if (!$scope.checkout) {
       return false;
