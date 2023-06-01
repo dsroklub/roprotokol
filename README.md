@@ -5,6 +5,7 @@
 ## [For DSR in Danish:](http://htmlpreview.github.io/?https://github.com/dsroklub/roprotokol/blob/master/documentation/DSR.html)
 
 # Demo: login 2001, pw demo
+all content related to rowers are ramdomly generated
 
 https://agol.dk/roprotokol/frontend/app/index.shtml
 
