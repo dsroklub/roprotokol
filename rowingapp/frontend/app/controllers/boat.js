@@ -770,6 +770,9 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
         $scope.checkout.rowers[ix]="";
       }
     }
+    if (typeof $scope.checkout.rowers[ix] == 'string' && $scope.checkout.rowers[ix].length<4) {
+      $scope.checkout.rowers[ix]='';
+    }
   }
   $scope.date_diff = function (od) {
     //      return 1000;
