@@ -31,7 +31,7 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.work={};
   $scope.workers=[];
   $scope.workadmin={};
-    $scope.workertypes=['Inrigger','Kajakker','Morgenroerne','Coastal','Værktøj','Bagsvær'];
+  $scope.workertypes=['Inrigger','Kajakker','Morgenroerne','Coastal','Værktøj','Bagsværd'];
   $scope.mystatswork=null;
   $scope.workstat={"workpercent":50.0};
   var dberr=function(err) {
