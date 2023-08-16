@@ -670,7 +670,7 @@
 
 <div ng-show="do=='reservations'">
   <div class="lisel">
-    Vælg aktive ugedagsreservationer:
+    Vælg aktive reservationer:
   <ul>
     <li ng-repeat="rc in reservation_configurations" ng-click="toggle_rc(rc)" ng-class="{selected: rc.selected}" ng-hide="rc.name=='altid'">
       {{rc.name}}
