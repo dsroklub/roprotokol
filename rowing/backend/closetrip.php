@@ -40,6 +40,8 @@ invalidate('trip');
 invalidate('stats');
 
 
+
+
 $countStmt = $rodb->prepare("SELECT count('x') as year_boat_trips FROM Trip WHERE InTime IS NOT NULL AND BoatID=? AND YEAR(OutTime)=YEAR(NOW()) ") or dbErr($rodb,$res,"closetrip count trips");
 $countStmt->bind_param('i', $closedtrip->boat_id) || dbErr($rodb,$res,"close trip cnt");
 $countStmt->execute() || dbErr($rodb,$res,"close trip COUNT");
@@ -47,6 +49,20 @@ if ($countRow=$countStmt->get_result()->fetch_assoc()) {
     $res['boattrips']=$countRow['year_boat_trips'];
 }
 
+
+$guestStmt = $rodb->prepare(
+    "SELECT 'x'
+    FROM Member,Trip,TripMember
+    WHERE Trip.id=? AND TripMember.TripId=Trip.id AND Member.id=TripMember.member_id AND member_type=5
+    LIMIT 1" ) or dbErr($rodb,$res,"close trip guest perr");
+$guestStmt->bind_param('i', $tripId) || dbErr($rodb,$res,"close trip guest berr");
+$guestStmt->execute() || dbErr($rodb,$res,"close trip guest xerr");
+
+if ($guestStmt->get_result()->num_rows>0) {
+    invalidate('guest');
+    error_log(" guest inval ");
+
+}
 
 $stmt = $rodb->prepare(
     "SELECT member_setting.notification_email as email, CONCAT(FirstName,' ',LastName) as rower, Trip.Destination as destination

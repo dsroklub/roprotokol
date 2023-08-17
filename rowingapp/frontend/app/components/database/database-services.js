@@ -141,6 +141,7 @@ function dbservice($http, $q, $log) {
     this.getData('triptypes',"",promises);
     this.getData('zones',"",promises);
     this.getData('onwater',"",promises);
+    this.getData('guest_stat',"",promises);
     this.getData('locations',"",promises);
     this.getData('reservation_configurations',"",promises);
     this.getData('boatkayakcategory',"",promises);
@@ -245,6 +246,7 @@ function dbservice($http, $q, $log) {
       'trip':['rowers', 'boats','errortrips','get_events','errortrips','boat_statistics','membertrips','onwater','rowertripsaggregated','tripmembers','tripstoday','triptypes'],
       'member':['boats','rowers','rowerstatisticsany','rowerstatisticsanykayak','rowerstatisticsanyrowboat','memberrighttypes'],
       'destination':['destinations','zones'],
+      'guest':['guest_stat'],
       'stats':['rowerstatisticsany','rowerstatisticskayak','rowerstatisticsrowboat','stats/trip_stat_year'],
       'message':["boat_notes"],
       'archivestats':[]

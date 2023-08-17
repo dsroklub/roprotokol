@@ -14,7 +14,8 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.destinations=[];
   $scope.checkout={
     expectedtime:null,
-    starttime:null
+    starttime:null,
+    rowers:[]
   };
   $scope.reservation_configurations=[];
   $scope.errorhandler = function(error) {
@@ -55,7 +56,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
   $scope.status={};
   $scope.boat_type=null;
   $scope.boatcategories=[];
-  DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "trip":true, "reservation":true,"message":true}).then(function () {
+  DatabaseService.init({"status":true,"stats":false, "boat":true, "member":true, "guest":true, "trip":true, "reservation":true,"message":true}).then(function () {
     // Load Category Overview
     $scope.current_rower=DatabaseService.getCurrentRower();
     $scope.isadmin=false;
@@ -69,6 +70,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     }
 
     $scope.memberrighttypes = DatabaseService.getDB('memberrighttypes');
+    $scope.guest_stat = DatabaseService.getDB('guest_stat');
     $scope.damage_types = DatabaseService.getDB('damage_types');
     $scope.newdamage.reporter=DatabaseService.getCurrentRower();
     $scope.reservation_configurations = DatabaseService.getDB('reservation_configurations');
@@ -231,7 +233,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       var rerr="";
       var arg=rq=='instructor'?subright:null;
       if (rq == null) {
-        // Skip, we are waiting for Mysql Json AGG in MariaDB 10.5
+        // Skip,
       } else if (subject=='cox') {
         if ($scope.checkout.rowers[0] && $scope.checkout.rowers[0].rights)  {
           if (rerr=miss_right(rq,arg,$scope.checkout.rowers[0].rights)) {
@@ -329,6 +331,17 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
     },norights);
     if ($scope.checkout.boat && $scope.checkout.boat.damage > 2) {
       norights.push(" Båden er svært skadet og må derfor ikke komme på vandet !!!");
+    }
+
+    for (var ri=0; ri < $scope.checkout.rowers.length; ri++) {
+      var guestKm=$scope.guest_stat[$scope.checkout.rowers[ri].id];
+      if (guestKm) {
+        if (guestKm > 100) {
+          norights.push("gæsteroer "+$scope.checkout.rowers[ri].name +" har roet end 100 km");
+        } else if (guestKm + $scope.checkout.distance/1000 > 100) {
+          norights.push("gæsteroer "+$scope.checkout.rowers[ri].name +" kommer til at ro mere end 100 km");
+        }
+      }
     }
     $scope.rightsmessages=norights;
     $scope.rightsmessageTxt=norights.join(", ");

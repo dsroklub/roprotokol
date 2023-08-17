@@ -14,6 +14,7 @@ $tsa=array(
     'boat' => $mem->get('boat'),
     'member' =>  $mem->get('member'),
     'gym' =>  $mem->get('gym'),
+    'guest' =>  $mem->get('guest'),
     'trip' =>  $mem->get('trip'),
     'stats' =>  $mem->get('stats'),
     'message' =>  $mem->get('message'),

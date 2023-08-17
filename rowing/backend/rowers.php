@@ -14,7 +14,9 @@ SELECT
       'rigths', JSON_ARRAYAGG(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired,'expire',DATE_ADD(Acquired,INTERVAL MemberRightType.validity YEAR),'by',CONCAT(mb.FirstName,' ',mb.LastName)))
    ) AS json
    FROM
-      Member LEFT JOIN MemberRights ON MemberRights.member_id=Member.id LEFT JOIN MemberRightType ON MemberRights.MemberRight = MemberRightType.member_right AND MemberRights.argument=MemberRightType.arg LEFT JOIN Member mb ON mb.id=MemberRights.created_by
+      Member LEFT JOIN MemberRights ON MemberRights.member_id=Member.id
+        LEFT JOIN MemberRightType ON MemberRights.MemberRight = MemberRightType.member_right AND MemberRights.argument=MemberRightType.arg
+        LEFT JOIN Member mb ON mb.id=MemberRights.created_by
    WHERE
      Member.MemberID!='0' AND
      Member.id>=0 AND (Member.RemoveDate IS NULL OR Member.RemoveDate>=NOW()) AND
@@ -22,7 +24,7 @@ SELECT
    GROUP BY Member.id";
 
 if ($sqldebug) {
-    echo $s."<br>\n";
+    echo $s."\n<br>\n";
 }
 $result=$rodb->query($s) or dbErr($rodb,$res,"get rowers");
 output_json($result);
