@@ -11,7 +11,7 @@ SELECT
       'club',Member.club,
       'status', IF(Member.member_type=1,'passiv','ok'),
       'name', CONCAT(Member.FirstName,' ',Member.LastName),
-      'rigths', JSON_ARRAYAGG(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired,'expire',DATE_ADD(Acquired,INTERVAL MemberRightType.validity YEAR),'by',CONCAT(mb.FirstName,' ',mb.LastName)))
+      'rights', JSON_ARRAYAGG(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired,'expire',DATE_ADD(Acquired,INTERVAL MemberRightType.validity YEAR),'by',CONCAT(mb.FirstName,' ',mb.LastName)))
    ) AS json
    FROM
       Member LEFT JOIN MemberRights ON MemberRights.member_id=Member.id
