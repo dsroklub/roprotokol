@@ -256,10 +256,11 @@ function workCtrl ($scope, $routeParams,$route,DatabaseService, LoginService, $f
   $scope.create_worker = function (worker) {
     var sr=DatabaseService.createSubmit("create_worker",worker);
     sr.promise.then(function(status) {
+      worker.worker_id=worker.id;
       $scope.workers.push(worker);
       if (status.status =='ok') {
         $scope.workadmin.new=false;
-        $scope.workadmin.newworker={};
+        $scope.workadmin.newworker=null;
       } else {
         alert(status.error);
       }
