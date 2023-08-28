@@ -3,7 +3,6 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-// TODO when we can use Mariadb 10.5 replace with JSON_ARRAYAGG etc
 $s="
 SELECT
   JSON_OBJECT(
@@ -11,7 +10,8 @@ SELECT
       'club',Member.club,
       'status', IF(Member.member_type=1,'passiv','ok'),
       'name', CONCAT(Member.FirstName,' ',Member.LastName),
-      'rights', JSON_ARRAYAGG(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired,'expire',DATE_ADD(Acquired,INTERVAL MemberRightType.validity YEAR),'by',CONCAT(mb.FirstName,' ',mb.LastName)))
+      'rights', IF(COUNT(MemberRight)>0,
+           JSON_ARRAYAGG(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired,'expire',DATE_ADD(Acquired,INTERVAL MemberRightType.validity YEAR),'by',CONCAT(mb.FirstName,' ',mb.LastName))), JSON_ARRAY())
    ) AS json
    FROM
       Member LEFT JOIN MemberRights ON MemberRights.member_id=Member.id

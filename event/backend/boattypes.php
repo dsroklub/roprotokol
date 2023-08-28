@@ -1,16 +1,13 @@
 <?php
 include("inc/common.php");
-$bt=$rodb->query("SELECT JSON_MERGE(
+$bt=$rodb->query("SELECT 
     JSON_OBJECT(
      'name',Name,
      'seatcount',Seatcount ,
      'category',Category,
      'rights_subtype',rights_subtype,
-     'description',Description
-    ),
-      CONCAT('{\"rights\" : [',
-           GROUP_CONCAT(JSON_OBJECT('required_right',required_right,'requirement',requirement)) ,
-      ']}')
+     'description',Description,
+     'rights', JSON_ARRAYAGG(JSON_OBJECT('required_right',required_right,'requirement',requirement))
     ) as json
     FROM BoatType
     LEFT JOIN  BoatRights ON BoatType.Name=BoatRights.boat_type

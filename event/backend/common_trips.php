@@ -13,8 +13,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
         exit(0);
     }
 
-    $s="SELECT JSON_MERGE(
-      JSON_OBJECT(
+    $s="SELECT JSON_OBJECT(
        'id',Trip.id,
        'comment',Trip.Comment,
        'triptype', TripType.Name,
@@ -23,10 +22,8 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
        'destination',Trip.Destination,
        'intime',DATE_FORMAT(Trip.InTime,'%Y-%m-%dT%T'),
        'outtime',DATE_FORMAT(Trip.OutTime,'%Y-%m-%dT%T'),
-       'expectedintime', DATE_FORMAT(Trip.ExpectedIn,'%Y-%m-%dT%T')
-     ),
-   CONCAT('{\"rowers\" : [',
-     GROUP_CONCAT(JSON_OBJECT('member_id', Member.MemberID, 'name', CONCAT(Member.FirstName,' ',Member.LastName)) ORDER BY Seat),']}')
+       'expectedintime', DATE_FORMAT(Trip.ExpectedIn,'%Y-%m-%dT%T'),
+       'rowers',JSON_ARRAYAGG(JSON_OBJECT('member_id', Member.MemberID, 'name', CONCAT(Member.FirstName,' ',Member.LastName)) ORDER BY Seat)
 ) AS json
    FROM
        Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id

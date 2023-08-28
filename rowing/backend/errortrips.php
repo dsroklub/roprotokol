@@ -3,7 +3,7 @@ include("inc/common.php");
 include("inc/utils.php");
 header('Content-type: application/json');
 
-$sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
+$sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,
     JSON_OBJECT(
      'reason',ReasonForCorrection,
      'id', Error_Trip.id,
@@ -17,14 +17,10 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
      'distance', Error_Trip.Distance,
      'intime', DATE_FORMAT(TimeIn,'%Y-%m-%dT%T'),
      'outtime',DATE_FORMAT(TimeOut,'%Y-%m-%dT%T'),
-     'comment',Error_Trip.Comment
-    ),
-     CONCAT(
-       '{', JSON_QUOTE('rowers'),': [',
-       GROUP_CONCAT(JSON_OBJECT(
+     'comment',Error_Trip.Comment,
+     'rowers',JSON_ARRAYAGG(JSON_OBJECT(
            'name',CONCAT(Member.FirstName,' ',Member.LastName),
-            'id',Member.MemberID) ORDER BY Seat),
-   ']}')
+            'id',Member.MemberID) ORDER BY Seat)
    ) AS json
        FROM Error_Trip
             LEFT JOIN Error_TripMember on Error_Trip.id=Error_TripMember.ErrorTripID
@@ -35,7 +31,7 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
        GROUP BY Error_Trip.id, TripType.Name
 )
   UNION
-    (SELECT Trip.id as Trip, NULL as error_id, JSON_MERGE(
+    (SELECT Trip.id as Trip, NULL as error_id,
     JSON_OBJECT(
       'reason','',
       'id', NULL,
@@ -49,14 +45,10 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
       'distance',  Trip.Meter,
       'intime',  DATE_FORMAT(InTime,'%Y-%m-%dT%T'),
       'outtime', DATE_FORMAT(OutTime,'%Y-%m-%dT%T'),
-      'comment',Trip.Comment
-      ),
-     CONCAT(
-       '{', JSON_QUOTE('rowers'),': [',
-       GROUP_CONCAT(JSON_OBJECT(
+      'comment',Trip.Comment,
+      'rowers',JSON_ARRAYAGG(JSON_OBJECT(
            'name',CONCAT(Member.FirstName,' ',Member.LastName),
-            'id',Member.MemberID) ORDER BY Seat),
-   ']}')
+            'id',Member.MemberID) ORDER BY Seat)
    ) AS json
       FROM Boat,
            Trip
@@ -74,7 +66,7 @@ $sql="(SELECT Error_Trip.Trip,Error_Trip.id as error_id,JSON_MERGE(
 
 if ($sqldebug) echo $sql."\n\n";
 
-$stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"errortrips"); 
+$stmt = $rodb->prepare($sql) or dbErr($rodb,$res,"errortrips");
 $stmt->execute() or die("Error in etrips query: " . mysqli_error($rodb));
 $result= $stmt->get_result() or die("Error in etrips query: " . mysqli_error($rodb));
 

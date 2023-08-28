@@ -6,17 +6,13 @@ if (!verify_right(["admin"=>["roprotokol"],"data"=>["stat"]],false)) {
   $currentClause=" AND RemoveDate IS NULL";
   $currentClause=" AND (Member.RemoveDate IS NULL OR Member.RemoveDate>=NOW()) ";
 }
-$s="SELECT JSON_MERGE(
-    JSON_OBJECT(
+$s="SELECT JSON_OBJECT(
       'id',Member.MemberID,
       'phone',member_setting.phone,
       'email_shared',member_setting.email_shared,
       'status', IF(Member.RemoveDate AND Member.RemoveDate<NOW(),'ikke medlem',IF(member_type=1,'passiv','ok')),
-      'name', CONCAT(FirstName,' ',LastName)
-   ),
-   CONCAT('{\"rights\" : [',
-     GROUP_CONCAT(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired)),
-   ']}')
+      'name', CONCAT(FirstName,' ',LastName),
+      'rights', JSON_ARRAYAGG(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired,'by',CONCAT(Member.FirstName,' ',Member.LastName)))
    ) AS json
    FROM Member
      LEFT JOIN member_setting ON member_setting.member=Member.id

@@ -4,35 +4,37 @@ include("utils.php");
 
 $forum=sanestring($_REQUEST['forum']);
 
+if (empty($forum)) {
+    echo "missing forum\n";
+    exit(-1);
+}
 //error_log("forum $forum");
 $s="
-SELECT JSON_MERGE(
-  JSON_OBJECT(
+SELECT JSON_OBJECT(
   'forum', forum_subscription.forum,
    'owner', mo.MemberId,
-   'member_id',Member.MemberId, 
+   'member_id',Member.MemberId,
    'name',CONCAT(Member.FirstName,' ',Member.LastName),
    'role', role,
    'work_todo', forum_subscription.work,
    'comment',forum_subscription.comment,
-   'hours',SUM(worklog.hours)
-   ),
-    CONCAT('{', JSON_QUOTE('log'),': [',
-     IF(SUM(worklog.hours),
-       GROUP_CONCAT(JSON_OBJECT(
-      'start_time',DATE_FORMAT(worklog.start_time,'%Y-%m-%d'),
-      'hours',worklog.hours,
-      'work',worklog.work,
-      'boat',worklog.boat,
-      'by',worklog.created_by,
-      'created',worklog.created 
-      ) ORDER BY start_time),''),
-   ']}')
-  )
+   'hours',SUM(worklog.hours),
+   'log',IF(
+      SUM(worklog.hours),
+        JSON_ARRAYAGG(JSON_OBJECT(
+          'start_time',DATE_FORMAT(worklog.start_time,'%Y-%m-%d'),
+          'hours',worklog.hours,
+           'work',worklog.work,
+           'boat',worklog.boat,
+           'by',worklog.created_by,
+           'created',worklog.created
+      ) ORDER BY start_time),JSON_ARRAY()
+    )
+   )
      as json
-   FROM Member mo, forum, 
+   FROM Member mo, forum,
      (Member JOIN forum_subscription on forum_subscription.member=Member.id)  LEFT JOIN worklog on worklog.forum=forum_subscription.forum AND worklog.member_id=Member.id
-   WHERE 
+   WHERE
      forum_subscription.forum=forum.name AND
      mo.id=forum.owner AND
      forum_subscription.forum=?

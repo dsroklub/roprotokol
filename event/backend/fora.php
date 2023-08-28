@@ -3,7 +3,7 @@ include("../../rowing/backend/inc/common.php");
 include("utils.php");
 
 
-$s="SELECT is_public,forum_subscription.role,JSON_MERGE(
+$s="SELECT is_public,forum_subscription.role,
    JSON_OBJECT(
     'forum', forum.name,
      'boat',forum.boat,
@@ -12,13 +12,9 @@ $s="SELECT is_public,forum_subscription.role,JSON_MERGE(
      'owner',owner.MemberID,
      'is_open',is_open,
      'is_public',is_public,
-     'role',forum_subscription.role
-     ),
-     CONCAT(
-     '{', JSON_QUOTE('folders'),': [',
-        IFNULL(GROUP_CONCAT(DISTINCT CONCAT(JSON_QUOTE(forum_file.folder)) SEPARATOR ','),''),
-   ']}')
-   ) AS json
+     'role',forum_subscription.role,
+     'folders',IF(COUNT(forum_file.folder)>0,JSON_ARRAYAGG(DISTINCT forum_file.folder),JSON_ARRAY())
+     ) AS json
     FROM Member owner,
         (forum JOIN Member m LEFT JOIN forum_subscription ON (forum.name=forum_subscription.forum AND forum_subscription.member=m.id)
       LEFT JOIN forum_file on forum_file.forum=forum.name)
