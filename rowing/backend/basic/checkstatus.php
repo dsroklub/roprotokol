@@ -8,7 +8,10 @@ $emails=[];
 $emailres=$rodb->query("SELECT value as emails from Configuration WHERE id='not_in_emails'") or die ("not in email failed");
 
 if ($e = $emailres->fetch_assoc()) {
-    $emails=explode(",",$e["emails"]);
+
+    if (!empty($e["emails"])){
+        $emails=explode(",",$e["emails"]);
+    }
 }
 
 $s="SELECT Boat.id as boatid, Boat.Name AS boat, Trip.Destination as destination,
