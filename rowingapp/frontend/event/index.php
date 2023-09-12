@@ -1,3 +1,7 @@
+<?php
+include "/data/roprotokol/public/inc/gitrevision.php";
+$garg="?gr=".$gitrevision;
+?>
 <!DOCTYPE html>
 <html lang="da">
   <head>
@@ -22,16 +26,15 @@
     <link rel="stylesheet" href="../app/bower_components/components-font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css">
     <!--link rel="stylesheet" href="../app/bower_components/angular-chart.js/dist/angular-chart.css"-->
-    <link rel="stylesheet" href="event.css"/>
+    <link rel="stylesheet" href="event.css<?php echo $garg?>"/>
     <link rel="stylesheet" href="local.css"/>
     <script src="../app/bower_components/angular/angular.min.js"></script>
     <script src="components/angular-locale_da-dk.js"></script>
-    <script src="../dsrcommon/components/utilities/ifNull.js"></script>
-    <script src="../dsrcommon/components/utilities/txttotime.js"></script>
+    <script src="../dsrcommon/components/utilities/ifNull.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/txttotime.js<?php echo $garg?>"></script>
     <script src="../app/bower_components/angular-route/angular-route.min.js"></script>
     <script src="../app/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
     <!--script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script-->
-    <!--script src="../app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script-->
     <script src="../app/bower_components_modifications/ui-bootstrap-tpls-elgaard.js"></script>
     <script src="../app/bower_components/angular-ui-select/dist/select.min.js"></script>
     <script src="../app/bower_components/ngDialog/js/ngDialog.min.js"></script>
@@ -39,51 +42,50 @@
     <script src="../app/bower_components/angular-confirm-modal/angular-confirm.js"></script>
     <script src="../app/bower_components/checklist-model/checklist-model.js"></script>
     <script src="../app/bower_components/moment/moment.js"></script>
-    <script src="../app/bower_components/moment/locale/da.js"></script>
+    <script src="../app/bower_components/moment/locale/da.js<?php echo $garg?>"></script>
     <script src="../app/bower_components/angular-momentjs/angular-momentjs.js"></script>
     <script src="../app/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>
     <script src="components/version/interpolate-filter.js"></script>
     <script src="../app/bower_components/ng-file-upload/ng-file-upload.js"></script>
-    <script src="components/database/database.js"></script>
-    <script src="components/sumWork.js"></script>
-    <script src="components/database/database-services.js"></script>
-    <script src="../dsrcommon/components/utilities/onlynumber.js"></script>
-    <script src="../dsrcommon/components/utilities/time.js"></script>
-    <script src="../dsrcommon/components/utilities/dsrtimeformat.js"></script>
-    <script src="../dsrcommon/components/utilities/interval.js"></script>
-    <script src="../dsrcommon/components/utilities/transformkm.js"></script>
-    <script src="../dsrcommon/components/utilities/safefilename.js"></script>
-    <script src="../dsrcommon/components/utilities/mtokm.js"></script>
-    <script src="../dsrcommon/components/utilities/urlencode.js"></script>
-    <script src="../dsrcommon/sidetodk.js"></script>
-    <script src="../dsrcommon/components/utilities/timestring.js"></script>
-    <script src="../dsrcommon/leveltodk.js"></script>
-    <script src="../dsrcommon/rowtodk.js"></script>
-    <script src="../dsrcommon/dk_tags.js"></script>
-    <script src="../dsrcommon/subjecttodk.js"></script>
-    <script src="../dsrcommon/rightreqs.js"></script>
-    <script src="../dsrcommon/righttodk.js"></script>
-    <script src="../../public/js/gitrevision.js"></script>
-    <script src="../dsrcommon/argrighttodk.js"></script>
-    <script src="components/database/login-services.js"></script>
-    <script src="event.js"></script>
+    <script src="components/database/database.js<?php echo $garg?>"></script>
+    <script src="components/sumWork.js<?php echo $garg?>"></script>
+    <script src="components/database/database-services.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/onlynumber.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/time.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/dsrtimeformat.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/interval.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/transformkm.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/safefilename.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/mtokm.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/urlencode.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/sidetodk.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/timestring.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/leveltodk.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/rowtodk.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/dk_tags.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/subjecttodk.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/rightreqs.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/righttodk.js<?php echo $garg?>"></script>
+    <script src="../../public/js/gitrevision.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/argrighttodk.js<?php echo $garg?>"></script>
+    <script src="components/database/login-services.js<?php echo $garg?>"></script>
+    <script src="event.js<?php echo $garg?>"></script>
     <script src="node_modules/viz.js/viz.js" type="application/javascript"></script>
     <script src="node_modules/webcola/WebCola/cola.js"></script>
     <script src="node_modules/d3/dist/d3.min.js"></script>
     <script src="node_modules/d3-graphviz/build/d3-graphviz.js"></script>
-    <script src="controllers/events.js"></script>
-    <script src="controllers/boat.js"></script>
-    <script src="controllers/work.js"></script>
-    <script src="controllers/year_report.js"></script>
-    <script src="controllers/convert_candidates.js"></script>
-    <script src="controllers/rowing.js"></script>
-    <script src="controllers/club.js"></script>
-    <script src="controllers/noright.js"></script>
-    <script src="controllers/menu.js"></script>
-    <script src="../dsrcommon/components/utilities/subArray.js"></script>
-    <script src="components/database/database-directives.js"></script>
+    <script src="controllers/events.js<?php echo $garg?>"></script>
+    <script src="controllers/boat.js<?php echo $garg?>"></script>
+    <script src="controllers/work.js<?php echo $garg?>"></script>
+    <script src="controllers/year_report.js<?php echo $garg?>"></script>
+    <script src="controllers/rowing.js<?php echo $garg?>"></script>
+    <script src="controllers/club.js<?php echo $garg?>"></script>
+    <script src="controllers/noright.js<?php echo $garg?>"></script>
+    <script src="controllers/menu.js<?php echo $garg?>"></script>
+    <script src="../dsrcommon/components/utilities/subArray.js<?php echo $garg?>"></script>
+    <script src="components/database/database-directives.js<?php echo $garg?>"></script>
     <script src="../app/bower_components/angular-filter/dist/angular-filter.js"></script>
     <script type='text/javascript' src="node_modules/chart.js/dist/Chart.js"></script>
     <script type='text/javascript' src="node_modules/angular-chart.js/dist/angular-chart.js"></script>
