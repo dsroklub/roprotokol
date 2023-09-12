@@ -2,8 +2,6 @@
 include("inc/common.php");
 include("inc/utils.php");
 
-
-// TODO when we can use Mysql 8 replace with JSON_ARRAYAGG etc
 $s="  SELECT JSON_OBJECT(
      'id',Trip.id,
       'triptype', TripType.Name,
