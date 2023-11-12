@@ -48,7 +48,7 @@ $DBCMD < $DATADIR/data.sql
 
 if [[ $datatype = "fake" ]]; then
     echo "Generating fake data..."
-    $SCRIPT_PATH/fakedata.py $DB
+    $SCRIPT_PATH/testdata/fakedata.py $DB
 elif [[ $datatype = "real" ]]; then
     echo "Using real data..."
 elif [[ $datatype = "empty" ]]; then
