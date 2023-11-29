@@ -92,7 +92,7 @@ while ($rankrow = $result->fetch_assoc()) {
              echo "TESTMODE: " . $rankrow["email"] . print_r($mail_headers,1) . $body;
          } else {
              echo "real";
-         //    $mail_status = $smtp->send($rankrow["email"], $mail_headers, $body);
+             $mail_status = $smtp->send($rankrow["email"], $mail_headers, $body);
          }
     //    echo $body;
     if (PEAR::isError($mail_status)) {
