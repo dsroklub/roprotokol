@@ -47,7 +47,7 @@ $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
          "\n\n--\nroprotokollen";
 
      $mail_headers = [
-         'From'                      => "Roprotokollen i Danske Studenters Roklub <elgaard@agol.dk>",
+         'From'                      => "Roprotokollen i Danske Studenters Roklub <roprotokol@roprotokol.danskestudentersroklub.dk>",
          'To'                        => $emails,
          'Reply-To'                  => "Niels Elgaard Larsen <elgaard@agol.dk>",
          'Subject'                   => mb_encode_mimeheader($trip["boat"] ." er stadig skrevet ud"),
