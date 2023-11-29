@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import MySQLdb
 import random
@@ -12,12 +12,12 @@ now=datetime.now()
 numrowers=1000
 if len(sys.argv)>1:
     rodb=sys.argv[1]
-    dbuser=roprotokol
+    dbuser='roprotokol'
 else:
     rodb="fakeprotokol"
     dbuser="fake"
 
-print ("using db: "+rodb)
+print("using db: "+rodb)
 
 random.seed(42)
 # Password is read from file sectret.db
