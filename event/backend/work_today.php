@@ -27,7 +27,8 @@ SELECT worklog.id,FirstName,LastName,MemberId,requirement,worklog.start_time,wor
 FROM Member LEFT JOIN worklog wl ON wl.member_id=Member.id AND ((YEAR(wl.start_time)=YEAR(NOW()) AND (MONTH(NOW())<10 OR MONTH(wl.start_time)>9)) OR (YEAR(wl.start_time)=YEAR(NOW())-1 AND MONTH(wl.start_time)>9 AND MONTH(NOW())<10)), worker, worklog
 WHERE
   Member.id=worker.member_id AND worker.description='vintervedligehold' AND
-  worklog.member_id=worker.member_id AND $timeclause
+  worklog.member_id=worker.member_id AND $timeclause AND
+  worker.season=$workyear
   GROUP BY Member.id ORDER BY worklog.start_time
 ) as w
 ";
