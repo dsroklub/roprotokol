@@ -11,7 +11,7 @@ $namesuf="";
 
 
 if (isset($_GET["last_year"])) {
-    $workyear=date("Y")-1;
+    $workyear--;
     $workseason =" ( (YEAR(start_time)=YEAR(NOW())-1 AND (MONTH(start_time)<=9)) OR ((YEAR(start_time)=YEAR(NOW())-2 AND MONTH(start_time)>9)))";
     if ($workyear==2022) {
         $workseason =" ( (YEAR(start_time)=YEAR(NOW())-1 AND (MONTH(start_time)<=9)) OR ((YEAR(start_time)=YEAR(NOW())-2 AND MONTH(start_time)>10)))";
@@ -52,8 +52,8 @@ case "nonstarters":
     }
     $s="
 SELECT DISTINCT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as vedligeholdstype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
-FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w  ON worker.member_id=w.member_id
-   WHERE Member.RemoveDate IS NULL AND worker.member_id=Member.id ${workertypeC}
+FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
+   WHERE Member.RemoveDate IS NULL AND worker.member_id=Member.id AND worker.season=$workyear ${workertypeC}
    ORDER BY LAGT ASC,mangler DESC,workertype;
 ";
     //    echo "f=$f, $s\n";
@@ -63,7 +63,7 @@ case "lesswork":
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,Email as email,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler,100*IFNULL(h,0)/requirement AS pct
 FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
-    WHERE  worker.member_id=Member.id AND
+    WHERE  worker.member_id=Member.id AND worker.season=$workyear AND
   100*IFNULL(h,0)/requirement < $pct
 ORDER BY lagt DESC;
 ";
@@ -81,7 +81,7 @@ case "nonmembers":
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,DATE_FORMAT(RemoveDate,'%d/%m %Y') as udmeldt,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker LEFT JOIN
 (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
-    WHERE Member.RemoveDate IS NOT NULL AND worker.member_id=Member.id ${workertypeC} ORDER BY udmeldt, roer,lagt ASC,mangler DESC,workertype;
+    WHERE Member.RemoveDate IS NOT NULL AND worker.member_id=Member.id AND worker.season=$workyear ${workertypeC} ORDER BY udmeldt, roer,lagt ASC,mangler DESC,workertype;
 ";
     echo "f=$f, $s\n";
     break;
@@ -94,15 +94,15 @@ case "rank":
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
 FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
-    WHERE worker.member_id=Member.id $limit ORDER by mangler DESC;
+    WHERE worker.member_id=Member.id AND worker.season=$workyear $limit ORDER by mangler DESC;
 ";
     break;
 case "resterende":
     $report_name="gjort arbejde $namesuf";
     $s="
 SELECT CONCAT(Member.FirstName,' ',Member.LastName) as roer,Email as email,workertype as bådtype,Member.MemberId as medlemsnummer,requirement as krævet,ROUND(IFNULL(h,0),1) as lagt, ROUND(requirement-IFNULL(h,0),1) as mangler
-    FROM Member,worker_hist LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker_hist.member_id=w.member_id
-    WHERE  worker_hist.member_id=Member.id AND worker_hist.season=$workyear
+    FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
+    WHERE  worker.member_id=Member.id AND worker.season=$workyear
     ORDER BY lagt DESC;
 ";
     break;
@@ -110,16 +110,16 @@ case "overview":
     $report_name="oversigt over arbejde";
     $captions="_auto";
     $s="
-SELECT 'total standerstrygning',SUM(requirement) AS 'timer' FROM worker WHERE assigner='vedligehold' OR description='vintervedligehold'
+SELECT 'total standerstrygning',SUM(requirement) AS 'timer' FROM worker WHERE worker.season=$workyear AND assigner='vedligehold' OR description='vintervedligehold'
   UNION
-SELECT 'aktuel total',SUM(requirement) AS 'timer' FROM worker,Member WHERE description='vintervedligehold' AND Member.id = worker.member_id AnD Member.RemoveDate IS NULL
+SELECT 'aktuel total',SUM(requirement) AS 'timer' FROM worker,Member WHERE description='vintervedligehold' AND Member.id = worker.member_id AND worker.season=$workyear AND Member.RemoveDate IS NULL
   UNION
 SELECT 'udført',SUM(hours) as 'timer'  FROM worklog WHERE $workseason
   UNION
 SELECT 'resterende aktuelt',ROUND(SUM(GREATEST(0,requirement-IFNULL(h,0))),1) as tilbage  FROM Member,worker LEFT JOIN (SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w ON worker.member_id=w.member_id
-  WHERE Member.id=worker.member_id AND Member.RemoveDate IS NULL
+  WHERE Member.id=worker.member_id AND Member.RemoveDate IS NULL AND worker.season=$workyear
   UNION
-SELECT 'overskud',ROUND(SUM(GREATEST(0.0,h-requirement)),1) as tilbage  FROM worker,(SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w  WHERE worker.member_id=w.member_id
+SELECT 'overskud',ROUND(SUM(GREATEST(0.0,h-requirement)),1) as tilbage  FROM worker,(SELECT member_id,SUM(hours) as h from worklog WHERE $workseason GROUP BY worklog.member_id) as w  WHERE worker.member_id=w.member_id AND worker.season=$workyear
       "
 ;
     break;
@@ -128,6 +128,11 @@ default:
     echo json_encode($res);
     exit(0);
 }
+
+if (isset($_GET["sqldebug"])) {
+    echo $s;
+    exit(0);
+  }
 
 $result = $rodb->query($s) or dbErr($rodb,$res,"workstats $q");
 
