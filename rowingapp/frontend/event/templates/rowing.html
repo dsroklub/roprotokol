@@ -968,11 +968,19 @@
     <select ng-model="rowerright" ng-options="mrt.member_right as mrt.member_right for mrt in memberrighttypes|unique:'member_right'"> </select>
     <a href="/backend/event/stats/rowersbyright.php?right={{rowerright}}">Rettighed</a>
   </li>
-  <h3> Sidste År</h3>
-  <li> <a  class="linkbtn" href="/backend/event/stats/workstats.php?q=all&format=xlsx&last_year">Timer på vintervedligehold</a></li>
-  <li><a class="linkbtn" href="/backend/event/stats/workstats.php?q=day&format=xlsx&last_year">Timer pr dag vintervedligehold</a></li>
-  <li><a class="linkbtn" href="/backend/event/stats/workstats.php?q=weeks&format=xlsx&last_year">Timer pr uge</a></li>
-   <li><a class="linkbtn" href="/backend/event/stats/workstats.php?q=resterende&format=xlsx&last_year">Timer og arbejde for medlemmer</a></li>
+  <h3> Statistikker for i år og sidste år</h3>
+  <li> <a  class="linkbtn" href="/backend/event/stats/workstats.php?q=all&format=xlsx">Timer på vintervedligehold</a>,
+    <a  class="linkbtn" href="/backend/event/stats/workstats.php?q=all&format=xlsx&last_year">Sidste år</a>
+  </li>
+  <li><a class="linkbtn" href="/backend/event/stats/workstats.php?q=day&format=xlsx">Timer pr dag vintervedligehold</a>,
+    <a class="linkbtn" href="/backend/event/stats/workstats.php?q=day&format=xlsx&last_year">Timer pr dag vintervedligehold</a>
+  </li>
+  <li><a class="linkbtn" href="/backend/event/stats/workstats.php?q=weeks&format=xlsx">Timer pr uge</a>,
+    <a class="linkbtn" href="/backend/event/stats/workstats.php?q=weeks&format=xlsx&last_year">Sidste år</a>
+  </li>
+  <li> <a class="linkbtn" href="/backend/event/stats/workstats.php?q=resterende&format=xlsx">Timer og arbejde for medlemmer i år</a>,
+    <a class="linkbtn" href="/backend/event/stats/workstats.php?q=resterende&format=xlsx&last_year">Sidste år</a>
+  </li>
 <ul>
 </ul>
 
