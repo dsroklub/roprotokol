@@ -12,10 +12,7 @@ $namesuf="";
 
 if (isset($_GET["last_year"])) {
     $workyear--;
-    $workseason =" ( (YEAR(start_time)=YEAR(NOW())-1 AND (MONTH(start_time)<=9)) OR ((YEAR(start_time)=YEAR(NOW())-2 AND MONTH(start_time)>9)))";
-    if ($workyear==2022) {
-        $workseason =" ( (YEAR(start_time)=YEAR(NOW())-1 AND (MONTH(start_time)<=9)) OR ((YEAR(start_time)=YEAR(NOW())-2 AND MONTH(start_time)>10)))";
-    }
+    $workseason =" ((YEAR(start_time)=$workyear AND MONTH(start_time)<10) OR (YEAR(start_time)=$workyear-1 AND MONTH(start_time)>9)) ";
 }
 
 $namesuf=($workyear-1) . "-" . ($workyear);
