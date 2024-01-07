@@ -14,7 +14,7 @@ $s="  SELECT JSON_OBJECT(
 ) AS json
    FROM Trip, Boat, TripType, TripMember LEFT JOIN Member ON Member.id = TripMember.member_id
    WHERE Boat.id=Trip.BoatID AND Trip.id=TripMember.TripID AND Trip.InTime IS NOT NULL AND TripType.id = Trip.TripTypeID  AND Trip.InTime  >= CURDATE()
--- old debian mariadb workaround   GROUP BY Trip.id
+  GROUP BY Trip.id
    ORDER BY Trip.id DESC";
 
 if ($sqldebug) {
