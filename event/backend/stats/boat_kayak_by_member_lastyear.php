@@ -1,7 +1,7 @@
 <?php
 include("../inc/common.php");
 include("../inc/utils.php");
-$vr=verify_right(["admin"=>[null],"data"=>["stat"]]);
+$vr=verify_right(["admin"=>[null],"data"=>["stat"],"gym"=>["admin"]]);
 $s="
 WITH mk as
 (SELECT Member.MemberID, ROUND(SUM(Meter/1000),1) as distance, IF(rights_subtype='kayak','kajak','roning') as bc
