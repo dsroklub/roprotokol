@@ -6,6 +6,7 @@ $data = file_get_contents("php://input");
 $newtrip=json_decode($data);
 $tripDescription=$newtrip->triptype->name ." til ". $newtrip->destination->name." i ".$newtrip->boat->name;
 $expectedtime=mysdate($newtrip->expectedtime);
+$starttime=mysdate($newtrip->starttime);
 
 $message="createtrip  "; //.json_encode($newtrip);
 $error="";
@@ -21,19 +22,24 @@ if (!empty($newtrip->trip_team)) {
 
 //error_log("COL BOAT=".print_r($newtrip->boat->location,true)."DD");
 if ($newtrip->boat->location != "Andre") {
-    if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL AND (OutTime<CONVERT_TZ(?,'+00:00','SYSTEM') OR OutTime<=NOW())")) {
-        $stmt->bind_param('is', $newtrip->boat->id,$expectedTime);
+    if ($stmt = $rodb->prepare("
+              SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL AND NOT (
+                  CONVERT_TZ(?,'+00:00','SYSTEM') < OutTime  OR
+                  CONVERT_TZ(?,'+00:00','SYSTEM') > ExpectedIn
+               )
+           ")) {
+        $stmt->bind_param('iss', $newtrip->boat->id,$expectedtime,$starttime);
         $stmt->execute();
         $result= $stmt->get_result();
         if ($result->fetch_assoc()) {
             $res["status"]="error";
-            $error="${newtrip->boat->name} already on water";
+            $error=$newtrip->boat->name ." already on water";
             error_log($error);
             error_log($data);
             $res['status']='error';
             $res['error']=$error;
             $rodb->rollback();
-            $db->close();
+            $rodb->close();
             error_log('Create Trip DB error ' . $error);
             $res['message']=$message.'\n'.$error;
             echo json_encode($res);
@@ -62,7 +68,7 @@ foreach ($newtrip->rowers as $rower) {
 }
 if ($error){
     $rodb->rollback();
-    $db->close();
+    $rodb->close();
     error_log('Create Trip DB rower error ' . $error);
     $res['message']=$message.'\n'.$error;
     $res['error']=$error;
@@ -70,7 +76,6 @@ if ($error){
     exit(0);
 }
 
-$starttime=mysdate($newtrip->starttime);
 // error_log('now new trip'. json_encode($newtrip));
 $club=$newtrip->foreign_club??null;
 $stmt = $rodb->prepare(
