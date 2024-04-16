@@ -5,35 +5,48 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $newtrip=json_decode($data);
 $tripDescription=$newtrip->triptype->name ." til ". $newtrip->destination->name." i ".$newtrip->boat->name;
+$expectedtime=mysdate($newtrip->expectedtime);
 
 $message="createtrip  "; //.json_encode($newtrip);
-$error=null;
+$error="";
 $logevents=[];
 // error_log(" Create trip $data");
 
 $rodb->begin_transaction();
+$teamName=null;
+
+if (!empty($newtrip->trip_team)) {
+    $teamName=$newtrip->trip_team->name;
+}
 
 //error_log("COL BOAT=".print_r($newtrip->boat->location,true)."DD");
 if ($newtrip->boat->location != "Andre") {
-    if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL AND OutTime<?")) {
-        $expectedTime=mysdate($newtrip->expectedtime);
+    if ($stmt = $rodb->prepare("SELECT 'x' FROM  Trip WHERE BoatID=? AND InTime IS NULL AND (OutTime<CONVERT_TZ(?,'+00:00','SYSTEM') OR OutTime<=NOW())")) {
         $stmt->bind_param('is', $newtrip->boat->id,$expectedTime);
         $stmt->execute();
         $result= $stmt->get_result();
         if ($result->fetch_assoc()) {
             $res["status"]="error";
-            $error="already on water";
+            $error="${newtrip->boat->name} already on water";
             error_log($error);
             error_log($data);
-        }
-
-        $countStmt = $rodb->prepare("SELECT 1+count('x') as year_boat_trips FROM Trip WHERE InTime IS NOT NULL AND BoatID=? AND YEAR(OutTime)=YEAR(NOW()) ") or dbErr($rodb,$res,"create trip count trips");
-        $countStmt->bind_param('i', $newtrip->boat->id) || dbErr($rodb,$res,"create trip cnt");
-        $countStmt->execute() || dbErr($rodb,$res,"create trip COUNT");
-        if ($countRow=$countStmt->get_result()->fetch_assoc()) {
-            $res['boattrips']=$countRow['year_boat_trips'];
+            $res['status']='error';
+            $res['error']=$error;
+            $rodb->rollback();
+            $db->close();
+            error_log('Create Trip DB error ' . $error);
+            $res['message']=$message.'\n'.$error;
+            echo json_encode($res);
+            exit(0);
         }
     }
+}
+
+$countStmt = $rodb->prepare("SELECT 1+count('x') as year_boat_trips FROM Trip WHERE InTime IS NOT NULL AND BoatID=? AND YEAR(OutTime)=YEAR(NOW()) ") or dbErr($rodb,$res,"create trip count trips");
+$countStmt->bind_param('i', $newtrip->boat->id) || dbErr($rodb,$res,"create trip cnt");
+$countStmt->execute() || dbErr($rodb,$res,"create trip COUNT");
+if ($countRow=$countStmt->get_result()->fetch_assoc()) {
+    $res['boattrips']=$countRow['year_boat_trips'];
 }
 
 foreach ($newtrip->rowers as $rower) {
@@ -47,109 +60,83 @@ foreach ($newtrip->rowers as $rower) {
         }
     }
 }
-
-
-$teamName=null;
-
-if (!empty($newtrip->trip_team)) {
-    $teamName=$newtrip->trip_team->name;
+if ($error){
+    $rodb->rollback();
+    $db->close();
+    error_log('Create Trip DB rower error ' . $error);
+    $res['message']=$message.'\n'.$error;
+    $res['error']=$error;
+    echo json_encode($res);
+    exit(0);
 }
-$expectedtime=mysdate($newtrip->expectedtime);
-if (!$error) {
-    $starttime=mysdate($newtrip->starttime);
-    // error_log('now new trip'. json_encode($newtrip));
-    $club=$newtrip->foreign_club??null;
-    if ($stmt = $rodb->prepare(
-        "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team,club,starting_place)
-                VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,?)")) {
-        $info="client: ".$newtrip->client_name;
-        $stmt->bind_param('isississsss',
-                          $newtrip->boat->id ,
-                          $newtrip->destination->name,
-                          $newtrip->triptype->id,
-                          $starttime,
-                          $expectedtime,
-                          $newtrip->distance,
-                          $info,
-                          $newtrip->comments,
-                          $teamName,
-                          $club,
-                          $newtrip->destination->location
-        );
-        if (!$stmt->execute()) {
-            $error=mysqli_error($rodb);
-            $message=$message."\n"."create trip insert error: ".mysqli_error($rodb);
-        }
-    } else {
-        $error="trip Insert DB STMT  error: ".mysqli_error($rodb);
-        error_log($error);
-    }
 
-    if ($stmt = $rodb->prepare("SELECT LAST_INSERT_ID() as tripid FROM DUAL")) {
-        $stmt->execute();
-        $result= $stmt->get_result() or die("Error trip id query: " . mysqli_error($rodb));
-        $res['tripid']= $result->fetch_assoc()['tripid'];
-    } else {
-        error_log($rodb->error);
-    }
+$starttime=mysdate($newtrip->starttime);
+// error_log('now new trip'. json_encode($newtrip));
+$club=$newtrip->foreign_club??null;
+$stmt = $rodb->prepare(
+    "INSERT INTO Trip(BoatID,Destination,TripTypeID,CreatedDate,EditDate,OutTime,ExpectedIn,Meter,info,Comment,team,club,starting_place)
+                VALUES(?,?,?,NOW(),NOW(),CONVERT_TZ(?,'+00:00','SYSTEM'),CONVERT_TZ(?,'+00:00','SYSTEM'),?,?,?,?,?,?)") or dbErr($rodb,$res,"trip Insert DB STMT  error");
+$info="client: ".$newtrip->client_name;
+$stmt->bind_param('isississsss',
+                  $newtrip->boat->id ,
+                  $newtrip->destination->name,
+                  $newtrip->triptype->id,
+                  $starttime,
+                  $expectedtime,
+                  $newtrip->distance,
+                  $info,
+                  $newtrip->comments,
+                  $teamName,
+                  $club,
+                  $newtrip->destination->location
+) || dbErr($rodb,$res,"trip Insert DB bind error");
+$stmt->execute() || dbErr($rodb,$res,"create trip insert error");
 
-    if ($stmt = $rodb->prepare(
-        "INSERT INTO TripMember(TripID,Seat,member_id,CreatedDate,EditDate)
+$stmt = $rodb->prepare("SELECT LAST_INSERT_ID() as tripid FROM DUAL") or dbErr($rodb,$res,"create trip LastID");
+$stmt->execute();
+$result= $stmt->get_result() or dbErr($rodb,$res,"Trip id Query");
+$res['tripid']= $result->fetch_assoc()['tripid'];
+
+$stmt = $rodb->prepare(
+    "INSERT INTO TripMember(TripID,Seat,member_id,CreatedDate,EditDate)
          SELECT LAST_INSERT_ID(),?,Member.id,NOW(),NOW()
            FROM Member
            WHERE MemberId=?"
-    )) {
-        // error_log("Create trip insert tripmembers");
-        $seat=1;
-        foreach ($newtrip->rowers as $rower) {
-            $stmt->bind_param('is',$seat,$rower->id);
-            $stmt->execute();
-            $seat+=1;
-        }
-    } else {
-        error_log("OOOPS 2 :".$rodb->error);
-        $error="createtrip Member DB error: ".mysqli_error($rodb);
-    }
+) or dbErr($rodb,$res,"createtrip Member DB");
+
+$seat=1;
+foreach ($newtrip->rowers as $rower) {
+    $stmt->bind_param('is',$seat,$rower->id);
+    $stmt->execute();
+    $seat+=1;
 }
 
 if (isset($newtrip->event)) {
-    if ($stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())")) {
-        $ev= "$tripDescription : ". $newtrip->event;
-        $stmt->bind_param('s', $ev);
-        $stmt->execute();
-    } else {
-        error_log("create trip: log failed");
-    }
+    $stmt = $rodb->prepare("INSERT INTO event_log (event,event_time) VALUES(?,NOW())") or dbErr($rodb,$res,"create trip: log failed");
+    $ev= "$tripDescription : ". $newtrip->event;
+    $stmt->bind_param('s', $ev);
+    $stmt->execute();
 }
 
-if ($error) {
-    error_log('Create Trip DB error ' . $error);
-    $res['message']=$message.'\n'.$error;
-    $res['status']='error';
-    $res['error']=$error;
-    $rodb->rollback();
-} else {
-    $rodb->commit();
-}
+$rodb->commit();
+
+$stmt=$rodb->prepare("SELECT RemoveDate,CONCAT(FirstName,' ',LastName) AS name, MemberID, member_type FROM Member WHERE Member.MemberID=? AND (member_type=1 OR RemoveDate IS NOT NULL)") or dbErr($rodb,$res,"create trip rower prep");
 
 foreach ($newtrip->rowers as $rower) {
-  //error_log("check ".$rower->id);
-    if ($stmt = $rodb->prepare("SELECT RemoveDate,CONCAT(FirstName,' ',LastName) AS name, MemberID, member_type FROM Member WHERE Member.MemberID=? AND (member_type=1 OR RemoveDate IS NOT NULL)")) {
-        $stmt->bind_param('s', $rower->id);
-        $stmt->execute();
-        $result= $stmt->get_result();
-        if ($r=$result->fetch_assoc()) {
-            if (!empty($r["RemoveDate"])) {
-                eventLog("$tripDescription : roer ".$r["name"] ." udmeldt " . $r["RemoveDate"]);
-            }
-            if (($r["member_type"]==1)) {
-                eventLog("$tripDescription : roer ".$r["name"] ." er passivt medlem");
-            }
+    //error_log("check ".$rower->id);
+    $stmt->bind_param('s', $rower->id);
+    $stmt->execute() ||dbErr($rodb,$res,"create trip addrower");
+    $result= $stmt->get_result();
+    if ($r=$result->fetch_assoc()) {
+        if (!empty($r["RemoveDate"])) {
+            eventLog("$tripDescription : roer ".$r["name"] ." udmeldt " . $r["RemoveDate"]);
         }
-    } else {
-        error_log(mysqli_error($rodb));
+        if (($r["member_type"]==1)) {
+            eventLog("$tripDescription : roer ".$r["name"] ." er passivt medlem");
+        }
     }
 }
+$rodb->commit();
 
 # DSR 55.71472/12.58661
 
@@ -157,7 +144,6 @@ $now=time();
 $iswinter=!date("I");
 $sunset=date_sunset($now, SUNFUNCS_RET_TIMESTAMP, 55.71472, 12.58661, 90.5833333, 1);
 $sunrise=date_sunrise($now, SUNFUNCS_RET_TIMESTAMP, 55.71472, 12.58661, 90.5833333, 1);
-
 // error_log("SUNS winter=$iswinter, sunset=$sunset, ".date('H:i',$sunset));
 if ($iswinter) {
     if ($sunset < $now or $now<$sunrise) {
