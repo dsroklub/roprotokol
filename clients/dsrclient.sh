@@ -1,16 +1,23 @@
 #!/bin/bash
 timedatectl set-timezone Europe/Copenhagen
-apt install firefox-esr firefox-esr-l10n-da joe matchbox ssh xserver-common nodm xserver-xorg-core termit xserver-xorg-input-libinput xserver-xorg-input-evdev tinysshd numlockx
+apt install firefox-esr firefox-esr-l10n-da joe matchbox ssh xserver-common nodm xserver-xorg-core termit xserver-xorg-input-libinput xserver-xorg-input-evdev tinysshd numlockx bash-completion rsync
 
 
-apt install lightdm lightdm-settings xserver-xorg-video-fbturbo # for use with multiseat
-cp etc/default/nodm /etc/default/
+apt install lightdm lightdm-settings
+#xserver-xorg-video-fbturbo # for use with multiseat
+
+apt install lightdm-autologin-greeter
+## cp etc/default/nodm /etc/default/
+
 #necessary with DVI adapter
 ###apt install xscreensaver xscreensaver-data-extra
 
 apt purge exim4-base usb-modeswitch avahi-daemon wolfram-engine libreoffice libreoffice-core modemmanager openssh-server openssh-sftp-server
 apt autoremove
 cp etc/{hosts,ntp,locale.gen} /etc/
+cp etc/systemd/timesyncd.conf /etc/systemd/
+cp /etc/network/interfaces /etc/network/interfaces.bu
+cp etc/network/interfaces /etc/network/
 cp etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 cp etc/default/{locale,nodm,keyboard} /etc/default/
 cp dot_xscreensaver /home/dsr/.xscreensaver
@@ -25,7 +32,6 @@ chown dsr /home/dsr/.ssh
 chmod 700 /home/dsr/.ssh
 
 
-echo NTP=10.21.55.1,ntp.tange.dk >> /etc/systemd/timesyncd.conf
 echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHY4y7gxPL3csnApOv1+RCm2EykISrAQuhK9djwlAPLv roprotokol@roprotokol' > /home/dsr/.ssh/authorized_keys
 chmod 600 /home/dsr/.ssh/authorized_keys
 chown dsr.dsr /home/dsr/.ssh/authorized_keys
@@ -50,8 +56,8 @@ fi
 if [ -d /boot/config.txt ]
 then
     # disable autologin
-  cp seat.rules /etc/udev/rules.d/99-seat.rules
+  ## TODO cp seat.rules /etc/udev/rules.d/99-seat.rules
   echo -e "[Service]\nExecStart=-/sbin/agetty  --noclear %I $TERM\n" > /etc/systemd/system/getty@tty1.service.d/autologin.conf
-  sed -i -e "s/^dtoverlay/#dtoverlay/" /boot/config.txt
-  cp etc.X11.xorg.conf.d.99-fbturbo.conf /etc/X11/xorg.conf.d/99-fbturbo.conf
+  ## TODO sed -i -e "s/^dtoverlay/#dtoverlay/" /boot/config.txt
+  ## OLD cp etc.X11.xorg.conf.d.99-fbturbo.conf /etc/X11/xorg.conf.d/99-fbturbo.conf
 fi

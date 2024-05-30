@@ -7,6 +7,9 @@ numlockx on
 #xscreensaver&
 
 setxkbmap -option ctrl:nocaps
+xmodmap -e 'keycode 77 = NoSymbol'
+
+
 
 #uncomment for keyboard with real numpad
 #setxkbmap -option numpad:mac
@@ -15,5 +18,5 @@ setxkbmap -option ctrl:nocaps
 # uncomment while loop if we can run nodm for non dualseat
 while true
 do
-  firefox --kiosk -P dsr https://roprotokol.danskestudentersroklub.dk
+  firefox -new-instance --kiosk https://roprotokol.danskestudentersroklub.dk
 done

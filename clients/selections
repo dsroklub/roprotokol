@@ -1,4 +1,3 @@
-chromium-browser 		install
 joe				install
 matchbox			install
 ssh				install
@@ -10,7 +9,10 @@ xserver-xorg-video-intel	install
 xterm				install
 xserver-xorg-input-libinput	install
 xserver-xorg-input-evdev	install
-
-pulseaudio			install
-alsaplayer-text			install
-alsa-utils			install
+bash-completion			install
+lxrandr				install
+firefox-esr 			install
+lightdm-autologin-greeter       install
+lightdm 			install
+tinysshd			install
+numlockx		Install
