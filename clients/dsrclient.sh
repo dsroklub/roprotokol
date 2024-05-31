@@ -13,11 +13,11 @@ apt install lightdm-autologin-greeter
 #necessary with DVI adapter
 ###apt install xscreensaver xscreensaver-data-extra
 
-apt purge exim4-base usb-modeswitch avahi-daemon wolfram-engine libreoffice libreoffice-core modemmanager openssh-server openssh-sftp-server
+apt purge exim4-base usb-modeswitch avahi-daemon wolfram-engine libreoffice libreoffice-core modemmanager openssh-server openssh-sftp-server cups gvfs openbox-lxde-session
 apt autoremove
 cp etc/{hosts,ntp,locale.gen} /etc/
 cp etc/systemd/timesyncd.conf /etc/systemd/
-cp /etc/network/interfaces /etc/network/interfaces.bu
+cp -i /etc/network/interfaces /etc/network/interfaces.bu
 cp etc/network/interfaces /etc/network/
 cp etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 cp etc/default/{locale,nodm,keyboard} /etc/default/
@@ -27,8 +27,9 @@ adduser --gecos dsrbruger dsr
 adduser --gecos dsrbruger2 dsr2 # for dualseat use
 cp dot_xsession /home/dsr/.xsession
 cp dot_xsession /home/dsr2/.xsession
-chown dsr dot_xsession
-mkdir /home/dsr/.ssh/ /home/dsr2/.ssh/
+chown dsr:dsr /home/dsr/.xsession
+chown dsr2:dsr2 /home/dsr2/.xsession
+mkdir -p /home/dsr/.ssh/ /home/dsr2/.ssh/
 chown dsr /home/dsr/.ssh
 chmod 700 /home/dsr/.ssh
 
@@ -44,7 +45,7 @@ sudo -u dsr firefox -headless -CreateProfile  dsr
 sudo -u dsr2 firefox -headless -CreateProfile  dsr
 
 cp user.js /home/dsr/.mozilla/firefox/*.dsr/
-
+echo NUMLOCK=off > /etc/default/numlockx
 if [ -d /etc/lightdm/ ]
 then
   echo "[Seat:seat1]" >> /etc/lightdm/lightdm.conf
@@ -52,6 +53,10 @@ then
   echo "[Seat:seat0]" >> /etc/lightdm/lightdm.conf
   echo "autologin-user=dsr" >> /etc/lightdm/lightdm.conf
 fi
+
+
+sed -i -e "s/^autologin-session=LXDE-pi-x/autologin-session=matchbox/" /etc/lightdm/lightdm.conf
+sed -i -e "s/^user-session=LXDE-pi-x/user-session=matchbox/" /etc/lightdm/lightdm.conf
 
 
 #for raspberry pi
