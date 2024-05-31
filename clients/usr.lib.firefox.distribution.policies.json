@@ -1,3 +1,4 @@
+
 {
   "policies": {
     "DisableDeveloperTools": true,
@@ -7,9 +8,9 @@
     "BlockAboutConfig": true,
     "Preferences":{
       "Preferences":{"browser.cache.disk.enable": {"Value":false,"Status":"locked"}},
-      "zoom.minPercent":{"Value":100,"Status":"locked"},
-      "zoom.maxPercent":{"Value":100,"Status":"locked"},
-      "toolkit.zoomManager.zoomValues":{"Value":"1","Status":"locked"}
+      "zoom.minPercent":{"Value":125,"Status":"locked"},
+      "zoom.maxPercent":{"Value":125,"Status":"locked"},
+      "toolkit.zoomManager.zoomValues":{"Value":"1.25","Status":"locked"}
     }
   }
 }
