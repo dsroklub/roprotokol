@@ -2,7 +2,7 @@
 
 matchbox-window-manager -use_titlebar no -use_desktop_mode plain&
 
-numlockx on
+numlockx off
 #necessary with some DVI-HDMI adaptors
 #xscreensaver&
 

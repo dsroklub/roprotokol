@@ -1,7 +1,8 @@
 #!/bin/bash
 timedatectl set-timezone Europe/Copenhagen
-apt install firefox-esr firefox-esr-l10n-da joe matchbox ssh xserver-common nodm xserver-xorg-core termit xserver-xorg-input-libinput xserver-xorg-input-evdev tinysshd numlockx bash-completion rsync
+apt install  firefox-l10n-da joe matchbox openssh-client xserver-common nodm xserver-xorg-core termit xserver-xorg-input-libinput xserver-xorg-input-evdev tinysshd numlockx bash-completion rsync
 
+# firefox-esr
 
 apt install lightdm lightdm-settings
 #xserver-xorg-video-fbturbo # for use with multiseat
@@ -37,7 +38,8 @@ chmod 600 /home/dsr/.ssh/authorized_keys
 chown dsr.dsr /home/dsr/.ssh/authorized_keys
 locale-gen
 #usermod -L pi
-cp usr.lib.firefox.distribution.policies.json /usr/lib/firefox-esr/distribution/policies.json
+#cp usr.lib.firefox.distribution.policies.json /usr/lib/firefox-esr/distribution/policies.json
+cp usr.lib.firefox.distribution.policies.json /usr/lib/firefox/distribution/policies.json
 sudo -u dsr firefox -headless -CreateProfile  dsr
 sudo -u dsr2 firefox -headless -CreateProfile  dsr
 
@@ -53,7 +55,7 @@ fi
 
 
 #for raspberry pi
-if [ -d /boot/config.txt ]
+if [ -d /boot/UUUconfig.txt ]
 then
     # disable autologin
   ## TODO cp seat.rules /etc/udev/rules.d/99-seat.rules
