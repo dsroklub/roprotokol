@@ -54,6 +54,9 @@ then
   echo "autologin-user=dsr" >> /etc/lightdm/lightdm.conf
 fi
 
+echo 'export http_proxy=http://10.21.55.1:4444/' >> /root/.bashrc
+
+
 
 sed -i -e "s/^autologin-session=LXDE-pi-x/autologin-session=matchbox/" /etc/lightdm/lightdm.conf
 sed -i -e "s/^user-session=LXDE-pi-x/user-session=matchbox/" /etc/lightdm/lightdm.conf
