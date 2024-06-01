@@ -8,7 +8,7 @@ SUBSYSTEM=="drm", DEVPATH=="/devices/platform/gpu/drm/card1/card1-HDMI-A-2", TAG
 # SUBSYSTEM=="usb", ENV{ID_USB_SERIAL}=="Logitech_USB-PS_2_Optical_Mouse", ENV{ID_SEAT}="seat1"
 
 
-SUBSYSTEM=="usb", ATTR{product}="Raspberry Pi Internal Keyboard", ENV{ID_SEAT}="seat0"
-SUBSYSTEM=="usb", ATTR{manufacturer}="PixArt", ATTR{product}="USB Optical Mouse", ENV{ID_SEAT}="seat0"
-SUBSYSTEM=="usb", ATTR{manufacturer}="Logitech", ATTR{product}="USB-PS/2 Optical Mouse", ENV{ID_SEAT}="seat1"
-SUBSYSTEM=="usb", ATTR{manufacturer}="Logitech", ATTR{product}="USB Keyboard", ENV{ID_SEAT}="seat1"
+SUBSYSTEM=="usb", ATTR{product}=="Raspberry Pi Internal Keyboard", ENV{ID_SEAT}="seat0"
+SUBSYSTEM=="usb", ATTR{manufacturer}=="PixArt", ATTR{product}=="USB Optical Mouse", ENV{ID_SEAT}="seat0"
+SUBSYSTEM=="usb", ATTR{manufacturer}=="Logitech", ATTR{product}=="USB-PS/2 Optical Mouse", ENV{ID_SEAT}="seat1"
+SUBSYSTEM=="usb", ATTR{manufacturer}=="Logitech", ATTR{product}=="USB Keyboard", ENV{ID_SEAT}="seat1"
