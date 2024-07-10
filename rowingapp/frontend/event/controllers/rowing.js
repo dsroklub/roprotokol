@@ -573,11 +573,12 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       }
       return true;
     }
-
-  $scope.createtrip = function (data) {
-    if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
-      data.event=$scope.rightsmessage;
-    }
+      
+    $scope.createtrip = function (data) {
+       $scope.checkout.boat=null;
+      if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
+        data.event=$scope.rightsmessage;
+      }
     var newtrip=DatabaseService.createSubmit('registertrip',data);
     newtrip.promise.then(function(status) {
       data.boat.trip=null;
@@ -663,7 +664,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       );
     };
 
-    DatabaseService.init({"admin":true,"trip":true,"status":true,"reservation":true,"fora":false,"file":false,"boat":true,"message":false,"event":false,"member":true,"user":true}).then(
+      DatabaseService.init({"admin":true,"trip":true,"status":true,"reservation":true,"fora":false,"file":false,"boat":true,"message":false,"event":false,"member":true,"user":true,"destination":true}).then(
       wait_for_db,
       function(err) {$log.debug("db init err "+err)},
       function(pg) {$log.debug("db init progress  "+pg)}
