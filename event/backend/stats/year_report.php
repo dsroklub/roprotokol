@@ -216,8 +216,10 @@ for ($y = $from_year; $y <= $to_year; $y++) {
      $res[$table][$y][$step]['dropped_out'] = $row['members'];
          }
        }
-       $res[$table][$y][$step]['percentage'] = round(100 * $res[$table][$y][$step]['dropped_out']
-                                                     / $res[$table][$y][$step]['total'], 0);
+       $rrtot=$res[$table][$y][$step]['total'];
+       if ($rrtot) {
+           $res[$table][$y][$step]['percentage'] = round(100 * $res[$table][$y][$step]['dropped_out']/$rrtot, 0);
+       }
     } else {
       make_error();
       goto end;
