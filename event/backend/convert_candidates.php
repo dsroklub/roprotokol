@@ -24,7 +24,7 @@ $s="SELECT CONCAT(m.FirstName, ' ', IFNULL(m.LastName,'')) as member_name,
           Member m
           INNER JOIN TripMember tmm ON tmm.member_id=m.id
           INNER JOIN Trip tm ON tmm.TripID=tm.id
-    WHERE rabbit.MemberID LIKE 'k%'
+    WHERE (rabbit.MemberID LIKE 'k%'OR rabbit.MemberID LIKE 'g%')
       AND rabbit.FirstName NOT LIKE 'udløbet%'
       AND m.id!=rabbit.id
       AND m.MemberID NOT LIKE 'k%'
