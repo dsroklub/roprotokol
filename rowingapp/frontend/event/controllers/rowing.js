@@ -574,10 +574,11 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       return true;
     }
 
-  $scope.createtrip = function (data) {
-    if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
-      data.event=$scope.rightsmessage;
-    }
+    $scope.createtrip = function (data) {
+       $scope.checkout.boat=null;
+      if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
+        data.event=$scope.rightsmessage;
+      }
     var newtrip=DatabaseService.createSubmit('registertrip',data);
     newtrip.promise.then(function(status) {
       data.boat.trip=null;
