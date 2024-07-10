@@ -575,14 +575,15 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     }
       
     $scope.createtrip = function (data) {
-       $scope.checkout.boat=null;
-      if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
+	$scope.checkout.busy=true;
+	if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
         data.event=$scope.rightsmessage;
       }
-    var newtrip=DatabaseService.createSubmit('registertrip',data);
-    newtrip.promise.then(function(status) {
-      data.boat.trip=null;
+      var newtrip=DatabaseService.createSubmit('registertrip',data);
+      $scope.checkout.boat=null;
+      newtrip.promise.then(function(status) {
       if (status.status =='ok') {
+        data.boat.trip=null;
         $scope.checkouterrormessage=null;
         $scope.washmessage="";
         data.boat.trip=status.tripid;
@@ -602,6 +603,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       } else {
         $scope.checkouterrormessage="Fejl: "+status.error;
       };
+      $scope.checkout.busy=false;
     },function() {alert("error")}, function() {alert("notify")}
                         )
   };
