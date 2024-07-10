@@ -575,36 +575,34 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     }
 
     $scope.createtrip = function (data) {
-       $scope.checkout.boat=null;
+      var datac=angular.copy(data);
+      $scope.checkout.boat=null;
+      for (var ir=0; ir<$scope.checkout.rowers.length; ir++) {
+        $scope.checkout.rowers[ir]="";
+      }
       if ($scope.rightsmessage && $scope.rightsmessage.length>0) {
         data.event=$scope.rightsmessage;
       }
-    var newtrip=DatabaseService.createSubmit('registertrip',data);
-    newtrip.promise.then(function(status) {
-      data.boat.trip=null;
-      if (status.status =='ok') {
-        $scope.checkouterrormessage=null;
-        $scope.washmessage="";
-        data.boat.trip=status.tripid;
-        data.boat.outtime=data.boat.outtime;
-        $scope.checkoutnotification=null;
-        if (status.notification){
-          $scope.checkoutnotification=status.notification;
-        }
-        $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+": ";
-        $scope.usersettime=false;
-        $scope.checkout.starttime=null;
-        $scope.checkout.expectedtime=null;
-        for (var ir=0; ir<$scope.checkout.rowers.length; ir++) {
-          $scope.checkout.rowers[ir]="";
-        }
-        $scope.checkout.boat=null;
-      } else {
-        $scope.checkouterrormessage="Fejl: "+status.error;
-      };
-    },function() {alert("error")}, function() {alert("notify")}
-                        )
-  };
+      var newtrip=DatabaseService.createSubmit('registertrip',datac);
+      newtrip.promise.then(function(status) {
+        data.boat.trip=null;
+        if (status.status =='ok') {
+          $scope.checkouterrormessage=null;
+          data.boat.trip=status.tripid;
+          // data.boat.outtime=data.boat.outtime;
+          $scope.checkoutnotification=null;
+          if (status.notification) {
+            $scope.checkoutnotification=status.notification;
+          }
+          $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+": ";
+          $scope.checkout.starttime=null;
+          $scope.checkout.expectedtime=null;
+        } else {
+          $scope.checkouterrormessage="Fejl: "+status.error;
+        };
+      },function() {alert("error")}, function() {alert("notify")}
+                          )
+    };
 
     $scope.do_boat_category = function(cat) {
       $scope.checkoutmessage=null;
