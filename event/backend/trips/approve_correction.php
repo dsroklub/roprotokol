@@ -1,7 +1,7 @@
 <?php
 include("../inc/common.php");
 include("../inc/utils.php");
-$vr=verify_right(["admin"=>["roprotokol","trip"]]);
+$vr=verify_right(["admin"=>["roprotokol","trip","bestyrelsen"]]);
 $error=null;
 $res=array ("status" => "ok");
 $data = file_get_contents("php://input");

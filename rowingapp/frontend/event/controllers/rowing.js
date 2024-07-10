@@ -577,6 +577,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
     $scope.createtrip = function (data) {
       var datac=angular.copy(data);
       $scope.checkout.boat=null;
+      $scope.checkout.busy=true;
       for (var ir=0; ir<$scope.checkout.rowers.length; ir++) {
         $scope.checkout.rowers[ir]="";
       }
@@ -600,8 +601,9 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
         } else {
           $scope.checkouterrormessage="Fejl: "+status.error;
         };
+        $scope.checkout.busy=false;
       },function() {alert("error")}, function() {alert("notify")}
-                          )
+                          );
     };
 
     $scope.do_boat_category = function(cat) {
