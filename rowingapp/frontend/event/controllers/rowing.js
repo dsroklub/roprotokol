@@ -586,18 +586,18 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
       }
       var newtrip=DatabaseService.createSubmit('registertrip',datac);
       newtrip.promise.then(function(status) {
-        data.boat.trip=null;
+        // data.boat.trip=null;
         if (status.status =='ok') {
           $scope.checkouterrormessage=null;
-          data.boat.trip=status.tripid;
+          // data.boat.trip=status.tripid;
           // data.boat.outtime=data.boat.outtime;
           $scope.checkoutnotification=null;
           if (status.notification) {
             $scope.checkoutnotification=status.notification;
           }
-          $scope.checkoutmessage= $scope.checkout.boat.name+" er nu skrevet ud "+$scope.checkout.boat.location+": ";
-          $scope.checkout.starttime=null;
-          $scope.checkout.expectedtime=null;
+          $scope.checkoutmessage= datac.boat.name+" er nu skrevet ud "+datac.boat.location+": ";
+          //$scope.checkout.starttime=null;
+          //$scope.checkout.expectedtime=null;
         } else {
           $scope.checkouterrormessage="Fejl: "+status.error;
         };
