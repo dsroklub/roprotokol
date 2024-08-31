@@ -182,7 +182,7 @@ function process ($result,$output="json",$name="csvfile",$captions=null,$colorma
                 } else {
                     $dataType=DataType::TYPE_STRING;
                 }
-                $sheet->setCellValueExplicitByColumnAndRow($ci,$ri,$rc,$dataType);
+                $sheet->setCellValueExplicitBy([$ci,$ri],$rc,$dataType);
                 if (isset($colormap[$cn]) && isset($colormap[$cn][$rc])) {
                     $sheet->getStyleByColumnAndRow($ci,$ri)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('AA'.$colormap[$cn][$rc]);
                 }
