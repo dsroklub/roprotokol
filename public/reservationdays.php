@@ -48,10 +48,10 @@ $ri=1;
  while ($row) {
      $ri++;
      $boat=$row["boat"];
-     $sheet->setCellValueExplicitByColumnAndRow(1,$ri,$row["boat"],DataType::TYPE_STRING);
+     $sheet->setCellValueExplicit([1,$ri],$row["boat"],DataType::TYPE_STRING);
      for ($d = 1; $d <= 7; $d++) {
          if ($d==isset($row["dayofweek"]) and $boat==$row["boat"]) {
-             $sheet->setCellValueExplicitByColumnAndRow($d+1,$ri,$row["reservation"],DataType::TYPE_STRING);
+             $sheet->setCellValueExplicit([$d+1,$ri],$row["reservation"],DataType::TYPE_STRING);
              $row = $result->fetch_assoc();
          }
      }

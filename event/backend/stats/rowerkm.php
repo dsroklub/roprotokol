@@ -111,7 +111,7 @@ $spreadsheet->getProperties()
 
 foreach($field_list as $ci=>$fld) {
     $sheet->getStyleByColumnAndRow($ci+1,1)->getAlignment()->setWrapText(true);
-    $sheet->setCellValueExplicitByColumnAndRow($ci+1,1,$fld,DataType::TYPE_STRING);
+    $sheet->setCellValue([$ci+1,1],$fld);
     if ($ci>2) {
         $sheet->getColumnDimensionByColumn($ci+1)->setWidth(12);
         $sheet->getRowDimension('1')->setRowHeight(45);
@@ -122,7 +122,7 @@ $sheet->freezePane("B2");
 foreach ($rower_list as $ri=>$rower_id) {
   foreach ($field_list as $ci=>$field) {
       if (!empty($rowers[$rower_id][$field])) {
-          $sheet->setCellValueExplicitByColumnAndRow($ci+1,$ri+2,$rowers[$rower_id][$field],($ci<3)?DataType::TYPE_STRING : DataType::TYPE_NUMERIC);
+          $sheet->setCellValueExplicit([$ci+1,$ri+2],$rowers[$rower_id][$field],($ci<3)?DataType::TYPE_STRING : DataType::TYPE_NUMERIC);
       }
   }
 }

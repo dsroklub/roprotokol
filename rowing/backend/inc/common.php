@@ -187,7 +187,7 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
                 } else {
                     $dataType=DataType::TYPE_STRING;
                 }
-                $sheet->setCellValueExplicitByColumnAndRow($ci++,$ri,$rc,$dataType);
+                $sheet->setCellValueExplicit([$ci++,$ri],$rc,$dataType);
 
             }
             $ri++;
