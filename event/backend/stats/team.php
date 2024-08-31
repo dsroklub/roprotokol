@@ -4,7 +4,7 @@ include("../inc/common.php");
 include("../inc/utils.php");
 //$vr=verify_right(["admin"=>[null],"data"=>["stat"]]);
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: filename="kilometerstatistik.xlsx"');
+header('Content-Disposition: filename="gymnastik ugestatistik.xlsx"');
 header('Cache-Control: max-age=0');
 ini_set('display_errors', 'On');
 
@@ -25,6 +25,8 @@ if (isset($_GET["year"])) {
         $y=((int)($_GET["year"]));
     }
 }
+
+header('Content-Disposition: filename="gymnastik ugestatistik '.$y.'.xlsx"');
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
@@ -132,5 +134,5 @@ $sheet->freezePane("B5");
 
 $statoutput="xlsx";
 $writer = ($statoutput=="xlsx")?new Xlsx($spreadsheet):new Ods($spreadsheet);
-#$writer->save('php://output');
-$writer->save('t.xlsx');
+$writer->save('php://output');
+//$writer->save('t.xlsx');
