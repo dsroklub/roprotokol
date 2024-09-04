@@ -1,0 +1,12 @@
+<style type="text/css">
+  h1 { color: blue; background: white; }
+  h2 { color: red; background: white; }
+  .odd { background: #b2c084; }
+  .even { background:   #f0f09e; }
+  body { color: black; background: #dbffb4; }
+  a:link { background-color: #EEEEFF; text-decoration: underline;}
+  a:hover { background-color: #aaff00; text-decoration: none;}
+  a:visited {  background-color: #ffff00; text-decoration: none;}
+  a:active { color: #ff00ff; text-decoration: none;}
+</style>
+
