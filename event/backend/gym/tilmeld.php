@@ -1,28 +1,27 @@
 <?php
 include("../inc/common.php");
 include("../inc/utils.php");
-header('Content-type: text/html');
+header('Content-type: text/html;charset=utf-8');
+header('Cache-Control: max-age=10000');
 
 echo "<html>
 <head>
  <meta charset=\"UTF-8\">
  <link rel=\"gymico\" sizes=\"180x180\" href=\"gymico.png\">
+ <link rel=\"stylesheet\" href=\"gym.css\">
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
   <title>DSR gymnastik tilmeld</title>
-  <link rel=\"manifest\" href=\"manifest.json\">
+  <link rel=\"manifest\" href=\"/backend/event/gym/manifest.json\">
 </head>
 <body>
 
-<button id=\"addHomeScreen\">Tilføj som app på telefonskærmn</button>\n
+<button id=\"addHomeScreen\">Tilføj som app på telefonskærm</button>\n
 
 <script>
 
-self.addEventListener('install', event => {  console.log('Service Worker installing.');});
-self.addEventListener('fetch', event => {  console.log('Service Worker fetching.', event.request.url); });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-    .then(() => {  console.log('Service Worker registered'); }) .catch(error => { console.error('Service Worker registration failed:', error);});
+  navigator.serviceWorker.register('/backend/event/gym/service-worker.js').then(() => {console.log('Service Worker registered'); }).catch(error => { console.error('Service Worker registration failed:', error);});
 }
 
 
@@ -84,7 +83,7 @@ if (isset($_GET["hold"])) {
 
 
 $s="SELECT name as hold,team.dayofweek,team.timeofday,teacher, ts.start_time started
- FROM team LEFT JOIN (SELECT start_time,team FROM team_participation,Member WHERE MemberId=? AND Member.id=member_id) as ts  ON ts.team=team.name
+ FROM team LEFT JOIN (SELECT start_time,team FROM team_participation,Member WHERE MemberId=? AND Member.id=member_id AND classdate=CURDATE()) as ts  ON ts.team=team.name
 WHERE team.dayofweek=?
 ";
 
@@ -93,12 +92,13 @@ $stmt->bind_param("ss", $cuser,$weekday) || dbErr($rodb,$res,"tilmeld B");
 $stmt->execute() || dbErr($rodb,$res,"MEMBER SETTING");
 
 $result=$stmt->get_result() or dbErr($rodb,$res,"Error in tilmeld query: ");
-echo "\n<H1>${weekday} Hold</H1>";
+echo "\n<H1>DSR ${weekday}shold for $cuser</H1>";
 echo "\n<form  action=\"tilmeld.php\"><table>";
-echo "<tr><th>Hold</th> <th>Start</th> <th>Underviser</th></tr>\n";
+echo "<tr><th>Hold</th> <th>Start</th> <th>Underviser</th><th>vælg</th></tr>\n";
+$even=true;
 foreach ($result as $hold) {
-    echo "<tr>";
-    echo "\n  <td>".$hold["hold"]."</td><td>".$hold["timeofday"]." ".$hold["teacher"]."</td>";
+    echo "<tr class=\"" . ($even?"even":"odd") ."\">";
+    echo "\n  <td>".$hold["hold"]."</td><td>".$hold["timeofday"]."</td><td> ".$hold["teacher"]."</td>";
     if (empty($hold["started"])) {
         echo '<td><input type="radio" value="'.$hold["hold"]."::".$hold["timeofday"].'" name="hold">  </td>';
     } else {
@@ -106,10 +106,11 @@ foreach ($result as $hold) {
     }
     //    echo json_encode($row,JSON_PRETTY_PRINT,JSON_FORCE_OBJECT);
     echo "\n  </tr>\n";
+$even=!$even;
 
 }
 
-echo '<tr><td></td><td></td><td></td><td><input type="submit" value="Deltag"></td></tr>';
+echo '<tr><td span="3"><input type="submit" value="Deltag"></td></tr>';
 echo "</table></form>";
 
 invalidate("settings");
