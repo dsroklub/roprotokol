@@ -4,7 +4,7 @@ $res=array ("status" => "ok");
 $data = file_get_contents("php://input");
 $newdamage=json_decode($data);
 
-$rodb->query("BEGIN TRANSACTION");
+$rodb->begin_transaction();
 //error_log(json_encode($newdamage));
 //error_log("rep ".json_encode($newdamage->reporter->id));
 if (empty($cuser)) {
@@ -24,7 +24,7 @@ $newdamage->boat_id=$newdamage->boat->id;
 $newdamage->boat=$newdamage->boat->name;
 $newdamage->reporter=$newdamage->reporter->name;
 $res['damage']=$newdamage;
-$rodb->query("END TRANSACTION");
+$rodb->commit();
 invalidate('boat');
 $rodb->close();
 echo json_encode($res);
