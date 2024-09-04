@@ -2,7 +2,7 @@
 include("inc/common.php");
 include("inc/utils.php");
 $newdamage=json_decode(file_get_contents("php://input"));
-$rodb->query("BEGIN TRANSACTION");
+$rodb->begin_transaction();
 //error_log("rep ".json_encode($newdamage->reporter->id));
 if (empty($cuser)) {
     dbErr($roDb,$res,"unauthorized");
@@ -21,7 +21,7 @@ $newdamage->boat=$newdamage->boat->name;
 $newdamage->reporter=$reporter;
 $newdamage->created=(new DateTime('NOW'))->format('Y-m-d H:i');
 $res['damage']=$newdamage;
-$rodb->query("END TRANSACTION");
+$rodb->commit();
 invalidate('boat');
 $rodb->close();
 echo json_encode($res);
