@@ -26,10 +26,6 @@ if (isset($_GET["output"]) && ($_GET["output"]=="csv" || $_GET["output"]=="xlsx"
     $output=$_GET["output"];
 }
 
-if (!$rodb->set_charset("utf8")) {
-    printf("Error loading character set utf8: %s\n", $rodb->error);
-}
-
 function mysdate($jsdate) {
     $r=preg_replace("/\.\d\d\dZ/","",$jsdate);
     return($r);
@@ -160,7 +156,7 @@ function process ($result,$output="json",$name="csvfile",$captions=null,$colorma
         $ri=1;
         if ($captions) {
             foreach ($captions as $ci => $caption) {
-                $sheet->setCellValueByColumnAndRow($ci+1,1,"$caption");
+                $sheet->setCellValue([$ci+1,1],"$caption");
             }
             $sheet->freezePane("A2");
         }
@@ -175,18 +171,17 @@ function process ($result,$output="json",$name="csvfile",$captions=null,$colorma
                     if ($colTypes[$cn]==MYSQLI_TYPE_DATETIME && $output=="xlsx")  {
                         $rc=\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($rc."Z"));
                         $dataType=DataType::TYPE_NUMERIC;
-                        $sheet->getStyleByColumnAndRow($ci,$ri)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+                        $sheet->getStyle([$ci,$ri])->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
                     } else {
                         $dataType=$formatMap[$colTypes[$cn]];
                     }
                 } else {
                     $dataType=DataType::TYPE_STRING;
                 }
-                $sheet->setCellValueExplicitBy([$ci,$ri],$rc,$dataType);
+                $sheet->setCellValueExplicit([$ci++,$ri],$rc,$dataType);
                 if (isset($colormap[$cn]) && isset($colormap[$cn][$rc])) {
-                    $sheet->getStyleByColumnAndRow($ci,$ri)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('AA'.$colormap[$cn][$rc]);
+                    $sheet->getStyleBy([$ci,$ri])->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('AA'.$colormap[$cn][$rc]);
                 }
-                $ci++;
             }
             $ri++;
         }
@@ -195,15 +190,17 @@ function process ($result,$output="json",$name="csvfile",$captions=null,$colorma
     } else if ($output=="csv") {
         header('Content-type: text/csv');
         header('Content-Disposition: filename="'.$name.'.csv"');
+        $foutput = fopen('php://output', 'w');
         if ($captions) {
-            echo implode(",",$captions)."\n";
+            fputcsv($foutput,$captions);
         }
         while ($row = $result->fetch_assoc()) {
-            echo implode(",",$row)."\n";
+            fputcsv($foutput,$row);
         }
     }  else if ($output=="text") {
         header('Content-type: text/html');
-        echo " <link rel=\"stylesheet\" href=\"/public/basic.css\">\n<table>\n";
+        //echo " <link rel=\"stylesheet\" href=\"/public/stat.css\">\n<table>\n";
+        echo " \n<table>\n";
         if ($captions) {
             echo "<tr>\n<th>";
             echo implode("</th><th>",$captions)."\n";
