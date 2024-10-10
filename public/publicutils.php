@@ -199,8 +199,7 @@ function process ($result,$output="json",$name="csvfile",$captions=null,$colorma
         }
     }  else if ($output=="text") {
         header('Content-type: text/html');
-        //echo " <link rel=\"stylesheet\" href=\"/public/stat.css\">\n<table>\n";
-        echo " \n<table>\n";
+        echo " <link rel=\"stylesheet\" href=\"/public/stat.css\">\n<table>\n";
         if ($captions) {
             echo "<tr>\n<th>";
             echo implode("</th><th>",$captions)."\n";

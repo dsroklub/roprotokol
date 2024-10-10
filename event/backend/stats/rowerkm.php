@@ -110,7 +110,7 @@ $spreadsheet->getProperties()
 
 
 foreach($field_list as $ci=>$fld) {
-    $sheet->getStyleByColumnAndRow($ci+1,1)->getAlignment()->setWrapText(true);
+    $sheet->getStyle([$ci+1,1])->getAlignment()->setWrapText(true);
     $sheet->setCellValue([$ci+1,1],$fld);
     if ($ci>2) {
         $sheet->getColumnDimensionByColumn($ci+1)->setWidth(12);

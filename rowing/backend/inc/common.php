@@ -165,12 +165,12 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
         $ri=1;
         if ($captions) {
             foreach ($captions as $ci => $caption) {
-                $sheet->setCellValueByColumnAndRow($ci+1,1,"$caption");
+                $sheet->setCellValue([$ci+1,1],"$caption");
             }
             $sheet->freezePane("A2");
         }
         foreach ($maxlengths as $ci => $cw) {
-            $spreadsheet->getActiveSheet()->getColumnDimensionByColumn($ci+1)->setWidth(min(80,max(5,$cw+1)));
+            $spreadsheet->getActiveSheet()->getColumnDimension([$ci+1])->setWidth(min(80,max(5,$cw+1)));
         }
         $ri++;
         while ($row = $result->fetch_assoc()) {
@@ -180,7 +180,7 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
                     if ($colTypes[$cn]==MYSQLI_TYPE_DATETIME && $output=="xlsx")  {
                         $rc=\PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel(strtotime($rc."Z"));
                         $dataType=DataType::TYPE_NUMERIC;
-                        $sheet->getStyleByColumnAndRow($ci,$ri)->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
+                        $sheet->getStyle([$ci,$ri])->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDDSLASH);
                     } else {
                         $dataType=$formatMap[$colTypes[$cn]];
                     }
