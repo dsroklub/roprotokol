@@ -25,6 +25,9 @@ if (empty($subtype)) {
 }
 $stmt->execute() || dbErr($rodb,$res,"RBR exe");
 $result= $stmt->get_result();
-process($result,"xlsx","Ret_$right$subtype","_auto");
+$output='xlsx';
+if ($_GET["format"]=="json") $output='json';
+if ($_GET["format"]=="csv") $output='csv';
+process($result,$output,"Ret_$right$subtype","_auto");
 $stmt->close();
 $rodb->close();
