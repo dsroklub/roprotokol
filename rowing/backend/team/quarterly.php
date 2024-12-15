@@ -15,7 +15,7 @@ include("../inc/common.php");
 //header("Pragma: no-cache");
 
 $s=
- 'SELECT team.name AS Hold, team_participation.dayofweek as ugedag,team_participation.timeofday as holdstarttid,classdate as holddato,team.description holdbeskrivelse,
+ 'SELECT team_participation.team AS Hold, team_participation.dayofweek as ugedag,team_participation.timeofday as holdstarttid,classdate as holddato,team.description holdbeskrivelse,
     CONCAT(FirstName," ",LastName) AS membername, Member.MemberID as Medlemsnr,KommuneKode,CprNo
   FROM Member, team_participation
   LEFT JOIN team on team_participation.team=team.name
