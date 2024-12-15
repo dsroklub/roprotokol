@@ -4,7 +4,13 @@ $memberId = trim(file_get_contents("php://input"));
 //error_log("mid=$memberId");
 require("inc/db.php");
 require("inc/mail_sender.php");
-$res = $link->query("SELECT * FROM Member WHERE RemoveDate IS NULL AND MemberId = '" . (int) $memberId."'");
+if ($memberId=="ombord") {
+    $mid="ombord";
+} else {
+    $mid=(int) $memberId;
+}
+
+$res = $link->query("SELECT * FROM Member WHERE RemoveDate IS NULL AND MemberId = '" . $mid ."'");
 if ($res) {
     error_log("got member $memberId");
     $person = $res->fetch_assoc();
