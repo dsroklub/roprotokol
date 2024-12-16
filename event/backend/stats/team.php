@@ -91,13 +91,14 @@ $stmt=$rodb->prepare($s) or dbErr($rodb,$res,"prep");
 $stmt->bind_param("i", $y) || dbErr($rodb,$res,"bind");
 $stmt->execute() || dbErr($rodb,$res,"exe");
 $weekResult=$stmt->get_result() or dbErr($rodb,$res,"Error in team stats query: ");
-$weeks=[];
+$maxweeks=1;
 foreach ($weekResult as $r) {
     $sheet->setCellValue([1,$startRow+$r['w']],$r["w"]);
     $sheet->setCellValue([$teamIx[$r["dayno"]][$r["team"]][$r["timeofday"]],$startRow+$r['w']],$r["h"]);
-    $weeks[$r['w']]=1;
+    if ($r['w']>$maxweeks) {
+        $maxweeks=$r['w'];
+    }
 }
-$maxweeks=sizeof($weeks);
 $msg.=" mw=$maxweeks";
 //$sheet->setCellValueExplicitByColumnAndRow(2,1,"Gymnastik $y",DataType::TYPE_STRING );
 
