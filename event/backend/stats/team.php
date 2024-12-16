@@ -8,6 +8,8 @@ header('Content-Disposition: filename="gymnastik ugestatistik.xlsx"');
 header('Cache-Control: max-age=0');
 ini_set('display_errors', 'On');
 
+$debug=isset($_GET["debug"]);
+$msg="d: ";
 
 $weekdays=["Man","Tir","Ons","Tor","Fre","Lør","Søn"];
 
@@ -46,6 +48,11 @@ $spreadsheet->getProperties()
     ->setKeywords('DSR gymnastik statistik');
 
 
+$sheet->setCellValueExplicit([1,1],"Gymnastik $y",DataType::TYPE_STRING);
+$sheet->setCellValue([1,2],"Uge nummer");
+$sheet->setCellValue([1,3],"hold");
+$sheet->setCellValue([1,4],"underviser");
+$sheet->setCellValue([1,5],"tid");
 
 $teamIx=[];
 $teams=
@@ -55,8 +62,9 @@ $stmt->bind_param("i", $y) || dbErr($rodb,$res,"teams y bind");
 $stmt->execute() || dbErr($rodb,$res,"teams exe");
 $teamresult=$stmt->get_result() or dbErr($rodb,$res,"Error in team name stats query: ");
 
-$maxweek=1;
 $col=2;
+$startRow=6;
+
 foreach ($teamresult as $tr) {
     $teamIx[$tr["dayno"]][$tr["team"]][$tr["timeofday"]]=$col;
     $sheet->setCellValue([$col,2],$weekdays[$tr["dayno"]-1]);
@@ -67,6 +75,7 @@ foreach ($teamresult as $tr) {
     $sheet->setCellValue([$col,5],$tr["timeofday"]);
     $col++;
 }
+$totalCol=$col;
 
 //print_r($teamIx);
 // set_include_path(get_include_path().':..');
@@ -81,48 +90,40 @@ $stmt=$rodb->prepare($s) or dbErr($rodb,$res,"prep");
 
 $stmt->bind_param("i", $y) || dbErr($rodb,$res,"bind");
 $stmt->execute() || dbErr($rodb,$res,"exe");
-$result=$stmt->get_result() or dbErr($rodb,$res,"Error in team stats query: ");
-
-
-
-
+$weekResult=$stmt->get_result() or dbErr($rodb,$res,"Error in team stats query: ");
+$weeks=[];
+foreach ($weekResult as $r) {
+    $sheet->setCellValue([1,$startRow+$r['w']],$r["w"]);
+    $sheet->setCellValue([$teamIx[$r["dayno"]][$r["team"]][$r["timeofday"]],$startRow+$r['w']],$r["h"]);
+    $weeks[$r['w']]=1;
+}
+$maxweeks=sizeof($weeks);
+$msg.=" mw=$maxweeks";
 //$sheet->setCellValueExplicitByColumnAndRow(2,1,"Gymnastik $y",DataType::TYPE_STRING );
-$sheet->setCellValueExplicit([1,1],"Gymnastik $y",DataType::TYPE_STRING);
-$sheet->setCellValue([1,2],"Uge");
-$sheet->setCellValue([1,3],"hold");
-$sheet->setCellValue([1,4],"underviser");
-$sheet->setCellValue([1,5],"tid");
 
-
-$row=6;
-
-foreach (range(1,$maxweek+1) as $cw) {
-    $wr=$row+$cw;
-    $colname=Coordinate::stringFromColumnIndex($col+1);
+foreach (range(1,$maxweeks+1) as $cw) {
+    $wr=$startRow+$cw;
+    $colname=Coordinate::stringFromColumnIndex($totalCol);
     $sheet->setCellValue([1,$wr],$cw);
-    $sheet->setCellValue([$col+1,$wr],"=SUM(B${wr}:${colname}${wr})");
+    $sheet->setCellValue([$totalCol,$wr],"=SUM(B${wr}:${colname}${wr})");
 }
 
 
-$totalRow=$row+$maxweek+2;
-$totalCol=$col;
-$sheet->setCellValue([$totalCol,6],"ugetotal");
-
-foreach (range(2,$col+1) as $totCol) {
-    $wr=$row+$cw;
-    $colname=Coordinate::stringFromColumnIndex($totCol);
-    $sheet->setCellValue([$totCol,$totalRow],"=SUM(${colname}6:${colname}${wr})");
-}
-
+$sheet->setCellValue([$totalCol,2],"ugetotal");
+$totalRow=$startRow+$maxweeks+2;
 
 $sheet->setCellValue([1,$totalRow],"TOTAL");
-
-foreach ($result as $r) {
-    $sheet->setCellValue([1,$row+$r['w']],$r["w"]);
-    $sheet->setCellValue([$teamIx[$r["dayno"]][$r["team"]][$r["timeofday"]],$row+$r['w']],$r["h"]);
-
+foreach (range(2,$totalCol) as $totCol) {
+    $wr=$startRow+$cw;
+    $colname=Coordinate::stringFromColumnIndex($totCol);
+    $sheet->setCellValue([$totCol,$totalRow],"=SUM(${colname}7:${colname}${wr})");
 }
 
+
+
+if ($debug) {
+    $sheet->setCellValue([1,1],$msg);
+}
 $sheet->freezePane("B6");
 
 $statoutput="xlsx";
