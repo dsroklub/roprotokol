@@ -90,7 +90,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
     $cuser=$_SERVER['PHP_AUTH_USER'];
 }
 
-function process ($result,$output="json",$name="csvfile",$captions=null) {
+function process ($result,$output="json",$name="csvfile",$captions=null,$skey=null) {
     $mariaType=[
         MYSQLI_TYPE_NEWDECIMAL=>"d",
         MYSQLI_TYPE_DECIMAL=>"d",
@@ -127,6 +127,28 @@ function process ($result,$output="json",$name="csvfile",$captions=null) {
             $rn=$rn+1;
         }
         echo ']';
+    } else if ($output=="rawjson") {
+        header('Content-type: application/json;charset=utf-8');
+        $rn=1;
+        echo '{';
+        while ($row = $result->fetch_assoc()) {
+            if ($rn>1) echo ',';
+            $jd=$row["json"];
+            error_log("jd=$jd");
+            if (!empty($skey)) {
+                $pd=json_decode($jd,false);
+                // print_r($pd);
+                asort($pd);
+                // $od=[$row["jsonkey"]=>$pd];
+                $jd=json_encode(array_values($pd),JSON_PRETTY_PRINT|JSON_FORCE_OBJECT);
+                echo '"'.sanestring($row["jsonkey"]).'":'.$jd."\n";
+            } else {
+                echo '"'.sanestring($row["jsonkey"]).'":'.$jd."\n";
+            }
+            $rn=$rn+1;
+        }
+        echo '}';
+
     } else if ($output=="tablejson") {
         header('Content-type: application/json;charset=utf-8');
         echo '{"name":'. json_encode($name) .  ','  ."\n";

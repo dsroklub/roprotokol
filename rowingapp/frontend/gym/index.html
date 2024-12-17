@@ -3,7 +3,7 @@
   <head>
     <base href="/frontend/gym/">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--meta http-equiv="refresh" content="70"-->
     <title>DSR Gymnastik</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,6 +51,7 @@
     </script>
     <script src="gym.js"></script>
     <script src="controllers/team/team.js"></script>
+    <script src="controllers/team/teamStat.js"></script>
     <script src="controllers/team/menu.js"></script>
     <script src="components/database/database-services.js"></script>
     <script src="components/database/login-services.js"></script>
@@ -63,8 +64,9 @@
         <img src="../app/assets/dsrlogo.svg">
       </li>
       <li ng-class="{topsel: activePath=='/registrer/'}"><a href="registrer"><i class="fa fa-heartbeat"></i>Registrer</a></li>
-      <li ng-class="{topsel: activePath=='/registrer2/'}"><a href="registrer2"><i class="fa fa-heartbeat"></i>nyt design</a></li>
+      <li ng-class="{topsel: activePath=='/registrer2/'}"><a href="registrer2"><i class="fa fa-heartbeat"></i>Nyt design</a></li>
       <li ng-show="showadmin" ng-class="{topsel: activePath=='/admin/'}"><a href="admin"><i class="fa fa-bank"></i>Admin</a></li>
+      <li ng-class="{topsel: activePath=='/stats/'}"><a href="stats"><i class="fa fa-area-chart"></i>Statistik</a></li>
       <li ng-class="{topsel: activePath=='/om/'}"><a href="om"><i class="fa fa-commenting"></i>Om</a></li>
       <li> <ds-widget-clock data-show-digital digital-format="'HH:mm'"></ds-widget-clock>
       </li>

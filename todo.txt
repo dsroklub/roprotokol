@@ -1,3 +1,6 @@
+event from forum.
+Tilføj roere i stedet for at invitere dem
+
 Forum:
 Under ture for roer, vise om han er på vandet og i hvilken båd.
 

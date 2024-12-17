@@ -12,6 +12,8 @@ $mem->increment("boat", 1, time());
 $mem->increment("event", 1, time());
 $mem->increment("file", 1, time());
 $mem->increment("trip", 1, time());
+$mem->increment("gym", 1, time());
+$mem->increment("gymStat", 1, time());
 $mem->increment("stats", 1, time());
 $mem->increment("fora", 1, time());
 $mem->increment("message", 1, time());
