@@ -50,6 +50,10 @@ angular.module('gymApp', [
 	  templateUrl: 'templates/gym/om.html',
 	  controller: 'teamCtrl'
 	});
+	$routeProvider.when('/stats/', {
+	  templateUrl: 'templates/gym/stats.html',
+	  controller: 'teamStatCtrl'
+	});
 	$routeProvider.when('/', {redirectTo: '/registrer'});
 	$routeProvider.otherwise(
           {redirectTo: '/registrer'}

@@ -14,6 +14,7 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
 
   DatabaseService.init({"gym":true,"member":true}).then(function () {
     $scope.teams = DatabaseService.getDB('team/team');
+    $scope.attendance=DatabaseService.getDB("team/attendance");
     $scope.currentdate=new Date();
   });
 
@@ -35,11 +36,6 @@ function teamCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog, $lo
             d.getYear()==$scope.currentdate.getYear());
   }
 
-  DatabaseService.getDataNow("team/attendance", null,
-                             function (res) {
-                               $scope.attendance=res.data;
-                             }
-                            );
 
   $scope.getRowerByName = function (val) {
     return DatabaseService.getRowersByNameOrId(val, $scope.attendance,$scope.currentteam);

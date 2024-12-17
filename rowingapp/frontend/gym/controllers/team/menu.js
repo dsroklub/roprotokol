@@ -18,7 +18,7 @@ function menuCtrl ($scope,   $location,$route,LoginService ) {
 
   $scope.$on('$routeChangeSuccess', function(){
     $scope.activePath = $location.path();
-    console.log( $location.path() );
+//    console.log( $location.path() );
   });
 }
 

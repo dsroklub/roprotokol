@@ -8,10 +8,13 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
   var debug=3;
   var cachedepend={
     'member':['rowers'],
-      'gym':['team','attendance']
+    'gym':['team/team','team/attendance','team/teamStats','team/teamNames']
   };
+  
   var datastatus={
     'member':null,
+    'gym':null,
+    'stats':null,
     'destination':null
   };
 
@@ -56,6 +59,9 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     var headers = {};
     var promises=[];
     this.getData('team/team',promises);
+    this.getData('team/attendance',promises);
+    this.getData('team/teamNames',promises);
+    this.getData('team/teamStats',promises);
     if(!valid['rowers']) {
       var rq=$q.defer();
       promises.push(rq.promise);
@@ -71,6 +77,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     tx=qll;
     return qll;
   };
+
   this.invalidate_dependencies=function(tp) {
     for (var di=0;cachedepend[tp] && di < cachedepend[tp].length;di++) {
       var subtp=cachedepend[tp][di];
@@ -90,7 +97,7 @@ angular.module('gym.database.database-services', []).service('DatabaseService', 
     $http.post('../../backend/datastatus.php', null).then (function(response) {
       var ds=response.data;
       var doreload=false;
-      $log.debug("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
+      // $log.debug("got ds" + JSON.stringify(ds)+ "das="+JSON.stringify(datastatus) +"subs="+ JSON.stringify(subscriptions));
       for (var tp in ds) {
 	if ((!ds[tp] ||  datastatus[tp]!=ds[tp]) && (!subscriptions || subscriptions[tp])) {
           $log.debug("  inval "+tp); // NEL

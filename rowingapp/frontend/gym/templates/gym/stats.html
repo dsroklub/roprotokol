@@ -1,0 +1,23 @@
+<h1>Gymnastik statistik</h2>
+Vælg hold:
+<select  ng-model="selectedTeam">
+  <option>alle</option>
+  <option ng-repeat="team in teamNames">{{team.name}}</option>
+</select>
+
+<table ng-table="boattableParams" class="statlist" show-filter="true">
+  <caption>Statistik for gymnastikdeltagere</caption>
+  <thead>
+    <tr>
+      <th>nr</th><th>Deltager</th><th>gange</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr ng-repeat="ts in teamStats[selectedTeam]" ng-class-odd="'oddstat'">
+        <td>{{ts.rank}}</td>
+        <td>{{ts.navn}}</td>
+        <td>{{ts.gange}}</td>
+      </tr>
+    </tbody>
+</table>
+{{teamStats["alle"]|json}}
