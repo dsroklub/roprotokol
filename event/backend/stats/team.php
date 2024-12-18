@@ -56,7 +56,12 @@ $sheet->setCellValue([1,5],"tid");
 
 $teamIx=[];
 $teams=
-    "SELECT DISTINCT team_participation.team, team_participation.timeofday,teacher, IF(DAYOFWEEK(start_time)<2,7,DAYOFWEEK(start_time)-1) dayno FROM team_participation LEFT JOIN team ON team.name=team_participation.team AND team.timeofday=team_participation.timeofday WHERE YEAR(start_time)=? ORDER by dayno,team,timeofday";
+"SELECT DISTINCT team_participation.team, team_participation.timeofday,GROUP_CONCAT(DISTINCT team.teacher) as teacher, IF(DAYOFWEEK(start_time)<2,7,DAYOFWEEK(start_time)-1) dayno
+   FROM team_participation LEFT JOIN team ON team.name=team_participation.team AND team.timeofday=team_participation.timeofday AND team.dayofweek=team_participation.dayofweek
+   WHERE YEAR(start_time)=?
+   GROUP BY team_participation.team, team_participation.timeofday, dayno, team_participation.dayofweek
+   ORDER by dayno,team,timeofday
+";
 $stmt=$rodb->prepare($teams) or dbErr($rodb,$res,"teams prep");
 $stmt->bind_param("i", $y) || dbErr($rodb,$res,"teams y bind");
 $stmt->execute() || dbErr($rodb,$res,"teams exe");
@@ -79,12 +84,12 @@ $totalCol=$col;
 
 //print_r($teamIx);
 // set_include_path(get_include_path().':..');
-$s=
-"SELECT COUNT('x') AS h, dayofweek,timeofday,team, week(start_time,3) w,IF(DAYOFWEEK(start_time)<2,7,DAYOFWEEK(start_time)-1) dayno
-FROM team_participation
-WHERE YEAR(start_time)=?
-GROUP BY w, team,dayofweek,timeofday
-ORDER BY w,dayno
+$s="
+SELECT COUNT('x') AS h, dayofweek,timeofday,team, week(start_time,3) w,IF(DAYOFWEEK(start_time)<2,7,DAYOFWEEK(start_time)-1) dayno
+  FROM team_participation
+  WHERE YEAR(start_time)=?
+  GROUP BY w, team,dayofweek,timeofday
+  ORDER BY w,dayno
 ";
 $stmt=$rodb->prepare($s) or dbErr($rodb,$res,"prep");
 
