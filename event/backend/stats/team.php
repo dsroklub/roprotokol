@@ -107,12 +107,25 @@ foreach ($weekResult as $r) {
 $msg.=" mw=$maxweeks";
 //$sheet->setCellValueExplicitByColumnAndRow(2,1,"Gymnastik $y",DataType::TYPE_STRING );
 
+$lastColName=Coordinate::stringFromColumnIndex($totalCol-1);
+$ugeTotalColName=Coordinate::stringFromColumnIndex($totalCol);
+$accColName=Coordinate::stringFromColumnIndex($totalCol+1);
+$firstRow=$startRow+1;
+$sheet->setCellValue([$totalCol+1,$firstRow],"=SUM(B${firstRow}:${lastColName}${firstRow})");
+
 foreach (range(1,$maxweeks+1) as $cw) {
     $wr=$startRow+$cw;
-    $colname=Coordinate::stringFromColumnIndex($totalCol);
     $sheet->setCellValue([1,$wr],$cw);
-    $sheet->setCellValue([$totalCol,$wr],"=SUM(B${wr}:${colname}${wr})");
+    $sheet->setCellValue([$totalCol,$wr],"=SUM(B${wr}:${lastColName}${wr})");
 }
+
+foreach (range(1,$maxweeks) as $cw) {
+    $wr=$startRow+$cw;
+    $wrNext=$wr+1;
+    $sheet->setCellValue([$totalCol+1,$wr+1],"=${accColName}${wr}+${ugeTotalColName}${wrNext}");
+}
+
+
 
 
 $sheet->setCellValue([$totalCol,2],"ugetotal");
