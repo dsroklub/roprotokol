@@ -412,3 +412,13 @@ textarea.signuptext {
 .membername{
     font-size: 18pt;
 }
+
+.sideside {
+  display:flex;
+}
+
+
+.ptable {
+  margin-left:1em;
+}
+
