@@ -1,22 +1,64 @@
-<h1>Gymnastik statistik</h2>
-Vælg hold:
-<select  ng-model="selectedTeam">
-  <option>alle</option>
-  <option ng-repeat="team in teamNames">{{team.name}}</option>
-</select>
+<script type="text/ng-template" id="gymTemplate.html">
+  <a>
+    <strong class="membername">{{match.model.name}}<strong> <i class="membernum"> {{match.model.id}}</i>
+  </a>
+</script>
+<h1>Gymnastik statistik for året</h2>
+<div class="sideside">
+  <div>
+    Vælg hold:
+    <select  ng-model="selectedTeam">
+      <option>alle</option>
+      <option ng-repeat="team in teamNames">{{team.name}}</option>
+    </select>
+    <table ng-table="gymTableParams" class="statlist">
+      <caption>Statistik for gymnastikdeltagere</caption>
+      <thead>
+        <tr>
+          <th>nr</th><th>Deltager</th><th>gange</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="ts in teamStats[selectedTeam]" ng-class-odd="'oddstat'">
+          <td>{{ts.rank}}</td>
+          <td>{{ts.navn}}</td>
+          <td>{{ts.gange}}</td>
+        </tr>
+      </tbody>
+    </table>
 
-<table ng-table="boattableParams" class="statlist" show-filter="true">
-  <caption>Statistik for gymnastikdeltagere</caption>
-  <thead>
-    <tr>
-      <th>nr</th><th>Deltager</th><th>gange</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr ng-repeat="ts in teamStats[selectedTeam]" ng-class-odd="'oddstat'">
-        <td>{{ts.rank}}</td>
-        <td>{{ts.navn}}</td>
-        <td>{{ts.gange}}</td>
-      </tr>
-    </tbody>
-</table>
+  </div>
+  <div class="ptable">
+    Gymnast: <input
+      ng-model-options="{updateOn:'blur default',debounce: { 'default': 200, 'blur': 0 } }"
+      placeholder="gymnast"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      id="gymstatmember"
+      name="gsparticipant"
+      type="text"
+      ng-model="selectedGymnast"
+      uib-typeahead="rower as rower.name for rower in getRowerByName($viewValue)"
+      typeahead-on-select="selectGymnast()"
+      typeahead-select-on-exact="true"
+      typeahead-template-url="gymTemplate.html"
+      typeaheadWaitMs="200"
+               required>
+
+    <table ng-table="gymDeltagerParams" class="statlist" ng-show="deltagerStats">
+      <caption>Statistisk for {{selectedGymnast.name}}: {{deltagerStats | map: 'n' |sum}} gange</caption>
+      <thead>
+        <tr>
+          <th>Hold</th><th>gange</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="ds in deltagerStats" ng-class-odd="'oddstat'">
+          <td>{{ds.team}}</td>
+          <td>{{ds.n}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
