@@ -25,7 +25,7 @@ function check_event_owner($eventId) {
         if ($stmt->execute()) {
             error_log("set evt status set OK");
             $result= $stmt->get_result() or die("Error in event owner check: " . mysqli_error($rodb));
-            if (count($result)==1) {
+            if ($result->num_rows==1) {
                 return true;
             }
         } else {
