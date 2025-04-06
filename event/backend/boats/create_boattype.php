@@ -1,6 +1,7 @@
 <?php
-include("inc/common.php");
-include("inc/verify_user.php");
+include("../inc/common.php");
+include("../inc/utils.php");
+$vr=verify_right(["admin"=>["roprotokol","boat"]]);
 
 $error=null;
 $res=array ("status" => "ok");
