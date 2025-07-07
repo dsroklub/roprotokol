@@ -28,6 +28,7 @@ function rowingCtrl ($scope, $routeParams,$route,$confirm,DatabaseService, Login
   $scope.rowerkm_only_members = false;
   $scope.rowerkm_year = new Date().getFullYear();
   $scope.newright_year = new Date().getFullYear();
+  $scope.maxmates_number = 10;
   $scope.datereservation={"start_time":"17:00","end_time":"19:00"};
   $scope.reservation_match = function() {
     return function(reservation) {
