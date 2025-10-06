@@ -34,6 +34,7 @@ $s="SELECT Boat.id as boatid, Boat.Name AS boat, Trip.Destination as destination
 $result=$rodb->query($s) or die("Error in stat query: " . mysqli_error($rodb));;
  while ($trip = $result->fetch_assoc()) {
      $names=[];
+     $emails=[];
      $rowers=json_decode($trip['rowers']);
      foreach ($rowers as $rower) {
          if (!empty($rower->email)) {
