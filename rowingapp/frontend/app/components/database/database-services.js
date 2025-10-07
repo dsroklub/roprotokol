@@ -227,7 +227,8 @@ function dbservice($http, $q, $log) {
       'any':'alle',
       'rowboat':'robåd',
       'kayak':'kajak',
-      'kaniner':'kaniner'
+      'kaniner':'kaniner',
+      'motor':'motor'
     };
 
     db.boatlevels={

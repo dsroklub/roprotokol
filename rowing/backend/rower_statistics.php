@@ -2,14 +2,17 @@
 include("inc/common.php");
 
 $boatclause="";
+$boatclause="AND ((BoatType.boat_class) !='motor')";
 if (isset($_GET["boattype"])) {
     $boattype=$_GET["boattype"];
-    if ($boattype=="any") {
-        $boatclause="";
+    if (empty($boattype) or $boattype=="any") {
+        $boatclause="AND ((BoatType.boat_class) !='motor')";
     } elseif ($boattype=="kayak") {
-        $boatclause="AND ((BoatType.Category)=1) ";
+        $boatclause="AND ((BoatType.Category)=1) AND ((BoatType.boat_class) !='motor')";
     } elseif ($boattype=="rowboat") {
-        $boatclause="AND ((BoatType.Category)=2)";
+        $boatclause="AND ((BoatType.Category)=2) AND ((BoatType.boat_class) !='motor')";
+    } elseif ($boattype=="motor") {
+        $boatclause="AND ((BoatType.boat_class)='motor')";
     } else {
         error_log('unknown boattype: '.$boattype);
         echo "unknown boattype: ".$boattype;

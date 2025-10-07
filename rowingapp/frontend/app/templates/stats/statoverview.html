@@ -1,6 +1,6 @@
 <div class="genericcategories">
   <div>
-    <button class="statcat" ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner']"  ng-class="{selected: statcategory==rowcategory}" ng-click="docats(statcategory)">
+    <button class="statcat" ng-repeat="statcategory in ['any','rowboat', 'kayak', 'kaniner','motor']"  ng-class="{selected: statcategory==rowcategory}" ng-click="docats(statcategory)">
       {{boatcat2dk[statcategory]}}
     </button>
     <select  ng-model="statseason" ng-change="changeSeason()">
