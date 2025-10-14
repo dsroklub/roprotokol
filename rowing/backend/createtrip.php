@@ -57,8 +57,8 @@ if ($countRow=$countStmt->get_result()->fetch_assoc()) {
 
 foreach ($newtrip->rowers as $rower) {
     if ($stmt = $rodb->prepare(
-        "SELECT Boat.name AS boat, Trip.Destination  
-         FROM Trip,TripMember,Member,Boat 
+        "SELECT Boat.name AS boat, Trip.Destination
+         FROM Trip,TripMember,Member,Boat
          WHERE Boat.id=Trip.BoatID AND Member.MemberID=? AND Member.id=TripMember.member_id AND TripMember.TripID=Trip.id AND Trip.InTime IS NULL AND Trip.OutTime < NOW()"
     )) {
         $stmt->bind_param('s', $rower->id);
@@ -129,7 +129,7 @@ if (isset($newtrip->event)) {
 
 $rodb->commit();
 
-$stmt=$rodb->prepare("SELECT RemoveDate,CONCAT(FirstName,' ',LastName) AS name, MemberID, member_type FROM Member WHERE Member.MemberID=? AND (member_type=1 OR RemoveDate IS NOT NULL)") or dbErr($rodb,$res,"create trip rower prep");
+$stmt=$rodb->prepare("SELECT RemoveDate,CONCAT(FirstName,' ',LastName) AS name, MemberID, membertype FROM Member WHERE Member.MemberID=? AND (membertype='aktiv' OR RemoveDate IS NOT NULL)") or dbErr($rodb,$res,"create trip rower prep");
 
 foreach ($newtrip->rowers as $rower) {
     //error_log("check ".$rower->id);
@@ -140,7 +140,7 @@ foreach ($newtrip->rowers as $rower) {
         if (!empty($r["RemoveDate"])) {
             eventLog("$tripDescription : roer ".$r["name"] ." udmeldt " . $r["RemoveDate"]);
         }
-        if (($r["member_type"]==1)) {
+        if (($r["membertype"]=="passiv")) {
             eventLog("$tripDescription : roer ".$r["name"] ." er passivt medlem");
         }
     }

@@ -7,7 +7,7 @@ $s="
 SELECT
   JSON_OBJECT(
       'id',Member.MemberID,
-      'status', IF(Member.member_type=1,'passiv','ok'),
+      'status', IF(Member.membertype='passiv','passiv','ok'),
       'name', CONCAT(Member.FirstName,' ',Member.LastName),
       'rights', IF(COUNT(MemberRight)>0,
            JSON_ARRAYAGG(JSON_OBJECT('member_right',MemberRight,'arg',argument)),
@@ -20,7 +20,7 @@ SELECT
    WHERE
      Member.MemberID!='0' AND
      Member.id>=0 AND (Member.RemoveDate IS NULL OR Member.RemoveDate>=NOW()) AND
-     (Member.member_type <> -1 OR Member.member_type IS NULL)
+     (Member.membertype <> 'udmeldt' OR Member.membertype IS NULL)
    GROUP BY Member.id";
 
 if ($sqldebug) {

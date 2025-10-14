@@ -53,7 +53,7 @@ if ($countRow=$countStmt->get_result()->fetch_assoc()) {
 $guestStmt = $rodb->prepare(
     "SELECT 'x'
     FROM Member,Trip,TripMember
-    WHERE Trip.id=? AND TripMember.TripId=Trip.id AND Member.id=TripMember.member_id AND member_type=5
+    WHERE Trip.id=? AND TripMember.TripId=Trip.id AND Member.id=TripMember.member_id AND membertype='associeret'
     LIMIT 1" ) or dbErr($rodb,$res,"close trip guest perr");
 $guestStmt->bind_param('i', $tripId) || dbErr($rodb,$res,"close trip guest berr");
 $guestStmt->execute() || dbErr($rodb,$res,"close trip guest xerr");

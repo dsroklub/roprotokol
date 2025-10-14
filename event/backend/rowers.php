@@ -10,7 +10,7 @@ $s="SELECT JSON_OBJECT(
       'id',Member.MemberID,
       'phone',member_setting.phone,
       'email_shared',member_setting.email_shared,
-      'status', IF(Member.RemoveDate AND Member.RemoveDate<NOW(),'ikke medlem',IF(member_type=1,'passiv','ok')),
+      'status', IF(Member.RemoveDate AND Member.RemoveDate<NOW(),'ikke medlem',IF(membertype='passiv','passiv','ok')),
       'name', CONCAT(FirstName,' ',LastName),
       'rights', JSON_ARRAYAGG(JSON_OBJECT('member_right',MemberRight,'arg',argument,'acquired',Acquired,'by',CONCAT(Member.FirstName,' ',Member.LastName)))
    ) AS json
