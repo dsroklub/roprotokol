@@ -2,6 +2,13 @@
 include("inc/common.php");
 header('Content-type: application/json');
 
+$locationClause="";
+if (empty($cuser) || $cuser!='bagsvaerd') {
+    $locationClause=" Boat.location!=\"Bagsværd\" ";
+} else {
+    $locationClause=" Boat.location!=\"DSR\" ";
+}
+
 $s="SELECT Boat.id,
            Boat.Name as name,
            BoatType.Seatcount as spaces,
@@ -33,6 +40,7 @@ $s="SELECT Boat.id,
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
          LEFT OUTER JOIN Damage ON (Damage.Boat=Boat.id AND Damage.Repaired IS NULL)
          LEFT OUTER JOIN Trip ON (Trip.BoatID = Boat.id AND Trip.Intime IS NULL)
+WHERE $locationClause
     GROUP BY
        Boat.id,
        Boat.Name,

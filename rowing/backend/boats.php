@@ -1,6 +1,14 @@
 <?php
 require("inc/common.php");
 header('Content-type: application/json');
+$cuser=$_SERVER['PHP_AUTH_USER'];
+$locationClause="";
+if (empty($cuser) || $cuser!='bagsvaerd') {
+    $locationClause=" AND Boat.location!=\"Bagsværd\" ";
+} else {
+    $locationClause=" AND Boat.location!=\"DSR\" ";
+}
+    
 
 $s="SELECT JSON_OBJECT(
            'id', Boat.id,
@@ -18,7 +26,7 @@ $s="SELECT JSON_OBJECT(
          INNER JOIN BoatType ON (BoatType.Name=Boat.boat_type)
          INNER JOIN BoatCategory ON (BoatCategory.id = BoatType.Category)
     WHERE
-         Boat.Decommissioned IS NULL
+         Boat.Decommissioned IS NULL $locationClause
     GROUP BY Boat.id
     ORDER by Boat.name
     ";
