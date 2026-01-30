@@ -25,7 +25,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
        LEFT JOIN MemberRights mrk ON mrk.member_id=Member.id AND mrk.MemberRight='admin' AND mrk.argument='kontingent'
        LEFT JOIN MemberRights mrw ON mrw.member_id=Member.id AND mrw.MemberRight='admin' AND mrw.argument='vedligehold',
      authentication
-    WHERE Member.MemberId=? AND authentication.member_id=Member.id AND Member.RemoveDate IS NULL and membertype <> 'udmeldt';
+    WHERE Member.MemberId=? AND authentication.member_id=Member.id AND Member.RemoveDate IS NULL AND Member.membertype != 'udmeldt';
   ";
     $stmt = $rodb->prepare($s) or dbErr($rodb,$res,"current user");
     $stmt->bind_param('ss', $config['secret'], $cuser) || dbErr($rodb,$res,"current user bind");
