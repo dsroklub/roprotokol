@@ -791,6 +791,9 @@
     <input type="checkbox" ng-model="rowerkm_separate_instruction"/> med/uden instruktion,
     <input type="checkbox" ng-model="rowerkm_only_members"/> kun nuværende medlemmer,
     <input type="checkbox" ng-model="rowerkm_force_email"/> inkluder fortrolig email)</li>
+  
+  <li><a href="/backend/event/stats/rowerY2Y.php?output=xlsx&year={{y2y_season}}">km standerstrygning til standerstrygning</a>(sæson <input type="text" ng-model="y2y_season" size="4"/>)</li>
+
   <li><a href="/backend/event/stats/boatrowerkm.php?format=xlsx">Årets 10 mest aktive roere i hver båd som regneark</a></li>
   <li><a href="/backend/event/stats/maxmates.php?format=xlsx&limit={{maxmates_number}}">Årets roere med flest rokammerater som regneark</a>
   (antal <input type="number" ng-model="maxmates_number" size="4" min="10" max="150" />)</li>
@@ -808,7 +811,7 @@
   <li><a href="/backend/event/stats/newrights_year.php?year={{newright_year}}">Nye rettigheder pr. år</a>
     (år <input type="text" ng-model="newright_year" size="4"/>)</li>
   <li><a href="/backend/event/stats/trip_stat_year.php?output=xlsx&allboats=1&km=1">km statistik for turtyper mm (robåde, kajakker)</a></li>
-  <li><a href="/backend/event/stats/trip_stat_month.php?output=xlsx&allboats=1&km=1">km statistik per måned (robåde, kajakker)</a></li>
+  <li><a href="/backend/event/stats/trip_stat_month.php?output=xlsx&allboats=1&km=1">km statistik per måned (robåde, kajakker)</a></li>  
   <li><a href="/backend/event/stats/trip_rower_year.php?output=xlsx&allboats=1&km=1">roer statistik for turtyper mm (robåde, kajakker)</a></li>
   <li><a href="/backend/event/stats/rowersbyright.php?right=instructor&subtype=kajak">Kajakinstruktører</a></li>
   <li><a href="/backend/event/stats/rowersbyright.php?right=instructor&subtype=row">Robådsinstruktører</a></li>

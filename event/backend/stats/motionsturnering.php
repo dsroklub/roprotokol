@@ -59,4 +59,32 @@ WHERE
 $res=$rodb->query($s) or die("Error ".$rodb->error);
 echo "<h1>Statistik  pr m&aring;ned, rob&aring;de</h1>\n";
 process($res,"text",null,["m&aring;ned","km","aktive roere","gennemsnit"]);
+
+$s="
+SELECT m.4 AS maaned,
+       FORMAT(SUM(Meter)/1000 ,2) AS distance,
+       COUNT(DISTINCT Member.id) as aktive_roere,
+       FORMAT(SUM(Meter)/COUNT(DISTINCT Member.id)/1000,3) as km_per_aktiv_roer
+FROM
+    Trip,TripMember,Member,Boat,BoatType,MemberRights,season,(VALUES (4),(5),(6),(7),(8),(9),(10)) as m
+WHERE
+  season.season=YEAR(NOW()) AND
+  Member.id=MemberRights.member_id AND
+  MemberRight='rowright' AND
+  YEAR(Trip.OutTime)=YEAR(NOW()) AND
+  Date(Trip.OutTime) >= season.summer_start AND
+  MONTH(Trip.OutTime) <= m.4 AND
+  Boat.id=Trip.BoatID AND Boat.boat_type=BoatType.Name AND
+  (BoatType.Category=2 OR BoatType.Category=1) AND
+  BoatType.Name!='Polokajak' AND
+  TripMember.TripID=Trip.id AND Member.id=TripMember.member_id
+  GROUP BY m.4
+  HAVING maaned>3
+";
+$res=$rodb->query($s) or die("Error ".$rodb->error);
+echo "<h1>Statistik  pr m&aring;ned, rob&aring;de,kajak</h1>\n";
+process($res,"text",null,["m&aring;ned","km","aktive roere","gennemsnit"]);
+
+
+
 $rodb->close();
