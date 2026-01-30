@@ -1,7 +1,7 @@
 <?php
 set_include_path(get_include_path().':..');
 include("../inc/common.php");
-$format=$_GET["output"] ?? "html";
+$format=$_GET["output"] ?? "text";
 
 $year=date('Y');
 if (isset($_GET["year"])) {
