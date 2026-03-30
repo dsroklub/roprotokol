@@ -12,6 +12,9 @@ SELECT Member.MemberID, CONCAT(FirstName,' ',LastName) as Navn,Sum(Meter)/1000 a
   FROM Member,season s1,season s2,BoatType,Trip,TripMember,Boat
     WHERE
       Member.id=TripMember.member_id AND
+      NOT Member.id LIKE 'g%' AND
+      NOT Member.id LIKE 'k%' AND
+      NOT Member.id LIKE 'p%' AND
       Trip.id=TripMember.TripID AND
       Boat.id=Trip.BoatID AND
       BoatType.Name=Boat.boat_type AND
