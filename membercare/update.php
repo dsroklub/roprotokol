@@ -84,6 +84,24 @@ foreach ($members["result"] as $member) {
     $birthDay=null;
     if (isset($dbrowers[$memberID])) {
         //echo $member["name"]." exists\n";
+        $dbEmail=$dbrowers[$memberID]["Email"];
+        $mcEmail=null;
+        foreach ($member["contacts"] as $contact) {
+            if ($contact["type"]==1) {
+                $mcEmail=$contact["value"];
+            }
+        }
+
+        if (($mcEmail!=null or $dbEmail!=null ) && $mcEmail!=$dbEmail) {
+            if (is_null($dbrowers[$memberID]["RemoveDate"])) {
+                echo ("email ". $memberID."  :".($dbEmail?$dbEmail:"none")."->".($mcEmail?$mcEmail:"none")."\n");
+            $stmt = $rodb->prepare(
+                "UPDATE Member SET Email=? WHERE MemberID=?"
+            );
+            $stmt->bind_param('ss', $mcEmail,$memberID) || dbErr($rodb,$res,"member email");
+            $stmt->execute() || dbErr($rodb,$res,"membersite email update error");
+            }
+        }
     } else {
 
         if (! in_array($member["name"],["Konvertering Membercare","Økonomisystem Integration","Membersite Connector","Roprotokol API","Niels Bak2","Christina Brandstrup2","Alex Henry2"]) ) {
