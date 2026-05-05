@@ -43,7 +43,8 @@ foreach($wd as $wr) {
             $wt=$wr[2];
         }
         $stmt->bind_param('idss', $cuser,$wr[1],$wt,$wr[0]) || dbErr($rodb,$res,"arbejdstimer");
-        $stmt->execute() || dbErr($rodb,$res,"arbejdstimer");
+        error_log("user= ".$wr[0]." y=$workyear");
+        $stmt->execute() || dbErr($rodb,$res,"Arbejdstimer for ".$wr[0]);
     }
     $i++;
 }
