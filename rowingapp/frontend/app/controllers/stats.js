@@ -139,6 +139,7 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
   $scope.docats = function (val) {
     $scope.rowcategory=val;
     var catfilter={'id':''};
+    $scope.tableParams.filter(catfilter);
     if (val=='kaniner') {
       $scope.tableParams.filter({'id':'k'});
       $scope.boat_type='any';
@@ -147,7 +148,6 @@ function StatCtrl ($scope,   DatabaseService,   NgTableParams, $filter, $log, $l
       $scope.boat_type=val;
     }
     make_tables(val);
-    $scope.tableParams.filter(catfilter);
     $scope.boattableParams.reload();
     $scope.tableParams.reload();
   };

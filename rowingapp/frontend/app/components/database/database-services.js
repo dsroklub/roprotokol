@@ -224,7 +224,7 @@ function dbservice($http, $q, $log) {
   this.init = function(subscriptions) {
 
     this.boatcat2dk = {
-      'any':'alle',
+      'any':'ro+kajak',
       'rowboat':'robåd',
       'kayak':'kajak',
       'kaniner':'kaniner',
