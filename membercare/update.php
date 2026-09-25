@@ -55,7 +55,8 @@ SELECT
   RemoveDate,
   member_type,
   Member.FirstName,
-  Member.LastName
+  Member.LastName,
+  Member.membertype
 FROM
       Member
 WHERE
@@ -82,9 +83,14 @@ foreach ($members["result"] as $member) {
     $joinDate=null;
     $removeDate=null;
     $birthDay=null;
+    if (isset($member["memberships"][0]["membershipCategory"]["membershipCategoryGroup"]["description"])) {
+        $membercareType=$member["memberships"][0]["membershipCategory"]["membershipCategoryGroup"]["description"];
+        $memberType=mb_strtolower($membercareType);
+    }
     if (isset($dbrowers[$memberID])) {
         //echo $member["name"]." exists\n";
         $dbEmail=$dbrowers[$memberID]["Email"];
+        $dbMemberType=$dbrowers[$memberID]["membertype"];
         $mcEmail=null;
         foreach ($member["contacts"] as $contact) {
             if ($contact["type"]==1) {
@@ -92,29 +98,30 @@ foreach ($members["result"] as $member) {
             }
         }
 
-        if (($mcEmail!=null or $dbEmail!=null ) && $mcEmail!=$dbEmail) {
+        if (
+            (($mcEmail!=null or $dbEmail!=null ) && $mcEmail!=$dbEmail) or
+                (($memberType!=null or $dbMemberType!=null ) && $memberType!=$dbMemberType)
+        )
+        {
             if (is_null($dbrowers[$memberID]["RemoveDate"])) {
-                echo ("email ". $memberID."  :".($dbEmail?$dbEmail:"none")."->".($mcEmail?$mcEmail:"none")."\n");
-            $stmt = $rodb->prepare(
-                "UPDATE Member SET Email=? WHERE MemberID=?"
-            );
-            $stmt->bind_param('ss', $mcEmail,$memberID) || dbErr($rodb,$res,"member email");
-            $stmt->execute() || dbErr($rodb,$res,"membersite email update error");
+                echo ("email ". $memberID."  :".($dbEmail?$dbEmail:"none")."->".($mcEmail?$mcEmail:"none")." ,".($dbMemberType?$dbMemberType:"none")."->".($memberType?$memberType:"none")."\n");
+                $stmt = $rodb->prepare(
+                    "UPDATE Member SET Email=?,membertype=? WHERE MemberID=?"
+                );
+                $stmt->bind_param('sss', $mcEmail,$memberType,$memberID) || dbErr($rodb,$res,"member email");
+                $stmt->execute() || dbErr($rodb,$res,"membersite email update error");
             }
         }
     } else {
-
         if (! in_array($member["name"],["Konvertering Membercare","Økonomisystem Integration","Membersite Connector","Roprotokol API","Niels Bak2","Christina Brandstrup2","Alex Henry2"]) ) {
-            echo $member["name"]." ".$memberID." mangler i roprotokollen\n";
-            // print_r($member);
+            //echo $member["name"]." ".$memberID." mangler i roprotokollen\n";
             if (empty($member["memberships"])) {
-                echo $member["name"]." ".$memberID." has no memberships, skipping\n";
+                // echo $member["name"]." ".$memberID." has no memberships, skipping\n";
                 continue;
             }
             $joinDate=$member["memberships"][0]["applicationDate"];
             $removeDate=$member["memberships"][0]["disaffiliateDate"];
 
-            $memberType=mb_strtolower($member["memberships"][0]["membershipCategory"]["membershipCategoryGroup"]["description"]);
             if ($memberType=="accocieret") {
                 $memberType=="associeret";
             }
