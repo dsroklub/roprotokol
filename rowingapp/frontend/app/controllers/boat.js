@@ -337,7 +337,7 @@ function BoatCtrl ($scope, $routeParams, DatabaseService, $filter, ngDialog,$log
       var guestKm=$scope.guest_stat[$scope.checkout.rowers[ri].id];
       if (guestKm) {
         if (guestKm > 100) {
-          norights.push("associeret medlem "+$scope.checkout.rowers[ri].name +" har roet end 100 km");
+          norights.push("associeret medlem "+$scope.checkout.rowers[ri].name +" har roet mere end 100 km");
         } else if (guestKm + $scope.checkout.distance/1000 > 100) {
           norights.push("associeret medlem "+$scope.checkout.rowers[ri].name +" kommer til at ro mere end 100 km");
         }
