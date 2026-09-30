@@ -151,8 +151,8 @@ $rodb->commit();
 
 $now=time();
 $iswinter=!date("I");
-$sunset=date_sunset($now, SUNFUNCS_RET_TIMESTAMP, 55.71472, 12.58661, 90.5833333, 1);
-$sunrise=date_sunrise($now, SUNFUNCS_RET_TIMESTAMP, 55.71472, 12.58661, 90.5833333, 1);
+$sunset=date_sun_info($now, 55.71472, 12.58661)["sunset"];
+$sunrise=date_sun_info($now, 55.71472, 12.58661)["sunrise"];
 // error_log("SUNS winter=$iswinter, sunset=$sunset, ".date('H:i',$sunset));
 if ($iswinter) {
     if ($sunset < $now or $now<$sunrise) {
