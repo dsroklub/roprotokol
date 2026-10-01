@@ -8,13 +8,13 @@ if (isset($_GET["year"])) {
     $year=(int)$_GET["year"];
 }
 $s="
-SELECT Member.MemberID, CONCAT(FirstName,' ',LastName) as Navn,Sum(Meter)/1000 as km
-  FROM Member,season s1,season s2,BoatType,Trip,TripMember,Boat
+  SELECT DISTINCT Member.MemberID, CONCAT(FirstName,' ',LastName) as Navn,Sum(Meter)/1000 as km, GROUP_CONCAT(DISTINCT argument) as værktøj
+  FROM Member LEFT JOIN MemberRights mr ON Member.id=mr.member_id and mr.MemberRight='wrench',season s1,season s2,BoatType,Trip,TripMember,Boat
     WHERE
       Member.id=TripMember.member_id AND
-      NOT Member.id LIKE 'g%' AND
-      NOT Member.id LIKE 'k%' AND
-      NOT Member.id LIKE 'p%' AND
+      NOT Member.MemberID LIKE 'g%' AND
+      NOT Member.MemberID LIKE 'k%' AND
+      NOT Member.memberID LIKE 'p%' AND
       Trip.id=TripMember.TripID AND
       Boat.id=Trip.BoatID AND
       BoatType.Name=Boat.boat_type AND
