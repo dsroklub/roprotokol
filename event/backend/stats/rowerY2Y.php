@@ -8,8 +8,8 @@ if (isset($_GET["year"])) {
     $year=(int)$_GET["year"];
 }
 $s="
-  SELECT DISTINCT Member.MemberID, CONCAT(FirstName,' ',LastName) as Navn,Sum(Meter)/1000 as km, GROUP_CONCAT(DISTINCT argument) as værktøj
-  FROM Member LEFT JOIN MemberRights mr ON Member.id=mr.member_id and mr.MemberRight='wrench',season s1,season s2,BoatType,Trip,TripMember,Boat
+  SELECT Member.MemberID, CONCAT(FirstName,' ',LastName) as Navn,Sum(Meter)/1000 as km, varktoj as værktøj
+    FROM Member LEFT JOIN (SELECT member_id,GROUP_CONCAT(argument ORDER by argument DESC) varktoj FROM MemberRights WHERE MemberRight='wrench' GROUP BY member_id ) as mr ON mr.member_id=Member.id, season s1,season s2,BoatType,Trip,TripMember,Boat
     WHERE
       Member.id=TripMember.member_id AND
       NOT Member.MemberID LIKE 'g%' AND
@@ -26,6 +26,7 @@ $s="
     GROUP BY Member.id,Member.FirstName,Member.LastName
     Order By km DESC
 ";
+
 $stmt = $rodb->prepare($s) or dbErr($rodb,$res,"rowerY2Y $year");
 $stmt->bind_param("ii",$year,$year);
 $stmt->execute() ||  dbErr($rodb,$res,"rowerY2", "$q");
