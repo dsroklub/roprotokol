@@ -9,7 +9,9 @@ if (isset($_GET["year"])) {
 }
 $s="
   SELECT Member.MemberID, CONCAT(FirstName,' ',LastName) as Navn,Sum(Meter)/1000 as km, varktoj as værktøj
-    FROM Member LEFT JOIN (SELECT member_id,GROUP_CONCAT(argument ORDER by argument DESC) varktoj FROM MemberRights WHERE MemberRight='wrench' GROUP BY member_id ) as mr ON mr.member_id=Member.id, season s1,season s2,BoatType,Trip,TripMember,Boat
+    FROM Member LEFT JOIN (SELECT member_id,GROUP_CONCAT(argument ORDER by argument DESC) varktoj FROM MemberRights,MemberRightType
+                         WHERE MemberRightType.member_right=MemberRights.MemberRight AND MemberRightType.arg=MemberRights.argument AND  MemberRight='wrench' AND NOW() <  ADDTIME(MemberRights.Acquired,MemberRightType.validity) GROUP BY member_id ) as mr ON mr.member_id=Member.id,
+                season s1,season s2,BoatType,Trip,TripMember,Boat
     WHERE
       Member.id=TripMember.member_id AND
       NOT Member.MemberID LIKE 'g%' AND
