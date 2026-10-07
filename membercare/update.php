@@ -87,8 +87,9 @@ foreach ($members["result"] as $member) {
         $membercareType=$member["memberships"][0]["membershipCategory"]["membershipCategoryGroup"]["description"];
         $memberType=mb_strtolower($membercareType);
     }
-    if (isset($dbrowers[$memberID])) {
-        //echo $member["name"]." exists\n";
+
+    if (isset($dbrowers[$memberID]) and is_null($dbrowers[$memberID]["RemoveDate"])) {
+        // echo $member["name"]." exists\n";
         $dbEmail=$dbrowers[$memberID]["Email"];
         $dbMemberType=$dbrowers[$memberID]["membertype"];
         $mcEmail=null;
@@ -103,14 +104,12 @@ foreach ($members["result"] as $member) {
                 (($memberType!=null or $dbMemberType!=null ) && $memberType!=$dbMemberType)
         )
         {
-            if (is_null($dbrowers[$memberID]["RemoveDate"])) {
-                echo ("email ". $memberID."  :".($dbEmail?$dbEmail:"none")."->".($mcEmail?$mcEmail:"none")." ,".($dbMemberType?$dbMemberType:"none")."->".($memberType?$memberType:"none")."\n");
-                $stmt = $rodb->prepare(
-                    "UPDATE Member SET Email=?,membertype=? WHERE MemberID=?"
-                );
-                $stmt->bind_param('sss', $mcEmail,$memberType,$memberID) || dbErr($rodb,$res,"member email");
-                $stmt->execute() || dbErr($rodb,$res,"membersite email update error");
-            }
+            echo ("email ". $memberID."  :".($dbEmail?$dbEmail:"none")."->".($mcEmail?$mcEmail:"none")." ,".($dbMemberType?$dbMemberType:"none")."->".($memberType?$memberType:"none")."\n");
+            $stmt = $rodb->prepare(
+                "UPDATE Member SET Email=?,membertype=? WHERE MemberID=?"
+            );
+            $stmt->bind_param('sss', $mcEmail,$memberType,$memberID) || dbErr($rodb,$res,"member email");
+            $stmt->execute() || dbErr($rodb,$res,"membersite email update error");
         }
     } else {
         if (! in_array($member["name"],["Konvertering Membercare","Økonomisystem Integration","Membersite Connector","Roprotokol API","Niels Bak2","Christina Brandstrup2","Alex Henry2"]) ) {
@@ -150,13 +149,21 @@ foreach ($members["result"] as $member) {
                     $phone=$contact["value"];
                 }
             }
-            $stmt = $rodb->prepare(
-                "INSERT INTO Member(MemberID,FirstName,LastName,phone1,Email,Gender,KommuneKode,CprNo,membertype,JoinDate,RemoveDate,Birthday)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
-            );
-            echo "id=$memberID,fm=$firstName,ln=$lastName,ph=$phone,email=$email,g=$gender,kk=$kommunekode,cpr=$CprNo,mtype=$memberType,jd=$joinDate,rd=$removeDate,bd=$birthDay";
-            $stmt->bind_param('sssssiiissss',
-                              $memberID,$firstName,$lastName,$phone,$email,$gender,$kommunekode,$CprNo,$memberType,$joinDate,$removeDate,$birthDay)|| dbErr($rodb,$res,"member insert");
+            // echo "id=$memberID,fm=$firstName,ln=$lastName,ph=$phone,email=$email,g=$gender,kk=$kommunekode,cpr=$CprNo,mtype=$memberType,jd=$joinDate,rd=$removeDate,bd=$birthDay";
+            if (empty($dbrowers[$memberID]["RemoveDate"])) {
+                $stmt = $rodb->prepare(
+                    "INSERT INTO Member(MemberID,FirstName,LastName,phone1,Email,Gender,KommuneKode,CprNo,membertype,JoinDate,RemoveDate,Birthday)
+                    VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"
+                );
+                $stmt->bind_param('sssssiiissss',
+                                  $memberID,$firstName,$lastName,$phone,$email,$gender,$kommunekode,$CprNo,$memberType,$joinDate,$removeDate,$birthDay)|| dbErr($rodb,$res,"member insert");
+            } else {
+                $stmt = $rodb->prepare(
+                    "UPDATE Member SET FirstName=?,LastName=?,phone1=?,Email=?,Gender=?,KommuneKode=?,CprNo=?,membertype=?,UPDATED=NOW(),RemoveDate=null,Birthday=? WHERE MemberID=?"
+                );
+                $stmt->bind_param('sssssiiiss',
+                                  $firstName,$lastName,$phone,$email,$gender,$kommunekode,$CprNo,$memberType,$birthDay,$memberID)|| dbErr($rodb,$res,"member insert");
+            }
             $stmt->execute() || dbErr($rodb,$res,"membersite member error");
         }
     }
